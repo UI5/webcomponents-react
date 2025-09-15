@@ -26,6 +26,54 @@ try {
   console.warn(`⚠️ Could not read enums directory at ${enumsDir}. Skipping enum detection.`, e);
 }
 
+const hooksDir = path.join(
+  path.dirname(require.resolve('@ui5/webcomponents-react-base/package.json')),
+  'dist',
+  'hooks',
+);
+let hookNames: string[] = [];
+try {
+  hookNames = fs
+    .readdirSync(hooksDir)
+    .filter(
+      (file) => (file.endsWith('.js') || file.endsWith('.ts')) && !file.endsWith('.d.ts') && !file.startsWith('index'),
+    )
+    .map((file) => path.basename(file, path.extname(file)));
+} catch (e) {
+  console.warn(`⚠️ Could not read hooks directory at ${hooksDir}.`, e);
+}
+
+const utilsDir = path.join(
+  path.dirname(require.resolve('@ui5/webcomponents-react-base/package.json')),
+  'dist',
+  'utils',
+);
+let utilNames: string[] = [];
+try {
+  utilNames = fs
+    .readdirSync(utilsDir)
+    .filter(
+      (file) => (file.endsWith('.js') || file.endsWith('.ts')) && !file.endsWith('.d.ts') && !file.startsWith('index'),
+    )
+    .map((file) => path.basename(file, path.extname(file)));
+} catch (e) {
+  console.warn(`⚠️ Could not read utils directory at ${utilsDir}.`, e);
+}
+
+const utilsIndexPath = path.join(utilsDir, 'index.js');
+
+try {
+  const indexSource = fs.readFileSync(utilsIndexPath, 'utf-8');
+  const exportRegex = /export\s+(?:const|function|class|type|interface|{[^}]+})\s+([a-zA-Z0-9_]+)/g;
+  let match;
+  while ((match = exportRegex.exec(indexSource)) !== null) {
+    utilNames.push(match[1]);
+  }
+  utilNames = Array.from(new Set(utilNames)); // Remove duplicates
+} catch (e) {
+  console.warn(`⚠️ Could not read utils index at ${utilsIndexPath}.`, e);
+}
+
 // Mapping functions
 function resolveBaseExport(importedName: string): string | undefined {
   const directMap: Record<string, string> = {
@@ -40,8 +88,19 @@ function resolveBaseExport(importedName: string): string | undefined {
     utils: `${basePackageName}/utils`,
     addCustomCSSWithScoping: `${basePackageName}/internal/addCustomCSSWithScoping.js`,
   };
-  if (directMap[importedName]) return directMap[importedName];
-  if (importedName === 'default' || importedName === 'index') return basePackageName;
+
+  if (directMap[importedName]) {
+    return directMap[importedName];
+  }
+  if (hookNames.includes(importedName)) {
+    return `${basePackageName}/hooks`;
+  }
+  if (utilNames.includes(importedName)) {
+    return `${basePackageName}/utils`;
+  }
+  if (importedName === 'default' || importedName === 'index') {
+    return basePackageName;
+  }
   return undefined;
 }
 
@@ -58,8 +117,12 @@ function resolveChartsExport(importedName: string): string | undefined {
     ScatterChartPlaceholder: `${chartsPackageName}/ScatterChartPlaceholder`,
     TimelineChartPlaceholder: `${chartsPackageName}/TimelineChartPlaceholder`,
   };
-  if (directMap[importedName]) return directMap[importedName];
-  if (importedName === 'default' || importedName === 'index') return chartsPackageName;
+  if (directMap[importedName]) {
+    return directMap[importedName];
+  }
+  if (importedName === 'default' || importedName === 'index') {
+    return chartsPackageName;
+  }
   return undefined;
 }
 
