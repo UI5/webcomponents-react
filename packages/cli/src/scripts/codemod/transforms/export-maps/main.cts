@@ -39,7 +39,6 @@ export default function transform(file: FileInfo, api: API): string | undefined 
       if (spec.type !== 'ImportSpecifier') return;
 
       const importedName = spec.imported.name as string;
-      const localName = spec.local ? spec.local.name : importedName;
 
       // target component
       let componentName = importedName;
@@ -60,8 +59,12 @@ export default function transform(file: FileInfo, api: API): string | undefined 
             : `${packageName}/${importedName}`; // regular component
 
       const newImport = j.importDeclaration(
-        //todo: as string
-        [j.importSpecifier(j.identifier(importedName), j.identifier(localName as string))],
+        [
+          j.importSpecifier(
+            j.identifier(importedName),
+            j.identifier(spec.local && typeof spec.local.name === 'string' ? spec.local.name : importedName),
+          ),
+        ],
         j.literal(newSource),
       );
 
