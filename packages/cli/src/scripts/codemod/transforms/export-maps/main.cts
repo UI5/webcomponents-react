@@ -67,6 +67,10 @@ export default function transform(file: FileInfo, api: API): string | undefined 
   const j: JSCodeshift = api.jscodeshift;
   const root: Collection = j(file.source);
 
+  if (file.path.includes('node_modules')) {
+    return undefined;
+  }
+
   let isDirty = false;
 
   packageNames.forEach((pkg) => {
@@ -76,20 +80,18 @@ export default function transform(file: FileInfo, api: API): string | undefined 
         if (spec.type !== 'ImportSpecifier') return;
         const importedName = spec.imported.name as string;
         let componentName = importedName;
-        if (importPath.node.importKind === 'type') {
-          if (importedName.endsWith('PropTypes')) {
-            componentName = importedName.replace(/PropTypes$/, '');
-          } else if (importedName.endsWith('Props')) {
-            componentName = importedName.replace(/Props$/, '');
-          } else if (importedName.endsWith('DomRef')) {
-            componentName = importedName.replace(/DomRef$/, '');
-          }
+        if (importedName.endsWith('PropTypes')) {
+          componentName = importedName.replace(/PropTypes$/, '');
+        } else if (importedName.endsWith('Props')) {
+          componentName = importedName.replace(/Props$/, '');
+        } else if (importedName.endsWith('DomRef')) {
+          componentName = importedName.replace(/DomRef$/, '');
         }
 
         let newSource: string;
         if (pkg === mainPackageName) {
           newSource =
-            importPath.node.importKind === 'type'
+            componentName !== importedName
               ? `${mainPackageName}/${componentName}`
               : enumNames.has(importedName)
                 ? `${mainPackageName}/enums/${importedName}`
@@ -119,5 +121,6 @@ export default function transform(file: FileInfo, api: API): string | undefined 
     });
   });
 
-  return isDirty ? root.toSource({ quote: 'single' }) : undefined;
+  //todo: 'use client' and other string expressions will receive two semicolons. This can be fixed by running prettier - is there a better option?
+  return isDirty ? root.toSource() : undefined;
 }
