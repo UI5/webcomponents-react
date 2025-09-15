@@ -14,6 +14,8 @@ import {
   Text,
 } from '@ui5/webcomponents-react';
 import type { CommonProps } from '@ui5/webcomponents-react-base';
+import { BarChart } from '@ui5/webcomponents-react-charts';
+import type { BarChartProps } from '@ui5/webcomponents-react-charts';
 import { clsx } from 'clsx';
 import { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -30,9 +32,13 @@ export const Footer = (props: CommonProps) => {
     setPPOpen((prev) => !prev);
   };
 
+  const barChartProps: BarChartProps = { dimensions: [], measures: [], dataset: [] };
+
   return createPortal(
     <footer {...props} className={clsx(classes.footer, className)}>
       <div ref={footerRef} className={classes.content}>
+        {/*todo: remove test component again*/}
+        <BarChart {...barChartProps} />
         <FlexBox
           justifyContent={FlexBoxJustifyContent.SpaceBetween}
           alignItems={FlexBoxAlignItems.Center}
