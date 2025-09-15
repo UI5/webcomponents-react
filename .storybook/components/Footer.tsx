@@ -13,12 +13,15 @@ import {
   Popover,
   Text,
 } from '@ui5/webcomponents-react';
+import type { CommonProps } from '@ui5/webcomponents-react-base';
+import { clsx } from 'clsx';
 import { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import BestRunLogo from '../../assets/SAP_Best_R_grad_blk_scrn.png';
 import classes from './Footer.module.css';
 
-export const Footer = ({ style }) => {
+export const Footer = (props: CommonProps) => {
+  const { className } = props;
   const popoverRef = useRef<PopoverDomRef>(null);
   const footerRef = useRef(null);
   const [privacyPopoverOpen, setPPOpen] = useState(false);
@@ -28,7 +31,7 @@ export const Footer = ({ style }) => {
   };
 
   return createPortal(
-    <footer className={classes.footer} style={style}>
+    <footer {...props} className={clsx(classes.footer, className)}>
       <div ref={footerRef} className={classes.content}>
         <FlexBox
           justifyContent={FlexBoxJustifyContent.SpaceBetween}
