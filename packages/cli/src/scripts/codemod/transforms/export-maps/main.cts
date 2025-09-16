@@ -141,16 +141,16 @@ export default function transform(file: FileInfo, api: API): string | undefined 
   packageNames.forEach((pkg) => {
     root.find(j.ImportDeclaration, { source: { value: pkg } }).forEach((importPath) => {
       const specifiers = importPath.node.specifiers || [];
-      specifiers.forEach((spec) => {
+      specifiers.forEach((spec: any) => {
         if (spec.type !== 'ImportSpecifier') return;
         const importedName = spec.imported.name as string;
         let componentName = importedName;
         if (importedName.endsWith('PropTypes')) {
           componentName = importedName.replace(/PropTypes$/, '');
         } else if (importedName.endsWith('Props')) {
-          componentName = importedName.replace(/Props$/, '');
+          componentName = componentName.replace(/Props$/, '');
         } else if (importedName.endsWith('DomRef')) {
-          componentName = importedName.replace(/DomRef$/, '');
+          componentName = componentName.replace(/DomRef$/, '');
         }
 
         let newSource: string;
@@ -178,7 +178,9 @@ export default function transform(file: FileInfo, api: API): string | undefined 
           ],
           j.literal(newSource),
         );
-        newImport.importKind = importPath.node.importKind;
+        if ('importKind' in spec && spec.importKind === 'type') {
+          newImport.importKind = 'type';
+        }
         j(importPath).insertBefore(newImport);
         isDirty = true;
       });
