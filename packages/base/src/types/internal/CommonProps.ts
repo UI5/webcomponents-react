@@ -1,5 +1,8 @@
 import type { CSSProperties, HTMLAttributes } from 'react';
 
+/**
+ * ⚠️ __INTERNAL__ use only! This interface is not part of the public API.
+ */
 export interface CommonProps<T = HTMLElement> extends Omit<HTMLAttributes<T>, 'dangerouslySetInnerHTML'> {
   /**
    * Element style which will be appended to the most outer element of a component.

@@ -10,7 +10,7 @@ import type { WithWebComponentPropTypes } from './wrapper/withWebComponent.js';
 export * from './styling/CssSizeVariables.js';
 export * from './utils/index.js';
 export * from './hooks/index.js';
-export type * from './types/index.js';
+export type * from './types/internal/index.js';
 
 export { I18nStore, StyleStore, ThemingParameters, Device, hooks, withWebComponent };
 export type { WithWebComponentPropTypes };
