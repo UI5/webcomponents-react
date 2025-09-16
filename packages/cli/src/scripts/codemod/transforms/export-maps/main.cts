@@ -5,8 +5,10 @@ import type { API, FileInfo, JSCodeshift, Collection } from 'jscodeshift';
 const mainPackageName = '@ui5/webcomponents-react';
 const basePackageName = '@ui5/webcomponents-react-base';
 const chartsPackageName = '@ui5/webcomponents-react-charts';
+const aiPackageName = '@ui5/webcomponents-ai-react';
+const compatPackageName = '@ui5/webcomponents-react-compat';
 
-const packageNames = [mainPackageName, basePackageName, chartsPackageName];
+const packageNames = [mainPackageName, basePackageName, chartsPackageName, aiPackageName, compatPackageName];
 
 // Enums for main package
 const libraryPath = require.resolve('@ui5/webcomponents-react/package.json');
