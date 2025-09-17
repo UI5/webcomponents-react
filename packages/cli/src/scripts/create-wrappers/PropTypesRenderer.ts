@@ -61,14 +61,14 @@ export class PropTypesRenderer extends AbstractRenderer {
             ' * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.',
           );
           descriptionParts.push(
-            `* Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).`,
+            `* Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).`,
           );
         }
 
         if (sinceFilter(slot._ui5since)) {
           descriptionParts.push(` *`);
           descriptionParts.push(
-            ` * **Note:** Available since [v${slot._ui5since}](https://github.com/SAP/ui5-webcomponents/releases/tag/v${slot._ui5since}) of **${context.packageName}**.`,
+            ` * **Note:** Available since [v${slot._ui5since}](https://github.com/UI5/webcomponents/releases/tag/v${slot._ui5since}) of **${context.packageName}**.`,
           );
         }
 
@@ -103,7 +103,7 @@ export class PropTypesRenderer extends AbstractRenderer {
         if (sinceFilter(event._ui5since)) {
           descriptionParts.push(` *`);
           descriptionParts.push(
-            ` * **Note:** Available since [v${event._ui5since}](https://github.com/SAP/ui5-webcomponents/releases/tag/v${event._ui5since}) of **${context.packageName}**.`,
+            ` * **Note:** Available since [v${event._ui5since}](https://github.com/UI5/webcomponents/releases/tag/v${event._ui5since}) of **${context.packageName}**.`,
           );
         }
         if (event.deprecated) {

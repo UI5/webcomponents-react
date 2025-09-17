@@ -74,7 +74,7 @@ export class ComponentRenderer extends AbstractRenderer {
     }
     if (sinceFilter(this.since)) {
       comment += ` *\n`;
-      comment += ` * @since [${this.since}](https://github.com/SAP/ui5-webcomponents/releases/tag/v${this.since}) of __${context.packageName}__.\n`;
+      comment += ` * @since [${this.since}](https://github.com/UI5/webcomponents/releases/tag/v${this.since}) of __${context.packageName}__.\n`;
     }
     if (this.isAbstract) {
       comment += ' * @abstract\n';
