@@ -44,7 +44,7 @@ interface TimelineGroupItemPropTypes
  *
  * **Note**: Please do not use empty groups in order to preserve the intended design.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
  * @since [2.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.1.0) of __@ui5/webcomponents-fiori__.
  */
