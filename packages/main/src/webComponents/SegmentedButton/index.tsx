@@ -14,7 +14,7 @@ interface SegmentedButtonAttributes {
   /**
    * Defines the accessible description of the component.
    *
-   * **Note:** Available since [v2.15.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.15.0](https://github.com/UI5/webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescription?: string | undefined;
@@ -22,7 +22,7 @@ interface SegmentedButtonAttributes {
   /**
    * Defines the IDs of the HTML Elements that describe the component.
    *
-   * **Note:** Available since [v2.15.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.15.0](https://github.com/UI5/webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescriptionRef?: string | undefined;
@@ -30,7 +30,7 @@ interface SegmentedButtonAttributes {
   /**
    * Defines the accessible ARIA name of the component.
    *
-   * **Note:** Available since [v1.0.3](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.0.3) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.0.3](https://github.com/UI5/webcomponents/releases/tag/v1.0.3) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleName?: string | undefined;
@@ -38,7 +38,7 @@ interface SegmentedButtonAttributes {
   /**
    * Defines the IDs of the HTML Elements that label the component.
    *
-   * **Note:** Available since [v2.15.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.15.0](https://github.com/UI5/webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleNameRef?: string | undefined;
@@ -46,7 +46,7 @@ interface SegmentedButtonAttributes {
   /**
    * Defines the component selection mode.
    *
-   * **Note:** Available since [v1.14.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.14.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.14.0](https://github.com/UI5/webcomponents/releases/tag/v1.14.0) of **@ui5/webcomponents**.
    * @default "Single"
    */
   selectionMode?: SegmentedButtonSelectionMode | keyof typeof SegmentedButtonSelectionMode;
@@ -56,7 +56,7 @@ interface SegmentedButtonDomRef extends Required<SegmentedButtonAttributes>, Ui5
   /**
    * Returns an array of the currently selected items.
    *
-   * **Note:** Available since [v1.14.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.14.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.14.0](https://github.com/UI5/webcomponents/releases/tag/v1.14.0) of **@ui5/webcomponents**.
    */
   readonly selectedItems: Array<ISegmentedButtonItem>;
 }

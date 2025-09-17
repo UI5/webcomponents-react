@@ -11,7 +11,7 @@ interface WizardAttributes {
   /**
    * Defines how the content of the `Wizard` would be visualized.
    *
-   * **Note:** Available since [v1.14.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.14.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v1.14.0](https://github.com/UI5/webcomponents/releases/tag/v1.14.0) of **@ui5/webcomponents-fiori**.
    * @default "MultipleSteps"
    */
   contentLayout?: WizardContentLayout | keyof typeof WizardContentLayout;

@@ -20,7 +20,7 @@ interface IconAttributes {
   /**
    * Defines the component semantic design.
    *
-   * **Note:** Available since [v1.9.2](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.9.2) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.9.2](https://github.com/UI5/webcomponents/releases/tag/v1.9.2) of **@ui5/webcomponents**.
    * @default "Default"
    */
   design?: IconDesign | keyof typeof IconDesign;
@@ -28,7 +28,7 @@ interface IconAttributes {
   /**
    * Defines the mode of the component.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default "Decorative"
    */
   mode?: IconMode | keyof typeof IconMode;
@@ -76,7 +76,7 @@ interface IconPropTypes extends IconAttributes, Omit<CommonProps, keyof IconAttr
    * - on mouse click, the icon fires native `click` event
    * - on `SPACE` and `ENTER`, the icon fires custom `click` event
    *
-   * **Note:** Available since [v2.11.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.11.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.11.0](https://github.com/UI5/webcomponents/releases/tag/v2.11.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |

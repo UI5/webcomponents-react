@@ -9,7 +9,7 @@ interface SegmentedButtonItemAttributes {
   /**
    * Defines the accessible description of the component.
    *
-   * **Note:** Available since [v2.15.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.15.0](https://github.com/UI5/webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescription?: string | undefined;
@@ -17,7 +17,7 @@ interface SegmentedButtonItemAttributes {
   /**
    * Defines the IDs of the HTML Elements that describe the component.
    *
-   * **Note:** Available since [v2.15.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.15.0](https://github.com/UI5/webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescriptionRef?: string | undefined;
@@ -31,7 +31,7 @@ interface SegmentedButtonItemAttributes {
   /**
    * Receives id(or many ids) of the elements that label the component.
    *
-   * **Note:** Available since [v1.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleNameRef?: string | undefined;
@@ -65,7 +65,7 @@ interface SegmentedButtonItemAttributes {
    *
    * **Note:** A tooltip attribute should be provided for icon-only buttons, in order to represent their exact meaning/function.
    *
-   * **Note:** Available since [v1.2.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.2.0](https://github.com/UI5/webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   tooltip?: string | undefined;

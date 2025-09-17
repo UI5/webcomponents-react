@@ -11,7 +11,7 @@ interface TimelineAttributes {
   /**
    * Defines the accessible ARIA name of the component.
    *
-   * **Note:** Available since [v1.2.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v1.2.0](https://github.com/UI5/webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents-fiori**.
    * @default undefined
    */
   accessibleName?: string | undefined;
@@ -28,7 +28,7 @@ interface TimelineAttributes {
    *
    * `None` (default) - The growing functionality is off.
    *
-   * **Note:** Available since [v2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
    * @default "None"
    */
   growing?: TimelineGrowingMode | keyof typeof TimelineGrowingMode;
@@ -42,7 +42,7 @@ interface TimelineAttributes {
   /**
    * Defines if the component should display a loading indicator over the Timeline.
    *
-   * **Note:** Available since [v2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
    * @default false
    */
   loading?: boolean;
@@ -68,7 +68,7 @@ interface TimelinePropTypes
    *
    * **Note:** The event will be fired if `growing` is set to `Button` or `Scroll`.
    *
-   * **Note:** Available since [v2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |

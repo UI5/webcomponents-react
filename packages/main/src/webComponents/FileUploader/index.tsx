@@ -22,7 +22,7 @@ interface FileUploaderAttributes {
   /**
    * Defines the accessible description of the component.
    *
-   * **Note:** Available since [v2.14.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.14.0](https://github.com/UI5/webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescription?: string | undefined;
@@ -30,7 +30,7 @@ interface FileUploaderAttributes {
   /**
    * Receives id(or many ids) of the elements that describe the input.
    *
-   * **Note:** Available since [v2.14.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.14.0](https://github.com/UI5/webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescriptionRef?: string | undefined;
@@ -38,7 +38,7 @@ interface FileUploaderAttributes {
   /**
    * Defines the accessible ARIA name of the component.
    *
-   * **Note:** Available since [v2.13.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.13.0](https://github.com/UI5/webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleName?: string | undefined;
@@ -46,7 +46,7 @@ interface FileUploaderAttributes {
   /**
    * Receives id(or many ids) of the elements that label the input.
    *
-   * **Note:** Available since [v2.13.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.13.0](https://github.com/UI5/webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleNameRef?: string | undefined;
@@ -70,7 +70,7 @@ interface FileUploaderAttributes {
   /**
    * Defines the maximum file size in megabytes which prevents the upload if at least one file exceeds it.
    *
-   * **Note:** Available since [v2.2.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.2.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.2.0](https://github.com/UI5/webcomponents/releases/tag/v2.2.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   maxFileSize?: number | undefined;
@@ -98,7 +98,7 @@ interface FileUploaderAttributes {
   /**
    * Defines whether the component is required.
    *
-   * **Note:** Available since [v2.13.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.13.0](https://github.com/UI5/webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents**.
    * @default false
    */
   required?: boolean;
@@ -150,7 +150,7 @@ interface FileUploaderPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**
@@ -167,7 +167,7 @@ interface FileUploaderPropTypes
   /**
    * Event is fired when the size of a file is above the `maxFileSize` property value.
    *
-   * **Note:** Available since [v2.2.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.2.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.2.0](https://github.com/UI5/webcomponents/releases/tag/v2.2.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |

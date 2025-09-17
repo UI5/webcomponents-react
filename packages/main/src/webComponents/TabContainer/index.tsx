@@ -23,7 +23,7 @@ interface TabContainerAttributes {
   /**
    * Sets the background color of the Tab Container's content as `Solid`, `Transparent`, or `Translucent`.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    * @default "Solid"
    */
   contentBackgroundDesign?: BackgroundDesign | keyof typeof BackgroundDesign;
@@ -31,7 +31,7 @@ interface TabContainerAttributes {
   /**
    * Sets the background color of the Tab Container's header as `Solid`, `Transparent`, or `Translucent`.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    * @default "Solid"
    */
   headerBackgroundDesign?: BackgroundDesign | keyof typeof BackgroundDesign;
@@ -42,7 +42,7 @@ interface TabContainerAttributes {
    * **Note:** By default, if none of the child tabs have the `selected` property set, the first tab will be automatically selected.
    * Setting this property to `true` allows preventing this behavior.
    *
-   * **Note:** Available since [v2.9.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.9.0](https://github.com/UI5/webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
    * @default false
    */
   noAutoSelection?: boolean;
@@ -55,7 +55,7 @@ interface TabContainerAttributes {
    * Only one overflow at the end would be displayed by default,
    * but when set to `StartAndEnd`, there will be two overflows on both ends, and tab order will not change on tab selection.
    *
-   * **Note:** Available since [v1.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
    * @default "End"
    */
   overflowMode?: OverflowMode | keyof typeof OverflowMode;
@@ -106,7 +106,7 @@ interface TabContainerPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   overflowButton?: UI5WCSlotsNode;
 
@@ -118,9 +118,9 @@ interface TabContainerPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * **Note:** Available since [v1.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
    */
   startOverflowButton?: UI5WCSlotsNode;
   /**
@@ -141,7 +141,7 @@ interface TabContainerPropTypes
    *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -154,7 +154,7 @@ interface TabContainerPropTypes
    *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |

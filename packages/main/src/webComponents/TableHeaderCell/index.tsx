@@ -45,7 +45,7 @@ interface TableHeaderCellAttributes {
    * **Note:** Please be aware that hiding the column in the popin might lead to accessibility issues as
    * users might not be able to access the content of the column on small screens.
    *
-   * **Note:** Available since [v2.8.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.8.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.8.0](https://github.com/UI5/webcomponents/releases/tag/v2.8.0) of **@ui5/webcomponents**.
    * @default false
    */
   popinHidden?: boolean;
@@ -53,7 +53,7 @@ interface TableHeaderCellAttributes {
   /**
    * The text for the column when it pops in.
    *
-   * **Note:** Available since [v2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   popinText?: string | undefined;
@@ -61,7 +61,7 @@ interface TableHeaderCellAttributes {
   /**
    * Defines the sort indicator of the column.
    *
-   * **Note:** Available since [v2.8.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.8.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.8.0](https://github.com/UI5/webcomponents/releases/tag/v2.8.0) of **@ui5/webcomponents**.
    * @default "None"
    */
   sortIndicator?: SortOrder | keyof typeof SortOrder;
@@ -93,9 +93,9 @@ interface TableHeaderCellPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * **Note:** Available since [v2.8.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.8.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.8.0](https://github.com/UI5/webcomponents/releases/tag/v2.8.0) of **@ui5/webcomponents**.
    */
   action?: UI5WCSlotsNode;
 
@@ -115,7 +115,7 @@ interface TableHeaderCellPropTypes
  *
  * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
+ * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
  */
 const TableHeaderCell = withWebComponent<TableHeaderCellPropTypes, TableHeaderCellDomRef>(
   'ui5-table-header-cell',

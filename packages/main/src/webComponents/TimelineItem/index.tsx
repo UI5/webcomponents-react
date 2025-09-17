@@ -31,7 +31,7 @@ interface TimelineItemAttributes {
   /**
    * Defines the state of the icon displayed in the `TimelineItem`.
    *
-   * **Note:** Available since [v2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
    * @default "None"
    */
   state?: ValueState | keyof typeof ValueState;

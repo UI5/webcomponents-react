@@ -15,7 +15,7 @@ interface RatingIndicatorAttributes {
   /**
    * Receives id(or many ids) of the elements that label the component.
    *
-   * **Note:** Available since [v1.15.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.15.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.15.0](https://github.com/UI5/webcomponents/releases/tag/v1.15.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleNameRef?: string | undefined;
@@ -46,7 +46,7 @@ interface RatingIndicatorAttributes {
   /**
    * Defines whether the component is required.
    *
-   * **Note:** Available since [v1.15.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.15.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.15.0](https://github.com/UI5/webcomponents/releases/tag/v1.15.0) of **@ui5/webcomponents**.
    * @default false
    */
   required?: boolean;
@@ -54,7 +54,7 @@ interface RatingIndicatorAttributes {
   /**
    * Defines the size of the component.
    *
-   * **Note:** Available since [v2.6.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.6.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.6.0](https://github.com/UI5/webcomponents/releases/tag/v2.6.0) of **@ui5/webcomponents**.
    * @default "M"
    */
   size?: RatingIndicatorSize | keyof typeof RatingIndicatorSize;
@@ -62,7 +62,7 @@ interface RatingIndicatorAttributes {
   /**
    * Defines the tooltip of the component.
    *
-   * **Note:** Available since [v1.19.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.19.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.19.0](https://github.com/UI5/webcomponents/releases/tag/v1.19.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   tooltip?: string | undefined;

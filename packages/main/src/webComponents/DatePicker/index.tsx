@@ -16,7 +16,7 @@ interface DatePickerAttributes {
   /**
    * Defines the accessible description of the component.
    *
-   * **Note:** Available since [v2.14.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.14.0](https://github.com/UI5/webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescription?: string | undefined;
@@ -24,7 +24,7 @@ interface DatePickerAttributes {
   /**
    * Receives id(or many ids) of the elements that describe the input.
    *
-   * **Note:** Available since [v2.14.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.14.0](https://github.com/UI5/webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescriptionRef?: string | undefined;
@@ -45,7 +45,7 @@ interface DatePickerAttributes {
    * Defines how to calculate calendar weeks and first day of the week.
    * If not set, the calendar will be displayed according to the currently set global configuration.
    *
-   * **Note:** Available since [v2.2.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.2.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.2.0](https://github.com/UI5/webcomponents/releases/tag/v2.2.0) of **@ui5/webcomponents**.
    * @default "Default"
    */
   calendarWeekNumbering?: CalendarWeekNumbering | keyof typeof CalendarWeekNumbering;
@@ -59,7 +59,7 @@ interface DatePickerAttributes {
   /**
    * Determines the format, displayed in the input field.
    *
-   * **Note:** Available since [v2.14.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.14.0](https://github.com/UI5/webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   displayFormat?: string | undefined;
@@ -105,7 +105,7 @@ interface DatePickerAttributes {
   /**
    * Defines the open or closed state of the popover.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default false
    */
   open?: boolean;
@@ -154,7 +154,7 @@ interface DatePickerAttributes {
   /**
    * Determines the format, used for the value attribute.
    *
-   * **Note:** Available since [v2.14.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.14.0](https://github.com/UI5/webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   valueFormat?: string | undefined;
@@ -235,7 +235,7 @@ interface DatePickerPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**
@@ -252,7 +252,7 @@ interface DatePickerPropTypes
   /**
    * Fired after the component's picker is closed.
    *
-   * **Note:** Available since [v2.4.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.4.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.4.0](https://github.com/UI5/webcomponents/releases/tag/v2.4.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -274,7 +274,7 @@ interface DatePickerPropTypes
   /**
    * Fired after the component's picker is opened.
    *
-   * **Note:** Available since [v2.4.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.4.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.4.0](https://github.com/UI5/webcomponents/releases/tag/v2.4.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |

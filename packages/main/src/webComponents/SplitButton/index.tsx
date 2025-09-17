@@ -26,7 +26,7 @@ interface SplitButtonAttributes {
    *   - **expanded**: Indicates whether the popup triggered by the arrow button is currently expanded.
    *     Accepts boolean values: `true` or `false`.
    *
-   * **Note:** Available since [v2.13.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.13.0](https://github.com/UI5/webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents**.
    * @default {}
    */
   accessibilityAttributes?: SplitButtonAccessibilityAttributes;
@@ -40,7 +40,7 @@ interface SplitButtonAttributes {
   /**
    * Defines whether the arrow button should have the active state styles or not.
    *
-   * **Note:** Available since [v1.21.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.21.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.21.0](https://github.com/UI5/webcomponents/releases/tag/v1.21.0) of **@ui5/webcomponents**.
    * @default false
    */
   activeArrowButton?: boolean;
@@ -137,7 +137,7 @@ interface SplitButtonPropTypes
  *
  * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [1.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.1.0) of __@ui5/webcomponents__.
+ * @since [1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of __@ui5/webcomponents__.
  */
 const SplitButton = withWebComponent<SplitButtonPropTypes, SplitButtonDomRef>(
   'ui5-split-button',

@@ -10,7 +10,7 @@ interface RadioButtonAttributes {
   /**
    * Defines the accessible ARIA name of the component.
    *
-   * **Note:** Available since [v1.6.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.6.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.6.0](https://github.com/UI5/webcomponents/releases/tag/v1.6.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleName?: string | undefined;
@@ -18,7 +18,7 @@ interface RadioButtonAttributes {
   /**
    * Defines the IDs of the elements that label the component.
    *
-   * **Note:** Available since [v1.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleNameRef?: string | undefined;
@@ -70,7 +70,7 @@ interface RadioButtonAttributes {
   /**
    * Defines whether the component is required.
    *
-   * **Note:** Available since [v1.9.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.9.0](https://github.com/UI5/webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
    * @default false
    */
   required?: boolean;

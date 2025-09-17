@@ -16,7 +16,7 @@ interface ShellBarSpacerPropTypes extends ShellBarSpacerAttributes, CommonProps 
  *
  * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of __@ui5/webcomponents-fiori__.
+ * @since [2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of __@ui5/webcomponents-fiori__.
  * @abstract
  */
 const ShellBarSpacer = withWebComponent<ShellBarSpacerPropTypes, ShellBarSpacerDomRef>(

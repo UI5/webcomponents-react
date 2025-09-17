@@ -11,7 +11,7 @@ interface ColorPaletteItemAttributes {
    * **Note:** Only one item must be selected per <code>ui5-color-palette</code>.
    * If more than one item is defined as selected, the last one would be considered as the selected one.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default false
    */
   selected?: boolean;

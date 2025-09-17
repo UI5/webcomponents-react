@@ -10,7 +10,7 @@ interface TableSelectionSingleAttributes {
   /**
    * Defines the selection behavior.
    *
-   * **Note:** Available since [v2.11](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.11) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.11](https://github.com/UI5/webcomponents/releases/tag/v2.11) of **@ui5/webcomponents**.
    * @default "RowSelector"
    */
   behavior?: TableSelectionBehavior | keyof typeof TableSelectionBehavior;
@@ -70,7 +70,7 @@ interface TableSelectionSinglePropTypes
  *
  * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [2.8.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.8.0) of __@ui5/webcomponents__.
+ * @since [2.8.0](https://github.com/UI5/webcomponents/releases/tag/v2.8.0) of __@ui5/webcomponents__.
  */
 const TableSelectionSingle = withWebComponent<TableSelectionSinglePropTypes, TableSelectionSingleDomRef>(
   'ui5-table-selection-single',

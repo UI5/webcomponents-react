@@ -12,7 +12,7 @@ interface ButtonBadgeAttributes {
    * - **OverlayText** - displayed at the top-end corner of the button, and recommended for **cozy** density.
    * - **AttentionDot** - displayed at the top-end corner of the button as a dot, and suitable for both **cozy** and **compact** densities.
    *
-   * **Note:** Available since [v2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents**.
    * @default "AttentionDot"
    */
   design?: ButtonBadgeDesign | keyof typeof ButtonBadgeDesign;
@@ -24,7 +24,7 @@ interface ButtonBadgeAttributes {
    *
    * **Note:** The badge component only accepts numeric values and the "+" symbol. Using other characters or formats may result in unpredictable behavior, which is not guaranteed or supported.
    *
-   * **Note:** Available since [v2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents**.
    */
   text?: string;
 }
@@ -40,7 +40,7 @@ interface ButtonBadgePropTypes extends ButtonBadgeAttributes, Omit<CommonProps, 
  *
  * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of __@ui5/webcomponents__.
+ * @since [2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of __@ui5/webcomponents__.
  */
 const ButtonBadge = withWebComponent<ButtonBadgePropTypes, ButtonBadgeDomRef>(
   'ui5-button-badge',

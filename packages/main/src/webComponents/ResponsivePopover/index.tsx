@@ -14,7 +14,7 @@ interface ResponsivePopoverAttributes {
   /**
    * Defines the accessible description of the component.
    *
-   * **Note:** Available since [v2.11.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.11.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.11.0](https://github.com/UI5/webcomponents/releases/tag/v2.11.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescription?: string | undefined;
@@ -22,7 +22,7 @@ interface ResponsivePopoverAttributes {
   /**
    * Receives id(or many ids) of the elements that describe the component.
    *
-   * **Note:** Available since [v2.11.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.11.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.11.0](https://github.com/UI5/webcomponents/releases/tag/v2.11.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescriptionRef?: string | undefined;
@@ -36,7 +36,7 @@ interface ResponsivePopoverAttributes {
   /**
    * Defines the IDs of the elements that label the component.
    *
-   * **Note:** Available since [v1.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleNameRef?: string | undefined;
@@ -44,7 +44,7 @@ interface ResponsivePopoverAttributes {
   /**
    * Allows setting a custom role.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    * @default "Dialog"
    */
   accessibleRole?: PopupAccessibleRole | keyof typeof PopupAccessibleRole;
@@ -96,7 +96,7 @@ interface ResponsivePopoverAttributes {
   /**
    * Indicates if the element is open
    *
-   * **Note:** Available since [v1.2.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.2.0](https://github.com/UI5/webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents**.
    * @default false
    */
   open?: boolean;
@@ -106,7 +106,7 @@ interface ResponsivePopoverAttributes {
    * When using this attribute in a declarative way, you must only use the `id` (as a string) of the element at which you want to show the popover.
    * You can only set the `opener` attribute to a DOM Reference when using JavaScript.
    *
-   * **Note:** Available since [v1.2.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.2.0](https://github.com/UI5/webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   opener?: HTMLElement | string | null | undefined;
@@ -127,7 +127,7 @@ interface ResponsivePopoverAttributes {
   /**
    * Indicates whether initial focus should be prevented.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default false
    */
   preventInitialFocus?: boolean;
@@ -173,7 +173,7 @@ interface ResponsivePopoverPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   footer?: UI5WCSlotsNode;
 
@@ -184,7 +184,7 @@ interface ResponsivePopoverPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   header?: UI5WCSlotsNode;
   /**

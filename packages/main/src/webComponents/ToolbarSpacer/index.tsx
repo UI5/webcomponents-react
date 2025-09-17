@@ -39,7 +39,7 @@ interface ToolbarSpacerPropTypes extends ToolbarSpacerAttributes, Omit<CommonPro
  *
  * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [1.17.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.17.0) of __@ui5/webcomponents__.
+ * @since [1.17.0](https://github.com/UI5/webcomponents/releases/tag/v1.17.0) of __@ui5/webcomponents__.
  * @abstract
  */
 const ToolbarSpacer = withWebComponent<ToolbarSpacerPropTypes, ToolbarSpacerDomRef>(

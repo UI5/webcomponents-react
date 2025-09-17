@@ -10,7 +10,7 @@ interface CheckBoxAttributes {
   /**
    * Defines the accessible ARIA name of the component.
    *
-   * **Note:** Available since [v1.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleName?: string | undefined;
@@ -18,7 +18,7 @@ interface CheckBoxAttributes {
   /**
    * Receives id(or many ids) of the elements that label the component
    *
-   * **Note:** Available since [v1.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleNameRef?: string | undefined;
@@ -49,7 +49,7 @@ interface CheckBoxAttributes {
    *
    * **Note:** When the property `disabled` is set to `true` this property has no effect.
    *
-   * **Note:** Available since [v1.22.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.22.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.22.0](https://github.com/UI5/webcomponents/releases/tag/v1.22.0) of **@ui5/webcomponents**.
    * @default false
    */
   displayOnly?: boolean;
@@ -91,7 +91,7 @@ interface CheckBoxAttributes {
    * **Note:** We advise against using the text property of the checkbox when there is a
    * label associated with it to avoid having two required asterisks.
    *
-   * **Note:** Available since [v1.3.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.3.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.3.0](https://github.com/UI5/webcomponents/releases/tag/v1.3.0) of **@ui5/webcomponents**.
    * @default false
    */
   required?: boolean;

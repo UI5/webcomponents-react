@@ -20,7 +20,7 @@ interface TreeItemCustomAttributes {
    * 	- **ariaPosinset**: Defines an element's number or position in the current set when not all items are present in the DOM.
    * 	**Note:** The value is an integer greater than or equal to 1, and less than or equal to the size of the set when that size is known.
    *
-   * **Note:** Available since [v1.15.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.15.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.15.0](https://github.com/UI5/webcomponents/releases/tag/v1.15.0) of **@ui5/webcomponents**.
    * @default {}
    */
   accessibilityAttributes?: ListItemAccessibilityAttributes;
@@ -28,7 +28,7 @@ interface TreeItemCustomAttributes {
   /**
    * Defines the accessible name of the component.
    *
-   * **Note:** Available since [v1.8.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.8.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.8.0](https://github.com/UI5/webcomponents/releases/tag/v1.8.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleName?: string | undefined;
@@ -67,7 +67,7 @@ interface TreeItemCustomAttributes {
    * Defines the highlight state of the list items.
    * Available options are: `"None"` (by default), `"Positive"`, `"Critical"`, `"Information"` and `"Negative"`.
    *
-   * **Note:** Available since [v1.24](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.24) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.24](https://github.com/UI5/webcomponents/releases/tag/v1.24) of **@ui5/webcomponents**.
    * @default "None"
    */
   highlight?: Highlight | keyof typeof Highlight;
@@ -91,7 +91,7 @@ interface TreeItemCustomAttributes {
    *
    * **Note:** This property takes effect only when the `Tree` is in `Multiple` mode.
    *
-   * **Note:** Available since [v1.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
    * @default false
    */
   indeterminate?: boolean;
@@ -99,7 +99,7 @@ interface TreeItemCustomAttributes {
   /**
    * Defines whether the item is movable.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default false
    */
   movable?: boolean;
@@ -108,7 +108,7 @@ interface TreeItemCustomAttributes {
    * The navigated state of the list item.
    * If set to `true`, a navigation indicator is displayed at the end of the list item.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    * @default false
    */
   navigated?: boolean;
@@ -122,7 +122,7 @@ interface TreeItemCustomAttributes {
   /**
    * Defines the text of the tooltip that would be displayed for the list item.
    *
-   * **Note:** Available since [v1.23.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.23.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.23.0](https://github.com/UI5/webcomponents/releases/tag/v1.23.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   tooltip?: string | undefined;
@@ -166,7 +166,7 @@ interface TreeItemCustomPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   content?: UI5WCSlotsNode;
 
@@ -180,9 +180,9 @@ interface TreeItemCustomPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * **Note:** Available since [v1.9.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.9.0](https://github.com/UI5/webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
    */
   deleteButton?: UI5WCSlotsNode;
 
@@ -197,9 +197,9 @@ interface TreeItemCustomPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * **Note:** Available since [v2.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.10.0](https://github.com/UI5/webcomponents/releases/tag/v2.10.0) of **@ui5/webcomponents**.
    */
   image?: UI5WCSlotsNode;
   /**
@@ -224,7 +224,7 @@ interface TreeItemCustomPropTypes
  *
  * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [1.9.2](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.9.2) of __@ui5/webcomponents__.
+ * @since [1.9.2](https://github.com/UI5/webcomponents/releases/tag/v1.9.2) of __@ui5/webcomponents__.
  */
 const TreeItemCustom = withWebComponent<TreeItemCustomPropTypes, TreeItemCustomDomRef>(
   'ui5-tree-item-custom',

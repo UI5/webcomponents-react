@@ -11,7 +11,7 @@ interface SideNavigationGroupAttributes {
    * A disabled component can't be pressed or
    * focused, and it is not in the tab chain.
    *
-   * **Note:** Available since [v1.19.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.19.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v1.19.0](https://github.com/UI5/webcomponents/releases/tag/v1.19.0) of **@ui5/webcomponents-fiori**.
    * @default false
    */
   disabled?: boolean;
@@ -34,7 +34,7 @@ interface SideNavigationGroupAttributes {
    * A tooltip attribute should be provided, in order to represent meaning/function,
    * when the component is collapsed ("icon only" design is visualized) or the item text is truncated.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-fiori**.
    * @default undefined
    */
   tooltip?: string | undefined;
@@ -59,7 +59,7 @@ interface SideNavigationGroupPropTypes
  *
  * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [1.24.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.24.0) of __@ui5/webcomponents-fiori__.
+ * @since [1.24.0](https://github.com/UI5/webcomponents/releases/tag/v1.24.0) of __@ui5/webcomponents-fiori__.
  * @abstract
  */
 const SideNavigationGroup = withWebComponent<SideNavigationGroupPropTypes, SideNavigationGroupDomRef>(

@@ -27,7 +27,7 @@ interface MenuAttributes {
   /**
    * Defines if a loading indicator would be displayed inside the corresponding ui5-menu popover.
    *
-   * **Note:** Available since [v1.13.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.13.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.13.0](https://github.com/UI5/webcomponents/releases/tag/v1.13.0) of **@ui5/webcomponents**.
    * @default false
    */
   loading?: boolean;
@@ -35,7 +35,7 @@ interface MenuAttributes {
   /**
    * Defines the delay in milliseconds, after which the loading indicator will be displayed inside the corresponding ui5-menu popover.
    *
-   * **Note:** Available since [v1.13.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.13.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.13.0](https://github.com/UI5/webcomponents/releases/tag/v1.13.0) of **@ui5/webcomponents**.
    * @default 1000
    */
   loadingDelay?: number;
@@ -43,7 +43,7 @@ interface MenuAttributes {
   /**
    * Indicates if the menu is open.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    * @default false
    */
   open?: boolean;
@@ -53,7 +53,7 @@ interface MenuAttributes {
    * When using this attribute in a declarative way, you must only use the `id` (as a string) of the element at which you want to show the popover.
    * You can only set the `opener` attribute to a DOM Reference when using JavaScript.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   opener?: HTMLElement | string | null | undefined;
@@ -78,7 +78,7 @@ interface MenuPropTypes
    *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -93,7 +93,7 @@ interface MenuPropTypes
    *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -104,7 +104,7 @@ interface MenuPropTypes
   /**
    * Fired after the menu is closed.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -128,7 +128,7 @@ interface MenuPropTypes
   /**
    * Fired after the menu is opened.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -173,7 +173,7 @@ interface MenuPropTypes
  *
  * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [1.3.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.3.0) of __@ui5/webcomponents__.
+ * @since [1.3.0](https://github.com/UI5/webcomponents/releases/tag/v1.3.0) of __@ui5/webcomponents__.
  */
 const Menu = withWebComponent<MenuPropTypes, MenuDomRef>(
   'ui5-menu',
