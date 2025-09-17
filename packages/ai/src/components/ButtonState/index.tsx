@@ -36,7 +36,7 @@ interface ButtonStateAttributes {
   /**
    * Defines if the component is in split button mode.
    *
-   * **Note:** Available since [v2.6.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.6.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.6.0](https://github.com/UI5/webcomponents/releases/tag/v2.6.0) of **@ui5/webcomponents-ai**.
    * @default false
    */
   showArrowButton?: boolean;
@@ -64,7 +64,7 @@ interface ButtonStatePropTypes extends ButtonStateAttributes, Omit<CommonProps, 
  *
  * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents-ai__.
+ * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents-ai__.
  * @abstract
  * @experimental The Button and ButtonState web components are available since 2.0 under an experimental flag and their API and behaviour are subject to change.
  */

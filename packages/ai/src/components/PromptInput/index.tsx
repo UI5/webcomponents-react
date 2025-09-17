@@ -12,7 +12,7 @@ interface PromptInputAttributes {
    *
    * **Note:** A disabled component is completely noninteractive.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    * @default false
    */
   disabled?: boolean;
@@ -20,7 +20,7 @@ interface PromptInputAttributes {
   /**
    * Defines the label of the input field.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    * @default undefined
    */
   label?: string | undefined;
@@ -28,7 +28,7 @@ interface PromptInputAttributes {
   /**
    * Sets the maximum number of characters available in the input field.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    * @default undefined
    */
   maxlength?: number | undefined;
@@ -37,7 +37,7 @@ interface PromptInputAttributes {
    * Defines a short hint intended to aid the user with data entry when the
    * component has no value.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    * @default undefined
    */
   placeholder?: string | undefined;
@@ -48,7 +48,7 @@ interface PromptInputAttributes {
    * **Note:** A read-only component is not editable,
    * but still provides visual feedback upon user interaction.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    * @default false
    */
   readonly?: boolean;
@@ -56,7 +56,7 @@ interface PromptInputAttributes {
   /**
    * Defines whether the clear icon of the input will be shown.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    * @default false
    */
   showClearIcon?: boolean;
@@ -70,7 +70,7 @@ interface PromptInputAttributes {
    * If set to `true` the characters exceeding the `maxlength` value are selected on
    * paste and the counter below the component displays their number.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    * @default false
    */
   showExceededText?: boolean;
@@ -84,14 +84,14 @@ interface PromptInputAttributes {
   /**
    * Defines the value of the component.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    */
   value?: string;
 
   /**
    * Defines the value state of the component.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    * @default "None"
    */
   valueState?: ValueState | keyof typeof ValueState;
@@ -128,16 +128,16 @@ interface PromptInputPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**
    * Fired when the input operation has finished by pressing Enter
    * or on focusout.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -149,7 +149,7 @@ interface PromptInputPropTypes
    * Fired when the value of the component changes at each keystroke,
    * and when a suggestion item has been selected.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -161,7 +161,7 @@ interface PromptInputPropTypes
    * Fired when the input operation has finished by pressing Enter
    * or AI button is clicked.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
