@@ -14,7 +14,7 @@ interface TableRowAttributes {
   /**
    * Indicates if the table row is navigated.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    * @default false
    */
   navigated?: boolean;
@@ -22,7 +22,7 @@ interface TableRowAttributes {
   /**
    * Defines the row's selected state.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    * @default false
    */
   selected?: boolean;
@@ -33,7 +33,7 @@ interface TableRowAttributes {
    * **Note:** When set to `Active`, the item will provide visual response upon press,
    * while with type `Inactive`-will not.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    * @default "Inactive"
    */
   type?: TableRowType | keyof typeof TableRowType;
