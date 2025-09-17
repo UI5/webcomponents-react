@@ -55,7 +55,7 @@ In case you're still facing issues with the custom element definitions of the `T
 
 As of **v2.12.0** of `@ui5/webcomponents-compat`, a dedicated **scoping mechanism** is available for custom elements from the compat package.
 
-> **Note:** This feature is different from the general [scoping mechanism](https://sap.github.io/ui5-webcomponents/docs/advanced/scoping/) and applies **only** to custom elements from the compatibility package (Table and its subcomponents).
+> **Note:** This feature is different from the general [scoping mechanism](https://ui5.github.io/webcomponents/docs/advanced/scoping/) and applies **only** to custom elements from the compatibility package (Table and its subcomponents).
 
 Setting up scoping for the compat package is done in the same way as general scoping, but with specific methods coming from `@ui5/webcomponents-compat`.
 
@@ -72,7 +72,7 @@ import { Table } from '@ui5/webcomponents-react-compat/Table';
 
 ## Documentation
 
-You can find an interactive documentation in our [Storybook](https://sap.github.io/ui5-webcomponents-react/) (Legacy Components).
+You can find an interactive documentation in our [Storybook](https://ui5.github.io/webcomponents-react/) (Legacy Components).
 
 ## Contribute
 

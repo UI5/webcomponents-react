@@ -24,9 +24,9 @@
 
 You can find our documentation under the following links:
 
-- [Stable Release Documentation](https://sap.github.io/ui5-webcomponents-react/)
-- [Nightly Release Documentation](https://sap.github.io/ui5-webcomponents-react/nightly/)
-- [V1 Release Documentation](https://sap.github.io/ui5-webcomponents-react/v1/)
+- [Stable Release Documentation](https://ui5.github.io/webcomponents-react/)
+- [Nightly Release Documentation](https://ui5.github.io/webcomponents-react/nightly/)
+- [V1 Release Documentation](https://ui5.github.io/webcomponents-react/v1/)
 
 ## Packages Overview
 
@@ -90,8 +90,8 @@ npm install @ui5/webcomponents-react @ui5/webcomponents @ui5/webcomponents-fiori
 
 Since version `v2.14.0` of `@ui5/webcomponents-react`, `@ui5/webcomponents-fiori` is an optional peer-dependency. You will still need to install it if:
 
-- You want to use any [component](https://sap.github.io/ui5-webcomponents/components/fiori/) from the `@ui5/webcomponents-fiori` package.
-- You want to use the [VariantManagement](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/inputs-variantmanagement--docs) component.
+- You want to use any [component](https://ui5.github.io/webcomponents/components/fiori/) from the `@ui5/webcomponents-fiori` package.
+- You want to use the [VariantManagement](https://ui5.github.io/webcomponents-react/v2/?path=/docs/inputs-variantmanagement--docs) component.
 - You import anything from the `@ui5/webcomponents-fiori` package.
 
 ```sh
@@ -138,7 +138,7 @@ import '@ui5/webcomponents-react/dist/json-imports/i18n-node.js';
 
 ## End of Support for Version 1.x
 
-The support for version 1.x of `ui5-webcomponents-react` has ended on **July 1, 2025**. We recommend migrating to version 2.x as soon as possible. For more information, please refer to our [Migration Guide](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/migration-guide--docs).
+The support for version 1.x of `ui5-webcomponents-react` has ended on **July 1, 2025**. We recommend migrating to version 2.x as soon as possible. For more information, please refer to our [Migration Guide](https://ui5.github.io/webcomponents-react/v2/?path=/docs/migration-guide--docs).
 
 <!-- *********************************************************************** -->
 
@@ -153,7 +153,7 @@ In about an hour you will create a business dashboard from scratch and get famil
 
 ### SAP Devtoberfest 2024 session
 
-In the [SAP Devtoberfest 2024](https://www.youtube.com/watch?v=lvpN3eK39h8) session, we showcased the most prominent new features in version 2 of UI5 Web Components and UI5 Web Components for React, and provided an example of how to migrate from version 1 to version 2 using our [Codemod](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/migration-guide--docs#codemod).
+In the [SAP Devtoberfest 2024](https://www.youtube.com/watch?v=lvpN3eK39h8) session, we showcased the most prominent new features in version 2 of UI5 Web Components and UI5 Web Components for React, and provided an example of how to migrate from version 1 to version 2 using our [Codemod](https://ui5.github.io/webcomponents-react/v2/?path=/docs/migration-guide--docs#codemod).
 
 ### SAP Devtoberfest 2023 session
 
@@ -162,7 +162,7 @@ For the main part, we show how you could create a simple Movie Database UI, firs
 
 ### Examples & Templates
 
-You can find a curated list of project templates and examples on our [Project Templates & Examples page](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/project-templates-examples--docs).
+You can find a curated list of project templates and examples on our [Project Templates & Examples page](https://ui5.github.io/webcomponents-react/v2/?path=/docs/project-templates-examples--docs).
 
 ### Add `@ui5/webcomponents-react` to an existing app
 

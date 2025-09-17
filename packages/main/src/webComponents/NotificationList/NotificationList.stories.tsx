@@ -62,7 +62,7 @@ export const Default: Story = {
           importance={NotificationListItemImportance.Important}
           avatar={
             <Avatar size={AvatarSize.XS}>
-              <img src="https://sap.github.io/ui5-webcomponents/images/avatars/woman_avatar_1.png" />
+              <img src="https://ui5.github.io/webcomponents/images/avatars/woman_avatar_1.png" />
             </Avatar>
           }
           footnotes={
@@ -100,7 +100,7 @@ export const Grouped: Story = {
             }
             avatar={
               <Avatar size={AvatarSize.XS}>
-                <img src="https://sap.github.io/ui5-webcomponents/images/avatars/woman_avatar_1.png" />
+                <img src="https://ui5.github.io/webcomponents/images/avatars/woman_avatar_1.png" />
               </Avatar>
             }
             footnotes={
@@ -126,7 +126,7 @@ export const Grouped: Story = {
             importance={NotificationListItemImportance.Important}
             avatar={
               <Avatar size={AvatarSize.XS}>
-                <img src="https://sap.github.io/ui5-webcomponents/images/avatars/woman_avatar_1.png" />
+                <img src="https://ui5.github.io/webcomponents/images/avatars/woman_avatar_1.png" />
               </Avatar>
             }
             footnotes={

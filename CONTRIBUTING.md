@@ -19,7 +19,7 @@ If you find a bug or some other issue with any part of the library, please [subm
 
 **For accessibility issues:**
 
-- You follow the "[Testing Accessibility](https://sap.github.io/ui5-webcomponents/docs/advanced/accessibility/#testing-accessibility)" guidelines and include all relevant information.
+- You follow the "[Testing Accessibility](https://ui5.github.io/webcomponents/docs/advanced/accessibility/#testing-accessibility)" guidelines and include all relevant information.
 
 If you meet the above criteria, you can submit issues with our [GitHub issue tracker](https://github.com/UI5/webcomponents-react/issues/new/choose).
 

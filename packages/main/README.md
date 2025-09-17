@@ -1,6 +1,6 @@
 # @ui5/webcomponents-react
 
-React components with Fiori compliant style by leveraging [UI5 Web Components](https://sap.github.io/ui5-webcomponents/).
+React components with Fiori compliant style by leveraging [UI5 Web Components](https://ui5.github.io/webcomponents/).
 
 ## Installation
 
@@ -10,7 +10,7 @@ npm install @ui5/webcomponents-react
 
 ## Documentation
 
-You can find an interactive documentation in our [Storybook](https://sap.github.io/ui5-webcomponents-react/).
+You can find an interactive documentation in our [Storybook](https://ui5.github.io/webcomponents-react/).
 
 ## Contribute
 

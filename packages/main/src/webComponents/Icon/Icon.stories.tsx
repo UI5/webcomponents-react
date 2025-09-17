@@ -26,7 +26,7 @@ const meta = {
       description: {
         component:
           iconSummaryFormatter(description) +
-          '\n__Note:__ This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/playground/)',
+          '\n__Note:__ This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/playground/)',
       },
     },
   },

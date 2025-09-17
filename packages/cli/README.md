@@ -12,11 +12,11 @@ npm install @ui5/webcomponents-react-cli
 
 ### Documentation
 
-You can find an interactive documentation in our [Storybook](https://sap.github.io/ui5-webcomponents-react/).
+You can find an interactive documentation in our [Storybook](https://ui5.github.io/webcomponents-react/).
 
-- [Wrapper generation](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-bring-your-own-web-components--docs)
-- [Code-mod](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/migration-guide--docs#codemod)
-- ~~[Patch compatibility table](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/legacy-components-docs--docs#experimental-patch-script)~~ (deprecated in favor of [compatibility package scoping](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/legacy-components-docs--docs#using-the-compat-v1-table-together-with-the-v2-table-in-one-application))
+- [Wrapper generation](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-bring-your-own-web-components--docs)
+- [Code-mod](https://ui5.github.io/webcomponents-react/v2/?path=/docs/migration-guide--docs#codemod)
+- ~~[Patch compatibility table](https://ui5.github.io/webcomponents-react/v2/?path=/docs/legacy-components-docs--docs#experimental-patch-script)~~ (deprecated in favor of [compatibility package scoping](https://ui5.github.io/webcomponents-react/v2/?path=/docs/legacy-components-docs--docs#using-the-compat-v1-table-together-with-the-v2-table-in-one-application))
 
 ## Contribute
 

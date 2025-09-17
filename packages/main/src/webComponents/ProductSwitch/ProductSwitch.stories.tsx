@@ -27,7 +27,7 @@ export const Default: Story = {
           titleText={'ProductSwitchItem'}
           icon={wrenchIcon}
           target="_blank"
-          targetSrc="https://sap.github.io/ui5-webcomponents-react/"
+          targetSrc="https://ui5.github.io/webcomponents-react/"
         />
         <ProductSwitchItem titleText="Home" subtitleText="Central Home" icon={homeIcon} />
         <ProductSwitchItem

@@ -37,6 +37,6 @@ export const Fiori4ReactTheme = create({
    * URL for name in top left corner to link to
    * @type {String}
    */
-  brandUrl: 'https://sap.github.io/ui5-webcomponents-react',
+  brandUrl: 'https://ui5.github.io/webcomponents-react',
   brandImage: 'https://raw.githubusercontent.com/UI5/webcomponents-react/main/assets/Logo-Sticker.png',
 });

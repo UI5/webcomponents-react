@@ -19,20 +19,20 @@ const meta = {
     accounts: (
       <>
         <UserMenuAccount
-          avatarSrc="https://sap.github.io/ui5-webcomponents/images/avatars/woman_avatar_3.png"
+          avatarSrc="https://ui5.github.io/webcomponents/images/avatars/woman_avatar_3.png"
           titleText="Alaina Chevalier"
           subtitleText="aliana.chevalier@sap.com"
           description="Delivery Manager, SAP SE"
           selected
         ></UserMenuAccount>
         <UserMenuAccount
-          avatarSrc="https://sap.github.io/ui5-webcomponents/images/avatars/woman_avatar_3.png"
+          avatarSrc="https://ui5.github.io/webcomponents/images/avatars/woman_avatar_3.png"
           titleText="Alaina Chevalier I"
           subtitleText="aliana.chevalier1@sap.com"
           description="Delivery Manager, SAP SE"
         ></UserMenuAccount>
         <UserMenuAccount
-          avatarSrc="https://sap.github.io/ui5-webcomponents/images/avatars/woman_avatar_3.png"
+          avatarSrc="https://ui5.github.io/webcomponents/images/avatars/woman_avatar_3.png"
           titleText="Alaina Chevalier II"
           subtitleText="aliana.chevalier2@sap.com"
           description="Delivery Manager, SAP SE"
