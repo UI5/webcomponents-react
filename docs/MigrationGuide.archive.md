@@ -143,7 +143,7 @@ import { UTIL_NAME } from '@ui5/webcomponents-react-base';
 import { CHART_NAME } from '@ui5/webcomponents-react-charts';
 ```
 
-In case the file you are trying to import is not available, please raise an [issue](https://github.com/SAP/ui5-webcomponents-react/issues/new?labels=bug&template=bug_report.md).
+In case the file you are trying to import is not available, please raise an [issue](https://github.com/UI5/webcomponents-react/issues/new?labels=bug&template=bug_report.md).
 
 ### Removed polyfills
 
@@ -363,7 +363,7 @@ Removed all deprecated values and enum keys that consisted of uppercase letters 
 ## From 0.17.x to 0.18.0
 
 In this release, the UI5 Web Components have renamed lots of properties in order to pave the way to the 1.0.0 release.
-You can check the list of all breaking changes of the UI5 Web Components [here](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.0.0-rc.15).<br />
+You can check the list of all breaking changes of the UI5 Web Components [here](https://github.com/UI5/webcomponents/releases/tag/v1.0.0-rc.15).<br />
 To make your update more convenient, we are providing a codemod that helps you to rename (most) of the props.
 
 **Requirement**: You have to install `@ui5/webcomponents-react@^0.18.0` or `@ui5/webcomponents-react-base@^0.18.0` before running the codemod!
@@ -718,7 +718,7 @@ If you need this check, you'll need to replace it with `window.retina || window.
 ### Removal of `Logger` and `LogLevel`
 
 The `Logger` and `LogLevel` have been removed without any replacement, you can use `console.log/warn/info/error` as replacements.
-In case you need the full functionality of the `Logger`, feel free to copy the [source code](https://github.com/SAP/ui5-webcomponents-react/blob/7e060c85d9a247ceb296a9e720d8d393ed68782e/packages/base/src/utils/Logger.ts) into your project.
+In case you need the full functionality of the `Logger`, feel free to copy the [source code](https://github.com/UI5/webcomponents-react/blob/7e060c85d9a247ceb296a9e720d8d393ed68782e/packages/base/src/utils/Logger.ts) into your project.
 
 ## From 0.15.x to 0.16.0
 
@@ -1273,7 +1273,7 @@ Migrating your app from 0.8.x to 0.9.0 requires a few updates to the API propert
 
 ### Breaking changes
 
-For a complete list of breaking changes from 0.8.X to 0.9.0, please refer to [the list of releases](https://github.com/SAP/ui5-webcomponents-react/releases) or the [changelog](https://github.com/SAP/ui5-webcomponents-react/blob/main/CHANGELOG.md).
+For a complete list of breaking changes from 0.8.X to 0.9.0, please refer to [the list of releases](https://github.com/UI5/webcomponents-react/releases) or the [changelog](https://github.com/UI5/webcomponents-react/blob/main/CHANGELOG.md).
 Most important breaking changes:
 
 - configuring of compact size is removed, use the ui5-content-density-compact CSS class to apply compact size.

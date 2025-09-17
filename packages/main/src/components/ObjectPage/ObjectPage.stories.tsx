@@ -118,9 +118,7 @@ const meta = {
           <FlexBox direction={FlexBoxDirection.Column}>
             <Link>+33 6 4512 5158</Link>
             <Link href="mailto:ui5-webcomponents-react@sap.com">DeniseSmith@sap.com</Link>
-            <Link href="https://github.com/SAP/ui5-webcomponents-react">
-              https://github.com/SAP/ui5-webcomponents-react
-            </Link>
+            <Link href="https://github.com/UI5/webcomponents-react">https://github.com/UI5/webcomponents-react</Link>
           </FlexBox>
           <FlexBox direction={FlexBoxDirection.Column} style={{ padding: '10px' }}>
             <Label>San Jose</Label>

@@ -1,11 +1,11 @@
 <a name="top"></a>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SAP/ui5-webcomponents-react/main/assets/Logo-Sticker.png" alt="UI5 Web Components for React Logo" />
+  <img src="https://raw.githubusercontent.com/UI5/webcomponents-react/main/assets/Logo-Sticker.png" alt="UI5 Web Components for React Logo" />
 </p>
 <p align="center">
-  <a href='https://coveralls.io/github/SAP/ui5-webcomponents-react'>
-    <img src='https://coveralls.io/repos/github/SAP/ui5-webcomponents-react/badge.svg' alt='Coverage Status' />
+  <a href='https://coveralls.io/github/UI5/webcomponents-react'>
+    <img src='https://coveralls.io/repos/github/UI5/webcomponents-react/badge.svg' alt='Coverage Status' />
   </a>
   <a href="https://ui5-slack-invite.cfapps.eu10.hana.ondemand.com/" target="_blank">
       <img alt="Slack Badge" src="https://badgen.net/badge/slack/Join OpenUI5 Slack workspace/blue?icon=slack">
@@ -18,7 +18,7 @@
   </a>
 </p>
 
-`ui5-webcomponents-react` is providing a Fiori-compliant React implementation by leveraging the [UI5 Web Components](https://github.com/SAP/ui5-webcomponents).
+`ui5-webcomponents-react` is providing a Fiori-compliant React implementation by leveraging the [UI5 Web Components](https://github.com/UI5/webcomponents).
 
 ## Resources
 
@@ -30,31 +30,31 @@ You can find our documentation under the following links:
 
 ## Packages Overview
 
-- [@ui5/webcomponents-react](https://github.com/SAP/ui5-webcomponents-react/tree/main/packages/main) - Main Package
+- [@ui5/webcomponents-react](https://github.com/UI5/webcomponents-react/tree/main/packages/main) - Main Package
 
   [![](https://badgen.net/npm/v/@ui5/webcomponents-react?icon=npm)](https://www.npmjs.com/package/@ui5/webcomponents-react)
 
-- [@ui5/webcomponents-react-charts](https://github.com/SAP/ui5-webcomponents-react/tree/main/packages/charts) - Charts Package
+- [@ui5/webcomponents-react-charts](https://github.com/UI5/webcomponents-react/tree/main/packages/charts) - Charts Package
 
   [![](https://badgen.net/npm/v/@ui5/webcomponents-react-charts?icon=npm)](https://www.npmjs.com/package/@ui5/webcomponents-react-charts)
 
-- [@ui5/webcomponents-react-base](https://github.com/SAP/ui5-webcomponents-react/tree/main/packages/base) - Base Package
+- [@ui5/webcomponents-react-base](https://github.com/UI5/webcomponents-react/tree/main/packages/base) - Base Package
 
   [![](https://badgen.net/npm/v/@ui5/webcomponents-react-base?icon=npm)](https://www.npmjs.com/package/@ui5/webcomponents-react-base)
 
-- [@ui5/webcomponents-react-compat](https://github.com/SAP/ui5-webcomponents-react/tree/main/packages/compat) - Legacy Components Package
+- [@ui5/webcomponents-react-compat](https://github.com/UI5/webcomponents-react/tree/main/packages/compat) - Legacy Components Package
 
   [![](https://badgen.net/npm/v/@ui5/webcomponents-react-compat?icon=npm)](https://www.npmjs.com/package/@ui5/webcomponents-react-compat)
 
-- [@ui5/webcomponents-react-cli](https://github.com/SAP/ui5-webcomponents-react/tree/main/packages/cli) - Wrapper Generation & Code-Mod Package
+- [@ui5/webcomponents-react-cli](https://github.com/UI5/webcomponents-react/tree/main/packages/cli) - Wrapper Generation & Code-Mod Package
 
   [![](https://badgen.net/npm/v/@ui5/webcomponents-react-cli?icon=npm)](https://www.npmjs.com/package/@ui5/webcomponents-react-cli)
 
-- [@ui5/webcomponents-cypress-commands](https://github.com/SAP/ui5-webcomponents-react/tree/main/packages/cypress-commands) - Custom Cypress Commands & Queries Package
+- [@ui5/webcomponents-cypress-commands](https://github.com/UI5/webcomponents-react/tree/main/packages/cypress-commands) - Custom Cypress Commands & Queries Package
 
   [![](https://badgen.net/npm/v/@ui5/webcomponents-cypress-commands?icon=npm)](https://www.npmjs.com/package/@ui5/webcomponents-cypress-commands)
 
-- [@ui5/webcomponents-ai-react](https://github.com/SAP/ui5-webcomponents-react/tree/main/packages/ai) - React wrapper for the `@ui5/webcomponents-ai` Package
+- [@ui5/webcomponents-ai-react](https://github.com/UI5/webcomponents-react/tree/main/packages/ai) - React wrapper for the `@ui5/webcomponents-ai` Package
 
   [![](https://badgen.net/npm/v/@ui5/webcomponents-ai-react?icon=npm)](https://www.npmjs.com/package/@ui5/webcomponents-ai-react)
 
@@ -195,7 +195,7 @@ You can find a curated list of project templates and examples on our [Project Te
 
 ### Browser Support
 
-UI5 Web Components for React supports the same [browsers and respective versions](https://github.com/SAP/ui5-webcomponents#browser-support) as UI5 Web Components.
+UI5 Web Components for React supports the same [browsers and respective versions](https://github.com/UI5/webcomponents#browser-support) as UI5 Web Components.
 
 <!-- *********************************************************************** -->
 
@@ -203,7 +203,7 @@ UI5 Web Components for React supports the same [browsers and respective versions
 
 ## Known Issues
 
-Please take a look at our [GitHub Issues](https://github.com/SAP/ui5-webcomponents-react/issues).
+Please take a look at our [GitHub Issues](https://github.com/UI5/webcomponents-react/issues).
 
 <!-- *********************************************************************** -->
 
@@ -211,7 +211,7 @@ Please take a look at our [GitHub Issues](https://github.com/SAP/ui5-webcomponen
 
 ## How to obtain support
 
-We welcome all comments, suggestions, questions, and bug reports. Feel free to [open issues](https://github.com/SAP/ui5-webcomponents-react/issues/new/choose) or chat with us directly in the [`#webcomponents-react`](https://openui5.slack.com/archives/CSQEJ2J04) channel in the
+We welcome all comments, suggestions, questions, and bug reports. Feel free to [open issues](https://github.com/UI5/webcomponents-react/issues/new/choose) or chat with us directly in the [`#webcomponents-react`](https://openui5.slack.com/archives/CSQEJ2J04) channel in the
 [OpenUI5 Community Slack](https://ui5-slack-invite.cfapps.eu10.hana.ondemand.com/).
 Please note that you have to join this Slack workspace via [this link](https://ui5-slack-invite.cfapps.eu10.hana.ondemand.com/) if you are not part of it already.
 

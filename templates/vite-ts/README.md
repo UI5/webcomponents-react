@@ -3,7 +3,7 @@
 ## How to use this template
 
 ```bash
-npx degit SAP/ui5-webcomponents-react/templates/vite-ts#main my-project
+npx degit UI5/webcomponents-react/templates/vite-ts#main my-project
 cd my-project
 ```
 

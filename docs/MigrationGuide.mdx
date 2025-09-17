@@ -8,12 +8,12 @@ import { MessageStrip } from '@ui5/webcomponents-react';
 # Migration Guide (v1 to v2)
 
 _The most important breaking changes of the corresponding releases are outlined here.
-For a full list of all changes, please refer to [the list of releases](https://github.com/SAP/ui5-webcomponents-react/releases)
+For a full list of all changes, please refer to [the list of releases](https://github.com/UI5/webcomponents-react/releases)
 or the [changelog](?path=/docs/change-log--page)._
 
 > **Older releases**  
 > This migration guide only covers breaking changes when updating from v1 to v2.
-> For migration guides for older releases, please refer to our [Migration Guide Archive](https://github.com/SAP/ui5-webcomponents-react/blob/main/docs/MigrationGuide.archive.md).
+> For migration guides for older releases, please refer to our [Migration Guide Archive](https://github.com/UI5/webcomponents-react/blob/main/docs/MigrationGuide.archive.md).
 
 <TableOfContent headingSelector="h2, h3" tocOverflowHeight={1250} />
 
@@ -482,7 +482,7 @@ Unfortunately, there is no general rule of thumb for how to replace the `Loader`
 
 However, for components that apply complex styles such as `absolute/fixed` positioning, this might not be the case, as the `BusyIndicator` brings its own set of styles.
 In such instances, we recommend positioning the `BusyIndicator` above the element that should receive a loading indicator e.g. via `position: absolute`.
-If you encounter any issues migrating to the `BusyIndicator`, please feel free to reach out via [GitHub Discussions](https://github.com/SAP/ui5-webcomponents-react/discussions) or create an [Issue](https://github.com/SAP/ui5-webcomponents-react/issues/new/choose) if the behavior seems like a bug.
+If you encounter any issues migrating to the `BusyIndicator`, please feel free to reach out via [GitHub Discussions](https://github.com/UI5/webcomponents-react/discussions) or create an [Issue](https://github.com/UI5/webcomponents-react/issues/new/choose) if the behavior seems like a bug.
 
 #### Keep the `Loader`
 
@@ -507,7 +507,7 @@ The following props have been removed:
 - `renderWhitespace`
   Can be achieved by adding `white-space: pre-wrap;` via inline styles or `className` to the `Text` component.
 - `hyphenated` and `emptyIndicator`
-  These props are currently not supported by the new `ui5-text` component. You can follow this [feature request](https://github.com/SAP/ui5-webcomponents/issues/9244) for updates.
+  These props are currently not supported by the new `ui5-text` component. You can follow this [feature request](https://github.com/UI5/webcomponents/issues/9244) for updates.
 
 ```tsx
 // v1
@@ -657,7 +657,7 @@ const columns = [{ ...otherProps, disableDragAndDrop: true }];
 
 The prop `portalContainer` has been removed as it is no longer needed due to the [popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) which is now used in the UI5 Web Components.
 As the underlying `Text` component has been replaced with the UI5 Web Component, some inherited props `hyphenated` and `emptyIndicator` from the `Text` component have been removed.
-You can follow this [feature request](https://github.com/SAP/ui5-webcomponents/issues/9244) for updates.
+You can follow this [feature request](https://github.com/UI5/webcomponents/issues/9244) for updates.
 
 ### FilterBar
 

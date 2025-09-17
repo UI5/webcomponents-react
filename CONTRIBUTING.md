@@ -7,7 +7,7 @@ You want to contribute to `ui5-webcomponents-react`? Welcome! Please read this d
 
 ## Report an Issue
 
-If you find a bug or some other issue with any part of the library, please [submit an issue](https://github.com/SAP/ui5-webcomponents-react/issues). Before doing so, please make sure that:
+If you find a bug or some other issue with any part of the library, please [submit an issue](https://github.com/UI5/webcomponents-react/issues). Before doing so, please make sure that:
 
 - The issue is not a duplicate.
 - The issue has not been fixed in a newer release of the library.
@@ -15,13 +15,13 @@ If you find a bug or some other issue with any part of the library, please [subm
 - You're following our issue template.
 - The issue title is short and concise. E.g.: "AnalyticalTable: wrong background color"
 - Your explanation is clear and complete.
-- You provide example code (preferably by forking this [StackBlitz template](https://stackblitz.com/github/SAP/ui5-webcomponents-react/tree/main/templates/vite-ts?file=src%2FApp.tsx)) and optionally screenshots.
+- You provide example code (preferably by forking this [StackBlitz template](https://stackblitz.com/github/UI5/webcomponents-react/tree/main/templates/vite-ts?file=src%2FApp.tsx)) and optionally screenshots.
 
 **For accessibility issues:**
 
 - You follow the "[Testing Accessibility](https://sap.github.io/ui5-webcomponents/docs/advanced/accessibility/#testing-accessibility)" guidelines and include all relevant information.
 
-If you meet the above criteria, you can submit issues with our [GitHub issue tracker](https://github.com/SAP/ui5-webcomponents-react/issues/new/choose).
+If you meet the above criteria, you can submit issues with our [GitHub issue tracker](https://github.com/UI5/webcomponents-react/issues/new/choose).
 
 ## Feature Requests
 
@@ -48,7 +48,7 @@ Please see our [guideline for AI-generated code contributions to SAP Open Source
 
 ### How to contribute - the Process
 
-1. Please let us know, that you want to work on the issue you've filed in the [issue tracker](https://github.com/SAP/ui5-webcomponents-react/issues).
+1. Please let us know, that you want to work on the issue you've filed in the [issue tracker](https://github.com/UI5/webcomponents-react/issues).
 2. If the issue is marked with the `contribution welcome` tag, we'll assign you right away, otherwise we will check if some more information our guidance is needed and only then assign you to it.
 3. Once you are assigned to the issue, you are ready to go.
 4. Fork the `ui5-webcomponents-react` repository into your GitHub account, create a branch and apply your change. Please don't work directly on the `main` branch of your fork. This will help to update your fork in the future more easily.
