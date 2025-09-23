@@ -14,7 +14,7 @@ function UXCIntegration() {
                 For a full-page view of this pattern, click <b>&#34;Fork on StackBlitz&#34;</b> below to open it in the
                 standalone StackBlitz editor.
               </MessageStrip>
-              <EmbeddedStackBlitz repoPath="SAP/ui5-webcomponents-react/tree/main/patterns/navigation-layout" />
+              <EmbeddedStackBlitz repoPath="UI5/webcomponents-react/tree/main/patterns/navigation-layout" />
             </>
           }
         />

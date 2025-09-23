@@ -57,9 +57,9 @@ interface TableSelectionPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
+ * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
  * @experimental This web component is available since 2.0 with an experimental flag and its API and behavior are subject to change.
  * @deprecated This component is deprecated and will be removed in future releases. Use the `TableSelectionSingle` or `TableSelectionMulti` components instead.
  */

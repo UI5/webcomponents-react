@@ -11,7 +11,7 @@ const TOOL_ID = `${ADDON_ID}/toolbar`;
 
 const handleVersionSelect = (e) => {
   const { slug } = e.detail.item.dataset;
-  window.location.href = `https://sap.github.io/ui5-webcomponents-react/${slug}/`;
+  window.location.href = `https://ui5.github.io/webcomponents-react/${slug}/`;
 };
 
 addons.register(ADDON_ID, () => {
@@ -23,7 +23,7 @@ addons.register(ADDON_ID, () => {
       const menuRef = React.useRef(null);
 
       const activeVersionSlug =
-        window.location.pathname.replace('/ui5-webcomponents-react/', '').replaceAll('/', '') || 'nightly';
+        window.location.pathname.replace('/webcomponents-react/', '').replaceAll('/', '') || 'nightly';
       const activeVersion = activeVersionSlug.at(0).toUpperCase() + activeVersionSlug.slice(1);
 
       React.useEffect(() => {

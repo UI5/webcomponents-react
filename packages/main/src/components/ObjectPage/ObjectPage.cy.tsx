@@ -747,18 +747,18 @@ describe('ObjectPage', () => {
     cy.findByText('{"offset":1080,"scroll":1080}').should('exist');
 
     cy.mount(<TestComp height="925px" mode={ObjectPageMode.Default} />);
-    cy.findByText('https://github.com/SAP/ui5-webcomponents-react').should('be.visible');
+    cy.findByText('https://github.com/UI5/webcomponents-react').should('be.visible');
 
     cy.wait(50);
     cy.findByTestId('op').scrollTo('bottom');
-    cy.findByText('https://github.com/SAP/ui5-webcomponents-react').should('not.be.visible');
+    cy.findByText('https://github.com/UI5/webcomponents-react').should('not.be.visible');
     cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').should('have.attr', 'icon', 'slim-arrow-down');
 
     cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
-    cy.findByText('https://github.com/SAP/ui5-webcomponents-react').should('be.visible');
+    cy.findByText('https://github.com/UI5/webcomponents-react').should('be.visible');
 
     cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
-    cy.findByText('https://github.com/SAP/ui5-webcomponents-react').should('not.be.visible');
+    cy.findByText('https://github.com/UI5/webcomponents-react').should('not.be.visible');
   });
 
   it('single section - Tab mode', () => {
@@ -844,18 +844,18 @@ describe('ObjectPage', () => {
     cy.findByText('{"offset":1080,"scroll":1080}').should('exist');
 
     cy.mount(<TestComp height="925px" mode={ObjectPageMode.IconTabBar} />);
-    cy.findByText('https://github.com/SAP/ui5-webcomponents-react').should('be.visible');
+    cy.findByText('https://github.com/UI5/webcomponents-react').should('be.visible');
 
     cy.wait(50);
     cy.findByTestId('op').scrollTo('bottom');
-    cy.findByText('https://github.com/SAP/ui5-webcomponents-react').should('not.be.visible');
+    cy.findByText('https://github.com/UI5/webcomponents-react').should('not.be.visible');
     cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').should('have.attr', 'icon', 'slim-arrow-down');
 
     cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
-    cy.findByText('https://github.com/SAP/ui5-webcomponents-react').should('be.visible');
+    cy.findByText('https://github.com/UI5/webcomponents-react').should('be.visible');
 
     cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
-    cy.findByText('https://github.com/SAP/ui5-webcomponents-react').should('not.be.visible');
+    cy.findByText('https://github.com/UI5/webcomponents-react').should('not.be.visible');
   });
   [ObjectPageMode.Default, ObjectPageMode.IconTabBar].forEach((mode) => {
     it(`ObjectPageSection/SubSection: Custom header & hideTitleText (mode: ${mode})`, () => {
@@ -1869,9 +1869,7 @@ const DPContent = (
       <FlexBox direction={FlexBoxDirection.Column}>
         <Link>+33 6 4512 5158</Link>
         <Link href="mailto:ui5-webcomponents-react@sap.com">DeniseSmith@sap.com</Link>
-        <Link href="https://github.com/SAP/ui5-webcomponents-react">
-          https://github.com/SAP/ui5-webcomponents-react
-        </Link>
+        <Link href="https://github.com/UI5/webcomponents-react">https://github.com/UI5/webcomponents-react</Link>
       </FlexBox>
       <FlexBox direction={FlexBoxDirection.Column} style={{ padding: '10px' }}>
         <Label>San Jose</Label>

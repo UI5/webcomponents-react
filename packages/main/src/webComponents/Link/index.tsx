@@ -21,7 +21,7 @@ interface LinkAttributes {
    * - **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.
    * Accepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.
    *
-   * **Note:** Available since [v1.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.
    * @default {}
    */
   accessibilityAttributes?: LinkAccessibilityAttributes;
@@ -29,7 +29,7 @@ interface LinkAttributes {
   /**
    * Defines the accessible description of the component.
    *
-   * **Note:** Available since [v2.5.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.5.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.5.0](https://github.com/UI5/webcomponents/releases/tag/v2.5.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescription?: string | undefined;
@@ -37,7 +37,7 @@ interface LinkAttributes {
   /**
    * Defines the accessible ARIA name of the component.
    *
-   * **Note:** Available since [v1.2.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.2.0](https://github.com/UI5/webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleName?: string | undefined;
@@ -53,7 +53,7 @@ interface LinkAttributes {
    *
    * **Note:** Use the <code>LinkAccessibleRole.Button</code> role in cases when navigation is not expected to occur and the href property is not defined.
    *
-   * **Note:** Available since [v1.9.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.9.0](https://github.com/UI5/webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
    * @default "Link"
    */
   accessibleRole?: LinkAccessibleRole | keyof typeof LinkAccessibleRole;
@@ -84,7 +84,7 @@ interface LinkAttributes {
    *
    * See all the available icons within the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   endIcon?: string | undefined;
@@ -107,7 +107,7 @@ interface LinkAttributes {
    *
    * See all the available icons within the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   icon?: string | undefined;
@@ -121,7 +121,7 @@ interface LinkAttributes {
    * **Note:**To improve <code>ui5-link</code>'s reliability and usability, it is recommended to use the <code>InteractiveAreaSize.Large</code> value in scenarios where the <code>ui5-link</code> component is placed inside another interactive component, such as a list item or a table cell.
    * Setting the <code>interactiveAreaSize</code> property to <code>InteractiveAreaSize.Large</code> increases the <code>ui5-link</code>'s invisible touch area. As a result, the user's intended one-time selection command is more likely to activate the desired <code>ui5-link</code>, with minimal chance of unintentionally activating the underlying component.
    *
-   * **Note:** Available since [v2.8.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.8.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.8.0](https://github.com/UI5/webcomponents/releases/tag/v2.8.0) of **@ui5/webcomponents**.
    * @default "Normal"
    */
   interactiveAreaSize?: InteractiveAreaSize | keyof typeof InteractiveAreaSize;
@@ -145,7 +145,7 @@ interface LinkAttributes {
   /**
    * Defines the tooltip of the component.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   tooltip?: string | undefined;
@@ -208,7 +208,7 @@ interface LinkPropTypes extends LinkAttributes, Omit<CommonProps, keyof LinkAttr
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  */
 const Link = withWebComponent<LinkPropTypes, LinkDomRef>(
   'ui5-link',
