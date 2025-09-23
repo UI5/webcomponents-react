@@ -5,7 +5,7 @@ import type ExpandableTextOverflowMode from '@ui5/webcomponents/dist/types/Expan
 import type TextEmptyIndicatorMode from '@ui5/webcomponents/dist/types/TextEmptyIndicatorMode.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
-import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/dist/utils/addCustomCSSWithScoping.js';
+import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/dist/internal/utils/addCustomCSSWithScoping.js';
 
 //todo: remove once ExpandableText supports setting white-space
 addCustomCSSWithScoping(

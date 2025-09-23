@@ -3,7 +3,7 @@
 import { attachDirectionChange, detachDirectionChange } from '@ui5/webcomponents-base/dist/locale/directionChange.js';
 import type { RefObject } from 'react';
 import { useRef, useState } from 'react';
-import { useIsomorphicLayoutEffect } from '../hooks/index.js';
+import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect.js';
 
 const useIsRTL = <RefType extends HTMLElement>(elementRef: RefObject<RefType>): boolean => {
   const [isRTL, setRTL] = useState(false); // initial value is always LTR (also for SSR)

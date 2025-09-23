@@ -10,7 +10,7 @@ import type TableGrowingMode from '@ui5/webcomponents-compat/dist/types/TableGro
 import type TableMode from '@ui5/webcomponents-compat/dist/types/TableMode.js';
 import { getCompatCustomElementsScopingSuffix } from '@ui5/webcomponents-compat/dist/utils/CompatCustomElementsScope.js';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
-import { withWebComponent } from '@ui5/webcomponents-react-base/dist/wrapper/withWebComponent.js';
+import { withWebComponent } from '@ui5/webcomponents-react-base/dist/internal/wrapper/withWebComponent.js';
 import type { ReactNode } from 'react';
 
 const compatScopingSuffix = getCompatCustomElementsScopingSuffix();

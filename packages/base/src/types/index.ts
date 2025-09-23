@@ -1,7 +1,5 @@
-import type { ReactElement, ReactNode, ReactPortal } from 'react';
-
-export type ReducedReactNode = Exclude<ReactNode, string | number | boolean | ReactPortal | Iterable<ReactNode>>;
-export type ReducedReactNodeWithBoolean = Exclude<ReactNode, string | number | ReactPortal | Iterable<ReactNode>>;
+import type { ReactElement } from 'react';
+import type { ReducedReactNode } from '../internal/types/index.js';
 
 type InternalUI5WCSlotsNode =
   | ReducedReactNode
@@ -10,7 +8,3 @@ type InternalUI5WCSlotsNode =
   | ReactElement /* necessary for React v16 & v17 ReactNode type*/;
 
 export type UI5WCSlotsNode = InternalUI5WCSlotsNode | InternalUI5WCSlotsNode[];
-
-export type { CommonProps } from './CommonProps.js';
-export type { Ui5CustomEvent } from './Ui5CustomEvent.js';
-export type { Ui5DomRef } from './Ui5DomRef.js';
