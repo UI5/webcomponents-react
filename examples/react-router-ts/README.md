@@ -6,7 +6,7 @@ This example was previously known as [Remix](https://remix.run/), and got update
 ## How to use this template
 
 ```bash
-npx degit SAP/ui5-webcomponents-react/examples/react-router-ts#main my-project
+npx degit UI5/webcomponents-react/examples/react-router-ts#main my-project
 cd my-project
 ```
 

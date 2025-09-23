@@ -94,7 +94,7 @@ export function ProjectTemplate(props: ProjectTemplatePropTypes) {
                 <br />
                 <br />
                 You can find the corresponding GitHub issue{' '}
-                <Link href="https://github.com/SAP/ui5-webcomponents/issues/9771" target="_blank">
+                <Link href="https://github.com/UI5/webcomponents/issues/9771" target="_blank">
                   here
                 </Link>
                 .

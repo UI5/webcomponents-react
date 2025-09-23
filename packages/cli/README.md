@@ -14,7 +14,7 @@ npm install @ui5/webcomponents-react-cli
 
 You can find an interactive documentation in our [Storybook](https://ui5.github.io/webcomponents-react/).
 
-- [Wrapper generation](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-bring-your-own-web-components--docs)
+- [Wrapper generation](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-bring-your-own-web-components--docs)
 - Code-mods:
   - [v2](https://ui5.github.io/webcomponents-react/v2/?path=/docs/migration-guide--docs#codemod): Migrate your codebase from v1 to v2
     ```shell

@@ -179,7 +179,7 @@ const FilterGroupItem = forwardRef<HTMLDivElement, FilterGroupItemPropTypes & Fi
 
     if (!inFB) {
       return (
-        //todo: disable selection for required fields when it's possible, or the table is fully controllable (https://github.com/SAP/ui5-webcomponents/issues/5662)
+        //todo: disable selection for required fields when it's possible, or the table is fully controllable (https://github.com/UI5/webcomponents/issues/5662)
         <TableRow
           ref={tableRowRef}
           rowKey={`${filterKey}`}

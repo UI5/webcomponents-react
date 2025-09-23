@@ -13,7 +13,7 @@ First, you need to clone the git repository by running
 
 ```sh
 # this git url points to the original repository, you can exchange it with the address of your fork
-git clone https://github.com/SAP/ui5-webcomponents-react.git
+git clone https://github.com/UI5/webcomponents-react.git
 ```
 
 Then, go into that cloned directory and run `yarn install`. At this point, you are ready to start local development. You can now run:

@@ -11,7 +11,7 @@ interface SelectAttributes {
   /**
    * Defines the accessible description of the component.
    *
-   * **Note:** Available since [v2.14.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.14.0](https://github.com/UI5/webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescription?: string | undefined;
@@ -19,7 +19,7 @@ interface SelectAttributes {
   /**
    * Receives id(or many ids) of the elements that describe the select.
    *
-   * **Note:** Available since [v2.14.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.14.0](https://github.com/UI5/webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescriptionRef?: string | undefined;
@@ -58,7 +58,7 @@ interface SelectAttributes {
    * **Note:** A read-only component is not editable,
    * but still provides visual feedback upon user interaction.
    *
-   * **Note:** Available since [v1.21.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.21.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.21.0](https://github.com/UI5/webcomponents/releases/tag/v1.21.0) of **@ui5/webcomponents**.
    * @default false
    */
   readonly?: boolean;
@@ -72,7 +72,7 @@ interface SelectAttributes {
   /**
    * Defines the tooltip of the select.
    *
-   * **Note:** Available since [v2.8.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.8.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.8.0](https://github.com/UI5/webcomponents/releases/tag/v2.8.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   tooltip?: string | undefined;
@@ -89,7 +89,7 @@ interface SelectAttributes {
    * **Note:** If the given value does not match any existing option,
    * no option will be selected and the Select component will be displayed as empty.
    *
-   * **Note:** Available since [v1.20.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.20.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.20.0](https://github.com/UI5/webcomponents/releases/tag/v1.20.0) of **@ui5/webcomponents**.
    */
   value?: string;
 
@@ -144,9 +144,9 @@ interface SelectPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * **Note:** Available since [v1.17.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.17.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.17.0](https://github.com/UI5/webcomponents/releases/tag/v1.17.0) of **@ui5/webcomponents**.
    */
   label?: UI5WCSlotsNode;
 
@@ -165,7 +165,7 @@ interface SelectPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**
@@ -192,7 +192,7 @@ interface SelectPropTypes
    * Fired when the user navigates through the options, but the selection is not finalized,
    * or when pressing the ESC key to revert the current selection.
    *
-   * **Note:** Available since [v1.17.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.17.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.17.0](https://github.com/UI5/webcomponents/releases/tag/v1.17.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -256,7 +256,7 @@ interface SelectPropTypes
  * `import "@ui5/webcomponents/dist/Option";`
  * `import "@ui5/webcomponents/dist/OptionCustom";`
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  */
 const Select = withWebComponent<SelectPropTypes, SelectDomRef>(
   'ui5-select',

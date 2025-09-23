@@ -6,9 +6,8 @@ import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import IllustrationMessageType from '@ui5/webcomponents-fiori/dist/types/IllustrationMessageType.js';
 import declineIcon from '@ui5/webcomponents-icons/dist/decline.js';
-import exitFSIcon from '@ui5/webcomponents-icons/dist/exit-full-screen.js';
-import fullscreenIcon from '@ui5/webcomponents-icons/dist/full-screen.js';
 import sunIcon from '@ui5/webcomponents-icons/dist/general-leave-request.js';
+import shareIcon from '@ui5/webcomponents-icons/dist/share.js';
 import { useRef } from 'react';
 import { fn } from 'storybook/test';
 import { Toolbar as LegacyToolbar, ToolbarSpacer as LegacyToolbarSpacer } from '../../../../compat/src/index.js';
@@ -86,9 +85,18 @@ const meta = {
         }
         navigationBar={
           <Toolbar design="Transparent">
-            <ToolbarButton icon={fullscreenIcon} design={ButtonDesign.Transparent} />
-            <ToolbarButton icon={exitFSIcon} design={ButtonDesign.Transparent} />
-            <ToolbarButton icon={declineIcon} design={ButtonDesign.Transparent} />
+            <ToolbarButton
+              icon={shareIcon}
+              design={ButtonDesign.Transparent}
+              tooltip="Navigation Action"
+              accessibleName="Example Navigation Action 1"
+            />
+            <ToolbarButton
+              icon={declineIcon}
+              design={ButtonDesign.Transparent}
+              tooltip="Navigation Action"
+              accessibleName="Example Navigation Action 2"
+            />
           </Toolbar>
         }
         breadcrumbs={
@@ -118,9 +126,7 @@ const meta = {
           <FlexBox direction={FlexBoxDirection.Column}>
             <Link>+33 6 4512 5158</Link>
             <Link href="mailto:ui5-webcomponents-react@sap.com">DeniseSmith@sap.com</Link>
-            <Link href="https://github.com/SAP/ui5-webcomponents-react">
-              https://github.com/SAP/ui5-webcomponents-react
-            </Link>
+            <Link href="https://github.com/UI5/webcomponents-react">https://github.com/UI5/webcomponents-react</Link>
           </FlexBox>
           <FlexBox direction={FlexBoxDirection.Column} style={{ padding: '10px' }}>
             <Label>San Jose</Label>
@@ -418,9 +424,18 @@ export const LegacyToolbarSupport: Story = {
                 data-in-object-page-title
               >
                 <LegacyToolbarSpacer />
-                <Button icon={fullscreenIcon} design={ButtonDesign.Transparent} />
-                <Button icon={exitFSIcon} design={ButtonDesign.Transparent} />
-                <Button icon={declineIcon} design={ButtonDesign.Transparent} />
+                <Button
+                  icon={shareIcon}
+                  design={ButtonDesign.Transparent}
+                  tooltip="Navigation Action"
+                  accessibleName="Example Navigation Action 1"
+                />
+                <Button
+                  icon={declineIcon}
+                  design={ButtonDesign.Transparent}
+                  tooltip="Navigation Action"
+                  accessibleName="Example Navigation Action 2"
+                />
               </LegacyToolbar>
             }
           />

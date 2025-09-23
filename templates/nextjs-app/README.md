@@ -5,7 +5,7 @@ This template shows how to use the [Next.js](https://nextjs.org/) App Router wit
 ## How to use this template
 
 ```bash
-npx degit SAP/ui5-webcomponents-react/templates/nextjs-app#main my-project
+npx degit UI5/webcomponents-react/templates/nextjs-app#main my-project
 cd my-project
 ```
 
