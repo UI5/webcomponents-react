@@ -47,15 +47,10 @@
       "types": "./dist/wrapper/withWebComponent.d.ts",
       "default": "./dist/wrapper/withWebComponent.js"
     },
-    "./utils": {
-      "types": "./dist/utils/index.d.ts",
-      "default": "./dist/utils/index.js"
-    },
     "./types": {
-      "types": "./dist/types/index.d.ts",
-      "default": "./dist/types/index.js"
+      "types": "./dist/types/index.d.ts"
     },
-    "./internal": "./dist/internal",
+    "./internal/*": "./dist/internal/*",
     "./internal/addCustomCSSWithScoping.js": "./dist/utils/addCustomCSSWithScoping.js"
   },
   "homepage": "https://ui5.github.io/webcomponents-react",
