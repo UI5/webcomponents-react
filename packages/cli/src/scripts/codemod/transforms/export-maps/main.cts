@@ -127,10 +127,6 @@ function resolveBaseExport(importedName: string): string | undefined {
   if (importedName === 'UI5WCSlotsNode') {
     return `${basePackageName}/types`;
   }
-  //todo: why is this required?
-  // if (importedName === 'default' || importedName === 'index') {
-  //   return basePackageName;
-  // }
   return undefined;
 }
 
@@ -150,9 +146,6 @@ function resolveChartsExport(importedName: string): string | undefined {
   if (directMap[importedName]) {
     return directMap[importedName];
   }
-  if (importedName === 'default' || importedName === 'index') {
-    return chartsPackageName;
-  }
   return undefined;
 }
 
@@ -169,7 +162,7 @@ export default function transform(file: FileInfo, api: API): string | undefined 
   packageNames.forEach((pkg) => {
     root.find(j.ImportDeclaration, { source: { value: pkg } }).forEach((importPath) => {
       const specifiers = importPath.node.specifiers || [];
-      specifiers.forEach((spec: any) => {
+      specifiers.forEach((spec) => {
         if (spec.type !== 'ImportSpecifier') return;
         const importedName = spec.imported.name as string;
         let componentName = importedName;
@@ -210,7 +203,7 @@ export default function transform(file: FileInfo, api: API): string | undefined 
         // Namespace import deltas
         if (pkg === basePackageName && ['Device', 'hooks'].includes(importedName)) {
           const newImport = j.importDeclaration(
-            [j.importNamespaceSpecifier(j.identifier(spec.local?.name || importedName))],
+            [j.importNamespaceSpecifier(j.identifier((spec.local?.name as string) || importedName))],
             j.literal(`${basePackageName}/${importedName}`),
           );
           j(importPath).insertBefore(newImport);
