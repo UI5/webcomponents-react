@@ -51,14 +51,11 @@
       "types": "./dist/utils/index.d.ts",
       "default": "./dist/utils/index.js"
     },
-    "./internal/types": {
-      "types": "./dist/types/internal/index.d.ts",
-      "default": "./dist/types/internal/index.js"
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/types/index.js"
     },
-    "./internal/addCustomCSSWithScoping": {
-      "types": "./dist/utils/addCustomCSSWithScoping.d.ts",
-      "default": "./dist/utils/addCustomCSSWithScoping.js"
-    },
+    "./internal": "./dist/internal",
     "./internal/addCustomCSSWithScoping.js": "./dist/utils/addCustomCSSWithScoping.js"
   },
   "homepage": "https://sap.github.io/ui5-webcomponents-react",

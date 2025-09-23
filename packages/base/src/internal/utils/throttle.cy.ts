@@ -1,4 +1,4 @@
-import { throttle } from './throttle';
+import { throttle } from './throttle.js';
 
 const throttledHello = (options?) => {
   const mockFn = cy.spy().as('throttle');

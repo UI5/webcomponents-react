@@ -2,7 +2,7 @@
 
 import I18nBundle from '@ui5/webcomponents-base/dist/i18nBundle.js';
 import { useEffect, useSyncExternalStore } from 'react';
-import { I18nStore } from '../stores/I18nStore.js';
+import { I18nStore } from '../internal/stores/I18nStore.js';
 
 const defaultBundle = new I18nBundle('defaultBundle');
 

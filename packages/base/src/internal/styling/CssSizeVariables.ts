@@ -1,4 +1,4 @@
-import { ThemingParameters } from './ThemingParameters.js';
+import { ThemingParameters } from '../../styling/ThemingParameters.js';
 
 export enum CssSizeVariablesNames {
   ui5WcrBarHeight = '--_ui5wcr-BarHeight',
