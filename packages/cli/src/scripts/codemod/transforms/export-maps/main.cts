@@ -10,7 +10,7 @@ const compatPackageName = '@ui5/webcomponents-react-compat';
 
 const packageNames = [mainPackageName, basePackageName, chartsPackageName, aiPackageName, compatPackageName];
 
-const internalTypes = new Set([
+const ignoredImportedNames = new Set([
   'ReducedReactNode',
   'ReducedReactNodeWithBoolean',
   'UI5WCSlotsNode',
@@ -85,6 +85,7 @@ try {
   console.warn(`⚠️ Could not read utils index at ${utilsIndexPath}.`, e);
 }
 
+// Mapping functions
 function resolveBaseExport(importedName: string): string | undefined {
   const directMap: Record<string, string> = {
     Device: `${basePackageName}/Device`,
@@ -145,7 +146,7 @@ export default function transform(file: FileInfo, api: API): string | undefined 
   }
 
   let isDirty = false;
-  let shouldKeepOldImport = false;
+
   packageNames.forEach((pkg) => {
     root.find(j.ImportDeclaration, { source: { value: pkg } }).forEach((importPath) => {
       const specifiers = importPath.node.specifiers || [];
@@ -156,28 +157,8 @@ export default function transform(file: FileInfo, api: API): string | undefined 
         }
 
         const importedName = spec.imported.name as string;
-        shouldKeepOldImport = false;
-        if (internalTypes.has(importedName)) {
-          if (pkg === mainPackageName) {
-            const newImport = j.importDeclaration(
-              [
-                j.importSpecifier(
-                  j.identifier(importedName),
-                  j.identifier(spec.local && typeof spec.local.name === 'string' ? spec.local.name : importedName),
-                ),
-              ],
-              j.literal(`${basePackageName}/dist/types/index.js`),
-            );
-            if ('importKind' in spec && spec.importKind === 'type') {
-              newImport.importKind = 'type';
-            }
-            j(importPath).insertBefore(newImport);
-            isDirty = true;
-          } else {
-            // todo: clarify if this should be included as well
-            // If from base package, keep import as is for now
-            shouldKeepOldImport = true;
-          }
+
+        if (ignoredImportedNames.has(importedName)) {
           return;
         }
 
@@ -221,10 +202,7 @@ export default function transform(file: FileInfo, api: API): string | undefined 
         j(importPath).insertBefore(newImport);
         isDirty = true;
       });
-
-      if (!shouldKeepOldImport) {
-        j(importPath).remove();
-      }
+      j(importPath).remove();
     });
   });
 
