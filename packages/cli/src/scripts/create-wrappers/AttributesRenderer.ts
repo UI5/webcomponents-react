@@ -50,7 +50,7 @@ export class AttributesRenderer extends AbstractRenderer {
     if (sinceFilter(attribute._ui5since)) {
       parts.push(` *`);
       parts.push(
-        ` * **Note:** Available since [v${attribute._ui5since}](https://github.com/SAP/ui5-webcomponents/releases/tag/v${attribute._ui5since}) of **${context.packageName}**.`,
+        ` * **Note:** Available since [v${attribute._ui5since}](https://github.com/UI5/webcomponents/releases/tag/v${attribute._ui5since}) of **${context.packageName}**.`,
       );
     }
 

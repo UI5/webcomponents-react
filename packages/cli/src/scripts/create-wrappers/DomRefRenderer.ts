@@ -89,7 +89,7 @@ export class DomRefRenderer extends AbstractRenderer {
     if (sinceFilter(member._ui5since)) {
       descriptionParts.push(` *`);
       descriptionParts.push(
-        ` * **Note:** Available since [v${member._ui5since}](https://github.com/SAP/ui5-webcomponents/releases/tag/v${member._ui5since}) of **${context.packageName}**.`,
+        ` * **Note:** Available since [v${member._ui5since}](https://github.com/UI5/webcomponents/releases/tag/v${member._ui5since}) of **${context.packageName}**.`,
       );
     }
 

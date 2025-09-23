@@ -20,7 +20,7 @@ interface TableAttributes {
   /**
    * Defines the accessible ARIA name of the component.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    * @default undefined
    */
   accessibleName?: string | undefined;
@@ -28,7 +28,7 @@ interface TableAttributes {
   /**
    * Receives id(or many ids) of the elements that label the component.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    * @default undefined
    */
   accessibleNameRef?: string | undefined;
@@ -39,7 +39,7 @@ interface TableAttributes {
    * In this state the component's opacity is reduced
    * and busy indicator is displayed at the bottom of the table.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    * @default false
    */
   busy?: boolean;
@@ -65,7 +65,7 @@ interface TableAttributes {
    * **Restrictions:** `growing="Scroll"` is not supported for Internet Explorer,
    * and the component will fallback to `growing="Button"`.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    * @default "None"
    */
   growing?: TableGrowingMode | keyof typeof TableGrowingMode;
@@ -75,7 +75,7 @@ interface TableAttributes {
    *
    * **Note:** This property takes effect if `growing` is set to `Button`.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    * @default undefined
    */
   growingButtonSubtext?: string | undefined;
@@ -88,7 +88,7 @@ interface TableAttributes {
    *
    * **Note:** This property takes effect if `growing` is set to `Button`.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    * @default undefined
    */
   growingButtonText?: string | undefined;
@@ -96,7 +96,7 @@ interface TableAttributes {
   /**
    * Defines if the value of `noDataText` will be diplayed when there is no rows present in the table.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    * @default false
    */
   hideNoData?: boolean;
@@ -104,7 +104,7 @@ interface TableAttributes {
   /**
    * Defines the mode of the component.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    * @default "None"
    */
   mode?: TableMode | keyof typeof TableMode;
@@ -167,7 +167,7 @@ interface TablePropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   columns?: UI5WCSlotsNode;
   /**
@@ -175,7 +175,7 @@ interface TablePropTypes
    *
    * **Note:** The event will be fired if `growing` is set to `Button` or `Scroll`.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -186,7 +186,7 @@ interface TablePropTypes
   /**
    * Fired when `TableColumn` is shown as a pop-in instead of hiding it.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -207,7 +207,7 @@ interface TablePropTypes
    * Fired when selection is changed by user interaction
    * in `SingleSelect` and `MultiSelect` modes.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-compat**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -269,7 +269,7 @@ interface TablePropTypes
  * - `import "@ui5/webcomponents-compat/dist/TableGroupRow.js";` (`TableGroupRow`)
  * - `import "@ui5/webcomponents-compat/dist/TableCell.js";` (`TableCell`)
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  * @deprecated Deprecated as of version 2.12.0, use `@ui5/webcomponents/dist/Table.js` instead.
  */
 const Table = withWebComponent<TablePropTypes, TableDomRef>(

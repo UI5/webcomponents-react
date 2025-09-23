@@ -31,7 +31,7 @@
     },
     {
       "groupName": "UI5 Web Components",
-      "matchSourceUrls": ["https://github.com/SAP/ui5-webcomponents{/,}**"]
+      "matchSourceUrls": ["https://github.com/UI5/webcomponents{/,}**"]
     },
     {
       "groupName": "vite & plugins",
@@ -78,8 +78,8 @@
       "matchFileNames": ["examples/**", "templates/**", "patterns/**"],
       "semanticCommitType": "chore",
       "matchSourceUrls": [
-        "https://github.com/SAP/ui5-webcomponents{/,}**",
-        "https://github.com/SAP/ui5-webcomponents-react{/,}**"
+        "https://github.com/UI5/webcomponents{/,}**",
+        "https://github.com/UI5/webcomponents-react{/,}**"
       ]
     },
     {
@@ -88,7 +88,7 @@
       "groupSlug": "root-ui5-webcomponents",
       "matchFileNames": ["package.json"],
       "semanticCommitType": "chore",
-      "matchSourceUrls": ["https://github.com/SAP/ui5-webcomponents{/,}**"]
+      "matchSourceUrls": ["https://github.com/UI5/webcomponents{/,}**"]
     },
     {
       "groupName": "Typescript",

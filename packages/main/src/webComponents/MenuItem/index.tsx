@@ -21,7 +21,7 @@ interface MenuItemAttributes {
    *
    * - **role**: Defines the role of the menu item. If not set, menu item will have default role="menuitem".
    *
-   * **Note:** Available since [v2.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.1.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.1.0](https://github.com/UI5/webcomponents/releases/tag/v2.1.0) of **@ui5/webcomponents**.
    * @default {}
    */
   accessibilityAttributes?: MenuItemAccessibilityAttributes;
@@ -29,7 +29,7 @@ interface MenuItemAttributes {
   /**
    * Defines the accessible ARIA name of the component.
    *
-   * **Note:** Available since [v1.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.7.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.7.0](https://github.com/UI5/webcomponents/releases/tag/v1.7.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleName?: string | undefined;
@@ -43,7 +43,7 @@ interface MenuItemAttributes {
    * The priority of what will be displayed at the end of the menu item is as follows:
    * sub-menu arrow (if there are items added in `items` slot) -> components added in `endContent` -> text set to `additionalText`.
    *
-   * **Note:** Available since [v1.8.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.8.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.8.0](https://github.com/UI5/webcomponents/releases/tag/v1.8.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   additionalText?: string | undefined;
@@ -56,7 +56,7 @@ interface MenuItemAttributes {
    *
    * **Note:** A checked menu item has a checkmark displayed at its end.
    *
-   * **Note:** Available since [v2.12.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.12.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.12.0](https://github.com/UI5/webcomponents/releases/tag/v2.12.0) of **@ui5/webcomponents**.
    * @default false
    */
   checked?: boolean;
@@ -73,7 +73,7 @@ interface MenuItemAttributes {
    * Defines the highlight state of the list items.
    * Available options are: `"None"` (by default), `"Positive"`, `"Critical"`, `"Information"` and `"Negative"`.
    *
-   * **Note:** Available since [v1.24](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.24) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.24](https://github.com/UI5/webcomponents/releases/tag/v1.24) of **@ui5/webcomponents**.
    * @default "None"
    */
   highlight?: Highlight | keyof typeof Highlight;
@@ -94,7 +94,7 @@ interface MenuItemAttributes {
    *
    * **Note:** If set to `true` a busy indicator component will be displayed into the related one to the current menu item sub-menu popover.
    *
-   * **Note:** Available since [v1.13.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.13.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.13.0](https://github.com/UI5/webcomponents/releases/tag/v1.13.0) of **@ui5/webcomponents**.
    * @default false
    */
   loading?: boolean;
@@ -102,7 +102,7 @@ interface MenuItemAttributes {
   /**
    * Defines the delay in milliseconds, after which the loading indicator will be displayed inside the corresponding menu popover.
    *
-   * **Note:** Available since [v1.13.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.13.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.13.0](https://github.com/UI5/webcomponents/releases/tag/v1.13.0) of **@ui5/webcomponents**.
    * @default 1000
    */
   loadingDelay?: number;
@@ -111,7 +111,7 @@ interface MenuItemAttributes {
    * The navigated state of the list item.
    * If set to `true`, a navigation indicator is displayed at the end of the list item.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    * @default false
    */
   navigated?: boolean;
@@ -131,7 +131,7 @@ interface MenuItemAttributes {
   /**
    * Defines the text of the tooltip for the menu item.
    *
-   * **Note:** Available since [v1.23.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.23.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.23.0](https://github.com/UI5/webcomponents/releases/tag/v1.23.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   tooltip?: string | undefined;
@@ -188,9 +188,9 @@ interface MenuItemPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * **Note:** Available since [v1.9.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.9.0](https://github.com/UI5/webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
    */
   deleteButton?: UI5WCSlotsNode;
 
@@ -213,9 +213,9 @@ interface MenuItemPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    */
   endContent?: UI5WCSlotsNode;
   /**
@@ -223,7 +223,7 @@ interface MenuItemPropTypes
    *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -238,7 +238,7 @@ interface MenuItemPropTypes
    *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -249,7 +249,7 @@ interface MenuItemPropTypes
   /**
    * Fired when an item is checked or unchecked.
    *
-   * **Note:** Available since [v2.12.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.12.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.12.0](https://github.com/UI5/webcomponents/releases/tag/v2.12.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -260,7 +260,7 @@ interface MenuItemPropTypes
   /**
    * Fired after the menu is closed.
    *
-   * **Note:** Available since [v1.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -299,9 +299,9 @@ interface MenuItemPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [1.3.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.3.0) of __@ui5/webcomponents__.
+ * @since [1.3.0](https://github.com/UI5/webcomponents/releases/tag/v1.3.0) of __@ui5/webcomponents__.
  */
 const MenuItem = withWebComponent<MenuItemPropTypes, MenuItemDomRef>(
   'ui5-menu-item',

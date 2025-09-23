@@ -18,11 +18,11 @@ export function VersionTable() {
       <p>
         <b>
           In order to allow patching releases of UI5 Web Components by yourself, packages from{' '}
-          <Link href={'https://github.com/SAP/ui5-webcomponents'} target={'_blank'}>
+          <Link href={'https://github.com/UI5/webcomponents'} target={'_blank'}>
             ui5-webcomponents
           </Link>{' '}
           are peer dependencies of{' '}
-          <Link href={'https://github.com/SAP/ui5-webcomponents-react'}>ui5-webcomponents-react</Link> packages.
+          <Link href={'https://github.com/UI5/webcomponents-react'}>ui5-webcomponents-react</Link> packages.
         </b>
       </p>
       <p>If you&apos;re not clear which package is developed in which repo, expand the table below.</p>
@@ -40,7 +40,7 @@ export function VersionTable() {
           <tbody>
             <tr>
               <td>
-                <Link href={'https://github.com/SAP/ui5-webcomponents'} target={'_blank'}>
+                <Link href={'https://github.com/UI5/webcomponents'} target={'_blank'}>
                   ui5-webcomponents
                 </Link>
               </td>
@@ -87,7 +87,7 @@ export function VersionTable() {
             </tr>
             <tr>
               <td>
-                <Link href={'https://github.com/SAP/ui5-webcomponents-react'} target={'_blank'}>
+                <Link href={'https://github.com/UI5/webcomponents-react'} target={'_blank'}>
                   ui5-webcomponents-react
                 </Link>
               </td>
@@ -126,13 +126,13 @@ export function VersionTable() {
         <thead>
           <tr>
             <th>
-              <Link href={'https://github.com/SAP/ui5-webcomponents-react'} target={'_blank'}>
+              <Link href={'https://github.com/UI5/webcomponents-react'} target={'_blank'}>
                 ui5-webcomponents-react
               </Link>{' '}
               Versions
             </th>
             <th>
-              <Link href={'https://github.com/SAP/ui5-webcomponents'} target={'_blank'}>
+              <Link href={'https://github.com/UI5/webcomponents'} target={'_blank'}>
                 ui5-webcomponents
               </Link>{' '}
               Versions

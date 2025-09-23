@@ -24,7 +24,7 @@ import { Import } from './Import';
 import { TableOfContent } from './TableOfContent';
 
 const Links = ({ isChart }: { isChart?: boolean }) => {
-  const githubUrl = `https://github.com/SAP/ui5-webcomponents-react`;
+  const githubUrl = `https://github.com/UI5/webcomponents-react`;
 
   const packageName = `@ui5/webcomponents-react${isChart ? '-charts' : ''}`;
   return (

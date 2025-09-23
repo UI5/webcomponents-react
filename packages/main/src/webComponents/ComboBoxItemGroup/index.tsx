@@ -33,7 +33,7 @@ interface ComboBoxItemGroupAttributes {
    * - `None` (default) - The text will truncate with an ellipsis.
    * - `Normal` - The text will wrap (without truncation).
    *
-   * **Note:** Available since [v2.15.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.15.0](https://github.com/UI5/webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
    * @default "None"
    */
   wrappingType?: WrappingType | keyof typeof WrappingType;
@@ -58,7 +58,7 @@ interface ComboBoxItemGroupPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   header?: UI5WCSlotsNode;
   /**
@@ -66,7 +66,7 @@ interface ComboBoxItemGroupPropTypes
    *
    * **Note:** `move` event is fired only if there was a preceding `move-over` with prevented default action.
    *
-   * **Note:** Available since [v2.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.1.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.1.0](https://github.com/UI5/webcomponents/releases/tag/v2.1.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -81,7 +81,7 @@ interface ComboBoxItemGroupPropTypes
    *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
    *
-   * **Note:** Available since [v2.1.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.1.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.1.0](https://github.com/UI5/webcomponents/releases/tag/v2.1.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -94,7 +94,7 @@ interface ComboBoxItemGroupPropTypes
  * The `ui5-cb-group-item` is type of suggestion item,
  * that can be used to split the `ComboBox` suggestions into groups.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  * @abstract
  */
 const ComboBoxItemGroup = withWebComponent<ComboBoxItemGroupPropTypes, ComboBoxItemGroupDomRef>(
