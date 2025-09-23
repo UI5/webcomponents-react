@@ -3,7 +3,7 @@
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import { isPhone } from '@ui5/webcomponents-base/dist/Device.js';
 import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
-import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/dist/utils/addCustomCSSWithScoping.js';
+import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/dist/internal/utils/addCustomCSSWithScoping.js';
 import { clsx } from 'clsx';
 import type { ReactElement } from 'react';
 import { forwardRef, useEffect, useReducer, useRef, useState } from 'react';
