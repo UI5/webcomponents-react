@@ -10,15 +10,6 @@ const compatPackageName = '@ui5/webcomponents-react-compat';
 
 const packageNames = [mainPackageName, basePackageName, chartsPackageName, aiPackageName, compatPackageName];
 
-const ignoredImportedNames = new Set([
-  'ReducedReactNode',
-  'ReducedReactNodeWithBoolean',
-  'UI5WCSlotsNode',
-  'CommonProps',
-  'Ui5CustomEvent',
-  'Ui5DomRef',
-]);
-
 // Enums for main package
 const libraryPath = require.resolve('@ui5/webcomponents-react/package.json');
 const enumsDir = path.join(path.dirname(libraryPath), 'dist', 'enums');
@@ -150,18 +141,9 @@ export default function transform(file: FileInfo, api: API): string | undefined 
   packageNames.forEach((pkg) => {
     root.find(j.ImportDeclaration, { source: { value: pkg } }).forEach((importPath) => {
       const specifiers = importPath.node.specifiers || [];
-      //todo: remove any
       specifiers.forEach((spec: any) => {
-        if (spec.type !== 'ImportSpecifier') {
-          return;
-        }
-
+        if (spec.type !== 'ImportSpecifier') return;
         const importedName = spec.imported.name as string;
-
-        if (ignoredImportedNames.has(importedName)) {
-          return;
-        }
-
         let componentName = importedName;
         if (importedName.endsWith('PropTypes')) {
           componentName = importedName.replace(/PropTypes$/, '');
