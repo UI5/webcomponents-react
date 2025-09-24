@@ -28,34 +28,45 @@
       "default": "./dist/generated/VersionInfo.js"
     },
     "./I18nStore": {
-      "types": "./dist/stores/I18nStore.d.ts",
-      "default": "./dist/stores/I18nStore.js"
+      "types": "./dist/internal/stores/I18nStore.d.ts",
+      "default": "./dist/internal/stores/I18nStore.js"
     },
     "./StyleStore": {
-      "types": "./dist/stores/StyleStore.d.ts",
-      "default": "./dist/stores/StyleStore.js"
+      "types": "./dist/internal/stores/StyleStore.d.ts",
+      "default": "./dist/internal/stores/StyleStore.js"
     },
     "./CssSizeVariables": {
-      "types": "./dist/styling/CssSizeVariables.d.ts",
-      "default": "./dist/styling/CssSizeVariables.js"
+      "types": "./dist/internal/styling/CssSizeVariables.d.ts",
+      "default": "./dist/internal/styling/CssSizeVariables.js"
     },
     "./ThemingParameters": {
       "types": "./dist/styling/ThemingParameters.d.ts",
       "default": "./dist/styling/ThemingParameters.js"
     },
     "./withWebComponent": {
-      "types": "./dist/wrapper/withWebComponent.d.ts",
-      "default": "./dist/wrapper/withWebComponent.js"
+      "types": "./dist/internal/wrapper/withWebComponent.d.ts",
+      "default": "./dist/internal/wrapper/withWebComponent.js"
     },
     "./utils": {
-      "types": "./dist/utils/index.d.ts",
-      "default": "./dist/utils/index.js"
+      "types": "./dist/internal/utils/index.d.ts",
+      "default": "./dist/internal/utils/index.js"
     },
     "./types": {
       "types": "./dist/types/index.d.ts",
       "default": "./dist/types/index.js"
     },
-    "./internal": "./dist/internal",
+    "./internal/hooks": {
+      "types": "./dist/internal/hooks/index.d.ts",
+      "default": "./dist/internal/hooks/index.js"
+    },
+    "./internal/types": {
+      "types": "./dist/internal/types/index.d.ts",
+      "default": "./dist/internal/types/index.js"
+    },
+    "./internal/*": {
+      "types": "./dist/internal/*.d.ts",
+      "default": "./dist/internal/*.js"
+    },
     "./internal/addCustomCSSWithScoping.js": "./dist/utils/addCustomCSSWithScoping.js"
   },
   "homepage": "https://ui5.github.io/webcomponents-react",
