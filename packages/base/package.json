@@ -55,6 +55,7 @@
       "types": "./dist/types/index.d.ts",
       "default": "./dist/types/index.js"
     },
+    "./internal/addCustomCSSWithScoping.js": "./dist/internal/utils/addCustomCSSWithScoping.js",
     "./internal/hooks": {
       "types": "./dist/internal/hooks/index.d.ts",
       "default": "./dist/internal/hooks/index.js"
@@ -63,11 +64,14 @@
       "types": "./dist/internal/types/index.d.ts",
       "default": "./dist/internal/types/index.js"
     },
+    "./internal/utils": {
+      "types": "./dist/internal/utils/index.d.ts",
+      "default": "./dist/internal/utils/index.js"
+    },
     "./internal/*": {
       "types": "./dist/internal/*.d.ts",
       "default": "./dist/internal/*.js"
-    },
-    "./internal/addCustomCSSWithScoping.js": "./dist/utils/addCustomCSSWithScoping.js"
+    }
   },
   "homepage": "https://ui5.github.io/webcomponents-react",
   "repository": {
