@@ -45,8 +45,6 @@ jobs:
         with:
           name: build-${{ matrix.react }}
           path: packages
-      - name: Display structure of downloaded files
-        run: ls -R packages
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
