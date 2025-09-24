@@ -100,13 +100,14 @@ internalTypeNames.push(...getExportNames(internalTypesIndexPath));
 function resolveBaseExport(importedName: string): string | undefined {
   const directMap: Record<string, string> = {
     VersionInfo: `${basePackageName}/VersionInfo`,
-    I18nStore: `${basePackageName}/internal/stores/I18nStore.js`,
-    StyleStore: `${basePackageName}/internal/stores/StyleStore.js`,
-    CssSizeVariables: `${basePackageName}/internal/styling/CssSizeVariables.js`,
+    I18nStore: `${basePackageName}/internal/stores/I18nStore`,
+    StyleStore: `${basePackageName}/internal/stores/StyleStore`,
+    CssSizeVariables: `${basePackageName}/internal/styling/CssSizeVariables`,
     ThemingParameters: `${basePackageName}/ThemingParameters`,
-    withWebComponent: `${basePackageName}/internal/wrapper/withWebComponent.js`,
-    utils: `${basePackageName}/internal/utils/index.js`,
-    addCustomCSSWithScoping: `${basePackageName}/internal/addCustomCSSWithScoping.js`,
+    withWebComponent: `${basePackageName}/internal/wrapper/withWebComponent`,
+    utils: `${basePackageName}/internal/utils`,
+    addCustomCSSWithScoping: `${basePackageName}/internal/utils`,
+    UI5WCSlotsNode: `${basePackageName}/types`,
   };
 
   if (directMap[importedName]) {
@@ -116,16 +117,13 @@ function resolveBaseExport(importedName: string): string | undefined {
     return `${basePackageName}/hooks`;
   }
   if (internalHookNames.includes(importedName)) {
-    return `${basePackageName}/internal/hooks/index.js`;
+    return `${basePackageName}/internal/hooks`;
   }
   if (internalUtilNames.includes(importedName)) {
-    return `${basePackageName}/internal/utils/index.js`;
+    return `${basePackageName}/internal/utils`;
   }
   if (internalTypeNames.includes(importedName)) {
-    return `${basePackageName}/internal/types/index.js`;
-  }
-  if (importedName === 'UI5WCSlotsNode') {
-    return `${basePackageName}/types`;
+    return `${basePackageName}/internal/types`;
   }
   return undefined;
 }
@@ -200,7 +198,7 @@ export default function transform(file: FileInfo, api: API): string | undefined 
           j.literal(newSource),
         );
 
-        // Namespace import deltas
+        // Delta: Namespace imports
         if (pkg === basePackageName && ['Device', 'hooks'].includes(importedName)) {
           const newImport = j.importDeclaration(
             [j.importNamespaceSpecifier(j.identifier((spec.local?.name as string) || importedName))],
