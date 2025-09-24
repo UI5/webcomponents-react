@@ -12,6 +12,7 @@ export default defineConfig(() => {
       'process.env.STORYBOOK_ENV': `'${process.env.STORYBOOK_ENV}'`,
     },
     resolve: {
+      preserveSymlinks: true,
       alias: {
         '@sb': fileURLToPath(new URL('./.storybook', import.meta.url)),
         '@ui5/webcomponents-react-charts': fileURLToPath(new URL('./packages/charts/src/index.ts', import.meta.url)),
