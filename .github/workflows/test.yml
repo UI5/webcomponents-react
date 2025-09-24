@@ -41,6 +41,9 @@ jobs:
           yarn add "@types/react@18" "@types/react-dom@18" --dev
           yarn add react@18 react-dom@18
 
+      - name: Build
+        run: yarn build
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
