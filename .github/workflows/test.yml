@@ -41,8 +41,11 @@ jobs:
           yarn add "@types/react@18" "@types/react-dom@18" --dev
           yarn add react@18 react-dom@18
 
-      - name: Build
-        run: yarn build
+      - uses: actions/download-artifact@v5
+        with:
+          name: build-${{ matrix.react }}
+      - name: Display structure of downloaded files
+        run: ls -R
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
