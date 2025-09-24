@@ -66,6 +66,7 @@ export function getUi5TagWithSuffix(baseTagName: string) {
 
 export { debounce } from './debounce.js';
 export { throttle } from './throttle.js';
+export { addCustomCSSWithScoping } from './addCustomCSSWithScoping.js';
 /**
  * ⚠️ __INTERNAL__ use only! This function is not part of the public API.
  */
