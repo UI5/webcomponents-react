@@ -21,6 +21,7 @@ export default defineConfig(() => {
       },
     },
     optimizeDeps: {
+      include: ['@ui5/webcomponents-react-base'],
       esbuildOptions: {
         target: 'esnext',
       },
