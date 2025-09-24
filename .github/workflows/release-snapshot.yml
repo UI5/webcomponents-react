@@ -38,21 +38,21 @@ jobs:
           yarn install
           yarn build
 
-      - name: publish
-        run: |
-          git config user.email ${{ secrets.BOT_GIT_EMAIL }}
-          git config user.name ${{ secrets.BOT_GIT_USERNAME }}
-
-          git_hash=$(git rev-parse --short "$GITHUB_SHA")
-          current_branch=$(node -p -e "'${{ github.ref }}'.replace('refs/heads/', '')")
-
-          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish "0.0.0-${git_hash}" \
-            --exact \
-            --no-push \
-            --no-git-tag-version \
-            --pre-dist-tag dev \
-            --allow-branch ${current_branch}
-
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
+#      - name: publish
+#        run: |
+#          git config user.email ${{ secrets.BOT_GIT_EMAIL }}
+#          git config user.name ${{ secrets.BOT_GIT_USERNAME }}
+#
+#          git_hash=$(git rev-parse --short "$GITHUB_SHA")
+#          current_branch=$(node -p -e "'${{ github.ref }}'.replace('refs/heads/', '')")
+#
+#          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish "0.0.0-${git_hash}" \
+#            --exact \
+#            --no-push \
+#            --no-git-tag-version \
+#            --pre-dist-tag dev \
+#            --allow-branch ${current_branch}
+#
+#        env:
+#          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+#          NPM_CONFIG_PROVENANCE: true
