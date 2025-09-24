@@ -12,7 +12,7 @@ import {
   Text,
   ThemeProvider,
 } from '@ui5/webcomponents-react';
-import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/dist/internal/utils/addCustomCSSWithScoping.js';
+import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
 import { useRef, useState } from 'react';

@@ -5,7 +5,7 @@ import group2Icon from '@ui5/webcomponents-icons/dist/group-2.js';
 import listIcon from '@ui5/webcomponents-icons/dist/list.js';
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
 import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
-import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/dist/internal/utils/addCustomCSSWithScoping.js';
+import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import type { ReactElement, RefObject } from 'react';
 import { Children, cloneElement, useEffect, useId, useReducer, useRef, useState } from 'react';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
