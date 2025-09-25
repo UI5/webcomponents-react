@@ -74,7 +74,9 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
 
   const onScroll = useCallback(
     (event) => {
-      handleExternalScroll(enrichEventWithDetails(event, { rows, rowElements: event.target.children[0].children }));
+      if (typeof handleExternalScroll === 'function') {
+        handleExternalScroll(enrichEventWithDetails(event, { rows, rowElements: event.target.children[0].children }));
+      }
       const scrollOffset = event.target.scrollTop;
       const isScrollingDown = lastScrollTop.current < scrollOffset;
       const target = event.target;
