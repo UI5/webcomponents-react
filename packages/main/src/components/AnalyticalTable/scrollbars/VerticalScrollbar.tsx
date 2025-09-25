@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import type { MutableRefObject, RefObject } from 'react';
+import type { MutableRefObject } from 'react';
 import { forwardRef } from 'react';
 import { FlexBoxDirection } from '../../../enums/FlexBoxDirection.js';
 import { FlexBox } from '../../FlexBox/index.js';
@@ -7,7 +7,7 @@ import type { ClassNames } from '../types/index.js';
 
 interface VerticalScrollbarProps {
   internalRowHeight: number;
-  tableRef: RefObject<any>;
+  tableRef: MutableRefObject<HTMLDivElement>;
   tableBodyHeight: number;
   scrollContainerRef: MutableRefObject<HTMLDivElement>;
   nativeScrollbar: boolean;

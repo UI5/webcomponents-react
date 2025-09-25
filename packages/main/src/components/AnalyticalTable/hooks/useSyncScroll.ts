@@ -1,7 +1,7 @@
-import type { RefObject } from 'react';
+import type { MutableRefObject } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
-export function useSyncScroll(refContent: RefObject<HTMLElement>, refScrollbar: RefObject<HTMLElement>) {
+export function useSyncScroll(refContent: MutableRefObject<HTMLElement>, refScrollbar: MutableRefObject<HTMLElement>) {
   const ticking = useRef(false);
   const isProgrammatic = useRef(false);
   const [isMounted, setIsMounted] = useState(false);
