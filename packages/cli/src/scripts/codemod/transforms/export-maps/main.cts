@@ -209,9 +209,10 @@ export default function transform(file: FileInfo, api: API): string | undefined 
           return;
         }
 
-        if ('importKind' in spec && spec.importKind === 'type') {
+        if (('importKind' in spec && spec.importKind === 'type') || importPath.node.importKind === 'type') {
           newImport.importKind = 'type';
         }
+
         j(importPath).insertBefore(newImport);
         isDirty = true;
       });
