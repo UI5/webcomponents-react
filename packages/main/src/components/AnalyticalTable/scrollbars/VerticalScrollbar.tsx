@@ -1,7 +1,6 @@
-import { useSyncRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { MutableRefObject, RefObject } from 'react';
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef } from 'react';
 import { FlexBoxDirection } from '../../../enums/FlexBoxDirection.js';
 import { FlexBox } from '../../FlexBox/index.js';
 import type { ClassNames } from '../types/index.js';
@@ -9,43 +8,15 @@ import type { ClassNames } from '../types/index.js';
 interface VerticalScrollbarProps {
   internalRowHeight: number;
   tableRef: RefObject<any>;
-  handleVerticalScrollBarScroll: any;
   tableBodyHeight: number;
   scrollContainerRef: MutableRefObject<HTMLDivElement>;
-  parentRef: MutableRefObject<HTMLDivElement>;
   nativeScrollbar: boolean;
   classNames: ClassNames;
 }
 
 export const VerticalScrollbar = forwardRef<HTMLDivElement, VerticalScrollbarProps>((props, ref) => {
-  const {
-    internalRowHeight,
-    tableRef,
-    handleVerticalScrollBarScroll,
-    tableBodyHeight,
-    scrollContainerRef,
-    nativeScrollbar,
-    parentRef,
-    classNames,
-  } = props;
-  const [componentRef, containerRef] = useSyncRef(ref);
-  const scrollElementRef = useRef(null);
-
+  const { internalRowHeight, tableRef, tableBodyHeight, scrollContainerRef, nativeScrollbar, classNames } = props;
   const hasHorizontalScrollbar = tableRef?.current?.offsetWidth !== tableRef?.current?.scrollWidth;
-
-  useEffect(() => {
-    const observer = new ResizeObserver(([entry]) => {
-      if (containerRef.current && parentRef.current && entry.target.getBoundingClientRect().height > 0) {
-        containerRef.current.scrollTop = parentRef.current.scrollTop;
-      }
-    });
-    if (scrollElementRef.current) {
-      observer.observe(scrollElementRef.current);
-    }
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
   const horizontalScrollbarSectionStyles = clsx(hasHorizontalScrollbar && classNames.bottomSection);
 
   return (
@@ -61,11 +32,10 @@ export const VerticalScrollbar = forwardRef<HTMLDivElement, VerticalScrollbarPro
         className={classNames.headerSection}
       />
       <div
-        ref={componentRef}
+        ref={ref}
         style={{
           height: tableRef.current ? `${tableBodyHeight}px` : '0',
         }}
-        onScroll={handleVerticalScrollBarScroll}
         className={clsx(
           classNames.scrollbar,
           nativeScrollbar
@@ -76,7 +46,6 @@ export const VerticalScrollbar = forwardRef<HTMLDivElement, VerticalScrollbarPro
         tabIndex={-1}
       >
         <div
-          ref={scrollElementRef}
           className={classNames.verticalScroller}
           style={{
             height: `${scrollContainerRef.current?.scrollHeight}px`,

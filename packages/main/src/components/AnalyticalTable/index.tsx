@@ -73,6 +73,7 @@ import { useScrollToRef } from './hooks/useScrollToRef.js';
 import { useSelectionChangeCallback } from './hooks/useSelectionChangeCallback.js';
 import { useSingleRowStateSelection } from './hooks/useSingleRowStateSelection.js';
 import { useStyling } from './hooks/useStyling.js';
+import { useSyncScroll } from './hooks/useSyncScroll.js';
 import { useToggleRowExpand } from './hooks/useToggleRowExpand.js';
 import { useVisibleColumnsWidth } from './hooks/useVisibleColumnsWidth.js';
 import { VerticalScrollbar } from './scrollbars/VerticalScrollbar.js';
@@ -655,34 +656,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     }
   }, [tableState.columnResizing, retainColumnWidth, tableState.tableColResized]);
 
-  const handleBodyScroll = (e) => {
-    if (typeof onTableScroll === 'function') {
-      onTableScroll(e);
-    }
-    const targetScrollTop = e.currentTarget.scrollTop;
-
-    if (verticalScrollBarRef.current) {
-      const vertScrollbarScrollElement = verticalScrollBarRef.current.firstElementChild as HTMLDivElement;
-      if (vertScrollbarScrollElement.offsetHeight !== scrollContainerRef.current?.offsetHeight) {
-        vertScrollbarScrollElement.style.height = `${scrollContainerRef.current.offsetHeight}px`;
-      }
-      if (verticalScrollBarRef.current.scrollTop !== targetScrollTop) {
-        if (!e.currentTarget.isExternalVerticalScroll) {
-          verticalScrollBarRef.current.scrollTop = targetScrollTop;
-          verticalScrollBarRef.current.isExternalVerticalScroll = true;
-        }
-        e.currentTarget.isExternalVerticalScroll = false;
-      }
-    }
-  };
-
-  const handleVerticalScrollBarScroll = useCallback((e) => {
-    if (parentRef.current && !e.currentTarget.isExternalVerticalScroll) {
-      parentRef.current.scrollTop = e.currentTarget.scrollTop;
-      parentRef.current.isExternalVerticalScroll = true;
-    }
-    e.currentTarget.isExternalVerticalScroll = false;
-  }, []);
+  useSyncScroll(parentRef, verticalScrollBarRef);
 
   useEffect(() => {
     columnVirtualizer.measure();
@@ -862,7 +836,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                 internalRowHeight={internalRowHeight}
                 popInRowHeight={popInRowHeight}
                 rows={rows}
-                handleExternalScroll={handleBodyScroll}
+                handleExternalScroll={onTableScroll}
                 visibleRows={internalVisibleRowCount}
                 isGrouped={isGrouped}
               >
@@ -897,10 +871,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
               tableBodyHeight={tableBodyHeight}
               internalRowHeight={internalHeaderRowHeight}
               tableRef={tableRef}
-              handleVerticalScrollBarScroll={handleVerticalScrollBarScroll}
               ref={verticalScrollBarRef}
               scrollContainerRef={scrollContainerRef}
-              parentRef={parentRef}
               nativeScrollbar={nativeScrollbar}
               classNames={classNames}
             />
