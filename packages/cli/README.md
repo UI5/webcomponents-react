@@ -1,6 +1,6 @@
 # @ui5/webcomponents-react-cli
 
-Wrapper generation and code-mod for ui5-webcomponents-react.
+Wrapper generation and code-mod for ui5/webcomponents-react.
 
 ## Usage
 
@@ -15,8 +15,19 @@ npm install @ui5/webcomponents-react-cli
 You can find an interactive documentation in our [Storybook](https://ui5.github.io/webcomponents-react/).
 
 - [Wrapper generation](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-bring-your-own-web-components--docs)
-- [Code-mod](https://ui5.github.io/webcomponents-react/v2/?path=/docs/migration-guide--docs#codemod)
-- ~~[Patch compatibility table](https://ui5.github.io/webcomponents-react/v2/?path=/docs/legacy-components-docs--docs#experimental-patch-script)~~ (deprecated in favor of [compatibility package scoping](https://ui5.github.io/webcomponents-react/v2/?path=/docs/legacy-components-docs--docs#using-the-compat-v1-table-together-with-the-v2-table-in-one-application))
+- Code-mods:
+  - [v2](https://ui5.github.io/webcomponents-react/v2/?path=/docs/migration-guide--docs#codemod): Migrate your codebase from v1 to v2
+    ```shell
+    npx @ui5/webcomponents-react-cli codemod --transform v2 \
+        --src ./path/to/src \
+        --typescript # only if you use TypeScript in your project, omit if you use JavaScript
+    ```
+  - [export-maps](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-faq--docs#why-use-direct-imports-via-package-export-maps): Migrate your codebase from root imports to direct imports using exports maps
+    ```shell
+    npx @ui5/webcomponents-react-cli codemod --transform export-maps \
+        --src ./path/to/src \
+        --typescript # only if you use TypeScript in your project, omit if you use JavaScript
+    ```
 
 ## Contribute
 

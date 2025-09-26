@@ -117,4 +117,45 @@ import { Button } from '@ui5/webcomponents-react/Button';
 // ...
 ```
 
+## Why Use Direct Imports via Package Export Maps
+
+Since [v2.14.0](https://github.com/UI5/webcomponents-react/releases/tag/v2.14.0), `ui5-webcomponents-react` supports **export maps** through the `exports` field in `package.json` ([documentation](https://nodejs.org/api/packages.html#exports)).
+
+Export maps allow you to import components directly from their package entry points instead of relying on deep file paths or the package root (barrel) files.
+While most bundlers perform tree-shaking in production builds, so only the code you actually use is included, tree-shaking is often limited or disabled in development. If you import from the package root (a “barrel file”), all components and utilities exported from that root are included in the bundle, even those you don’t use.
+
+```ts
+// Root import (less optimal without tree-shaking)
+import { Button, AnalyticalTable } from "@ui5/webcomponents-react";
+
+// Direct import (recommended)
+import { Button } from "@ui5/webcomponents-react/Button";
+import { AnalyticalTable } from "@ui5/webcomponents-react/AnalyticalTable";
+```
+
+### Codemod
+
+To migrate from root imports to direct imports, you can use the `exports-map` codemod from the [cli](https://github.com/UI5/webcomponents-react/blob/main/packages/cli/README.md) package.
+
+<MessageStrip
+    hideCloseButton
+    design="Critical"
+    children={
+        <>
+            The codemod is a best-effort attempt to help you migrate to direct imports. Please review the generated code thoroughly!
+            <br />
+            <strong>
+                Applying the codemod might break your code formatting, so please don't forget to run prettier and/or eslint
+                after you've applied the codemod!
+            </strong>
+        </>
+    }
+/>
+
+```shell
+npx @ui5/webcomponents-react-cli codemod --transform export-maps \
+    --src ./path/to/src \
+    --typescript # only if you use TypeScript in your project, omit if you use JavaScript
+```
+
 <Footer />

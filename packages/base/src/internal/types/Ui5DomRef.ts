@@ -12,6 +12,9 @@ type ChangeInfo = {
 
 type InvalidationInfo = ChangeInfo & { target: Ui5DomRef };
 
+/**
+ * ⚠️ __INTERNAL__ use only! This interface is not part of the public API.
+ */
 export interface Ui5DomRef extends Omit<HTMLElement, 'focus'> {
   /**
    * Called every time before the component renders.
