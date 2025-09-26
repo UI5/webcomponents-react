@@ -1,6 +1,6 @@
 import type { debounce } from '@ui5/webcomponents-react-base';
 import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
-import type { Dispatch, JSXElementConstructor, ReactElement, RefObject, SetStateAction } from 'react';
+import type { Dispatch, JSXElementConstructor, MutableRefObject, ReactElement, RefObject, SetStateAction } from 'react';
 import { isValidElement, useEffect, useState } from 'react';
 import { ObjectPageMode } from '../../enums/ObjectPageMode.js';
 import type { TabContainerPropTypes } from '../../webComponents/TabContainer/index.js';
@@ -16,11 +16,11 @@ interface UseHandleTabSelectProps {
   childrenArray: ReactElement<ObjectPageSectionPropTypes, string | JSXElementConstructor<any>>[];
   handleOnSectionSelected: any;
 
-  isProgrammaticallyScrolled: RefObject<boolean>;
+  isProgrammaticallyScrolled: MutableRefObject<boolean>;
   setInternalSelectedSectionId: Dispatch<SetStateAction<string>>;
   objectPageRef: RefObject<ObjectPageDomRef>;
   debouncedOnSectionChange: ReturnType<typeof debounce>;
-  scrollTimeout: RefObject<number>;
+  scrollTimeout: MutableRefObject<number>;
   setSelectedSubSectionId: Dispatch<SetStateAction<string>>;
   setTabSelectId: Dispatch<SetStateAction<string | null>>;
   setWasUserSectionChange: Dispatch<SetStateAction<boolean>>;

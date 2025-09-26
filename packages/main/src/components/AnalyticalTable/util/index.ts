@@ -1,4 +1,4 @@
-import type { CSSProperties, RefObject } from 'react';
+import type { CSSProperties, MutableRefObject, RefObject } from 'react';
 import { TextAlign } from '../../../enums/TextAlign.js';
 import { VerticalAlign } from '../../../enums/VerticalAlign.js';
 
@@ -191,7 +191,7 @@ export function getLeafHeaders(header) {
 }
 
 export const getCombinedElementsHeight = (
-  prevHeightRef: RefObject<number>,
+  prevHeightRef: MutableRefObject<number>,
   ...refs: RefObject<HTMLElement>[]
 ): number => {
   const prevHeight = prevHeightRef.current;
