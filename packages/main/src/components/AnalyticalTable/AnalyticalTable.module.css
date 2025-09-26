@@ -173,10 +173,6 @@
   box-sizing: border-box;
   display: flex;
 
-  &:hover:not([data-empty-row]) {
-    background-color: var(--sapList_Hover_Background);
-  }
-
   &[data-is-selected] {
     border-block-end: 1px solid var(--sapList_SelectionBorderColor);
     background-color: var(--sapList_SelectionBackgroundColor);
@@ -187,8 +183,22 @@
   }
 }
 
+/* ObjectStatus deltas */
+[data-sap-theme^='sap_'][data-sap-theme$='_hcw'],
+[data-sap-theme^='sap_'][data-sap-theme$='_hcb'] {
+  .tr[data-is-selected],
+  .trActive:hover {
+    & [data-component-name='ObjectStatus'][data-inverted='false']:not([data-state^='Indication']) {
+      color: var(--sapContent_ContrastTextColor);
+    }
+  }
+}
+
 .trActive {
   cursor: pointer;
+  &:hover:not([data-empty-row]) {
+    background-color: var(--sapList_Hover_Background);
+  }
 }
 
 .tableGroupHeader.tr {
