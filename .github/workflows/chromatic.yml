@@ -23,7 +23,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Publish to Chromatic
-        uses: chromaui/action@070fa3e7f73b8dd89954690b292486462dbc739d # v13.2.1
+        uses: chromaui/action@4ffe736a2a8262ea28067ff05a13b635ba31ec05 # v13.3.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
