@@ -68,7 +68,6 @@ export const useObserveHeights = (
   useEffect(() => {
     const headerContentResizeObserver = new ResizeObserver(([entry]) => {
       const { blockSize } = entry.borderBoxSize[0];
-      console.log('a');
       setTopHeaderHeight(blockSize);
     });
     if (topHeaderRef?.current) {
@@ -84,7 +83,6 @@ export const useObserveHeights = (
     const headerContentResizeObserver = new ResizeObserver(([entry]) => {
       if (isIntersecting || fixedHeader) {
         const { blockSize } = entry.borderBoxSize[0];
-        console.log('b');
         setHeaderContentHeight(blockSize);
       }
     });
