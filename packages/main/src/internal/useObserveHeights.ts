@@ -66,11 +66,10 @@ export const useObserveHeights = (
 
   // top header
   useEffect(() => {
-    const headerContentResizeObserver = new ResizeObserver(([header]) => {
-      // Firefox implements `borderBoxSize` as a single content rect, rather than an array
-      const borderBoxSize = Array.isArray(header.borderBoxSize) ? header.borderBoxSize[0] : header.borderBoxSize;
-      // Safari doesn't implement `borderBoxSize`
-      setTopHeaderHeight(borderBoxSize?.blockSize ?? header.target.getBoundingClientRect().height);
+    const headerContentResizeObserver = new ResizeObserver(([entry]) => {
+      const { blockSize } = entry.borderBoxSize[0];
+      console.log('a');
+      setTopHeaderHeight(blockSize);
     });
     if (topHeaderRef?.current) {
       headerContentResizeObserver.observe(topHeaderRef.current);
@@ -82,14 +81,11 @@ export const useObserveHeights = (
 
   // header content
   useEffect(() => {
-    const headerContentResizeObserver = new ResizeObserver(([headerContent]) => {
-      if (isIntersecting) {
-        // Firefox implements `borderBoxSize` as a single content rect, rather than an array
-        const borderBoxSize = Array.isArray(headerContent.borderBoxSize)
-          ? headerContent.borderBoxSize[0]
-          : headerContent.borderBoxSize;
-        // Safari doesn't implement `borderBoxSize`
-        setHeaderContentHeight(borderBoxSize?.blockSize ?? headerContent.target.getBoundingClientRect().height);
+    const headerContentResizeObserver = new ResizeObserver(([entry]) => {
+      if (isIntersecting || fixedHeader) {
+        const { blockSize } = entry.borderBoxSize[0];
+        console.log('b');
+        setHeaderContentHeight(blockSize);
       }
     });
 
@@ -99,7 +95,7 @@ export const useObserveHeights = (
     return () => {
       headerContentResizeObserver.disconnect();
     };
-  }, [isIntersecting]);
+  }, [isIntersecting, fixedHeader]);
   const totalHeaderHeight = noHeader ? 0 : topHeaderHeight + headerContentHeight;
 
   return { topHeaderHeight, headerContentHeight, totalHeaderHeight, headerCollapsed };
