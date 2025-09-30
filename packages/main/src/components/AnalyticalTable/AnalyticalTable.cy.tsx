@@ -32,6 +32,7 @@ import type {
   TextAreaDomRef,
   TimePickerDomRef,
   ToggleButtonDomRef,
+  IconDomRef,
 } from '../..';
 import {
   AnalyticalTable,
@@ -51,6 +52,7 @@ import {
   DynamicDateRange,
   FileUploader,
   IndicationColor,
+  Icon,
   Input,
   MessageViewButton,
   MultiComboBox,
@@ -4103,19 +4105,29 @@ describe('AnalyticalTable', () => {
     cy.realPress('ArrowDown');
 
     cy.realPress('F2');
-    allRelevantInputCompontentsForF2.forEach((_) => {
+    allRelevantInputCompontentsForF2.forEach((col) => {
+      cy.log(col.Header);
+      if (col.id === 'segmented-button') {
+        // SegmentedButton has two tab stops
+        cy.realPress('Tab');
+      }
+      cy.realPress('F2');
+      cy.focused().should('have.attr', 'role', 'gridcell');
+      cy.realPress('F2');
       cy.realPress('Tab');
     });
-    // SegmentedButton has two tab stops
-    cy.realPress('Tab');
+
     cy.focused().should('have.text', 'After');
 
-    cy.realPress('F2');
-    allRelevantInputCompontentsForF2.forEach((_) => {
+    cy.realPress(['Shift', 'Tab']);
+    allRelevantInputCompontentsForF2.forEach((col) => {
+      if (col.id === 'segmented-button') {
+        // SegmentedButton has two tab stops
+        cy.realPress(['Shift', 'Tab']);
+      }
       cy.realPress(['Shift', 'Tab']);
     });
     // SegmentedButton has two tab stops
-    cy.realPress(['Shift', 'Tab']);
     cy.focused().should('have.text', 'Before');
   });
 
@@ -6015,6 +6027,14 @@ const allRelevantInputCompontentsForF2 = [
     },
     interactiveElementName: 'FileUploader',
     tagName: 'ui5-file-uploader',
+  },
+  {
+    Header: 'Icon',
+    Cell: (props: AnalyticalTableCellInstance) => {
+      const callbackRef = useF2CellEdit.useCallbackRef<IconDomRef>(props);
+      return <Icon name="employee" mode="Interactive" ref={callbackRef} />;
+    },
+    interactiveElementName: 'Icon',
   },
   {
     Header: 'Input',
