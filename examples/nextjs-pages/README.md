@@ -7,7 +7,7 @@ App.
 ## How to use this template
 
 ```bash
-npx degit SAP/ui5-webcomponents-react/examples/nextjs-pages#main my-project
+npx degit UI5/webcomponents-react/examples/nextjs-pages#main my-project
 cd my-project
 ```
 

@@ -5,7 +5,7 @@ import type ExpandableTextOverflowMode from '@ui5/webcomponents/dist/types/Expan
 import type TextEmptyIndicatorMode from '@ui5/webcomponents/dist/types/TextEmptyIndicatorMode.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
-import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/dist/utils/addCustomCSSWithScoping.js';
+import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 
 //todo: remove once ExpandableText supports setting white-space
 addCustomCSSWithScoping(
@@ -88,9 +88,10 @@ interface ExpandableTextPropTypes
  * __Note:__ For compatibility reasons, `children`, `showOverflowInPopover`, and `renderWhitespace` are added by the UI5 Web Components for React wrapper and are not part of the underlying web component (`ui5-expandable-text`).
  * These props will be removed in the next major release (not yet planned); see their deprecation notices for alternatives.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
  *
- * @since [2.6.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.6.0) of __@ui5/webcomponents__.
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ *
+ * @since [2.6.0](https://github.com/UI5/webcomponents/releases/tag/v2.6.0) of __@ui5/webcomponents__.
  */
 const ExpandableText = withWebComponent<ExpandableTextPropTypes, ExpandableTextDomRef>(
   'ui5-expandable-text',

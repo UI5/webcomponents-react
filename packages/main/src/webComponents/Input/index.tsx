@@ -12,7 +12,7 @@ interface InputAttributes {
   /**
    * Defines the accessible description of the component.
    *
-   * **Note:** Available since [v2.9.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.9.0](https://github.com/UI5/webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescription?: string | undefined;
@@ -20,7 +20,7 @@ interface InputAttributes {
   /**
    * Receives id(or many ids) of the elements that describe the input.
    *
-   * **Note:** Available since [v2.9.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.9.0](https://github.com/UI5/webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescriptionRef?: string | undefined;
@@ -64,7 +64,7 @@ interface InputAttributes {
   /**
    * Defines whether the value will be autcompleted to match an item
    *
-   * **Note:** Available since [v1.4.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.4.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.4.0](https://github.com/UI5/webcomponents/releases/tag/v1.4.0) of **@ui5/webcomponents**.
    * @default false
    */
   noTypeahead?: boolean;
@@ -74,7 +74,7 @@ interface InputAttributes {
    * The picker will not open if the `showSuggestions` property is set to `false`, the input is disabled or the input is readonly.
    * The picker will close automatically and `close` event will be fired if the input is not in the viewport.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default false
    */
   open?: boolean;
@@ -104,7 +104,7 @@ interface InputAttributes {
   /**
    * Defines whether the clear icon of the input will be shown.
    *
-   * **Note:** Available since [v1.2.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.2.0](https://github.com/UI5/webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents**.
    * @default false
    */
   showClearIcon?: boolean;
@@ -176,7 +176,7 @@ interface InputPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   icon?: UI5WCSlotsNode;
 
@@ -196,7 +196,7 @@ interface InputPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**
@@ -211,7 +211,7 @@ interface InputPropTypes
   /**
    * Fired when the suggestions picker is closed.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -234,7 +234,7 @@ interface InputPropTypes
   /**
    * Fired when the suggestions picker is open.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -245,7 +245,7 @@ interface InputPropTypes
   /**
    * Fired when some text has been selected.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -257,7 +257,7 @@ interface InputPropTypes
    * Fired when the user navigates to a suggestion item via the ARROW keys,
    * as a preview, before the final selection.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -293,7 +293,7 @@ interface InputPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  */
 const Input = withWebComponent<InputPropTypes, InputDomRef>(
   'ui5-input',

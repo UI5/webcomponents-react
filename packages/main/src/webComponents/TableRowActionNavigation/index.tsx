@@ -28,7 +28,7 @@ interface TableRowActionNavigationPropTypes
   /**
    * Fired when a row action is clicked.
    *
-   * **Note:** Available since [v2.9.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.9.0](https://github.com/UI5/webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -42,9 +42,9 @@ interface TableRowActionNavigationPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of __@ui5/webcomponents__.
+ * @since [2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of __@ui5/webcomponents__.
  */
 const TableRowActionNavigation = withWebComponent<TableRowActionNavigationPropTypes, TableRowActionNavigationDomRef>(
   'ui5-table-row-action-navigation',

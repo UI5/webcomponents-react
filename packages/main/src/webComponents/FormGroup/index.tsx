@@ -18,7 +18,7 @@ interface FormGroupAttributes {
    * Defines the compoennt heading level,
    * set by the `headerText`.
    *
-   * **Note:** Available since [v2.10.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.10.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.10.0](https://github.com/UI5/webcomponents/releases/tag/v2.10.0) of **@ui5/webcomponents**.
    * @default "H3"
    */
   headerLevel?: TitleLevel | keyof typeof TitleLevel;
@@ -56,9 +56,9 @@ interface FormGroupPropTypes extends FormGroupAttributes, Omit<CommonProps, keyo
  *
  * - import @ui5/webcomponents/dist/FormGroup.js";
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
+ * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
  */
 const FormGroup = withWebComponent<FormGroupPropTypes, FormGroupDomRef>(
   'ui5-form-group',

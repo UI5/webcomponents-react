@@ -50,7 +50,7 @@ jobs:
         run: yarn install --immutable
 
   test:
-    needs: ['install']
+    needs: ['build']
     uses: './.github/workflows/test.yml'
 
   build:
@@ -82,6 +82,11 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: build-${{ matrix.react }}
+          path: packages/*/dist
 
   lint:
     needs: ['install']

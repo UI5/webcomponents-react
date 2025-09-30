@@ -3,7 +3,7 @@
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import { isPhone } from '@ui5/webcomponents-base/dist/Device.js';
 import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
-import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/dist/utils/addCustomCSSWithScoping.js';
+import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { clsx } from 'clsx';
 import type { ReactElement } from 'react';
 import { forwardRef, useEffect, useReducer, useRef, useState } from 'react';
@@ -31,7 +31,7 @@ export interface ActionSheetPropTypes extends Omit<ResponsivePopoverPropTypes, '
    * Defines the header HTML Element. Will be shown in the header area on phone devices. This prop will be ignored in tablets and desktop browsers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--page).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--page).
    */
   header?: UI5WCSlotsNode;
   /**

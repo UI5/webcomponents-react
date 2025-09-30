@@ -11,7 +11,7 @@ const TOOL_ID = `${ADDON_ID}/toolbar`;
 
 const handleVersionSelect = (e) => {
   const { slug } = e.detail.item.dataset;
-  window.location.href = `https://sap.github.io/ui5-webcomponents-react/${slug}/`;
+  window.location.href = `https://ui5.github.io/webcomponents-react/${slug}/`;
 };
 
 addons.register(ADDON_ID, () => {

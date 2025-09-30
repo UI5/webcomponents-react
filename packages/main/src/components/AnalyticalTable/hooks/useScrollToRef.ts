@@ -1,4 +1,4 @@
-import type { RefCallback, RefObject } from 'react';
+import type { RefCallback, MutableRefObject } from 'react';
 import { useCallback, useRef } from 'react';
 import type { AnalyticalTableScrollMode } from '../../../enums/AnalyticalTableScrollMode.js';
 import type { AnalyticalTableDomRef, ScrollToRefType, TableInstance } from '../types/index.js';
@@ -6,7 +6,7 @@ import type { AnalyticalTableDomRef, ScrollToRefType, TableInstance } from '../t
 export function useScrollToRef(
   componentRef: (node: AnalyticalTableDomRef) => void,
   dispatch: TableInstance['dispatch'],
-): [RefCallback<AnalyticalTableDomRef>, RefObject<ScrollToRefType | null>] {
+): [RefCallback<AnalyticalTableDomRef>, MutableRefObject<ScrollToRefType | null>] {
   const scrollToRef = useRef<ScrollToRefType | null>(null);
 
   const cbRef: RefCallback<AnalyticalTableDomRef> = useCallback(

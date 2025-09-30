@@ -34,7 +34,7 @@ interface ListAttributes {
    *
    *  **Note:** The `accessibilityAttributes` property is in an experimental state and is a subject to change.
    *
-   * **Note:** Available since [v2.13.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.13.0](https://github.com/UI5/webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents**.
    * @default {}
    */
   accessibilityAttributes?: ListAccessibilityAttributes;
@@ -42,7 +42,7 @@ interface ListAttributes {
   /**
    * Defines the accessible description of the component.
    *
-   * **Note:** Available since [v2.5.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.5.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.5.0](https://github.com/UI5/webcomponents/releases/tag/v2.5.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescription?: string | undefined;
@@ -50,7 +50,7 @@ interface ListAttributes {
   /**
    * Defines the IDs of the elements that describe the component.
    *
-   * **Note:** Available since [v2.5.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.5.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.5.0](https://github.com/UI5/webcomponents/releases/tag/v2.5.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleDescriptionRef?: string | undefined;
@@ -96,7 +96,7 @@ interface ListAttributes {
    *
    * **Note:** This property takes effect if the `growing` property is set to the `Button`.
    *
-   * **Note:** Available since [v1.24](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.24) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.24](https://github.com/UI5/webcomponents/releases/tag/v1.24) of **@ui5/webcomponents**.
    * @default undefined
    */
   growingButtonText?: string | undefined;
@@ -150,7 +150,7 @@ interface ListDomRef extends Required<ListAttributes>, Ui5DomRef {
   /**
    * Returns an array containing the list item instances without the groups in a flat structure.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    */
   readonly listItems: Array<ListItemBase>;
 }
@@ -188,7 +188,7 @@ interface ListPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   header?: UI5WCSlotsNode;
   /**
@@ -271,7 +271,7 @@ interface ListPropTypes
    *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -338,7 +338,7 @@ interface ListPropTypes
  *
  * `import "@ui5/webcomponents/dist/ListItemGroup.js";` (for `ListItemGroup`)
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  */
 const List = withWebComponent<ListPropTypes, ListDomRef>(
   'ui5-list',

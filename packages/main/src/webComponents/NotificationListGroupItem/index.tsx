@@ -17,7 +17,7 @@ interface NotificationListGroupItemAttributes {
    * Defines whether the component will have growing capability by pressing a `More` button.
    * When button is pressed `load-more` event will be fired.
    *
-   * **Note:** Available since [v2.2.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.2.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v2.2.0](https://github.com/UI5/webcomponents/releases/tag/v2.2.0) of **@ui5/webcomponents-fiori**.
    * @default "None"
    */
   growing?: NotificationListGrowingMode | keyof typeof NotificationListGrowingMode;
@@ -63,7 +63,7 @@ interface NotificationListGroupItemPropTypes
   /**
    * Fired when additional items are requested.
    *
-   * **Note:** Available since [v2.2.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.2.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v2.2.0](https://github.com/UI5/webcomponents/releases/tag/v2.2.0) of **@ui5/webcomponents-fiori**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -106,7 +106,7 @@ interface NotificationListGroupItemPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  */
 const NotificationListGroupItem = withWebComponent<NotificationListGroupItemPropTypes, NotificationListGroupItemDomRef>(
   'ui5-li-notification-group',

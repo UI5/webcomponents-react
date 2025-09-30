@@ -345,7 +345,7 @@ interface ScaleWidthModeOptions {
   /**
    * Defines the string used for internal width calculation of custom header cells (e.g. `Header: () => <Link>Click me!</Link>`).
    *
-   * You can find out more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs#how-to-scale-custom-cells).
+   * You can find out more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs#how-to-scale-custom-cells).
    *
    * __Note:__ This property has no effect when used with `AnalyticalTableScaleWidthMode.Default`.
    */
@@ -353,7 +353,7 @@ interface ScaleWidthModeOptions {
   /**
    * Defines the string used for internal width calculation of the longest cell inside the body of the table (e.g. `Cell: () => <Link>Click me!</Link>`).
    *
-   * You can find out more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs#how-to-scale-custom-cells).
+   * You can find out more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs#how-to-scale-custom-cells).
    *
    * __Note:__ This property has no effect when used with `AnalyticalTableScaleWidthMode.Default`.
    */
@@ -569,7 +569,7 @@ export interface AnalyticalTableColumnDefinition {
   /**
    * Allows passing a custom string for the internal width calculation of custom cells for `scaleWidthMode` `Grow` and `Smart`.
    *
-   * You can find out more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs#how-to-scale-custom-cells).
+   * You can find out more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs#how-to-scale-custom-cells).
    *
    * __Note:__ This property has no effect when used with `AnalyticalTableScaleWidthMode.Default`.
    *
@@ -877,7 +877,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    *
    * __Note:__ It is not recommended to use this prop in combination with a grouped table, as there is no concept for this configuration.
    *
-   * __Note:__ To prevent the table state from resetting when the data is updated, please see [this recipe](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs#how-to-stop-the-table-state-from-automatically-resetting-when-the-data-changes).
+   * __Note:__ To prevent the table state from resetting when the data is updated, please see [this recipe](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs#how-to-stop-the-table-state-from-automatically-resetting-when-the-data-changes).
    */
   infiniteScroll?: boolean;
   /**

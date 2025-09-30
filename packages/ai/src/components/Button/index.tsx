@@ -26,7 +26,7 @@ interface ButtonAttributes {
    *  - **expanded**: Indicates whether the popup controlled by the arrow button is currently expanded.
    *    Accepts boolean values: `true` or `false`.
    *
-   * **Note:** Available since [v2.6.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.6.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.6.0](https://github.com/UI5/webcomponents/releases/tag/v2.6.0) of **@ui5/webcomponents-ai**.
    * @default {}
    */
   accessibilityAttributes?: AIButtonAccessibilityAttributes;
@@ -36,7 +36,7 @@ interface ButtonAttributes {
    * Set to true when the button is in split mode and a menu with additional options
    * is opened by the arrow button. Set back to false when the menu is closed.
    *
-   * **Note:** Available since [v2.6.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.6.0) of **@ui5/webcomponents-ai**.
+   * **Note:** Available since [v2.6.0](https://github.com/UI5/webcomponents/releases/tag/v2.6.0) of **@ui5/webcomponents-ai**.
    * @default false
    */
   arrowButtonPressed?: boolean;
@@ -114,9 +114,9 @@ interface ButtonPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents-ai__.
+ * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents-ai__.
  * @experimental The Button and ButtonState web components are availabe since 2.0 under an experimental flag and their API and behaviour are subject to change.
  */
 const Button = withWebComponent<ButtonPropTypes, ButtonDomRef>(

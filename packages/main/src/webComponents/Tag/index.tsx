@@ -20,7 +20,7 @@ interface TagAttributes {
   /**
    * Defines the design type of the component.
    *
-   * **Note:** Available since [v1.22.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.22.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.22.0](https://github.com/UI5/webcomponents/releases/tag/v1.22.0) of **@ui5/webcomponents**.
    * @default "Neutral"
    */
   design?: TagDesign | keyof typeof TagDesign;
@@ -28,7 +28,7 @@ interface TagAttributes {
   /**
    * Defines if the default state icon is shown.
    *
-   * **Note:** Available since [v1.22.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.22.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.22.0](https://github.com/UI5/webcomponents/releases/tag/v1.22.0) of **@ui5/webcomponents**.
    * @default false
    */
   hideStateIcon?: boolean;
@@ -36,7 +36,7 @@ interface TagAttributes {
   /**
    * Defines if the component is interactive (focusable and pressable).
    *
-   * **Note:** Available since [v1.22.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.22.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.22.0](https://github.com/UI5/webcomponents/releases/tag/v1.22.0) of **@ui5/webcomponents**.
    * @default false
    */
   interactive?: boolean;
@@ -44,7 +44,7 @@ interface TagAttributes {
   /**
    * Defines predefined size of the component.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default "S"
    */
   size?: TagSize | keyof typeof TagSize;
@@ -55,7 +55,7 @@ interface TagAttributes {
    * **Note:** For option "Normal" the text will wrap and the
    * words will not be broken based on hyphenation.
    *
-   * **Note:** Available since [v1.22.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.22.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.22.0](https://github.com/UI5/webcomponents/releases/tag/v1.22.0) of **@ui5/webcomponents**.
    * @default "Normal"
    */
   wrappingType?: WrappingType | keyof typeof WrappingType;
@@ -78,7 +78,7 @@ interface TagPropTypes extends TagAttributes, Omit<CommonProps, keyof TagAttribu
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   icon?: UI5WCSlotsNode;
   /**
@@ -86,7 +86,7 @@ interface TagPropTypes extends TagAttributes, Omit<CommonProps, keyof TagAttribu
    *
    * **Note:** The event will be fired if the `interactive` property is `true`
    *
-   * **Note:** Available since [v1.22.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.22.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.22.0](https://github.com/UI5/webcomponents/releases/tag/v1.22.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -108,9 +108,9 @@ interface TagPropTypes extends TagAttributes, Omit<CommonProps, keyof TagAttribu
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
+ * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
  */
 const Tag = withWebComponent<TagPropTypes, TagDomRef>(
   'ui5-tag',

@@ -15,7 +15,6 @@
     "./dist": "./dist/index.js",
     "./dist/*": "./dist/*",
     "./dist/*.js": "./dist/*.js",
-    "./internal/addCustomCSSWithScoping.js": "./dist/utils/addCustomCSSWithScoping.js",
     "./Device": {
       "types": "./dist/Device/index.d.ts",
       "default": "./dist/Device/index.js"
@@ -29,34 +28,55 @@
       "default": "./dist/generated/VersionInfo.js"
     },
     "./I18nStore": {
-      "types": "./dist/stores/I18nStore.d.ts",
-      "default": "./dist/stores/I18nStore.js"
+      "types": "./dist/internal/stores/I18nStore.d.ts",
+      "default": "./dist/internal/stores/I18nStore.js"
     },
     "./StyleStore": {
-      "types": "./dist/stores/StyleStore.d.ts",
-      "default": "./dist/stores/StyleStore.js"
+      "types": "./dist/internal/stores/StyleStore.d.ts",
+      "default": "./dist/internal/stores/StyleStore.js"
     },
     "./CssSizeVariables": {
-      "types": "./dist/styling/CssSizeVariables.d.ts",
-      "default": "./dist/styling/CssSizeVariables.js"
+      "types": "./dist/internal/styling/CssSizeVariables.d.ts",
+      "default": "./dist/internal/styling/CssSizeVariables.js"
     },
     "./ThemingParameters": {
       "types": "./dist/styling/ThemingParameters.d.ts",
       "default": "./dist/styling/ThemingParameters.js"
     },
     "./withWebComponent": {
-      "types": "./dist/wrapper/withWebComponent.d.ts",
-      "default": "./dist/wrapper/withWebComponent.js"
+      "types": "./dist/internal/wrapper/withWebComponent.d.ts",
+      "default": "./dist/internal/wrapper/withWebComponent.js"
     },
     "./utils": {
-      "types": "./dist/utils/index.d.ts",
-      "default": "./dist/utils/index.js"
+      "types": "./dist/internal/utils/index.d.ts",
+      "default": "./dist/internal/utils/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/types/index.js"
+    },
+    "./internal/addCustomCSSWithScoping.js": "./dist/internal/utils/addCustomCSSWithScoping.js",
+    "./internal/hooks": {
+      "types": "./dist/internal/hooks/index.d.ts",
+      "default": "./dist/internal/hooks/index.js"
+    },
+    "./internal/types": {
+      "types": "./dist/internal/types/index.d.ts",
+      "default": "./dist/internal/types/index.js"
+    },
+    "./internal/utils": {
+      "types": "./dist/internal/utils/index.d.ts",
+      "default": "./dist/internal/utils/index.js"
+    },
+    "./internal/*": {
+      "types": "./dist/internal/*.d.ts",
+      "default": "./dist/internal/*.js"
     }
   },
-  "homepage": "https://sap.github.io/ui5-webcomponents-react",
+  "homepage": "https://ui5.github.io/webcomponents-react",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SAP/ui5-webcomponents-react.git",
+    "url": "https://github.com/UI5/webcomponents-react.git",
     "directory": "packages/base"
   },
   "author": "SAP SE (https://www.sap.com)",

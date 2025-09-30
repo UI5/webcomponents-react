@@ -68,7 +68,7 @@ export interface ToolbarPropTypes extends Omit<CommonProps, 'onClick' | 'childre
   /**
    * Defines where modals are rendered into via `React.createPortal`.
    *
-   * You can find out more about this [here](https://sap.github.io/ui5-webcomponents-react/v1/?path=/docs/knowledge-base-working-with-portals--page).
+   * You can find out more about this [here](https://ui5.github.io/webcomponents-react/v1/?path=/docs/knowledge-base-working-with-portals--page).
    *
    * Defaults to: `document.body`
    */

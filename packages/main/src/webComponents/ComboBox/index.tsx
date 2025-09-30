@@ -46,7 +46,7 @@ interface ComboBoxAttributes {
    *
    * **Note:** This property is only applicable within the context of an HTML Form element.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default undefined
    */
   name?: string | undefined;
@@ -54,7 +54,7 @@ interface ComboBoxAttributes {
   /**
    * Defines whether the value will be autocompleted to match an item
    *
-   * **Note:** Available since [v1.19.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.19.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.19.0](https://github.com/UI5/webcomponents/releases/tag/v1.19.0) of **@ui5/webcomponents**.
    * @default false
    */
   noTypeahead?: boolean;
@@ -62,7 +62,7 @@ interface ComboBoxAttributes {
   /**
    * Indicates whether the items picker is open.
    *
-   * **Note:** Available since [v2.9.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.9.0](https://github.com/UI5/webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
    * @default false
    */
   open?: boolean;
@@ -92,7 +92,7 @@ interface ComboBoxAttributes {
   /**
    * Defines whether the clear icon of the combobox will be shown.
    *
-   * **Note:** Available since [v1.20.1](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.20.1) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.20.1](https://github.com/UI5/webcomponents/releases/tag/v1.20.1) of **@ui5/webcomponents**.
    * @default false
    */
   showClearIcon?: boolean;
@@ -137,7 +137,7 @@ interface ComboBoxPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   icon?: UI5WCSlotsNode;
 
@@ -154,7 +154,7 @@ interface ComboBoxPropTypes
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
-   * Learn more about it [here](https://sap.github.io/ui5-webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**
@@ -169,7 +169,7 @@ interface ComboBoxPropTypes
   /**
    * Fired when the dropdown is closed.
    *
-   * **Note:** Available since [v2.9.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.9.0](https://github.com/UI5/webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -191,7 +191,7 @@ interface ComboBoxPropTypes
   /**
    * Fired when the dropdown is opened.
    *
-   * **Note:** Available since [v2.9.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.9.0](https://github.com/UI5/webcomponents/releases/tag/v2.9.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -238,7 +238,7 @@ interface ComboBoxPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  */
 const ComboBox = withWebComponent<ComboBoxPropTypes, ComboBoxDomRef>(
   'ui5-combobox',
