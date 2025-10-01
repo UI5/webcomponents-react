@@ -71,6 +71,8 @@ interface MenuPropTypes
    * Defines the items of this component.
    *
    * **Note:** Use `MenuItem` and `MenuSeparator` for their intended design.
+   *
+   * __Supported Node Type/s:__ `IMenuItem`
    */
   children?: ReactNode | ReactNode[];
   /**

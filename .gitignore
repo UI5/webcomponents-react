@@ -31,3 +31,5 @@ cypress/downloads
 .nx
 
 debug-storybook.log
+
+.vscode

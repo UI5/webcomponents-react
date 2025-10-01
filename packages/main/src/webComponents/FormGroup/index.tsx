@@ -35,6 +35,8 @@ interface FormGroupDomRef extends Required<FormGroupAttributes>, Ui5DomRef {}
 interface FormGroupPropTypes extends FormGroupAttributes, Omit<CommonProps, keyof FormGroupAttributes | 'children'> {
   /**
    * Defines the items of the component.
+   *
+   * __Supported Node Type/s:__ `FormItem`
    */
   children?: ReactNode | ReactNode[];
 }

@@ -22,6 +22,8 @@ interface UserMenuItemGroupPropTypes
   /**
    * Defines the items of this component.
    * **Note:** The slot can hold any combination of components of type `ui5-menu-item` or `ui5-menu-separator` or both.
+   *
+   * __Supported Node Type/s:__ `IMenuItem`
    */
   children?: ReactNode | ReactNode[];
 }

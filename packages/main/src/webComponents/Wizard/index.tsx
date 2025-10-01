@@ -26,6 +26,8 @@ interface WizardPropTypes
    * Defines the steps.
    *
    * **Note:** Use the available `WizardStep` component.
+   *
+   * __Supported Node Type/s:__ `WizardStep`
    */
   children?: ReactNode | ReactNode[];
   /**

@@ -61,6 +61,8 @@ interface TimelinePropTypes
     Omit<CommonProps, keyof TimelineAttributes | 'children' | 'onLoadMore'> {
   /**
    * Determines the content of the `Timeline`.
+   *
+   * __Supported Node Type/s:__ `ITimelineItem`
    */
   children?: ReactNode | ReactNode[];
   /**

@@ -19,6 +19,8 @@ interface TableCellDomRef extends Required<TableCellAttributes>, Ui5DomRef {}
 interface TableCellPropTypes extends TableCellAttributes, Omit<CommonProps, keyof TableCellAttributes | 'children'> {
   /**
    * Defines the content of the component.
+   *
+   * __Supported Node Type/s:__ `Node`
    */
   children?: ReactNode | ReactNode[];
 }

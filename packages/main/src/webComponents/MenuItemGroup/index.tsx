@@ -22,6 +22,8 @@ interface MenuItemGroupPropTypes
   /**
    * Defines the items of this component.
    * **Note:** The slot can hold any combination of components of type `MenuItem` or `MenuSeparator` or both.
+   *
+   * __Supported Node Type/s:__ `IMenuItem`
    */
   children?: ReactNode | ReactNode[];
 }

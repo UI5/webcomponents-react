@@ -162,6 +162,8 @@ interface ButtonPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents**.
+   *
+   * __Supported Node Type/s:__ `ButtonBadge`
    */
   badge?: UI5WCSlotsNode;
 
@@ -169,6 +171,8 @@ interface ButtonPropTypes
    * Defines the text of the component.
    *
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
+   *
+   * __Supported Node Type/s:__ `Node`
    */
   children?: ReactNode | ReactNode[];
   /**

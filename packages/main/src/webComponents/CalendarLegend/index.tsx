@@ -38,6 +38,8 @@ interface CalendarLegendPropTypes
     Omit<CommonProps, keyof CalendarLegendAttributes | 'children'> {
   /**
    * Defines the items of the component.
+   *
+   * __Supported Node Type/s:__ `CalendarLegendItem`
    */
   children?: ReactNode | ReactNode[];
 }

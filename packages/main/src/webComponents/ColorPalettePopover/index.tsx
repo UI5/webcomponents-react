@@ -59,6 +59,8 @@ interface ColorPalettePopoverPropTypes
     Omit<CommonProps, keyof ColorPalettePopoverAttributes | 'children' | 'onClose' | 'onItemClick'> {
   /**
    * Defines the content of the component.
+   *
+   * __Supported Node Type/s:__ `IColorPaletteItem`
    */
   children?: ReactNode | ReactNode[];
   /**

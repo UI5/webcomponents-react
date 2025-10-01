@@ -61,6 +61,8 @@ interface SearchItemPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.12.0](https://github.com/UI5/webcomponents/releases/tag/v2.12.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   image?: UI5WCSlotsNode;
   /**

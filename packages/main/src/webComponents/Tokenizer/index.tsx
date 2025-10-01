@@ -67,6 +67,8 @@ interface TokenizerPropTypes
     Omit<CommonProps, keyof TokenizerAttributes | 'children' | 'onSelectionChange' | 'onTokenDelete'> {
   /**
    * Defines the tokens to be displayed.
+   *
+   * __Supported Node Type/s:__ `Token`
    */
   children?: ReactNode | ReactNode[];
   /**

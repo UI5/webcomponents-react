@@ -25,6 +25,8 @@ interface NotificationListPropTypes
     Omit<CommonProps, keyof NotificationListAttributes | 'children' | 'onItemClick' | 'onItemClose' | 'onItemToggle'> {
   /**
    * Defines the items of the component.
+   *
+   * __Supported Node Type/s:__ `NotificationListItemBase`
    */
   children?: ReactNode | ReactNode[];
   /**

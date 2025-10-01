@@ -81,6 +81,23 @@ export class PropTypesRenderer extends AbstractRenderer {
           }
         }
 
+        const slotType = slot._ui5type;
+        if (slotType) {
+          let slotElementType: string = 'unknown';
+          const slotReferences = slot._ui5type?.references;
+          if (slotReferences?.length) {
+            const types = new Set<string>([]);
+            slotReferences.forEach((slotRef) => {
+              types.add(slotRef.name);
+            });
+            slotElementType = [...types].join(', ');
+          } else if (slotType.text) {
+            slotElementType = slotType.text.match(/^Array<([^>]+)>$/)?.[1] ?? slotType.text;
+          }
+          descriptionParts.push(` *`);
+          descriptionParts.push(` * __Supported Node Type/s:__ \`${slotElementType}\``);
+        }
+
         return `/**\n${descriptionParts.join('\n')}\n */\n${snakeCaseToCamelCase(slot.name)}?: ${
           isDefaultSlot ? 'ReactNode | ReactNode[]' : 'UI5WCSlotsNode'
         }`;

@@ -127,6 +127,8 @@ interface CarouselPropTypes
     Omit<CommonProps, keyof CarouselAttributes | 'children' | 'onNavigate'> {
   /**
    * Defines the content of the component.
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   children?: ReactNode | ReactNode[];
   /**

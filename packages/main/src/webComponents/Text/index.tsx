@@ -27,6 +27,8 @@ interface TextDomRef extends Required<TextAttributes>, Ui5DomRef {}
 interface TextPropTypes extends TextAttributes, Omit<CommonProps, keyof TextAttributes | 'children'> {
   /**
    * Defines the text of the component.
+   *
+   * __Supported Node Type/s:__ `Node`
    */
   children?: ReactNode | ReactNode[];
 }

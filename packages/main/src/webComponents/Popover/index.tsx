@@ -163,6 +163,8 @@ interface PopoverPropTypes
     > {
   /**
    * Defines the content of the Popup.
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   children?: ReactNode | ReactNode[];
 
@@ -174,6 +176,8 @@ interface PopoverPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   footer?: UI5WCSlotsNode;
 
@@ -185,6 +189,8 @@ interface PopoverPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   header?: UI5WCSlotsNode;
   /**

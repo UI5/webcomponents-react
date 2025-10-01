@@ -33,6 +33,8 @@ interface UserSettingsViewPropTypes
     Omit<CommonProps, keyof UserSettingsViewAttributes | 'children'> {
   /**
    * Defines the content of the view.
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   children?: ReactNode | ReactNode[];
 }

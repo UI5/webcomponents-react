@@ -40,6 +40,8 @@ interface OptionCustomPropTypes
     Omit<CommonProps, keyof OptionCustomAttributes | 'children'> {
   /**
    * Defines the content of the component.
+   *
+   * __Supported Node Type/s:__ `Node`
    */
   children?: ReactNode | ReactNode[];
 }

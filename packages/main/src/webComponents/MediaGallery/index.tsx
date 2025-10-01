@@ -63,6 +63,8 @@ interface MediaGalleryPropTypes
    * **Note:** Only one selected item is allowed.
    *
    * **Note:** Use the `MediaGalleryItem` component to define the desired items.
+   *
+   * __Supported Node Type/s:__ `IMediaGalleryItem`
    */
   children?: ReactNode | ReactNode[];
   /**

@@ -12,6 +12,8 @@ interface ProductSwitchDomRef extends Required<ProductSwitchAttributes>, Ui5DomR
 interface ProductSwitchPropTypes extends ProductSwitchAttributes, Omit<CommonProps, 'children'> {
   /**
    * Defines the items of the `ProductSwitch`.
+   *
+   * __Supported Node Type/s:__ `IProductSwitchItem`
    */
   children?: ReactNode | ReactNode[];
 }

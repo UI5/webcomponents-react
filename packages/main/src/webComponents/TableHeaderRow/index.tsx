@@ -24,6 +24,8 @@ interface TableHeaderRowPropTypes
    * Defines the cells of the component.
    *
    * **Note:** Use `TableHeaderCell` for the intended design.
+   *
+   * __Supported Node Type/s:__ `TableHeaderCell`
    */
   children?: ReactNode | ReactNode[];
 }

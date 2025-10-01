@@ -48,6 +48,8 @@ interface ToolbarPropTypes extends ToolbarAttributes, Omit<CommonProps, keyof To
    * Defines the items of the component.
    *
    *   **Note:** Currently only `ToolbarButton`, `ToolbarSelect`, `ToolbarSeparator` and `ToolbarSpacer` are allowed here.
+   *
+   * __Supported Node Type/s:__ `ToolbarItem`
    */
   children?: ReactNode | ReactNode[];
 }

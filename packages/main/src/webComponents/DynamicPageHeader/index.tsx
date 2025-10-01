@@ -12,6 +12,8 @@ interface DynamicPageHeaderDomRef extends Required<DynamicPageHeaderAttributes>,
 interface DynamicPageHeaderPropTypes extends DynamicPageHeaderAttributes, Omit<CommonProps, 'children'> {
   /**
    * Defines the content of the Dynamic Page Header.
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   children?: ReactNode | ReactNode[];
 }

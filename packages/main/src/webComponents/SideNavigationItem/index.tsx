@@ -138,6 +138,8 @@ interface SideNavigationItemPropTypes
     Omit<CommonProps, keyof SideNavigationItemAttributes | 'children' | 'onClick'> {
   /**
    * Defines nested items by passing `SideNavigationSubItem` to the default slot.
+   *
+   * __Supported Node Type/s:__ `SideNavigationSubItem`
    */
   children?: ReactNode | ReactNode[];
   /**

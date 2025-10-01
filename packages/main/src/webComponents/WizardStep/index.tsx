@@ -68,6 +68,8 @@ interface WizardStepDomRef extends Required<WizardStepAttributes>, Ui5DomRef {}
 interface WizardStepPropTypes extends WizardStepAttributes, Omit<CommonProps, keyof WizardStepAttributes | 'children'> {
   /**
    * Defines the step content.
+   *
+   * __Supported Node Type/s:__ `Node`
    */
   children?: ReactNode | ReactNode[];
 }

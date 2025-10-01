@@ -51,6 +51,8 @@ interface OptionPropTypes extends OptionAttributes, Omit<CommonProps, keyof Opti
    * Defines the text of the component.
    *
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
+   *
+   * __Supported Node Type/s:__ `Node`
    */
   children?: ReactNode | ReactNode[];
 }

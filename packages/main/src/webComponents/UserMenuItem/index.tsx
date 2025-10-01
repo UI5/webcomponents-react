@@ -168,6 +168,8 @@ interface UserMenuItemPropTypes
    * Defines the items of this component.
    *
    * **Note:** Use `UserMenuItem` for the intended design.
+   *
+   * __Supported Node Type/s:__ `UserMenuItem`
    */
   children?: ReactNode | ReactNode[];
 
@@ -184,6 +186,8 @@ interface UserMenuItemPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v1.9.0](https://github.com/UI5/webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `IButton`
    */
   deleteButton?: UI5WCSlotsNode;
 
@@ -209,6 +213,8 @@ interface UserMenuItemPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   endContent?: UI5WCSlotsNode;
   /**

@@ -21,6 +21,8 @@ interface SuggestionItemCustomPropTypes
     Omit<CommonProps, keyof SuggestionItemCustomAttributes | 'children'> {
   /**
    * Defines the content of the component.
+   *
+   * __Supported Node Type/s:__ `Node`
    */
   children?: ReactNode | ReactNode[];
 }

@@ -70,6 +70,8 @@ interface ToolbarSelectPropTypes
    * If more than one option is defined as selected, the last one would be considered as the selected one.
    *
    * **Note:** Use the `ToolbarSelectOption` component to define the desired options.
+   *
+   * __Supported Node Type/s:__ `ToolbarSelectOption`
    */
   children?: ReactNode | ReactNode[];
   /**

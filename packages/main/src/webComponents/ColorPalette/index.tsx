@@ -13,6 +13,8 @@ interface ColorPaletteDomRef extends Required<ColorPaletteAttributes>, Ui5DomRef
 interface ColorPalettePropTypes extends ColorPaletteAttributes, Omit<CommonProps, 'children' | 'onItemClick'> {
   /**
    * Defines the `ColorPaletteItem` elements.
+   *
+   * __Supported Node Type/s:__ `IColorPaletteItem`
    */
   children?: ReactNode | ReactNode[];
   /**

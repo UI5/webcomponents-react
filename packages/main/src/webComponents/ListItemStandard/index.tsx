@@ -160,6 +160,8 @@ interface ListItemStandardPropTypes
    * Be aware that wrapping (via `wrappingType="Normal"`) may not function correctly with custom HTML content in the `default` slot.
    *
    * If both `text` and `default` slot are used, the `text` property takes precedence.
+   *
+   * __Supported Node Type/s:__ `Node`
    */
   children?: ReactNode | ReactNode[];
 
@@ -176,6 +178,8 @@ interface ListItemStandardPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v1.9.0](https://github.com/UI5/webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
+   *
+   * __Supported Node Type/s:__ `IButton`
    */
   deleteButton?: UI5WCSlotsNode;
 
@@ -193,6 +197,8 @@ interface ListItemStandardPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   image?: UI5WCSlotsNode;
   /**

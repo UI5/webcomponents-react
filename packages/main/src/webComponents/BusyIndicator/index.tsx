@@ -46,6 +46,8 @@ interface BusyIndicatorPropTypes
     Omit<CommonProps, keyof BusyIndicatorAttributes | 'children'> {
   /**
    * Determines the content over which the component will appear.
+   *
+   * __Supported Node Type/s:__ `Node`
    */
   children?: ReactNode | ReactNode[];
 }

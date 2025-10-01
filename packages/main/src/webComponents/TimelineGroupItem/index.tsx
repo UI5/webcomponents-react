@@ -26,6 +26,8 @@ interface TimelineGroupItemPropTypes
     Omit<CommonProps, keyof TimelineGroupItemAttributes | 'children' | 'onToggle'> {
   /**
    * Determines the content of the `TimelineGroupItem`.
+   *
+   * __Supported Node Type/s:__ `ITimelineItem`
    */
   children?: ReactNode | ReactNode[];
   /**

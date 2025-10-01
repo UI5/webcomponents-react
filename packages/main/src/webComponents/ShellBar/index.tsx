@@ -189,6 +189,8 @@ interface ShellBarPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `IButton`
    */
   assistant?: UI5WCSlotsNode;
 
@@ -206,6 +208,8 @@ interface ShellBarPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.12.0](https://github.com/UI5/webcomponents/releases/tag/v2.12.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `ShellBarBranding`
    */
   branding?: UI5WCSlotsNode;
 
@@ -214,6 +218,8 @@ interface ShellBarPropTypes
    *
    * **Note:**
    * You can use the `<ShellBarItem></ShellBarItem>`.
+   *
+   * __Supported Node Type/s:__ `ShellBarItem`
    */
   children?: ReactNode | ReactNode[];
 
@@ -232,6 +238,8 @@ interface ShellBarPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   content?: UI5WCSlotsNode;
 
@@ -244,6 +252,8 @@ interface ShellBarPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   logo?: UI5WCSlotsNode;
 
@@ -257,6 +267,8 @@ interface ShellBarPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `ListItemBase`
    */
   menuItems?: UI5WCSlotsNode;
 
@@ -272,6 +284,8 @@ interface ShellBarPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   profile?: UI5WCSlotsNode;
 
@@ -283,6 +297,8 @@ interface ShellBarPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `IShellBarSearchField`
    */
   searchField?: UI5WCSlotsNode;
 
@@ -296,6 +312,8 @@ interface ShellBarPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `IButton`
    */
   startButton?: UI5WCSlotsNode;
   /**
