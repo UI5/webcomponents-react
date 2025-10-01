@@ -46,6 +46,8 @@ interface TableRowPropTypes extends TableRowAttributes, Omit<CommonProps, keyof 
    * Defines the cells of the component.
    *
    * **Note:** Use `TableCell` for the intended design.
+   *
+   * __Supported Node Type/s:__ `TableCell`
    */
   children?: ReactNode | ReactNode[];
 }
