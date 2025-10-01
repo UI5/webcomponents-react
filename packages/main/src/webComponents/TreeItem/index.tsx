@@ -160,7 +160,7 @@ interface TreeItemPropTypes
    *
    * **Note:** Use `TreeItem` or `TreeItemCustom`
    *
-   * __Supported Node Type/s:__ `TreeItemBase`
+   * __Supported Node Type/s:__ `Array<TreeItemBase>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -178,7 +178,7 @@ interface TreeItemPropTypes
    *
    * **Note:** Available since [v1.9.0](https://github.com/UI5/webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
    *
-   * __Supported Node Type/s:__ `IButton`
+   * __Supported Node Type/s:__ `Array<IButton>`
    */
   deleteButton?: UI5WCSlotsNode;
 
@@ -197,7 +197,7 @@ interface TreeItemPropTypes
    *
    * **Note:** Available since [v2.10.0](https://github.com/UI5/webcomponents/releases/tag/v2.10.0) of **@ui5/webcomponents**.
    *
-   * __Supported Node Type/s:__ `HTMLElement`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   image?: UI5WCSlotsNode;
   /**

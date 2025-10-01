@@ -72,7 +72,7 @@ interface MenuPropTypes
    *
    * **Note:** Use `MenuItem` and `MenuSeparator` for their intended design.
    *
-   * __Supported Node Type/s:__ `IMenuItem`
+   * __Supported Node Type/s:__ `Array<IMenuItem>`
    */
   children?: ReactNode | ReactNode[];
   /**

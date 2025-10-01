@@ -161,7 +161,7 @@ interface ListItemStandardPropTypes
    *
    * If both `text` and `default` slot are used, the `text` property takes precedence.
    *
-   * __Supported Node Type/s:__ `Node`
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -179,7 +179,7 @@ interface ListItemStandardPropTypes
    *
    * **Note:** Available since [v1.9.0](https://github.com/UI5/webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
    *
-   * __Supported Node Type/s:__ `IButton`
+   * __Supported Node Type/s:__ `Array<IButton>`
    */
   deleteButton?: UI5WCSlotsNode;
 
@@ -198,7 +198,7 @@ interface ListItemStandardPropTypes
    *
    * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    *
-   * __Supported Node Type/s:__ `HTMLElement`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   image?: UI5WCSlotsNode;
   /**

@@ -34,7 +34,7 @@ interface UserSettingsViewPropTypes
   /**
    * Defines the content of the view.
    *
-   * __Supported Node Type/s:__ `HTMLElement`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   children?: ReactNode | ReactNode[];
 }

@@ -64,7 +64,7 @@ interface MediaGalleryPropTypes
    *
    * **Note:** Use the `MediaGalleryItem` component to define the desired items.
    *
-   * __Supported Node Type/s:__ `IMediaGalleryItem`
+   * __Supported Node Type/s:__ `Array<IMediaGalleryItem>`
    */
   children?: ReactNode | ReactNode[];
   /**

@@ -27,7 +27,7 @@ interface WizardPropTypes
    *
    * **Note:** Use the available `WizardStep` component.
    *
-   * __Supported Node Type/s:__ `WizardStep`
+   * __Supported Node Type/s:__ `Array<WizardStep>`
    */
   children?: ReactNode | ReactNode[];
   /**

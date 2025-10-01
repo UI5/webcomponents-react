@@ -72,7 +72,7 @@ interface ButtonPropTypes
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that
    * you only use `ButtonState` components in order to preserve the intended design.
    *
-   * __Supported Node Type/s:__ `ButtonState`
+   * __Supported Node Type/s:__ `Array<ButtonState>`
    */
   children?: ReactNode | ReactNode[];
   /**

@@ -113,7 +113,7 @@ interface PromptInputPropTypes
    *
    * **Note:** The `<ui5-suggestion-item>`, `<ui5-suggestion-item-group>` and `ui5-suggestion-item-custom` are recommended to be used as suggestion items.
    *
-   * __Supported Node Type/s:__ `IInputSuggestionItem`
+   * __Supported Node Type/s:__ `Array<IInputSuggestionItem>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -134,7 +134,7 @@ interface PromptInputPropTypes
    *
    * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
    *
-   * __Supported Node Type/s:__ `HTMLElement`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**

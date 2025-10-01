@@ -128,7 +128,7 @@ interface CarouselPropTypes
   /**
    * Defines the content of the component.
    *
-   * __Supported Node Type/s:__ `HTMLElement`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   children?: ReactNode | ReactNode[];
   /**

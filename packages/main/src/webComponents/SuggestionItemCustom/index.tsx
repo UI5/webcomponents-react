@@ -22,7 +22,7 @@ interface SuggestionItemCustomPropTypes
   /**
    * Defines the content of the component.
    *
-   * __Supported Node Type/s:__ `Node`
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 }

@@ -139,7 +139,7 @@ interface SideNavigationItemPropTypes
   /**
    * Defines nested items by passing `SideNavigationSubItem` to the default slot.
    *
-   * __Supported Node Type/s:__ `SideNavigationSubItem`
+   * __Supported Node Type/s:__ `Array<SideNavigationSubItem>`
    */
   children?: ReactNode | ReactNode[];
   /**

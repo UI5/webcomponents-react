@@ -71,7 +71,7 @@ interface SegmentedButtonPropTypes
    *
    * **Note:** Use the `SegmentedButtonItem` for the intended design.
    *
-   * __Supported Node Type/s:__ `ISegmentedButtonItem`
+   * __Supported Node Type/s:__ `Array<ISegmentedButtonItem>`
    */
   children?: ReactNode | ReactNode[];
   /**

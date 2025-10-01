@@ -62,7 +62,7 @@ interface TimelinePropTypes
   /**
    * Determines the content of the `Timeline`.
    *
-   * __Supported Node Type/s:__ `ITimelineItem`
+   * __Supported Node Type/s:__ `Array<ITimelineItem>`
    */
   children?: ReactNode | ReactNode[];
   /**

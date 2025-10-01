@@ -47,7 +47,7 @@ interface SearchItemGroupPropTypes
   /**
    * Defines the items of the <code>ui5-li-group</code>.
    *
-   * __Supported Node Type/s:__ `ListItemBase`
+   * __Supported Node Type/s:__ `Array<ListItemBase>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -62,7 +62,7 @@ interface SearchItemGroupPropTypes
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * __Supported Node Type/s:__ `ListItemBase`
+   * __Supported Node Type/s:__ `Array<ListItemBase>`
    */
   header?: UI5WCSlotsNode;
   /**

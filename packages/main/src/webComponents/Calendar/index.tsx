@@ -107,7 +107,7 @@ interface CalendarPropTypes
    *
    * **Note:** Available since [v1.23.0](https://github.com/UI5/webcomponents/releases/tag/v1.23.0) of **@ui5/webcomponents**.
    *
-   * __Supported Node Type/s:__ `CalendarLegend`
+   * __Supported Node Type/s:__ `Array<CalendarLegend>`
    */
   calendarLegend?: UI5WCSlotsNode;
 
@@ -116,7 +116,7 @@ interface CalendarPropTypes
    * for this calendar as instances of `CalendarDate` or `CalendarDateRange`.
    * Use `CalendarDate` for single or multiple selection, and `CalendarDateRange` for range selection.
    *
-   * __Supported Node Type/s:__ `ICalendarSelectedDates`
+   * __Supported Node Type/s:__ `Array<ICalendarSelectedDates>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -131,7 +131,7 @@ interface CalendarPropTypes
    *
    * **Note:** Available since [v1.23.0](https://github.com/UI5/webcomponents/releases/tag/v1.23.0) of **@ui5/webcomponents**.
    *
-   * __Supported Node Type/s:__ `SpecialCalendarDate`
+   * __Supported Node Type/s:__ `Array<SpecialCalendarDate>`
    */
   specialDates?: UI5WCSlotsNode;
   /**

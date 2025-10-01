@@ -57,7 +57,7 @@ interface TableColumnPropTypes
   /**
    * Defines the content of the column header
    *
-   * __Supported Node Type/s:__ `Node`
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 }

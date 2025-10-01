@@ -26,7 +26,7 @@ interface NotificationListPropTypes
   /**
    * Defines the items of the component.
    *
-   * __Supported Node Type/s:__ `NotificationListItemBase`
+   * __Supported Node Type/s:__ `Array<NotificationListItemBase>`
    */
   children?: ReactNode | ReactNode[];
   /**

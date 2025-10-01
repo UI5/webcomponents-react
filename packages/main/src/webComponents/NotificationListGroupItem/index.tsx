@@ -59,7 +59,7 @@ interface NotificationListGroupItemPropTypes
    * Defines the items of the `NotificationListGroupItem`,
    * usually `NotificationListItem` items.
    *
-   * __Supported Node Type/s:__ `NotificationListItem`
+   * __Supported Node Type/s:__ `Array<NotificationListItem>`
    */
   children?: ReactNode | ReactNode[];
   /**

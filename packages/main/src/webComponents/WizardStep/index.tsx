@@ -69,7 +69,7 @@ interface WizardStepPropTypes extends WizardStepAttributes, Omit<CommonProps, ke
   /**
    * Defines the step content.
    *
-   * __Supported Node Type/s:__ `Node`
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 }

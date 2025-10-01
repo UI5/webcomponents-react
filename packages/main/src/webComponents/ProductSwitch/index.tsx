@@ -13,7 +13,7 @@ interface ProductSwitchPropTypes extends ProductSwitchAttributes, Omit<CommonPro
   /**
    * Defines the items of the `ProductSwitch`.
    *
-   * __Supported Node Type/s:__ `IProductSwitchItem`
+   * __Supported Node Type/s:__ `Array<IProductSwitchItem>`
    */
   children?: ReactNode | ReactNode[];
 }

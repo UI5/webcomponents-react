@@ -73,7 +73,7 @@ interface UserSettingsItemPropTypes
    *
    * The tab views are displayed by default if there is no selected page view.
    *
-   * __Supported Node Type/s:__ `UserSettingsView`
+   * __Supported Node Type/s:__ `Array<UserSettingsView>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -89,7 +89,7 @@ interface UserSettingsItemPropTypes
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * __Supported Node Type/s:__ `UserSettingsView`
+   * __Supported Node Type/s:__ `Array<UserSettingsView>`
    */
   pages?: UI5WCSlotsNode;
   /**

@@ -25,7 +25,7 @@ interface TableHeaderRowPropTypes
    *
    * **Note:** Use `TableHeaderCell` for the intended design.
    *
-   * __Supported Node Type/s:__ `TableHeaderCell`
+   * __Supported Node Type/s:__ `Array<TableHeaderCell>`
    */
   children?: ReactNode | ReactNode[];
 }

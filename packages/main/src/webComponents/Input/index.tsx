@@ -167,7 +167,7 @@ interface InputPropTypes
    *
    * **Note:** The `<SuggestionItem>`, `<SuggestionItemGroup>` and `SuggestionItemCustom` are recommended to be used as suggestion items.
    *
-   * __Supported Node Type/s:__ `IInputSuggestionItem`
+   * __Supported Node Type/s:__ `Array<IInputSuggestionItem>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -180,7 +180,7 @@ interface InputPropTypes
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * __Supported Node Type/s:__ `IIcon`
+   * __Supported Node Type/s:__ `Array<IIcon>`
    */
   icon?: UI5WCSlotsNode;
 
@@ -202,7 +202,7 @@ interface InputPropTypes
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * __Supported Node Type/s:__ `HTMLElement`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**

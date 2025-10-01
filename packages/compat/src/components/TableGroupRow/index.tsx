@@ -19,7 +19,7 @@ interface TableGroupRowPropTypes extends TableGroupRowAttributes, Omit<CommonPro
    *
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
    *
-   * __Supported Node Type/s:__ `Node`
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 }

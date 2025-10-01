@@ -39,7 +39,7 @@ interface CalendarLegendPropTypes
   /**
    * Defines the items of the component.
    *
-   * __Supported Node Type/s:__ `CalendarLegendItem`
+   * __Supported Node Type/s:__ `Array<CalendarLegendItem>`
    */
   children?: ReactNode | ReactNode[];
 }

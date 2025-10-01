@@ -44,7 +44,7 @@ interface BarcodeScannerDialogPropTypes
    *
    * **Note:** Available since [v2.4.0](https://github.com/UI5/webcomponents/releases/tag/v2.4.0) of **@ui5/webcomponents-fiori**.
    *
-   * __Supported Node Type/s:__ `HTMLElement`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   footer?: UI5WCSlotsNode;
 
@@ -62,7 +62,7 @@ interface BarcodeScannerDialogPropTypes
    *
    * **Note:** Available since [v2.4.0](https://github.com/UI5/webcomponents/releases/tag/v2.4.0) of **@ui5/webcomponents-fiori**.
    *
-   * __Supported Node Type/s:__ `HTMLElement`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   header?: UI5WCSlotsNode;
   /**

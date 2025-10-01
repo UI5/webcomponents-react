@@ -60,7 +60,7 @@ interface ColorPalettePopoverPropTypes
   /**
    * Defines the content of the component.
    *
-   * __Supported Node Type/s:__ `IColorPaletteItem`
+   * __Supported Node Type/s:__ `Array<IColorPaletteItem>`
    */
   children?: ReactNode | ReactNode[];
   /**

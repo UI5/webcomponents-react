@@ -36,7 +36,7 @@ interface BreadcrumbsPropTypes
    *
    * **Note:** Use the `BreadcrumbsItem` component to define the desired items.
    *
-   * __Supported Node Type/s:__ `BreadcrumbsItem`
+   * __Supported Node Type/s:__ `Array<BreadcrumbsItem>`
    */
   children?: ReactNode | ReactNode[];
   /**

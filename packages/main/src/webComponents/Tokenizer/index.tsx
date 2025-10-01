@@ -68,7 +68,7 @@ interface TokenizerPropTypes
   /**
    * Defines the tokens to be displayed.
    *
-   * __Supported Node Type/s:__ `Token`
+   * __Supported Node Type/s:__ `Array<Token>`
    */
   children?: ReactNode | ReactNode[];
   /**

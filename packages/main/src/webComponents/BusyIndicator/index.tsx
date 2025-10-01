@@ -47,7 +47,7 @@ interface BusyIndicatorPropTypes
   /**
    * Determines the content over which the component will appear.
    *
-   * __Supported Node Type/s:__ `Node`
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 }

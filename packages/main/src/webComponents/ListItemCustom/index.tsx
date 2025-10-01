@@ -91,7 +91,7 @@ interface ListItemCustomPropTypes
   /**
    * Defines the content of the component.
    *
-   * __Supported Node Type/s:__ `Node`
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -109,7 +109,7 @@ interface ListItemCustomPropTypes
    *
    * **Note:** Available since [v1.9.0](https://github.com/UI5/webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
    *
-   * __Supported Node Type/s:__ `IButton`
+   * __Supported Node Type/s:__ `Array<IButton>`
    */
   deleteButton?: UI5WCSlotsNode;
   /**

@@ -14,7 +14,7 @@ interface ColorPalettePropTypes extends ColorPaletteAttributes, Omit<CommonProps
   /**
    * Defines the `ColorPaletteItem` elements.
    *
-   * __Supported Node Type/s:__ `IColorPaletteItem`
+   * __Supported Node Type/s:__ `Array<IColorPaletteItem>`
    */
   children?: ReactNode | ReactNode[];
   /**

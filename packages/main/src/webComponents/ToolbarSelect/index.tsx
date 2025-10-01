@@ -71,7 +71,7 @@ interface ToolbarSelectPropTypes
    *
    * **Note:** Use the `ToolbarSelectOption` component to define the desired options.
    *
-   * __Supported Node Type/s:__ `ToolbarSelectOption`
+   * __Supported Node Type/s:__ `Array<ToolbarSelectOption>`
    */
   children?: ReactNode | ReactNode[];
   /**

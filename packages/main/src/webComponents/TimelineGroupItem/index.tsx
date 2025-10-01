@@ -27,7 +27,7 @@ interface TimelineGroupItemPropTypes
   /**
    * Determines the content of the `TimelineGroupItem`.
    *
-   * __Supported Node Type/s:__ `ITimelineItem`
+   * __Supported Node Type/s:__ `Array<ITimelineItem>`
    */
   children?: ReactNode | ReactNode[];
   /**

@@ -13,7 +13,7 @@ interface DynamicPageHeaderPropTypes extends DynamicPageHeaderAttributes, Omit<C
   /**
    * Defines the content of the Dynamic Page Header.
    *
-   * __Supported Node Type/s:__ `HTMLElement`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   children?: ReactNode | ReactNode[];
 }

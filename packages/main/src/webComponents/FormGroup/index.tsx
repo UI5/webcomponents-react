@@ -36,7 +36,7 @@ interface FormGroupPropTypes extends FormGroupAttributes, Omit<CommonProps, keyo
   /**
    * Defines the items of the component.
    *
-   * __Supported Node Type/s:__ `FormItem`
+   * __Supported Node Type/s:__ `Array<FormItem>`
    */
   children?: ReactNode | ReactNode[];
 }

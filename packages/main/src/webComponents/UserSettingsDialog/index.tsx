@@ -47,7 +47,7 @@ interface UserSettingsDialogPropTypes
    *
    * **Note:**  If no setting item is set as `selected`, the first one will be selected.
    *
-   * __Supported Node Type/s:__ `UserSettingsItem`
+   * __Supported Node Type/s:__ `Array<UserSettingsItem>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -60,7 +60,7 @@ interface UserSettingsDialogPropTypes
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
-   * __Supported Node Type/s:__ `UserSettingsItem`
+   * __Supported Node Type/s:__ `Array<UserSettingsItem>`
    */
   fixedItems?: UI5WCSlotsNode;
   /**

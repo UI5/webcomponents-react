@@ -97,14 +97,14 @@ interface TableHeaderCellPropTypes
    *
    * **Note:** Available since [v2.8.0](https://github.com/UI5/webcomponents/releases/tag/v2.8.0) of **@ui5/webcomponents**.
    *
-   * __Supported Node Type/s:__ `TableHeaderCellActionBase`
+   * __Supported Node Type/s:__ `Array<TableHeaderCellActionBase>`
    */
   action?: UI5WCSlotsNode;
 
   /**
    * Defines the content of the component.
    *
-   * __Supported Node Type/s:__ `Node`
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 }

@@ -176,7 +176,7 @@ interface MenuItemPropTypes
    * The priority of what will be displayed at the end of the menu item is as follows:
    * sub-menu arrow (if there are items added in `items` slot) -> components added in `endContent` -> text set to `additionalText`.
    *
-   * __Supported Node Type/s:__ `IMenuItem`
+   * __Supported Node Type/s:__ `Array<IMenuItem>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -194,7 +194,7 @@ interface MenuItemPropTypes
    *
    * **Note:** Available since [v1.9.0](https://github.com/UI5/webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
    *
-   * __Supported Node Type/s:__ `IButton`
+   * __Supported Node Type/s:__ `Array<IButton>`
    */
   deleteButton?: UI5WCSlotsNode;
 
@@ -221,7 +221,7 @@ interface MenuItemPropTypes
    *
    * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    *
-   * __Supported Node Type/s:__ `HTMLElement`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   endContent?: UI5WCSlotsNode;
   /**

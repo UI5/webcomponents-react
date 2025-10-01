@@ -132,7 +132,7 @@ interface AvatarPropTypes
    *
    * **Note:** Available since [v1.7.0](https://github.com/UI5/webcomponents/releases/tag/v1.7.0) of **@ui5/webcomponents**.
    *
-   * __Supported Node Type/s:__ `HTMLElement`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   badge?: UI5WCSlotsNode;
 
@@ -144,7 +144,7 @@ interface AvatarPropTypes
    * &nbsp;&nbsp;&nbsp;&nbsp;`visibility: hidden;`<br/>
    * `}`
    *
-   * __Supported Node Type/s:__ `HTMLElement`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   children?: ReactNode | ReactNode[];
   /**
