@@ -33,7 +33,7 @@ interface MultiComboBoxItemPropTypes
 /**
  * The `MultiComboBoxItem` represents the item for a `MultiComboBox`.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [MultiComboBoxItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/MultiComboBoxItem) | [Repository](https://github.com/UI5/webcomponents)
  */
 const MultiComboBoxItem = withWebComponent<MultiComboBoxItemPropTypes, MultiComboBoxItemDomRef>(
   'ui5-mcb-item',

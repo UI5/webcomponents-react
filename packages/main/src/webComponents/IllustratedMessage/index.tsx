@@ -160,7 +160,7 @@ interface IllustratedMessagePropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [IllustratedMessage UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/IllustratedMessage) | [Repository](https://github.com/UI5/webcomponents)
  */
 const IllustratedMessage = withWebComponent<IllustratedMessagePropTypes, IllustratedMessageDomRef>(
   'ui5-illustrated-message',

@@ -67,7 +67,7 @@ interface MediaGalleryItemPropTypes
  *
  * )
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [MediaGalleryItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/MediaGalleryItem) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of __@ui5/webcomponents-fiori__.
  */

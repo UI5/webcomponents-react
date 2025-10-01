@@ -343,7 +343,7 @@ interface DateRangePickerPropTypes
  * - [Shift] + [Page Up] - Increments the corresponding month by one
  * - [Shift] + [Ctrl] + [Page Up] - Increments the corresponding year by one
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [DateRangePicker UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/DateRangePicker) | [Repository](https://github.com/UI5/webcomponents)
  */
 const DateRangePicker = withWebComponent<DateRangePickerPropTypes, DateRangePickerDomRef>(
   'ui5-daterange-picker',

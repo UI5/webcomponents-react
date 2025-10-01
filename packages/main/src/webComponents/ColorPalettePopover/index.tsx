@@ -100,7 +100,7 @@ interface ColorPalettePopoverPropTypes
  * For the `ColorPalettePopover`
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [ColorPalettePopover UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ColorPalettePopover) | [Repository](https://github.com/UI5/webcomponents)
  */
 const ColorPalettePopover = withWebComponent<ColorPalettePopoverPropTypes, ColorPalettePopoverDomRef>(
   'ui5-color-palette-popover',

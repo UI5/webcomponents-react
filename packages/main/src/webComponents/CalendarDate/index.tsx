@@ -19,7 +19,7 @@ interface CalendarDatePropTypes extends CalendarDateAttributes, Omit<CommonProps
 /**
  * The `CalendarDate` component defines a calendar date to be used inside `Calendar`
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [CalendarDate UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/CalendarDate) | [Repository](https://github.com/UI5/webcomponents)
  * @abstract
  */
 const CalendarDate = withWebComponent<CalendarDatePropTypes, CalendarDateDomRef>('ui5-date', ['value'], [], [], []);

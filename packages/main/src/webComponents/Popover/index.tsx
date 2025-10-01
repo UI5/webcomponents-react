@@ -255,7 +255,7 @@ interface PopoverPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Popover UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Popover) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Popover = withWebComponent<PopoverPropTypes, PopoverDomRef>(
   'ui5-popover',

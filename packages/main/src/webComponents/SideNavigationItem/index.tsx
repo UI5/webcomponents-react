@@ -160,7 +160,7 @@ interface SideNavigationItemPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [SideNavigationItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/SideNavigationItem) | [Repository](https://github.com/UI5/webcomponents)
  * @abstract
  */
 const SideNavigationItem = withWebComponent<SideNavigationItemPropTypes, SideNavigationItemDomRef>(

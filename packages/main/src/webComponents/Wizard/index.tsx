@@ -115,7 +115,7 @@ interface WizardPropTypes
  *
  *  (includes <ui5-wizard-step/>)
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Wizard UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/Wizard) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Wizard = withWebComponent<WizardPropTypes, WizardDomRef>(
   'ui5-wizard',

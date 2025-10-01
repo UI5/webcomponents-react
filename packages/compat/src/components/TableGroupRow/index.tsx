@@ -18,6 +18,8 @@ interface TableGroupRowPropTypes extends TableGroupRowAttributes, Omit<CommonPro
    * Defines the text of the component.
    *
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
+   *
+   * __Supported Node Type/s:__ `Node`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -25,7 +27,7 @@ interface TableGroupRowPropTypes extends TableGroupRowAttributes, Omit<CommonPro
 /**
  * The `TableGroupRow` component represents a group row in the `Table`.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [TableGroupRow UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/compat/TableGroupRow) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents-compat__.
  * @deprecated Deprecated as of version 2.12.0, use `@ui5/webcomponents/dist/Table.js` instead.

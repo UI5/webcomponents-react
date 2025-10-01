@@ -167,7 +167,7 @@ interface AvatarGroupPropTypes
  * - [Tab] - Move focus to the next interactive element after the component
  * - [Space] / [Enter] or [Return] - Trigger `ui5-click` event
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [AvatarGroup UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/AvatarGroup) | [Repository](https://github.com/UI5/webcomponents)
  */
 const AvatarGroup = withWebComponent<AvatarGroupPropTypes, AvatarGroupDomRef>(
   'ui5-avatar-group',

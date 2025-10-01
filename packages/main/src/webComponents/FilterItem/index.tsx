@@ -41,7 +41,7 @@ interface FilterItemPropTypes extends FilterItemAttributes, Omit<CommonProps, ke
  * For the `FilterItem`
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [FilterItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/FilterItem) | [Repository](https://github.com/UI5/webcomponents)
  * @abstract
  */
 const FilterItem = withWebComponent<FilterItemPropTypes, FilterItemDomRef>(

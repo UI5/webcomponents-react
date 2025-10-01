@@ -76,7 +76,7 @@ interface ToastPropTypes extends ToastAttributes, Omit<CommonProps, keyof ToastA
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Toast UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Toast) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Toast = withWebComponent<ToastPropTypes, ToastDomRef>(
   'ui5-toast',

@@ -112,6 +112,8 @@ interface PromptInputPropTypes
    * property is set to `true`.
    *
    * **Note:** The `<ui5-suggestion-item>`, `<ui5-suggestion-item-group>` and `ui5-suggestion-item-custom` are recommended to be used as suggestion items.
+   *
+   * __Supported Node Type/s:__ `IInputSuggestionItem`
    */
   children?: ReactNode | ReactNode[];
 
@@ -131,6 +133,8 @@ interface PromptInputPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
+   *
+   * __Supported Node Type/s:__ `HTMLElement`
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**
@@ -177,7 +181,7 @@ interface PromptInputPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [PromptInput UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ai/PromptInput) | [Repository](https://github.com/UI5/webcomponents)
  * @experimental The **@ui5/webcomponents-ai** package is under development and considered experimental - components' APIs are subject to change.
  */
 const PromptInput = withWebComponent<PromptInputPropTypes, PromptInputDomRef>(

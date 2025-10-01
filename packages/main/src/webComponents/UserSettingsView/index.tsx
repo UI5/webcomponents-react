@@ -42,7 +42,7 @@ interface UserSettingsViewPropTypes
 /**
  * The `UserSettingsView` represents a view displayed in the `UserSettingsItem`.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [UserSettingsView UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/UserSettingsView) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.8.0](https://github.com/UI5/webcomponents/releases/tag/v2.8.0) of __@ui5/webcomponents-fiori__.
  * @experimental

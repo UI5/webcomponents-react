@@ -449,7 +449,7 @@ interface ShellBarPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [ShellBar UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/ShellBar) | [Repository](https://github.com/UI5/webcomponents)
  */
 const ShellBar = withWebComponent<ShellBarPropTypes, ShellBarDomRef>(
   'ui5-shellbar',

@@ -342,7 +342,7 @@ interface ListPropTypes
  *
  * `import "@ui5/webcomponents/dist/ListItemGroup.js";` (for `ListItemGroup`)
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [List UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/List) | [Repository](https://github.com/UI5/webcomponents)
  */
 const List = withWebComponent<ListPropTypes, ListDomRef>(
   'ui5-list',

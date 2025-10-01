@@ -94,7 +94,7 @@ interface PagePropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Page UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/Page) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Page = withWebComponent<PagePropTypes, PageDomRef>(
   'ui5-page',

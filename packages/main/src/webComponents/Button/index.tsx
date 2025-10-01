@@ -211,7 +211,7 @@ interface ButtonPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Button UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Button) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Button = withWebComponent<ButtonPropTypes, ButtonDomRef>(
   'ui5-button',

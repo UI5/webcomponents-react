@@ -173,7 +173,7 @@ interface NotificationListItemPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [NotificationListItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/NotificationListItem) | [Repository](https://github.com/UI5/webcomponents)
  */
 const NotificationListItem = withWebComponent<NotificationListItemPropTypes, NotificationListItemDomRef>(
   'ui5-li-notification',

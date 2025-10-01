@@ -75,7 +75,7 @@ interface CardPropTypes extends CardAttributes, Omit<CommonProps, keyof CardAttr
  *
  * `import "@ui5/webcomponents/dist/CardHeader.js";` (for `CardHeader`)
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Card UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Card) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Card = withWebComponent<CardPropTypes, CardDomRef>(
   'ui5-card',

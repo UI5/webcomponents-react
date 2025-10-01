@@ -112,7 +112,7 @@ interface SideNavigationPropTypes
  *
  * `import "@ui5/webcomponents-fiori/dist/SideNavigationSubItem.js";` (for `SideNavigationSubItem`)
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [SideNavigation UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/SideNavigation) | [Repository](https://github.com/UI5/webcomponents)
  */
 const SideNavigation = withWebComponent<SideNavigationPropTypes, SideNavigationDomRef>(
   'ui5-side-navigation',

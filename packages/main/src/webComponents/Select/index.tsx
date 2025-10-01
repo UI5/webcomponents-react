@@ -262,7 +262,7 @@ interface SelectPropTypes
  * `import "@ui5/webcomponents/dist/Option";`
  * `import "@ui5/webcomponents/dist/OptionCustom";`
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Select UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Select) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Select = withWebComponent<SelectPropTypes, SelectDomRef>(
   'ui5-select',

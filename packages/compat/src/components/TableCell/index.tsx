@@ -16,6 +16,8 @@ interface TableCellDomRef extends Required<TableCellAttributes>, Ui5DomRef {}
 interface TableCellPropTypes extends TableCellAttributes, Omit<CommonProps, 'children'> {
   /**
    * Specifies the content of the component.
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement> | undefined`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -23,7 +25,7 @@ interface TableCellPropTypes extends TableCellAttributes, Omit<CommonProps, 'chi
 /**
  * The `TableCell` component defines the structure of the data in a single `Table` cell.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [TableCell UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/compat/TableCell) | [Repository](https://github.com/UI5/webcomponents)
  * @deprecated Deprecated as of version 2.12.0, use `@ui5/webcomponents/dist/TableCell.js` instead.
  */
 const TableCell = withWebComponent<TableCellPropTypes, TableCellDomRef>(`ui5-table-cell${tagSuffix}`, [], [], [], []);

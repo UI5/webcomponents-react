@@ -369,7 +369,7 @@ interface DatePickerPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [DatePicker UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/DatePicker) | [Repository](https://github.com/UI5/webcomponents)
  */
 const DatePicker = withWebComponent<DatePickerPropTypes, DatePickerDomRef>(
   'ui5-date-picker',

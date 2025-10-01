@@ -329,7 +329,7 @@ interface MultiInputPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [MultiInput UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/MultiInput) | [Repository](https://github.com/UI5/webcomponents)
  */
 const MultiInput = withWebComponent<MultiInputPropTypes, MultiInputDomRef>(
   'ui5-multi-input',

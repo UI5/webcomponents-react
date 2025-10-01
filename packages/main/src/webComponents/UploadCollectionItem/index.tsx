@@ -245,7 +245,7 @@ interface UploadCollectionItemPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [UploadCollectionItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/UploadCollectionItem) | [Repository](https://github.com/UI5/webcomponents)
  */
 const UploadCollectionItem = withWebComponent<UploadCollectionItemPropTypes, UploadCollectionItemDomRef>(
   'ui5-upload-collection-item',

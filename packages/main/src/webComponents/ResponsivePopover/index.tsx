@@ -243,7 +243,7 @@ interface ResponsivePopoverPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [ResponsivePopover UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ResponsivePopover) | [Repository](https://github.com/UI5/webcomponents)
  */
 const ResponsivePopover = withWebComponent<ResponsivePopoverPropTypes, ResponsivePopoverDomRef>(
   'ui5-responsive-popover',
