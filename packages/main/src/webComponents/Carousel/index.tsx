@@ -14,7 +14,7 @@ interface CarouselAttributes {
   /**
    * Defines the accessible name of the component.
    *
-   * **Note:** Available since [v1.24](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.24) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.24](https://github.com/UI5/webcomponents/releases/tag/v1.24) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleName?: string | undefined;
@@ -22,7 +22,7 @@ interface CarouselAttributes {
   /**
    * Defines the IDs of the elements that label the input.
    *
-   * **Note:** Available since [v1.24](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.24) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.24](https://github.com/UI5/webcomponents/releases/tag/v1.24) of **@ui5/webcomponents**.
    * @default undefined
    */
   accessibleNameRef?: string | undefined;
@@ -41,7 +41,7 @@ interface CarouselAttributes {
   /**
    * Defines the carousel's background design.
    *
-   * **Note:** Available since [v1.14](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.14) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.14](https://github.com/UI5/webcomponents/releases/tag/v1.14) of **@ui5/webcomponents**.
    * @default "Translucent"
    */
   backgroundDesign?: BackgroundDesign | keyof typeof BackgroundDesign;
@@ -82,7 +82,7 @@ interface CarouselAttributes {
   /**
    * Defines the page indicator background design.
    *
-   * **Note:** Available since [v1.14](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.14) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.14](https://github.com/UI5/webcomponents/releases/tag/v1.14) of **@ui5/webcomponents**.
    * @default "Solid"
    */
   pageIndicatorBackgroundDesign?: BackgroundDesign | keyof typeof BackgroundDesign;
@@ -90,7 +90,7 @@ interface CarouselAttributes {
   /**
    * Defines the page indicator border design.
    *
-   * **Note:** Available since [v1.14](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.14) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.14](https://github.com/UI5/webcomponents/releases/tag/v1.14) of **@ui5/webcomponents**.
    * @default "Solid"
    */
   pageIndicatorBorderDesign?: BorderDesign | keyof typeof BorderDesign;
@@ -102,7 +102,7 @@ interface CarouselAttributes {
    * - `Default` - The page indicator will be visualized as dots if there are fewer than 9 pages. If there are more pages, the page indicator will switch to displaying the current page and the total number of pages. (e.g. X of Y)
    * - `Numeric` - The page indicator will display the current page and the total number of pages. (e.g. X of Y)
    *
-   * **Note:** Available since [v1.10](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.10) of **@ui5/webcomponents**.
+   * **Note:** Available since [v1.10](https://github.com/UI5/webcomponents/releases/tag/v1.10) of **@ui5/webcomponents**.
    * @default "Default"
    */
   pageIndicatorType?: CarouselPageIndicatorType | keyof typeof CarouselPageIndicatorType;
@@ -179,7 +179,7 @@ interface CarouselPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  */
 const Carousel = withWebComponent<CarouselPropTypes, CarouselDomRef>(
   'ui5-carousel',

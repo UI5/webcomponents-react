@@ -20,7 +20,7 @@ interface ToastAttributes {
   /**
    * Indicates whether the component is open (visible).
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default false
    */
   open?: boolean;
@@ -44,7 +44,7 @@ interface ToastPropTypes extends ToastAttributes, Omit<CommonProps, keyof ToastA
   /**
    * Fired after the component is auto closed.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -74,7 +74,7 @@ interface ToastPropTypes extends ToastAttributes, Omit<CommonProps, keyof ToastA
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  */
 const Toast = withWebComponent<ToastPropTypes, ToastDomRef>(
   'ui5-toast',

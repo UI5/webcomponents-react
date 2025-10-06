@@ -30,10 +30,11 @@ import { Select } from '../../webComponents/Select/index.js';
 import { Tag } from '../../webComponents/Tag/index.js';
 import { Text } from '../../webComponents/Text/index.js';
 import { FlexBox } from '../FlexBox/index.js';
-import type { AnalyticalTableColumnDefinition } from './index.js';
+import { ObjectStatus } from '../ObjectStatus/index.js';
+import type { AnalyticalTableColumnDefinition, AnalyticalTablePropTypes } from './index.js';
 import { AnalyticalTable } from './index.js';
 
-const kitchenSinkArgs = {
+const kitchenSinkArgs: AnalyticalTablePropTypes = {
   data: dataLarge,
   columns: [
     {
@@ -89,6 +90,14 @@ const kitchenSinkArgs = {
             <Option value="false">Can't Drink</Option>
           </Select>
         );
+      },
+    },
+    {
+      Header: 'Status',
+      id: 'os',
+      Cell: (instance) => {
+        const state = instance.row.index % 2 === 0 ? 'Positive' : 'Negative';
+        return <ObjectStatus state={state}>{state}</ObjectStatus>;
       },
     },
     {

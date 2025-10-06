@@ -14,6 +14,8 @@ const NON_STANDARD_INTERACTIVE_ELEMENTS = [
   '[ui5-segmented-button]',
   '[ui5-select]',
   '[ui5-slider]',
+  '[ui5-split-button]',
+  '[ui5-icon][mode="Interactive"]',
 ];
 
 /**

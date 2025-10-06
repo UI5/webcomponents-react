@@ -128,8 +128,7 @@ const MessageItem = forwardRef<ListItemCustomDomRef, MessageItemPropTypes>((prop
   useEffect(() => {
     if (typeof titleText === 'string') {
       setTitleTextStr(titleText);
-    } else if (isValidElement(titleText) && typeof (titleText.props as LinkPropTypes)?.children === 'string') {
-      // @ts-expect-error: props.children is available and a string
+    } else if (isValidElement<LinkPropTypes>(titleText) && typeof titleText.props.children === 'string') {
       setTitleTextStr(titleText.props.children);
     }
   }, [titleText]);

@@ -18,7 +18,7 @@ interface SideNavigationItemAttributes {
    *
    * **Note:** Do not use it on parent items, as it will be overridden if the item is in the overflow menu.
    *
-   * **Note:** Available since [v2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
    * @default {}
    */
   accessibilityAttributes?: SideNavigationItemAccessibilityAttributes;
@@ -28,7 +28,7 @@ interface SideNavigationItemAttributes {
    *
    * **Note:** Items with "Action" design must not have sub-items.
    *
-   * **Note:** Available since [v2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
    * @default "Default"
    */
   design?: SideNavigationItemDesign | keyof typeof SideNavigationItemDesign;
@@ -38,7 +38,7 @@ interface SideNavigationItemAttributes {
    * A disabled component can't be pressed or
    * focused, and it is not in the tab chain.
    *
-   * **Note:** Available since [v1.19.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.19.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v1.19.0](https://github.com/UI5/webcomponents/releases/tag/v1.19.0) of **@ui5/webcomponents-fiori**.
    * @default false
    */
   disabled?: boolean;
@@ -55,7 +55,7 @@ interface SideNavigationItemAttributes {
    * this should not be set, but instead an event handler
    * for the `click` event should be registered.
    *
-   * **Note:** Available since [v1.19.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.19.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v1.19.0](https://github.com/UI5/webcomponents/releases/tag/v1.19.0) of **@ui5/webcomponents-fiori**.
    * @default undefined
    */
   href?: string | undefined;
@@ -92,7 +92,7 @@ interface SideNavigationItemAttributes {
    * **Note:** Items that have a defined `href` and `target`
    * attribute set to `_blank` should not be selectable.
    *
-   * **Note:** Available since [v1.19.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.19.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v1.19.0](https://github.com/UI5/webcomponents/releases/tag/v1.19.0) of **@ui5/webcomponents-fiori**.
    * @default undefined
    */
   target?: string | undefined;
@@ -109,7 +109,7 @@ interface SideNavigationItemAttributes {
    * A tooltip attribute should be provided, in order to represent meaning/function,
    * when the component is collapsed ("icon only" design is visualized) or the item text is truncated.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-fiori**.
    * @default undefined
    */
   tooltip?: string | undefined;
@@ -125,7 +125,7 @@ interface SideNavigationItemAttributes {
    * - Items with an assigned `href` and a target of `_blank` should be marked as unselectable.
    * - Items that trigger actions (with design "Action") should be marked as unselectable.
    *
-   * **Note:** Available since [v2.7.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
    * @default false
    */
   unselectable?: boolean;
@@ -158,7 +158,7 @@ interface SideNavigationItemPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  * @abstract
  */
 const SideNavigationItem = withWebComponent<SideNavigationItemPropTypes, SideNavigationItemDomRef>(

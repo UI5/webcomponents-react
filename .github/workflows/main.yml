@@ -35,56 +35,14 @@ jobs:
           compression: 'gzip'
           clean-script: 'clean:remove-modules'
 
-  install:
-    name: 'Install Dependencies'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-
-      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
-
-      - name: Install and Build
-        run: yarn install --immutable
+  build:
+    uses: './.github/workflows/build.yml'
 
   test:
-    needs: ['install']
+    needs: ['build']
     uses: './.github/workflows/test.yml'
 
-  build:
-    needs: ['install']
-    name: 'Build'
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        react: ['18', '19']
-    env:
-      CYPRESS_INSTALL_BINARY: 0
-    steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-
-      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
-
-      - name: Install
-        run: yarn install --immutable
-
-      - name: Install 19
-        if: ${{ matrix.react == '19' }}
-        run: |
-          echo "$(jq '.resolutions += {"@types/react": "npm:types-react@rc", "@types/react-dom": "npm:types-react-dom@rc" }' package.json)" > package.json
-          yarn add react@rc react-dom@rc
-          yarn
-
-      - name: Build
-        run: yarn build
-
   lint:
-    needs: ['install']
     runs-on: ubuntu-latest
     env:
       CYPRESS_INSTALL_BINARY: 0

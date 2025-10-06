@@ -35,7 +35,7 @@ interface TokenizerAttributes {
    *
    * **Note:** The `multiLine` property is in an experimental state and is a subject to change.
    *
-   * **Note:** Available since [v2.5.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.5.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.5.0](https://github.com/UI5/webcomponents/releases/tag/v2.5.0) of **@ui5/webcomponents**.
    * @default false
    */
   multiLine?: boolean;
@@ -54,7 +54,7 @@ interface TokenizerAttributes {
    *
    * **Note:** The `showClearAll` property is in an experimental state and is a subject to change.
    *
-   * **Note:** Available since [v2.5.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.5.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.5.0](https://github.com/UI5/webcomponents/releases/tag/v2.5.0) of **@ui5/webcomponents**.
    * @default false
    */
   showClearAll?: boolean;
@@ -114,9 +114,9 @@ interface TokenizerPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
+ * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
  * @experimental This component is availabe since 2.0 under an experimental flag and its API and behaviour are subject to change.
  */
 const Tokenizer = withWebComponent<TokenizerPropTypes, TokenizerDomRef>(

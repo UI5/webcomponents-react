@@ -3,7 +3,7 @@
 ## How to use this pattern
 
 ```bash
-npx degit SAP/ui5-webcomponents-react/patterns/tool-page#main my-project
+npx degit UI5/webcomponents-react/patterns/tool-page#main my-project
 cd my-project
 ```
 

@@ -29,7 +29,7 @@ interface ToolbarAttributes {
   /**
    * Defines the toolbar design.
    *
-   * **Note:** Available since [v2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents**.
    * @default "Solid"
    */
   design?: ToolbarDesign | keyof typeof ToolbarDesign;
@@ -64,9 +64,9 @@ interface ToolbarPropTypes extends ToolbarAttributes, Omit<CommonProps, keyof To
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [1.17.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v1.17.0) of __@ui5/webcomponents__.
+ * @since [1.17.0](https://github.com/UI5/webcomponents/releases/tag/v1.17.0) of __@ui5/webcomponents__.
  */
 const Toolbar = withWebComponent<ToolbarPropTypes, ToolbarDomRef>(
   'ui5-toolbar',

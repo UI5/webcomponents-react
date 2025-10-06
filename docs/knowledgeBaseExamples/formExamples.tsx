@@ -22,7 +22,7 @@ export function RegisterForm() {
   const [country, setCountry] = useState('Germany');
   const [birthday, setBirthday] = useState('');
   const [payment, setPayment] = useState([]);
-  // todo: enable checkbox again once `required` issue is fixed: https://github.com/SAP/ui5-webcomponents/issues/7319
+  // todo: enable checkbox again once `required` issue is fixed: https://github.com/UI5/webcomponents/issues/7319
   // const [terms, setTerms] = useState(false);
 
   const handleSubmit = (e) => {

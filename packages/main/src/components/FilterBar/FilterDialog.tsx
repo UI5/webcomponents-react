@@ -5,7 +5,7 @@ import group2Icon from '@ui5/webcomponents-icons/dist/group-2.js';
 import listIcon from '@ui5/webcomponents-icons/dist/list.js';
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
 import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
-import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/dist/utils/addCustomCSSWithScoping.js';
+import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import type { ReactElement, RefObject } from 'react';
 import { Children, cloneElement, useEffect, useId, useReducer, useRef, useState } from 'react';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
@@ -479,6 +479,7 @@ export const FilterDialog = (props: FilterDialogPropTypes) => {
         data-component-name="FilterBarDialog"
         data-is-phone={isPhone}
         onClose={handleClose}
+        accessibleNameRef={`${uniqueId}-fb-dialog-title`}
         onOpen={onAfterFiltersDialogOpen}
         resizable
         draggable
@@ -489,7 +490,7 @@ export const FilterDialog = (props: FilterDialogPropTypes) => {
           <Bar
             design={BarDesign.Header}
             startContent={
-              <Title level={TitleLevel.H4} title={filtersTitle}>
+              <Title level={TitleLevel.H4} title={filtersTitle} id={`${uniqueId}-fb-dialog-title`}>
                 {filtersTitle}
               </Title>
             }

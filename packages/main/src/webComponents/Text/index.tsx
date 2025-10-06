@@ -10,7 +10,7 @@ interface TextAttributes {
   /**
    * Specifies if an empty indicator should be displayed when there is no text.
    *
-   * **Note:** Available since [v2.2.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.2.0) of **@ui5/webcomponents**.
+   * **Note:** Available since [v2.2.0](https://github.com/UI5/webcomponents/releases/tag/v2.2.0) of **@ui5/webcomponents**.
    * @default "Off"
    */
   emptyIndicatorMode?: TextEmptyIndicatorMode | keyof typeof TextEmptyIndicatorMode;
@@ -52,9 +52,9 @@ interface TextPropTypes extends TextAttributes, Omit<CommonProps, keyof TextAttr
  *
  * <code>import "@ui5/webcomponents/dist/Text";</code>
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/SAP/ui5-webcomponents) | [Documentation](https://sap.github.io/ui5-webcomponents/)
+ * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
  *
- * @since [2.0.0](https://github.com/SAP/ui5-webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
+ * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
  */
 const Text = withWebComponent<TextPropTypes, TextDomRef>('ui5-text', ['emptyIndicatorMode', 'maxLines'], [], [], []);
 
