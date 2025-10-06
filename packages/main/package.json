@@ -308,6 +308,10 @@
       "types": "./dist/webComponents/FormItem/index.d.ts",
       "default": "./dist/webComponents/FormItem/index.js"
     },
+    "./GroupItem": {
+      "types": "./dist/webComponents/GroupItem/index.d.ts",
+      "default": "./dist/webComponents/GroupItem/index.js"
+    },
     "./Icon": {
       "types": "./dist/webComponents/Icon/index.d.ts",
       "default": "./dist/webComponents/Icon/index.js"
