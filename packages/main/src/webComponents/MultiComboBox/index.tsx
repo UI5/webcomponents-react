@@ -141,6 +141,8 @@ interface MultiComboBoxPropTypes
     > {
   /**
    * Defines the component items.
+   *
+   * __Supported Node Type/s:__ `Array<IMultiComboBoxItem>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -152,6 +154,8 @@ interface MultiComboBoxPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<IIcon>`
    */
   icon?: UI5WCSlotsNode;
 
@@ -169,6 +173,8 @@ interface MultiComboBoxPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**
@@ -255,7 +261,7 @@ interface MultiComboBoxPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [MultiComboBox UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/MultiComboBox) | [Repository](https://github.com/UI5/webcomponents)
  */
 const MultiComboBox = withWebComponent<MultiComboBoxPropTypes, MultiComboBoxDomRef>(
   'ui5-multi-combobox',

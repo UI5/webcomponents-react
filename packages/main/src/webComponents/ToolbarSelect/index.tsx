@@ -70,6 +70,8 @@ interface ToolbarSelectPropTypes
    * If more than one option is defined as selected, the last one would be considered as the selected one.
    *
    * **Note:** Use the `ToolbarSelectOption` component to define the desired options.
+   *
+   * __Supported Node Type/s:__ `Array<ToolbarSelectOption>`
    */
   children?: ReactNode | ReactNode[];
   /**
@@ -110,7 +112,7 @@ interface ToolbarSelectPropTypes
  *
  * `import "@ui5/webcomponents/dist/ToolbarSelectOption.js";` (comes with `ToolbarSelect`)
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [ToolbarSelect UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ToolbarSelect) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [1.17.0](https://github.com/UI5/webcomponents/releases/tag/v1.17.0) of __@ui5/webcomponents__.
  * @abstract

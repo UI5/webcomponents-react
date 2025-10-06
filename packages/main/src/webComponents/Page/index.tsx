@@ -44,6 +44,8 @@ interface PagePropTypes
     Omit<CommonProps, keyof PageAttributes | 'children' | 'footer' | 'header'> {
   /**
    * Defines the content HTML Element.
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -55,6 +57,8 @@ interface PagePropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   footer?: UI5WCSlotsNode;
 
@@ -66,6 +70,8 @@ interface PagePropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   header?: UI5WCSlotsNode;
 }
@@ -88,7 +94,7 @@ interface PagePropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Page UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/Page) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Page = withWebComponent<PagePropTypes, PageDomRef>(
   'ui5-page',

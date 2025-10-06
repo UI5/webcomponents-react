@@ -48,6 +48,8 @@ interface ToolbarPropTypes extends ToolbarAttributes, Omit<CommonProps, keyof To
    * Defines the items of the component.
    *
    *   **Note:** Currently only `ToolbarButton`, `ToolbarSelect`, `ToolbarSeparator` and `ToolbarSpacer` are allowed here.
+   *
+   * __Supported Node Type/s:__ `Array<ToolbarItem>`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -64,7 +66,7 @@ interface ToolbarPropTypes extends ToolbarAttributes, Omit<CommonProps, keyof To
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Toolbar UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Toolbar) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [1.17.0](https://github.com/UI5/webcomponents/releases/tag/v1.17.0) of __@ui5/webcomponents__.
  */

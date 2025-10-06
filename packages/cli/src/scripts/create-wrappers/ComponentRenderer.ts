@@ -4,6 +4,7 @@ import { sinceFilter, snakeCaseToCamelCase, summaryFormatter } from '../../util/
 import { AbstractRenderer, RenderingPhase } from './AbstractRenderer.js';
 import type { WebComponentWrapper } from './WebComponentWrapper.js';
 
+const WITH_WEB_COMPONENT_DOCS_LINK = process.env.WITH_WEB_COMPONENT_DOCS_LINK ?? 'false';
 export class ComponentRenderer extends AbstractRenderer {
   public phase = RenderingPhase.component;
 
@@ -71,6 +72,18 @@ export class ComponentRenderer extends AbstractRenderer {
 
     if (this.note) {
       comment += ` * __Note__: ${this.note}\n`;
+    }
+    if (WITH_WEB_COMPONENT_DOCS_LINK === 'true') {
+      let ui5wcUrl = 'https://ui5.github.io/webcomponents/components/';
+      if (context.packageName === '@ui5/webcomponents-fiori') {
+        ui5wcUrl += 'fiori/';
+      } else if (context.packageName === '@ui5/webcomponents-ai') {
+        ui5wcUrl += 'ai/';
+      } else if (context.packageName === '@ui5/webcomponents-compat') {
+        ui5wcUrl += 'compat/';
+      }
+      ui5wcUrl += context.componentName;
+      comment += ` * __Note:__ This is a UI5 Web Component! [${context.componentName} UI5 Web Component Documentation](${ui5wcUrl}) | [Repository](https://github.com/UI5/webcomponents)\n`;
     }
     if (sinceFilter(this.since)) {
       comment += ` *\n`;

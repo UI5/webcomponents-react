@@ -67,6 +67,8 @@ interface TokenizerPropTypes
     Omit<CommonProps, keyof TokenizerAttributes | 'children' | 'onSelectionChange' | 'onTokenDelete'> {
   /**
    * Defines the tokens to be displayed.
+   *
+   * __Supported Node Type/s:__ `Array<Token>`
    */
   children?: ReactNode | ReactNode[];
   /**
@@ -114,7 +116,7 @@ interface TokenizerPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Tokenizer UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Tokenizer) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
  * @experimental This component is availabe since 2.0 under an experimental flag and its API and behaviour are subject to change.

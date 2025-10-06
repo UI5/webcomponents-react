@@ -41,6 +41,8 @@ interface TitlePropTypes extends TitleAttributes, Omit<CommonProps, keyof TitleA
    * This component supports nesting a `Link` component inside.
    *
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -51,7 +53,7 @@ interface TitlePropTypes extends TitleAttributes, Omit<CommonProps, keyof TitleA
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Title UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Title) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Title = withWebComponent<TitlePropTypes, TitleDomRef>('ui5-title', ['level', 'size', 'wrappingType'], [], [], []);
 

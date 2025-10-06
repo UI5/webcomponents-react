@@ -61,6 +61,8 @@ interface TimelinePropTypes
     Omit<CommonProps, keyof TimelineAttributes | 'children' | 'onLoadMore'> {
   /**
    * Determines the content of the `Timeline`.
+   *
+   * __Supported Node Type/s:__ `Array<ITimelineItem>`
    */
   children?: ReactNode | ReactNode[];
   /**
@@ -84,7 +86,7 @@ interface TimelinePropTypes
  * There are two distinct variants of the timeline: basic and social. The basic timeline is read-only,
  * while the social timeline offers a high level of interaction and collaboration, and is integrated within SAP Jam.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Timeline UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/Timeline) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Timeline = withWebComponent<TimelinePropTypes, TimelineDomRef>(
   'ui5-timeline',

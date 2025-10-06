@@ -46,6 +46,8 @@ interface TableRowPropTypes extends TableRowAttributes, Omit<CommonProps, keyof 
    * Defines the cells of the component.
    *
    * **Note:** Use `TableCell` for the intended design.
+   *
+   * __Supported Node Type/s:__ `Array<TableCell>`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -53,7 +55,7 @@ interface TableRowPropTypes extends TableRowAttributes, Omit<CommonProps, keyof 
 /**
  * The `TableRow` component represents a row in the `Table`.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [TableRow UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/compat/TableRow) | [Repository](https://github.com/UI5/webcomponents)
  * @deprecated Deprecated as of version 2.12.0, use `@ui5/webcomponents/dist/TableRow.js` instead.
  */
 const TableRow = withWebComponent<TableRowPropTypes, TableRowDomRef>(
