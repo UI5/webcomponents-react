@@ -47,6 +47,8 @@ export const Default: Story = {
             <ListItemStandard text="List Item 1" />
             <ListItemStandard text="List Item 2" />
             <ListItemStandard text="List Item 3" />
+            <ListItemStandard text="List Item 4" />
+            <ListItemStandard text="List Item 5" />
           </List>
         }
         midColumn={
@@ -54,6 +56,8 @@ export const Default: Story = {
             <ListItemStandard text="List Item 1" />
             <ListItemStandard text="List Item 2" />
             <ListItemStandard text="List Item 3" />
+            <ListItemStandard text="List Item 4" />
+            <ListItemStandard text="List Item 5" />
           </List>
         }
         endColumn={
@@ -61,6 +65,8 @@ export const Default: Story = {
             <ListItemStandard text="List Item 1" />
             <ListItemStandard text="List Item 2" />
             <ListItemStandard text="List Item 3" />
+            <ListItemStandard text="List Item 4" />
+            <ListItemStandard text="List Item 5" />
           </List>
         }
       />
