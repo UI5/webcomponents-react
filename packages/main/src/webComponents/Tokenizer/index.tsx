@@ -41,6 +41,16 @@ interface TokenizerAttributes {
   multiLine?: boolean;
 
   /**
+   * Determines the name by which the component will be identified upon submission in an HTML form.
+   *
+   * **Note:** This property is only applicable within the context of an HTML Form element.
+   * **Note:** When the component is used inside a form element,
+   * the value is sent as the first element in the form data, even if it's empty.
+   * @default undefined
+   */
+  name?: string | undefined;
+
+  /**
    * Defines whether the component is read-only.
    *
    * **Note:** A read-only component is not editable,
@@ -123,7 +133,7 @@ interface TokenizerPropTypes
  */
 const Tokenizer = withWebComponent<TokenizerPropTypes, TokenizerDomRef>(
   'ui5-tokenizer',
-  ['accessibleName', 'accessibleNameRef'],
+  ['accessibleName', 'accessibleNameRef', 'name'],
   ['disabled', 'multiLine', 'readonly', 'showClearAll'],
   [],
   ['selection-change', 'token-delete'],

@@ -5,7 +5,7 @@ import type { ToolbarSelectChangeEventDetail } from '@ui5/webcomponents/dist/Too
 import type ToolbarItemOverflowBehavior from '@ui5/webcomponents/dist/types/ToolbarItemOverflowBehavior.js';
 import type ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
+import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
 
 interface ToolbarSelectAttributes {
@@ -44,6 +44,13 @@ interface ToolbarSelectAttributes {
   preventOverflowClosing?: boolean;
 
   /**
+   * Defines the value of the component:
+   *
+   * **Note:** Available since [v2.15.0](https://github.com/UI5/webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
+   */
+  value?: string | undefined;
+
+  /**
    * Defines the value state of the component.
    * @default "None"
    */
@@ -62,7 +69,7 @@ interface ToolbarSelectDomRef extends Required<ToolbarSelectAttributes>, Ui5DomR
 
 interface ToolbarSelectPropTypes
   extends ToolbarSelectAttributes,
-    Omit<CommonProps, keyof ToolbarSelectAttributes | 'children' | 'onChange' | 'onClose' | 'onOpen'> {
+    Omit<CommonProps, keyof ToolbarSelectAttributes | 'children' | 'label' | 'onChange' | 'onClose' | 'onOpen'> {
   /**
    * Defines the component options.
    *
@@ -74,6 +81,22 @@ interface ToolbarSelectPropTypes
    * __Supported Node Type/s:__ `Array<ToolbarSelectOption>`
    */
   children?: ReactNode | ReactNode[];
+
+  /**
+   * Defines the HTML element that will be displayed in the component input part,
+   * representing the selected option.
+   *
+   * __Note:__ The content of the prop will be rendered into a [&lt;slot&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) by assigning the respective [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) attribute (`slot="label"`).
+   * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
+   *
+   * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * **Note:** Available since [v2.15.0](https://github.com/UI5/webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
+   */
+  label?: UI5WCSlotsNode;
   /**
    * Fired when the selected option changes.
    *
@@ -119,9 +142,9 @@ interface ToolbarSelectPropTypes
  */
 const ToolbarSelect = withWebComponent<ToolbarSelectPropTypes, ToolbarSelectDomRef>(
   'ui5-toolbar-select',
-  ['accessibleName', 'accessibleNameRef', 'overflowPriority', 'valueState', 'width'],
+  ['accessibleName', 'accessibleNameRef', 'overflowPriority', 'value', 'valueState', 'width'],
   ['disabled', 'preventOverflowClosing'],
-  [],
+  ['label'],
   ['change', 'close', 'open'],
 );
 

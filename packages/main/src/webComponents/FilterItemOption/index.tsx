@@ -6,13 +6,13 @@ import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 interface FilterItemOptionAttributes {
   /**
-   * Defines if the component is selected.
+   * Defines if the filter option is selected.
    * @default false
    */
   selected?: boolean;
 
   /**
-   * Defines the text of the component.
+   * Defines the text of the filter option.
    * @default undefined
    */
   text?: string | undefined;
@@ -25,9 +25,14 @@ interface FilterItemOptionPropTypes
     Omit<CommonProps, keyof FilterItemOptionAttributes> {}
 
 /**
+ * The `FilterItemOption` component defines individual filter values within a `FilterItem`.
+ * It represents a single selectable option that users can choose to filter data.
+ *
  * ### Usage
  *
- * For the `FilterItemOption`
+ * The `FilterItemOption` is used as a child component within `FilterItem` in the context
+ * of `ViewSettingsDialog`. Each option represents a specific value that can be used for filtering
+ *
  *
  *
  * __Note:__ This is a UI5 Web Component! [FilterItemOption UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/FilterItemOption) | [Repository](https://github.com/UI5/webcomponents)

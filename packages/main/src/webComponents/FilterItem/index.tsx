@@ -6,13 +6,14 @@ import type { CommonProps, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-
 
 interface FilterItemAttributes {
   /**
-   * Defines the additional text of the component.
+   * Defines the additional text of the filter item.
+   * This text is typically used to show the number of selected filter options within this category.
    * @default undefined
    */
   additionalText?: string | undefined;
 
   /**
-   * Defines the text of the component.
+   * Defines the text of the filter item.
    * @default undefined
    */
   text?: string | undefined;
@@ -22,7 +23,7 @@ interface FilterItemDomRef extends Required<FilterItemAttributes>, Ui5DomRef {}
 
 interface FilterItemPropTypes extends FilterItemAttributes, Omit<CommonProps, keyof FilterItemAttributes | 'values'> {
   /**
-   * Defines the `values` list.
+   * Defines the filter options available for this filter category.
    *
    * __Note:__ The content of the prop will be rendered into a [&lt;slot&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) by assigning the respective [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) attribute (`slot="values"`).
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
@@ -36,9 +37,13 @@ interface FilterItemPropTypes extends FilterItemAttributes, Omit<CommonProps, ke
 }
 
 /**
+ * The `FilterItem` component defines the filtering criteria for data in `ViewSettingsDialog`.
+ * It represents a single filter category that contains multiple filter options that users can select.
+ *
  * ### Usage
  *
- * For the `FilterItem`
+ * The `FilterItem` is used within the `ViewSettingsDialog` to provide filtering options.
+ *
  *
  *
  * __Note:__ This is a UI5 Web Component! [FilterItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/FilterItem) | [Repository](https://github.com/UI5/webcomponents)

@@ -19,6 +19,7 @@ interface SplitButtonAttributes {
    *     Accepts any string value.
    *   - **title**: Specifies a tooltip or description for screen readers.
    *     Accepts any string value.
+   * 	- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.
    *
    * - **arrowButton**: Attributes applied specifically to the arrow (split) button.
    *   - **hasPopup**: Indicates the presence and type of popup triggered by the arrow button.
