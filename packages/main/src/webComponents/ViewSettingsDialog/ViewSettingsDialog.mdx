@@ -4,6 +4,7 @@ import { ArgTypes, Canvas, Description, Markdown, Meta } from '@storybook/addon-
 import { FilterItem } from '../FilterItem/index';
 import { FilterItemOption } from '../FilterItemOption/index';
 import { SortItem } from '../SortItem/index';
+import { GroupItem } from '../GroupItem/index';
 import * as ComponentStories from './ViewSettingsDialog.stories';
 import { excludePropsForAbstract } from '@sb/utils';
 
@@ -77,7 +78,7 @@ const ViewSettingsDialogComponent = () => {
 
 **Since v2.15.0**
 
-<Description of={FilterItemOption} />
-<ArgTypes exclude={excludePropsForAbstract} of={FilterItemOption} />
+<Description of={GroupItem} />
+<ArgTypes exclude={excludePropsForAbstract} of={GroupItem} />
 
 <Footer />
