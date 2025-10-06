@@ -45,6 +45,7 @@
   flex-grow: 1;
   width: 100%;
   overflow-x: hidden;
+  align-items: flex-start;
 }
 
 .title {
