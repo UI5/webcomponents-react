@@ -605,6 +605,24 @@ export const NoData: Story = {
       setFiltered(!!e.target.pressed);
     };
 
+    const NoDataComponent: AnalyticalTablePropTypes['NoDataComponent'] =
+      selected === 'noData'
+        ? undefined
+        : (props) => {
+            return filtered ? (
+              <IllustratedMessage role={props.role} name={NoFilterResults} />
+            ) : (
+              <IllustratedMessage role={props.role} name={NoDataIllustration} />
+            );
+          };
+
+    const tableProps = {
+      ...args,
+      data: selected === 'data' ? args.data : [],
+      globalFilterValue: filtered ? 'Non-existing text' : undefined,
+      NoDataComponent: NoDataComponent,
+    };
+
     return (
       <>
         <SegmentedButton onSelectionChange={handleChange} accessibleName="Select data view mode">
@@ -623,34 +641,11 @@ export const NoData: Story = {
           Table filtered
         </ToggleButton>
         {context.viewMode === 'story' ? (
-          <AnalyticalTable
-            {...args}
-            data={selected === 'data' ? args.data : []}
-            globalFilterValue={filtered ? 'Non-existing text' : undefined}
-            NoDataComponent={
-              selected === 'noData'
-                ? undefined
-                : (props) => {
-                    return filtered ? (
-                      <IllustratedMessage role={props.role} name={NoFilterResults} />
-                    ) : (
-                      <IllustratedMessage role={props.role} name={NoDataIllustration} />
-                    );
-                  }
-            }
-          />
+          <AnalyticalTable {...tableProps} />
         ) : (
           <>
             <hr />
-            <ToggleableTable
-              {...args}
-              data={selected === 'data' ? args.data : []}
-              NoDataComponent={
-                selected === 'noData'
-                  ? undefined
-                  : () => <IllustratedMessage role="gridcell" name={NoDataIllustration} />
-              }
-            />
+            <ToggleableTable {...tableProps} />
           </>
         )}
       </>
