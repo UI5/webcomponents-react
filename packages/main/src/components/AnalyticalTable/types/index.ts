@@ -1045,6 +1045,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
     noDataText: string;
     className: string;
     noDataReason: AnalyticalTableNoDataReason | keyof typeof AnalyticalTableNoDataReason;
+    role: 'gridcell';
   }>;
 
   /**
