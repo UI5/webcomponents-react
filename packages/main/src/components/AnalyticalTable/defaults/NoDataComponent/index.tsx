@@ -1,9 +1,9 @@
 import type { AnalyticalTablePropTypes } from '../../types/index.js';
 
 export const DefaultNoDataComponent: AnalyticalTablePropTypes['NoDataComponent'] = (props) => {
-  const { noDataText, className, role } = props;
+  const { noDataText, className, accessibleRole } = props;
   return (
-    <div className={className} data-component-name="AnalyticalTableNoData" role={role}>
+    <div className={className} data-component-name="AnalyticalTableNoData" role={accessibleRole}>
       {noDataText}
     </div>
   );

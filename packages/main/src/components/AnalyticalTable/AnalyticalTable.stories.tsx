@@ -610,9 +610,9 @@ export const NoData: Story = {
         ? undefined
         : (props) => {
             return filtered ? (
-              <IllustratedMessage role={props.role} name={NoFilterResults} />
+              <IllustratedMessage role={props.accessibleRole} name={NoFilterResults} />
             ) : (
-              <IllustratedMessage role={props.role} name={NoDataIllustration} />
+              <IllustratedMessage role={props.accessibleRole} name={NoDataIllustration} />
             );
           };
 
