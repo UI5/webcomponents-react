@@ -38,6 +38,8 @@ interface CalendarLegendPropTypes
     Omit<CommonProps, keyof CalendarLegendAttributes | 'children'> {
   /**
    * Defines the items of the component.
+   *
+   * __Supported Node Type/s:__ `Array<CalendarLegendItem>`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -49,7 +51,7 @@ interface CalendarLegendPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [CalendarLegend UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/CalendarLegend) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [1.23.0](https://github.com/UI5/webcomponents/releases/tag/v1.23.0) of __@ui5/webcomponents__.
  */

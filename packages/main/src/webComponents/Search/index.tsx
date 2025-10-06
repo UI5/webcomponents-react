@@ -85,11 +85,15 @@ interface SearchPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<Button>`
    */
   action?: UI5WCSlotsNode;
 
   /**
    * Defines the Search suggestion items.
+   *
+   * __Supported Node Type/s:__ `Array<SearchItem | SearchItemGroup>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -106,6 +110,8 @@ interface SearchPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.11.0](https://github.com/UI5/webcomponents/releases/tag/v2.11.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `Array<Button>`
    */
   filterButton?: UI5WCSlotsNode;
 
@@ -117,6 +123,8 @@ interface SearchPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<IllustratedMessage>`
    */
   illustration?: UI5WCSlotsNode;
 
@@ -128,6 +136,8 @@ interface SearchPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<SearchMessageArea>`
    */
   messageArea?: UI5WCSlotsNode;
 
@@ -139,6 +149,8 @@ interface SearchPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<ISearchScope>`
    */
   scopes?: UI5WCSlotsNode;
   /**
@@ -201,7 +213,7 @@ interface SearchPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Search UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/Search) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.9.0](https://github.com/UI5/webcomponents/releases/tag/v2.9.0) of __@ui5/webcomponents-fiori__.
  * @experimental

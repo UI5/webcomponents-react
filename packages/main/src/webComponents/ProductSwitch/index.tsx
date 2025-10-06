@@ -12,6 +12,8 @@ interface ProductSwitchDomRef extends Required<ProductSwitchAttributes>, Ui5DomR
 interface ProductSwitchPropTypes extends ProductSwitchAttributes, Omit<CommonProps, 'children'> {
   /**
    * Defines the items of the `ProductSwitch`.
+   *
+   * __Supported Node Type/s:__ `Array<IProductSwitchItem>`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -33,7 +35,7 @@ interface ProductSwitchPropTypes extends ProductSwitchAttributes, Omit<CommonPro
  *
  * `import "@ui5/webcomponents-fiori/dist/ProductSwitchItem.js";` (for `ProductSwitchItem`)
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [ProductSwitch UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/ProductSwitch) | [Repository](https://github.com/UI5/webcomponents)
  */
 const ProductSwitch = withWebComponent<ProductSwitchPropTypes, ProductSwitchDomRef>(
   'ui5-product-switch',

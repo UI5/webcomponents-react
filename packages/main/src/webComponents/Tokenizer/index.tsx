@@ -41,6 +41,16 @@ interface TokenizerAttributes {
   multiLine?: boolean;
 
   /**
+   * Determines the name by which the component will be identified upon submission in an HTML form.
+   *
+   * **Note:** This property is only applicable within the context of an HTML Form element.
+   * **Note:** When the component is used inside a form element,
+   * the value is sent as the first element in the form data, even if it's empty.
+   * @default undefined
+   */
+  name?: string | undefined;
+
+  /**
    * Defines whether the component is read-only.
    *
    * **Note:** A read-only component is not editable,
@@ -67,6 +77,8 @@ interface TokenizerPropTypes
     Omit<CommonProps, keyof TokenizerAttributes | 'children' | 'onSelectionChange' | 'onTokenDelete'> {
   /**
    * Defines the tokens to be displayed.
+   *
+   * __Supported Node Type/s:__ `Array<Token>`
    */
   children?: ReactNode | ReactNode[];
   /**
@@ -114,14 +126,14 @@ interface TokenizerPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Tokenizer UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Tokenizer) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
  * @experimental This component is availabe since 2.0 under an experimental flag and its API and behaviour are subject to change.
  */
 const Tokenizer = withWebComponent<TokenizerPropTypes, TokenizerDomRef>(
   'ui5-tokenizer',
-  ['accessibleName', 'accessibleNameRef'],
+  ['accessibleName', 'accessibleNameRef', 'name'],
   ['disabled', 'multiLine', 'readonly', 'showClearAll'],
   [],
   ['selection-change', 'token-delete'],

@@ -236,6 +236,9 @@ const ObjectStatus = forwardRef<HTMLDivElement | HTMLButtonElement, ObjectStatus
       role={interactive ? undefined : 'group'}
       aria-roledescription={roleDesc || undefined}
       {...rest}
+      data-component-name="ObjectStatus"
+      data-state={state}
+      data-inverted={`${!!inverted}`}
     >
       {!interactive && (
         <span

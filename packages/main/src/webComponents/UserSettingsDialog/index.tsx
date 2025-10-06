@@ -46,6 +46,8 @@ interface UserSettingsDialogPropTypes
    * Defines the user settings items.
    *
    * **Note:**  If no setting item is set as `selected`, the first one will be selected.
+   *
+   * __Supported Node Type/s:__ `Array<UserSettingsItem>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -57,6 +59,8 @@ interface UserSettingsDialogPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<UserSettingsItem>`
    */
   fixedItems?: UI5WCSlotsNode;
   /**
@@ -106,7 +110,7 @@ interface UserSettingsDialogPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [UserSettingsDialog UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/UserSettingsDialog) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.8.0](https://github.com/UI5/webcomponents/releases/tag/v2.8.0) of __@ui5/webcomponents-fiori__.
  * @experimental

@@ -70,6 +70,8 @@ interface ProductSwitchItemPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.14.0](https://github.com/UI5/webcomponents/releases/tag/v2.14.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   image?: UI5WCSlotsNode;
   /**
@@ -98,7 +100,7 @@ interface ProductSwitchItemPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [ProductSwitchItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/ProductSwitchItem) | [Repository](https://github.com/UI5/webcomponents)
  */
 const ProductSwitchItem = withWebComponent<ProductSwitchItemPropTypes, ProductSwitchItemDomRef>(
   'ui5-product-switch-item',

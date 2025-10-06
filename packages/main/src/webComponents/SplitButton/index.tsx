@@ -19,6 +19,7 @@ interface SplitButtonAttributes {
    *     Accepts any string value.
    *   - **title**: Specifies a tooltip or description for screen readers.
    *     Accepts any string value.
+   * 	- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.
    *
    * - **arrowButton**: Attributes applied specifically to the arrow (split) button.
    *   - **hasPopup**: Indicates the presence and type of popup triggered by the arrow button.
@@ -80,6 +81,8 @@ interface SplitButtonPropTypes
    * Defines the text of the component.
    *
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
   /**
@@ -135,7 +138,7 @@ interface SplitButtonPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [SplitButton UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/SplitButton) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of __@ui5/webcomponents__.
  */

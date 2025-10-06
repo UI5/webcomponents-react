@@ -175,7 +175,7 @@ interface CheckBoxPropTypes extends CheckBoxAttributes, Omit<CommonProps, keyof 
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [CheckBox UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/CheckBox) | [Repository](https://github.com/UI5/webcomponents)
  */
 const CheckBox = withWebComponent<CheckBoxPropTypes, CheckBoxDomRef>(
   'ui5-checkbox',

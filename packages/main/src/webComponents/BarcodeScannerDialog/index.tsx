@@ -43,6 +43,8 @@ interface BarcodeScannerDialogPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.4.0](https://github.com/UI5/webcomponents/releases/tag/v2.4.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   footer?: UI5WCSlotsNode;
 
@@ -59,6 +61,8 @@ interface BarcodeScannerDialogPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.4.0](https://github.com/UI5/webcomponents/releases/tag/v2.4.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   header?: UI5WCSlotsNode;
   /**
@@ -104,7 +108,7 @@ interface BarcodeScannerDialogPropTypes
  *
  * For a list of supported barcode formats, see the [zxing-js/library](https://github.com/zxing-js/library) documentation.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [BarcodeScannerDialog UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/BarcodeScannerDialog) | [Repository](https://github.com/UI5/webcomponents)
  */
 const BarcodeScannerDialog = withWebComponent<BarcodeScannerDialogPropTypes, BarcodeScannerDialogDomRef>(
   'ui5-barcode-scanner-dialog',

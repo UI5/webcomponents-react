@@ -47,6 +47,8 @@ interface SideNavigationGroupPropTypes
     Omit<CommonProps, keyof SideNavigationGroupAttributes | 'children'> {
   /**
    * Defines nested items by passing `SideNavigationItem` to the default slot.
+   *
+   * __Supported Node Type/s:__ `Array<SideNavigationItem>`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -57,7 +59,7 @@ interface SideNavigationGroupPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [SideNavigationGroup UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/SideNavigationGroup) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [1.24.0](https://github.com/UI5/webcomponents/releases/tag/v1.24.0) of __@ui5/webcomponents-fiori__.
  * @abstract

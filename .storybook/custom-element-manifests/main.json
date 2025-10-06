@@ -4,21 +4,6 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "dist/colorpicker-utils/ColorValue.js",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "ColorValue",
-            "module": "dist/colorpicker-utils/ColorValue.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/delegate/DragAndDropHandler.js",
       "declarations": [],
       "exports": [
@@ -28,6 +13,21 @@
           "declaration": {
             "name": "DragAndDropHandler",
             "module": "dist/delegate/DragAndDropHandler.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/colorpicker-utils/ColorValue.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "ColorValue",
+            "module": "dist/colorpicker-utils/ColorValue.js"
           }
         }
       ]
@@ -210,6 +210,21 @@
       "path": "dist/features/ColorPaletteMoreColors.js",
       "declarations": [],
       "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/features/InputComposition.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "InputComposition",
+            "module": "dist/features/InputComposition.js"
+          }
+        }
+      ]
     },
     {
       "kind": "javascript-module",
@@ -3482,7 +3497,6 @@
           "kind": "enum",
           "name": "TableGrowingMode",
           "description": "Growing mode of the &lt;ui5-table&gt; component.",
-          "_ui5experimental": true,
           "_ui5privacy": "public",
           "members": [
             {
@@ -5581,7 +5595,7 @@
                 ]
               },
               "default": "{}",
-              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **expanded**: Indicates whether the button, or another grouping element it controls, is currently expanded or collapsed.\nAccepts the following string values: `true` or `false`\n\n- **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.\nAccepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.\n\n- **controls**: Identifies the element (or elements) whose contents or presence are controlled by the button element.\nAccepts a lowercase string value.",
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **expanded**: Indicates whether the button, or another grouping element it controls, is currently expanded or collapsed.\nAccepts the following string values: `true` or `false`\n\n- **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.\nAccepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.\n\n- **ariaLabel**: Defines the accessible ARIA name of the component.\nAccepts any string value.\n\n - **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.\n\n- **controls**: Identifies the element (or elements) whose contents or presence are controlled by the button element.\nAccepts a lowercase string value.",
               "privacy": "public",
               "_ui5since": "1.2.0"
             },
@@ -5793,7 +5807,7 @@
               }
             },
             {
-              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **expanded**: Indicates whether the button, or another grouping element it controls, is currently expanded or collapsed.\nAccepts the following string values: `true` or `false`\n\n- **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.\nAccepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.\n\n- **controls**: Identifies the element (or elements) whose contents or presence are controlled by the button element.\nAccepts a lowercase string value.",
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **expanded**: Indicates whether the button, or another grouping element it controls, is currently expanded or collapsed.\nAccepts the following string values: `true` or `false`\n\n- **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.\nAccepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.\n\n- **ariaLabel**: Defines the accessible ARIA name of the component.\nAccepts any string value.\n\n - **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.\n\n- **controls**: Identifies the element (or elements) whose contents or presence are controlled by the button element.\nAccepts a lowercase string value.",
               "name": "accessibility-attributes",
               "default": "{}",
               "fieldName": "accessibilityAttributes",
@@ -25572,7 +25586,7 @@
                 ]
               },
               "default": "{}",
-              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe `accessibilityAttributes` property accepts an object with the following optional fields:\n\n- **root**: Attributes that will be applied to the main (text) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **roleDescription**: Provides a human-readable description for the role of the button.\n    Accepts any string value.\n  - **title**: Specifies a tooltip or description for screen readers.\n    Accepts any string value.\n\n- **arrowButton**: Attributes applied specifically to the arrow (split) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the arrow button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **expanded**: Indicates whether the popup triggered by the arrow button is currently expanded.\n    Accepts boolean values: `true` or `false`.",
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe `accessibilityAttributes` property accepts an object with the following optional fields:\n\n- **root**: Attributes that will be applied to the main (text) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **roleDescription**: Provides a human-readable description for the role of the button.\n    Accepts any string value.\n  - **title**: Specifies a tooltip or description for screen readers.\n    Accepts any string value.\n\t- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.\n\n- **arrowButton**: Attributes applied specifically to the arrow (split) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the arrow button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **expanded**: Indicates whether the popup triggered by the arrow button is currently expanded.\n    Accepts boolean values: `true` or `false`.",
               "privacy": "public",
               "_ui5since": "2.13.0"
             }
@@ -25648,7 +25662,7 @@
               }
             },
             {
-              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe `accessibilityAttributes` property accepts an object with the following optional fields:\n\n- **root**: Attributes that will be applied to the main (text) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **roleDescription**: Provides a human-readable description for the role of the button.\n    Accepts any string value.\n  - **title**: Specifies a tooltip or description for screen readers.\n    Accepts any string value.\n\n- **arrowButton**: Attributes applied specifically to the arrow (split) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the arrow button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **expanded**: Indicates whether the popup triggered by the arrow button is currently expanded.\n    Accepts boolean values: `true` or `false`.",
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe `accessibilityAttributes` property accepts an object with the following optional fields:\n\n- **root**: Attributes that will be applied to the main (text) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **roleDescription**: Provides a human-readable description for the role of the button.\n    Accepts any string value.\n  - **title**: Specifies a tooltip or description for screen readers.\n    Accepts any string value.\n\t- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.\n\n- **arrowButton**: Attributes applied specifically to the arrow (split) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the arrow button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **expanded**: Indicates whether the popup triggered by the arrow button is currently expanded.\n    Accepts boolean values: `true` or `false`.",
               "name": "accessibility-attributes",
               "default": "{}",
               "fieldName": "accessibilityAttributes",
@@ -28074,6 +28088,21 @@
           "declaration": {
             "name": "TableCellBase",
             "module": "dist/TableCellBase.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/TableCustomAnnouncement.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "TableCustomAnnouncement",
+            "module": "dist/TableCustomAnnouncement.js"
           }
         }
       ]
@@ -31651,7 +31680,7 @@
                 ]
               },
               "default": "{}",
-              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **expanded**: Indicates whether the button, or another grouping element it controls, is currently expanded or collapsed.\nAccepts the following string values: `true` or `false`\n\n- **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.\nAccepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.\n\n- **controls**: Identifies the element (or elements) whose contents or presence are controlled by the button element.\nAccepts a lowercase string value.",
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **expanded**: Indicates whether the button, or another grouping element it controls, is currently expanded or collapsed.\nAccepts the following string values: `true` or `false`\n\n- **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.\nAccepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.\n\n- **ariaLabel**: Defines the accessible ARIA name of the component.\nAccepts any string value.\n\n - **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.\n\n- **controls**: Identifies the element (or elements) whose contents or presence are controlled by the button element.\nAccepts a lowercase string value.",
               "privacy": "public",
               "_ui5since": "1.2.0",
               "inheritedFrom": {
@@ -31865,7 +31894,7 @@
               }
             },
             {
-              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **expanded**: Indicates whether the button, or another grouping element it controls, is currently expanded or collapsed.\nAccepts the following string values: `true` or `false`\n\n- **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.\nAccepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.\n\n- **controls**: Identifies the element (or elements) whose contents or presence are controlled by the button element.\nAccepts a lowercase string value.",
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **expanded**: Indicates whether the button, or another grouping element it controls, is currently expanded or collapsed.\nAccepts the following string values: `true` or `false`\n\n- **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.\nAccepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.\n\n- **ariaLabel**: Defines the accessible ARIA name of the component.\nAccepts any string value.\n\n - **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.\n\n- **controls**: Identifies the element (or elements) whose contents or presence are controlled by the button element.\nAccepts a lowercase string value.",
               "name": "accessibility-attributes",
               "default": "{}",
               "fieldName": "accessibilityAttributes",
@@ -32270,6 +32299,16 @@
             },
             {
               "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.\n**Note:** When the component is used inside a form element,\nthe value is sent as the first element in the form data, even if it's empty.",
+              "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
               "name": "showClearAll",
               "type": {
                 "text": "boolean"
@@ -32395,6 +32434,15 @@
               }
             },
             {
+              "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.\n**Note:** When the component is used inside a form element,\nthe value is sent as the first element in the form data, even if it's empty.",
+              "name": "name",
+              "default": "undefined",
+              "fieldName": "name",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
               "description": "Defines whether \"Clear All\" button is present. Ensure `multiLine` is enabled, otherwise `showClearAll` will have no effect.\n\n**Note:** The `showClearAll` property is in an experimental state and is a subject to change.",
               "name": "show-clear-all",
               "default": "false",
@@ -32473,7 +32521,7 @@
           "slots": [
             {
               "name": "default",
-              "description": "Defines the items of the component.\n \n  **Note:** Currently only `ui5-toolbar-button`, `ui5-toolbar-select`, `ui5-toolbar-separator` and `ui5-toolbar-spacer` are allowed here.",
+              "description": "Defines the items of the component.\n\n**Note:** Currently only `ui5-toolbar-button`, `ui5-toolbar-select`, `ui5-toolbar-separator` and `ui5-toolbar-spacer` are allowed here.",
               "_ui5propertyName": "items",
               "_ui5type": {
                 "text": "Array<ToolbarItem>",
@@ -33048,6 +33096,15 @@
                 ]
               },
               "_ui5privacy": "public"
+            },
+            {
+              "name": "label",
+              "description": "Defines the HTML element that will be displayed in the component input part,\nrepresenting the selected option.",
+              "_ui5since": "2.15.0",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public"
             }
           ],
           "members": [
@@ -33107,6 +33164,17 @@
               "description": "Receives id(or many ids) of the elements that label the select.",
               "default": "undefined",
               "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "description": "Defines the value of the component:",
+              "privacy": "public",
+              "default": "\"\"",
+              "type": {
+                "text": "string | undefined"
+              },
+              "_ui5since": "2.15.0"
             },
             {
               "kind": "field",
@@ -33240,6 +33308,15 @@
               "fieldName": "accessibleNameRef",
               "type": {
                 "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines the value of the component:",
+              "name": "value",
+              "default": "\"\"",
+              "fieldName": "value",
+              "type": {
+                "text": "any"
               }
             },
             {

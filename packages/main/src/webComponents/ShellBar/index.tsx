@@ -189,6 +189,8 @@ interface ShellBarPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `Array<IButton>`
    */
   assistant?: UI5WCSlotsNode;
 
@@ -206,6 +208,8 @@ interface ShellBarPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.12.0](https://github.com/UI5/webcomponents/releases/tag/v2.12.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `Array<ShellBarBranding>`
    */
   branding?: UI5WCSlotsNode;
 
@@ -214,6 +218,8 @@ interface ShellBarPropTypes
    *
    * **Note:**
    * You can use the `<ShellBarItem></ShellBarItem>`.
+   *
+   * __Supported Node Type/s:__ `Array<ShellBarItem>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -232,6 +238,8 @@ interface ShellBarPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   content?: UI5WCSlotsNode;
 
@@ -244,6 +252,8 @@ interface ShellBarPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   logo?: UI5WCSlotsNode;
 
@@ -257,6 +267,8 @@ interface ShellBarPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<ListItemBase>`
    */
   menuItems?: UI5WCSlotsNode;
 
@@ -272,6 +284,8 @@ interface ShellBarPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   profile?: UI5WCSlotsNode;
 
@@ -283,6 +297,8 @@ interface ShellBarPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<IShellBarSearchField>`
    */
   searchField?: UI5WCSlotsNode;
 
@@ -296,6 +312,8 @@ interface ShellBarPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<IButton>`
    */
   startButton?: UI5WCSlotsNode;
   /**
@@ -431,7 +449,7 @@ interface ShellBarPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [ShellBar UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/ShellBar) | [Repository](https://github.com/UI5/webcomponents)
  */
 const ShellBar = withWebComponent<ShellBarPropTypes, ShellBarDomRef>(
   'ui5-shellbar',

@@ -47,6 +47,8 @@ interface ShellBarBrandingPropTypes
    * Defines the title for the ui5-shellbar-branding component.
    *
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -59,6 +61,8 @@ interface ShellBarBrandingPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   logo?: UI5WCSlotsNode;
   /**
@@ -76,7 +80,7 @@ interface ShellBarBrandingPropTypes
  * `ShellBar` component. Its content has higher priority than the `primaryTitle` property
  * and the `logo` slot of `ShellBar`.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [ShellBarBranding UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/ShellBarBranding) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.12.0](https://github.com/UI5/webcomponents/releases/tag/v2.12.0) of __@ui5/webcomponents-fiori__.
  * @experimental

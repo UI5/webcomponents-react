@@ -68,6 +68,8 @@ interface WizardStepDomRef extends Required<WizardStepAttributes>, Ui5DomRef {}
 interface WizardStepPropTypes extends WizardStepAttributes, Omit<CommonProps, keyof WizardStepAttributes | 'children'> {
   /**
    * Defines the step content.
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -87,7 +89,7 @@ interface WizardStepPropTypes extends WizardStepAttributes, Omit<CommonProps, ke
  * The `WizardStep` component should be used only as slot of the `Wizard` component
  * and should not be used standalone.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [WizardStep UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/WizardStep) | [Repository](https://github.com/UI5/webcomponents)
  * @abstract
  */
 const WizardStep = withWebComponent<WizardStepPropTypes, WizardStepDomRef>(

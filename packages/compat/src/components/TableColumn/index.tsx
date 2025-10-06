@@ -56,6 +56,8 @@ interface TableColumnPropTypes
     Omit<CommonProps, keyof TableColumnAttributes | 'children'> {
   /**
    * Defines the content of the column header
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -64,7 +66,7 @@ interface TableColumnPropTypes
  * The `TableColumn` component allows to define column specific properties that are applied
  * when rendering the `Table` component.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [TableColumn UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/compat/TableColumn) | [Repository](https://github.com/UI5/webcomponents)
  * @deprecated Deprecated as of version 2.12.0, use `@ui5/webcomponents/dist/Table.js` instead.
  */
 const TableColumn = withWebComponent<TableColumnPropTypes, TableColumnDomRef>(
