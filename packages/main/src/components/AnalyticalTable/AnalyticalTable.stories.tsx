@@ -5,6 +5,7 @@ import '@ui5/webcomponents-icons/dist/delete.js';
 import '@ui5/webcomponents-icons/dist/edit.js';
 import '@ui5/webcomponents-icons/dist/settings.js';
 import NoDataIllustration from '@ui5/webcomponents-fiori/dist/illustrations/NoData.js';
+import NoFilterResults from '@ui5/webcomponents-fiori/dist/illustrations/NoFilterResults.js';
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import {
   AnalyticalTablePopinDisplay,
@@ -29,6 +30,8 @@ import { SegmentedButtonItem } from '../../webComponents/SegmentedButtonItem/ind
 import { Select } from '../../webComponents/Select/index.js';
 import { Tag } from '../../webComponents/Tag/index.js';
 import { Text } from '../../webComponents/Text/index.js';
+import type { ToggleButtonPropTypes } from '../../webComponents/ToggleButton/index.js';
+import { ToggleButton } from '../../webComponents/ToggleButton/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { ObjectStatus } from '../ObjectStatus/index.js';
 import type { AnalyticalTableColumnDefinition, AnalyticalTablePropTypes } from './index.js';
@@ -590,8 +593,34 @@ export const CustomFilter: Story = {
 export const NoData: Story = {
   render(args, context) {
     const [selected, setSelected] = useState('noData');
+    const [filtered, setFiltered] = useState(false);
     const handleChange: SegmentedButtonPropTypes['onSelectionChange'] = (e) => {
-      setSelected(e.detail.selectedItems[0].dataset.key);
+      const { key } = e.detail.selectedItems[0].dataset;
+      setSelected(key);
+      if (key === 'data') {
+        setFiltered(false);
+      }
+    };
+    const handleClick: ToggleButtonPropTypes['onClick'] = (e) => {
+      setFiltered(!!e.target.pressed);
+    };
+
+    const NoDataComponent: AnalyticalTablePropTypes['NoDataComponent'] =
+      selected === 'noData'
+        ? undefined
+        : (props) => {
+            return filtered ? (
+              <IllustratedMessage role={props.accessibleRole} name={NoFilterResults} />
+            ) : (
+              <IllustratedMessage role={props.accessibleRole} name={NoDataIllustration} />
+            );
+          };
+
+    const tableProps = {
+      ...args,
+      data: selected === 'data' ? args.data : [],
+      globalFilterValue: filtered ? 'Non-existing text' : undefined,
+      NoDataComponent: NoDataComponent,
     };
 
     return (
@@ -606,27 +635,17 @@ export const NoData: Story = {
           <SegmentedButtonItem selected={selected === 'data'} data-key="data">
             With Data
           </SegmentedButtonItem>
-        </SegmentedButton>
+        </SegmentedButton>{' '}
+        |{' '}
+        <ToggleButton onClick={handleClick} pressed={filtered} disabled={selected === 'data'}>
+          Table filtered
+        </ToggleButton>
         {context.viewMode === 'story' ? (
-          <AnalyticalTable
-            {...args}
-            data={selected === 'data' ? args.data : []}
-            NoDataComponent={
-              selected === 'noData' ? undefined : () => <IllustratedMessage role="gridcell" name={NoDataIllustration} />
-            }
-          />
+          <AnalyticalTable {...tableProps} />
         ) : (
           <>
             <hr />
-            <ToggleableTable
-              {...args}
-              data={selected === 'data' ? args.data : []}
-              NoDataComponent={
-                selected === 'noData'
-                  ? undefined
-                  : () => <IllustratedMessage role="gridcell" name={NoDataIllustration} />
-              }
-            />
+            <ToggleableTable {...tableProps} />
           </>
         )}
       </>
