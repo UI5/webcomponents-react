@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.15.0](https://github.com/UI5/webcomponents-react/compare/v2.14.1...v2.15.0) (2025-10-06)
+
+### Bug Fixes
+
+- **AnalyticalTable - useF2CellEdit:** support interactive `Icon` ([#7782](https://github.com/UI5/webcomponents-react/issues/7782)) ([4051aa5](https://github.com/UI5/webcomponents-react/commit/4051aa51d7df0cfc7243bbf83c642c38442a3116))
+- **AnalyticalTable:** fix inactive row hover styles, implement ObjectStatus deltas ([#7781](https://github.com/UI5/webcomponents-react/issues/7781)) ([ba7a966](https://github.com/UI5/webcomponents-react/commit/ba7a96699166570053f3688434b5f1994a40521c)), closes [#7778](https://github.com/UI5/webcomponents-react/issues/7778)
+- **AnalyticalTable:** improve scroll performance ([#7777](https://github.com/UI5/webcomponents-react/issues/7777)) ([1e70896](https://github.com/UI5/webcomponents-react/commit/1e7089691f2c3ad012a4cf35018ec165b0d51b1f)), closes [#6615](https://github.com/UI5/webcomponents-react/issues/6615)
+- **deps:** update dependency patch-package to v8.0.1 ([#7788](https://github.com/UI5/webcomponents-react/issues/7788)) ([4314601](https://github.com/UI5/webcomponents-react/commit/431460110d76bffc64cc3997071604cac5755861))
+- fix React18 ref types ([#7775](https://github.com/UI5/webcomponents-react/issues/7775)) ([3b89dfd](https://github.com/UI5/webcomponents-react/commit/3b89dfd20be4418c37bede0c83a19a9520785d98))
+- **ObjectPage:** contain stacking context within the page ([#7756](https://github.com/UI5/webcomponents-react/issues/7756)) ([7c25f77](https://github.com/UI5/webcomponents-react/commit/7c25f770384c3f825bc6ff37c3a6f9b586fcf4b3))
+- **ObjectPage:** support height change of pinned header ([#7787](https://github.com/UI5/webcomponents-react/issues/7787)) ([4fb27f5](https://github.com/UI5/webcomponents-react/commit/4fb27f5f97197e9e4a268b09af928d37b2064e60)), closes [#7687](https://github.com/UI5/webcomponents-react/issues/7687)
+
+### Features
+
+- **AnalyticalTable:** add `noDataReason` & `accessibleRole` prop to `NoDataComponent` ([#7732](https://github.com/UI5/webcomponents-react/issues/7732)) ([4e99e5f](https://github.com/UI5/webcomponents-react/commit/4e99e5feb3f15444e63795964a2ddbdc46729111))
+- **cli:** introduce `export-maps` codemod ([#7757](https://github.com/UI5/webcomponents-react/issues/7757)) ([5348913](https://github.com/UI5/webcomponents-react/commit/5348913d0b05ff64f5626ada54126bb21f311e80))
+- **create-wrappers:** document supported slot types & deep-link to UI5WC component docs ([#7791](https://github.com/UI5/webcomponents-react/issues/7791)) ([b5e5cee](https://github.com/UI5/webcomponents-react/commit/b5e5cee33cbdd436dbd666d533b0df121ff12889))
+- update to UI5 Web Components v2.15.0 ([#7801](https://github.com/UI5/webcomponents-react/issues/7801)) ([03dfd2a](https://github.com/UI5/webcomponents-react/commit/03dfd2a2248bca6168f2acc711281619076c7185))
+
 ## [2.14.1](https://github.com/SAP/ui5-webcomponents-react/compare/v2.14.0...v2.14.1) (2025-09-08)
 
 ### Bug Fixes

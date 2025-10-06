@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.15.0](https://github.com/UI5/webcomponents-react/compare/v2.14.1...v2.15.0) (2025-10-06)
+
+### Bug Fixes
+
+- **deps:** update dependency patch-package to v8.0.1 ([#7788](https://github.com/UI5/webcomponents-react/issues/7788)) ([4314601](https://github.com/UI5/webcomponents-react/commit/431460110d76bffc64cc3997071604cac5755861))
+
+### Features
+
+- **cli:** introduce `export-maps` codemod ([#7757](https://github.com/UI5/webcomponents-react/issues/7757)) ([5348913](https://github.com/UI5/webcomponents-react/commit/5348913d0b05ff64f5626ada54126bb21f311e80))
+- **create-wrappers:** document supported slot types & deep-link to UI5WC component docs ([#7791](https://github.com/UI5/webcomponents-react/issues/7791)) ([b5e5cee](https://github.com/UI5/webcomponents-react/commit/b5e5cee33cbdd436dbd666d533b0df121ff12889))
+
 ## [2.14.1](https://github.com/SAP/ui5-webcomponents-react/compare/v2.14.0...v2.14.1) (2025-09-08)
 
 **Note:** Version bump only for package @ui5/webcomponents-react-cli

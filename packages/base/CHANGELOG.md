@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.15.0](https://github.com/UI5/webcomponents-react/compare/v2.14.1...v2.15.0) (2025-10-06)
+
+### Features
+
+- **cli:** introduce `export-maps` codemod ([#7757](https://github.com/UI5/webcomponents-react/issues/7757)) ([5348913](https://github.com/UI5/webcomponents-react/commit/5348913d0b05ff64f5626ada54126bb21f311e80))
+- update to UI5 Web Components v2.15.0 ([#7801](https://github.com/UI5/webcomponents-react/issues/7801)) ([03dfd2a](https://github.com/UI5/webcomponents-react/commit/03dfd2a2248bca6168f2acc711281619076c7185))
+
 ## [2.14.1](https://github.com/SAP/ui5-webcomponents-react/compare/v2.14.0...v2.14.1) (2025-09-08)
 
 **Note:** Version bump only for package @ui5/webcomponents-react-base
