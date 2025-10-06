@@ -851,7 +851,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                     noDataReason={
                       noDataFiltered ? AnalyticalTableNoDataReason.Filtered : AnalyticalTableNoDataReason.Empty
                     }
-                    role="gridcell"
+                    accessibleRole="gridcell"
                   />
                 )}
               </div>
