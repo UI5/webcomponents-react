@@ -106,6 +106,8 @@ interface CalendarPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v1.23.0](https://github.com/UI5/webcomponents/releases/tag/v1.23.0) of **@ui5/webcomponents**.
+   *
+   * __Supported Node Type/s:__ `Array<CalendarLegend>`
    */
   calendarLegend?: UI5WCSlotsNode;
 
@@ -113,6 +115,8 @@ interface CalendarPropTypes
    * Defines the selected date or dates (depending on the `selectionMode` property)
    * for this calendar as instances of `CalendarDate` or `CalendarDateRange`.
    * Use `CalendarDate` for single or multiple selection, and `CalendarDateRange` for range selection.
+   *
+   * __Supported Node Type/s:__ `Array<ICalendarSelectedDates>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -126,6 +130,8 @@ interface CalendarPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v1.23.0](https://github.com/UI5/webcomponents/releases/tag/v1.23.0) of **@ui5/webcomponents**.
+   *
+   * __Supported Node Type/s:__ `Array<SpecialCalendarDate>`
    */
   specialDates?: UI5WCSlotsNode;
   /**
@@ -230,7 +236,7 @@ interface CalendarPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Calendar UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Calendar) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Calendar = withWebComponent<CalendarPropTypes, CalendarDomRef>(
   'ui5-calendar',

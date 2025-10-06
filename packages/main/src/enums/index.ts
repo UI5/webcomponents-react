@@ -1,3 +1,4 @@
+export * from './AnalyticalTableNoDataReason.js';
 export * from './AnalyticalTablePopinDisplay.js';
 export * from './AnalyticalTableScaleWidthMode.js';
 export * from './AnalyticalTableScrollMode.js';

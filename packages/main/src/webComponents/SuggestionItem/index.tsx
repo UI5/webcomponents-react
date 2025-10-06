@@ -25,7 +25,7 @@ interface SuggestionItemPropTypes extends SuggestionItemAttributes, Omit<CommonP
 /**
  * The `SuggestionItem` represents the suggestion item of the `Input`.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [SuggestionItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/SuggestionItem) | [Repository](https://github.com/UI5/webcomponents)
  * @abstract
  */
 const SuggestionItem = withWebComponent<SuggestionItemPropTypes, SuggestionItemDomRef>(

@@ -81,6 +81,12 @@ export class PropTypesRenderer extends AbstractRenderer {
           }
         }
 
+        const slotType = slot._ui5type;
+        if (slotType) {
+          descriptionParts.push(` *`);
+          descriptionParts.push(` * __Supported Node Type/s:__ \`${slotType.text ?? 'unknown'}\``);
+        }
+
         return `/**\n${descriptionParts.join('\n')}\n */\n${snakeCaseToCamelCase(slot.name)}?: ${
           isDefaultSlot ? 'ReactNode | ReactNode[]' : 'UI5WCSlotsNode'
         }`;

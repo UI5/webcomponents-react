@@ -236,6 +236,8 @@ interface DateTimePickerPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**
@@ -349,7 +351,7 @@ interface DateTimePickerPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [DateTimePicker UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/DateTimePicker) | [Repository](https://github.com/UI5/webcomponents)
  */
 const DateTimePicker = withWebComponent<DateTimePickerPropTypes, DateTimePickerDomRef>(
   'ui5-datetime-picker',

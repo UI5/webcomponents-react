@@ -46,6 +46,8 @@ interface SearchItemGroupPropTypes
     Omit<CommonProps, keyof SearchItemGroupAttributes | 'children' | 'header' | 'onMove' | 'onMoveOver'> {
   /**
    * Defines the items of the <code>ui5-li-group</code>.
+   *
+   * __Supported Node Type/s:__ `Array<ListItemBase>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -59,6 +61,8 @@ interface SearchItemGroupPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<ListItemBase>`
    */
   header?: UI5WCSlotsNode;
   /**
@@ -94,7 +98,7 @@ interface SearchItemGroupPropTypes
  * The `SearchItemGroup` is type of suggestion item,
  * that can be used to split the `SearchItem` suggestions into groups.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [SearchItemGroup UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/SearchItemGroup) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.9.0](https://github.com/UI5/webcomponents/releases/tag/v2.9.0) of __@ui5/webcomponents-fiori__.
  * @experimental

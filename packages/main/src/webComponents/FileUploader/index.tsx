@@ -135,6 +135,8 @@ interface FileUploaderPropTypes
    * This slot is intended for use cases where you want a button-only file uploader.
    * It is recommended to set `hideInput` property to "true" when using this slot.
    * Not setting `hideInput` may negatively impact the screen reader users.
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -151,6 +153,8 @@ interface FileUploaderPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**
@@ -190,7 +194,7 @@ interface FileUploaderPropTypes
  * For the `FileUploader`
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [FileUploader UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/FileUploader) | [Repository](https://github.com/UI5/webcomponents)
  */
 const FileUploader = withWebComponent<FileUploaderPropTypes, FileUploaderDomRef>(
   'ui5-file-uploader',

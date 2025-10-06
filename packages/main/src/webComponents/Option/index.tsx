@@ -51,6 +51,8 @@ interface OptionPropTypes extends OptionAttributes, Omit<CommonProps, keyof Opti
    * Defines the text of the component.
    *
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -60,7 +62,7 @@ interface OptionPropTypes extends OptionAttributes, Omit<CommonProps, keyof Opti
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Option UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Option) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Option = withWebComponent<OptionPropTypes, OptionDomRef>(
   'ui5-option',

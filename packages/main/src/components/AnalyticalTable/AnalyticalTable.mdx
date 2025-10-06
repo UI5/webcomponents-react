@@ -567,6 +567,67 @@ const TableComponent = () => {
 
 <Canvas of={ComponentStories.NoData} />
 
+### Code
+
+<details>
+
+<summary>Show static code</summary>
+
+```tsx
+function NoDataTable(props) {
+  const [selected, setSelected] = useState('noData');
+  const [filtered, setFiltered] = useState(false);
+  const handleChange: SegmentedButtonPropTypes['onSelectionChange'] = (e) => {
+    const { key } = e.detail.selectedItems[0].dataset;
+    setSelected(key);
+    if (key === 'data') {
+      setFiltered(false);
+    }
+  };
+  const handleClick: ToggleButtonPropTypes['onClick'] = (e) => {
+    setFiltered(!!e.target.pressed);
+  };
+
+  const NoDataComponent: AnalyticalTablePropTypes['NoDataComponent'] =
+    selected === 'noData'
+      ? undefined
+      : (props) => {
+          return filtered ? (
+            <IllustratedMessage role={props.accessibleRole} name={NoFilterResults} />
+          ) : (
+            <IllustratedMessage role={props.accessibleRole} name={NoDataIllustration} />
+          );
+        };
+  return (
+    <>
+      <SegmentedButton onSelectionChange={handleChange} accessibleName="Select data view mode">
+        <SegmentedButtonItem selected={selected === 'noData'} data-key="noData">
+          Default NoData Component
+        </SegmentedButtonItem>
+        <SegmentedButtonItem selected={selected === 'illustratedMessage'} data-key="illustratedMessage">
+          IllustratedMessage NoData Component
+        </SegmentedButtonItem>
+        <SegmentedButtonItem selected={selected === 'data'} data-key="data">
+          With Data
+        </SegmentedButtonItem>
+      </SegmentedButton>{' '}
+      |{' '}
+      <ToggleButton onClick={handleClick} pressed={filtered} disabled={selected === 'data'}>
+        Table filtered
+      </ToggleButton>
+      <AnalyticalTable
+        {...props}
+        data={selected === 'data' ? props.data : []}
+        globalFilterValue={filtered ? 'Non-existing text' : undefined}
+        NoDataComponent={NoDataComponent}
+      />
+    </>
+  );
+}
+```
+
+</details>
+
 ## Kitchen Sink
 
 <Canvas of={ComponentStories.KitchenSink} />

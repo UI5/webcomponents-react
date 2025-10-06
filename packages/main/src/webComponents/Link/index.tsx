@@ -166,6 +166,8 @@ interface LinkPropTypes extends LinkAttributes, Omit<CommonProps, keyof LinkAttr
    * Defines the text of the component.
    *
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
   /**
@@ -208,7 +210,7 @@ interface LinkPropTypes extends LinkAttributes, Omit<CommonProps, keyof LinkAttr
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Link UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Link) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Link = withWebComponent<LinkPropTypes, LinkDomRef>(
   'ui5-link',

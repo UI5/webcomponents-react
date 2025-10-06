@@ -60,6 +60,8 @@ interface TableRowPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents**.
+   *
+   * __Supported Node Type/s:__ `Array<TableRowActionBase>`
    */
   actions?: UI5WCSlotsNode;
 
@@ -67,6 +69,8 @@ interface TableRowPropTypes
    * Defines the cells of the component.
    *
    * **Note:** Use `TableCell` for the intended design.
+   *
+   * __Supported Node Type/s:__ `Array<TableCell>`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -76,7 +80,7 @@ interface TableRowPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [TableRow UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/TableRow) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
  */

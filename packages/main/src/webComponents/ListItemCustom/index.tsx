@@ -90,6 +90,8 @@ interface ListItemCustomPropTypes
     Omit<CommonProps, keyof ListItemCustomAttributes | 'children' | 'deleteButton' | 'onDetailClick'> {
   /**
    * Defines the content of the component.
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -106,6 +108,8 @@ interface ListItemCustomPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v1.9.0](https://github.com/UI5/webcomponents/releases/tag/v1.9.0) of **@ui5/webcomponents**.
+   *
+   * __Supported Node Type/s:__ `Array<IButton>`
    */
   deleteButton?: UI5WCSlotsNode;
   /**
@@ -124,7 +128,7 @@ interface ListItemCustomPropTypes
  *
  * The component accepts arbitrary HTML content to allow full customization.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [ListItemCustom UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ListItemCustom) | [Repository](https://github.com/UI5/webcomponents)
  */
 const ListItemCustom = withWebComponent<ListItemCustomPropTypes, ListItemCustomDomRef>(
   'ui5-li-custom',
