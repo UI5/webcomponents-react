@@ -11,6 +11,14 @@ import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui
 
 interface ViewSettingsDialogAttributes {
   /**
+   * Defines the initial group order.
+   *
+   * **Note:** Available since [v2.13.0](https://github.com/UI5/webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents-fiori**.
+   * @default false
+   */
+  groupDescending?: boolean;
+
+  /**
    * Indicates if the dialog is open.
    *
    * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-fiori**.
@@ -45,6 +53,7 @@ interface ViewSettingsDialogPropTypes
       CommonProps,
       | keyof ViewSettingsDialogAttributes
       | 'filterItems'
+      | 'groupItems'
       | 'sortItems'
       | 'onBeforeOpen'
       | 'onCancel'
@@ -66,6 +75,21 @@ interface ViewSettingsDialogPropTypes
    * __Supported Node Type/s:__ `Array<FilterItem>`
    */
   filterItems?: UI5WCSlotsNode;
+
+  /**
+   * Defines the list of items against which the user could group data.
+   *
+   * **Note:** If you want to use this slot, you need to import used item: `import "@ui5/webcomponents-fiori/dist/GroupItem.js";`
+   *
+   * __Note:__ The content of the prop will be rendered into a [&lt;slot&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) by assigning the respective [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) attribute (`slot="groupItems"`).
+   * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
+   *
+   * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<GroupItem>`
+   */
+  groupItems?: UI5WCSlotsNode;
 
   /**
    * Defines the list of items against which the user could sort data.
@@ -157,8 +181,8 @@ interface ViewSettingsDialogPropTypes
 const ViewSettingsDialog = withWebComponent<ViewSettingsDialogPropTypes, ViewSettingsDialogDomRef>(
   'ui5-view-settings-dialog',
   [],
-  ['open', 'sortDescending'],
-  ['filterItems', 'sortItems'],
+  ['groupDescending', 'open', 'sortDescending'],
+  ['filterItems', 'groupItems', 'sortItems'],
   ['before-open', 'cancel', 'close', 'confirm', 'open'],
 );
 

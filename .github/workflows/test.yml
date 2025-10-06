@@ -19,6 +19,7 @@ jobs:
           - charts
           - cypress-commands
           - main/src/components
+          - main/src/webComponents
           - main/src/internal
           - compat
         react: ['18', '19']

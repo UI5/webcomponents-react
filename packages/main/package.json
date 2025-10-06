@@ -308,6 +308,10 @@
       "types": "./dist/webComponents/FormItem/index.d.ts",
       "default": "./dist/webComponents/FormItem/index.js"
     },
+    "./GroupItem": {
+      "types": "./dist/webComponents/GroupItem/index.d.ts",
+      "default": "./dist/webComponents/GroupItem/index.js"
+    },
     "./Icon": {
       "types": "./dist/webComponents/Icon/index.d.ts",
       "default": "./dist/webComponents/Icon/index.js"
@@ -789,10 +793,10 @@
   "peerDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@ui5/webcomponents": "~2.14.0",
-    "@ui5/webcomponents-base": "~2.14.0",
-    "@ui5/webcomponents-fiori": "~2.14.0",
-    "@ui5/webcomponents-icons": "~2.14.0",
+    "@ui5/webcomponents": "~2.15.0",
+    "@ui5/webcomponents-base": "~2.15.0",
+    "@ui5/webcomponents-fiori": "~2.15.0",
+    "@ui5/webcomponents-icons": "~2.15.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
   },

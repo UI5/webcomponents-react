@@ -40,6 +40,7 @@ export * from './FlexibleColumnLayout/index.js';
 export * from './Form/index.js';
 export * from './FormGroup/index.js';
 export * from './FormItem/index.js';
+export * from './GroupItem/index.js';
 export * from './Icon/index.js';
 export * from './IllustratedMessage/index.js';
 export * from './Input/index.js';

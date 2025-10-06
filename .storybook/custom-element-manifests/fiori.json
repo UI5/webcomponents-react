@@ -2210,7 +2210,7 @@
         {
           "kind": "enum",
           "name": "ViewSettingsDialogMode",
-          "description": "Different types of Bar.",
+          "description": "Different types of ViewSettings.",
           "_ui5privacy": "public",
           "members": [
             {
@@ -2231,6 +2231,16 @@
               "description": "Filter type",
               "default": "Filter",
               "name": "Filter",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "_ui5since": "2.13.0",
+              "description": "Group type",
+              "default": "Group",
+              "name": "Group",
               "readonly": true
             }
           ]
@@ -2684,7 +2694,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Header of the DynamicPage.\n\n### Overview\n\nThe DynamicPageHeader `ui5-dynamic-page-header` is part of the DynamicPage family\nand is used to serve as header of the `DynamicPage`.\n\n### Usage\n\nThe `DynamicPageHeader` can hold any layout control and has two states - expanded\nand collapsed (snapped). The switching between these states happens when:\n- the user scrolls below its bottom margin\n- the user clicks on the `DynamicPageTitle`\n- through the `DynamicPage` property `headerSnapped`\n\n### Responsive Behavior\n\nThe responsive behavior of the `DynamicPageHeader` depends on the behavior of the\ncontent that is displayed.",
+          "description": "Header of the DynamicPage.\n\n### Overview\n\nThe DynamicPageHeader `ui5-dynamic-page-header` is part of the DynamicPage family\nand is used to serve as header of the `DynamicPage`.\n\n### Usage\n\nThe `DynamicPageHeader` can hold any layout control and has two states - expanded\nand collapsed (snapped). The switching between these states happens when:\n- the user scrolls below its bottom margin\n- the user clicks on the `DynamicPageTitle`\n- through the `DynamicPage` property `headerSnapped`\n\n### Responsive Behavior\n\nThe responsive behavior of the `DynamicPageHeader` depends on the behavior of the\ncontent that is displayed.\n\n### Accessibility\n\nThe `DynamicPageHeader` provides an accessible label for the header region.",
           "name": "DynamicPageHeader",
           "slots": [
             {
@@ -3165,12 +3175,12 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "### Overview\n\n### Usage\n\nFor the `ui5-filter-item`\n### ES6 Module Import\n\n`import @ui5/webcomponents-fiori/dist/FilterItem.js\";`",
+          "description": "### Overview\n\nThe `ui5-filter-item` component defines the filtering criteria for data in `ui5-view-settings-dialog`.\nIt represents a single filter category that contains multiple filter options that users can select.\n\n### Usage\n\nThe `ui5-filter-item` is used within the `ui5-view-settings-dialog` to provide filtering options.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/FilterItem.js\";`",
           "name": "FilterItem",
           "slots": [
             {
               "name": "values",
-              "description": "Defines the `values` list.",
+              "description": "Defines the filter options available for this filter category.",
               "_ui5type": {
                 "text": "Array<FilterItemOption>",
                 "references": [
@@ -3191,7 +3201,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the text of the component.",
+              "description": "Defines the text of the filter item.",
               "default": "undefined",
               "privacy": "public"
             },
@@ -3201,14 +3211,14 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the additional text of the component.",
+              "description": "Defines the additional text of the filter item.\nThis text is typically used to show the number of selected filter options within this category.",
               "default": "undefined",
               "privacy": "public"
             }
           ],
           "attributes": [
             {
-              "description": "Defines the text of the component.",
+              "description": "Defines the text of the filter item.",
               "name": "text",
               "default": "undefined",
               "fieldName": "text",
@@ -3217,7 +3227,7 @@
               }
             },
             {
-              "description": "Defines the additional text of the component.",
+              "description": "Defines the additional text of the filter item.\nThis text is typically used to show the number of selected filter options within this category.",
               "name": "additional-text",
               "default": "undefined",
               "fieldName": "additionalText",
@@ -3263,7 +3273,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "### Overview\n\n### Usage\n\nFor the `ui5-filter-item-option`\n### ES6 Module Import\n\n`import @ui5/webcomponents-fiori/dist/FilterItemOption.js\";`",
+          "description": "### Overview\n\nThe `ui5-filter-item-option` component defines individual filter values within a `ui5-filter-item`.\nIt represents a single selectable option that users can choose to filter data.\n\n### Usage\n\nThe `ui5-filter-item-option` is used as a child component within `ui5-filter-item` in the context\nof `ui5-view-settings-dialog`. Each option represents a specific value that can be used for filtering\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/FilterItemOption.js\";`",
           "name": "FilterItemOption",
           "members": [
             {
@@ -3272,7 +3282,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the text of the component.",
+              "description": "Defines the text of the filter option.",
               "default": "undefined",
               "privacy": "public"
             },
@@ -3283,13 +3293,13 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Defines if the component is selected.",
+              "description": "Defines if the filter option is selected.",
               "privacy": "public"
             }
           ],
           "attributes": [
             {
-              "description": "Defines the text of the component.",
+              "description": "Defines the text of the filter option.",
               "name": "text",
               "default": "undefined",
               "fieldName": "text",
@@ -3298,7 +3308,7 @@
               }
             },
             {
-              "description": "Defines if the component is selected.",
+              "description": "Defines if the filter option is selected.",
               "name": "selected",
               "default": "false",
               "fieldName": "selected",
@@ -3667,6 +3677,87 @@
           "declaration": {
             "name": "FlexibleColumnLayout",
             "module": "dist/FlexibleColumnLayout.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/GroupItem.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-group-item` component defines the grouping criteria for data in `ui5-view-settings-dialog`.\nIt represents a single group option that users can select to organize data into logical groups.\n\n### Usage\n\nThe `ui5-group-item` is used within the `ui5-view-settings-dialog` to provide grouping options.\nEach group item represents a column or field by which data can be grouped.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/GroupItem.js\";`",
+          "name": "GroupItem",
+          "members": [
+            {
+              "kind": "field",
+              "name": "text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the text of the group item.",
+              "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines if the group item is selected.",
+              "privacy": "public"
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines the text of the group item.",
+              "name": "text",
+              "default": "undefined",
+              "fieldName": "text",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines if the group item is selected.",
+              "name": "selected",
+              "default": "false",
+              "fieldName": "selected",
+              "type": {
+                "text": "boolean"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "UI5Element",
+            "package": "@ui5/webcomponents-base",
+            "module": "dist/UI5Element.js"
+          },
+          "tagName": "ui5-group-item",
+          "customElement": true,
+          "_ui5since": "2.13.0",
+          "_ui5privacy": "public",
+          "_ui5abstract": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "GroupItem",
+            "module": "dist/GroupItem.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-group-item",
+          "declaration": {
+            "name": "GroupItem",
+            "module": "dist/GroupItem.js"
           }
         }
       ]
@@ -9690,7 +9781,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "### Overview\n\n### Usage\n\nFor the `ui5-sort-item`\n### ES6 Module Import\n\n`import @ui5/webcomponents-fiori/dist/SortItem.js\";`",
+          "description": "### Overview\n\nThe `ui5-sort-item` component defines the sorting criteria for data in `ui5-view-settings-dialog`.\nIt represents a single sort option that users can select to organize data in ascending or descending order.\n\n### Usage\n\nThe `ui5-sort-item` is used within the `ui5-view-settings-dialog` to provide sorting options.\nEach sort item represents a column or field by which data can be sorted.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/SortItem.js\";`",
           "name": "SortItem",
           "members": [
             {
@@ -9699,7 +9790,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the text of the component.",
+              "description": "Defines the text of the sort item.",
               "default": "undefined",
               "privacy": "public"
             },
@@ -9710,13 +9801,13 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Defines if the component is selected.",
+              "description": "Defines if the sort item is selected.",
               "privacy": "public"
             }
           ],
           "attributes": [
             {
-              "description": "Defines the text of the component.",
+              "description": "Defines the text of the sort item.",
               "name": "text",
               "default": "undefined",
               "fieldName": "text",
@@ -9725,7 +9816,7 @@
               }
             },
             {
-              "description": "Defines if the component is selected.",
+              "description": "Defines if the sort item is selected.",
               "name": "selected",
               "default": "false",
               "fieldName": "selected",
@@ -12536,6 +12627,21 @@
                 ]
               },
               "_ui5privacy": "public"
+            },
+            {
+              "name": "groupItems",
+              "description": "Defines the list of items against which the user could group data.\n\n**Note:** If you want to use this slot, you need to import used item: `import \"@ui5/webcomponents-fiori/dist/GroupItem.js\";`",
+              "_ui5type": {
+                "text": "Array<GroupItem>",
+                "references": [
+                  {
+                    "name": "GroupItem",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/GroupItem.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
             }
           ],
           "members": [
@@ -12548,6 +12654,17 @@
               "default": "false",
               "description": "Defines the initial sort order.",
               "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "groupDescending",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines the initial group order.",
+              "privacy": "public",
+              "_ui5since": "2.13.0"
             },
             {
               "kind": "field",
@@ -12642,6 +12759,38 @@
                 },
                 {
                   "type": {
+                    "text": "String"
+                  },
+                  "name": "groupOrder",
+                  "_ui5privacy": "public",
+                  "description": "The current group order selected."
+                },
+                {
+                  "type": {
+                    "text": "String"
+                  },
+                  "name": "groupBy",
+                  "_ui5privacy": "public",
+                  "description": "The currently selected `ui5-group-item` text attribute."
+                },
+                {
+                  "type": {
+                    "text": "HTMLElement"
+                  },
+                  "name": "groupByItem",
+                  "_ui5privacy": "public",
+                  "description": "The currently selected `ui5-group-item`."
+                },
+                {
+                  "type": {
+                    "text": "Boolean"
+                  },
+                  "name": "groupDescending",
+                  "_ui5privacy": "public",
+                  "description": "The selected group order (true = descending, false = ascending)."
+                },
+                {
+                  "type": {
                     "text": "Array"
                   },
                   "name": "filters",
@@ -12702,6 +12851,38 @@
                 },
                 {
                   "type": {
+                    "text": "String"
+                  },
+                  "name": "groupOrder",
+                  "_ui5privacy": "public",
+                  "description": "The current group order selected."
+                },
+                {
+                  "type": {
+                    "text": "String"
+                  },
+                  "name": "groupBy",
+                  "_ui5privacy": "public",
+                  "description": "The currently selected `ui5-group-item` text attribute."
+                },
+                {
+                  "type": {
+                    "text": "HTMLElement"
+                  },
+                  "name": "groupByItem",
+                  "_ui5privacy": "public",
+                  "description": "The currently selected `ui5-group-item`."
+                },
+                {
+                  "type": {
+                    "text": "Boolean"
+                  },
+                  "name": "groupDescending",
+                  "_ui5privacy": "public",
+                  "description": "The selected group order (true = descending, false = ascending)."
+                },
+                {
+                  "type": {
                     "text": "Array"
                   },
                   "name": "filters",
@@ -12752,6 +12933,15 @@
               "name": "sort-descending",
               "default": "false",
               "fieldName": "sortDescending",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the initial group order.",
+              "name": "group-descending",
+              "default": "false",
+              "fieldName": "groupDescending",
               "type": {
                 "text": "boolean"
               }

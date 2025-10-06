@@ -20,6 +20,11 @@ interface ToggleButtonAttributes {
    * - **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.
    * Accepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.
    *
+   * - **ariaLabel**: Defines the accessible ARIA name of the component.
+   * Accepts any string value.
+   *
+   *  - **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.
+   *
    * - **controls**: Identifies the element (or elements) whose contents or presence are controlled by the button element.
    * Accepts a lowercase string value.
    *

@@ -37,6 +37,10 @@ interface DynamicPageHeaderPropTypes extends DynamicPageHeaderAttributes, Omit<C
  * The responsive behavior of the `DynamicPageHeader` depends on the behavior of the
  * content that is displayed.
  *
+ * ### Accessibility
+ *
+ * The `DynamicPageHeader` provides an accessible label for the header region.
+ *
  * __Note:__ This is a UI5 Web Component! [DynamicPageHeader UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/DynamicPageHeader) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents-fiori__.
