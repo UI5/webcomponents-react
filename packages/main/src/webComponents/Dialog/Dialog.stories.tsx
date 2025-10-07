@@ -47,6 +47,8 @@ export const Default: Story = {
         </Button>
         <Dialog
           {...args}
+          data-sap-ui-fastnavgroup="true"
+          className="contentPartNoPadding"
           open={dialogOpen}
           onClose={(e) => {
             args.onClose(e);
@@ -55,6 +57,7 @@ export const Default: Story = {
           footer={
             <FlexBox justifyContent={FlexBoxJustifyContent.End} fitContainer style={{ paddingBlock: '0.25rem' }}>
               <Button
+                data-sap-ui-fastnavgroup="true"
                 onClick={() => {
                   setDialogOpen(false);
                 }}
