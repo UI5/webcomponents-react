@@ -81,7 +81,7 @@
     "eslint-plugin-no-only-tests": "3.3.0",
     "eslint-plugin-prettier": "5.5.4",
     "eslint-plugin-react": "7.37.5",
-    "eslint-plugin-react-hooks": "5.2.0",
+    "eslint-plugin-react-hooks": "6.1.1",
     "eslint-plugin-storybook": "9.1.7",
     "glob": "11.0.3",
     "globals": "16.4.0",
