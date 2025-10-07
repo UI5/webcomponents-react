@@ -40,6 +40,7 @@ import {
   Toolbar,
   ToolbarButton,
 } from '../../index.js';
+import { Tag } from '../../webComponents/Tag/index.js';
 import { ObjectPage } from './index.js';
 
 const meta = {
@@ -78,13 +79,13 @@ const meta = {
         subHeader="Senior UI Developer"
         snappedSubHeader={'Senior UI Developer (snapped header)'}
         actionsBar={
-          <Toolbar design="Transparent">
+          <Toolbar design="Transparent" style={{ height: 'auto' }}>
             <ToolbarButton design={ButtonDesign.Emphasized} text="Primary Action" />
             <ToolbarButton design={ButtonDesign.Transparent} text="Action" />
           </Toolbar>
         }
         navigationBar={
-          <Toolbar design="Transparent">
+          <Toolbar design="Transparent" style={{ height: 'auto' }}>
             <ToolbarButton
               icon={shareIcon}
               design={ButtonDesign.Transparent}
@@ -117,7 +118,9 @@ const meta = {
           </MessageStrip>
         }
       >
-        <ObjectStatus state={ValueState.Positive}>employed</ObjectStatus>
+        <Tag design="Positive" style={{ alignSelf: 'center' }}>
+          employed
+        </Tag>
       </ObjectPageTitle>
     ),
     headerArea: (
