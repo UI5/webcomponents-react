@@ -1,7 +1,7 @@
 import { isChromatic } from '@sb/utils.js';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { FlexBox, FlexBoxJustifyContent } from '@ui5/webcomponents-react';
 import { useEffect, useState } from 'react';
+import { Bar } from '../Bar/index.js';
 import { Button, List, ListItemStandard } from '../index.js';
 import { Dialog } from './index.js';
 
@@ -48,23 +48,26 @@ export const Default: Story = {
         <Dialog
           {...args}
           data-sap-ui-fastnavgroup="true"
-          className="contentPartNoPadding"
+          className="contentPartNoPadding footerPartNoPadding"
           open={dialogOpen}
           onClose={(e) => {
             args.onClose(e);
             setDialogOpen(false);
           }}
           footer={
-            <FlexBox justifyContent={FlexBoxJustifyContent.End} fitContainer style={{ paddingBlock: '0.25rem' }}>
-              <Button
-                data-sap-ui-fastnavgroup="true"
-                onClick={() => {
-                  setDialogOpen(false);
-                }}
-              >
-                Close
-              </Button>
-            </FlexBox>
+            <Bar
+              design="Footer"
+              endContent={
+                <Button
+                  data-sap-ui-fastnavgroup="true"
+                  onClick={() => {
+                    setDialogOpen(false);
+                  }}
+                >
+                  Close
+                </Button>
+              }
+            />
           }
         />
       </>
