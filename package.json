@@ -45,8 +45,8 @@
     "@ui5/webcomponents-compat": "2.15.0",
     "@ui5/webcomponents-fiori": "2.15.0",
     "@ui5/webcomponents-icons": "2.15.0",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "remark-gfm": "4.0.1",
     "storybook": "9.1.7",
     "tocbot": "4.36.4"
