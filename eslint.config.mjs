@@ -48,12 +48,7 @@ const config = tseslint.config(
   reactPlugin.configs.flat.recommended, // This is not a plugin object, but a shareable config object
   reactPlugin.configs.flat['jsx-runtime'], // Add this if you are using React 17+
   // eslint-plugin-react-hooks
-  {
-    plugins: {
-      'react-hooks': reactHooksPlugin,
-    },
-    rules: reactHooksPlugin.configs.recommended.rules,
-  },
+  ...reactHooksPlugin.configs.recommended,
   {
     languageOptions: {
       globals: {
