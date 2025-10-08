@@ -74,6 +74,8 @@ interface PanelPropTypes
     Omit<CommonProps, keyof PanelAttributes | 'children' | 'header' | 'onToggle'> {
   /**
    * Defines the content of the component. The content is visible only when the component is expanded.
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -87,6 +89,8 @@ interface PanelPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   header?: UI5WCSlotsNode;
   /**
@@ -143,7 +147,7 @@ interface PanelPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Panel UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Panel) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Panel = withWebComponent<PanelPropTypes, PanelDomRef>(
   'ui5-panel',

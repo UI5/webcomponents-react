@@ -10,6 +10,7 @@ import type {
   RefObject,
   SetStateAction,
 } from 'react';
+import type { AnalyticalTableNoDataReason } from '../../../enums/AnalyticalTableNoDataReason.js';
 import type { AnalyticalTablePopinDisplay } from '../../../enums/AnalyticalTablePopinDisplay.js';
 import type { AnalyticalTableScaleWidthMode } from '../../../enums/AnalyticalTableScaleWidthMode.js';
 import type { AnalyticalTableScrollMode } from '../../../enums/AnalyticalTableScrollMode.js';
@@ -427,7 +428,11 @@ export interface AnalyticalTableColumnDefinition {
    */
   headerTooltip?: string;
   /**
-   * Custom cell renderer. If set, the table will call that component for every cell and pass all required information as props, e.g. the cell value as `props.cell.value`
+   * Custom cell renderer. If set, the table will use this component or render the provided string for every cell,
+   * passing all necessary information as props, e.g., the cell value as `props.cell.value`.
+   *
+   * __Note:__ Using a custom component __can impact performance__!
+   * If you pass a component, __memoizing it is strongly recommended__, especially for complex components or large datasets.
    */
   Cell?: string | ComponentType<CellInstance> | ((props?: CellInstance) => ReactNode);
   /**
@@ -1019,6 +1024,10 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   onLoadMore?: (e?: CustomEvent<{ rowCount: number; totalRowCount: number }>) => void;
   /**
    * Fired when the body of the table is scrolled.
+   *
+   * __Note:__ This callback __must be memoized__! Since it is triggered on __every scroll event__,
+   * non-memoized or expensive calculations can have a __huge impact on performance__ and cause visible lag.
+   * Throttling or debouncing is always recommended to reduce performance overhead.
    */
   onTableScroll?: (e?: CustomEvent<{ rows: Record<string, any>[]; rowElements: HTMLCollection }>) => void;
   /**
@@ -1041,7 +1050,12 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    *
    * @default DefaultNoDataComponent
    */
-  NoDataComponent?: ComponentType<any>;
+  NoDataComponent?: ComponentType<{
+    noDataText: string;
+    className: string;
+    noDataReason: AnalyticalTableNoDataReason | keyof typeof AnalyticalTableNoDataReason;
+    accessibleRole: 'gridcell';
+  }>;
 
   /**
    * Exposes the internal table instance.

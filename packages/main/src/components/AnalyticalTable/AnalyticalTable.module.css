@@ -199,6 +199,9 @@
   &:hover:not([data-empty-row]) {
     background-color: var(--sapList_Hover_Background);
   }
+  &[data-is-selected]:hover {
+    background-color: var(--sapList_Hover_SelectionBackground);
+  }
 }
 
 .tableGroupHeader.tr {

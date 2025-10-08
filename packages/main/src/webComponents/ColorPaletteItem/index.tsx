@@ -33,7 +33,7 @@ interface ColorPaletteItemPropTypes
 /**
  * The `ColorPaletteItem` component represents a color in the the `ColorPalette`.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [ColorPaletteItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ColorPaletteItem) | [Repository](https://github.com/UI5/webcomponents)
  */
 const ColorPaletteItem = withWebComponent<ColorPaletteItemPropTypes, ColorPaletteItemDomRef>(
   'ui5-color-palette-item',

@@ -24,6 +24,7 @@ import {
   useSortBy,
   useTable,
 } from 'react-table';
+import { AnalyticalTableNoDataReason } from '../../enums/AnalyticalTableNoDataReason.js';
 import { AnalyticalTablePopinDisplay } from '../../enums/AnalyticalTablePopinDisplay.js';
 import { AnalyticalTableScaleWidthMode } from '../../enums/AnalyticalTableScaleWidthMode.js';
 import { AnalyticalTableSelectionBehavior } from '../../enums/AnalyticalTableSelectionBehavior.js';
@@ -73,6 +74,7 @@ import { useScrollToRef } from './hooks/useScrollToRef.js';
 import { useSelectionChangeCallback } from './hooks/useSelectionChangeCallback.js';
 import { useSingleRowStateSelection } from './hooks/useSingleRowStateSelection.js';
 import { useStyling } from './hooks/useStyling.js';
+import { useSyncScroll } from './hooks/useSyncScroll.js';
 import { useToggleRowExpand } from './hooks/useToggleRowExpand.js';
 import { useVisibleColumnsWidth } from './hooks/useVisibleColumnsWidth.js';
 import { VerticalScrollbar } from './scrollbars/VerticalScrollbar.js';
@@ -85,9 +87,9 @@ import type {
   AnalyticalTableDomRef,
   AnalyticalTablePropTypes,
   AnalyticalTableState,
+  CellInstance,
   DivWithCustomScrollProp,
   TableInstance,
-  CellInstance,
 } from './types/index.js';
 import {
   getCombinedElementsHeight,
@@ -327,8 +329,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
 
   const noDataTextI18n = i18nBundle.getText(LIST_NO_DATA);
   const noDataTextFiltered = i18nBundle.getText(NO_DATA_FILTERED);
-  const noDataTextLocal =
-    noDataText ?? (tableState.filters?.length > 0 || tableState.globalFilter ? noDataTextFiltered : noDataTextI18n);
+  const noDataFiltered = tableState.filters?.length > 0 || tableState.globalFilter;
+  const noDataTextLocal = noDataText ?? (noDataFiltered ? noDataTextFiltered : noDataTextI18n);
 
   const [componentRef, analyticalTableRef] = useSyncRef<AnalyticalTableDomRef>(ref);
   const [cbRef, scrollToRef] = useScrollToRef(componentRef, dispatch);
@@ -657,34 +659,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     }
   }, [tableState.columnResizing, retainColumnWidth, tableState.tableColResized]);
 
-  const handleBodyScroll = (e) => {
-    if (typeof onTableScroll === 'function') {
-      onTableScroll(e);
-    }
-    const targetScrollTop = e.currentTarget.scrollTop;
-
-    if (verticalScrollBarRef.current) {
-      const vertScrollbarScrollElement = verticalScrollBarRef.current.firstElementChild as HTMLDivElement;
-      if (vertScrollbarScrollElement.offsetHeight !== scrollContainerRef.current?.offsetHeight) {
-        vertScrollbarScrollElement.style.height = `${scrollContainerRef.current.offsetHeight}px`;
-      }
-      if (verticalScrollBarRef.current.scrollTop !== targetScrollTop) {
-        if (!e.currentTarget.isExternalVerticalScroll) {
-          verticalScrollBarRef.current.scrollTop = targetScrollTop;
-          verticalScrollBarRef.current.isExternalVerticalScroll = true;
-        }
-        e.currentTarget.isExternalVerticalScroll = false;
-      }
-    }
-  };
-
-  const handleVerticalScrollBarScroll = useCallback((e) => {
-    if (parentRef.current && !e.currentTarget.isExternalVerticalScroll) {
-      parentRef.current.scrollTop = e.currentTarget.scrollTop;
-      parentRef.current.isExternalVerticalScroll = true;
-    }
-    e.currentTarget.isExternalVerticalScroll = false;
-  }, []);
+  useSyncScroll(parentRef, verticalScrollBarRef);
 
   useEffect(() => {
     columnVirtualizer.measure();
@@ -846,7 +821,14 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                     pleaseWaitText={i18nBundle.getText(PLEASE_WAIT)}
                   />
                 ) : (
-                  <NoDataComponent noDataText={noDataTextLocal} className={classNames.noData} />
+                  <NoDataComponent
+                    noDataText={noDataTextLocal}
+                    className={classNames.noData}
+                    noDataReason={
+                      noDataFiltered ? AnalyticalTableNoDataReason.Filtered : AnalyticalTableNoDataReason.Empty
+                    }
+                    accessibleRole="gridcell"
+                  />
                 )}
               </div>
             )}
@@ -864,7 +846,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                 internalRowHeight={internalRowHeight}
                 popInRowHeight={popInRowHeight}
                 rows={rows}
-                handleExternalScroll={handleBodyScroll}
+                handleExternalScroll={onTableScroll}
                 visibleRows={internalVisibleRowCount}
                 isGrouped={isGrouped}
               >
@@ -899,10 +881,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
               tableBodyHeight={tableBodyHeight}
               internalRowHeight={internalHeaderRowHeight}
               tableRef={tableRef}
-              handleVerticalScrollBarScroll={handleVerticalScrollBarScroll}
               ref={verticalScrollBarRef}
               scrollContainerRef={scrollContainerRef}
-              parentRef={parentRef}
               nativeScrollbar={nativeScrollbar}
               classNames={classNames}
             />

@@ -56,6 +56,8 @@ interface TimelineItemPropTypes
     Omit<CommonProps, keyof TimelineItemAttributes | 'children' | 'onNameClick'> {
   /**
    * Defines the content of the `TimelineItem`.
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
   /**
@@ -75,7 +77,7 @@ interface TimelineItemPropTypes
 /**
  * An entry posted on the timeline.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [TimelineItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/TimelineItem) | [Repository](https://github.com/UI5/webcomponents)
  */
 const TimelineItem = withWebComponent<TimelineItemPropTypes, TimelineItemDomRef>(
   'ui5-timeline-item',

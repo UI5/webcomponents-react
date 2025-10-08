@@ -46,6 +46,8 @@ interface BreadcrumbsItemPropTypes
    * Defines the text of the component.
    *
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
 }
@@ -53,7 +55,7 @@ interface BreadcrumbsItemPropTypes
 /**
  * The `BreadcrumbsItem` component defines the content of an item in `Breadcrumbs`.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [BreadcrumbsItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/BreadcrumbsItem) | [Repository](https://github.com/UI5/webcomponents)
  * @abstract
  */
 const BreadcrumbsItem = withWebComponent<BreadcrumbsItemPropTypes, BreadcrumbsItemDomRef>(

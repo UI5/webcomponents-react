@@ -26,6 +26,8 @@ interface TimelineGroupItemPropTypes
     Omit<CommonProps, keyof TimelineGroupItemAttributes | 'children' | 'onToggle'> {
   /**
    * Determines the content of the `TimelineGroupItem`.
+   *
+   * __Supported Node Type/s:__ `Array<ITimelineItem>`
    */
   children?: ReactNode | ReactNode[];
   /**
@@ -44,7 +46,7 @@ interface TimelineGroupItemPropTypes
  *
  * **Note**: Please do not use empty groups in order to preserve the intended design.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [TimelineGroupItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/TimelineGroupItem) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.1.0](https://github.com/UI5/webcomponents/releases/tag/v2.1.0) of __@ui5/webcomponents-fiori__.
  */

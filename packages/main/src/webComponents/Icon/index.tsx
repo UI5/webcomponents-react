@@ -145,7 +145,7 @@ interface IconPropTypes extends IconAttributes, Omit<CommonProps, keyof IconAttr
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Icon UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Icon) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Icon = withWebComponent<IconPropTypes, IconDomRef>(
   'ui5-icon',

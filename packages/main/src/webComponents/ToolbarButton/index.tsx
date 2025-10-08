@@ -138,7 +138,7 @@ interface ToolbarButtonPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [ToolbarButton UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ToolbarButton) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [1.17.0](https://github.com/UI5/webcomponents/releases/tag/v1.17.0) of __@ui5/webcomponents__.
  * @abstract

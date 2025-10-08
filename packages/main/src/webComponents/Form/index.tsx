@@ -92,6 +92,8 @@ interface FormPropTypes extends FormAttributes, Omit<CommonProps, keyof FormAttr
    *
    * **Note:** Mixing FormGroups and standalone FormItems (not belonging to a group) is not supported.
    * Either use FormGroups and make sure all FormItems are part of a FormGroup, or use just FormItems without any FormGroups.
+   *
+   * __Supported Node Type/s:__ `Array<IFormItem>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -105,6 +107,8 @@ interface FormPropTypes extends FormAttributes, Omit<CommonProps, keyof FormAttr
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   header?: UI5WCSlotsNode;
 }
@@ -243,7 +247,7 @@ interface FormPropTypes extends FormAttributes, Omit<CommonProps, keyof FormAttr
  * - import @ui5/webcomponents/dist/FormGroup.js";
  * - import @ui5/webcomponents/dist/FormItem.js";
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Form UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Form) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents__.
  */

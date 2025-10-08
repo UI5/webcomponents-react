@@ -127,6 +127,8 @@ interface SelectPropTypes
    * If more than one option is defined as selected, the last one would be considered as the selected one.
    *
    * **Note:** Use the `Option` component to define the desired options.
+   *
+   * __Supported Node Type/s:__ `Array<IOption>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -147,6 +149,8 @@ interface SelectPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v1.17.0](https://github.com/UI5/webcomponents/releases/tag/v1.17.0) of **@ui5/webcomponents**.
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   label?: UI5WCSlotsNode;
 
@@ -166,6 +170,8 @@ interface SelectPropTypes
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   valueStateMessage?: UI5WCSlotsNode;
   /**
@@ -256,7 +262,7 @@ interface SelectPropTypes
  * `import "@ui5/webcomponents/dist/Option";`
  * `import "@ui5/webcomponents/dist/OptionCustom";`
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Select UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Select) | [Repository](https://github.com/UI5/webcomponents)
  */
 const Select = withWebComponent<SelectPropTypes, SelectDomRef>(
   'ui5-select',

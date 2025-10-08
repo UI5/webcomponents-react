@@ -38,7 +38,6 @@
 .titleMainSection {
   overflow-x: hidden;
   flex: 1 1 auto;
-  align-items: baseline;
 }
 
 .middleSection {
@@ -57,6 +56,7 @@
   padding-block-start: 0.3125rem;
   overflow-wrap: break-word;
   hyphens: auto;
+  align-self: start;
 
   > * {
     font-family: inherit;
@@ -69,9 +69,16 @@
 
 .snappedAvatarContainer:has([data-component-name='ObjectPageCollapsedAvatar']) {
   flex-shrink: 0;
+  align-self: center;
 }
 
-@container (min-width: 600px) and (max-width: 1023px) {
+@container (min-width: 1024px) {
+  .title {
+    padding-block-start: 0.3125rem;
+  }
+}
+
+@container (min-width: 600px) and (max-width: 1023.99px) {
   .title {
     padding-block-start: 0.6875rem;
   }
@@ -111,10 +118,10 @@
 .toolbar {
   flex-grow: 1;
   flex-shrink: 1.6;
-  min-width: 3rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  align-self: flex-start;
 
   > [ui5-toolbar] {
     padding: 0;

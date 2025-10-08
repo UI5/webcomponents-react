@@ -19,6 +19,9 @@ interface ButtonAttributes {
    *    Accepts string values: `"dialog"`, `"grid"`, `"listbox"`, `"menu"`, or `"tree"`.
    *  - **roleDescription**: Defines a human-readable description for the button's role.
    *    Accepts any string value.
+   *  - **title**: Specifies a tooltip or description for screen readers.
+   *    Accepts any string value.
+   * - **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or focus the button.
    *
    * - **arrowButton**: Accessibility attributes that will be applied to the arrow (split) button element.
    *  - **hasPopup**: Indicates the type of popup triggered by the arrow button.
@@ -71,6 +74,8 @@ interface ButtonPropTypes
    * Defines the available states of the component.
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that
    * you only use `ButtonState` components in order to preserve the intended design.
+   *
+   * __Supported Node Type/s:__ `Array<ButtonState>`
    */
   children?: ReactNode | ReactNode[];
   /**
@@ -114,7 +119,7 @@ interface ButtonPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [Button UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ai/Button) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents-ai__.
  * @experimental The Button and ButtonState web components are availabe since 2.0 under an experimental flag and their API and behaviour are subject to change.

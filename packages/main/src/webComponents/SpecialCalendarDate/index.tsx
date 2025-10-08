@@ -29,7 +29,7 @@ interface SpecialCalendarDatePropTypes
  * The `SpecialCalendarDate` component defines a special calendar date to be used inside `Calendar`,
  * which is visually distinguished from the rest of the dates.
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [SpecialCalendarDate UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/SpecialCalendarDate) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [1.23.0](https://github.com/UI5/webcomponents/releases/tag/v1.23.0) of __@ui5/webcomponents__.
  * @abstract

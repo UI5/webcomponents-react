@@ -20,6 +20,11 @@ interface ToggleButtonAttributes {
    * - **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.
    * Accepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.
    *
+   * - **ariaLabel**: Defines the accessible ARIA name of the component.
+   * Accepts any string value.
+   *
+   *  - **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.
+   *
    * - **controls**: Identifies the element (or elements) whose contents or presence are controlled by the button element.
    * Accepts a lowercase string value.
    *
@@ -168,6 +173,8 @@ interface ToggleButtonPropTypes
    * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
    *
    * **Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents**.
+   *
+   * __Supported Node Type/s:__ `Array<ButtonBadge>`
    */
   badge?: UI5WCSlotsNode;
 
@@ -175,6 +182,8 @@ interface ToggleButtonPropTypes
    * Defines the text of the component.
    *
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
   /**
@@ -205,7 +214,7 @@ interface ToggleButtonPropTypes
  *
  *
  *
- * __Note__: This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/)
+ * __Note:__ This is a UI5 Web Component! [ToggleButton UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ToggleButton) | [Repository](https://github.com/UI5/webcomponents)
  */
 const ToggleButton = withWebComponent<ToggleButtonPropTypes, ToggleButtonDomRef>(
   'ui5-toggle-button',
