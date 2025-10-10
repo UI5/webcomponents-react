@@ -336,21 +336,6 @@
   background: var(--sapIndicationColor_8);
 }
 
-.hiddenSmartColMeasure {
-  box-sizing: border-box;
-  visibility: hidden;
-  position: fixed;
-  white-space: nowrap;
-  height: 0;
-  font-family: var(--sapFontFamily);
-  font-size: var(--sapFontSize);
-  line-height: normal;
-}
-
-.hiddenSmartColMeasureHeader {
-  font-family: var(--_ui5wcr-AnalyticalTable-HeaderFontFamily);
-}
-
 .hiddenA11yText {
   font-size: 0;
   left: 0;
