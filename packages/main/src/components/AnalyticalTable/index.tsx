@@ -728,198 +728,180 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   tableInstanceRef.current.virtualRowsRange = rowVirtualizer.range;
 
   return (
-    <>
-      <div
-        className={className}
-        style={inlineStyle}
-        //@ts-expect-error: types are compatible
-        ref={cbRef}
-        {...rest}
+    <div
+      className={className}
+      style={inlineStyle}
+      //@ts-expect-error: types are compatible
+      ref={cbRef}
+      {...rest}
+    >
+      {header && (
+        <TitleBar ref={titleBarRef} titleBarId={titleBarId}>
+          {header}
+        </TitleBar>
+      )}
+      {extension && <div ref={extensionRef}>{extension}</div>}
+      <FlexBox
+        className={classNames.tableContainerWithScrollBar}
+        data-component-name="AnalyticalTableContainerWithScrollbar"
       >
-        {header && (
-          <TitleBar ref={titleBarRef} titleBarId={titleBarId}>
-            {header}
-          </TitleBar>
+        {loading && (!!rows.length || alwaysShowBusyIndicator) && (
+          <BusyIndicator
+            className={classNames.busyIndicator}
+            active={true}
+            delay={loadingDelay}
+            data-component-name="AnalyticalTableBusyIndicator"
+          />
         )}
-        {extension && <div ref={extensionRef}>{extension}</div>}
-        <FlexBox
-          className={classNames.tableContainerWithScrollBar}
-          data-component-name="AnalyticalTableContainerWithScrollbar"
-        >
-          {loading && (!!rows.length || alwaysShowBusyIndicator) && (
-            <BusyIndicator
-              className={classNames.busyIndicator}
-              active={true}
-              delay={loadingDelay}
-              data-component-name="AnalyticalTableBusyIndicator"
+        {showOverlay && (
+          <>
+            <span id={invalidTableTextId} className={classNames.hiddenA11yText} aria-hidden="true">
+              {invalidTableA11yText}
+            </span>
+            <div
+              tabIndex={0}
+              aria-labelledby={`${titleBarId} ${invalidTableTextId}`}
+              role="region"
+              data-component-name="AnalyticalTableOverlay"
+              className={classNames.overlay}
             />
+          </>
+        )}
+        <div
+          aria-labelledby={titleBarId}
+          {...getTableProps()}
+          tabIndex={loading || showOverlay ? -1 : 0}
+          role={isTreeTable ? 'treegrid' : 'grid'}
+          aria-rowcount={rows.length}
+          aria-colcount={visibleColumns.length}
+          data-per-page={internalVisibleRowCount}
+          aria-multiselectable={selectionMode === AnalyticalTableSelectionMode.Multiple}
+          data-component-name="AnalyticalTableContainer"
+          ref={tableRef}
+          className={tableClasses}
+        >
+          <div className={classNames.tableHeaderBackgroundElement} aria-hidden="true" />
+          <div className={classNames.tableBodyBackgroundElement} aria-hidden="true" />
+          {headerGroups.map((headerGroup) => {
+            let headerProps: Record<string, unknown> = {};
+            if (headerGroup.getHeaderGroupProps) {
+              headerProps = headerGroup.getHeaderGroupProps();
+            }
+            return (
+              tableRef.current && (
+                <ColumnHeaderContainer
+                  ref={headerRef}
+                  key={headerProps.key as string}
+                  resizeInfo={tableState.columnResizing}
+                  headerProps={headerProps}
+                  headerGroup={headerGroup}
+                  isRtl={isRtl}
+                  columnVirtualizer={columnVirtualizer}
+                  uniqueId={uniqueId}
+                  showVerticalEndBorder={showVerticalEndBorder}
+                  classNames={classNames}
+                />
+              )
+            );
+          })}
+          {rows?.length === 0 && (
+            <div
+              style={noDataStyles}
+              data-component-name="AnalyticalTableNoDataContainer"
+              role="row"
+              tabIndex={0}
+              className={classNames.noDataContainer}
+            >
+              {loading && !alwaysShowBusyIndicator ? (
+                <TablePlaceholder
+                  columns={visibleColumns}
+                  rows={minRows}
+                  style={noDataStyles}
+                  pleaseWaitText={i18nBundle.getText(PLEASE_WAIT)}
+                />
+              ) : (
+                <NoDataComponent
+                  noDataText={noDataTextLocal}
+                  className={classNames.noData}
+                  noDataReason={
+                    noDataFiltered ? AnalyticalTableNoDataReason.Filtered : AnalyticalTableNoDataReason.Empty
+                  }
+                  accessibleRole="gridcell"
+                />
+              )}
+            </div>
           )}
-          {showOverlay && (
-            <>
-              <span id={invalidTableTextId} className={classNames.hiddenA11yText} aria-hidden="true">
-                {invalidTableA11yText}
-              </span>
-              <div
-                tabIndex={0}
-                aria-labelledby={`${titleBarId} ${invalidTableTextId}`}
-                role="region"
-                data-component-name="AnalyticalTableOverlay"
-                className={classNames.overlay}
-              />
-            </>
-          )}
-          <div
-            aria-labelledby={titleBarId}
-            {...getTableProps()}
-            tabIndex={loading || showOverlay ? -1 : 0}
-            role={isTreeTable ? 'treegrid' : 'grid'}
-            aria-rowcount={rows.length}
-            aria-colcount={visibleColumns.length}
-            data-per-page={internalVisibleRowCount}
-            aria-multiselectable={selectionMode === AnalyticalTableSelectionMode.Multiple}
-            data-component-name="AnalyticalTableContainer"
-            ref={tableRef}
-            className={tableClasses}
-          >
-            <div className={classNames.tableHeaderBackgroundElement} aria-hidden="true" />
-            <div className={classNames.tableBodyBackgroundElement} aria-hidden="true" />
-            {headerGroups.map((headerGroup) => {
-              let headerProps: Record<string, unknown> = {};
-              if (headerGroup.getHeaderGroupProps) {
-                headerProps = headerGroup.getHeaderGroupProps();
-              }
-              return (
-                tableRef.current && (
-                  <ColumnHeaderContainer
-                    ref={headerRef}
-                    key={headerProps.key as string}
-                    resizeInfo={tableState.columnResizing}
-                    headerProps={headerProps}
-                    headerGroup={headerGroup}
-                    isRtl={isRtl}
-                    columnVirtualizer={columnVirtualizer}
-                    uniqueId={uniqueId}
-                    showVerticalEndBorder={showVerticalEndBorder}
-                    classNames={classNames}
-                  />
-                )
-              );
-            })}
-            {rows?.length === 0 && (
-              <div
-                style={noDataStyles}
-                data-component-name="AnalyticalTableNoDataContainer"
-                role="row"
-                tabIndex={0}
-                className={classNames.noDataContainer}
-              >
-                {loading && !alwaysShowBusyIndicator ? (
-                  <TablePlaceholder
-                    columns={visibleColumns}
-                    rows={minRows}
-                    style={noDataStyles}
-                    pleaseWaitText={i18nBundle.getText(PLEASE_WAIT)}
-                  />
-                ) : (
-                  <NoDataComponent
-                    noDataText={noDataTextLocal}
-                    className={classNames.noData}
-                    noDataReason={
-                      noDataFiltered ? AnalyticalTableNoDataReason.Filtered : AnalyticalTableNoDataReason.Empty
-                    }
-                    accessibleRole="gridcell"
-                  />
-                )}
-              </div>
-            )}
-            {rows?.length > 0 && tableRef.current && (
-              <VirtualTableBodyContainer
-                rowCollapsedFlag={tableState.rowCollapsed}
-                dispatch={dispatch}
-                tableBodyHeight={tableBodyHeight}
-                totalColumnsWidth={columnVirtualizer.getTotalSize()}
-                parentRef={parentRef}
+          {rows?.length > 0 && tableRef.current && (
+            <VirtualTableBodyContainer
+              rowCollapsedFlag={tableState.rowCollapsed}
+              dispatch={dispatch}
+              tableBodyHeight={tableBodyHeight}
+              totalColumnsWidth={columnVirtualizer.getTotalSize()}
+              parentRef={parentRef}
+              classes={classNames}
+              infiniteScroll={infiniteScroll}
+              infiniteScrollThreshold={infiniteScrollThreshold}
+              onLoadMore={handleOnLoadMore}
+              internalRowHeight={internalRowHeight}
+              popInRowHeight={popInRowHeight}
+              rows={rows}
+              handleExternalScroll={onTableScroll}
+              visibleRows={internalVisibleRowCount}
+              isGrouped={isGrouped}
+            >
+              <VirtualTableBody
+                scrollContainerRef={scrollContainerRef}
                 classes={classNames}
-                infiniteScroll={infiniteScroll}
-                infiniteScrollThreshold={infiniteScrollThreshold}
-                onLoadMore={handleOnLoadMore}
+                prepareRow={prepareRow}
+                rows={rows}
+                scrollToRef={scrollToRef}
+                isTreeTable={isTreeTable}
                 internalRowHeight={internalRowHeight}
                 popInRowHeight={popInRowHeight}
-                rows={rows}
-                handleExternalScroll={onTableScroll}
-                visibleRows={internalVisibleRowCount}
-                isGrouped={isGrouped}
-              >
-                <VirtualTableBody
-                  scrollContainerRef={scrollContainerRef}
-                  classes={classNames}
-                  prepareRow={prepareRow}
-                  rows={rows}
-                  scrollToRef={scrollToRef}
-                  isTreeTable={isTreeTable}
-                  internalRowHeight={internalRowHeight}
-                  popInRowHeight={popInRowHeight}
-                  alternateRowColor={alternateRowColor}
-                  visibleColumns={visibleColumns}
-                  renderRowSubComponent={renderRowSubComponent}
-                  alwaysShowSubComponent={alwaysShowSubComponent}
-                  markNavigatedRow={markNavigatedRow}
-                  isRtl={isRtl}
-                  subComponentsHeight={tableState.subComponentsHeight}
-                  dispatch={dispatch}
-                  columnVirtualizer={columnVirtualizer}
-                  manualGroupBy={reactTableOptions?.manualGroupBy as boolean | undefined}
-                  subRowsKey={subRowsKey}
-                  triggerScroll={tableState.triggerScroll}
-                  rowVirtualizer={rowVirtualizer}
-                />
-              </VirtualTableBodyContainer>
-            )}
-          </div>
-          {(additionalEmptyRowsCount || tableState.isScrollable) && (
-            <VerticalScrollbar
-              tableBodyHeight={tableBodyHeight}
-              internalRowHeight={internalHeaderRowHeight}
-              tableRef={tableRef}
-              ref={verticalScrollBarRef}
-              scrollContainerRef={scrollContainerRef}
-              nativeScrollbar={nativeScrollbar}
-              classNames={classNames}
-            />
+                alternateRowColor={alternateRowColor}
+                visibleColumns={visibleColumns}
+                renderRowSubComponent={renderRowSubComponent}
+                alwaysShowSubComponent={alwaysShowSubComponent}
+                markNavigatedRow={markNavigatedRow}
+                isRtl={isRtl}
+                subComponentsHeight={tableState.subComponentsHeight}
+                dispatch={dispatch}
+                columnVirtualizer={columnVirtualizer}
+                manualGroupBy={reactTableOptions?.manualGroupBy as boolean | undefined}
+                subRowsKey={subRowsKey}
+                triggerScroll={tableState.triggerScroll}
+                rowVirtualizer={rowVirtualizer}
+              />
+            </VirtualTableBodyContainer>
           )}
-        </FlexBox>
-        {visibleRowCountMode === AnalyticalTableVisibleRowCountMode.Interactive && (
-          <VerticalResizer
-            popInRowHeight={popInRowHeight}
-            hasPopInColumns={tableState?.popInColumns?.length > 0}
-            analyticalTableRef={analyticalTableRef}
-            dispatch={dispatch}
-            extensionsHeight={extensionsHeight}
-            internalRowHeight={internalRowHeight}
-            rowsLength={rows.length}
-            visibleRows={internalVisibleRowCount}
-            handleOnLoadMore={handleOnLoadMore}
+        </div>
+        {(additionalEmptyRowsCount || tableState.isScrollable) && (
+          <VerticalScrollbar
+            tableBodyHeight={tableBodyHeight}
+            internalRowHeight={internalHeaderRowHeight}
+            tableRef={tableRef}
+            ref={verticalScrollBarRef}
+            scrollContainerRef={scrollContainerRef}
+            nativeScrollbar={nativeScrollbar}
             classNames={classNames}
           />
         )}
-      </div>
-      <span
-        aria-hidden="true"
-        id={`scaleModeHelper-${uniqueId}`}
-        className={classNames.hiddenSmartColMeasure}
-        data-component-name="AnalyticalTableScaleModeHelper"
-      >
-        {''}
-      </span>
-      <span
-        aria-hidden="true"
-        id={`scaleModeHelperHeader-${uniqueId}`}
-        className={clsx(classNames.hiddenSmartColMeasure, classNames.hiddenSmartColMeasureHeader)}
-        data-component-name="AnalyticalTableScaleModeHelperHeader"
-      >
-        {''}
-      </span>
-    </>
+      </FlexBox>
+      {visibleRowCountMode === AnalyticalTableVisibleRowCountMode.Interactive && (
+        <VerticalResizer
+          popInRowHeight={popInRowHeight}
+          hasPopInColumns={tableState?.popInColumns?.length > 0}
+          analyticalTableRef={analyticalTableRef}
+          dispatch={dispatch}
+          extensionsHeight={extensionsHeight}
+          internalRowHeight={internalRowHeight}
+          rowsLength={rows.length}
+          visibleRows={internalVisibleRowCount}
+          handleOnLoadMore={handleOnLoadMore}
+          classNames={classNames}
+        />
+      )}
+    </div>
   );
 });
 

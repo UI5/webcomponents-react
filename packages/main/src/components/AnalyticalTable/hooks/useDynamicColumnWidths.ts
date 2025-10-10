@@ -20,12 +20,58 @@ const ROW_SAMPLE_SIZE = 20;
 const MAX_WIDTH = 700;
 export const CELL_PADDING_PX = 18; /* padding left and right 0.5rem each (16px) + borders (1px) + buffer (1px) */
 
-function getContentPxLongest(rowSample: RowType[], columnIdOrAccessor: string, uniqueId) {
+let measurementCanvas: HTMLCanvasElement | null = null;
+let measurementContext: CanvasRenderingContext2D | null = null;
+
+function getComputedCSSVarValue(variableName: string, fallback: string): string {
+  if (typeof document === 'undefined') {
+    return fallback;
+  }
+  const value = getComputedStyle(document.documentElement).getPropertyValue(variableName);
+  return value.trim() || fallback;
+}
+
+/**
+ * Convert fontSize string to number. Only handles `rem` and `px` values as `em` is not by design.
+ */
+function toPx(fontSize: string): number {
+  if (fontSize.endsWith('rem')) {
+    const rem = parseFloat(fontSize);
+    const rootFont = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    return rem * rootFont;
+  }
+  if (fontSize.endsWith('px')) {
+    return parseFloat(fontSize);
+  }
+  return parseFloat(fontSize) || 16;
+}
+
+function stringToPx(dataPoint: string, isHeader: boolean = false): number {
+  if (!measurementCanvas) {
+    measurementCanvas = document.createElement('canvas');
+    measurementContext = measurementCanvas.getContext('2d');
+  }
+  if (!measurementContext) {
+    return 14 * (isHeader ? 0.55 : 0.5) * dataPoint.length;
+  }
+
+  const bodyFontFamily = getComputedCSSVarValue('--sapFontFamily', 'Arial, Helvetica, sans-serif');
+  const bodyFontSize = getComputedCSSVarValue('--sapFontSize', '0.875rem');
+  const headerFontFamily = getComputedCSSVarValue('--_ui5wcr-AnalyticalTable-HeaderFontFamily', bodyFontFamily);
+
+  const fontFamily = isHeader ? headerFontFamily : bodyFontFamily;
+  const fontSizePx = toPx(bodyFontSize);
+
+  measurementContext.font = `${fontSizePx}px ${fontFamily}`;
+  return Math.ceil(measurementContext.measureText(dataPoint).width);
+}
+
+function getContentPxLongest(rowSample: RowType[], columnIdOrAccessor: string) {
   return rowSample.reduce((max, item) => {
     const dataPoint = item.values?.[columnIdOrAccessor];
 
     if (dataPoint) {
-      const val = stringToPx(dataPoint, uniqueId) + CELL_PADDING_PX;
+      const val = stringToPx(dataPoint) + CELL_PADDING_PX;
       return Math.max(max, val);
     }
 
@@ -33,28 +79,18 @@ function getContentPxLongest(rowSample: RowType[], columnIdOrAccessor: string, u
   }, 0);
 }
 
-function getContentPxAvg(rowSample, columnIdOrAccessor, uniqueId) {
+function getContentPxAvg(rowSample, columnIdOrAccessor) {
   return (
     rowSample.reduce((acc, item) => {
       const dataPoint = item.values?.[columnIdOrAccessor];
 
       let val = 0;
       if (dataPoint) {
-        val = stringToPx(dataPoint, uniqueId) + CELL_PADDING_PX;
+        val = stringToPx(dataPoint) + CELL_PADDING_PX;
       }
       return acc + val;
     }, 0) / (rowSample.length || 1)
   );
-}
-
-function stringToPx(dataPoint, id, isHeader = false) {
-  const elementId = isHeader ? 'scaleModeHelperHeader' : 'scaleModeHelper';
-  const ruler = document.getElementById(`${elementId}-${id}`);
-  if (ruler) {
-    ruler.textContent = `${dataPoint}`;
-    return ruler.scrollWidth;
-  }
-  return 0;
 }
 
 function calculateDefaultColumnWidths(tableWidth: number, columns: AnalyticalTableColumnDefinition[]) {
@@ -209,7 +245,7 @@ const calculateSmartAndGrowColumns = (
   hiddenColumns: ColumnType,
   isGrow = false,
 ) => {
-  const { rows, state, webComponentsReactProperties } = instance;
+  const { rows, state } = instance;
   const rowSample = rows.slice(0, ROW_SAMPLE_SIZE);
   const { tableClientWidth: totalWidth } = state;
 
@@ -235,25 +271,18 @@ const calculateSmartAndGrowColumns = (
       let headerPx: number, contentPxLength: number;
 
       if (column.scaleWidthModeOptions?.cellString) {
-        contentPxLength =
-          stringToPx(column.scaleWidthModeOptions.cellString, webComponentsReactProperties.uniqueId) + CELL_PADDING_PX;
+        contentPxLength = stringToPx(column.scaleWidthModeOptions.cellString) + CELL_PADDING_PX;
       } else {
         contentPxLength = isGrow
-          ? getContentPxLongest(rowSample, columnIdOrAccessor, webComponentsReactProperties.uniqueId)
-          : getContentPxAvg(rowSample, columnIdOrAccessor, webComponentsReactProperties.uniqueId);
+          ? getContentPxLongest(rowSample, columnIdOrAccessor)
+          : getContentPxAvg(rowSample, columnIdOrAccessor);
       }
 
       if (column.scaleWidthModeOptions?.headerString) {
-        headerPx = Math.max(
-          stringToPx(column.scaleWidthModeOptions.headerString, webComponentsReactProperties.uniqueId, true) +
-            CELL_PADDING_PX,
-          60,
-        );
+        headerPx = Math.max(stringToPx(column.scaleWidthModeOptions.headerString, true) + CELL_PADDING_PX, 60);
       } else {
         headerPx =
-          typeof column.Header === 'string'
-            ? Math.max(stringToPx(column.Header, webComponentsReactProperties.uniqueId, true) + CELL_PADDING_PX, 60)
-            : 60;
+          typeof column.Header === 'string' ? Math.max(stringToPx(column.Header, true) + CELL_PADDING_PX, 60) : 60;
       }
 
       metadata[columnIdOrAccessor] = {
@@ -368,7 +397,7 @@ const calculateSmartAndGrowColumns = (
         width: targetWidth,
       };
     } else {
-      const targetWidth = Math.max(Math.min(column.width ?? 0, headerPx), column.minWidth ?? 0);
+      const targetWidth = Math.max(column.width > 0 ? column.width : headerPx, column.minWidth ?? 0);
       if (targetWidth < (column.maxWidth ?? Infinity) && !meta.width) {
         lessThanMaxWidthCount++;
       }
@@ -476,7 +505,6 @@ const columns = (columns: TableInstance['columns'], { instance }: { instance: Ta
   if (scaleWidthMode === AnalyticalTableScaleWidthMode.Grow) {
     return calculateSmartAndGrowColumns(columns, instance, hiddenColumns, true);
   }
-
   const hasData = instance.data.length > 0;
 
   if (scaleWidthMode === AnalyticalTableScaleWidthMode.Default || (!hasData && loading)) {

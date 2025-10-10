@@ -1297,6 +1297,7 @@ describe('AnalyticalTable', () => {
         );
       };
 
+      cy.log('cols: initial');
       // additional fonts need to be prefetched in Cypress, otherwise it leads to flakiness
       cy.window()
         .then((win) => {
@@ -1319,6 +1320,7 @@ describe('AnalyticalTable', () => {
       cy.findByText('100').click();
       cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 100);
 
+      cy.log('cols: cols');
       const cols = [...initialColumns, { Header: 'Short Width', accessor: 'age' }];
       cy.mount(<TableComp columns={cols} data={data} />);
       cy.get('[data-column-id="name"]')
@@ -1328,6 +1330,7 @@ describe('AnalyticalTable', () => {
         .invoke('outerWidth')
         .should('equal', isGrow ? 700 : 97);
 
+      cy.log('cols: cols2');
       const cols2 = [
         { ...initialColumns[0], maxWidth: Infinity },
         { Header: 'Short Width', accessor: 'age' },
@@ -1336,6 +1339,7 @@ describe('AnalyticalTable', () => {
       cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 4120);
       cy.get('[data-column-id="age"]').invoke('outerWidth').should('equal', 97);
 
+      cy.log('cols: cols3');
       const cols3 = [
         { ...initialColumns[0], maxWidth: Infinity, width: 200 },
         { Header: 'Short Width', accessor: 'age' },
@@ -1346,6 +1350,7 @@ describe('AnalyticalTable', () => {
         .invoke('outerWidth')
         .should('equal', isGrow ? 700 : 1704);
 
+      cy.log('cols: cols4');
       const cols4 = [
         { ...initialColumns[0], maxWidth: Infinity, width: 200 },
         { Header: 'Short Width', accessor: 'age' },
@@ -1360,6 +1365,7 @@ describe('AnalyticalTable', () => {
         .invoke('outerWidth')
         .should('equal', isGrow ? 1004 : 836);
 
+      cy.log('cols: cols5');
       const cols5 = [
         { ...initialColumns[0], maxWidth: Infinity, width: 200 },
         { Header: 'Short Width', accessor: 'age' },
@@ -1372,6 +1378,7 @@ describe('AnalyticalTable', () => {
       checkColumnWidthWithTolerance('[data-column-id="friend.name"]', 486, 324.0625, isGrow);
       checkColumnWidthWithTolerance('[data-column-id="long"]', 700, 1023.8593139648438, isGrow);
 
+      cy.log('cols: cols6');
       const cols6 = [
         { ...initialColumns[0], maxWidth: Infinity, width: 200 },
         { Header: 'Short Width', accessor: 'age' },
@@ -1384,6 +1391,7 @@ describe('AnalyticalTable', () => {
       checkColumnWidthWithTolerance('[data-column-id="friend.name"]', 65, 324.0625, isGrow);
       checkColumnWidthWithTolerance('[data-column-id="long"]', 3824, 1023.8593139648438, isGrow);
 
+      cy.log('cols: cols7');
       const cols7 = [
         { ...initialColumns[0], maxWidth: Infinity, width: 200 },
         { Header: 'Short Width', accessor: 'age', minWidth: 400 },
@@ -1396,6 +1404,7 @@ describe('AnalyticalTable', () => {
         .invoke('outerWidth')
         .should('equal', isGrow ? 3824 : 1304);
 
+      cy.log('cols: cols8');
       const cols8 = [
         { ...initialColumns[0], maxWidth: Infinity, width: 200 },
         { Header: 'Spread', accessor: 'friend.name' },

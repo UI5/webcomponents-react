@@ -352,7 +352,11 @@
 }
 
 .hiddenA11yText {
-  display: none;
+  font-size: 0;
+  left: 0;
+  position: absolute;
+  top: 0;
+  user-select: none;
 }
 
 .checkBox::part(root) {
