@@ -92,6 +92,26 @@ const generateMoreData = (count) => {
   }));
 };
 
+function checkColumnWidthWithTolerance(
+  selector: string,
+  expectedGrow: number,
+  expectedSmart: number,
+  isGrow: boolean,
+  tolerance = 0.5,
+) {
+  cy.log('checkColumnWidthWithTolerance');
+  cy.get(selector)
+    .invoke('outerWidth')
+    .should((width) => {
+      const expected = isGrow ? expectedGrow : expectedSmart;
+      if (isGrow) {
+        expect(width).to.equal(expected);
+      } else {
+        expect(width).to.be.within(expected - tolerance, expected + tolerance);
+      }
+    });
+}
+
 type PropTypes = AnalyticalTablePropTypes['onRowSelect'];
 
 const columns = [
@@ -1227,40 +1247,178 @@ describe('AnalyticalTable', () => {
     );
   });
 
-  it('Grow Mode: maxWidth', () => {
-    const TableComp = (props) => {
+  [AnalyticalTableScaleWidthMode.Grow, AnalyticalTableScaleWidthMode.Smart].forEach((scaleWidthMode) => {
+    it(`scaleWidthMode: ${scaleWidthMode}`, () => {
+      const isGrow = scaleWidthMode === AnalyticalTableScaleWidthMode.Grow;
       const headerText =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum aliquet arcu, ac facilisis tellus blandit nec. Etiam justo erat, dictum a ex ac, fermentum fringilla metus. Donec nibh magna, pellentesque ut odio id, feugiat vulputate nibh. In feugiat tincidunt quam, vitae sodales metus lobortis pellentesque. Donec eget rhoncus ante, in posuere nulla. Proin viverra, turpis id fermentum scelerisque, felis ipsum pharetra tortor, sed aliquet mi ex eu nisl. Praesent neque nunc, suscipit non interdum vitae, consequat sit amet velit. Morbi commodo dapibus lobortis. Vestibulum auctor velit sit amet semper egestas.';
-      const [columns, setColumns] = useState<{ Header: string; accessor: string; maxWidth?: number }[]>([
+      const initialColumns = [
         {
           Header: headerText,
           accessor: 'name',
         },
-      ]);
-      return (
-        <>
-          <Button
-            onClick={() => {
-              setColumns([
-                {
-                  Header: headerText,
-                  accessor: 'name',
-                  maxWidth: Infinity,
-                },
-              ]);
-            }}
-          >
-            Custom maxWidth
-          </Button>
-          <AnalyticalTable {...props} columns={columns} scaleWidthMode={AnalyticalTableScaleWidthMode.Grow} />
-        </>
-      );
-    };
-    cy.mount(<TableComp data={data} />);
-    cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 700);
+      ];
+      const longDataEntry = { long: headerText };
+      const TableComp = (props: AnalyticalTablePropTypes) => {
+        const { columns } = props;
+        const [_columns, setColumns] = useState<{ Header: string; accessor: string; maxWidth?: number }[]>(
+          columns ?? initialColumns,
+        );
+        return (
+          <>
+            <Button
+              onClick={() => {
+                setColumns([
+                  {
+                    Header: headerText,
+                    accessor: 'name',
+                    maxWidth: Infinity,
+                  },
+                ]);
+              }}
+            >
+              Infinity
+            </Button>
+            <Button
+              onClick={() => {
+                setColumns([
+                  {
+                    Header: headerText,
+                    accessor: 'name',
+                    maxWidth: 100,
+                  },
+                ]);
+              }}
+            >
+              100
+            </Button>
+            <AnalyticalTable {...props} columns={_columns} scaleWidthMode={scaleWidthMode} />
+          </>
+        );
+      };
 
-    cy.findByText('Custom maxWidth').click();
-    cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 4120);
+      cy.log('cols: initial');
+      // additional fonts need to be prefetched in Cypress, otherwise it leads to flakiness
+      cy.window()
+        .then((win) => {
+          return Promise.all([
+            win.document.fonts.load('16px "72-Bold"'),
+            win.document.fonts.load('16px "72-Boldfull"'),
+          ]);
+        })
+        .then(() => {
+          cy.mount(<TableComp data={data} />);
+        });
+
+      cy.get('[data-column-id="name"]')
+        .invoke('outerWidth')
+        .should('equal', isGrow ? 700 : 4120);
+
+      cy.findByText('Infinity').click();
+      cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 4120);
+
+      cy.findByText('100').click();
+      cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 100);
+
+      cy.log('cols: cols');
+      const cols = [...initialColumns, { Header: 'Short Width', accessor: 'age' }];
+      cy.mount(<TableComp columns={cols} data={data} />);
+      cy.get('[data-column-id="name"]')
+        .invoke('outerWidth')
+        .should('equal', isGrow ? 700 : 4120);
+      cy.get('[data-column-id="age"]')
+        .invoke('outerWidth')
+        .should('equal', isGrow ? 700 : 97);
+
+      cy.log('cols: cols2');
+      const cols2 = [
+        { ...initialColumns[0], maxWidth: Infinity },
+        { Header: 'Short Width', accessor: 'age' },
+      ];
+      cy.mount(<TableComp columns={cols2} data={data} />);
+      cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 4120);
+      cy.get('[data-column-id="age"]').invoke('outerWidth').should('equal', 97);
+
+      cy.log('cols: cols3');
+      const cols3 = [
+        { ...initialColumns[0], maxWidth: Infinity, width: 200 },
+        { Header: 'Short Width', accessor: 'age' },
+      ];
+      cy.mount(<TableComp columns={cols3} data={data} />);
+      cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 200);
+      cy.get('[data-column-id="age"]')
+        .invoke('outerWidth')
+        .should('equal', isGrow ? 700 : 1704);
+
+      cy.log('cols: cols4');
+      const cols4 = [
+        { ...initialColumns[0], maxWidth: Infinity, width: 200 },
+        { Header: 'Short Width', accessor: 'age' },
+        { Header: 'Spread', accessor: 'friend.name', maxWidth: Infinity },
+      ];
+      cy.mount(<TableComp columns={cols4} data={data} />);
+      cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 200);
+      cy.get('[data-column-id="age"]')
+        .invoke('outerWidth')
+        .should('equal', isGrow ? 700 : 868);
+      cy.get('[data-column-id="friend.name"]')
+        .invoke('outerWidth')
+        .should('equal', isGrow ? 1004 : 836);
+
+      cy.log('cols: cols5');
+      const cols5 = [
+        { ...initialColumns[0], maxWidth: Infinity, width: 200 },
+        { Header: 'Short Width', accessor: 'age' },
+        { Header: 'Spread', accessor: 'friend.name', maxWidth: Infinity },
+        { Header: 'Long Content', accessor: 'long' },
+      ];
+      cy.mount(<TableComp columns={cols5} data={[...data, longDataEntry]} />);
+      cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 200);
+      checkColumnWidthWithTolerance('[data-column-id="age"]', 518, 356.0625, isGrow);
+      checkColumnWidthWithTolerance('[data-column-id="friend.name"]', 486, 324.0625, isGrow);
+      checkColumnWidthWithTolerance('[data-column-id="long"]', 700, 1023.8593139648438, isGrow);
+
+      cy.log('cols: cols6');
+      const cols6 = [
+        { ...initialColumns[0], maxWidth: Infinity, width: 200 },
+        { Header: 'Short Width', accessor: 'age' },
+        { Header: 'Spread', accessor: 'friend.name', maxWidth: Infinity },
+        { Header: 'Long Content', accessor: 'long', maxWidth: Infinity },
+      ];
+      cy.mount(<TableComp columns={cols6} data={[...data, longDataEntry]} />);
+      cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 200);
+      checkColumnWidthWithTolerance('[data-column-id="age"]', 97, 356.0625, isGrow);
+      checkColumnWidthWithTolerance('[data-column-id="friend.name"]', 65, 324.0625, isGrow);
+      checkColumnWidthWithTolerance('[data-column-id="long"]', 3824, 1023.8593139648438, isGrow);
+
+      cy.log('cols: cols7');
+      const cols7 = [
+        { ...initialColumns[0], maxWidth: Infinity, width: 200 },
+        { Header: 'Short Width', accessor: 'age', minWidth: 400 },
+        { Header: 'Long Content', accessor: 'long', maxWidth: Infinity },
+      ];
+      cy.mount(<TableComp columns={cols7} data={[...data, longDataEntry]} />);
+      cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 200);
+      cy.get('[data-column-id="age"]').invoke('outerWidth').should('equal', 400);
+      cy.get('[data-column-id="long"]')
+        .invoke('outerWidth')
+        .should('equal', isGrow ? 3824 : 1304);
+
+      cy.log('cols: cols8');
+      const cols8 = [
+        { ...initialColumns[0], maxWidth: Infinity, width: 200 },
+        { Header: 'Spread', accessor: 'friend.name' },
+        { Header: 'Short Width', accessor: 'age', minWidth: 400 },
+      ];
+      cy.mount(<TableComp columns={cols8} data={data} />);
+      cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 200);
+      cy.get('[data-column-id="friend.name"]')
+        .invoke('outerWidth')
+        .should('equal', isGrow ? 700 : 1304);
+      cy.get('[data-column-id="age"]')
+        .invoke('outerWidth')
+        .should('equal', isGrow ? 1004 : 400);
+    });
   });
 
   it('Column Scaling: programatically change cols', () => {
@@ -3374,8 +3532,8 @@ describe('AnalyticalTable', () => {
       return <AnalyticalTable data={generateMoreData(500)} columns={columns} ref={tableRef} />;
     };
     cy.mount(<ScrollTo />);
-    cy.findByText('Name-12').should('be.visible');
-    cy.findByText('Name-11').should('not.be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-12').should('be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('not.be.visible');
 
     const ScrollToItem = () => {
       const tableRef = useRef(null);
@@ -3385,8 +3543,8 @@ describe('AnalyticalTable', () => {
       return <AnalyticalTable data={generateMoreData(500)} columns={columns} ref={tableRef} />;
     };
     cy.mount(<ScrollToItem />);
-    cy.findByText('Name-12').should('be.visible');
-    cy.findByText('Name-11').should('not.be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-12').should('be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('not.be.visible');
 
     const ScrollToHorizontal = () => {
       const tableRef = useRef(null);
@@ -3405,8 +3563,8 @@ describe('AnalyticalTable', () => {
       );
     };
     cy.mount(<ScrollToHorizontal />);
-    cy.findByText('13').should('be.visible');
-    cy.findByText('12').should('not.be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('13').should('be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('not.be.visible');
     const ScrollToItemHorizontal = () => {
       const tableRef = useRef(null);
       useEffect(() => {
@@ -3421,8 +3579,8 @@ describe('AnalyticalTable', () => {
       );
     };
     cy.mount(<ScrollToItemHorizontal />);
-    cy.findByText('13').should('be.visible');
-    cy.findByText('12').should('not.be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('13').should('be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('not.be.visible');
   });
 
   it('additionalEmptyRowsCount', () => {

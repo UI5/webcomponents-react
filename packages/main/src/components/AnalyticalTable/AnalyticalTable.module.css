@@ -336,19 +336,12 @@
   background: var(--sapIndicationColor_8);
 }
 
-.hiddenSmartColMeasure {
-  visibility: hidden;
-  position: fixed;
-  white-space: nowrap;
-  height: 0;
-}
-
-.hiddenSmartColMeasureHeader {
-  font-family: var(--_ui5wcr-AnalyticalTable-HeaderFontFamily);
-}
-
 .hiddenA11yText {
-  display: none;
+  font-size: 0;
+  left: 0;
+  position: absolute;
+  top: 0;
+  user-select: none;
 }
 
 .checkBox::part(root) {
