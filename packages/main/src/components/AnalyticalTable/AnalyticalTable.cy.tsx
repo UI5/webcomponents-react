@@ -384,8 +384,7 @@ describe('AnalyticalTable', () => {
         .should(($el) => {
           const color = getComputedStyle($el[0]).getPropertyValue('background-color');
           expect(color).to.equal(cssVarToRgb('--sapContent_DragAndDropActiveColor'));
-        })
-        .wait(50)
+        }, 200)
         .dblclick()
         // fallback
         .realClick({ clickCount: 2 });
