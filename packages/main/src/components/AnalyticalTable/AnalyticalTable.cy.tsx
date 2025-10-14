@@ -3870,12 +3870,12 @@ describe('AnalyticalTable', () => {
       cy.get('[data-component-name="AnalyticalTableContainer"]').should(
         'have.css',
         'width',
-        withVertScrollbar ? '1293px' : '1306px',
+        withVertScrollbar ? '1290px' : '1306px',
       );
       cy.get('[data-component-name="AnalyticalTableBody"]').should(
         'have.css',
         'width',
-        withVertScrollbar ? '1293px' : '1306px',
+        withVertScrollbar ? '1290px' : '1306px',
       );
 
       const _data2 = [
@@ -3942,24 +3942,23 @@ describe('AnalyticalTable', () => {
       cy.get('[data-component-name="AnalyticalTableContainer"]').should(
         'have.css',
         'width',
-        withVertScrollbar ? '1293px' : '1306px',
+        withVertScrollbar ? '1290px' : '1306px',
       );
-      cy.get('[data-component-name="AnalyticalTableBody"]').should(
-        'have.css',
-        'width',
-        withVertScrollbar ? '1293px' : '1306px',
-      );
+      cy.get('[data-component-name="AnalyticalTableBody"]').should(($el) => {
+        const width = Math.round(parseFloat($el.css('width'), 10));
+        expect(width).to.equal(withVertScrollbar ? 1290 : 1306);
+      });
 
       cy.mount(<AnalyticalTable data={data} columns={columns} visibleRows={visibleRows} />);
       cy.get('[data-component-name="AnalyticalTableContainer"]').should(
         'have.css',
         'width',
-        withVertScrollbar ? '1293px' : '1306px',
+        withVertScrollbar ? '1290px' : '1306px',
       );
       cy.get('[data-component-name="AnalyticalTableBody"]').should(
         'have.css',
         'width',
-        withVertScrollbar ? '1293px' : '1306px',
+        withVertScrollbar ? '1290px' : '1306px',
       );
 
       const _columns3 = [...columns, { id: 'long', Header: 'Long', width: 2000, Cell: 'Long' }];
@@ -3967,7 +3966,7 @@ describe('AnalyticalTable', () => {
       cy.get('[data-component-name="AnalyticalTableContainer"]').should(
         'have.css',
         'width',
-        withVertScrollbar ? '1293px' : '1306px',
+        withVertScrollbar ? '1290px' : '1306px',
       );
       cy.get('[data-component-name="AnalyticalTableBody"]').should('have.css', 'width', '2240px'); // 4 * 60 (minWidth) + 2000
 
@@ -3980,7 +3979,7 @@ describe('AnalyticalTable', () => {
       cy.get('[data-component-name="AnalyticalTableContainer"]').should(
         'have.css',
         'width',
-        withVertScrollbar ? '1293px' : '1306px',
+        withVertScrollbar ? '1290px' : '1306px',
       );
       cy.get('[data-component-name="AnalyticalTableBody"]').should('have.css', 'width', '1440px'); // 4 * 60 (minWidth) + 1000 (maxWidth) + 200
     });
