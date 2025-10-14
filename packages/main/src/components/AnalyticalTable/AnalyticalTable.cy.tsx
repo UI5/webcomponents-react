@@ -413,6 +413,8 @@ describe('AnalyticalTable', () => {
     cy.get('[data-component-name="AnalyticalTableResizer"]').eq(0).as('resizer1');
     cy.get('[data-component-name="AnalyticalTableResizer"]').eq(1).as('resizer2');
 
+    cy.document().its('fonts.status').should('equal', 'loaded');
+
     doubleClickResizer('@resizer2', 'age', 476);
     doubleClickResizer('@resizer1', 'name', 476);
     // doubled call count because of fallback
