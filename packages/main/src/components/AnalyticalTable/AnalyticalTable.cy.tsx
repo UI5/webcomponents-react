@@ -381,6 +381,13 @@ describe('AnalyticalTable', () => {
     function doubleClickResizer(selector: string, columnName: string, outerWidth: number) {
       cy.get(selector)
         .realHover()
+        .should(() => {
+          const color = getComputedStyle(document.documentElement)
+            .getPropertyValue('--sapContent_DragAndDropActiveColor')
+            .trim();
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+          expect(color).to.not.be.empty;
+        })
         .should('have.css', 'background-color', cssVarToRgb('--sapContent_DragAndDropActiveColor'))
         .dblclick()
         // fallback
