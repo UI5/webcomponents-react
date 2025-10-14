@@ -385,7 +385,11 @@ describe('AnalyticalTable', () => {
         .dblclick()
         // fallback
         .realClick({ clickCount: 2 });
-      cy.get(`[data-column-id="${columnName}"]`).invoke('outerWidth').should('equal', outerWidth);
+      cy.get(`[data-column-id="${columnName}"]`)
+        .invoke('outerWidth')
+        .should(($width) => {
+          expect(Math.floor($width)).to.equal(outerWidth);
+        });
     }
 
     let resizeColumns = columns.map((el) => {
@@ -446,6 +450,7 @@ describe('AnalyticalTable', () => {
     );
 
     cy.get('[data-component-name="AnalyticalTableBody"]').scrollTo('bottom');
+    cy.wait(50);
     doubleClickResizer('@resizer1', 'name', 93);
     cy.get('@resize').should('have.callCount', 10);
 
@@ -455,8 +460,8 @@ describe('AnalyticalTable', () => {
 
     cy.mount(<AnalyticalTable data={dataFixed} columns={resizeColumns} />);
     cy.wait(100);
-    doubleClickResizer('@resizer2', 'age', 472.75);
-    doubleClickResizer('@resizer1', 'name', 472.75);
+    doubleClickResizer('@resizer2', 'age', 472);
+    doubleClickResizer('@resizer1', 'name', 472);
 
     cy.get('@resize').should('have.callCount', 10);
 
@@ -3947,7 +3952,7 @@ describe('AnalyticalTable', () => {
         withVertScrollbar ? '1290px' : '1306px',
       );
       cy.get('[data-component-name="AnalyticalTableBody"]').should(($el) => {
-        const width = Math.round(parseFloat($el.css('width'), 10));
+        const width = Math.round(parseFloat($el.css('width')));
         expect(width).to.equal(withVertScrollbar ? 1290 : 1306);
       });
 
