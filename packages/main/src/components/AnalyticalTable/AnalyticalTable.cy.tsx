@@ -387,7 +387,7 @@ describe('AnalyticalTable', () => {
         .realClick({ clickCount: 2 });
       cy.get(`[data-column-id="${columnName}"]`)
         .invoke('outerWidth')
-        .should(($width) => {
+        .should(($width: number) => {
           expect(Math.floor($width)).to.equal(outerWidth);
         });
     }
