@@ -381,17 +381,14 @@ describe('AnalyticalTable', () => {
     function doubleClickResizer(selector: string, columnName: string, outerWidth: number) {
       cy.get(selector)
         .realHover()
-        .should(() => {
-          const color = getComputedStyle(document.documentElement)
-            .getPropertyValue('--sapContent_DragAndDropActiveColor')
-            .trim();
-          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-          expect(color).to.not.be.empty;
+        .should(($el) => {
+          const color = getComputedStyle($el[0]).getPropertyValue('background-color');
+          expect(color).to.equal(cssVarToRgb('--sapContent_DragAndDropActiveColor'));
         })
-        .should('have.css', 'background-color', cssVarToRgb('--sapContent_DragAndDropActiveColor'))
         .dblclick()
         // fallback
         .realClick({ clickCount: 2 });
+
       cy.get(`[data-column-id="${columnName}"]`)
         .invoke('outerWidth')
         .should(($width: number) => {
