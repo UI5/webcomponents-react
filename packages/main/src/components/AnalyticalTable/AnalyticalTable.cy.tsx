@@ -3385,7 +3385,7 @@ describe('AnalyticalTable', () => {
       useEffect(() => {
         tableRef.current.scrollTo(520);
       }, []);
-      return <AnalyticalTable data={generateMoreData(500)} columns={columns} ref={tableRef} />;
+      return <AnalyticalTable data={generateMoreData(300)} columns={columns} ref={tableRef} />;
     };
     cy.mount(<ScrollTo />);
     cy.findByText('Name-12').should('be.visible');
@@ -3396,7 +3396,7 @@ describe('AnalyticalTable', () => {
       useEffect(() => {
         tableRef.current.scrollToItem(12, { align: 'start' });
       }, []);
-      return <AnalyticalTable data={generateMoreData(500)} columns={columns} ref={tableRef} />;
+      return <AnalyticalTable data={generateMoreData(300)} columns={columns} ref={tableRef} />;
     };
     cy.mount(<ScrollToItem />);
     cy.findByText('Name-12').should('be.visible');
@@ -3409,7 +3409,7 @@ describe('AnalyticalTable', () => {
       }, []);
       return (
         <AnalyticalTable
-          data={generateMoreData(500)}
+          data={generateMoreData(300)}
           columns={[
             ...columns,
             ...new Array(100).fill('').map((_, index) => ({ id: `${index}`, Header: () => index })),
@@ -3428,7 +3428,7 @@ describe('AnalyticalTable', () => {
       }, []);
       return (
         <AnalyticalTable
-          data={generateMoreData(500)}
+          data={generateMoreData(300)}
           columns={new Array(100).fill('').map((_, index) => ({ id: `${index}`, Header: () => index }))}
           ref={tableRef}
         />
