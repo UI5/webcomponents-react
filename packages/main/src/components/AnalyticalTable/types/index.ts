@@ -414,7 +414,7 @@ export interface AnalyticalTableColumnDefinition {
   /**
    * Can either be string or a React component that will be rendered as column header
    */
-  Header?: string | ComponentType<any> | ((props?: any) => ReactNode);
+  Header?: string | ComponentType<any>;
   /**
    * Defines the `aria-label` for the whole column read by screen readers.
    *
@@ -434,7 +434,7 @@ export interface AnalyticalTableColumnDefinition {
    * __Note:__ Using a custom component __can impact performance__!
    * If you pass a component, __memoizing it is strongly recommended__, especially for complex components or large datasets.
    */
-  Cell?: string | ComponentType<CellInstance> | ((props?: CellInstance) => ReactNode);
+  Cell?: string | ComponentType<CellInstance>;
   /**
    * Defines a function that receives an object as a parameter, including the cell and table instance, and should return the `aria-label` of the current cell.
    *
@@ -442,7 +442,7 @@ export interface AnalyticalTableColumnDefinition {
    *
    * __Note:__ To retrieve the internal `aria-label`, utilize the `cell.cellLabel` property.
    */
-  cellLabel?: (param?: CellLabelParam) => string;
+  cellLabel?: (param: CellLabelParam) => string;
   /**
    * Defines the column width. If not set the table will distribute all columns without a width evenly.
    *
@@ -476,7 +476,7 @@ export interface AnalyticalTableColumnDefinition {
   /**
    * Filter Component to be rendered in the Header.
    */
-  Filter?: ComponentType<FilterProps> | ((props: FilterProps) => ReactNode);
+  Filter?: ComponentType<FilterProps>;
   /**
    * Disable filters for this column.
    */
@@ -508,7 +508,7 @@ export interface AnalyticalTableColumnDefinition {
   /**
    * Component to render for aggregated cells.
    */
-  Aggregated?: string | ComponentType<any> | ((props?: any) => ReactNode);
+  Aggregated?: string | ComponentType<any>;
   /**
    * Aggregation function or string.<br />Supported String Values: <ul><li>`min`</li><li>`max`</li><li>`median`</li><li>`count`</li></ul>
    */
@@ -602,7 +602,7 @@ export interface AnalyticalTableColumnDefinition {
   /**
    * Custom pop-in header renderer. If set, the table will call that component for every column that is "popped-in" and pass the table instance as prop.
    */
-  PopInHeader?: string | ComponentType<any> | ((props?: any) => ReactNode);
+  PopInHeader?: string | ComponentType<any>;
   /**
    * Defines the display of `AnalyticalTable` pop-ins.
    *

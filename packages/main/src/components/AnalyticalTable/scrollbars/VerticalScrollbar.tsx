@@ -10,12 +10,11 @@ interface VerticalScrollbarProps {
   tableRef: MutableRefObject<HTMLDivElement>;
   tableBodyHeight: number;
   scrollContainerRef: MutableRefObject<HTMLDivElement>;
-  nativeScrollbar: boolean;
   classNames: ClassNames;
 }
 
 export const VerticalScrollbar = forwardRef<HTMLDivElement, VerticalScrollbarProps>((props, ref) => {
-  const { internalRowHeight, tableRef, tableBodyHeight, scrollContainerRef, nativeScrollbar, classNames } = props;
+  const { internalRowHeight, tableRef, tableBodyHeight, scrollContainerRef, classNames } = props;
   const hasHorizontalScrollbar = tableRef?.current?.offsetWidth !== tableRef?.current?.scrollWidth;
   const horizontalScrollbarSectionStyles = clsx(hasHorizontalScrollbar && classNames.bottomSection);
 
@@ -36,12 +35,7 @@ export const VerticalScrollbar = forwardRef<HTMLDivElement, VerticalScrollbarPro
         style={{
           height: tableRef.current ? `${tableBodyHeight}px` : '0',
         }}
-        className={clsx(
-          classNames.scrollbar,
-          nativeScrollbar
-            ? 'ui5-content-native-scrollbars'
-            : `ui5-content-native-scrollbars ${classNames.analyticalTableDelta}`,
-        )}
+        className={clsx(classNames.scrollbar)}
         data-component-name="AnalyticalTableVerticalScrollbar"
         tabIndex={-1}
       >

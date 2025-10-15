@@ -148,13 +148,6 @@
   overflow-y: auto;
   scrollbar-width: none;
   box-sizing: border-box;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    width: 0 !important;
-    height: 0 !important;
-    display: none !important;
-  }
 }
 
 .alternateRowColor {
@@ -593,56 +586,14 @@
   background-color: var(--sapList_HeaderBackground);
   border-inline-start: 1px solid var(--sapList_BorderColor);
   margin-inline-start: -1px;
-  width: calc(var(--sapScrollBar_Dimension) + 2px);
 }
 .scrollbar {
+  box-sizing: border-box;
   overflow-y: auto;
   border-inline-end: var(--_ui5wcr-AnalyticalTable-OuterBorderInline);
   border-block-end: 1px solid var(--sapList_TableFooterBorder);
   border-inline-start: 1px solid var(--sapList_BorderColor);
   margin-inline-start: -1px;
-  box-sizing: border-box;
-}
-
-.scrollbar:global(.ui5-content-native-scrollbars) {
-  background-color: var(--sapList_Background);
-  width: calc(var(--sapScrollBar_Dimension) + 2px);
-}
-
-.analyticalTableDelta:global(.ui5-content-native-scrollbars) {
-  &::-webkit-scrollbar {
-    background-color: var(--sapScrollBar_TrackColor);
-    -webkit-border-start: var(--_ui5wcr_Scrollbar_Border);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: var(--_ui5wcr_Scrollbar_BorderRadius);
-    background-color: var(--sapScrollBar_FaceColor);
-
-    &:hover {
-      background-color: var(--sapScrollBar_FaceColor);
-    }
-
-    &:horizontal {
-      height: var(--sapScrollBar_Dimension);
-    }
-
-    &:vertical {
-      width: var(--sapScrollBar_Dimension);
-    }
-  }
-
-  &::-webkit-scrollbar-corner {
-    background-color: var(--sapScrollBar_TrackColor);
-  }
-
-  &::-webkit-scrollbar:horizontal {
-    height: var(--sapScrollBar_Dimension);
-  }
-
-  &::-webkit-scrollbar:vertical {
-    width: var(--sapScrollBar_Dimension);
-  }
 }
 
 .verticalScroller {

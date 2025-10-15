@@ -11,63 +11,31 @@ import { MyCustomElement } from '../styling/MyCustomElement';
 
 <TableOfContent />
 
-## Styling UI5 Web Components for React components
+## Styling UI5 Web Components (for React) components
 
-You can change the appearance of the Web Components by using [CSS Variables](https://www.w3schools.com/Css/css3_variables.asp).
-Per default, we are injecting the Horizon theme parameters as CSS Variables into the `<head>`.
-For example, if you want to change the color of all texts that use the `--sapTextColor` variable, you can create an additional `style` tag with the following content:
+UI5 Web Components for React follows the same styling approach as the core [UI5 Web Components](https://ui5.github.io/webcomponents/docs/advanced/styles/).
+You can apply CSS variables, use the `::part` pseudo-element selectors, or apply styles directly on selected components (e.g. `Button`, `Title`, `Input`, etc. ) as described in the linked [documentation](https://ui5.github.io/webcomponents/docs/advanced/styles/).
 
-```html
-<style>
-  * {
-    --sapTextColor: limegreen;
-  }
-</style>
-```
+Components currently only available in the `ui5/webcomponents-react` repo, are not necessarily web components. For these kind of components you can follow the standard styling approach of React.
 
 <MessageStrip
-  hideCloseButton
-  design={MessageStripDesign.Critical}
-  children="Changing the value of a CSS Variable will affect theming capabilities, as it will be changed for all themes!"
+    design={MessageStripDesign.Critical}
+    hideCloseButton
+    children="While it's easily possible targeting DOM elements and CSS classes of components without a shadow root, modifying internal structures or styles is not officially supported and may break with future updates. Use such changes carefully."
 />
-
-As a consequence, all HTML Elements in the subtree where this style was applied are now displaying their texts in `limegreen` instead of `#32363a` which would be the default value for Fiori 3.
-You can change CSS Variables on any level - in the head, or on every single element by using either CSS classes or element style.
-
-A full list of all supported CSS Variables can be found [here](https://github.com/UI5/webcomponents-react/blob/main/packages/base/src/styling/ThemingParameters.ts)
-or in the [theming-base-content](https://github.com/SAP/theming-base-content/tree/master/content/Base/baseLib) repo.
 
 ## Scrollbars
 
-Rendering our `ThemeProvider` will apply the Fiori styles to all scrollbars on the page.
-If you want to opt-out of this behavior, you can add the `.ui5-content-native-scrollbars` class to the respective element to prevent the scrollbar styling from being applied.
-
-<MessageStrip
-  design={MessageStripDesign.Information}
-  hideCloseButton
-  children="Due to the limited configuration options for scrollbars, you must apply this class to each scroll-container element individually."
-/>
-
-```tsx
-<ObjectPage className="ui5-content-native-scrollbars">{children}</ObjectPage>
-```
+`@ui5/webcomponents` components come with globally applied scrollbar styles.
+If you want to opt-out of this behavior, you can add the `.ui5-content-native-scrollbars` class to the `body` of the page. You can find out more about this in the [ui5/webcomponents documentation](https://ui5.github.io/webcomponents/docs/advanced/scrollbars-customization/).
 
 ## Style your own components
 
 It's quite likely you have to create some custom components when you are building an app.
 In order to reuse our central styling approach, you can import the `ThemingParameters` that contain the various CSS variables used in our theming, or use the CSS variables directly.
 
-<MessageStrip
-  design={MessageStripDesign.Information}
-  hideCloseButton
-  children={
-    <>
-      You can find all <code>ThemingParameters</code>{' '}
-      <ui5-link href="./?path=/docs/knowledge-base-public-utils--docs#theming-parameters">here</ui5-link>. If you don't
-      want to use CSS-in-JS library, you can also just use the corresponding CSS variable.
-    </>
-  }
-/>
+A full list of all supported CSS Variables can be found [here](https://github.com/UI5/webcomponents-react/blob/main/packages/base/src/styling/ThemingParameters.ts)
+or in the [theming-base-content](https://github.com/SAP/theming-base-content/tree/master/content/Base/baseLib) repo.
 
 You can then create a custom component by following this recipe:
 
