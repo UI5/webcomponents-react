@@ -1,8 +1,0 @@
-import{j as o}from"./iframe-wbWwESAy.js";import{useMDXComponents as n}from"./index-BOBJYedV.js";import{M as e,C as s}from"./blocks-B5IYlHFD.js";import"./Tag-BH6lPIks.js";import"./index-DQNSAqOh.js";import{C as a}from"./ControlsWithNote-DvhTjaki.js";import{D as x}from"./DocsHeader-bdq5CW6C.js";import{F as f}from"./CommandsAndQueries-C1vl6z57.js";import{C as m,D as i}from"./Slider.stories-ZoXe_8vq.js";import"./preload-helper-PPVm8Dsz.js";import"./information-DASCm05s.js";import"./sys-enter-2-J3fKP-CE.js";import"./alert-D2qcbVgq.js";import"./index-DrYBsayo.js";import"./index-Cupokltd.js";import"./Link-BN6Q-gzd.js";import"./copy-D8kziahy.js";import"./copy-sux1w53_.js";import"./GitHub-Mark-Id1MRtXm.js";import"./TableOfContent-BwN9rW42.js";import"./index-Buwu-oqJ.js";import"./index-B81NkVkP.js";import"./index-BnSJ99QD.js";import"./index-DcmA7siw.js";import"./index-DqWD-oTo.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-CqytePVm.js";import"./addCustomCSSWithScoping-CplaRZ4g.js";import"./index-C3QDvfRA.js";import"./Slider-DWfXYGlA.js";import"./SliderTooltip-BsA75W9C.js";import"./Input-Vu44DOAo.js";import"./ResponsivePopoverCommon.css-D988s0PK.js";import"./ValueStateMessage.css-CdnX5Q24.js";import"./Suggestions.css-DzjZuQlP.js";function p(t){const r={h2:"h2",...n(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(e,{of:m}),`
-`,o.jsx(x,{of:m,since:"0.13.0"}),`
-`,o.jsx("br",{}),`
-`,o.jsx(r.h2,{id:"example",children:"Example"}),`
-`,o.jsx(s,{of:i}),`
-`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
-`,o.jsx(a,{of:i}),`
-`,o.jsx(f,{})]})}function Q(t={}){const{wrapper:r}={...n(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(p,{...t})}):p(t)}export{Q as default};
