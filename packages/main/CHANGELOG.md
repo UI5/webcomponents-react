@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.15.1](https://github.com/UI5/webcomponents-react/compare/v2.15.0...v2.15.1) (2025-10-15)
+
+### Bug Fixes
+
+- **AnalyticalTable - TypeScript:** remove legacy overloads in AnalyticalTableColumnDefinition ([#7827](https://github.com/UI5/webcomponents-react/issues/7827)) ([67cdcdd](https://github.com/UI5/webcomponents-react/commit/67cdcdd43dc82e646b7929f70c6b5ac9d3a422bf))
+- **AnalyticalTable:** use global UI5 scrollbar styles ([#7826](https://github.com/UI5/webcomponents-react/issues/7826)) ([866d518](https://github.com/UI5/webcomponents-react/commit/866d5183031c9a72bf0d59c52ea618c2ec6d474f))
+- **ObjectPageTitle:** fix alignment of actions & content ([#7803](https://github.com/UI5/webcomponents-react/issues/7803)) ([8d67476](https://github.com/UI5/webcomponents-react/commit/8d674761114b1a33c1ac655b8a1166ec79e1d2b5))
+
 # [2.15.0](https://github.com/UI5/webcomponents-react/compare/v2.14.1...v2.15.0) (2025-10-06)
 
 ### Bug Fixes
