@@ -3537,66 +3537,6 @@ describe('AnalyticalTable', () => {
     cy.get('[data-component-name="AnalyticalTableBody"]').should('have.css', 'height', '800px');
   });
 
-  it('initial scroll-to', () => {
-    const ScrollTo = () => {
-      const tableRef = useRef<AnalyticalTableDomRef>(null);
-      useEffect(() => {
-        tableRef.current.scrollTo(520);
-      }, []);
-      return <AnalyticalTable data={generateMoreData(300)} columns={columns} ref={tableRef} />;
-    };
-    cy.mount(<ScrollTo />);
-    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-12').should('be.visible');
-    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('not.be.visible');
-
-    const ScrollToItem = () => {
-      const tableRef = useRef(null);
-      useEffect(() => {
-        tableRef.current.scrollToItem(12, { align: 'start' });
-      }, []);
-      return <AnalyticalTable data={generateMoreData(300)} columns={columns} ref={tableRef} />;
-    };
-    cy.mount(<ScrollToItem />);
-    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-12').should('be.visible');
-    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('not.be.visible');
-
-    const ScrollToHorizontal = () => {
-      const tableRef = useRef(null);
-      useEffect(() => {
-        tableRef.current.horizontalScrollTo(1020);
-      }, []);
-      return (
-        <AnalyticalTable
-          data={generateMoreData(300)}
-          columns={[
-            ...columns,
-            ...new Array(100).fill('').map((_, index) => ({ id: `${index}`, Header: () => index })),
-          ]}
-          ref={tableRef}
-        />
-      );
-    };
-    cy.mount(<ScrollToHorizontal />);
-    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('13').should('be.visible');
-    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('not.be.visible');
-    const ScrollToItemHorizontal = () => {
-      const tableRef = useRef(null);
-      useEffect(() => {
-        tableRef.current.horizontalScrollToItem(13, { align: 'start' });
-      }, []);
-      return (
-        <AnalyticalTable
-          data={generateMoreData(300)}
-          columns={new Array(100).fill('').map((_, index) => ({ id: `${index}`, Header: () => index }))}
-          ref={tableRef}
-        />
-      );
-    };
-    cy.mount(<ScrollToItemHorizontal />);
-    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('13').should('be.visible');
-    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('not.be.visible');
-  });
-
   it('additionalEmptyRowsCount', () => {
     cy.mount(<AnalyticalTable data={data} columns={columns} minRows={4} />);
     cy.get('[data-empty-row]').should('not.exist');
@@ -4300,6 +4240,63 @@ describe('AnalyticalTable', () => {
     });
     // SegmentedButton has two tab stops
     cy.focused().should('have.text', 'Before');
+  });
+
+  it('initial scroll-to', () => {
+    const ScrollTo = () => {
+      const tableRef = useRef<AnalyticalTableDomRef>(null);
+      useEffect(() => {
+        tableRef.current.scrollTo(520);
+      }, []);
+      return <AnalyticalTable data={generateMoreData(200)} columns={columns} ref={tableRef} />;
+    };
+    cy.mount(<ScrollTo />);
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-12').should('be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('not.be.visible');
+
+    const ScrollToItem = () => {
+      const tableRef = useRef(null);
+      useEffect(() => {
+        tableRef.current.scrollToItem(12, { align: 'start' });
+      }, []);
+      return <AnalyticalTable data={generateMoreData(200)} columns={columns} ref={tableRef} />;
+    };
+    cy.mount(<ScrollToItem />);
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-12').should('be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('not.be.visible');
+
+    const ScrollToHorizontal = () => {
+      const tableRef = useRef(null);
+      useEffect(() => {
+        tableRef.current.horizontalScrollTo(1020);
+      }, []);
+      return (
+        <AnalyticalTable
+          data={generateMoreData(200)}
+          columns={[...columns, ...new Array(50).fill('').map((_, index) => ({ id: `${index}`, Header: () => index }))]}
+          ref={tableRef}
+        />
+      );
+    };
+    cy.mount(<ScrollToHorizontal />);
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('13').should('be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('not.be.visible');
+    const ScrollToItemHorizontal = () => {
+      const tableRef = useRef(null);
+      useEffect(() => {
+        tableRef.current.horizontalScrollToItem(13, { align: 'start' });
+      }, []);
+      return (
+        <AnalyticalTable
+          data={generateMoreData(200)}
+          columns={new Array(50).fill('').map((_, index) => ({ id: `${index}`, Header: () => index }))}
+          ref={tableRef}
+        />
+      );
+    };
+    cy.mount(<ScrollToItemHorizontal />);
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('13').should('be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('not.be.visible');
   });
 
   cypressPassThroughTestsFactory(AnalyticalTable, { data, columns });
