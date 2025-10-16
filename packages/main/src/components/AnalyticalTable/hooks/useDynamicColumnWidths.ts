@@ -16,6 +16,12 @@ interface IColumnMeta {
   width?: number | undefined;
 }
 
+interface ComputedCSSVarValues {
+  bodyFontFamily: string;
+  bodyFontSize: string;
+  headerFontFamily: string;
+}
+
 const ROW_SAMPLE_SIZE = 20;
 const MAX_WIDTH = 700;
 export const CELL_PADDING_PX = 18; /* padding left and right 0.5rem each (16px) + borders (1px) + buffer (1px) */
@@ -46,7 +52,7 @@ function toPx(fontSize: string): number {
   return parseFloat(fontSize) || 16;
 }
 
-function stringToPx(dataPoint: string, isHeader: boolean = false): number {
+function stringToPx(dataPoint: string, isHeader = false, computedCSSVarValues: ComputedCSSVarValues): number {
   if (!measurementCanvas) {
     measurementCanvas = document.createElement('canvas');
     measurementContext = measurementCanvas.getContext('2d');
@@ -55,10 +61,7 @@ function stringToPx(dataPoint: string, isHeader: boolean = false): number {
     return 14 * (isHeader ? 0.55 : 0.5) * dataPoint.length;
   }
 
-  const bodyFontFamily = getComputedCSSVarValue('--sapFontFamily', 'Arial, Helvetica, sans-serif');
-  const bodyFontSize = getComputedCSSVarValue('--sapFontSize', '0.875rem');
-  const headerFontFamily = getComputedCSSVarValue('--_ui5wcr-AnalyticalTable-HeaderFontFamily', bodyFontFamily);
-
+  const { bodyFontFamily, bodyFontSize, headerFontFamily } = computedCSSVarValues;
   const fontFamily = isHeader ? headerFontFamily : bodyFontFamily;
   const fontSizePx = toPx(bodyFontSize);
 
@@ -66,27 +69,29 @@ function stringToPx(dataPoint: string, isHeader: boolean = false): number {
   return Math.ceil(measurementContext.measureText(dataPoint).width);
 }
 
-function getContentPxLongest(rowSample: RowType[], columnIdOrAccessor: string) {
+function getContentPxLongest(
+  rowSample: RowType[],
+  columnIdOrAccessor: string,
+  computedCSSVarValues: ComputedCSSVarValues,
+) {
   return rowSample.reduce((max, item) => {
     const dataPoint = item.values?.[columnIdOrAccessor];
-
     if (dataPoint) {
-      const val = stringToPx(dataPoint) + CELL_PADDING_PX;
+      const val = stringToPx(dataPoint, false, computedCSSVarValues) + CELL_PADDING_PX;
       return Math.max(max, val);
     }
-
     return max;
   }, 0);
 }
 
-function getContentPxAvg(rowSample, columnIdOrAccessor) {
+function getContentPxAvg(rowSample: RowType[], columnIdOrAccessor: string, computedCSSVarValues: ComputedCSSVarValues) {
   return (
     rowSample.reduce((acc, item) => {
       const dataPoint = item.values?.[columnIdOrAccessor];
 
       let val = 0;
       if (dataPoint) {
-        val = stringToPx(dataPoint) + CELL_PADDING_PX;
+        val = stringToPx(dataPoint, false, computedCSSVarValues) + CELL_PADDING_PX;
       }
       return acc + val;
     }, 0) / (rowSample.length || 1)
@@ -243,6 +248,7 @@ const calculateSmartAndGrowColumns = (
   columns: AnalyticalTableColumnDefinition[],
   instance: TableInstance,
   hiddenColumns: ColumnType,
+  computedCSSVarValues: ComputedCSSVarValues,
   isGrow = false,
 ) => {
   const { rows, state } = instance;
@@ -271,18 +277,24 @@ const calculateSmartAndGrowColumns = (
       let headerPx: number, contentPxLength: number;
 
       if (column.scaleWidthModeOptions?.cellString) {
-        contentPxLength = stringToPx(column.scaleWidthModeOptions.cellString) + CELL_PADDING_PX;
+        contentPxLength =
+          stringToPx(column.scaleWidthModeOptions.cellString, false, computedCSSVarValues) + CELL_PADDING_PX;
       } else {
         contentPxLength = isGrow
-          ? getContentPxLongest(rowSample, columnIdOrAccessor)
-          : getContentPxAvg(rowSample, columnIdOrAccessor);
+          ? getContentPxLongest(rowSample, columnIdOrAccessor, computedCSSVarValues)
+          : getContentPxAvg(rowSample, columnIdOrAccessor, computedCSSVarValues);
       }
 
       if (column.scaleWidthModeOptions?.headerString) {
-        headerPx = Math.max(stringToPx(column.scaleWidthModeOptions.headerString, true) + CELL_PADDING_PX, 60);
+        headerPx = Math.max(
+          stringToPx(column.scaleWidthModeOptions.headerString, true, computedCSSVarValues) + CELL_PADDING_PX,
+          60,
+        );
       } else {
         headerPx =
-          typeof column.Header === 'string' ? Math.max(stringToPx(column.Header, true) + CELL_PADDING_PX, 60) : 60;
+          typeof column.Header === 'string'
+            ? Math.max(stringToPx(column.Header, true, computedCSSVarValues) + CELL_PADDING_PX, 60)
+            : 60;
       }
 
       metadata[columnIdOrAccessor] = {
@@ -498,13 +510,6 @@ const columns = (columns: TableInstance['columns'], { instance }: { instance: Ta
     })
     .filter(Boolean) as TableInstance['columns'];
 
-  if (scaleWidthMode === AnalyticalTableScaleWidthMode.Smart) {
-    return calculateSmartAndGrowColumns(columns, instance, hiddenColumns);
-  }
-
-  if (scaleWidthMode === AnalyticalTableScaleWidthMode.Grow) {
-    return calculateSmartAndGrowColumns(columns, instance, hiddenColumns, true);
-  }
   const hasData = instance.data.length > 0;
 
   if (scaleWidthMode === AnalyticalTableScaleWidthMode.Default || (!hasData && loading)) {
@@ -519,6 +524,23 @@ const columns = (columns: TableInstance['columns'], { instance }: { instance: Ta
       }
       return { ...column, width: calculatedWidth };
     });
+  }
+
+  const computedCSSVarValues = {
+    bodyFontFamily: getComputedCSSVarValue('--sapFontFamily', 'Arial, Helvetica, sans-serif'),
+    bodyFontSize: getComputedCSSVarValue('--sapFontSize', '0.875rem'),
+    headerFontFamily: getComputedCSSVarValue(
+      '--_ui5wcr-AnalyticalTable-HeaderFontFamily',
+      getComputedCSSVarValue('--sapFontFamily', 'Arial, Helvetica, sans-serif'),
+    ),
+  };
+
+  if (scaleWidthMode === AnalyticalTableScaleWidthMode.Smart) {
+    return calculateSmartAndGrowColumns(columns, instance, hiddenColumns, computedCSSVarValues);
+  }
+
+  if (scaleWidthMode === AnalyticalTableScaleWidthMode.Grow) {
+    return calculateSmartAndGrowColumns(columns, instance, hiddenColumns, computedCSSVarValues, true);
   }
 };
 
