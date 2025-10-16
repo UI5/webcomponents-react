@@ -3538,6 +3538,7 @@ describe('AnalyticalTable', () => {
   });
 
   it('initial scroll-to', () => {
+    const disableStrictMode = reactVersion.startsWith('19');
     const ScrollTo = () => {
       const tableRef = useRef<AnalyticalTableDomRef>(null);
       useEffect(() => {
@@ -3545,7 +3546,7 @@ describe('AnalyticalTable', () => {
       }, []);
       return <AnalyticalTable data={generateMoreData(200)} columns={columns} ref={tableRef} />;
     };
-    cy.mount(<ScrollTo />);
+    cy.mount(<ScrollTo />, { strict: disableStrictMode });
     cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-12').should('be.visible');
     cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('not.be.visible');
 
@@ -3556,30 +3557,28 @@ describe('AnalyticalTable', () => {
       }, []);
       return <AnalyticalTable data={generateMoreData(200)} columns={columns} ref={tableRef} />;
     };
-    cy.mount(<ScrollToItem />);
+    cy.mount(<ScrollToItem />, { strict: disableStrictMode });
     cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-12').should('be.visible');
     cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('not.be.visible');
+    
+    const cols = [
+      ...columns,
+      ...new Array(50).fill('').map((_, index) => ({
+        id: `${index}`,
+        Header: () => index,
+      })),
+    ];
+    const ScrollToHorizontal = () => {
+      const tableRef = useRef(null);
+      useEffect(() => {
+        tableRef.current.horizontalScrollTo(1020);
+      }, []);
+      return <AnalyticalTable data={generateMoreData(50)} columns={cols} ref={tableRef} />;
+    };
+    cy.mount(<ScrollToHorizontal />, { strict: disableStrictMode });
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('13').should('be.visible');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('not.be.visible');
 
-    // todo: investigate how to test this behavior again with Cypress and React19, it works fine when tested manually
-    if (reactVersion.startsWith('18')) {
-      const cols = [
-        ...columns,
-        ...new Array(50).fill('').map((_, index) => ({
-          id: `${index}`,
-          Header: () => index,
-        })),
-      ];
-      const ScrollToHorizontal = () => {
-        const tableRef = useRef(null);
-        useEffect(() => {
-          tableRef.current.horizontalScrollTo(1020);
-        }, []);
-        return <AnalyticalTable data={generateMoreData(50)} columns={cols} ref={tableRef} />;
-      };
-      cy.mount(<ScrollToHorizontal />);
-      cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('13').should('be.visible');
-      cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('not.be.visible');
-    }
     const ScrollToItemHorizontal = () => {
       const tableRef = useRef(null);
       useEffect(() => {
@@ -3593,7 +3592,7 @@ describe('AnalyticalTable', () => {
         />
       );
     };
-    cy.mount(<ScrollToItemHorizontal />);
+    cy.mount(<ScrollToItemHorizontal />, { strict: disableStrictMode });
     cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('13').should('be.visible');
     cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('not.be.visible');
   });
