@@ -484,14 +484,17 @@ const useColumnsDeps = (
 };
 
 const columns = (columns: TableInstance['columns'], { instance }: { instance: TableInstance }) => {
-  const { scaleWidthMode, loading } = instance.webComponentsReactProperties;
+  const { scaleWidthMode, loading, fontsReady } = instance.webComponentsReactProperties;
   const { state } = instance;
   const { hiddenColumns, tableClientWidth: totalWidth } = state;
-  if (!instance.state || !instance.rows) {
-    return columns;
-  }
-
-  if (columns.length === 0 || !totalWidth || !AnalyticalTableScaleWidthMode[scaleWidthMode]) {
+  if (
+    !instance.state ||
+    !instance.rows ||
+    columns.length === 0 ||
+    !totalWidth ||
+    !AnalyticalTableScaleWidthMode[scaleWidthMode] ||
+    !fontsReady
+  ) {
     return columns;
   }
 
