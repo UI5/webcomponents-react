@@ -3560,20 +3560,16 @@ describe('AnalyticalTable', () => {
     cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-12').should('be.visible');
     cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('not.be.visible');
 
+    const cols = [...columns, ...new Array(50).fill('').map((_, index) => ({ id: `${index}`, Header: () => index }))];
     const ScrollToHorizontal = () => {
       const tableRef = useRef(null);
       useEffect(() => {
         tableRef.current.horizontalScrollTo(1020);
       }, []);
-      return (
-        <AnalyticalTable
-          data={generateMoreData(200)}
-          columns={[...columns, ...new Array(50).fill('').map((_, index) => ({ id: `${index}`, Header: () => index }))]}
-          ref={tableRef}
-        />
-      );
+      return <AnalyticalTable data={generateMoreData(50)} columns={cols} ref={tableRef} />;
     };
     cy.mount(<ScrollToHorizontal />);
+    cy.wait(500);
     cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('13').should('be.visible');
     cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('not.be.visible');
     const ScrollToItemHorizontal = () => {
