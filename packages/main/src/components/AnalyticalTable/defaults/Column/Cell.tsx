@@ -21,3 +21,5 @@ export const Cell = (props: CellInstance) => {
     </span>
   );
 };
+
+Cell.displayName = 'CellContent';
