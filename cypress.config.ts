@@ -34,5 +34,4 @@ export default defineConfig({
   video: false,
   screenshotOnRunFailure: false,
   scrollBehavior: false,
-  experimentalMemoryManagement: true,
 });
