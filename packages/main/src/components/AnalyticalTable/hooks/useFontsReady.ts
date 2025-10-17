@@ -10,7 +10,9 @@ import { useState, useEffect } from 'react';
 export function useFontsReady(): boolean {
   const [fontsReady, setFontsReady] = useState(document.fonts?.status === 'loaded');
   useEffect(() => {
-    if (!document.fonts) return;
+    if (!document.fonts) {
+      return;
+    }
 
     if (document.fonts.status === 'loading') {
       let mounted = true;

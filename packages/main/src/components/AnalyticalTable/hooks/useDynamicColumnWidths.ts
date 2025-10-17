@@ -16,12 +16,14 @@ interface IColumnMeta {
   width?: number | undefined;
 }
 
-interface ComputedCSSVarValues {
+interface ComputedCSSValues {
   bodyFontFamily: string;
   bodyFontSize: string;
   headerFontFamily: string;
+  rootFontSize: number;
 }
 
+const FALLBACK_FONT_SIZE = 14;
 const ROW_SAMPLE_SIZE = 20;
 const MAX_WIDTH = 700;
 export const CELL_PADDING_PX = 18; /* padding left and right 0.5rem each (16px) + borders (1px) + buffer (1px) */
@@ -40,58 +42,57 @@ function getComputedCSSVarValue(variableName: string, fallback: string): string 
 /**
  * Convert fontSize string to number. Only handles `rem` and `px` values as `em` is not by design.
  */
-function toPx(fontSize: string): number {
+function toPx(fontSize: string, rootFontSize: number): number {
   if (fontSize.endsWith('rem')) {
     const rem = parseFloat(fontSize);
-    const rootFont = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-    return rem * rootFont;
+    return rem * rootFontSize;
   }
   if (fontSize.endsWith('px')) {
     return parseFloat(fontSize);
   }
-  return parseFloat(fontSize) || 16;
+
+  if (fontSize.endsWith('em')) {
+    return FALLBACK_FONT_SIZE;
+  }
+  return parseFloat(fontSize) || FALLBACK_FONT_SIZE;
 }
 
-function stringToPx(dataPoint: string, isHeader = false, computedCSSVarValues: ComputedCSSVarValues): number {
+function stringToPx(dataPoint: string, isHeader = false, computedCSSValues: ComputedCSSValues): number {
   if (!measurementCanvas) {
     measurementCanvas = document.createElement('canvas');
     measurementContext = measurementCanvas.getContext('2d');
   }
   if (!measurementContext) {
-    return 14 * (isHeader ? 0.55 : 0.5) * dataPoint.length;
+    return FALLBACK_FONT_SIZE * (isHeader ? 0.55 : 0.5) * dataPoint.length;
   }
 
-  const { bodyFontFamily, bodyFontSize, headerFontFamily } = computedCSSVarValues;
+  const { bodyFontFamily, bodyFontSize, headerFontFamily, rootFontSize } = computedCSSValues;
   const fontFamily = isHeader ? headerFontFamily : bodyFontFamily;
-  const fontSizePx = toPx(bodyFontSize);
+  const fontSizePx = toPx(bodyFontSize, rootFontSize);
 
   measurementContext.font = `${fontSizePx}px ${fontFamily}`;
   return Math.ceil(measurementContext.measureText(dataPoint).width);
 }
 
-function getContentPxLongest(
-  rowSample: RowType[],
-  columnIdOrAccessor: string,
-  computedCSSVarValues: ComputedCSSVarValues,
-) {
+function getContentPxLongest(rowSample: RowType[], columnIdOrAccessor: string, computedCSSValues: ComputedCSSValues) {
   return rowSample.reduce((max, item) => {
     const dataPoint = item.values?.[columnIdOrAccessor];
     if (dataPoint) {
-      const val = stringToPx(dataPoint, false, computedCSSVarValues) + CELL_PADDING_PX;
+      const val = stringToPx(dataPoint, false, computedCSSValues) + CELL_PADDING_PX;
       return Math.max(max, val);
     }
     return max;
   }, 0);
 }
 
-function getContentPxAvg(rowSample: RowType[], columnIdOrAccessor: string, computedCSSVarValues: ComputedCSSVarValues) {
+function getContentPxAvg(rowSample: RowType[], columnIdOrAccessor: string, computedCSSValues: ComputedCSSValues) {
   return (
     rowSample.reduce((acc, item) => {
       const dataPoint = item.values?.[columnIdOrAccessor];
 
       let val = 0;
       if (dataPoint) {
-        val = stringToPx(dataPoint, false, computedCSSVarValues) + CELL_PADDING_PX;
+        val = stringToPx(dataPoint, false, computedCSSValues) + CELL_PADDING_PX;
       }
       return acc + val;
     }, 0) / (rowSample.length || 1)
@@ -248,7 +249,7 @@ const calculateSmartAndGrowColumns = (
   columns: AnalyticalTableColumnDefinition[],
   instance: TableInstance,
   hiddenColumns: ColumnType,
-  computedCSSVarValues: ComputedCSSVarValues,
+  computedCSSValues: ComputedCSSValues,
   isGrow = false,
 ) => {
   const { rows, state } = instance;
@@ -278,22 +279,22 @@ const calculateSmartAndGrowColumns = (
 
       if (column.scaleWidthModeOptions?.cellString) {
         contentPxLength =
-          stringToPx(column.scaleWidthModeOptions.cellString, false, computedCSSVarValues) + CELL_PADDING_PX;
+          stringToPx(column.scaleWidthModeOptions.cellString, false, computedCSSValues) + CELL_PADDING_PX;
       } else {
         contentPxLength = isGrow
-          ? getContentPxLongest(rowSample, columnIdOrAccessor, computedCSSVarValues)
-          : getContentPxAvg(rowSample, columnIdOrAccessor, computedCSSVarValues);
+          ? getContentPxLongest(rowSample, columnIdOrAccessor, computedCSSValues)
+          : getContentPxAvg(rowSample, columnIdOrAccessor, computedCSSValues);
       }
 
       if (column.scaleWidthModeOptions?.headerString) {
         headerPx = Math.max(
-          stringToPx(column.scaleWidthModeOptions.headerString, true, computedCSSVarValues) + CELL_PADDING_PX,
+          stringToPx(column.scaleWidthModeOptions.headerString, true, computedCSSValues) + CELL_PADDING_PX,
           60,
         );
       } else {
         headerPx =
           typeof column.Header === 'string'
-            ? Math.max(stringToPx(column.Header, true, computedCSSVarValues) + CELL_PADDING_PX, 60)
+            ? Math.max(stringToPx(column.Header, true, computedCSSValues) + CELL_PADDING_PX, 60)
             : 60;
       }
 
@@ -529,21 +530,22 @@ const columns = (columns: TableInstance['columns'], { instance }: { instance: Ta
     });
   }
 
-  const computedCSSVarValues = {
+  const computedCSSValues = {
     bodyFontFamily: getComputedCSSVarValue('--sapFontFamily', 'Arial, Helvetica, sans-serif'),
     bodyFontSize: getComputedCSSVarValue('--sapFontSize', '0.875rem'),
     headerFontFamily: getComputedCSSVarValue(
       '--_ui5wcr-AnalyticalTable-HeaderFontFamily',
       getComputedCSSVarValue('--sapFontFamily', 'Arial, Helvetica, sans-serif'),
     ),
+    rootFontSize: parseFloat(getComputedStyle(document.documentElement).fontSize) || FALLBACK_FONT_SIZE,
   };
 
   if (scaleWidthMode === AnalyticalTableScaleWidthMode.Smart) {
-    return calculateSmartAndGrowColumns(columns, instance, hiddenColumns, computedCSSVarValues);
+    return calculateSmartAndGrowColumns(columns, instance, hiddenColumns, computedCSSValues);
   }
 
   if (scaleWidthMode === AnalyticalTableScaleWidthMode.Grow) {
-    return calculateSmartAndGrowColumns(columns, instance, hiddenColumns, computedCSSVarValues, true);
+    return calculateSmartAndGrowColumns(columns, instance, hiddenColumns, computedCSSValues, true);
   }
 };
 
