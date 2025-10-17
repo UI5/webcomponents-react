@@ -208,6 +208,19 @@
   }
 }
 
+.expandGroupButton {
+  all: unset;
+  display: inline;
+}
+
+.expandGroupIcon {
+  color: var(--sapContent_IconColor);
+  height: 0.75rem;
+  width: 0.75rem;
+  padding: 0.625rem;
+  display: block;
+}
+
 .tableText {
   display: inline-block;
   font-size: var(--sapFontSize);
