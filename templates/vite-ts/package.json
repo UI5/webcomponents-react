@@ -27,7 +27,7 @@
     "@ui5/webcomponents-cypress-commands": "2.15.3",
     "cypress": "15.5.0",
     "eslint": "9.39.0",
-    "eslint-plugin-react-hooks": "6.1.1",
+    "eslint-plugin-react-hooks": "7.0.0",
     "eslint-plugin-react-refresh": "0.4.24",
     "globals": "16.5.0",
     "typescript": "5.8.3",
