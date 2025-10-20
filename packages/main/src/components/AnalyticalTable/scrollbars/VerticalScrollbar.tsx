@@ -2,7 +2,7 @@ import { isChrome as isChromeFn } from '@ui5/webcomponents-react-base/Device';
 import { useSyncRef } from '@ui5/webcomponents-react-base/internal/hooks';
 import { clsx } from 'clsx';
 import type { MutableRefObject } from 'react';
-import { forwardRef, useEffect, useMemo, useRef } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 import { FlexBoxDirection } from '../../../enums/FlexBoxDirection.js';
 import { FlexBox } from '../../FlexBox/index.js';
 import type { ClassNames } from '../types/index.js';
@@ -15,13 +15,14 @@ interface VerticalScrollbarProps {
   classNames: ClassNames;
 }
 
+const isChrome = isChromeFn();
+
 export const VerticalScrollbar = forwardRef<HTMLDivElement, VerticalScrollbarProps>((props, ref) => {
   const { internalRowHeight, tableRef, tableBodyHeight, scrollContainerRef, classNames } = props;
   const hasHorizontalScrollbar = tableRef?.current?.offsetWidth !== tableRef?.current?.scrollWidth;
   const horizontalScrollbarSectionStyles = clsx(hasHorizontalScrollbar && classNames.bottomSection);
   const [componentRef, scrollbarRef] = useSyncRef<HTMLDivElement>(ref);
   const contentRef = useRef<HTMLDivElement>(null);
-  const isChrome = useMemo(() => isChromeFn(), []);
 
   // Force style recalculation to fix Chrome scrollbar-color bug (track height not updating correctly)
   useEffect(() => {
@@ -42,7 +43,7 @@ export const VerticalScrollbar = forwardRef<HTMLDivElement, VerticalScrollbarPro
 
       requestAnimationFrame(forceScrollbarUpdate);
     }
-  }, [tableBodyHeight, scrollContainerRef.current?.scrollHeight, scrollbarRef, isChrome]);
+  }, [tableBodyHeight, scrollContainerRef.current?.scrollHeight, scrollbarRef]);
 
   return (
     <FlexBox

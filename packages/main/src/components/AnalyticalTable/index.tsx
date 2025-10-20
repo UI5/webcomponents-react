@@ -10,7 +10,6 @@ import {
   useStylesheet,
   useSyncRef,
 } from '@ui5/webcomponents-react-base';
-import { isFirefox as isFirefoxFn } from '@ui5/webcomponents-react-base/Device';
 import { clsx } from 'clsx';
 import type { CSSProperties, MutableRefObject } from 'react';
 import { forwardRef, useCallback, useEffect, useId, useMemo, useRef } from 'react';
@@ -65,6 +64,7 @@ import { useColumnsDeps } from './hooks/useColumnsDeps.js';
 import { useColumnDragAndDrop } from './hooks/useDragAndDrop.js';
 import { useDynamicColumnWidths } from './hooks/useDynamicColumnWidths.js';
 import { useFontsReady } from './hooks/useFontsReady.js';
+import { useIsFirefox } from './hooks/useIsFirefox.js';
 import { useKeyboardNavigation } from './hooks/useKeyboardNavigation.js';
 import { usePopIn } from './hooks/usePopIn.js';
 import { useResizeColumnsConfig } from './hooks/useResizeColumnsConfig.js';
@@ -191,7 +191,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   useStylesheet(styleData, AnalyticalTable.displayName);
   const isInitialized = useRef(false);
   const fontsReady = useFontsReady();
-  const isFirefox = useMemo(() => isFirefoxFn(), []);
+  const isFirefox = useIsFirefox();
 
   const alwaysShowSubComponent =
     subComponentsBehavior === AnalyticalTableSubComponentsBehavior.Visible ||
