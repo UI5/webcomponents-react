@@ -10,6 +10,7 @@ import {
   useStylesheet,
   useSyncRef,
 } from '@ui5/webcomponents-react-base';
+import { isFirefox as isFireFoxFn } from '@ui5/webcomponents-react-base/Device';
 import { clsx } from 'clsx';
 import type { CSSProperties, MutableRefObject } from 'react';
 import { forwardRef, useCallback, useEffect, useId, useMemo, useRef } from 'react';
@@ -98,6 +99,8 @@ import {
   tagNamesWhichShouldNotSelectARow,
 } from './util/index.js';
 import { VerticalResizer } from './VerticalResizer.js';
+
+const isFirefox = isFireFoxFn();
 
 // When a sorted column is removed from the visible columns array (e.g. when "popped-in"), it doesn't clean up the sorted columns leading to an undefined `sortType`.
 const sortTypesFallback = {
@@ -256,6 +259,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         classes: classNames,
         fontsReady,
         highlightField,
+        isFirefox,
         isTreeTable,
         loading,
         markNavigatedRow,
@@ -658,7 +662,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     }
   }, [tableState.columnResizing, retainColumnWidth, tableState.tableColResized]);
 
-  useSyncScroll(parentRef, verticalScrollBarRef);
+  useSyncScroll(parentRef, verticalScrollBarRef, isFirefox);
 
   useEffect(() => {
     columnVirtualizer.measure();
@@ -844,6 +848,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
               handleExternalScroll={onTableScroll}
               visibleRows={internalVisibleRowCount}
               isGrouped={isGrouped}
+              isFirefox={isFirefox}
             >
               <VirtualTableBody
                 scrollContainerRef={scrollContainerRef}
@@ -871,7 +876,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
             </VirtualTableBodyContainer>
           )}
         </div>
-        {(additionalEmptyRowsCount || tableState.isScrollable) && (
+        {!isFirefox && (additionalEmptyRowsCount || tableState.isScrollable) && (
           <VerticalScrollbar
             tableBodyHeight={tableBodyHeight}
             internalRowHeight={internalHeaderRowHeight}

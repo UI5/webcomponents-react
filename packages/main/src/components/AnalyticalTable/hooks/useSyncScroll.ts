@@ -1,14 +1,21 @@
 import type { MutableRefObject } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
-export function useSyncScroll(refContent: MutableRefObject<HTMLElement>, refScrollbar: MutableRefObject<HTMLElement>) {
-  const ticking = useRef(false);
+export function useSyncScroll(
+  refContent: MutableRefObject<HTMLElement>,
+  refScrollbar: MutableRefObject<HTMLElement>,
+  disabled = false,
+) {
   const isProgrammatic = useRef(false);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     const content = refContent.current;
     const scrollbar = refScrollbar.current;
+
+    if (disabled) {
+      return;
+    }
 
     if (!content || !scrollbar || !isMounted) {
       setIsMounted(true);
@@ -18,24 +25,15 @@ export function useSyncScroll(refContent: MutableRefObject<HTMLElement>, refScro
     scrollbar.scrollTop = content.scrollTop;
 
     const sync = (source: 'content' | 'scrollbar') => {
-      if (ticking.current) {
-        return;
+      const sourceEl = source === 'content' ? content : scrollbar;
+      const targetEl = source === 'content' ? scrollbar : content;
+
+      if (!isProgrammatic.current && targetEl.scrollTop !== sourceEl.scrollTop) {
+        isProgrammatic.current = true;
+        targetEl.scrollTop = sourceEl.scrollTop;
+        // Clear the flag on next frame
+        requestAnimationFrame(() => (isProgrammatic.current = false));
       }
-      ticking.current = true;
-
-      requestAnimationFrame(() => {
-        const sourceEl = source === 'content' ? content : scrollbar;
-        const targetEl = source === 'content' ? scrollbar : content;
-
-        if (!isProgrammatic.current && targetEl.scrollTop !== sourceEl.scrollTop) {
-          isProgrammatic.current = true;
-          targetEl.scrollTop = sourceEl.scrollTop;
-          // Clear the flag on next frame
-          requestAnimationFrame(() => (isProgrammatic.current = false));
-        }
-
-        ticking.current = false;
-      });
     };
 
     const onScrollContent = () => sync('content');

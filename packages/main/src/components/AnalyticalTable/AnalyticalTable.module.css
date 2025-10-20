@@ -607,3 +607,17 @@
   box-sizing: border-box;
   border-inline-end: var(--_ui5wcr-AnalyticalTable-OuterBorderInline);
 }
+
+/* ==========================================================================
+   Firefox scrollbar styles
+   ========================================================================== */
+
+.firefoxCell {
+  &:last-child {
+    padding-inline-end: 18px;
+  }
+}
+
+.firefoxNativeScrollbar {
+  scrollbar-width: inherit;
+}
