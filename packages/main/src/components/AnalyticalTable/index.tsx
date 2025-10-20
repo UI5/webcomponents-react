@@ -10,7 +10,7 @@ import {
   useStylesheet,
   useSyncRef,
 } from '@ui5/webcomponents-react-base';
-import { isFirefox as isFireFoxFn } from '@ui5/webcomponents-react-base/Device';
+import { isFirefox as isFirefoxFn } from '@ui5/webcomponents-react-base/Device';
 import { clsx } from 'clsx';
 import type { CSSProperties, MutableRefObject } from 'react';
 import { forwardRef, useCallback, useEffect, useId, useMemo, useRef } from 'react';
@@ -99,8 +99,6 @@ import {
   tagNamesWhichShouldNotSelectARow,
 } from './util/index.js';
 import { VerticalResizer } from './VerticalResizer.js';
-
-const isFirefox = isFireFoxFn();
 
 // When a sorted column is removed from the visible columns array (e.g. when "popped-in"), it doesn't clean up the sorted columns leading to an undefined `sortType`.
 const sortTypesFallback = {
@@ -193,6 +191,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   useStylesheet(styleData, AnalyticalTable.displayName);
   const isInitialized = useRef(false);
   const fontsReady = useFontsReady();
+  const isFirefox = useMemo(() => isFirefoxFn(), []);
 
   const alwaysShowSubComponent =
     subComponentsBehavior === AnalyticalTableSubComponentsBehavior.Visible ||

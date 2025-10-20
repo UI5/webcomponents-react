@@ -10,12 +10,12 @@ export function useSyncScroll(
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const content = refContent.current;
-    const scrollbar = refScrollbar.current;
-
     if (disabled) {
       return;
     }
+
+    const content = refContent.current;
+    const scrollbar = refScrollbar.current;
 
     if (!content || !scrollbar || !isMounted) {
       setIsMounted(true);
@@ -46,5 +46,5 @@ export function useSyncScroll(
       content.removeEventListener('scroll', onScrollContent);
       scrollbar.removeEventListener('scroll', onScrollScrollbar);
     };
-  }, [isMounted, refContent, refScrollbar]);
+  }, [isMounted, refContent, refScrollbar, disabled]);
 }
