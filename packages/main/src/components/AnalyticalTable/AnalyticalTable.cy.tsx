@@ -4304,6 +4304,66 @@ describe('AnalyticalTable', () => {
     cy.focused().should('have.text', 'Before');
   });
 
+  it('vertical scroll sync', () => {
+    cy.mount(<AnalyticalTable columns={columns} data={generateMoreData(100)} />);
+
+    cy.get('[data-component-name="AnalyticalTableBody"]').scrollTo(0, 2000).should('have.prop', 'scrollTop', 2000);
+    cy.get('[data-component-name="AnalyticalTableVerticalScrollbar"]').should('have.prop', 'scrollTop', 2000);
+
+    cy.get('[data-component-name="AnalyticalTableVerticalScrollbar"]')
+      .scrollTo(0, 3000)
+      .should('have.prop', 'scrollTop', 3000);
+    cy.get('[data-component-name="AnalyticalTableBody"]').should('have.prop', 'scrollTop', 3000);
+
+    cy.get('[data-component-name="AnalyticalTableContainerWithScrollbar"]').realMouseWheel({ deltaY: 500 });
+    cy.get('[data-component-name="AnalyticalTableBody"]').should('have.prop', 'scrollTop', 3500);
+    cy.get('[data-component-name="AnalyticalTableVerticalScrollbar"]').should('have.prop', 'scrollTop', 3500);
+
+    cy.get('[data-component-name="AnalyticalTableVerticalScrollbar"]').realMouseWheel({ deltaY: -1000 });
+    cy.get('[data-component-name="AnalyticalTableVerticalScrollbar"]').should('have.prop', 'scrollTop', 2500);
+    cy.get('[data-component-name="AnalyticalTableBody"]').should('have.prop', 'scrollTop', 2500);
+
+    const TestComp = () => {
+      const [_data, setData] = useState([]);
+      useEffect(() => {
+        setTimeout(() => {
+          setData(generateMoreData(100));
+        }, 100);
+      }, []);
+
+      return (
+        <>
+          <div style={{ height: '500px' }}>
+            <AnalyticalTable
+              columns={columns}
+              data={_data}
+              header={<div>Header</div>}
+              visibleRowCountMode="AutoWithEmptyRows"
+            />
+          </div>
+        </>
+      );
+    };
+
+    cy.mount(<TestComp />);
+
+    cy.get('[data-component-name="AnalyticalTableBody"]').scrollTo(0, 2000).should('have.prop', 'scrollTop', 2000);
+    cy.get('[data-component-name="AnalyticalTableVerticalScrollbar"]').should('have.prop', 'scrollTop', 2000);
+
+    cy.get('[data-component-name="AnalyticalTableVerticalScrollbar"]')
+      .scrollTo(0, 3000)
+      .should('have.prop', 'scrollTop', 3000);
+    cy.get('[data-component-name="AnalyticalTableBody"]').should('have.prop', 'scrollTop', 3000);
+
+    cy.get('[data-component-name="AnalyticalTableContainerWithScrollbar"]').realMouseWheel({ deltaY: 500 });
+    cy.get('[data-component-name="AnalyticalTableBody"]').should('have.prop', 'scrollTop', 3500);
+    cy.get('[data-component-name="AnalyticalTableVerticalScrollbar"]').should('have.prop', 'scrollTop', 3500);
+
+    cy.get('[data-component-name="AnalyticalTableVerticalScrollbar"]').realMouseWheel({ deltaY: -1000 });
+    cy.get('[data-component-name="AnalyticalTableVerticalScrollbar"]').should('have.prop', 'scrollTop', 2500);
+    cy.get('[data-component-name="AnalyticalTableBody"]').should('have.prop', 'scrollTop', 2500);
+  });
+
   cypressPassThroughTestsFactory(AnalyticalTable, { data, columns });
 });
 
