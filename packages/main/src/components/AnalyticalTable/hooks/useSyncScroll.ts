@@ -4,13 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 export function useSyncScroll(
   refContent: MutableRefObject<HTMLElement>,
   refScrollbar: MutableRefObject<HTMLElement>,
+  isScrollable: boolean,
   disabled = false,
 ) {
   const isProgrammatic = useRef(false);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (disabled) {
+    if (disabled || !isScrollable) {
       return;
     }
 
@@ -46,5 +47,5 @@ export function useSyncScroll(
       content.removeEventListener('scroll', onScrollContent);
       scrollbar.removeEventListener('scroll', onScrollScrollbar);
     };
-  }, [isMounted, refContent, refScrollbar, disabled]);
+  }, [isMounted, refContent, refScrollbar, disabled, isScrollable]);
 }

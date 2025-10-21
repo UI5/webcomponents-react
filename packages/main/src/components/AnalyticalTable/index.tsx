@@ -661,7 +661,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     }
   }, [tableState.columnResizing, retainColumnWidth, tableState.tableColResized]);
 
-  useSyncScroll(parentRef, verticalScrollBarRef, isFirefox);
+  useSyncScroll(parentRef, verticalScrollBarRef, tableState.isScrollable, isFirefox);
 
   useEffect(() => {
     columnVirtualizer.measure();
