@@ -720,7 +720,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
             className={classNames.tabContainer}
             data-component-name="ObjectPageTabContainer"
             style={{
-              top:
+              insetBlockStart:
                 headerPinned || scrolledHeaderExpanded
                   ? `${topHeaderHeight + (headerCollapsed === true ? 0 : headerContentHeight)}px`
                   : `${topHeaderHeight}px`,
