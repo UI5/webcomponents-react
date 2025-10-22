@@ -78,7 +78,7 @@ jobs:
           
 
   build-and-release:
-    # needs: ['test', 'release-dryrun', 'check-charts-compat-peer-deps']
+    needs: ['test', 'release-dryrun', 'check-charts-compat-peer-deps']
     runs-on: ubuntu-latest
     environment:
       name: 'npm'
