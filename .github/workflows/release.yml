@@ -126,11 +126,7 @@ jobs:
           ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version "0.0.0-${git_hash}" \
             --exact \
             --no-push \
-            --no-git-tag-version \
             --allow-branch ${{ github.ref_name }}
-
-          git add .
-          git commit -m "chore: release snapshot version"
 
       - name: build
         run: yarn build
