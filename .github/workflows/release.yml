@@ -104,12 +104,14 @@ jobs:
           npm install -g npm
           yarn install --immutable
 
-      - name: version - Release
-        if: ${{ github.event.inputs.snapshot == 'false' }}
+      - name: Setup Git User
         run: |
           git config user.email ${{ secrets.BOT_GIT_EMAIL }}
           git config user.name ${{ secrets.BOT_GIT_USERNAME }}
 
+      - name: version - Release
+        if: ${{ github.event.inputs.snapshot == 'false' }}
+        run: |
           ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version ${{ github.event.inputs.release_type }} \
             ${{ (github.event.inputs.prerelease == 'true' && '--conventional-prerelease') || '--conventional-graduate' }} \
             --create-release github
@@ -126,6 +128,9 @@ jobs:
             --no-push \
             --no-git-tag-version \
             --allow-branch ${{ github.ref_name }}
+
+          git add .
+          git commit -m "chore: release snapshot version"
 
       - name: build
         run: yarn build
