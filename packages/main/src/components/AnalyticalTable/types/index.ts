@@ -976,12 +976,12 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   /**
    * Fired when the grouping of the rows changes.
    */
-  onGroup?: (e: CustomEvent<{ column: ColumnType; groupedColumns: string[] }>) => void;
+  onGroup?: (e: CustomEvent<{ column: ColumnType; groupedColumns: string[]; isGrouped: boolean }>) => void;
   /**
    * Fired when a row is selected or unselected.
    */
   onRowSelect?: (
-    e?: CustomEvent<{
+    e: CustomEvent<{
       /**
        * Selected row object.
        *
@@ -1007,11 +1007,11 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   /**
    * Fired when a row is expanded or collapsed
    */
-  onRowExpandChange?: (e?: CustomEvent<{ row: unknown; column: unknown }>) => void;
+  onRowExpandChange?: (e: CustomEvent<{ row: unknown; column: unknown }>) => void;
   /**
    * Fired when the columns order is changed.
    */
-  onColumnsReorder?: (e?: CustomEvent<{ columnsNewOrder: string[]; column: unknown }>) => void;
+  onColumnsReorder?: (e: CustomEvent<{ columnsNewOrder: ColumnType[]; column: ColumnType }>) => void;
   /**
    * Fired when the `infiniteScrollThreshold` is reached.
    *
@@ -1021,7 +1021,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    * @param {number} e.detail.rowCount - The number of rows
    * @param {number} e.detail.totalRowCount - The total number of rows, including sub-rows
    */
-  onLoadMore?: (e?: CustomEvent<{ rowCount: number; totalRowCount: number }>) => void;
+  onLoadMore?: (e: CustomEvent<{ rowCount: number; totalRowCount: number }>) => void;
   /**
    * Fired when the body of the table is scrolled.
    *
@@ -1029,13 +1029,13 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    * non-memoized or expensive calculations can have a __huge impact on performance__ and cause visible lag.
    * Throttling or debouncing is always recommended to reduce performance overhead.
    */
-  onTableScroll?: (e?: CustomEvent<{ rows: Record<string, any>[]; rowElements: HTMLCollection }>) => void;
+  onTableScroll?: (e: CustomEvent<{ rows: Record<string, any>[]; rowElements: HTMLCollection }>) => void;
   /**
    * Fired when the table is resized by double-clicking the Resizer.
    *
    * __Note:__ Auto-resize is only available on columns that have the `autoResizable` option set to `true`.
    */
-  onAutoResize?: (e?: OnAutoResizeMouseEvent) => void;
+  onAutoResize?: (e: OnAutoResizeMouseEvent) => void;
   /**
    * Fired when a filter is applied to a column.
    */
