@@ -208,6 +208,19 @@
   }
 }
 
+.expandGroupButton {
+  all: unset;
+  display: inline;
+}
+
+.expandGroupIcon {
+  color: var(--sapContent_IconColor);
+  height: 0.75rem;
+  width: 0.75rem;
+  padding: 0.625rem;
+  display: block;
+}
+
 .tableText {
   display: inline-block;
   font-size: var(--sapFontSize);
@@ -427,7 +440,7 @@
 
 .resizer {
   display: inline-block;
-  width: 3px;
+  width: 5px;
   height: 100%;
   position: absolute;
   inset-block-end: 0;
@@ -435,9 +448,14 @@
   z-index: 1;
   cursor: col-resize;
 
-  &:hover,
+  &:hover {
+    background-color: var(--sapContent_DragAndDropActiveColor);
+    opacity: 0.5;
+  }
+
   &:active {
     background-color: var(--sapContent_DragAndDropActiveColor);
+    opacity: 1;
   }
 }
 
@@ -606,4 +624,18 @@
   background-color: var(--sapList_FooterBackground);
   box-sizing: border-box;
   border-inline-end: var(--_ui5wcr-AnalyticalTable-OuterBorderInline);
+}
+
+/* ==========================================================================
+   Firefox scrollbar styles
+   ========================================================================== */
+
+.firefoxCell {
+  &:last-child {
+    padding-inline-end: 18px;
+  }
+}
+
+.firefoxNativeScrollbar {
+  scrollbar-width: inherit;
 }

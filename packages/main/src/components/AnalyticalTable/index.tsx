@@ -64,6 +64,7 @@ import { useColumnsDeps } from './hooks/useColumnsDeps.js';
 import { useColumnDragAndDrop } from './hooks/useDragAndDrop.js';
 import { useDynamicColumnWidths } from './hooks/useDynamicColumnWidths.js';
 import { useFontsReady } from './hooks/useFontsReady.js';
+import { useIsFirefox } from './hooks/useIsFirefox.js';
 import { useKeyboardNavigation } from './hooks/useKeyboardNavigation.js';
 import { usePopIn } from './hooks/usePopIn.js';
 import { useResizeColumnsConfig } from './hooks/useResizeColumnsConfig.js';
@@ -190,6 +191,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   useStylesheet(styleData, AnalyticalTable.displayName);
   const isInitialized = useRef(false);
   const fontsReady = useFontsReady();
+  const isFirefox = useIsFirefox();
 
   const alwaysShowSubComponent =
     subComponentsBehavior === AnalyticalTableSubComponentsBehavior.Visible ||
@@ -256,6 +258,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         classes: classNames,
         fontsReady,
         highlightField,
+        isFirefox,
         isTreeTable,
         loading,
         markNavigatedRow,
@@ -658,7 +661,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     }
   }, [tableState.columnResizing, retainColumnWidth, tableState.tableColResized]);
 
-  useSyncScroll(parentRef, verticalScrollBarRef);
+  useSyncScroll(parentRef, verticalScrollBarRef, tableState.isScrollable, isFirefox);
 
   useEffect(() => {
     columnVirtualizer.measure();
@@ -844,6 +847,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
               handleExternalScroll={onTableScroll}
               visibleRows={internalVisibleRowCount}
               isGrouped={isGrouped}
+              isFirefox={isFirefox}
             >
               <VirtualTableBody
                 scrollContainerRef={scrollContainerRef}
@@ -871,7 +875,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
             </VirtualTableBodyContainer>
           )}
         </div>
-        {(additionalEmptyRowsCount || tableState.isScrollable) && (
+        {!isFirefox && (additionalEmptyRowsCount || tableState.isScrollable) && (
           <VerticalScrollbar
             tableBodyHeight={tableBodyHeight}
             internalRowHeight={internalHeaderRowHeight}

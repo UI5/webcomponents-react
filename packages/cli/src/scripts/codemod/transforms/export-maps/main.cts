@@ -9,6 +9,15 @@ const aiPackageName = '@ui5/webcomponents-ai-react';
 const compatPackageName = '@ui5/webcomponents-react-compat';
 const packageNames = [mainPackageName, basePackageName, chartsPackageName, aiPackageName, compatPackageName];
 
+const mainPackageReExports = [
+  'CommonProps',
+  'Ui5CustomEvent',
+  'Ui5DomRef',
+  'UI5WCSlotsNode',
+  'withWebComponent',
+  'WithWebComponentPropTypes',
+];
+
 function getFileNames(dir: string) {
   let fileNames: string[] = [];
   try {
@@ -161,12 +170,14 @@ export default function transform(file: FileInfo, api: API): string | undefined 
     root.find(j.ImportDeclaration, { source: { value: pkg } }).forEach((importPath) => {
       const specifiers = importPath.node.specifiers || [];
       specifiers.forEach((spec) => {
-        if (spec.type !== 'ImportSpecifier') return;
+        if (spec.type !== 'ImportSpecifier') {
+          return;
+        }
         const importedName = spec.imported.name as string;
         let componentName = importedName;
         if (importedName.endsWith('PropTypes')) {
           componentName = importedName.replace(/PropTypes$/, '');
-        } else if (importedName.endsWith('Props')) {
+        } else if (importedName.endsWith('Props') && !mainPackageReExports.includes(importedName)) {
           componentName = componentName.replace(/Props$/, '');
         } else if (importedName.endsWith('DomRef')) {
           componentName = componentName.replace(/DomRef$/, '');
@@ -174,12 +185,20 @@ export default function transform(file: FileInfo, api: API): string | undefined 
 
         let newSource: string;
         if (pkg === mainPackageName) {
-          newSource =
-            componentName !== importedName
-              ? `${mainPackageName}/${componentName}`
-              : enumNames.has(importedName)
-                ? `${mainPackageName}/enums/${importedName}`
-                : `${mainPackageName}/${importedName}`;
+          if (mainPackageReExports.includes(importedName)) {
+            if (importedName.toLowerCase().startsWith('withwebcomponent')) {
+              newSource = `${basePackageName}/withWebComponent`;
+            } else {
+              newSource = `${basePackageName}/internal/types`;
+            }
+          } else {
+            newSource =
+              componentName !== importedName
+                ? `${mainPackageName}/${componentName}`
+                : enumNames.has(importedName)
+                  ? `${mainPackageName}/enums/${importedName}`
+                  : `${mainPackageName}/${importedName}`;
+          }
         } else if (pkg === basePackageName && importedName !== 'Device' && importedName !== 'hooks') {
           newSource = resolveBaseExport(importedName) || basePackageName;
         } else if (pkg === chartsPackageName) {

@@ -1,3 +1,4 @@
+import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { AnalyticalTableSelectionBehavior } from '../../../enums/AnalyticalTableSelectionBehavior.js';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
@@ -85,13 +86,9 @@ const getRowProps = (
 };
 
 const getCellProps = (cellProps, { cell: { column }, instance }) => {
-  const { classes } = instance.webComponentsReactProperties;
+  const { webComponentsReactProperties, state } = instance;
+  const { classes, isFirefox } = webComponentsReactProperties;
   const style: CSSProperties = { width: `${column.totalWidth}px`, ...resolveCellAlignment(column) };
-
-  let className = classes.tableCell;
-  if (column.className) {
-    className += ` ${column.className}`;
-  }
 
   if (
     column.id === '__ui5wcr__internal_highlight_column' ||
@@ -104,7 +101,12 @@ const getCellProps = (cellProps, { cell: { column }, instance }) => {
   return [
     cellProps,
     {
-      className,
+      className: clsx(
+        cellProps.className,
+        classes.tableCell,
+        column.className,
+        isFirefox && state.isScrollable && classes.firefoxCell,
+      ),
       style,
       tabIndex: -1,
     },

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.15.3](https://github.com/UI5/webcomponents-react/compare/v2.15.2...v2.15.3) (2025-10-21)
+
+### Bug Fixes
+
+- **cli: export-maps codemod:** refactor base pkg reexports correctly ([#7846](https://github.com/UI5/webcomponents-react/issues/7846)) ([7ad248d](https://github.com/UI5/webcomponents-react/commit/7ad248d9ca2d7408d64e57611be7431280e1b70f))
+
 ## [2.15.2](https://github.com/UI5/webcomponents-react/compare/v2.15.1...v2.15.2) (2025-10-17)
 
 **Note:** Version bump only for package @ui5/webcomponents-react-cli

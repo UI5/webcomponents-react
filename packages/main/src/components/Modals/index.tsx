@@ -1,11 +1,9 @@
 'use client';
 
-import { useIsomorphicLayoutEffect, useSyncRef } from '@ui5/webcomponents-react-base';
 import type { MutableRefObject } from 'react';
 import { createRef, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { getRandomId } from '../../internal/getRandomId.js';
-import type { IModal } from '../../internal/ModalStore.js';
 import { ModalStore } from '../../internal/ModalStore.js';
 import type { DialogDomRef, DialogPropTypes } from '../../webComponents/Dialog/index.js';
 import { Dialog } from '../../webComponents/Dialog/index.js';
@@ -219,24 +217,6 @@ function showToastFn(props: ToastPropTypes, container?: Element | DocumentFragme
   };
 }
 
-// todo: remove this once it's possible initializing popovers with `open=true` again
-function ModalComponent({ modal }: { modal: IModal }) {
-  const [componentRef, modalsRef] = useSyncRef(modal.ref);
-  useIsomorphicLayoutEffect(() => {
-    const modalElement = modalsRef.current as PopoverDomRef;
-    if (modalElement) {
-      requestAnimationFrame(() => {
-        modalElement.open = true;
-      });
-    }
-  }, []);
-
-  const { open: _0, ...props } = modal.props;
-
-  // @ts-expect-error: ref is supported by all supported modals
-  return <modal.Component {...props} ref={componentRef} data-id={modal.id} />;
-}
-
 /**
  * Utility class for opening modals in an imperative way.
  *
@@ -255,9 +235,14 @@ export function Modals() {
       {modals.map((modal) => {
         if (modal?.Component) {
           if (modal.container) {
-            return createPortal(<ModalComponent modal={modal} key={modal.id} />, modal.container);
+            return createPortal(
+              // @ts-expect-error: ref is supported by all supported modals
+              <modal.Component {...modal.props} ref={modal.ref} key={modal.id} data-id={modal.id} />,
+              modal.container,
+            );
           }
-          return <ModalComponent modal={modal} key={modal.id} />;
+          // @ts-expect-error: ref is supported by all supported modals
+          return <modal.Component {...modal.props} ref={modal.ref} key={modal.id} data-id={modal.id} />;
         }
       })}
     </>

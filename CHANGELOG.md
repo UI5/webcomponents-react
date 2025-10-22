@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.15.3](https://github.com/UI5/webcomponents-react/compare/v2.15.2...v2.15.3) (2025-10-21)
+
+### Bug Fixes
+
+- **AnalyticalTable:** fix vertical scrollbar styles and sync logic ([#7839](https://github.com/UI5/webcomponents-react/issues/7839)) ([a03dd29](https://github.com/UI5/webcomponents-react/commit/a03dd29bfc8b636dc41b8429787dec7653e14b27)), closes [#7831](https://github.com/UI5/webcomponents-react/issues/7831)
+- **AnalyticalTable:** improve a11y for expand-group button ([#7834](https://github.com/UI5/webcomponents-react/issues/7834)) ([3d32205](https://github.com/UI5/webcomponents-react/commit/3d322059795ff34d5a67ccca716fd58ba05be84a))
+- **cli: export-maps codemod:** refactor base pkg reexports correctly ([#7846](https://github.com/UI5/webcomponents-react/issues/7846)) ([7ad248d](https://github.com/UI5/webcomponents-react/commit/7ad248d9ca2d7408d64e57611be7431280e1b70f))
+- **ObjectPage:** align selected tab bottom-border correctly ([#7840](https://github.com/UI5/webcomponents-react/issues/7840)) ([1911dc9](https://github.com/UI5/webcomponents-react/commit/1911dc98f27c035db4965d19994d2ce1a9a92521)), closes [#7812](https://github.com/UI5/webcomponents-react/issues/7812)
+
 ## [2.15.2](https://github.com/UI5/webcomponents-react/compare/v2.15.1...v2.15.2) (2025-10-17)
 
 ### Bug Fixes

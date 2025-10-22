@@ -1,4 +1,5 @@
 import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
+import { clsx } from 'clsx';
 import type { MutableRefObject } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { AnalyticalTablePropTypes, TableInstance } from '../types/index.js';
@@ -20,6 +21,7 @@ interface VirtualTableBodyContainerProps {
   rowCollapsedFlag?: boolean;
   dispatch: (e: { type: string; payload?: any }) => void;
   isGrouped: boolean;
+  isFirefox: boolean;
 }
 
 export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps) => {
@@ -39,6 +41,7 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
     popInRowHeight,
     rowCollapsedFlag,
     isGrouped,
+    isFirefox,
     dispatch,
   } = props;
   const [isMounted, setIsMounted] = useState(false);
@@ -114,7 +117,7 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
 
   return (
     <div
-      className={classes.tbody}
+      className={clsx(classes.tbody, isFirefox && classes.firefoxNativeScrollbar)}
       ref={parentRef}
       onScroll={onScroll}
       style={{

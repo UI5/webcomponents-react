@@ -1,12 +1,20 @@
 import type { MutableRefObject } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
-export function useSyncScroll(refContent: MutableRefObject<HTMLElement>, refScrollbar: MutableRefObject<HTMLElement>) {
-  const ticking = useRef(false);
+export function useSyncScroll(
+  refContent: MutableRefObject<HTMLElement>,
+  refScrollbar: MutableRefObject<HTMLElement>,
+  isScrollable: boolean,
+  disabled = false,
+) {
   const isProgrammatic = useRef(false);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    if (disabled || !isScrollable) {
+      return;
+    }
+
     const content = refContent.current;
     const scrollbar = refScrollbar.current;
 
@@ -18,24 +26,15 @@ export function useSyncScroll(refContent: MutableRefObject<HTMLElement>, refScro
     scrollbar.scrollTop = content.scrollTop;
 
     const sync = (source: 'content' | 'scrollbar') => {
-      if (ticking.current) {
-        return;
+      const sourceEl = source === 'content' ? content : scrollbar;
+      const targetEl = source === 'content' ? scrollbar : content;
+
+      if (!isProgrammatic.current && targetEl.scrollTop !== sourceEl.scrollTop) {
+        isProgrammatic.current = true;
+        targetEl.scrollTop = sourceEl.scrollTop;
+        // Clear the flag on next frame
+        requestAnimationFrame(() => (isProgrammatic.current = false));
       }
-      ticking.current = true;
-
-      requestAnimationFrame(() => {
-        const sourceEl = source === 'content' ? content : scrollbar;
-        const targetEl = source === 'content' ? scrollbar : content;
-
-        if (!isProgrammatic.current && targetEl.scrollTop !== sourceEl.scrollTop) {
-          isProgrammatic.current = true;
-          targetEl.scrollTop = sourceEl.scrollTop;
-          // Clear the flag on next frame
-          requestAnimationFrame(() => (isProgrammatic.current = false));
-        }
-
-        ticking.current = false;
-      });
     };
 
     const onScrollContent = () => sync('content');
@@ -48,5 +47,5 @@ export function useSyncScroll(refContent: MutableRefObject<HTMLElement>, refScro
       content.removeEventListener('scroll', onScrollContent);
       scrollbar.removeEventListener('scroll', onScrollScrollbar);
     };
-  }, [isMounted, refContent, refScrollbar]);
+  }, [isMounted, refContent, refScrollbar, disabled, isScrollable]);
 }
