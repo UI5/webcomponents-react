@@ -8,3 +8,5 @@ temp
 .out
 
 .nx
+/.nx/cache
+/.nx/workspace-data
