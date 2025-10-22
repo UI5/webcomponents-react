@@ -29,7 +29,7 @@ const THEMES = [
 export function AppShellBar() {
   const router = useRouter();
   const pathname = usePathname();
-  const popoverOpenerRef = useRef<ButtonDomRef | undefined>(undefined);
+  const popoverOpenerRef = useRef<ButtonDomRef>(null);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(getTheme);
 
@@ -64,6 +64,7 @@ export function AppShellBar() {
       <ResponsivePopover
         className={classes.popover}
         open={popoverOpen}
+        /* eslint-disable-next-line react-hooks/refs */
         opener={popoverOpenerRef.current}
         onClose={() => {
           setPopoverOpen(false);
