@@ -21,4 +21,4 @@ Please check our [Contribution Guidelines](https://github.com/UI5/webcomponents-
 Please see our [LICENSE](https://github.com/UI5/webcomponents-react/blob/main/LICENSE) for copyright and license information.
 Detailed information including third-party components and their licensing/copyright information is available via the [REUSE tool](https://api.reuse.software/info/github.com/UI5/webcomponents-react).
 
-<!-- Use the force 2 -->
+<!-- Use the force 3 -->
