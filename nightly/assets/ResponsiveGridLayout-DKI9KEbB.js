@@ -1,8 +1,0 @@
-import{j as o}from"./iframe-CqyMw63j.js";import{useMDXComponents as m}from"./index-GHxgs1Oh.js";import{M as p,C as s}from"./blocks-gNAN3wnS.js";import"./Tag-9sg0d6U8.js";import"./index-DZeMBOtb.js";import{C as a}from"./ControlsWithNote-Ck71R3qs.js";import{D as c}from"./DocsHeader-DC4NOlH0.js";import{F as x}from"./CommandsAndQueries-Ckqtj5q6.js";import{C as e,D as n}from"./ResponsiveGridLayout.stories-BoTTi8OA.js";import"./preload-helper-PPVm8Dsz.js";import"./information-B-SB47kj.js";import"./sys-enter-2-8wJJb_fs.js";import"./alert-DS7w9_j5.js";import"./index-fW-mpTRV.js";import"./index-CRtLMoP1.js";import"./Link-8hzPxLpd.js";import"./copy-C_O2G0CQ.js";import"./copy-CygH_bff.js";import"./GitHub-Mark-Burz5wza.js";import"./TableOfContent-CyJZKYaH.js";import"./index-Ccu9AWNy.js";import"./index-CyG-uGBl.js";import"./index-B8X3UXQy.js";import"./index-DqKKFvdB.js";import"./index-CEokL_Ra.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-hBi7rm2H.js";import"./addCustomCSSWithScoping-C9ZUc-46.js";import"./ThemingParameters-pyhX3s39.js";function i(t){const r={h2:"h2",...m(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(p,{of:e}),`
-`,o.jsx(c,{of:e,since:"0.16.4",deprecationText:"There are no design concepts regarding this component outside a `Form`. As the `Form` is now a UI5 web component which implements wrapping behavior on its own, this component is not needed anymore and will be removed in the next major version."}),`
-`,o.jsx("br",{}),`
-`,o.jsx(r.h2,{id:"example",children:"Example"}),`
-`,o.jsx(s,{of:n}),`
-`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
-`,o.jsx(a,{of:n}),`
-`,o.jsx(x,{})]})}function k(t={}){const{wrapper:r}={...m(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(i,{...t})}):i(t)}export{k as default};
