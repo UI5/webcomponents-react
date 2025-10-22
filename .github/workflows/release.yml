@@ -13,6 +13,11 @@ on:
         description: 'pre-release'
         required: false
         default: false
+      snapshot:
+        type: boolean
+        description: 'Release as snapshot. This setting has precedence over all other inputs.'
+        required: false
+        default: false
 
 jobs:
   build:
@@ -51,11 +56,26 @@ jobs:
           npm install -g npm
           yarn install --immutable
 
-      - name: version
+      - name: version - Release
+        if: ${{ github.event.inputs.snapshot == false }}
         run: |
           ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version ${{ github.event.inputs.release_type }} \
             ${{ (github.event.inputs.prerelease == 'true' && '--conventional-prerelease') || '--conventional-graduate' }} \
-            --no-git-tag-version --no-push
+            --no-push \
+            --no-git-tag-version 
+
+      - name: version - Snapshot
+        if: ${{ github.event.inputs.snapshot == true }}
+        run: |
+          git_hash=$(git rev-parse --short "${{ github.sha }}")
+          
+          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version "0.0.0-${git_hash}" \
+            --exact \
+            --no-push \
+            --no-git-tag-version \
+            --allow-branch ${{ github.ref_name }}
+          
+          
 
   build-and-release:
     needs: ['test', 'release-dryrun', 'check-charts-compat-peer-deps']
@@ -84,10 +104,9 @@ jobs:
           npm install -g npm
           yarn install --immutable
 
-      - name: version
+      - name: version - Release
+        if: ${{ github.event.inputs.snapshot == false }}
         run: |
-          npm config set //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}
-
           git config user.email ${{ secrets.BOT_GIT_EMAIL }}
           git config user.name ${{ secrets.BOT_GIT_USERNAME }}
 
@@ -96,22 +115,34 @@ jobs:
             --create-release github
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
+
+      - name: version - Snapshot
+        if: ${{ github.event.inputs.snapshot == true }}
+        run: |
+          git_hash=$(git rev-parse --short "${{ github.sha }}")
+          
+          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version "0.0.0-${git_hash}" \
+            --exact \
+            --no-push \
+            --no-git-tag-version \
+            --allow-branch ${{ github.ref_name }}
 
       - name: build
         run: yarn build
 
       - name: publish to npm
-        run: ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-git
+        run: |
+          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish \
+            from-git \ 
+            ${{ github.event.inputs.snapshot == true && '--pre-dist-tag dev' }}
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
       ### Semantic Release Bot comments for issues and PRs ###
       - name: Add release comments to issues and PRs
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        if: ${{ github.event.inputs.snapshot == false }}
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
