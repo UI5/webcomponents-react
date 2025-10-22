@@ -115,8 +115,8 @@
     pointer-events: none;
     position: absolute;
     height: 1px;
-    bottom: -1px;
-    left: 0;
+    inset-block-end: -1px;
+    inset-inline-start: 0;
     width: 100%;
     box-shadow: var(--sapContent_HeaderShadow);
   }
