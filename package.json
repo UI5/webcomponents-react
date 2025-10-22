@@ -86,7 +86,7 @@
     "glob": "11.0.3",
     "globals": "16.4.0",
     "husky": "9.1.7",
-    "lerna": "8.2.4",
+    "lerna": "9.0.0",
     "lint-staged": "16.2.4",
     "npm-run-all2": "8.0.4",
     "postcss": "8.5.6",
