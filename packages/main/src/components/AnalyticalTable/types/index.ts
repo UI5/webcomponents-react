@@ -691,7 +691,10 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   /**
    * The minimum number of rows that are displayed. If the data contains fewer entries than `minRows`, it will be filled with empty rows.
    *
-   * __Note:__ To prevent the height of the table from jumping when e.g. filtering or fetching data, it's recommended setting `minRows` to the same value as `visibleRows`.
+   * __Note:__
+   * - To prevent the height of the table from jumping when e.g. filtering or fetching data, it's recommended setting `minRows` to the same value as `visibleRows`.
+   * - Values less than 1 are __not__ supported!
+   *
    *
    * @default 5
    */
