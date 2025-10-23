@@ -28,7 +28,7 @@ spawnSync(
   'node',
   [
     require.resolve('@ui5/webcomponents-tools/lib/generate-json-imports/i18n.js'),
-    TARGET_I18N_BUNDLES,
+    SRC_I18N_PROPERTIES,
     TARGET_I18N_JSON_IMPORTS,
   ],
   {
