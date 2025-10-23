@@ -1,5 +1,9 @@
 .section {
   box-sizing: border-box;
+
+  &:first-of-type {
+    margin-block-start: 1px;
+  }
 }
 
 .section [data-component-name='ObjectPageSubSection']:not(:first-child) {
