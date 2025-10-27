@@ -63,6 +63,7 @@ import { TablePlaceholder } from './defaults/LoadingComponent/TablePlaceholder.j
 import { DefaultNoDataComponent } from './defaults/NoDataComponent/index.js';
 import { useA11y } from './hooks/useA11y.js';
 import { useAutoResize } from './hooks/useAutoResize.js';
+import { useCanUseVoiceOver } from './hooks/useCanUseVoiceOver.js';
 import { useColumnsDeps } from './hooks/useColumnsDeps.js';
 import { useColumnDragAndDrop } from './hooks/useDragAndDrop.js';
 import { useDynamicColumnWidths } from './hooks/useDynamicColumnWidths.js';
@@ -195,6 +196,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   const isInitialized = useRef(false);
   const fontsReady = useFontsReady();
   const isFirefox = useIsFirefox();
+  const canUseVoiceOver = useCanUseVoiceOver();
 
   const alwaysShowSubComponent =
     subComponentsBehavior === AnalyticalTableSubComponentsBehavior.Visible ||
@@ -268,6 +270,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         },
         alternateRowColor,
         alwaysShowSubComponent,
+        canUseVoiceOver,
         classes: classNames,
         fontsReady,
         highlightField,

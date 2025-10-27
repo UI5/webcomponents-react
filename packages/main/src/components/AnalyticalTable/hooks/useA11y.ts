@@ -16,14 +16,22 @@ interface UpdatedCellProptypes {
 const setCellProps = (cellProps, { cell, instance }: { cell: TableInstance['cell']; instance: TableInstance }) => {
   const { column, row, value } = cell;
   const columnIndex = instance.visibleColumns.findIndex(({ id }) => id === column.id);
-  const { alwaysShowSubComponent, renderRowSubComponent, selectionMode, selectionBehavior, a11yElementIds, uniqueId } =
-    instance.webComponentsReactProperties;
+  const {
+    alwaysShowSubComponent,
+    renderRowSubComponent,
+    selectionMode,
+    selectionBehavior,
+    a11yElementIds,
+    uniqueId,
+    canUseVoiceOver,
+  } = instance.webComponentsReactProperties;
+
   const updatedCellProps: UpdatedCellProptypes = {
     // aria index is 1 based, not 0
     'aria-colindex': columnIndex + 1,
     role: 'gridcell',
     // header label
-    'aria-labelledby': `${uniqueId}${column.id} ${uniqueId}${column.id}${row.id}`,
+    'aria-labelledby': `${uniqueId}${column.id}${row.id}` + (canUseVoiceOver ? ` ${uniqueId}${column.id}` : ''),
   };
 
   const RowSubComponent = typeof renderRowSubComponent === 'function' ? renderRowSubComponent(row) : undefined;

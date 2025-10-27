@@ -212,7 +212,9 @@ export interface TableInstance {
 }
 
 export interface WCRPropertiesType {
+  canUseVoiceOver: boolean;
   fontsReady: boolean;
+  isFirefox: boolean;
   selectionMode: AnalyticalTablePropTypes['selectionMode'];
   onRowSelect?: AnalyticalTablePropTypes['onRowSelect'];
   a11yElementIds: {

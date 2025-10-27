@@ -18,11 +18,7 @@ export const Cell = (props: CellInstance) => {
       title={cellContent}
       className={webComponentsReactProperties.classes.tableText}
       data-column-id-cell-text={column.id}
-      //todo: VoiceOver announces blank because of `aria-hidden` although `aria-label` is set on the `gridcell` element - this is a known bug and there's no workaround
-      // options:
-      // - remove it and accept duplicate announcements
-      // - keep it and accept blank announcements
-      // - remove it and don't add the aria-label on the focused cell, which will lead to the `cellContent` being announced last
+      // VoiceOver announces blank because of `aria-hidden` although `aria-labelledby` is set on the `gridcell` element - this is a known bug and there's no workaround
       aria-hidden="true"
     >
       {cellContent}
