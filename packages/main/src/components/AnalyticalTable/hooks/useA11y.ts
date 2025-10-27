@@ -8,7 +8,7 @@ interface UpdatedCellProptypes {
   'aria-expanded'?: string;
   'aria-label'?: string;
   'aria-colindex': number;
-  'aria-describedby': string;
+  'aria-describedby'?: string;
   'aria-labelledby': string;
   role: string;
 }
@@ -23,7 +23,6 @@ const setCellProps = (cellProps, { cell, instance }: { cell: TableInstance['cell
     'aria-colindex': columnIndex + 1,
     role: 'gridcell',
     // header label
-    'aria-describedby': '',
     'aria-labelledby': `${uniqueId}${column.id} ${uniqueId}${column.id}${row.id}`,
   };
 
@@ -44,10 +43,10 @@ const setCellProps = (cellProps, { cell, instance }: { cell: TableInstance['cell
     updatedCellProps.onKeyDown = row.getToggleRowExpandedProps?.()?.onKeyDown;
     if (row.isExpanded) {
       updatedCellProps['aria-expanded'] = 'true';
-      updatedCellProps['aria-describedby'] += ' ' + a11yElementIds.cellCollapseDescId;
+      updatedCellProps['aria-describedby'] = ' ' + a11yElementIds.cellCollapseDescId;
     } else {
       updatedCellProps['aria-expanded'] = 'false';
-      updatedCellProps['aria-describedby'] += ' ' + a11yElementIds.cellExpandDescId;
+      updatedCellProps['aria-describedby'] = ' ' + a11yElementIds.cellExpandDescId;
     }
   } else if (
     (selectionMode !== AnalyticalTableSelectionMode.None &&
