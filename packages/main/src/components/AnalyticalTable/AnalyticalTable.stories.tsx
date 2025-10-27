@@ -66,7 +66,7 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
     },
     {
       Header: () => <span>Friend Age</span>,
-      headerLabel: 'Friend Age',
+      headerLabel: 'Custom Header Label',
       accessor: 'friend.age',
       autoResizable: true,
       hAlign: TextAlign.End,
@@ -130,7 +130,7 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
         return `${cell.cellLabel} press TAB to focus active elements inside this cell`;
       },
     },
-  ],
+  ].slice(0, 2),
   filterable: true,
   alternateRowColor: true,
   columnOrder: ['friend.name', 'friend.age', 'name'],
@@ -195,6 +195,7 @@ const meta = {
     visibleRows: 5,
     // sb actions has a huge impact on performance here.
     onTableScroll: undefined,
+    header: 'TableTitle',
   },
   argTypes: {
     data: { control: { disable: true } },
