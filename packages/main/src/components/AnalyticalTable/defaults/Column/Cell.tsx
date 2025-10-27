@@ -14,6 +14,7 @@ export const Cell = (props: CellInstance) => {
 
   return (
     <span
+      id={`${webComponentsReactProperties.uniqueId}${column.id}${row.id}`}
       title={cellContent}
       className={webComponentsReactProperties.classes.tableText}
       data-column-id-cell-text={column.id}

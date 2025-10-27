@@ -7,9 +7,10 @@ interface UpdatedCellProptypes {
   onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
   'aria-expanded'?: string;
   'aria-label'?: string;
-  'aria-colindex'?: number;
-  'aria-describedby'?: string;
-  role?: string;
+  'aria-colindex': number;
+  'aria-describedby': string;
+  'aria-labelledby': string;
+  role: string;
 }
 
 const setCellProps = (cellProps, { cell, instance }: { cell: TableInstance['cell']; instance: TableInstance }) => {
@@ -22,8 +23,8 @@ const setCellProps = (cellProps, { cell, instance }: { cell: TableInstance['cell
     'aria-colindex': columnIndex + 1,
     role: 'gridcell',
     // header label
-    'aria-describedby': `${uniqueId}${column.id}`,
-    'aria-label': '',
+    'aria-describedby': '',
+    'aria-labelledby': `${uniqueId}${column.id} ${uniqueId}${column.id}${row.id}`,
   };
 
   const RowSubComponent = typeof renderRowSubComponent === 'function' ? renderRowSubComponent(row) : undefined;
@@ -38,7 +39,6 @@ const setCellProps = (cellProps, { cell, instance }: { cell: TableInstance['cell
 
   const isFirstUserCol = userCols[0]?.id === column.id || userCols[0]?.accessor === column.accessor;
   updatedCellProps['data-is-first-column'] = isFirstUserCol;
-  updatedCellProps['aria-label'] += value || value === 0 ? `${value} ` : '';
 
   if ((isFirstUserCol && rowIsExpandable) || (row.isGrouped && row.canExpand)) {
     updatedCellProps.onKeyDown = row.getToggleRowExpandedProps?.()?.onKeyDown;
@@ -65,11 +65,13 @@ const setCellProps = (cellProps, { cell, instance }: { cell: TableInstance['cell
   }
   const { cellLabel } = cell.column;
   if (typeof cellLabel === 'function') {
-    cell.cellLabel = '';
+    const cellHeaderLabel = column.headerLabel || (typeof column.Header === 'string' ? column.Header : '');
+    const cellValueLabel = value || value === 0 ? `${value} ` : '';
+    cell.cellLabel = `${cellHeaderLabel} ${cellValueLabel}`;
     updatedCellProps['aria-label'] = cellLabel({ cell, instance });
-  } else {
-    updatedCellProps['aria-label'] ||= undefined;
+    updatedCellProps['aria-labelledby'] = undefined;
   }
+
   return [cellProps, updatedCellProps];
 };
 
