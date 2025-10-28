@@ -1,4 +1,4 @@
-import type { Virtualizer } from '@tanstack/react-virtual';
+import type { Virtualizer, VirtualItem } from '@tanstack/react-virtual';
 import { clsx } from 'clsx';
 import type { MutableRefObject } from 'react';
 import { useEffect, useMemo, useRef } from 'react';
@@ -37,6 +37,15 @@ interface VirtualTableBodyProps {
   triggerScroll?: TriggerScrollState;
   scrollToRef: MutableRefObject<ReactVirtualScrollToMethods>;
   rowVirtualizer: Virtualizer<DivWithCustomScrollProp, HTMLElement>;
+}
+
+function getDirectionStyles(isRtl: boolean, virtualColumn: VirtualItem) {
+  return isRtl
+    ? {
+        transform: `translateX(-${virtualColumn.start}px)`,
+        insertInlineStart: 0,
+      }
+    : { transform: `translateX(${virtualColumn.start}px)`, insertInlineStart: 0 };
 }
 
 export const VirtualTableBody = (props: VirtualTableBodyProps) => {
@@ -141,7 +150,13 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
                     data-empty-row-cell="true"
                     tabIndex={-1}
                     aria-hidden="true"
-                    style={{ ...emptyRowCellProps.style, cursor: 'unset', width: item.size }}
+                    style={{
+                      ...emptyRowCellProps.style,
+                      cursor: 'unset',
+                      position: 'absolute',
+                      width: `${item.size}px`,
+                      ...getDirectionStyles(isRtl, item),
+                    }}
                   />
                 );
               })}
@@ -205,12 +220,6 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
             )}
             {columnVirtualizer.getVirtualItems().map((virtualColumn, visibleColumnIndex) => {
               const cell = row.cells[virtualColumn.index];
-              const directionStyles = isRtl
-                ? {
-                    transform: `translateX(-${virtualColumn.start}px)`,
-                    insertInlineStart: 0,
-                  }
-                : { transform: `translateX(${virtualColumn.start}px)`, insertInlineStart: 0 };
               if (!cell) {
                 return null;
               }
@@ -227,7 +236,7 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
                   width: `${virtualColumn.size}px`,
                   top: 0,
                   height: `${rowHeight}px`,
-                  ...directionStyles,
+                  ...getDirectionStyles(isRtl, virtualColumn),
                 },
               };
               let contentToRender: RenderColumnTypes;
