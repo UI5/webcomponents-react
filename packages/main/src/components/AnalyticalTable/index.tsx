@@ -1,6 +1,7 @@
 'use client';
 
 import { useVirtualizer } from '@tanstack/react-virtual';
+import { ARIA_LABEL_EMPTY_CELL } from '@ui5/webcomponents/dist/generated/i18n/i18n-defaults.js';
 import {
   debounce,
   enrichEventWithDetails,
@@ -204,6 +205,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
 
   const uniqueId = useId();
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
+  const i18nBundleWc = useI18nBundle('@ui5/webcomponents');
   const titleBarId = `titlebar-${uniqueId}`;
   const invalidTableTextId = `invalidTableText-${uniqueId}`;
 
@@ -211,6 +213,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   const cellUnselectDescId = `cell-unselect-${uniqueId}`;
   const cellExpandDescId = `cell-expand-${uniqueId}`;
   const cellCollapseDescId = `cell-collapse-${uniqueId}`;
+  const cellEmptyDescId = `cell-empty-${uniqueId}`;
 
   const tableRef = useRef<DivWithCustomScrollProp>(null);
   const parentRef = useRef<DivWithCustomScrollProp>(null);
@@ -252,6 +255,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
           cellUnselectDescId,
           cellExpandDescId,
           cellCollapseDescId,
+          cellEmptyDescId,
         },
         translatableTexts: {
           selectAllText: i18nBundle.getText(SELECT_ALL),
@@ -931,6 +935,10 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       </span>
       <span id={cellCollapseDescId} className={classNames.hiddenA11yText}>
         {i18nBundle.getText(COLLAPSE_PRESS_SPACE)}
+      </span>
+      {/* useAnnounceEmptyCells */}
+      <span id={cellEmptyDescId} className={classNames.hiddenA11yText}>
+        {i18nBundleWc.getText(ARIA_LABEL_EMPTY_CELL)}
       </span>
     </>
   );
