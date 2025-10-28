@@ -121,15 +121,15 @@ const setHeaderProps = (
   }
 
   if (column.id === '__ui5wcr__internal_selection_column') {
-    updatedProps['aria-label'] += translatableTexts.selectionHeaderCellText;
+    updatedProps['aria-label'] += ' ' + translatableTexts.selectionHeaderCellText;
   }
 
   if (column.id === '__ui5wcr__internal_highlight_column') {
-    updatedProps['aria-label'] += translatableTexts.highlightHeaderCellText;
+    updatedProps['aria-label'] += ' ' + translatableTexts.highlightHeaderCellText;
   }
 
   if (column.id === '__ui5wcr__internal_navigation_column') {
-    updatedProps['aria-label'] += translatableTexts.navigationHeaderCellText;
+    updatedProps['aria-label'] += ' ' + translatableTexts.navigationHeaderCellText;
   }
 
   updatedProps['aria-label'] ||= undefined;
@@ -137,8 +137,13 @@ const setHeaderProps = (
   return [headerProps, { isFiltered, ...updatedProps }];
 };
 
+const setHeaderGroupProps = (props) => {
+  return [props, { 'aria-rowindex': 1 }];
+};
+
 export const useA11y = (hooks: ReactTableHooks) => {
   hooks.getCellProps.push(setCellProps);
   hooks.getHeaderProps.push(setHeaderProps);
+  hooks.getHeaderGroupProps.push(setHeaderGroupProps);
 };
 useA11y.pluginName = 'useA11y';
