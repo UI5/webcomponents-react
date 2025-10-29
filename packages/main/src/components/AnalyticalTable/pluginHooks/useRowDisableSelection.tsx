@@ -15,7 +15,7 @@ const headerProps = (
   props,
   {
     instance: {
-      webComponentsReactProperties: { selectionMode },
+      webComponentsReactProperties: { selectionMode, translatableTexts },
     },
   }: { instance: TableInstance },
 ) => {
@@ -24,7 +24,18 @@ const headerProps = (
     selectionMode === AnalyticalTableSelectionMode.Multiple
   ) {
     const style = { ...props.style, cursor: 'auto' };
-    return [props, { onClick: undefined, onKeyDown: undefined, title: undefined, style }];
+    const ariaLabel = props['aria-label']?.replace(translatableTexts.selectAllA11yText, '');
+    return [
+      props,
+      {
+        onClick: undefined,
+        onKeyDown: undefined,
+        onKeyUp: undefined,
+        title: undefined,
+        ['aria-label']: ariaLabel,
+        style,
+      },
+    ];
   }
   return props;
 };

@@ -1,6 +1,6 @@
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import paperPlaneIcon from '@ui5/webcomponents-icons/paper-plane.js';
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import { useCallback, useEffect, useMemo, useRef, useState, version as reactVersion } from 'react';
 import type {
   AnalyticalTableCellInstance,
@@ -80,6 +80,9 @@ import { useRowDisableSelection } from './pluginHooks/useRowDisableSelection';
 import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import type { RowType } from '@/packages/main/src/components/AnalyticalTable/types/index.js';
 import { getUi5TagWithSuffix } from '@/packages/main/src/internal/utils.js';
+import { isIOS, isMac } from '@ui5/webcomponents-react-base/Device';
+
+const canUseVoiceOver = isIOS() || isMac();
 
 const generateMoreData = (count) => {
   return new Array(count).fill('').map((item, index) => ({
@@ -180,7 +183,7 @@ describe('AnalyticalTable', () => {
     cy.get('[ui5-popover]').should('not.exist');
 
     cy.mount(<AnalyticalTable data={data} columns={columns} onSort={sort} sortable />);
-    cy.get('[aria-rowindex="3"] > [aria-colindex="1"]').should('text', 'X');
+    cy.get('[aria-rowindex="4"] > [aria-colindex="1"]').should('text', 'X');
 
     cy.findByText('Name').click();
     cy.get('[ui5-popover]').should('be.visible');
@@ -190,7 +193,7 @@ describe('AnalyticalTable', () => {
       .should('have.been.calledWithMatch', {
         detail: { column: { id: 'name' }, sortDirection: 'asc' },
       });
-    cy.get('[aria-rowindex="3"] > [aria-colindex="1"]').should('text', 'C');
+    cy.get('[aria-rowindex="4"] > [aria-colindex="1"]').should('text', 'C');
 
     cy.findByText('Name').click();
     cy.get('[ui5-list]').clickUi5ListItemByText('Clear Sorting');
@@ -199,7 +202,7 @@ describe('AnalyticalTable', () => {
       .should('have.been.calledWithMatch', {
         detail: { column: { id: 'name' }, sortDirection: 'clear' },
       });
-    cy.get('[aria-rowindex="3"] > [aria-colindex="1"]').should('text', 'X');
+    cy.get('[aria-rowindex="4"] > [aria-colindex="1"]').should('text', 'X');
 
     cy.findByText('Name').click();
     cy.get('[ui5-list]').clickUi5ListItemByText('Sort Descending');
@@ -208,7 +211,7 @@ describe('AnalyticalTable', () => {
       .should('have.been.calledWithMatch', {
         detail: { column: { id: 'name' }, sortDirection: 'desc' },
       });
-    cy.get('[aria-rowindex="3"] > [aria-colindex="1"]').should('text', 'B');
+    cy.get('[aria-rowindex="4"] > [aria-colindex="1"]').should('text', 'B');
 
     cy.log('subRows sorting');
     const treeData = [
@@ -232,14 +235,14 @@ describe('AnalyticalTable', () => {
       .should('have.been.calledWithMatch', {
         detail: { column: { id: 'category' }, sortDirection: 'asc' },
       });
-    cy.get('[aria-rowindex="1"] > [aria-colindex="1"]').should('text', 'Alphabet');
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"]').should('text', 'A');
-    cy.get('[aria-rowindex="3"] > [aria-colindex="1"]').should('text', 'B');
-    cy.get('[aria-rowindex="4"] > [aria-colindex="1"]').should('text', 'C');
-    cy.get('[aria-rowindex="5"] > [aria-colindex="1"]').should('text', 'Number');
-    cy.get('[aria-rowindex="6"] > [aria-colindex="1"]').should('text', '1');
-    cy.get('[aria-rowindex="7"] > [aria-colindex="1"]').should('text', '2');
-    cy.get('[aria-rowindex="8"] > [aria-colindex="1"]').should('text', '3');
+    cy.get('[aria-rowindex="2"] > [aria-colindex="1"]').should('text', 'Alphabet');
+    cy.get('[aria-rowindex="3"] > [aria-colindex="1"]').should('text', 'A');
+    cy.get('[aria-rowindex="4"] > [aria-colindex="1"]').should('text', 'B');
+    cy.get('[aria-rowindex="5"] > [aria-colindex="1"]').should('text', 'C');
+    cy.get('[aria-rowindex="6"] > [aria-colindex="1"]').should('text', 'Number');
+    cy.get('[aria-rowindex="7"] > [aria-colindex="1"]').should('text', '1');
+    cy.get('[aria-rowindex="8"] > [aria-colindex="1"]').should('text', '2');
+    cy.get('[aria-rowindex="9"] > [aria-colindex="1"]').should('text', '3');
 
     cy.findByText('Category').click();
     cy.get('[ui5-list]').clickUi5ListItemByText('Sort Descending');
@@ -248,14 +251,14 @@ describe('AnalyticalTable', () => {
       .should('have.been.calledWithMatch', {
         detail: { column: { id: 'category' }, sortDirection: 'desc' },
       });
-    cy.get('[aria-rowindex="1"] > [aria-colindex="1"]').should('text', 'Number');
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"]').should('text', '3');
-    cy.get('[aria-rowindex="3"] > [aria-colindex="1"]').should('text', '2');
-    cy.get('[aria-rowindex="4"] > [aria-colindex="1"]').should('text', '1');
-    cy.get('[aria-rowindex="5"] > [aria-colindex="1"]').should('text', 'Alphabet');
-    cy.get('[aria-rowindex="6"] > [aria-colindex="1"]').should('text', 'C');
-    cy.get('[aria-rowindex="7"] > [aria-colindex="1"]').should('text', 'B');
-    cy.get('[aria-rowindex="8"] > [aria-colindex="1"]').should('text', 'A');
+    cy.get('[aria-rowindex="2"] > [aria-colindex="1"]').should('text', 'Number');
+    cy.get('[aria-rowindex="3"] > [aria-colindex="1"]').should('text', '3');
+    cy.get('[aria-rowindex="4"] > [aria-colindex="1"]').should('text', '2');
+    cy.get('[aria-rowindex="5"] > [aria-colindex="1"]').should('text', '1');
+    cy.get('[aria-rowindex="6"] > [aria-colindex="1"]').should('text', 'Alphabet');
+    cy.get('[aria-rowindex="7"] > [aria-colindex="1"]').should('text', 'C');
+    cy.get('[aria-rowindex="8"] > [aria-colindex="1"]').should('text', 'B');
+    cy.get('[aria-rowindex="9"] > [aria-colindex="1"]').should('text', 'A');
 
     cy.findByText('Category').click();
     cy.get('[ui5-list]').clickUi5ListItemByText('Clear Sorting');
@@ -264,14 +267,14 @@ describe('AnalyticalTable', () => {
       .should('have.been.calledWithMatch', {
         detail: { column: { id: 'category' }, sortDirection: 'clear' },
       });
-    cy.get('[aria-rowindex="1"] > [aria-colindex="1"]').should('text', 'Number');
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"]').should('text', '2');
-    cy.get('[aria-rowindex="3"] > [aria-colindex="1"]').should('text', '1');
-    cy.get('[aria-rowindex="4"] > [aria-colindex="1"]').should('text', '3');
-    cy.get('[aria-rowindex="5"] > [aria-colindex="1"]').should('text', 'Alphabet');
-    cy.get('[aria-rowindex="6"] > [aria-colindex="1"]').should('text', 'B');
-    cy.get('[aria-rowindex="7"] > [aria-colindex="1"]').should('text', 'A');
-    cy.get('[aria-rowindex="8"] > [aria-colindex="1"]').should('text', 'C');
+    cy.get('[aria-rowindex="2"] > [aria-colindex="1"]').should('text', 'Number');
+    cy.get('[aria-rowindex="3"] > [aria-colindex="1"]').should('text', '2');
+    cy.get('[aria-rowindex="4"] > [aria-colindex="1"]').should('text', '1');
+    cy.get('[aria-rowindex="5"] > [aria-colindex="1"]').should('text', '3');
+    cy.get('[aria-rowindex="6"] > [aria-colindex="1"]').should('text', 'Alphabet');
+    cy.get('[aria-rowindex="7"] > [aria-colindex="1"]').should('text', 'B');
+    cy.get('[aria-rowindex="8"] > [aria-colindex="1"]').should('text', 'A');
+    cy.get('[aria-rowindex="9"] > [aria-colindex="1"]').should('text', 'C');
   });
 
   it('row count modes', () => {
@@ -514,7 +517,7 @@ describe('AnalyticalTable', () => {
     dataResizeTree[0].subRows[0].name = 'Longer Name To Resize Here';
     cy.mount(<AnalyticalTable columns={resizeColumns} data={dataResizeTree} isTreeTable onAutoResize={resizeSpy} />);
     doubleClickResizer('@resizer1', 'name', 169);
-    cy.get('[aria-rowindex="1"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
+    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
     doubleClickResizer('@resizer1', 'name', 251);
     cy.get('@resize').should('have.callCount', 18);
   });
@@ -657,9 +660,9 @@ describe('AnalyticalTable', () => {
     // expand
     cy.findByText('Robin Moreno').should('not.exist', { timeout: 100 });
     cy.findByText('Judith Mathews').should('not.exist', { timeout: 100 });
-    cy.get('[aria-rowindex="1"] > [aria-colindex="2"] > [title="Expand Node"] > [ui5-button]').click();
+    cy.get('[aria-rowindex="2"] > [aria-colindex="2"] > [title="Expand Node"] > [ui5-button]').click();
     cy.findByText('Robin Moreno').should('be.visible');
-    cy.get('[aria-rowindex="4"] > [aria-colindex="2"] > [title="Expand Node"] > [ui5-button]')
+    cy.get('[aria-rowindex="5"] > [aria-colindex="2"] > [title="Expand Node"] > [ui5-button]')
       .shadow()
       .find('button')
       .focus();
@@ -1045,7 +1048,7 @@ describe('AnalyticalTable', () => {
       .and('have.attr', 'data-column-index', '2')
       .and('have.text', 'Friend Name');
 
-    cy.get('[aria-rowindex="7"] > [aria-colindex="3"] > [title="Expand Node"] > [ui5-icon]').click();
+    cy.get('[aria-rowindex="8"] > [aria-colindex="3"] > [title="Expand Node"] > [ui5-icon]').click();
 
     cy.findByText('25').click();
     cy.get('@onRowSelectSpy').should('have.callCount', 2);
@@ -1099,9 +1102,9 @@ describe('AnalyticalTable', () => {
     );
 
     // expand
-    cy.get('[aria-rowindex="2"] > [aria-colindex="2"] > [title="Expand Node"] > [ui5-button]').click();
     cy.get('[aria-rowindex="3"] > [aria-colindex="2"] > [title="Expand Node"] > [ui5-button]').click();
     cy.get('[aria-rowindex="4"] > [aria-colindex="2"] > [title="Expand Node"] > [ui5-button]').click();
+    cy.get('[aria-rowindex="5"] > [aria-colindex="2"] > [title="Expand Node"] > [ui5-button]').click();
 
     // deselect row
     cy.findByText('Wiggins Cotton').click();
@@ -1111,9 +1114,9 @@ describe('AnalyticalTable', () => {
       '{"0":true,"1":true,"0.0":true,"0.0.0":true,"0.0.0.0":true,"0.0.0.1":true,"0.0.0.2":true,"0.0.0.3":true,"0.0.1":true,"0.0.1.0":true,"0.0.1.1":true,"0.0.1.2":true,"0.0.1.3":true,"0.0.2":true,"0.0.2.0":true,"0.0.2.1":true,"0.0.2.2":true,"0.0.2.3":true,"0.0.3":true,"0.0.3.0":true,"0.0.3.1":true,"0.0.3.2":true,"0.0.3.3":true,"0.1":true,"0.1.0":true,"0.1.0.0":true,"0.1.0.1":true,"0.1.0.2":true,"0.1.0.3":true,"0.1.1":true,"0.1.1.0":true,"0.1.1.1":true,"0.1.1.2":true,"0.1.1.3":true,"0.1.2":true,"0.1.2.0":true,"0.1.2.1":true,"0.1.2.2":true,"0.1.2.3":true,"0.1.3":true,"0.1.3.0":true,"0.1.3.1":true,"0.1.3.2":true,"0.1.3.3":true,"0.2":true,"0.2.0":true,"0.2.0.0":true,"0.2.0.1":true,"0.2.0.2":true,"0.2.0.3":true,"0.2.1":true,"0.2.1.0":true,"0.2.1.1":true,"0.2.1.2":true,"0.2.1.3":true,"0.2.2":true,"0.2.2.0":true,"0.2.2.1":true,"0.2.2.2":true,"0.2.2.3":true,"0.2.3":true,"0.2.3.0":true,"0.2.3.1":true,"0.2.3.2":true,"0.2.3.3":true,"0.3":true,"0.3.0":true,"0.3.0.0":true,"0.3.0.1":true,"0.3.0.2":true,"0.3.0.3":true,"0.3.1":true,"0.3.1.0":true,"0.3.1.1":true,"0.3.1.2":true,"0.3.1.3":true,"0.3.2":true,"0.3.2.0":true,"0.3.2.1":true,"0.3.2.2":true,"0.3.2.3":true,"0.3.3":true,"0.3.3.0":true,"0.3.3.1":true,"0.3.3.2":true,"0.3.3.3":true,"1.0":true,"1.0.0":true,"1.0.0.1":true,"1.0.0.2":true,"1.0.0.3":true,"1.0.1":true,"1.0.1.0":true,"1.0.1.1":true,"1.0.1.2":true,"1.0.1.3":true,"1.0.2":true,"1.0.2.0":true,"1.0.2.1":true,"1.0.2.2":true,"1.0.2.3":true,"1.0.3":true,"1.0.3.0":true,"1.0.3.1":true,"1.0.3.2":true,"1.0.3.3":true,"1.1":true,"1.1.0":true,"1.1.0.0":true,"1.1.0.1":true,"1.1.0.2":true,"1.1.0.3":true,"1.1.1":true,"1.1.1.0":true,"1.1.1.1":true,"1.1.1.2":true,"1.1.1.3":true,"1.1.2":true,"1.1.2.0":true,"1.1.2.1":true,"1.1.2.2":true,"1.1.2.3":true,"1.1.3":true,"1.1.3.0":true,"1.1.3.1":true,"1.1.3.2":true,"1.1.3.3":true,"1.2":true,"1.2.0":true,"1.2.0.0":true,"1.2.0.1":true,"1.2.0.2":true,"1.2.0.3":true,"1.2.1":true,"1.2.1.0":true,"1.2.1.1":true,"1.2.1.2":true,"1.2.1.3":true,"1.2.2":true,"1.2.2.0":true,"1.2.2.1":true,"1.2.2.2":true,"1.2.2.3":true,"1.2.3":true,"1.2.3.0":true,"1.2.3.1":true,"1.2.3.2":true,"1.2.3.3":true,"1.3":true,"1.3.0":true,"1.3.0.0":true,"1.3.0.1":true,"1.3.0.2":true,"1.3.0.3":true,"1.3.1":true,"1.3.1.0":true,"1.3.1.1":true,"1.3.1.2":true,"1.3.1.3":true,"1.3.2":true,"1.3.2.0":true,"1.3.2.1":true,"1.3.2.2":true,"1.3.2.3":true,"1.3.3":true,"1.3.3.0":true,"1.3.3.1":true,"1.3.3.2":true,"1.3.3.3":true}',
     );
 
+    cy.get('[aria-rowindex="5"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[aria-rowindex="4"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[aria-rowindex="3"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should(
       'have.attr',
       'indeterminate',
@@ -1129,9 +1132,9 @@ describe('AnalyticalTable', () => {
     cy.get('@onIndeterminateChangeSpy').should('have.callCount', 3);
     cy.findByTestId('selectedRows').should('have.text', '{"1.0.0.0":true}');
 
+    cy.get('[aria-rowindex="5"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[aria-rowindex="4"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[aria-rowindex="3"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should(
       'have.attr',
       'indeterminate',
@@ -1146,13 +1149,13 @@ describe('AnalyticalTable', () => {
     cy.findByText('Diann Alvarado').click();
     cy.get('@onIndeterminateChangeSpy').should('have.callCount', 5);
 
-    cy.get('[aria-rowindex="4"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'true');
     cy.get('[aria-rowindex="5"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'true');
     cy.get('[aria-rowindex="6"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'true');
     cy.get('[aria-rowindex="7"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'true');
     cy.get('[aria-rowindex="8"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'true');
+    cy.get('[aria-rowindex="9"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'true');
+    cy.get('[aria-rowindex="4"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[aria-rowindex="3"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should(
       'have.attr',
       'indeterminate',
@@ -1199,17 +1202,17 @@ describe('AnalyticalTable', () => {
     cy.get('[data-column-id="__ui5wcr__internal_selection_column"]').click();
 
     // expand
-    cy.get('[aria-rowindex="2"] > [aria-colindex="2"] > [title="Expand Node"] > [ui5-button]').click();
     cy.get('[aria-rowindex="3"] > [aria-colindex="2"] > [title="Expand Node"] > [ui5-button]').click();
     cy.get('[aria-rowindex="4"] > [aria-colindex="2"] > [title="Expand Node"] > [ui5-button]').click();
+    cy.get('[aria-rowindex="5"] > [aria-colindex="2"] > [title="Expand Node"] > [ui5-button]').click();
 
     // deselect row
     cy.findByText('Wiggins Cotton').click();
     cy.get('@onIndeterminateChangeSpy').should('have.callCount', 1);
 
+    cy.get('[aria-rowindex="5"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[aria-rowindex="4"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[aria-rowindex="3"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should(
       'have.attr',
       'indeterminate',
@@ -1224,9 +1227,9 @@ describe('AnalyticalTable', () => {
     cy.findByText('Wiggins Cotton').click();
     cy.get('@onIndeterminateChangeSpy').should('have.callCount', 3);
 
+    cy.get('[aria-rowindex="5"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[aria-rowindex="4"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[aria-rowindex="3"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should(
       'have.attr',
       'indeterminate',
@@ -1241,13 +1244,13 @@ describe('AnalyticalTable', () => {
     cy.findByText('Diann Alvarado').click();
     cy.get('@onIndeterminateChangeSpy').should('have.callCount', 5);
 
-    cy.get('[aria-rowindex="4"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'true');
-    cy.get('[aria-rowindex="5"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'false');
+    cy.get('[aria-rowindex="5"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'true');
     cy.get('[aria-rowindex="6"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'false');
     cy.get('[aria-rowindex="7"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'false');
     cy.get('[aria-rowindex="8"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'false');
+    cy.get('[aria-rowindex="9"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'false');
+    cy.get('[aria-rowindex="4"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[aria-rowindex="3"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should(
       'have.attr',
       'indeterminate',
@@ -1863,7 +1866,7 @@ describe('AnalyticalTable', () => {
     cy.get('[data-component-name="AnalyticalTableContainer"]').should('have.css', 'background-color', standardRowColor);
 
     function testAlternateRowColor() {
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 2; i <= 4; i++) {
         if (i % 2) {
           // no color set
           cy.get(`[aria-rowindex="${i}"]`).should('have.css', 'background-color', 'rgba(0, 0, 0, 0)');
@@ -2005,7 +2008,7 @@ describe('AnalyticalTable', () => {
         }}
       />,
     );
-    cy.get('[aria-rowindex="1"]').should('be.visible').should('have.css', 'background-color', selectedRowColor);
+    cy.get('[aria-rowindex="2"]').should('be.visible').should('have.css', 'background-color', selectedRowColor);
   });
 
   it('onRowClick', () => {
@@ -2233,13 +2236,13 @@ describe('AnalyticalTable', () => {
     cy.findAllByTitle('Expand Node').should('have.length', 4);
     cy.findAllByTitle('Collapse Node').should('not.exist');
 
-    cy.get('[aria-rowindex="1"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
+    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
 
     cy.findAllByTitle('Expand Node').should('have.length', 3);
     cy.findAllByTitle('Collapse Node').should('have.length', 1);
     cy.findByText('SubComponent').should('be.visible');
 
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
+    cy.get('[aria-rowindex="3"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
 
     cy.findAllByTitle('Expand Node').should('have.length', 2);
     cy.findAllByTitle('Collapse Node').should('have.length', 2);
@@ -2250,12 +2253,12 @@ describe('AnalyticalTable', () => {
     cy.findAllByTitle('Expand Node').should('have.length', 1);
     cy.findAllByTitle('Collapse Node').should('not.exist');
 
-    cy.get('[aria-rowindex="1"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
+    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
 
     cy.findAllByTitle('Expand Node').should('not.exist');
     cy.findAllByTitle('Collapse Node').should('have.length', 1);
     cy.findByText('SingleSubComponent').should('be.visible');
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').should('not.exist');
+    cy.get('[aria-rowindex="3"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').should('not.exist');
 
     cy.mount(
       <AnalyticalTable
@@ -2326,11 +2329,11 @@ describe('AnalyticalTable', () => {
     cy.findByText('A').should('be.visible');
     cy.findByText('X').should('be.visible');
     cy.findByText('C').should('not.be.visible');
-    cy.get('[aria-rowindex="1"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
+    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
     cy.findByText('A').should('be.visible');
     cy.findByText('X').should('be.visible');
     cy.findByText('C').should('not.be.visible');
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
+    cy.get('[aria-rowindex="3"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
     cy.findByText('A').should('be.visible');
     cy.findByText('X').should('be.visible');
     cy.findByText('C').should('not.be.visible');
@@ -2649,22 +2652,31 @@ describe('AnalyticalTable', () => {
     cy.get('[data-column-id="__ui5wcr__internal_selection_column"][role="columnheader"]')
       .find('[ui5-checkbox]')
       .should('not.exist');
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"][role="columnheader"]').should(
+      'have.attr',
+      'aria-label',
+      ' Selection Column',
+    );
+
     let selectCalled = 0;
     let clickCalled = 1;
     // colindex 1 === selection cell
     [1, 2].forEach((colNum) => {
       if (colNum === 1) {
-        cy.get(`[aria-rowindex="1"] > [aria-colindex="${colNum}"]`).should('have.attr', 'aria-disabled', 'true');
+        cy.get(`[aria-rowindex="2"] > [aria-colindex="${colNum}"]`)
+          .should('have.attr', 'aria-disabled', 'true')
+          .realPress('Space');
+        cy.get(`[aria-rowindex="2"] > [aria-colindex="${colNum}"]`).should('not.have.attr', 'aria-selected', 'true');
       }
-      cy.get(`[aria-rowindex="1"] > [aria-colindex="${colNum}"]`).should('not.have.attr', 'aria-label');
-      cy.get(`[aria-rowindex="1"] > [aria-colindex="${colNum}"]`).click({ force: true });
+      cy.get(`[aria-rowindex="2"] > [aria-colindex="${colNum}"]`).should('not.have.attr', 'aria-label');
+      cy.get(`[aria-rowindex="2"] > [aria-colindex="${colNum}"]`).click({ force: true });
       cy.get('@select').should('have.callCount', selectCalled);
       cy.get('@click').should('have.callCount', clickCalled);
       clickCalled++;
 
-      cy.get(`[aria-rowindex="2"] > [aria-colindex="${colNum}"]`).should('have.attr', 'aria-label');
-      cy.get(`[aria-rowindex="2"] > [aria-colindex="${colNum}"]`).should('not.have.attr', 'aria-disabled', 'true');
-      cy.get(`[aria-rowindex="2"] > [aria-colindex="${colNum}"]`).click({ force: true });
+      cy.get(`[aria-rowindex="3"] > [aria-colindex="${colNum}"]`).should('have.attr', 'aria-labelledby');
+      cy.get(`[aria-rowindex="3"] > [aria-colindex="${colNum}"]`).should('not.have.attr', 'aria-disabled', 'true');
+      cy.get(`[aria-rowindex="3"] > [aria-colindex="${colNum}"]`).click({ force: true });
       selectCalled++;
       cy.get('@select').should('have.callCount', selectCalled);
       cy.get('@click').should('have.callCount', clickCalled);
@@ -2774,9 +2786,30 @@ describe('AnalyticalTable', () => {
     };
     cy.mount(<AnalyticalTable columns={[...columns, customCellColumn]} data={data} groupable filterable sortable />);
 
-    cy.get('[data-visible-row-index="1"][data-visible-column-index="0"]').should('have.attr', 'aria-label', 'Name A ');
-    cy.get('[data-visible-row-index="1"][data-visible-column-index="1"]').should('have.attr', 'aria-label', 'Age 40 ');
-
+    cy.get('[data-visible-row-index="1"][data-visible-column-index="0"]')
+      .should('have.attr', 'aria-labelledby')
+      .then((labelledby) => {
+        const ids = labelledby.split(' ');
+        if (canUseVoiceOver) {
+          expect(ids).to.have.length(2);
+          expect(ids[1]).to.include('name');
+        } else {
+          expect(ids).to.have.length(1);
+        }
+        expect(ids[0]).to.include('name0');
+      });
+    cy.get('[data-visible-row-index="1"][data-visible-column-index="1"]')
+      .should('have.attr', 'aria-labelledby')
+      .then((labelledby) => {
+        const ids = labelledby.split(' ');
+        if (canUseVoiceOver) {
+          expect(ids).to.have.length(2);
+          expect(ids[1]).to.include('age');
+        } else {
+          expect(ids).to.have.length(1);
+        }
+        expect(ids[0]).to.include('age0');
+      });
     cy.findByText('Name').click();
     cy.get('[ui5-list]').clickUi5ListItemByText('Sort Ascending');
     cy.get('[data-column-id="name"]').should('have.attr', 'aria-sort', 'ascending');
@@ -2788,6 +2821,7 @@ describe('AnalyticalTable', () => {
     cy.get('[data-column-id="name"]').should('have.attr', 'aria-sort', 'descending');
     cy.findByText('Name').click();
     cy.get('[text="Sort Ascending"]').shadow().get('[ui5-input]').typeIntoUi5Input('A{enter}');
+
     cy.get('[data-column-id="name"]')
       .should('have.attr', 'aria-sort', 'descending')
       .and('have.attr', 'aria-label', 'Filtered');
@@ -2797,35 +2831,61 @@ describe('AnalyticalTable', () => {
     cy.get('[data-column-id="name"]')
       .should('have.attr', 'aria-sort', 'descending')
       .and('have.attr', 'aria-label', 'Filtered Grouped');
-    cy.get('[data-visible-row-index="1"][data-visible-column-index="0"]').should(
-      'have.attr',
-      'aria-label',
-      'Name A Grouped, To expand the row, press the spacebar.',
-    );
+    cy.get('[data-visible-row-index="1"][data-visible-column-index="0"]')
+      .should('have.attr', 'aria-labelledby')
+      .then((labelledby) => {
+        const ids = labelledby.split(' ');
+        if (canUseVoiceOver) {
+          expect(ids).to.have.length(2);
+          expect(ids[1]).to.include('name');
+        } else {
+          expect(ids).to.have.length(1);
+        }
+        expect(ids[0]).to.include('namename:A');
+      });
+    cy.get('[data-visible-row-index="1"][data-visible-column-index="0"]')
+      .should('have.attr', 'aria-describedby')
+      .then((labelledby) => {
+        expect(labelledby).to.include('cell-expand');
+      });
     cy.get('[name="navigation-right-arrow"]').click();
-    cy.get('[data-visible-row-index="1"][data-visible-column-index="0"]').should(
-      'have.attr',
-      'aria-label',
-      'Name A Grouped, To collapse the row, press the spacebar.',
-    );
     cy.findByText('Name').click();
     cy.get('[ui5-list]').clickUi5ListItemByText('Ungroup');
-    cy.get('[data-visible-row-index="1"][data-visible-column-index="0"]').should('have.attr', 'aria-label', 'Name A ');
+    cy.get('[data-visible-row-index="1"][data-visible-column-index="0"]')
+      .should('have.attr', 'aria-labelledby')
+      .then((labelledby) => {
+        const ids = labelledby.split(' ');
+        if (canUseVoiceOver) {
+          expect(ids).to.have.length(2);
+          expect(ids[1]).to.include('name');
+        } else {
+          expect(ids).to.have.length(1);
+        }
+        expect(ids[0]).to.include('name0');
+      });
     cy.get('[data-column-id="name"]')
       .should('have.attr', 'aria-sort', 'descending')
       .and('have.attr', 'aria-label', 'Filtered');
 
     cy.findByText('Name').click();
     cy.get('[text="Sort Ascending"]').shadow().get('[ui5-input]').typeIntoUi5Input('{selectall}{backspace}{enter}');
-    cy.get('[data-column-id="name"]').should('have.attr', 'aria-sort', 'descending').and('have.attr', 'aria-label', '');
+    cy.get('[data-column-id="name"]').should('have.attr', 'aria-sort', 'descending').and('not.have.attr', 'aria-label');
 
     cy.get('[data-column-id="friend.age"]').should('have.attr', 'aria-label', 'Custom Label ');
     cy.realPress('ArrowDown');
-    cy.get('[data-visible-row-index="1"][data-visible-column-index="3"]').should(
-      'have.attr',
-      'aria-label',
-      'Custom Label 42 ',
-    );
+
+    cy.get('[data-visible-row-index="1"][data-visible-column-index="3"]')
+      .should('have.attr', 'aria-labelledby')
+      .then((labelledby) => {
+        const ids = labelledby.split(' ');
+        if (canUseVoiceOver) {
+          expect(ids).to.have.length(2);
+          expect(ids[1]).to.include('friend.age');
+        } else {
+          expect(ids).to.have.length(1);
+        }
+        expect(ids[0]).to.include('friend.age2');
+      });
     cy.get('[data-visible-row-index="1"][data-visible-column-index="4"]').should(
       'have.attr',
       'aria-label',
@@ -3041,12 +3101,12 @@ describe('AnalyticalTable', () => {
     cy.get('[data-visible-column-index="0"][data-visible-row-index="0"]')
       .as('selAll')
       .should('have.attr', 'title', 'Select All')
-      .and('have.attr', 'aria-label', 'To select all rows, press the spacebar.')
+      .and('have.attr', 'aria-label', 'To select all rows, press the spacebar. Selection Column')
       .click();
 
     cy.get('@selAll').should('have.text', 'Select All');
     cy.get('@selAll').contains('Select All').should('not.be.visible');
-    cy.get('@selAll').should('have.attr', 'aria-label', 'To deselect all rows, press the spacebar.');
+    cy.get('@selAll').should('have.attr', 'aria-label', 'To deselect all rows, press the spacebar. Selection Column');
 
     cy.get('@selectSpy').should('have.been.calledOnce');
     cy.get('@selAll').should('have.attr', 'title', 'Deselect All');
@@ -3777,7 +3837,7 @@ describe('AnalyticalTable', () => {
     cy.findByText('root1-John').siblings().click();
     cy.findByText('Load more for root1-John').should('have.length', 1).click();
 
-    cy.get('[aria-rowindex="6"]').should('have.css', 'transform', 'matrix(1, 0, 0, 1, 0, 260)');
+    cy.get('[aria-rowindex="7"]').should('have.css', 'transform', 'matrix(1, 0, 0, 1, 0, 260)');
   });
 
   const dataWithEmptyFields = [
@@ -3798,8 +3858,23 @@ describe('AnalyticalTable', () => {
     },
   ];
   it('useAnnounceEmptyCells', () => {
+    const assertAriaLabelledby = (rowIndex: number, colIndex: number, colName: string, isEmpty = true) => {
+      cy.get(`[data-visible-row-index="${rowIndex}"][data-visible-column-index="${colIndex}"]`)
+        .should('have.attr', 'aria-labelledby')
+        .then((labelledby) => {
+          const ids = labelledby.split(' ');
+          expect(ids).to.have.length((isEmpty ? 3 : 2) + (!canUseVoiceOver ? -1 : 0));
+          expect(ids[0]).to.include(colName + '0');
+          if (canUseVoiceOver) {
+            expect(ids[1]).to.include(colName);
+          }
+          if (isEmpty) {
+            expect(ids[2 + (!canUseVoiceOver ? -1 : 0)]).to.include('empty');
+          }
+        });
+    };
     cy.mount(<AnalyticalTable data={dataWithEmptyFields} columns={columns} />);
-    cy.get('[data-visible-row-index="1"][data-visible-column-index="0"]').should('have.attr', 'aria-label', 'Name ');
+    assertAriaLabelledby(1, 0, 'name', false);
     cy.mount(
       <AnalyticalTable
         data={dataWithEmptyFields}
@@ -3807,23 +3882,22 @@ describe('AnalyticalTable', () => {
         tableHooks={[AnalyticalTableHooks.useAnnounceEmptyCells]}
       />,
     );
-    cy.get('[data-visible-row-index="1"][data-visible-column-index="0"]').should(
-      'have.attr',
-      'aria-label',
-      'Name  Empty',
-    );
-    cy.get('[data-visible-row-index="1"][data-visible-column-index="1"]').should('have.attr', 'aria-label', 'Age 0 ');
-    cy.get('[data-visible-row-index="1"][data-visible-column-index="2"]').should(
-      'have.attr',
-      'aria-label',
-      'Friend Name  Empty',
-    );
-    cy.get('[data-visible-row-index="1"][data-visible-column-index="3"]').should(
-      'have.attr',
-      'aria-label',
-      'Custom Label  Empty',
-    );
-    cy.get('[data-visible-row-index="2"][data-visible-column-index="0"]').should('have.attr', 'aria-label', 'Name A ');
+    assertAriaLabelledby(1, 0, 'name');
+    assertAriaLabelledby(1, 1, 'age', false);
+    assertAriaLabelledby(1, 2, 'friend.name');
+    assertAriaLabelledby(1, 3, 'friend.age');
+    cy.get('[data-visible-row-index="2"][data-visible-column-index="0"]')
+      .should('have.attr', 'aria-labelledby')
+      .then((labelledby) => {
+        const ids = labelledby.split(' ');
+        if (canUseVoiceOver) {
+          expect(ids).to.have.length(2);
+          expect(ids[1]).to.include('name');
+        } else {
+          expect(ids).to.have.length(1);
+        }
+        expect(ids[0]).to.include('name1');
+      });
   });
 
   it('custom header popover', () => {
