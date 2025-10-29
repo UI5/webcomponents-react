@@ -1,6 +1,6 @@
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import paperPlaneIcon from '@ui5/webcomponents-icons/paper-plane.js';
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import { useCallback, useEffect, useMemo, useRef, useState, version as reactVersion } from 'react';
 import type {
   AnalyticalTableCellInstance,
@@ -80,6 +80,9 @@ import { useRowDisableSelection } from './pluginHooks/useRowDisableSelection';
 import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import type { RowType } from '@/packages/main/src/components/AnalyticalTable/types/index.js';
 import { getUi5TagWithSuffix } from '@/packages/main/src/internal/utils.js';
+import { isIOS, isMac } from '@ui5/webcomponents-react-base/Device';
+
+const canUseVoiceOver = isIOS() || isMac();
 
 const generateMoreData = (count) => {
   return new Array(count).fill('').map((item, index) => ({
@@ -2787,17 +2790,25 @@ describe('AnalyticalTable', () => {
       .should('have.attr', 'aria-labelledby')
       .then((labelledby) => {
         const ids = labelledby.split(' ');
-        expect(ids).to.have.length(2);
+        if (canUseVoiceOver) {
+          expect(ids).to.have.length(2);
+          expect(ids[1]).to.include('name');
+        } else {
+          expect(ids).to.have.length(1);
+        }
         expect(ids[0]).to.include('name0');
-        expect(ids[1]).to.include('name');
       });
     cy.get('[data-visible-row-index="1"][data-visible-column-index="1"]')
       .should('have.attr', 'aria-labelledby')
       .then((labelledby) => {
         const ids = labelledby.split(' ');
-        expect(ids).to.have.length(2);
+        if (canUseVoiceOver) {
+          expect(ids).to.have.length(2);
+          expect(ids[1]).to.include('age');
+        } else {
+          expect(ids).to.have.length(1);
+        }
         expect(ids[0]).to.include('age0');
-        expect(ids[1]).to.include('age');
       });
     cy.findByText('Name').click();
     cy.get('[ui5-list]').clickUi5ListItemByText('Sort Ascending');
@@ -2824,9 +2835,13 @@ describe('AnalyticalTable', () => {
       .should('have.attr', 'aria-labelledby')
       .then((labelledby) => {
         const ids = labelledby.split(' ');
-        expect(ids).to.have.length(2);
+        if (canUseVoiceOver) {
+          expect(ids).to.have.length(2);
+          expect(ids[1]).to.include('name');
+        } else {
+          expect(ids).to.have.length(1);
+        }
         expect(ids[0]).to.include('namename:A');
-        expect(ids[1]).to.include('name');
       });
     cy.get('[data-visible-row-index="1"][data-visible-column-index="0"]')
       .should('have.attr', 'aria-describedby')
@@ -2840,9 +2855,13 @@ describe('AnalyticalTable', () => {
       .should('have.attr', 'aria-labelledby')
       .then((labelledby) => {
         const ids = labelledby.split(' ');
-        expect(ids).to.have.length(2);
+        if (canUseVoiceOver) {
+          expect(ids).to.have.length(2);
+          expect(ids[1]).to.include('name');
+        } else {
+          expect(ids).to.have.length(1);
+        }
         expect(ids[0]).to.include('name0');
-        expect(ids[1]).to.include('name');
       });
     cy.get('[data-column-id="name"]')
       .should('have.attr', 'aria-sort', 'descending')
@@ -2859,9 +2878,13 @@ describe('AnalyticalTable', () => {
       .should('have.attr', 'aria-labelledby')
       .then((labelledby) => {
         const ids = labelledby.split(' ');
-        expect(ids).to.have.length(2);
+        if (canUseVoiceOver) {
+          expect(ids).to.have.length(2);
+          expect(ids[1]).to.include('friend.age');
+        } else {
+          expect(ids).to.have.length(1);
+        }
         expect(ids[0]).to.include('friend.age2');
-        expect(ids[1]).to.include('friend.age');
       });
     cy.get('[data-visible-row-index="1"][data-visible-column-index="4"]').should(
       'have.attr',
@@ -3840,11 +3863,13 @@ describe('AnalyticalTable', () => {
         .should('have.attr', 'aria-labelledby')
         .then((labelledby) => {
           const ids = labelledby.split(' ');
-          expect(ids).to.have.length(isEmpty ? 3 : 2);
+          expect(ids).to.have.length((isEmpty ? 3 : 2) + (!canUseVoiceOver ? -1 : 0));
           expect(ids[0]).to.include(colName + '0');
-          expect(ids[1]).to.include(colName);
+          if (canUseVoiceOver) {
+            expect(ids[1]).to.include(colName);
+          }
           if (isEmpty) {
-            expect(ids[2]).to.include('empty');
+            expect(ids[2 + (!canUseVoiceOver ? -1 : 0)]).to.include('empty');
           }
         });
     };
@@ -3865,9 +3890,13 @@ describe('AnalyticalTable', () => {
       .should('have.attr', 'aria-labelledby')
       .then((labelledby) => {
         const ids = labelledby.split(' ');
-        expect(ids).to.have.length(2);
+        if (canUseVoiceOver) {
+          expect(ids).to.have.length(2);
+          expect(ids[1]).to.include('name');
+        } else {
+          expect(ids).to.have.length(1);
+        }
         expect(ids[0]).to.include('name1');
-        expect(ids[1]).to.include('name');
       });
   });
 
