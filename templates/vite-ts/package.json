@@ -17,21 +17,21 @@
     "@ui5/webcomponents-fiori": "2.15.1",
     "@ui5/webcomponents-icons": "2.15.1",
     "@ui5/webcomponents-react": "2.15.3",
-    "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
   },
   "devDependencies": {
-    "@types/react": "19.1.17",
-    "@types/react-dom": "19.1.11",
-    "@vitejs/plugin-react": "5.0.4",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@vitejs/plugin-react": "5.1.0",
     "@ui5/webcomponents-cypress-commands": "2.15.3",
-    "cypress": "15.2.0",
-    "eslint": "9.36.0",
+    "cypress": "15.5.0",
+    "eslint": "9.38.0",
     "eslint-plugin-react-hooks": "6.1.1",
-    "eslint-plugin-react-refresh": "0.4.23",
+    "eslint-plugin-react-refresh": "0.4.24",
     "globals": "16.4.0",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.44.1",
-    "vite": "7.1.11"
+    "typescript-eslint": "8.46.2",
+    "vite": "7.1.12"
   }
 }
