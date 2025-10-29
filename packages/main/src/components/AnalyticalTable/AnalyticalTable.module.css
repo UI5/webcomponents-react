@@ -40,17 +40,6 @@
   font-size: var(--sapFontSize);
   font-weight: normal;
   background-color: var(--sapList_Background);
-
-  /*  bottom border*/
-  &::after {
-    content: '';
-    position: absolute;
-    inset-block-end: 0;
-    inset-inline-start: 0;
-    height: var(--_ui5wcr-AnalyticalTable-HeaderBorderWidth);
-    width: 100%;
-    background: var(--sapList_HeaderBorderColor);
-  }
 }
 
 .busyIndicator {
@@ -148,6 +137,17 @@
   overflow-y: auto;
   scrollbar-width: none;
   box-sizing: border-box;
+
+  /*  bottom border*/
+  &::after {
+    content: '';
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    height: var(--_ui5wcr-AnalyticalTable-HeaderBorderWidth);
+    width: 100%;
+    background: var(--sapList_HeaderBorderColor);
+  }
 }
 
 .alternateRowColor {
