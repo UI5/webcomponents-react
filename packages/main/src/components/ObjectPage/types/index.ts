@@ -110,7 +110,7 @@ export interface ObjectPagePropTypes extends Omit<CommonProps, 'placeholder'> {
     //todo: rename in next major version to better reflect what part of the ObjectPage it describes
     objectPageAnchorBar?: {
       expandButton?: {
-        expanded?: ButtonPropTypes['accessibilityAttributes']['expanded'] | undefined;
+        expanded?: NonNullable<ButtonPropTypes['accessibilityAttributes']>['expanded'] | undefined;
         accessibleName?: ButtonPropTypes['accessibleName'];
       };
       role?: string;
