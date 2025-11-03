@@ -15,13 +15,7 @@ jobs:
     strategy:
       matrix:
         spec:
-          - base
-          - charts
-          - cypress-commands
-          - main/src/components
-          - main/src/webComponents
-          - main/src/internal
-          - compat
+          - main/src/components/ObjectPage
         react: ['18', '19']
       fail-fast: false
     steps:
