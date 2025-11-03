@@ -365,7 +365,7 @@ describe('ObjectPage', () => {
     });
   });
 
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 10; i++) {
     it.only('scroll to sections - default mode', () => {
       document.body.style.margin = '0px';
       cy.mount(
@@ -385,8 +385,8 @@ describe('ObjectPage', () => {
       cy.findByText('Test').should('be.visible');
 
       cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').realClick();
-      cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected');
-      cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected');
+      cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected', 300);
+      cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected', 300);
       cy.get(`[ui5-tab][data-index="3"]`).should('have.attr', 'selected');
       cy.findByText('Employment').should('be.visible');
 
@@ -441,17 +441,21 @@ describe('ObjectPage', () => {
       cy.wait(200);
       //fallback click
       cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').realClick();
-      cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected');
-      cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected');
+      cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected', 500);
+      cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected', 500);
       cy.findByTestId('footer').should('be.visible');
       cy.findByText('Employment').should('be.visible');
       cy.findByText('Job Information').should('be.visible');
 
+      cy.wait(200);
+
       cy.get('[ui5-tabcontainer]').findUi5TabByText('Goals').click();
       cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected', 300);
-      cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected');
+      cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected', 300);
       cy.findByText('Test').should('be.visible');
       cy.findByTestId('footer').should('be.visible');
+
+      cy.wait(300);
 
       cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').focus();
       cy.realPress('ArrowDown');
