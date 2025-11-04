@@ -35,7 +35,6 @@ interface VirtualTableBodyProps {
   subRowsKey: string;
   scrollContainerRef?: MutableRefObject<HTMLDivElement>;
   triggerScroll?: TriggerScrollState;
-  scrollToRef: MutableRefObject<ReactVirtualScrollToMethods>;
   rowVirtualizer: Virtualizer<DivWithCustomScrollProp, HTMLElement>;
 }
 
@@ -54,7 +53,6 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
     classes,
     prepareRow,
     rows,
-    scrollToRef,
     isTreeTable,
     internalRowHeight,
     visibleColumns,
@@ -75,12 +73,6 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
 
   const rowHeight = popInRowHeight !== internalRowHeight ? popInRowHeight : internalRowHeight;
   const lastNonEmptyRow = useRef(null);
-
-  scrollToRef.current = {
-    ...scrollToRef.current,
-    scrollToOffset: rowVirtualizer.scrollToOffset,
-    scrollToIndex: rowVirtualizer.scrollToIndex,
-  };
 
   useEffect(() => {
     if (triggerScroll && triggerScroll.direction === 'vertical') {

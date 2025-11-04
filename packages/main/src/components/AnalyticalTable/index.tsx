@@ -368,13 +368,6 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     }
   }, [tableState.groupBy, tableState.columnOrder]);
 
-  if (parentRef.current) {
-    scrollToRef.current = {
-      ...scrollToRef.current,
-      horizontalScrollToOffset: columnVirtualizer.scrollToOffset,
-      horizontalScrollToIndex: columnVirtualizer.scrollToIndex,
-    };
-  }
   useEffect(() => {
     if (triggerScroll && triggerScroll.direction === 'horizontal') {
       if (triggerScroll.type === 'offset') {
@@ -726,6 +719,16 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   // add range to instance for `useAutoResize` plugin hook
   tableInstanceRef.current.virtualRowsRange = rowVirtualizer.range;
 
+  if (parentRef.current) {
+    scrollToRef.current = {
+      ...scrollToRef.current,
+      horizontalScrollToOffset: columnVirtualizer.scrollToOffset,
+      horizontalScrollToIndex: columnVirtualizer.scrollToIndex,
+      scrollToOffset: rowVirtualizer.scrollToOffset,
+      scrollToIndex: rowVirtualizer.scrollToIndex,
+    };
+  }
+
   return (
     <div
       className={className}
@@ -854,7 +857,6 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                 classes={classNames}
                 prepareRow={prepareRow}
                 rows={rows}
-                scrollToRef={scrollToRef}
                 isTreeTable={isTreeTable}
                 internalRowHeight={internalRowHeight}
                 popInRowHeight={popInRowHeight}
