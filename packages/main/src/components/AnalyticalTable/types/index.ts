@@ -368,8 +368,14 @@ interface PopoverProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
   /**
    * React Ref that holds the reference to the respective table header element.
+   *
+   * @deprecated Use `openerId` instead.
    */
   openerRef: MutableRefObject<HTMLDivElement>;
+  /**
+   * ID of the respective table header element that opens the popover.
+   */
+  openerId: string;
 }
 
 export interface TableInstanceWithPopoverProps extends TableInstance {

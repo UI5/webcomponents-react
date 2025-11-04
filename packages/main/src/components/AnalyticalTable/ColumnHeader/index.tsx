@@ -176,6 +176,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
   if (!column) return null;
   return (
     <div
+      id={`${id}-opener`}
       ref={columnHeaderRef}
       className={clsx(classNames.thContainer, showVerticalEndBorder && classNames.verticalEndBorder)}
       style={{
@@ -276,9 +277,12 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
         {hasPopover &&
           popoverOpen &&
           // render the popover and add the props to the table instance
+          // todo: remove openerRef in v3.0.0
+          // eslint-disable-next-line react-hooks/refs
           column.render(RenderColumnTypes.Popover, {
             popoverProps: {
               openerRef: columnHeaderRef,
+              openerId: `${id}-opener`,
               setOpen: setPopoverOpen,
             },
           })}

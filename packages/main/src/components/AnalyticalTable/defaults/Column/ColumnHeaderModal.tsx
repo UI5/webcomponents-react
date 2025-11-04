@@ -34,7 +34,7 @@ import type { TableInstanceWithPopoverProps } from '../../types/index.js';
 import { RenderColumnTypes } from '../../types/index.js';
 
 export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
-  const { setOpen, openerRef } = instance.popoverProps;
+  const { setOpen, openerRef, openerId } = instance.popoverProps;
   const { column, state, webComponentsReactProperties } = instance;
   const { isRtl, groupBy } = state;
   const { onGroup, onSort, classes: classNames } = webComponentsReactProperties;
@@ -174,10 +174,14 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
         ref.current.open = true;
       });
     }
-  }, []);
+  }, [openerRef]);
 
   return (
     <Popover
+      // todo: remove openerRef in v3.0.0
+      // eslint-disable-next-line react-hooks/refs
+      opener={openerId ?? openerRef.current}
+      open={openerId ? true : undefined}
       hideArrow
       horizontalAlign={horizontalAlign}
       placement={PopoverPlacement.Bottom}
