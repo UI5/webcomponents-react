@@ -6,7 +6,6 @@ import type {
   AnalyticalTablePropTypes,
   ClassNames,
   DivWithCustomScrollProp,
-  ReactVirtualScrollToMethods,
   TableInstance,
   TriggerScrollState,
 } from '../types/index.js';
@@ -104,6 +103,8 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
         width: `${columnVirtualizer.getTotalSize()}px`,
       }}
     >
+      {/* Safe to update: lastNonEmptyRow ref holds non-render data only.*/}
+      {/* eslint-disable-next-line react-hooks/refs */}
       {rowVirtualizer.getVirtualItems().map((virtualRow, visibleRowIndex) => {
         const row = rows[virtualRow.index];
         const rowIndexWithHeader = virtualRow.index + 1;

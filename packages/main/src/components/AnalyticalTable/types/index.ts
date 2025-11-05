@@ -294,13 +294,6 @@ export interface TriggerScrollState {
   args: [number, Omit<ScrollToOptions, 'behavior'>?];
 }
 
-export interface ReactVirtualScrollToMethods {
-  scrollToOffset?: (offset: number, options?: ScrollToOptions) => void;
-  scrollToIndex?: (index: number, options?: ScrollToOptions) => void;
-  horizontalScrollToOffset?: (offset: number, options?: ScrollToOptions) => void;
-  horizontalScrollToIndex?: (index: number, options?: ScrollToOptions) => void;
-}
-
 interface PopInColumnsState {
   id: string;
   column: ColumnType;

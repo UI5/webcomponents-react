@@ -541,12 +541,6 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     }
   }, [selectedRowIds]);
 
-  useEffect(() => {
-    if (tableState?.interactiveRowsHavePopIn && (!tableState?.popInColumns || tableState?.popInColumns?.length === 0)) {
-      dispatch({ type: 'WITH_POPIN', payload: false });
-    }
-  }, [tableState?.interactiveRowsHavePopIn, tableState?.popInColumns?.length]);
-
   const tableBodyHeight = useMemo(() => {
     if (typeof tableState.bodyHeight === 'number') {
       return tableState.bodyHeight;
@@ -895,7 +889,6 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
           analyticalTableRef={analyticalTableRef}
           dispatch={dispatch}
           extensionsHeight={extensionsHeight}
-          internalRowHeight={internalRowHeight}
           rowsLength={rows.length}
           visibleRows={internalVisibleRowCount}
           handleOnLoadMore={handleOnLoadMore}

@@ -9,7 +9,6 @@ interface VerticalResizerProps {
   analyticalTableRef: MutableRefObject<any>;
   dispatch: (e: { type: string; payload?: any }) => void;
   extensionsHeight: number;
-  internalRowHeight: number;
   hasPopInColumns: boolean;
   popInRowHeight: number;
   rowsLength: number;
@@ -30,7 +29,6 @@ export const VerticalResizer = (props: VerticalResizerProps) => {
     analyticalTableRef,
     dispatch,
     extensionsHeight,
-    internalRowHeight,
     hasPopInColumns,
     popInRowHeight,
     rowsLength,
@@ -47,16 +45,13 @@ export const VerticalResizer = (props: VerticalResizerProps) => {
 
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
 
-  const handleResizeStart = useCallback(
-    (e) => {
-      e.preventDefault();
-      const touchEvent = isTouchEvent(e, 'touchstart');
-      startY.current = touchEvent ? Math.round(e.touches[0].pageY) : e.pageY;
-      setMountTouchEvents(touchEvent);
-      setIsDragging(true);
-    },
-    [startY.current, setIsDragging],
-  );
+  const handleResizeStart = useCallback((e) => {
+    e.preventDefault();
+    const touchEvent = isTouchEvent(e, 'touchstart');
+    startY.current = touchEvent ? Math.round(e.touches[0].pageY) : e.pageY;
+    setMountTouchEvents(touchEvent);
+    setIsDragging(true);
+  }, []);
 
   const handleMove = useCallback(
     (e) => {
@@ -67,27 +62,27 @@ export const VerticalResizer = (props: VerticalResizerProps) => {
     },
     [setResizerPosition],
   );
-  const handleResizeEnd = useCallback(
-    (e) => {
-      setIsDragging(false);
-      const rowCount = Math.floor(
-        (analyticalTableRef.current.clientHeight +
-          (isTouchEvent(e, 'touchend') ? Math.round(e.changedTouches[0].pageY) : e.pageY) -
-          startY.current -
-          extensionsHeight -
-          5) /*resizer height*/ /
-          popInRowHeight,
-      );
-      if (hasPopInColumns) {
-        dispatch({ type: 'INTERACTIVE_ROWS_HAVE_POPIN', payload: true });
-      }
-      dispatch({
-        type: 'VISIBLE_ROWS',
-        payload: { visibleRows: rowCount },
-      });
-    },
-    [analyticalTableRef.current?.clientHeight, startY.current, extensionsHeight, internalRowHeight, dispatch],
-  );
+  const handleResizeEnd = (e: TouchEvent | MouseEvent) => {
+    setIsDragging(false);
+    const rowCount = Math.floor(
+      (analyticalTableRef.current.clientHeight +
+        (isTouchEvent(e, 'touchend')
+          ? Math.round((e as TouchEvent).changedTouches[0].pageY)
+          : (e as MouseEvent).pageY) -
+        startY.current -
+        extensionsHeight -
+        5) /*resizer height*/ /
+        popInRowHeight,
+    );
+    if (hasPopInColumns) {
+      dispatch({ type: 'INTERACTIVE_ROWS_HAVE_POPIN', payload: true });
+    }
+    dispatch({
+      type: 'VISIBLE_ROWS',
+      payload: { visibleRows: rowCount },
+    });
+  };
+
   useEffect(() => {
     const removeEventListeners = () => {
       if (mountTouchEvents) {
@@ -119,15 +114,11 @@ export const VerticalResizer = (props: VerticalResizerProps) => {
     const resizerPosLeft = verticalResizerRef.current?.getBoundingClientRect()?.left + window.scrollX;
     const resizerPosWidth = verticalResizerRef.current?.getBoundingClientRect()?.width;
     if (!isDragging && resizerPosTop > 0) {
-      setResizerPosition({ left: resizerPosLeft, top: resizerPosTop, width: resizerPosWidth });
+      requestAnimationFrame(() => {
+        setResizerPosition({ left: resizerPosLeft, top: resizerPosTop, width: resizerPosWidth });
+      });
     }
-  }, [verticalResizerRef.current?.getBoundingClientRect()?.top, isDragging]);
-
-  useEffect(() => {
-    return () => {
-      dispatch({ type: 'WITH_POPIN', payload: false });
-    };
-  }, []);
+  }, [isDragging]);
 
   const isInitial = useRef(true);
   useEffect(() => {

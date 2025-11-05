@@ -68,6 +68,7 @@ const useGetTableProps = (
   { instance: { webComponentsReactProperties, data, columns, state } }: { instance: TableInstance },
 ) => {
   const { showOverlay, tableRef } = webComponentsReactProperties;
+  const { isRtl } = state;
   const currentlyFocusedCell = useRef<HTMLElement>(null);
   const noData = data.length === 0;
 
@@ -153,12 +154,11 @@ const useGetTableProps = (
         }
       }
     },
-    [currentlyFocusedCell.current, tableRef.current, noData],
+    [noData, tableRef],
   );
 
   const onKeyboardNavigation = useCallback(
     (e) => {
-      const { isRtl } = state;
       const isActiveItemInSubComponent = Object.prototype.hasOwnProperty.call(
         e.target.dataset,
         'subcomponentActiveElement',
@@ -284,6 +284,8 @@ const useGetTableProps = (
             );
             if (hasSubcomponent && !currentlyFocusedCell.current?.dataset?.subcomponent) {
               currentlyFocusedCell.current.tabIndex = -1;
+              // Happens outside of React's scope
+              // eslint-disable-next-line react-hooks/immutability
               firstChildOfParent.tabIndex = 0;
               firstChildOfParent.dataset.rowIndexSub = `${rowIndex}`;
               firstChildOfParent.dataset.columnIndexSub = `${columnIndex}`;
@@ -325,7 +327,7 @@ const useGetTableProps = (
         }
       }
     },
-    [currentlyFocusedCell.current, tableRef.current, state?.isRtl],
+    [isRtl, tableRef],
   );
   if (showOverlay) {
     return tableProps;
