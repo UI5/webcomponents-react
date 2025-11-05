@@ -1,8 +1,9 @@
 'use client';
 
 import '@ui5/webcomponents-fiori/dist/SearchItemShowMore.js';
+import type { ShowMoreItemClickEventDetail } from '@ui5/webcomponents-fiori/dist/SearchItemShowMore.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
+import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 interface SearchItemShowMoreAttributes {
   /**
@@ -24,7 +25,19 @@ interface SearchItemShowMoreDomRef extends Required<SearchItemShowMoreAttributes
 
 interface SearchItemShowMorePropTypes
   extends SearchItemShowMoreAttributes,
-    Omit<CommonProps, keyof SearchItemShowMoreAttributes> {}
+    Omit<CommonProps, keyof SearchItemShowMoreAttributes | 'onClick'> {
+  /**
+   * Fired when the component is activated, either with a mouse/tap
+   * or by pressing the Enter or Space keys.
+   *
+   * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ✅|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<SearchItemShowMoreDomRef, ShowMoreItemClickEventDetail>) => void;
+}
 
 /**
  * A `SearchItemShowMore` is a special type of ui5-li that acts as a button to progressively reveal additional (overflow) items within a group.
@@ -41,7 +54,7 @@ const SearchItemShowMore = withWebComponent<SearchItemShowMorePropTypes, SearchI
   ['itemsToShowCount'],
   ['selected'],
   [],
-  [],
+  ['click'],
 );
 
 SearchItemShowMore.displayName = 'SearchItemShowMore';

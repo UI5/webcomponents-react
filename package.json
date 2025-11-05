@@ -21,7 +21,7 @@
     "prettier:all": "prettier --write --config ./prettier.config.js \"**/*\"",
     "lint": "eslint .",
     "lerna:version-dryrun": "lerna version --conventional-graduate --no-git-tag-version --no-push",
-    "wrappers:main": "WITH_WEB_COMPONENT_DOCS_LINK='true' node packages/cli/dist/bin/index.js create-wrappers --packageName '@ui5/webcomponents --out ./packages/main/src/webComponents",
+    "wrappers:main": "WITH_WEB_COMPONENT_DOCS_LINK='true' node packages/cli/dist/bin/index.js create-wrappers --packageName '@ui5/webcomponents' --out ./packages/main/src/webComponents",
     "wrappers:fiori": "WITH_WEB_COMPONENT_DOCS_LINK='true' node packages/cli/dist/bin/index.js create-wrappers --packageName @ui5/webcomponents-fiori --out ./packages/main/src/webComponents",
     "wrappers:compat": "WITH_WEB_COMPONENT_DOCS_LINK='true' WITH_WEB_COMPONENT_IMPORT_PATH='@ui5/webcomponents-react-base/withWebComponent' node packages/cli/dist/bin/index.js create-wrappers --packageName @ui5/webcomponents-compat --out ./packages/compat/src/components && prettier --log-level silent --write ./packages/compat/src/components",
     "wrappers:ai": "WITH_WEB_COMPONENT_DOCS_LINK='true' node packages/cli/dist/bin/index.js create-wrappers --packageName @ui5/webcomponents-ai --out ./packages/ai/src/components && prettier --log-level silent --write ./packages/ai/src/components",

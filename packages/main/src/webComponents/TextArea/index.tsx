@@ -8,6 +8,22 @@ import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui
 
 interface TextAreaAttributes {
   /**
+   * Defines the accessible description of the component.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleDescription?: string | undefined;
+
+  /**
+   * Receives id(or many ids) of the elements that describe the textarea.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleDescriptionRef?: string | undefined;
+
+  /**
    * Defines the accessible ARIA name of the component.
    * @default undefined
    */
@@ -197,6 +213,8 @@ interface TextAreaPropTypes
 const TextArea = withWebComponent<TextAreaPropTypes, TextAreaDomRef>(
   'ui5-textarea',
   [
+    'accessibleDescription',
+    'accessibleDescriptionRef',
     'accessibleName',
     'accessibleNameRef',
     'growingMaxRows',

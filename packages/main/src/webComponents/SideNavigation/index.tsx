@@ -17,6 +17,12 @@ interface SideNavigationAttributes {
 
   /**
    * Defines whether the `SideNavigation` is expanded or collapsed.
+   *
+   * **Note:** The collapsed mode is not supported on phones.
+   * The `SideNavigation` component is intended to be used within a `NavigationLayout`
+   * component to ensure proper responsive behavior. If you choose not to use the
+   * `NavigationLayout`, you will need to implement the appropriate responsive patterns yourself,
+   * particularly for phones where the collapsed mode should not be used.
    * @default false
    */
   collapsed?: boolean;

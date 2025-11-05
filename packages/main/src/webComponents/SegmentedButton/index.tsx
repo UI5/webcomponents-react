@@ -44,6 +44,17 @@ interface SegmentedButtonAttributes {
   accessibleNameRef?: string | undefined;
 
   /**
+   * Determines whether the segmented button items should be sized to fit their content.
+   *
+   * If set to `true`, each item will be sized to fit its content, with any extra space distributed after the last item.
+   * If set to `false` (the default), all items will be equally sized to fill the available space.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents**.
+   * @default false
+   */
+  itemsFitContent?: boolean;
+
+  /**
    * Defines the component selection mode.
    *
    * **Note:** Available since [v1.14.0](https://github.com/UI5/webcomponents/releases/tag/v1.14.0) of **@ui5/webcomponents**.
@@ -97,7 +108,7 @@ interface SegmentedButtonPropTypes
 const SegmentedButton = withWebComponent<SegmentedButtonPropTypes, SegmentedButtonDomRef>(
   'ui5-segmented-button',
   ['accessibleDescription', 'accessibleDescriptionRef', 'accessibleName', 'accessibleNameRef', 'selectionMode'],
-  [],
+  ['itemsFitContent'],
   [],
   ['selection-change'],
 );

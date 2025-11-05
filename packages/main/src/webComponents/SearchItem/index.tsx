@@ -49,7 +49,27 @@ interface SearchItemDomRef extends Required<SearchItemAttributes>, Ui5DomRef {}
 
 interface SearchItemPropTypes
   extends SearchItemAttributes,
-    Omit<CommonProps, keyof SearchItemAttributes | 'image' | 'onDelete'> {
+    Omit<CommonProps, keyof SearchItemAttributes | 'actions' | 'image' | 'onDelete'> {
+  /**
+   * Defines the actionable elements.
+   * This slot allows placing additional interactive elements (such as buttons, icons, or tags)
+   * next to the delete button, providing flexible customization for various user actions.
+   *
+   * **Note:** While the slot is flexible, for consistency with design guidelines,
+   * it's recommended to use `ui5-button` with `Transparent` design or `ui5-icon` elements.
+   *
+   * __Note:__ The content of the prop will be rendered into a [&lt;slot&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) by assigning the respective [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) attribute (`slot="actions"`).
+   * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
+   *
+   * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
+   */
+  actions?: UI5WCSlotsNode;
+
   /**
    * **Note:** While the slot allows the option of setting a custom avatar, to comply with the
    * design guidelines, use the `ui5-avatar` with size - XS.
@@ -89,7 +109,7 @@ const SearchItem = withWebComponent<SearchItemPropTypes, SearchItemDomRef>(
   'ui5-search-item',
   ['description', 'icon', 'scopeName', 'text'],
   ['deletable', 'selected'],
-  ['image'],
+  ['actions', 'image'],
   ['delete'],
 );
 

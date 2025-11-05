@@ -112,7 +112,6 @@ interface CarouselDomRef extends Required<CarouselAttributes>, Ui5DomRef {
   /**
    * Changes the currently displayed page.
    * @param {number} itemIndex - The index of the target page
-   * @returns {void}
    */
   navigateTo: (itemIndex: number) => void;
 
@@ -127,6 +126,9 @@ interface CarouselPropTypes
     Omit<CommonProps, keyof CarouselAttributes | 'children' | 'onNavigate'> {
   /**
    * Defines the content of the component.
+   *
+   * **Note:** Items with the `hidden` attribute will be automatically excluded from carousel navigation and page calculations.
+   * They will not be displayed or accessible via keyboard navigation. See [sample](./#carousel-with-hidden-items).
    *
    * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
@@ -163,6 +165,12 @@ interface CarouselPropTypes
  *
  * - The items you want to display need to be visible at the same time.
  * - The items you want to display are uniform and very similar.
+ *
+ * ### Hidden Items
+ *
+ * Carousel items can be conditionally hidden by adding the `hidden` attribute to any child element.
+ * Hidden items are automatically excluded from carousel navigation and will not be displayed or counted in pagination.
+ * This allows for dynamic showing or hiding of carousel items without affecting the overall carousel behavior.
  *
  * ### Keyboard Handling
  *

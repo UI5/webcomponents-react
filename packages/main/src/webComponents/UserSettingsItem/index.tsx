@@ -67,23 +67,23 @@ interface UserSettingsItemDomRef extends Required<UserSettingsItemAttributes>, U
 
 interface UserSettingsItemPropTypes
   extends UserSettingsItemAttributes,
-    Omit<CommonProps, keyof UserSettingsItemAttributes | 'children' | 'pages' | 'onSelectionChange'> {
-  /**
-   * Defines the tab views of the user settings item.
-   *
-   * The tab views are displayed by default if there is no selected page view.
-   *
-   * __Supported Node Type/s:__ `Array<UserSettingsView>`
-   */
-  children?: ReactNode | ReactNode[];
-
+    Omit<CommonProps, keyof UserSettingsItemAttributes | 'children' | 'tabs' | 'onSelectionChange'> {
   /**
    * Defines the page views of the user settings item.
    *
    * If there are no tab views, the first page view will be shown unless there is selected one. If there is selected page
    * view it will be shown no matter if there are tab views.
    *
-   * __Note:__ The content of the prop will be rendered into a [&lt;slot&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) by assigning the respective [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) attribute (`slot="pages"`).
+   * The page views are displayed by default if there is no selected tab view.
+   *
+   * __Supported Node Type/s:__ `Array<UserSettingsView>`
+   */
+  children?: ReactNode | ReactNode[];
+
+  /**
+   * Defines the tab views of the user settings item.
+   *
+   * __Note:__ The content of the prop will be rendered into a [&lt;slot&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) by assigning the respective [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) attribute (`slot="tabs"`).
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
    * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
@@ -91,7 +91,7 @@ interface UserSettingsItemPropTypes
    *
    * __Supported Node Type/s:__ `Array<UserSettingsView>`
    */
-  pages?: UI5WCSlotsNode;
+  tabs?: UI5WCSlotsNode;
   /**
    * Fired when a selected view changed.
    *
@@ -123,7 +123,7 @@ const UserSettingsItem = withWebComponent<UserSettingsItemPropTypes, UserSetting
   'ui5-user-settings-item',
   ['accessibleName', 'headerText', 'icon', 'loadingReason', 'text', 'tooltip'],
   ['disabled', 'loading', 'selected'],
-  ['pages'],
+  ['tabs'],
   ['selection-change'],
 );
 
