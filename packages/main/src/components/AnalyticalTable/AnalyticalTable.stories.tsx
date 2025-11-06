@@ -66,7 +66,7 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
     },
     {
       Header: () => <span>Friend Age</span>,
-      headerLabel: 'Friend Age',
+      headerLabel: 'Custom Header Label',
       accessor: 'friend.age',
       autoResizable: true,
       hAlign: TextAlign.End,

@@ -220,16 +220,21 @@ export interface TableInstance {
 }
 
 export interface WCRPropertiesType {
+  canUseVoiceOver: boolean;
   fontsReady: boolean;
+  isFirefox: boolean;
   selectionMode: AnalyticalTablePropTypes['selectionMode'];
   onRowSelect?: AnalyticalTablePropTypes['onRowSelect'];
+  a11yElementIds: {
+    cellSelectDescId: string;
+    cellUnselectDescId: string;
+    cellExpandDescId: string;
+    cellCollapseDescId: string;
+    cellEmptyDescId: string;
+  };
   translatableTexts: {
     selectAllText: string;
     deselectAllText: string;
-    expandA11yText: string;
-    collapseA11yText: string;
-    selectA11yText: string;
-    unselectA11yText: string;
     expandNodeA11yText: string;
     collapseNodeA11yText: string;
     filteredA11yText: string;
@@ -238,6 +243,9 @@ export interface WCRPropertiesType {
     deselectAllA11yText: string;
     rowExpandedAnnouncementText: string;
     rowCollapsedAnnouncementText: string;
+    selectionHeaderCellText: string;
+    highlightHeaderCellText: string;
+    navigationHeaderCellText: string;
   };
   tagNamesWhichShouldNotSelectARow: Set<string>;
   tableRef: MutableRefObject<DivWithCustomScrollProp>;
@@ -376,6 +384,7 @@ interface ScaleWidthModeOptions {
 }
 
 interface PopoverProps {
+  id: string;
   /**
    * Set the state of the popover. If set to `false` the component is unmounted.
    */
