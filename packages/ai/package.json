@@ -45,7 +45,7 @@
     "@ui5/webcomponents-react-base": "workspace:~"
   },
   "peerDependencies": {
-    "@ui5/webcomponents-ai": "~2.15.0",
+    "@ui5/webcomponents-ai": "~2.15.0 || ~2.16.0",
     "react": "^18 || ^19"
   },
   "publishConfig": {
