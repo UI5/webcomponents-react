@@ -1,0 +1,19 @@
+import { ControlsWithNote, DocsHeader, Footer } from '@sb/components';
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as ComponentStories from './Input.stories.tsx';
+
+<Meta of={ComponentStories} />
+
+<DocsHeader of={ComponentStories} experimental />
+
+<br />
+
+## Example
+
+<Canvas of={ComponentStories.Default} />
+
+## Properties
+
+<ControlsWithNote of={ComponentStories.Default} />
+
+<Footer />

@@ -26,6 +26,14 @@
     "./PromptInput": {
       "types": "./dist/components/PromptInput/index.d.ts",
       "default": "./dist/components/PromptInput/index.js"
+    },
+    "./Input": {
+      "types": "./dist/components/Input/index.d.ts",
+      "default": "./dist/components/Input/index.js"
+    },
+    "./TextArea": {
+      "types": "./dist/components/TextArea/index.d.ts",
+      "default": "./dist/components/TextArea/index.js"
     }
   },
   "homepage": "https://ui5.github.io/webcomponents-react",
