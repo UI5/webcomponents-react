@@ -1,16 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Input } from './index.js';
+import { TextArea } from './index.js';
 
 const meta = {
-  title: 'Input',
-  component: Input,
+  title: 'TextArea',
+  component: TextArea,
   argTypes: {
-    actions: { control: { disable: true } },
-    icon: { control: { disable: true } },
+    menu: { control: { disable: true } },
     valueStateMessage: { control: { disable: true } },
   },
   tags: ['package:@ui5/webcomponents-ai', 'experimental'],
-} satisfies Meta<typeof Input>;
+} satisfies Meta<typeof TextArea>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
