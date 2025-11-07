@@ -3,7 +3,7 @@
 import '@ui5/webcomponents-ai/dist/Input.js';
 import type { InputSelectionChangeEventDetail } from '@ui5/webcomponents/dist/Input.js';
 import type InputType from '@ui5/webcomponents/dist/types/InputType.js';
-import type { InputVersionChangeEventDetail } from '@ui5/webcomponents-ai/dist/Input.js';
+import type { InputVersionChangeEventDetail, MenuItemClickEventDetail } from '@ui5/webcomponents-ai/dist/Input.js';
 import type ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
@@ -296,7 +296,7 @@ interface InputPropTypes
    * | :--------: | :-----: |
    * | ❌|❌|
    */
-  onItemClick?: (event: Ui5CustomEvent<InputDomRef>) => void;
+  onItemClick?: (event: Ui5CustomEvent<InputDomRef, MenuItemClickEventDetail>) => void;
 
   /**
    * Fired when the suggestions picker is open.
