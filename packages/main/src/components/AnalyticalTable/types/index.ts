@@ -764,9 +764,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   /**
    * Indicates whether a loading indicator should be shown.
    *
-   * __Note:__
-   * - If the data array is not empty and loading is set to `true` a `BusyIndicator` will be displayed on top of the table, otherwise a skeleton placeholder will be shown. You can control this behavior via the `alwaysShowBusyIndicator` prop.
-   * - __We recommend setting this prop to `true` when loading times are under 1 second.__
+   * __Note:__ If the data array is not empty and loading is set to `true` a `BusyIndicator` will be displayed on top of the table, otherwise a skeleton placeholder will be shown. You can control this behavior via the `alwaysShowBusyIndicator` prop.
    */
   loading?: boolean;
   /**
@@ -781,6 +779,8 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   showOverlay?: boolean;
   /**
    * If `true`, always shows the `BusyIndicator` component when loading instead of the skeleton loader.
+   *
+   * __We recommend setting this prop to `true` when loading times are under 1 second.__
    */
   alwaysShowBusyIndicator?: boolean;
   /**
