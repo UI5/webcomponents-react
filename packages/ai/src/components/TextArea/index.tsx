@@ -2,6 +2,7 @@
 
 import '@ui5/webcomponents-ai/dist/TextArea.js';
 import type { TextAreaInputEventDetail } from '@ui5/webcomponents/dist/TextArea.js';
+import type { TextAreaVersionChangeEventDetail } from '@ui5/webcomponents-ai/dist/TextArea.js';
 import type ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
@@ -262,7 +263,7 @@ interface TextAreaPropTypes
    * | :--------: | :-----: |
    * | ❌|❌|
    */
-  onVersionChange?: (event: Ui5CustomEvent<TextAreaDomRef>) => void;
+  onVersionChange?: (event: Ui5CustomEvent<TextAreaDomRef, TextAreaVersionChangeEventDetail>) => void;
 }
 
 /**

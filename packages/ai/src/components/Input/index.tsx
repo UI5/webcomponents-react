@@ -3,6 +3,7 @@
 import '@ui5/webcomponents-ai/dist/Input.js';
 import type { InputSelectionChangeEventDetail } from '@ui5/webcomponents/dist/Input.js';
 import type InputType from '@ui5/webcomponents/dist/types/InputType.js';
+import type { InputVersionChangeEventDetail } from '@ui5/webcomponents-ai/dist/Input.js';
 import type ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
@@ -179,6 +180,7 @@ interface InputPropTypes
       | 'onChange'
       | 'onClose'
       | 'onInput'
+      | 'onItemClick'
       | 'onOpen'
       | 'onSelect'
       | 'onSelectionChange'
@@ -288,6 +290,15 @@ interface InputPropTypes
   onInput?: (event: Ui5CustomEvent<InputDomRef>) => void;
 
   /**
+   * Fired when an item from the AI actions menu is clicked.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|❌|
+   */
+  onItemClick?: (event: Ui5CustomEvent<InputDomRef>) => void;
+
+  /**
    * Fired when the suggestions picker is open.
    *
    * **Note:** Available since [v2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of **@ui5/webcomponents-ai**.
@@ -337,7 +348,7 @@ interface InputPropTypes
    * | :--------: | :-----: |
    * | ❌|❌|
    */
-  onVersionChange?: (event: Ui5CustomEvent<InputDomRef>) => void;
+  onVersionChange?: (event: Ui5CustomEvent<InputDomRef, InputVersionChangeEventDetail>) => void;
 }
 
 /**
@@ -389,6 +400,7 @@ const Input = withWebComponent<InputPropTypes, InputDomRef>(
     'change',
     'close',
     'input',
+    'item-click',
     'open',
     'select',
     'selection-change',
