@@ -18,7 +18,7 @@ export function LanguageRegionItem({ loading }: Pick<UserSettingsItemPropTypes, 
       headerText="Language & Region"
       loading={loading}
       loadingReason="Language & Region loading data..."
-      pages={
+      tabs={
         <UserSettingsView>
           <div className="container">
             <div className="lr-item">
