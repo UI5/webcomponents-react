@@ -46,7 +46,7 @@ export function NLUserSettingsDialog({ open, setOpen }: UserSettingsDialogProps)
         text="Notifications"
         tooltip="Notifications"
         headerText="Notifications"
-        pages={
+        tabs={
           <UserSettingsView>
             <CheckBox checked text="Show High-Priority Notification Alerts" />
           </UserSettingsView>
