@@ -18,7 +18,7 @@
     "@ui5/webcomponents-fiori": "2.16.1",
     "@ui5/webcomponents-react": "2.16.0",
     "cross-env": "10.1.0",
-    "isbot": "5.1.31",
+    "isbot": "5.1.32",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-router": "7.9.5"
@@ -27,7 +27,7 @@
     "@react-router/dev": "7.9.5",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
-    "eslint": "9.39.0",
+    "eslint": "9.39.1",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
@@ -35,7 +35,7 @@
     "eslint-plugin-react-hooks": "6.1.1",
     "globals": "16.5.0",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.46.2",
+    "typescript-eslint": "8.46.3",
     "vite": "7.1.12",
     "vite-tsconfig-paths": "5.1.4"
   },
