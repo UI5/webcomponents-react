@@ -25,6 +25,14 @@ interface TableAttributes {
   accessibleNameRef?: string | undefined;
 
   /**
+   * Determines whether the table rows are displayed with alternating background colors.
+   *
+   * **Note:** Available since [v2.17](https://github.com/UI5/webcomponents/releases/tag/v2.17) of **@ui5/webcomponents**.
+   * @default false
+   */
+  alternateRowColors?: boolean;
+
+  /**
    * Defines if the loading indicator should be shown.
    *
    * **Note:** When the component is loading, it is not interactive.
@@ -199,8 +207,10 @@ interface TablePropTypes
  *
  * The following features are currently available:
  *
- * * [TableSelection](../TableSelection) - adds selection capabilities to the table
+ * * [TableSelectionMulti](../TableSelectionMulti) - adds multi-selection capabilities to the table
+ * * [TableSelectionSingle](../TableSelectionSingle) - adds single-selection capabilities to the table
  * * [TableGrowing](../TableGrowing) - provides growing capabilities to load more data
+ * * [TableVirtualizer](../TableVirtualizer) - adds virtualization capabilities to the table
  *
  * ### Keyboard Handling
  *
@@ -224,7 +234,6 @@ interface TablePropTypes
  * * <kbd>F7</kbd> - If focus position is remembered, moves focus to the corresponding focus position row, otherwise to the first tabbable element within the row
  * * <kbd>[Shift]Tab</kbd> - Move focus to the element in the tab chain outside the table
  *
- *
  * If the focus is on a cell, the following keyboard shortcuts are available:
  * * <kbd>Down</kbd> - Navigates down
  * * <kbd>Up</kbd> - Navigates up
@@ -239,13 +248,22 @@ interface TablePropTypes
  * * <kbd>F7</kbd> - If the focus is on an interactive element inside a row, moves focus to the corresponding row and remembers the focus position of the element within the row
  * * <kbd>[Shift]Tab</kbd> - Move focus to the element in the tab chain outside the table
  *
- *
  * If the focus is on an interactive cell content, the following keyboard shortcuts are available:
  * * <kbd>Down</kbd> - Move the focus to the interactive element in the same column of the previous row, unless the focused element prevents the default
  * * <kbd>Up</kbd> - Move the focus to the interactive element in the same column of the next row, unless the focused element prevents the default
  * * <kbd>[Shift]Tab</kbd> - Move the focus to the element in the tab chain
  *
- * \
+ * ### Accessibility
+ *
+ * The `Table` follows the [ARIA grid design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/).
+ * This pattern enables cell-based keyboard navigation and, as explained above, we also support row-based keyboard navigation.
+ * Since the grid design pattern does not inherently provide row-based keyboard behavior, if the focus is on a row, not only the row information but also the corresponding column headers for each cell must be announced.
+ * This can only be achieved through a custom accessibility announcement.
+ * To support this, UI5 Web Components expose its own accessibility metadata via the `accessibilityInfo` property.
+ * The `Table` uses this information to create the required custom announcements dynamically.
+ * If you include custom web components inside table cells that are not part of the standard UI5 Web Components set, their accessibility information can be provided using the `data-ui5-table-acc-text` attribute.
+ *
+ * )\
  * `import "@ui5/webcomponents/dist/TableRow.js";` (`TableRow`)\
  * `import "@ui5/webcomponents/dist/TableCell.js";` (`TableCell`)\
  * `import "@ui5/webcomponents/dist/TableHeaderRow.js";` (`TableHeaderRow`)\
@@ -258,7 +276,7 @@ interface TablePropTypes
 const Table = withWebComponent<TablePropTypes, TableDomRef>(
   'ui5-table',
   ['accessibleName', 'accessibleNameRef', 'loadingDelay', 'noDataText', 'overflowMode', 'rowActionCount'],
-  ['loading'],
+  ['alternateRowColors', 'loading'],
   ['features', 'headerRow', 'noData'],
   ['move-over', 'move', 'row-action-click', 'row-click'],
 );

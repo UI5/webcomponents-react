@@ -24,7 +24,7 @@ export function MobileItem() {
       tooltip="SAP Mobile Start Application"
       headerText="SAP Mobile Start Application"
       onSelectionChange={handleSelectionChange}
-      pages={
+      tabs={
         <>
           <UserSettingsView
             text="SAP Mobile Start Application"

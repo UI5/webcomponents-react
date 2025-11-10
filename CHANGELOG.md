@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.16.0](https://github.com/UI5/webcomponents-react/compare/v2.15.3...v2.16.0) (2025-11-07)
+
+### Bug Fixes
+
+- **AnalyticalTable - TypeScript:** fix cell types & add missing cell & row types ([#7890](https://github.com/UI5/webcomponents-react/issues/7890)) ([40ee1c7](https://github.com/UI5/webcomponents-react/commit/40ee1c744a74ee6a211c504542b3fd0a06215242)), closes [#7887](https://github.com/UI5/webcomponents-react/issues/7887)
+- **AnalyticalTable - TypeScript:** improve callback types ([#7858](https://github.com/UI5/webcomponents-react/issues/7858)) ([6f370d9](https://github.com/UI5/webcomponents-react/commit/6f370d943df2eb59a7fd300142b8aae8afee36ed))
+- **AnalyticalTable:** fix bottom border styles ([#7881](https://github.com/UI5/webcomponents-react/issues/7881)) ([1ebf138](https://github.com/UI5/webcomponents-react/commit/1ebf138ca2127d1d651fb7f4d1660ff23ca3f99a))
+- **AnalyticalTable:** improve accessibility ([#7879](https://github.com/UI5/webcomponents-react/issues/7879)) ([9a38327](https://github.com/UI5/webcomponents-react/commit/9a38327dfb022d4409fdc1d9cbdde87834e4a188)), closes [#7387](https://github.com/UI5/webcomponents-react/issues/7387) [#5819](https://github.com/UI5/webcomponents-react/issues/5819)
+- **AnalyticalTable:** update column resizer styles ([#7859](https://github.com/UI5/webcomponents-react/issues/7859)) ([09b0f0e](https://github.com/UI5/webcomponents-react/commit/09b0f0ec16f1c3d8f3c69173fd50f87fb9488c6a))
+- **AnalyticalTable:** virtualize empty cells horizontally ([#7880](https://github.com/UI5/webcomponents-react/issues/7880)) ([63a6a41](https://github.com/UI5/webcomponents-react/commit/63a6a41b3df172419e24dd62be4fddfae3012df3)), closes [#7841](https://github.com/UI5/webcomponents-react/issues/7841)
+- **deps:** update node.js to v24 ([#7878](https://github.com/UI5/webcomponents-react/issues/7878)) ([b7859b2](https://github.com/UI5/webcomponents-react/commit/b7859b2dea369971441954f58945ee908f5881ef))
+- **ObjectPage - TypeScript:** fix `accessibilityAttributes` `expandButton.expanded` type ([#7891](https://github.com/UI5/webcomponents-react/issues/7891)) ([ff48795](https://github.com/UI5/webcomponents-react/commit/ff487959c884c2ad2e2c2b52100c558e0882a6c7))
+- **ObjectPage:** adjust header shadow ([#7855](https://github.com/UI5/webcomponents-react/issues/7855)) ([fe11b07](https://github.com/UI5/webcomponents-react/commit/fe11b07f7bd12504e9eb5f7b0d273a9e6a758b41)), closes [#7812](https://github.com/UI5/webcomponents-react/issues/7812)
+- **ObjectStatus:** update inverted focus styles ([#7884](https://github.com/UI5/webcomponents-react/issues/7884)) ([2a5e856](https://github.com/UI5/webcomponents-react/commit/2a5e856a24da79e1f08f47ebfc0fc2adc885551d)), closes [#7883](https://github.com/UI5/webcomponents-react/issues/7883)
+
+### Features
+
+- update to UI5 Web Components v2.16.1 ([#7911](https://github.com/UI5/webcomponents-react/issues/7911)) ([0a88d7e](https://github.com/UI5/webcomponents-react/commit/0a88d7e0bf027fbb3ba2f3e8c13ee701c5f3c33d))
+
+### Reverts
+
+- Revert "chore(release): publish v2.16.0 [ci skip]" ([a506946](https://github.com/UI5/webcomponents-react/commit/a506946e541d7f54ea5d5036ecdc0cec3dbc5fee))
+
 ## [2.15.3](https://github.com/UI5/webcomponents-react/compare/v2.15.2...v2.15.3) (2025-10-21)
 
 ### Bug Fixes

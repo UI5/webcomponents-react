@@ -6,6 +6,11 @@ import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 interface UserMenuAccountAttributes {
   /**
+   * Defines additional information for the user.
+   */
+  additionalInfo?: string;
+
+  /**
    * Defines the avatar initials of the user.
    * @default undefined
    */
@@ -64,7 +69,7 @@ interface UserMenuAccountPropTypes
  */
 const UserMenuAccount = withWebComponent<UserMenuAccountPropTypes, UserMenuAccountDomRef>(
   'ui5-user-menu-account',
-  ['avatarInitials', 'avatarSrc', 'description', 'subtitleText', 'titleText'],
+  ['additionalInfo', 'avatarInitials', 'avatarSrc', 'description', 'subtitleText', 'titleText'],
   ['loading', 'selected'],
   [],
   [],

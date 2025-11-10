@@ -7,8 +7,9 @@ import type {
   MenuItemClickEventDetail,
 } from '@ui5/webcomponents/dist/Menu.js';
 import type PopoverHorizontalAlign from '@ui5/webcomponents/dist/types/PopoverHorizontalAlign.js';
-import { withWebComponent } from '@ui5/webcomponents-react-base';
+import type PopoverPlacement from '@ui5/webcomponents/dist/types/PopoverPlacement.js';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
+import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
 
 interface MenuAttributes {
@@ -57,6 +58,14 @@ interface MenuAttributes {
    * @default undefined
    */
   opener?: HTMLElement | string | null | undefined;
+
+  /**
+   * Determines on which side the component is placed at.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents**.
+   * @default "Bottom"
+   */
+  placement?: PopoverPlacement | keyof typeof PopoverPlacement;
 }
 
 interface MenuDomRef extends Required<MenuAttributes>, Ui5DomRef {}
@@ -179,7 +188,7 @@ interface MenuPropTypes
  */
 const Menu = withWebComponent<MenuPropTypes, MenuDomRef>(
   'ui5-menu',
-  ['headerText', 'horizontalAlign', 'loadingDelay', 'opener'],
+  ['headerText', 'horizontalAlign', 'loadingDelay', 'opener', 'placement'],
   ['loading', 'open'],
   [],
   ['before-close', 'before-open', 'close', 'item-click', 'open'],

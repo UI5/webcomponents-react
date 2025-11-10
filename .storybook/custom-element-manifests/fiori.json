@@ -4,2309 +4,6 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "dist/fcl-utils/FCLLayout.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/illustrations/AllIllustrations.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/FCLLayout.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "FCLLayout",
-          "description": "Different types of FCLLayout.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "The layout will display 1 column.",
-              "default": "OneColumn",
-              "name": "OneColumn",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\nDesktop: Defaults to 67 - 33 - -- percent widths of columns. Start (expanded) and Mid columns are displayed.\nTablet:  Defaults to 67 - 33 - -- percent widths of columns. Start (expanded) and Mid columns are displayed.\nPhone:   Fixed -- 100 -- percent widths of columns, only the Mid column is displayed\n\nUse to display both a list and a detail page when the user should focus on the list page.",
-              "default": "TwoColumnsStartExpanded",
-              "name": "TwoColumnsStartExpanded",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Desktop: Defaults to 33 - 67 - -- percent widths of columns. Start and Mid (expanded) columns are displayed\nTablet:  Defaults to 33 - 67 - -- percent widths of columns. Start and Mid (expanded) columns are displayed\nPhone:   Fixed -- 100 -- percent widths of columns, only the Mid column is displayed\n\nUse to display both a list and a detail page when the user should focus on the detail page.",
-              "default": "TwoColumnsMidExpanded",
-              "name": "TwoColumnsMidExpanded",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Desktop: Defaults to 25 - 50 - 25 percent widths of columns. Start, Mid (expanded) and End columns are displayed\nTablet:  Defaults to 0 - 67 - 33 percent widths of columns. Mid (expanded) and End columns are displayed, Start is accessible by dragging the columns-separator\nPhone:   Fixed -- -- 100 percent widths of columns, only the End column is displayed\n\nUse to display all three pages (list, detail, detail-detail) when the user should focus on the detail.",
-              "default": "ThreeColumnsMidExpanded",
-              "name": "ThreeColumnsMidExpanded",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Desktop: Defaults to 25 - 25 - 50 percent widths of columns. Start, Mid and End (expanded) columns are displayed\nTablet:  Defaults to 0 - 33 - 67 percent widths of columns. Mid and End (expanded) columns are displayed, Start is accessible by dragging the columns-separator\nPhone:   Fixed -- -- 100 percent widths of columns (only the End column is displayed)\n\nUse to display all three pages (list, detail, detail-detail) when the user should focus on the detail-detail.",
-              "default": "ThreeColumnsEndExpanded",
-              "name": "ThreeColumnsEndExpanded",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Desktop: Defaults to 67 - 33 - 0 percent widths of columns. Start (expanded) and Mid columns are displayed, End is accessible by dragging the columns-separator\nTablet:  Defaults to 67 - 33 - 0 percent widths of columns. Start (expanded) and Mid columns are displayed, End is accessible by dragging the columns-separator\nPhone:   Fixed -- -- 100 percent widths of columns, only the End column is displayed\n\nUse to display the list and detail pages when the user should focus on the list.\nThe detail-detail is still loaded and easily accessible by dragging the columns-separator",
-              "default": "ThreeColumnsStartExpandedEndHidden",
-              "name": "ThreeColumnsStartExpandedEndHidden",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Desktop: Defaults to 33 - 67 - 0 percent widths of columns. Start and Mid (expanded) columns are displayed, End is accessible by dragging the columns-separator\nTablet:  Defaults to 33 - 67 - 0 percent widths of columns. Start and Mid (expanded) columns are displayed, End is accessible by dragging the columns-separator\nPhone:   Fixed -- -- 100 percent widths of columns, only the End column is displayed\n\nUse to display the list and detail pages when the user should focus on the detail.\nThe detail-detail is still loaded and easily accessible by dragging the columns-separator",
-              "default": "ThreeColumnsMidExpandedEndHidden",
-              "name": "ThreeColumnsMidExpandedEndHidden",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Desktop: Defaults to 0 - 67 - 33 percent widths of columns. Start is hidden, Mid (expanded) and End columns are displayed.\nTablet:  Defaults to 0 - 67 - 33 percent widths of columns. Start is hidden, Mid (expanded) and End columns are displayed.\nPhone:   Fixed -- 100 percent width of the Mid column, only the Mid column is displayed.\n\nUse to display the Mid and End columns while the Start column is hidden.",
-              "default": "ThreeColumnsStartHiddenMidExpanded",
-              "name": "ThreeColumnsStartHiddenMidExpanded",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Desktop: Defaults to 0 - 33 - 67 percent widths of columns. Start is hidden, Mid and End (expanded) columns are displayed.\nTablet:  Defaults to 0 - 33 - 67 percent widths of columns. Start is hidden, Mid and End (expanded) columns are displayed.\nPhone:   Fixed -- 100 percent width of the End column, only the End column is displayed.\n\nUse to display the Mid column and expanded End column while the grip of the separator is not visible.",
-              "default": "ThreeColumnsStartHiddenEndExpanded",
-              "name": "ThreeColumnsStartHiddenEndExpanded",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Desktop: Fixed -- 100 -- percent widths of columns, only the Mid column is displayed\nTablet:  Fixed -- 100 -- percent widths of columns, only the Mid column is displayed\nPhone:   Fixed -- 100 -- percent widths of columns, only the Mid column is displayed\n\nUse to display a detail page only, when the user should focus entirely on it.",
-              "default": "MidColumnFullScreen",
-              "name": "MidColumnFullScreen",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Desktop: Fixed -- -- 100 percent widths of columns, only the End column is displayed\nTablet:  Fixed -- -- 100 percent widths of columns, only the End column is displayed\nPhone:   Fixed -- -- 100 percent widths of columns, only the End column is displayed\n\nUse to display a detail-detail page only, when the user should focus entirely on it.",
-              "default": "EndColumnFullScreen",
-              "name": "EndColumnFullScreen",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "FCLLayout",
-            "module": "dist/types/FCLLayout.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/IllustrationMessageDesign.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "IllustrationMessageDesign",
-          "description": "Different types of IllustrationMessageDesign.",
-          "_ui5privacy": "public",
-          "_ui5since": "2.0.0",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Automatically decides the <code>Illustration</code> size (<code>Base</code>, <code>Dot</code>, <code>Spot</code>,\n<code>Dialog</code>, or <code>Scene</code>) depending on the <code>IllustratedMessage</code> container width.\n\n**Note:** `Auto` is the only option where the illustration size is changed according to\nthe available container width. If any other `IllustratedMessageSize` is chosen, it remains\nuntil changed by the app developer.",
-              "default": "Auto",
-              "name": "Auto",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Base `Illustration` size (XS breakpoint). Suitable for cards (two columns).\n\n**Note:** When `Base` is in use, no illustration is displayed.",
-              "default": "Base",
-              "name": "Base",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Dot <code>Illustration</code> size (XS breakpoint). Suitable for table rows.",
-              "default": "Dot",
-              "deprecated": "Since 2.10.0, use ExtraSmall instead",
-              "name": "Dot",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Spot <code>Illustration</code> size (S breakpoint). Suitable for cards (four columns).",
-              "default": "Spot",
-              "deprecated": "Since 2.10.0, use Small instead",
-              "name": "Spot",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Dialog `Illustration` size (M breakpoint). Suitable for dialogs.",
-              "default": "Dialog",
-              "deprecated": "Since 2.10.0, use Medium instead",
-              "name": "Dialog",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Scene `Illustration` size (L breakpoint). Suitable for a `Page` or a table.",
-              "default": "Scene",
-              "deprecated": "Since 2.10.0, use Large instead",
-              "name": "Scene",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "ExtraSmall <code>Illustration</code> size (XS breakpoint). Suitable for table rows.",
-              "default": "ExtraSmall",
-              "name": "ExtraSmall",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Small <code>Illustration</code> size (S breakpoint). Suitable for cards (four columns).",
-              "default": "Small",
-              "name": "Small",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Medium `Illustration` size (M breakpoint). Suitable for dialogs.",
-              "default": "Medium",
-              "name": "Medium",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Large `Illustration` size (L breakpoint). Suitable for a `Page` or a table.",
-              "default": "Large",
-              "name": "Large",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "IllustrationMessageDesign",
-            "module": "dist/types/IllustrationMessageDesign.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/IllustrationMessageType.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "IllustrationMessageType",
-          "description": "Different illustration types of Illustrated Message.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Achievement\" illustration type.",
-              "default": "Achievement",
-              "name": "Achievement",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Adding Columns\" illustration type.",
-              "default": "AddingColumns",
-              "name": "AddingColumns",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Add People To Calendar\" illustration type.",
-              "default": "AddPeopleToCalendar",
-              "name": "AddPeopleToCalendar",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Before Search\" illustration type.",
-              "default": "BeforeSearch",
-              "name": "BeforeSearch",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Drag Files To Upload\" illustration type.",
-              "default": "DragFilesToUpload",
-              "name": "DragFilesToUpload",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Filtering Columns\" illustration type.",
-              "default": "FilteringColumns",
-              "name": "FilteringColumns",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Grouping Columns\" illustration type.",
-              "default": "GroupingColumns",
-              "name": "GroupingColumns",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"New Mail\" illustration type.",
-              "default": "NewMail",
-              "name": "NewMail",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Activities\" illustration type.",
-              "default": "NoActivities",
-              "name": "NoActivities",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Columns Set\" illustration type.",
-              "default": "NoColumnsSet",
-              "name": "NoColumnsSet",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Data\" illustration type.",
-              "default": "NoData",
-              "name": "NoData",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Email\" illustration type.",
-              "default": "NoMail",
-              "name": "NoMail",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Email v1\" illustration type.",
-              "default": "NoMail_v1",
-              "deprecated": "Deprecated as of version 2.11.0, use NoMail instead.",
-              "name": "NoMail_v1",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Entries\" illustration type.",
-              "default": "NoEntries",
-              "name": "NoEntries",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Notifications\" illustration type.",
-              "default": "NoNotifications",
-              "name": "NoNotifications",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Saved Items\" illustration type.",
-              "default": "NoSavedItems",
-              "name": "NoSavedItems",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Saved Items v1\" illustration type.",
-              "default": "NoSavedItems_v1",
-              "deprecated": "Deprecated as of version 2.11.0, use NoSavedItems instead.",
-              "name": "NoSavedItems_v1",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Search Results\" illustration type.",
-              "default": "NoSearchResults",
-              "name": "NoSearchResults",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Tasks\" illustration type.",
-              "default": "NoTasks",
-              "name": "NoTasks",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Tasks v1\" illustration type.",
-              "default": "NoTasks_v1",
-              "deprecated": "Deprecated as of version 2.11.0, use NoTasks instead.",
-              "name": "NoTasks_v1",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Dimensions Set\" illustration type.",
-              "default": "NoDimensionsSet",
-              "deprecated": "Deprecated as of version 2.11.0, use NoChartData instead.",
-              "name": "NoDimensionsSet",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Unable To Load\" illustration type.",
-              "default": "UnableToLoad",
-              "name": "UnableToLoad",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Unable To Load Image\" illustration type.",
-              "default": "UnableToLoadImage",
-              "name": "UnableToLoadImage",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Unable To Upload\" illustration type.",
-              "default": "UnableToUpload",
-              "name": "UnableToUpload",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Upload To Cloud\" illustration type.",
-              "default": "UploadToCloud",
-              "name": "UploadToCloud",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Add Column\" illustration type.",
-              "default": "AddColumn",
-              "deprecated": "Deprecated as of version 2.11.0, use AddingColumns instead.",
-              "name": "AddColumn",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Add People\" illustration type.",
-              "default": "AddPeople",
-              "deprecated": "Deprecated as of version 2.11.0, use AddPeopleToCalendar instead.",
-              "name": "AddPeople",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Add Dimensions\" illustration type.",
-              "default": "AddDimensions",
-              "name": "AddDimensions",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Balloon Sky\" illustration type.",
-              "default": "BalloonSky",
-              "deprecated": "Deprecated as of version 2.11.0, use ReceiveAppreciation instead.",
-              "name": "BalloonSky",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Connection\" illustration type.",
-              "default": "Connection",
-              "deprecated": "Deprecated as of version 2.11.0, use UnableToLoad instead.",
-              "name": "Connection",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Empty Calendar\" illustration type.",
-              "default": "EmptyCalendar",
-              "deprecated": "Deprecated as of version 2.11.0, use NoActivities instead.",
-              "name": "EmptyCalendar",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Empty List\" illustration type.",
-              "default": "EmptyList",
-              "deprecated": "Deprecated as of version 2.11.0, use NoEntries instead.",
-              "name": "EmptyList",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Empty Planning Calendar\" illustration type.",
-              "default": "EmptyPlanningCalendar",
-              "name": "EmptyPlanningCalendar",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Error Screen\" illustration type.",
-              "default": "ErrorScreen",
-              "deprecated": "Deprecated as of version 2.11.0, use UnableToUpload instead.",
-              "name": "ErrorScreen",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Filter Table\" illustration type.",
-              "default": "FilterTable",
-              "deprecated": "Deprecated as of version 2.11.0, use FilteringColumns instead.",
-              "name": "FilterTable",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Group Table\" illustration type.",
-              "default": "GroupTable",
-              "deprecated": "Deprecated as of version 2.11.0, use GroupingColumns instead.",
-              "name": "GroupTable",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Key Task\" illustration type.",
-              "default": "KeyTask",
-              "name": "KeyTask",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Chart Data\" illustration type.",
-              "default": "NoChartData",
-              "name": "NoChartData",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"No Filter Results\" illustration type.",
-              "default": "NoFilterResults",
-              "name": "NoFilterResults",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Page Not Found\" illustration type.",
-              "default": "PageNotFound",
-              "name": "PageNotFound",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Reload Screen\" illustration type.",
-              "default": "ReloadScreen",
-              "deprecated": "Deprecated as of version 2.11.0, use UnableToLoad instead.",
-              "name": "ReloadScreen",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Resize Column\" illustration type.",
-              "default": "ResizeColumn",
-              "deprecated": "Deprecated as of version 2.11.0, use ResizingColumns instead.",
-              "name": "ResizeColumn",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Resizing Columns\" illustration type.",
-              "default": "ResizingColumns",
-              "name": "ResizingColumns",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Receive Appreciation\" illustration type.",
-              "default": "ReceiveAppreciation",
-              "name": "ReceiveAppreciation",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Search Earth\" illustration type.",
-              "default": "SearchEarth",
-              "deprecated": "Deprecated as of version 2.11.0, use BeforeSearch instead.",
-              "name": "SearchEarth",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Search Folder\" illustration type.",
-              "default": "SearchFolder",
-              "deprecated": "Deprecated as of version 2.11.0, use NoSearchResults instead.",
-              "name": "SearchFolder",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Sign Out\" illustration type.",
-              "default": "SignOut",
-              "name": "SignOut",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple Balloon\" illustration type.",
-              "default": "SimpleBalloon",
-              "deprecated": "Deprecated as of version 2.11.0, use ReceiveAppreciation instead.",
-              "name": "SimpleBalloon",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple Bell\" illustration type.",
-              "default": "SimpleBell",
-              "deprecated": "Deprecated as of version 2.11.0, use NoNotifications instead.",
-              "name": "SimpleBell",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple Calendar\" illustration type.",
-              "default": "SimpleCalendar",
-              "deprecated": "Deprecated as of version 2.11.0, use NoActivities instead.",
-              "name": "SimpleCalendar",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple CheckMark\" illustration type.",
-              "default": "SimpleCheckMark",
-              "deprecated": "Deprecated as of version 2.11.0, use KeyTask instead.",
-              "name": "SimpleCheckMark",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple Connection\" illustration type.",
-              "default": "SimpleConnection",
-              "deprecated": "Deprecated as of version 2.11.0, use UnableToLoad instead.",
-              "name": "SimpleConnection",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple Empty Doc\" illustration type.",
-              "default": "SimpleEmptyDoc",
-              "deprecated": "Deprecated as of version 2.11.0, use NoData instead.",
-              "name": "SimpleEmptyDoc",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple Empty List\" illustration type.",
-              "default": "SimpleEmptyList",
-              "deprecated": "Deprecated as of version 2.11.0, use NoEntries instead.",
-              "name": "SimpleEmptyList",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple Error\" illustration type.",
-              "default": "SimpleError",
-              "deprecated": "Deprecated as of version 2.11.0, use UnableToUpload instead.",
-              "name": "SimpleError",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple Magnifier\" illustration type.",
-              "default": "SimpleMagnifier",
-              "deprecated": "Deprecated as of version 2.11.0, use BeforeSearch instead.",
-              "name": "SimpleMagnifier",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple Mail\" illustration type.",
-              "default": "SimpleMail",
-              "deprecated": "Deprecated as of version 2.11.0, use NoMail instead.",
-              "name": "SimpleMail",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple No Saved Items\" illustration type.",
-              "default": "SimpleNoSavedItems",
-              "deprecated": "Deprecated as of version 2.11.0, use NoSavedItems instead.",
-              "name": "SimpleNoSavedItems",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple Not Found Magnifier\" illustration type.",
-              "default": "SimpleNotFoundMagnifier",
-              "deprecated": "Deprecated as of version 2.11.0, use NoSearchResults instead.",
-              "name": "SimpleNotFoundMagnifier",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple Reload\" illustration type.",
-              "default": "SimpleReload",
-              "deprecated": "Deprecated as of version 2.11.0, use UnableToLoad instead.",
-              "name": "SimpleReload",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Simple Task\" illustration type.",
-              "default": "SimpleTask",
-              "deprecated": "Deprecated as of version 2.11.0, use NoTasks instead.",
-              "name": "SimpleTask",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Sleeping Bell\" illustration type.",
-              "default": "SleepingBell",
-              "deprecated": "Deprecated as of version 2.11.0, use NoNotifications instead.",
-              "name": "SleepingBell",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Sort Column\" illustration type.",
-              "default": "SortColumn",
-              "deprecated": "Deprecated as of version 2.11.0, use SortingColumns instead.",
-              "name": "SortColumn",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Sorting Columns\" illustration type.",
-              "default": "SortingColumns",
-              "name": "SortingColumns",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Success Balloon\" illustration type.",
-              "default": "SuccessBalloon",
-              "deprecated": "Deprecated as of version 2.11.0, use ReceiveAppreciation instead.",
-              "name": "SuccessBalloon",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Success CheckMark\" illustration type.",
-              "default": "SuccessCheckMark",
-              "deprecated": "Deprecated as of version 2.11.0, use KeyTask instead.",
-              "name": "SuccessCheckMark",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Success HighFive\" illustration type.",
-              "default": "SuccessHighFive",
-              "deprecated": "Deprecated as of version 2.11.0, use ReceiveAppreciation instead.",
-              "name": "SuccessHighFive",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Success Screen\" illustration type.",
-              "default": "SuccessScreen",
-              "deprecated": "Deprecated as of version 2.11.0, use KeyTask instead.",
-              "name": "SuccessScreen",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Survey\" illustration type.",
-              "default": "Survey",
-              "name": "Survey",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Tent\" illustration type.",
-              "default": "Tent",
-              "deprecated": "Deprecated as of version 2.11.0, use NoData instead.",
-              "name": "Tent",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"Upload Collection\" illustration type.",
-              "default": "UploadCollection",
-              "deprecated": "Deprecated as of version 2.11.0, use DragFilesToUpload instead.",
-              "name": "UploadCollection",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"User Has Signed Up\" illustration type.",
-              "default": "UserHasSignedUp",
-              "name": "UserHasSignedUp",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntAvatar\" illustration type.",
-              "default": "TntAvatar",
-              "name": "TntAvatar",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntCalculator\" illustration type.",
-              "default": "TntCalculator",
-              "name": "TntCalculator",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntChartArea\" illustration type.",
-              "default": "TntChartArea",
-              "name": "TntChartArea",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntChartArea2\" illustration type.",
-              "default": "TntChartArea2",
-              "name": "TntChartArea2",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntChartBar\" illustration type.",
-              "default": "TntChartBar",
-              "name": "TntChartBar",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntChartBPMNFlow\" illustration type.",
-              "default": "TntChartBPMNFlow",
-              "name": "TntChartBPMNFlow",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntChartBullet\" illustration type.",
-              "default": "TntChartBullet",
-              "name": "TntChartBullet",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntChartDoughnut\" illustration type.",
-              "default": "TntChartDoughnut",
-              "name": "TntChartDoughnut",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntChartFlow\" illustration type.",
-              "default": "TntChartFlow",
-              "name": "TntChartFlow",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntChartGantt\" illustration type.",
-              "default": "TntChartGantt",
-              "name": "TntChartGantt",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntChartOrg\" illustration type.",
-              "default": "TntChartOrg",
-              "name": "TntChartOrg",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntChartPie\" illustration type.",
-              "default": "TntChartPie",
-              "name": "TntChartPie",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntCodePlaceholder\" illustration type.",
-              "default": "TntCodePlaceholder",
-              "name": "TntCodePlaceholder",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntCompany\" illustration type.",
-              "default": "TntCompany",
-              "name": "TntCompany",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntCompass\" illustration type.",
-              "default": "TntCompass",
-              "name": "TntCompass",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntComponents\" illustration type.",
-              "default": "TntComponents",
-              "name": "TntComponents",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntDialog\" illustration type.",
-              "default": "TntDialog",
-              "name": "TntDialog",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntEmptyContentPane\" illustration type.",
-              "default": "TntEmptyContentPane",
-              "name": "TntEmptyContentPane",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntExternalLink\" illustration type.",
-              "default": "TntExternalLink",
-              "name": "TntExternalLink",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntFaceID\" illustration type.",
-              "default": "TntFaceID",
-              "name": "TntFaceID",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntFingerprint\" illustration type.",
-              "default": "TntFingerprint",
-              "name": "TntFingerprint",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntHandshake\" illustration type.",
-              "default": "TntHandshake",
-              "name": "TntHandshake",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntHelp\" illustration type.",
-              "default": "TntHelp",
-              "name": "TntHelp",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntLock\" illustration type.",
-              "default": "TntLock",
-              "name": "TntLock",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntMission\" illustration type.",
-              "default": "TntMission",
-              "name": "TntMission",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntMissionFailed\" illustration type.",
-              "default": "TntMissionFailed",
-              "name": "TntMissionFailed",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntNoApplications\" illustration type.",
-              "default": "TntNoApplications",
-              "name": "TntNoApplications",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntNoFlows\" illustration type.",
-              "default": "TntNoFlows",
-              "name": "TntNoFlows",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntNoUsers\" illustration type.",
-              "default": "TntNoUsers",
-              "name": "TntNoUsers",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntRadar\" illustration type.",
-              "default": "TntRadar",
-              "name": "TntRadar",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntRoadMap\" illustration type.",
-              "default": "TntRoadMap",
-              "name": "TntRoadMap",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntSecrets\" illustration type.",
-              "default": "TntSecrets",
-              "name": "TntSecrets",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntServices\" illustration type.",
-              "default": "TntServices",
-              "name": "TntServices",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntSessionExpired\" illustration type.",
-              "default": "TntSessionExpired",
-              "name": "TntSessionExpired",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntSessionExpiring\" illustration type.",
-              "default": "TntSessionExpiring",
-              "name": "TntSessionExpiring",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntSettings\" illustration type.",
-              "default": "TntSettings",
-              "name": "TntSettings",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntSuccess\" illustration type.",
-              "default": "TntSuccess",
-              "name": "TntSuccess",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntSuccessfulAuth\" illustration type.",
-              "default": "TntSuccessfulAuth",
-              "name": "TntSuccessfulAuth",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntSystems\" illustration type.",
-              "default": "TntSystems",
-              "name": "TntSystems",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntTeams\" illustration type.",
-              "default": "TntTeams",
-              "name": "TntTeams",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntTools\" illustration type.",
-              "default": "TntTools",
-              "name": "TntTools",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntTutorials\" illustration type.",
-              "default": "TntTutorials",
-              "name": "TntTutorials",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntUnableToLoad\" illustration type.",
-              "default": "TntUnableToLoad",
-              "name": "TntUnableToLoad",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntUnlock\" illustration type.",
-              "default": "TntUnlock",
-              "name": "TntUnlock",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntUnsuccessfulAuth\" illustration type.",
-              "default": "TntUnsuccessfulAuth",
-              "name": "TntUnsuccessfulAuth",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "\"TntUser2\" illustration type.",
-              "default": "TntUser2",
-              "name": "TntUser2",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "IllustrationMessageType",
-            "module": "dist/types/IllustrationMessageType.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/MediaGalleryItemLayout.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "MediaGalleryItemLayout",
-          "description": "Defines the layout of the content displayed in the `ui5-media-gallery-item`.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Recommended to use when the item contains an image.\n\nWhen a thumbnail is selected, it makes the corresponding enlarged content appear in a square display area.",
-              "default": "Square",
-              "name": "Square",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Recommended to use when the item contains video content.\n\nWhen a thumbnail is selected, it makes the corresponding enlarged content appear in a wide display area\n(stretched to fill all of the available width) for optimal user experiance.",
-              "default": "Wide",
-              "name": "Wide",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "MediaGalleryItemLayout",
-            "module": "dist/types/MediaGalleryItemLayout.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/MediaGalleryLayout.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "MediaGalleryLayout",
-          "description": "Defines the layout type of the thumbnails list of the `ui5-media-gallery` component.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "The layout is determined automatically.",
-              "default": "Auto",
-              "name": "Auto",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Displays the layout as a vertical split between the thumbnails list and the selected image.",
-              "default": "Vertical",
-              "name": "Vertical",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Displays the layout as a horizontal split between the thumbnails list and the selected image.",
-              "default": "Horizontal",
-              "name": "Horizontal",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "MediaGalleryLayout",
-            "module": "dist/types/MediaGalleryLayout.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/MediaGalleryMenuHorizontalAlign.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "MediaGalleryMenuHorizontalAlign",
-          "description": "Defines the horizontal alignment of the thumbnails menu of the `ui5-media-gallery` component.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Displays the menu on the left side of the target.",
-              "default": "Left",
-              "name": "Left",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Displays the menu on the right side of the target.",
-              "default": "Right",
-              "name": "Right",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "MediaGalleryMenuHorizontalAlign",
-            "module": "dist/types/MediaGalleryMenuHorizontalAlign.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/MediaGalleryMenuVerticalAlign.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "MediaGalleryMenuVerticalAlign",
-          "description": "Types for the vertical alignment of the thumbnails menu of the `ui5-media-gallery` component.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Displays the menu at the top of the reference control.",
-              "default": "Top",
-              "name": "Top",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Displays the menu at the bottom of the reference control.",
-              "default": "Bottom",
-              "name": "Bottom",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "MediaGalleryMenuVerticalAlign",
-            "module": "dist/types/MediaGalleryMenuVerticalAlign.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/NavigationLayoutMode.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "NavigationLayoutMode",
-          "description": "Specifies the navigation layout mode.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Automatically calculates the navigation layout mode based on the screen device type.\n`Expanded` on desktop and `Collapsed` on tablet and phone.",
-              "default": "Auto",
-              "name": "Auto",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Collapsed side navigation.",
-              "default": "Collapsed",
-              "name": "Collapsed",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Expanded side navigation.",
-              "default": "Expanded",
-              "name": "Expanded",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "NavigationLayoutMode",
-            "module": "dist/types/NavigationLayoutMode.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/NotificationListItemImportance.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "NotificationListItemImportance",
-          "description": "Different types of NotificationListItemImportance.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "default": "Standard",
-              "name": "Standard",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "default": "Important",
-              "name": "Important",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "NotificationListItemImportance",
-            "module": "dist/types/NotificationListItemImportance.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/PageBackgroundDesign.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "PageBackgroundDesign",
-          "description": "Available Page Background Design.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Page background color when a List is set as the Page content.",
-              "default": "List",
-              "name": "List",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "A solid background color dependent on the theme.",
-              "default": "Solid",
-              "name": "Solid",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Transparent background for the page.",
-              "default": "Transparent",
-              "name": "Transparent",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "PageBackgroundDesign",
-            "module": "dist/types/PageBackgroundDesign.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/SearchMode.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "SearchMode",
-          "description": "Search mode options.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Search field with default appearance.",
-              "default": "Default",
-              "name": "Default",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Search field with additional scope select.",
-              "default": "Scoped",
-              "name": "Scoped",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "SearchMode",
-            "module": "dist/types/SearchMode.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/SideContentFallDown.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "SideContentFallDown",
-          "description": "SideContent FallDown options.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Side content falls down on breakpoints below XL",
-              "default": "BelowXL",
-              "name": "BelowXL",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Side content falls down on breakpoints below L",
-              "default": "BelowL",
-              "name": "BelowL",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Side content falls down on breakpoints below M",
-              "default": "BelowM",
-              "name": "BelowM",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Side content falls down on breakpoint M and the minimum width for the side content",
-              "default": "OnMinimumWidth",
-              "name": "OnMinimumWidth",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "SideContentFallDown",
-            "module": "dist/types/SideContentFallDown.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/SideContentPosition.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "SideContentPosition",
-          "description": "Side Content position options.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "The side content is on the right side of the main container\nin left-to-right mode and on the left side in right-to-left mode.",
-              "default": "End",
-              "name": "End",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "The side content is on the left side of the main container\nin left-to-right mode and on the right side in right-to-left mode.",
-              "default": "Start",
-              "name": "Start",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "SideContentPosition",
-            "module": "dist/types/SideContentPosition.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/SideContentVisibility.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "SideContentVisibility",
-          "description": "Side Content visibility options.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Show the side content on any breakpoint",
-              "default": "AlwaysShow",
-              "name": "AlwaysShow",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Show the side content on XL breakpoint",
-              "default": "ShowAboveL",
-              "name": "ShowAboveL",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Show the side content on L and XL breakpoints",
-              "default": "ShowAboveM",
-              "name": "ShowAboveM",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Show the side content on M, L and XL breakpoints",
-              "default": "ShowAboveS",
-              "name": "ShowAboveS",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Don't show the side content on any breakpoints",
-              "default": "NeverShow",
-              "name": "NeverShow",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "SideContentVisibility",
-            "module": "dist/types/SideContentVisibility.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/SideNavigationItemDesign.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "SideNavigationItemDesign",
-          "description": "SideNavigationItem designs.",
-          "_ui5privacy": "public",
-          "_ui5since": "2.7.0",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Design for items that perform navigation, contain navigation child items, or both.",
-              "default": "Default",
-              "name": "Default",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Design for items that trigger an action, such as opening a dialog.\n\n**Note:** Items with this design must not have sub-items.\n\n**Note:** Items that open a dialog must set `hasPopup=\"dialog\"` via `accessibilityAttributes` property.",
-              "default": "Action",
-              "name": "Action",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "SideNavigationItemDesign",
-            "module": "dist/types/SideNavigationItemDesign.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/TimelineGrowingMode.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "TimelineGrowingMode",
-          "description": "Timeline growing modes.",
-          "_ui5privacy": "public",
-          "_ui5since": "2.7.0",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Event `load-more` is fired\nupon pressing a \"More\" button at the end.",
-              "default": "Button",
-              "name": "Button",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Event `load-more` is fired upon scroll.",
-              "default": "Scroll",
-              "name": "Scroll",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "The growing feature is not enabled.",
-              "default": "None",
-              "name": "None",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "TimelineGrowingMode",
-            "module": "dist/types/TimelineGrowingMode.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/TimelineLayout.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "TimelineLayout",
-          "description": "Available Timeline layout orientation",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Vertical layout\nDefault type",
-              "default": "Vertical",
-              "name": "Vertical",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Horizontal layout",
-              "default": "Horizontal",
-              "name": "Horizontal",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "TimelineLayout",
-            "module": "dist/types/TimelineLayout.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/UploadCollectionDnDMode.js",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "UploadCollectionDnDOverlayMode",
-            "module": "dist/types/UploadCollectionDnDMode.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/UploadCollectionSelectionMode.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "UploadCollectionSelectionMode",
-          "description": "Different UploadCollection selection modes.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Default mode (no selection).",
-              "default": "None",
-              "name": "None",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Right-positioned single selection mode (only one list item can be selected).",
-              "default": "Single",
-              "name": "Single",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Left-positioned single selection mode (only one list item can be selected).",
-              "default": "SingleStart",
-              "name": "SingleStart",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Selected item is highlighted but no selection element is visible\n(only one list item can be selected).",
-              "default": "SingleEnd",
-              "name": "SingleEnd",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Selected item is highlighted and selection is changed upon arrow navigation\n(only one list item can be selected - this is always the focused item).",
-              "default": "SingleAuto",
-              "name": "SingleAuto",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Multi selection mode (more than one list item can be selected).",
-              "default": "Multiple",
-              "name": "Multiple",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "UploadCollectionSelectionMode",
-            "module": "dist/types/UploadCollectionSelectionMode.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/UploadState.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "UploadState",
-          "description": "Different types of UploadState.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "The file has been uploaded successfully.",
-              "default": "Complete",
-              "name": "Complete",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "The file cannot be uploaded due to an error.",
-              "default": "Error",
-              "name": "Error",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "The file is awaiting an explicit command to start being uploaded.",
-              "default": "Ready",
-              "name": "Ready",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "The file is currently being uploaded.",
-              "default": "Uploading",
-              "name": "Uploading",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "UploadState",
-            "module": "dist/types/UploadState.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/ViewSettingsDialogMode.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "ViewSettingsDialogMode",
-          "description": "Different types of ViewSettings.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "_ui5since": "1.0.0-rc.16",
-              "description": "Default type",
-              "default": "Sort",
-              "name": "Sort",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "_ui5since": "1.0.0-rc.16",
-              "description": "Filter type",
-              "default": "Filter",
-              "name": "Filter",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "_ui5since": "2.13.0",
-              "description": "Group type",
-              "default": "Group",
-              "name": "Group",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "ViewSettingsDialogMode",
-            "module": "dist/types/ViewSettingsDialogMode.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/types/WizardContentLayout.js",
-      "declarations": [
-        {
-          "kind": "enum",
-          "name": "WizardContentLayout",
-          "description": "Enumeration for different content layouts of the `ui5-wizard`.",
-          "_ui5privacy": "public",
-          "members": [
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Display the content of the `ui5-wizard` as multiple steps in a scroll section.",
-              "default": "MultipleSteps",
-              "name": "MultipleSteps",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "static": true,
-              "privacy": "public",
-              "description": "Display the content of the `ui5-wizard` as single step.",
-              "default": "SingleStep",
-              "name": "SingleStep",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "WizardContentLayout",
-            "module": "dist/types/WizardContentLayout.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/upload-utils/UploadCollectionBodyDnD.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/Assets-fetch.js",
       "declarations": [],
       "exports": []
@@ -3431,6 +1128,24 @@
             },
             {
               "kind": "field",
+              "name": "layoutsConfiguration",
+              "type": {
+                "text": "LayoutConfiguration",
+                "references": [
+                  {
+                    "name": "LayoutConfiguration",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/FlexibleColumnLayout.js"
+                  }
+                ]
+              },
+              "default": "{}",
+              "description": "Allows to customize the column proportions per screen size and layout.\nIf no custom proportion provided for a specific layout, the default will be used.\n\n**Notes:**\n\n- The proportions should be given in percentages. For example [\"30%\", \"40%\", \"30%\"], [\"70%\", \"30%\", 0], etc.\n- The proportions should add up to 100%.\n- Hidden columns are marked as \"0px\", e.g. [\"0px\", \"70%\", \"30%\"]. Specifying 0 or \"0%\" for hidden columns is also valid.\n- If the proportions do not match the layout (e.g. if provided proportions [\"70%\", \"30%\", \"0px\"] for \"OneColumn\" layout), then the default proportions will be used instead.\n- Whenever the user drags the columns separator to resize the columns, the `layoutsConfiguration` object will be updated with the user-specified proportions for the given layout (and the `layout-configuration-change` event will be fired).\n- No custom configuration available for the phone screen size, as the default of 100% column width is always used there.",
+              "privacy": "public",
+              "_ui5since": "2.16.0"
+            },
+            {
+              "kind": "field",
               "name": "columnLayout",
               "type": {
                 "text": "FlexibleColumnLayoutColumnLayout | undefined",
@@ -3575,6 +1290,65 @@
                   "description": "Indicates if the layout was changed by resizing the entire component"
                 }
               ]
+            },
+            {
+              "name": "layout-configuration-change",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<FlexibleColumnLayoutLayoutConfigurationChangeEventDetail>",
+                "references": [
+                  {
+                    "name": "FlexibleColumnLayoutLayoutConfigurationChangeEventDetail",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/FlexibleColumnLayout.js"
+                  }
+                ]
+              },
+              "description": "Fired when the `layoutsConfiguration` changes via user interaction by dragging the separators.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.16.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "FCLLayout",
+                    "references": [
+                      {
+                        "name": "FCLLayout",
+                        "package": "@ui5/webcomponents-fiori",
+                        "module": "dist/types/FCLLayout.js"
+                      }
+                    ]
+                  },
+                  "name": "layout",
+                  "_ui5privacy": "public",
+                  "description": "The current layout"
+                },
+                {
+                  "type": {
+                    "text": "MEDIA",
+                    "references": [
+                      {
+                        "name": "MEDIA",
+                        "package": "@ui5/webcomponents-fiori",
+                        "module": "dist/FlexibleColumnLayout.js"
+                      }
+                    ]
+                  },
+                  "name": "media",
+                  "_ui5privacy": "public",
+                  "description": "The current media type"
+                },
+                {
+                  "type": {
+                    "text": "array"
+                  },
+                  "name": "columnLayout",
+                  "_ui5privacy": "public",
+                  "description": "The effective column layout, f.e [\"67%\", \"33%\", \"0px\"]"
+                }
+              ]
             }
           ],
           "attributes": [
@@ -3603,6 +1377,15 @@
               "fieldName": "accessibilityAttributes",
               "type": {
                 "text": "FCLAccessibilityAttributes"
+              }
+            },
+            {
+              "description": "Allows to customize the column proportions per screen size and layout.\nIf no custom proportion provided for a specific layout, the default will be used.\n\n**Notes:**\n\n- The proportions should be given in percentages. For example [\"30%\", \"40%\", \"30%\"], [\"70%\", \"30%\", 0], etc.\n- The proportions should add up to 100%.\n- Hidden columns are marked as \"0px\", e.g. [\"0px\", \"70%\", \"30%\"]. Specifying 0 or \"0%\" for hidden columns is also valid.\n- If the proportions do not match the layout (e.g. if provided proportions [\"70%\", \"30%\", \"0px\"] for \"OneColumn\" layout), then the default proportions will be used instead.\n- Whenever the user drags the columns separator to resize the columns, the `layoutsConfiguration` object will be updated with the user-specified proportions for the given layout (and the `layout-configuration-change` event will be fired).\n- No custom configuration available for the phone screen size, as the default of 100% column width is always used there.",
+              "name": "layouts-configuration",
+              "default": "{}",
+              "fieldName": "layoutsConfiguration",
+              "type": {
+                "text": "LayoutConfiguration"
               }
             },
             {
@@ -3738,7 +1521,7 @@
           },
           "tagName": "ui5-group-item",
           "customElement": true,
-          "_ui5since": "2.13.0",
+          "_ui5since": "2.15.0",
           "_ui5privacy": "public",
           "_ui5abstract": true
         }
@@ -6047,6 +3830,15 @@
                 "text": "Array<HTMLElement>"
               },
               "_ui5privacy": "public"
+            },
+            {
+              "name": "actions",
+              "description": "Defines the actionable elements.\nThis slot allows placing additional interactive elements (such as buttons, icons, or tags)\nnext to the delete button, providing flexible customization for various user actions.\n\n**Note:** While the slot is flexible, for consistency with design guidelines,\nit's recommended to use `ui5-button` with `Transparent` design or `ui5-icon` elements.",
+              "_ui5since": "2.16.0",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public"
             }
           ],
           "members": [
@@ -6434,6 +4226,36 @@
               "default": "false",
               "description": "Defines whether the show more item is selected.",
               "privacy": "public"
+            }
+          ],
+          "events": [
+            {
+              "name": "click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ShowMoreItemClickEventDetail>",
+                "references": [
+                  {
+                    "name": "ShowMoreItemClickEventDetail",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/SearchItemShowMore.js"
+                  }
+                ]
+              },
+              "description": "Fired when the component is activated, either with a mouse/tap\nor by pressing the Enter or Space keys.",
+              "_ui5Cancelable": true,
+              "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": true,
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "boolean"
+                  },
+                  "name": "fromKeyboard",
+                  "_ui5privacy": "public",
+                  "description": "Indicates whether the event was fired\ndue to keyboard interaction (Enter or Space) rather than mouse/tap."
+                }
+              ]
             }
           ],
           "attributes": [
@@ -8273,7 +6095,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Defines whether the `ui5-side-navigation` is expanded or collapsed.",
+              "description": "Defines whether the `ui5-side-navigation` is expanded or collapsed.\n\n**Note:** The collapsed mode is not supported on phones.\nThe `ui5-side-navigation` component is intended to be used within a `ui5-navigation-layout`\ncomponent to ensure proper responsive behavior. If you choose not to use the\n`ui5-navigation-layout`, you will need to implement the appropriate responsive patterns yourself,\nparticularly for phones where the collapsed mode should not be used.",
               "privacy": "public"
             },
             {
@@ -8327,7 +6149,7 @@
           ],
           "attributes": [
             {
-              "description": "Defines whether the `ui5-side-navigation` is expanded or collapsed.",
+              "description": "Defines whether the `ui5-side-navigation` is expanded or collapsed.\n\n**Note:** The collapsed mode is not supported on phones.\nThe `ui5-side-navigation` component is intended to be used within a `ui5-navigation-layout`\ncomponent to ensure proper responsive behavior. If you choose not to use the\n`ui5-navigation-layout`, you will need to implement the appropriate responsive patterns yourself,\nparticularly for phones where the collapsed mode should not be used.",
               "name": "collapsed",
               "default": "false",
               "fieldName": "collapsed",
@@ -10435,6 +8257,24 @@
             },
             {
               "kind": "field",
+              "name": "noDataHeaderLevel",
+              "type": {
+                "text": "TitleLevel",
+                "references": [
+                  {
+                    "name": "TitleLevel",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/TitleLevel.js"
+                  }
+                ]
+              },
+              "default": "\"H2\"",
+              "description": "Defines the header level of the 'No data' text.",
+              "privacy": "public",
+              "_ui5since": "2.16.0"
+            },
+            {
+              "kind": "field",
               "name": "hideDragOverlay",
               "type": {
                 "text": "boolean"
@@ -10539,6 +8379,15 @@
               "fieldName": "noDataText",
               "type": {
                 "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines the header level of the 'No data' text.",
+              "name": "no-data-header-level",
+              "default": "\"H2\"",
+              "fieldName": "noDataHeaderLevel",
+              "type": {
+                "text": "\"H1\" | \"H2\" | \"H3\" | \"H4\" | \"H5\" | \"H6\""
               }
             },
             {
@@ -11399,6 +9248,16 @@
             },
             {
               "kind": "field",
+              "name": "additionalInfo",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Defines additional information for the user.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
               "name": "selected",
               "type": {
                 "text": "boolean"
@@ -11461,6 +9320,15 @@
               "name": "description",
               "default": "\"\"",
               "fieldName": "description",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Defines additional information for the user.",
+              "name": "additional-info",
+              "default": "\"\"",
+              "fieldName": "additionalInfo",
               "type": {
                 "text": "string"
               }
@@ -12205,8 +10073,8 @@
           "slots": [
             {
               "name": "default",
-              "description": "Defines the tab views of the user settings item.\n\nThe tab views are displayed by default if there is no selected page view.",
-              "_ui5propertyName": "tabs",
+              "description": "Defines the page views of the user settings item.\n\nIf there are no tab views, the first page view will be shown unless there is selected one. If there is selected page\nview it will be shown no matter if there are tab views.\n\nThe page views are displayed by default if there is no selected tab view.",
+              "_ui5propertyName": "pages",
               "_ui5type": {
                 "text": "Array<UserSettingsView>",
                 "references": [
@@ -12220,8 +10088,8 @@
               "_ui5privacy": "public"
             },
             {
-              "name": "pages",
-              "description": "Defines the page views of the user settings item.\n\nIf there are no tab views, the first page view will be shown unless there is selected one. If there is selected page\nview it will be shown no matter if there are tab views.",
+              "name": "tabs",
+              "description": "Defines the tab views of the user settings item.",
               "_ui5type": {
                 "text": "Array<UserSettingsView>",
                 "references": [
@@ -13356,6 +11224,2309 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/fcl-utils/FCLLayout.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/illustrations/AllIllustrations.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/FCLLayout.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "FCLLayout",
+          "description": "Different types of FCLLayout.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "The layout will display 1 column.",
+              "default": "OneColumn",
+              "name": "OneColumn",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\nDesktop: Defaults to 67 - 33 - -- percent widths of columns. Start (expanded) and Mid columns are displayed.\nTablet:  Defaults to 67 - 33 - -- percent widths of columns. Start (expanded) and Mid columns are displayed.\nPhone:   Fixed -- 100 -- percent widths of columns, only the Mid column is displayed\n\nUse to display both a list and a detail page when the user should focus on the list page.",
+              "default": "TwoColumnsStartExpanded",
+              "name": "TwoColumnsStartExpanded",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Desktop: Defaults to 33 - 67 - -- percent widths of columns. Start and Mid (expanded) columns are displayed\nTablet:  Defaults to 33 - 67 - -- percent widths of columns. Start and Mid (expanded) columns are displayed\nPhone:   Fixed -- 100 -- percent widths of columns, only the Mid column is displayed\n\nUse to display both a list and a detail page when the user should focus on the detail page.",
+              "default": "TwoColumnsMidExpanded",
+              "name": "TwoColumnsMidExpanded",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Desktop: Defaults to 25 - 50 - 25 percent widths of columns. Start, Mid (expanded) and End columns are displayed\nTablet:  Defaults to 0 - 67 - 33 percent widths of columns. Mid (expanded) and End columns are displayed, Start is accessible by dragging the columns-separator\nPhone:   Fixed -- -- 100 percent widths of columns, only the End column is displayed\n\nUse to display all three pages (list, detail, detail-detail) when the user should focus on the detail.",
+              "default": "ThreeColumnsMidExpanded",
+              "name": "ThreeColumnsMidExpanded",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Desktop: Defaults to 25 - 25 - 50 percent widths of columns. Start, Mid and End (expanded) columns are displayed\nTablet:  Defaults to 0 - 33 - 67 percent widths of columns. Mid and End (expanded) columns are displayed, Start is accessible by dragging the columns-separator\nPhone:   Fixed -- -- 100 percent widths of columns (only the End column is displayed)\n\nUse to display all three pages (list, detail, detail-detail) when the user should focus on the detail-detail.",
+              "default": "ThreeColumnsEndExpanded",
+              "name": "ThreeColumnsEndExpanded",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Desktop: Defaults to 67 - 33 - 0 percent widths of columns. Start (expanded) and Mid columns are displayed, End is accessible by dragging the columns-separator\nTablet:  Defaults to 67 - 33 - 0 percent widths of columns. Start (expanded) and Mid columns are displayed, End is accessible by dragging the columns-separator\nPhone:   Fixed -- -- 100 percent widths of columns, only the End column is displayed\n\nUse to display the list and detail pages when the user should focus on the list.\nThe detail-detail is still loaded and easily accessible by dragging the columns-separator",
+              "default": "ThreeColumnsStartExpandedEndHidden",
+              "name": "ThreeColumnsStartExpandedEndHidden",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Desktop: Defaults to 33 - 67 - 0 percent widths of columns. Start and Mid (expanded) columns are displayed, End is accessible by dragging the columns-separator\nTablet:  Defaults to 33 - 67 - 0 percent widths of columns. Start and Mid (expanded) columns are displayed, End is accessible by dragging the columns-separator\nPhone:   Fixed -- -- 100 percent widths of columns, only the End column is displayed\n\nUse to display the list and detail pages when the user should focus on the detail.\nThe detail-detail is still loaded and easily accessible by dragging the columns-separator",
+              "default": "ThreeColumnsMidExpandedEndHidden",
+              "name": "ThreeColumnsMidExpandedEndHidden",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Desktop: Defaults to 0 - 67 - 33 percent widths of columns. Start is hidden, Mid (expanded) and End columns are displayed.\nTablet:  Defaults to 0 - 67 - 33 percent widths of columns. Start is hidden, Mid (expanded) and End columns are displayed.\nPhone:   Fixed -- 100 percent width of the Mid column, only the Mid column is displayed.\n\nUse to display the Mid and End columns while the Start column is hidden.",
+              "default": "ThreeColumnsStartHiddenMidExpanded",
+              "name": "ThreeColumnsStartHiddenMidExpanded",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Desktop: Defaults to 0 - 33 - 67 percent widths of columns. Start is hidden, Mid and End (expanded) columns are displayed.\nTablet:  Defaults to 0 - 33 - 67 percent widths of columns. Start is hidden, Mid and End (expanded) columns are displayed.\nPhone:   Fixed -- 100 percent width of the End column, only the End column is displayed.\n\nUse to display the Mid column and expanded End column while the grip of the separator is not visible.",
+              "default": "ThreeColumnsStartHiddenEndExpanded",
+              "name": "ThreeColumnsStartHiddenEndExpanded",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Desktop: Fixed -- 100 -- percent widths of columns, only the Mid column is displayed\nTablet:  Fixed -- 100 -- percent widths of columns, only the Mid column is displayed\nPhone:   Fixed -- 100 -- percent widths of columns, only the Mid column is displayed\n\nUse to display a detail page only, when the user should focus entirely on it.",
+              "default": "MidColumnFullScreen",
+              "name": "MidColumnFullScreen",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Desktop: Fixed -- -- 100 percent widths of columns, only the End column is displayed\nTablet:  Fixed -- -- 100 percent widths of columns, only the End column is displayed\nPhone:   Fixed -- -- 100 percent widths of columns, only the End column is displayed\n\nUse to display a detail-detail page only, when the user should focus entirely on it.",
+              "default": "EndColumnFullScreen",
+              "name": "EndColumnFullScreen",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "FCLLayout",
+            "module": "dist/types/FCLLayout.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/IllustrationMessageDesign.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "IllustrationMessageDesign",
+          "description": "Different types of IllustrationMessageDesign.",
+          "_ui5privacy": "public",
+          "_ui5since": "2.0.0",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Automatically decides the <code>Illustration</code> size (<code>Base</code>, <code>Dot</code>, <code>Spot</code>,\n<code>Dialog</code>, or <code>Scene</code>) depending on the <code>IllustratedMessage</code> container width.\n\n**Note:** `Auto` is the only option where the illustration size is changed according to\nthe available container width. If any other `IllustratedMessageSize` is chosen, it remains\nuntil changed by the app developer.",
+              "default": "Auto",
+              "name": "Auto",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Base `Illustration` size (XS breakpoint). Suitable for cards (two columns).\n\n**Note:** When `Base` is in use, no illustration is displayed.",
+              "default": "Base",
+              "name": "Base",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Dot <code>Illustration</code> size (XS breakpoint). Suitable for table rows.",
+              "default": "Dot",
+              "deprecated": "Since 2.10.0, use ExtraSmall instead",
+              "name": "Dot",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Spot <code>Illustration</code> size (S breakpoint). Suitable for cards (four columns).",
+              "default": "Spot",
+              "deprecated": "Since 2.10.0, use Small instead",
+              "name": "Spot",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Dialog `Illustration` size (M breakpoint). Suitable for dialogs.",
+              "default": "Dialog",
+              "deprecated": "Since 2.10.0, use Medium instead",
+              "name": "Dialog",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Scene `Illustration` size (L breakpoint). Suitable for a `Page` or a table.",
+              "default": "Scene",
+              "deprecated": "Since 2.10.0, use Large instead",
+              "name": "Scene",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "ExtraSmall <code>Illustration</code> size (XS breakpoint). Suitable for table rows.",
+              "default": "ExtraSmall",
+              "name": "ExtraSmall",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Small <code>Illustration</code> size (S breakpoint). Suitable for cards (four columns).",
+              "default": "Small",
+              "name": "Small",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Medium `Illustration` size (M breakpoint). Suitable for dialogs.",
+              "default": "Medium",
+              "name": "Medium",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Large `Illustration` size (L breakpoint). Suitable for a `Page` or a table.",
+              "default": "Large",
+              "name": "Large",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "IllustrationMessageDesign",
+            "module": "dist/types/IllustrationMessageDesign.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/IllustrationMessageType.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "IllustrationMessageType",
+          "description": "Different illustration types of Illustrated Message.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Achievement\" illustration type.",
+              "default": "Achievement",
+              "name": "Achievement",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Adding Columns\" illustration type.",
+              "default": "AddingColumns",
+              "name": "AddingColumns",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Add People To Calendar\" illustration type.",
+              "default": "AddPeopleToCalendar",
+              "name": "AddPeopleToCalendar",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Before Search\" illustration type.",
+              "default": "BeforeSearch",
+              "name": "BeforeSearch",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Drag Files To Upload\" illustration type.",
+              "default": "DragFilesToUpload",
+              "name": "DragFilesToUpload",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Filtering Columns\" illustration type.",
+              "default": "FilteringColumns",
+              "name": "FilteringColumns",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Grouping Columns\" illustration type.",
+              "default": "GroupingColumns",
+              "name": "GroupingColumns",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"New Mail\" illustration type.",
+              "default": "NewMail",
+              "name": "NewMail",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Activities\" illustration type.",
+              "default": "NoActivities",
+              "name": "NoActivities",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Columns Set\" illustration type.",
+              "default": "NoColumnsSet",
+              "name": "NoColumnsSet",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Data\" illustration type.",
+              "default": "NoData",
+              "name": "NoData",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Email\" illustration type.",
+              "default": "NoMail",
+              "name": "NoMail",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Email v1\" illustration type.",
+              "default": "NoMail_v1",
+              "deprecated": "Deprecated as of version 2.11.0, use NoMail instead.",
+              "name": "NoMail_v1",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Entries\" illustration type.",
+              "default": "NoEntries",
+              "name": "NoEntries",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Notifications\" illustration type.",
+              "default": "NoNotifications",
+              "name": "NoNotifications",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Saved Items\" illustration type.",
+              "default": "NoSavedItems",
+              "name": "NoSavedItems",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Saved Items v1\" illustration type.",
+              "default": "NoSavedItems_v1",
+              "deprecated": "Deprecated as of version 2.11.0, use NoSavedItems instead.",
+              "name": "NoSavedItems_v1",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Search Results\" illustration type.",
+              "default": "NoSearchResults",
+              "name": "NoSearchResults",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Tasks\" illustration type.",
+              "default": "NoTasks",
+              "name": "NoTasks",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Tasks v1\" illustration type.",
+              "default": "NoTasks_v1",
+              "deprecated": "Deprecated as of version 2.11.0, use NoTasks instead.",
+              "name": "NoTasks_v1",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Dimensions Set\" illustration type.",
+              "default": "NoDimensionsSet",
+              "deprecated": "Deprecated as of version 2.11.0, use NoChartData instead.",
+              "name": "NoDimensionsSet",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Unable To Load\" illustration type.",
+              "default": "UnableToLoad",
+              "name": "UnableToLoad",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Unable To Load Image\" illustration type.",
+              "default": "UnableToLoadImage",
+              "name": "UnableToLoadImage",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Unable To Upload\" illustration type.",
+              "default": "UnableToUpload",
+              "name": "UnableToUpload",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Upload To Cloud\" illustration type.",
+              "default": "UploadToCloud",
+              "name": "UploadToCloud",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Add Column\" illustration type.",
+              "default": "AddColumn",
+              "deprecated": "Deprecated as of version 2.11.0, use AddingColumns instead.",
+              "name": "AddColumn",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Add People\" illustration type.",
+              "default": "AddPeople",
+              "deprecated": "Deprecated as of version 2.11.0, use AddPeopleToCalendar instead.",
+              "name": "AddPeople",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Add Dimensions\" illustration type.",
+              "default": "AddDimensions",
+              "name": "AddDimensions",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Balloon Sky\" illustration type.",
+              "default": "BalloonSky",
+              "deprecated": "Deprecated as of version 2.11.0, use ReceiveAppreciation instead.",
+              "name": "BalloonSky",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Connection\" illustration type.",
+              "default": "Connection",
+              "deprecated": "Deprecated as of version 2.11.0, use UnableToLoad instead.",
+              "name": "Connection",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Empty Calendar\" illustration type.",
+              "default": "EmptyCalendar",
+              "deprecated": "Deprecated as of version 2.11.0, use NoActivities instead.",
+              "name": "EmptyCalendar",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Empty List\" illustration type.",
+              "default": "EmptyList",
+              "deprecated": "Deprecated as of version 2.11.0, use NoEntries instead.",
+              "name": "EmptyList",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Empty Planning Calendar\" illustration type.",
+              "default": "EmptyPlanningCalendar",
+              "name": "EmptyPlanningCalendar",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Error Screen\" illustration type.",
+              "default": "ErrorScreen",
+              "deprecated": "Deprecated as of version 2.11.0, use UnableToUpload instead.",
+              "name": "ErrorScreen",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Filter Table\" illustration type.",
+              "default": "FilterTable",
+              "deprecated": "Deprecated as of version 2.11.0, use FilteringColumns instead.",
+              "name": "FilterTable",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Group Table\" illustration type.",
+              "default": "GroupTable",
+              "deprecated": "Deprecated as of version 2.11.0, use GroupingColumns instead.",
+              "name": "GroupTable",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Key Task\" illustration type.",
+              "default": "KeyTask",
+              "name": "KeyTask",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Chart Data\" illustration type.",
+              "default": "NoChartData",
+              "name": "NoChartData",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"No Filter Results\" illustration type.",
+              "default": "NoFilterResults",
+              "name": "NoFilterResults",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Page Not Found\" illustration type.",
+              "default": "PageNotFound",
+              "name": "PageNotFound",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Reload Screen\" illustration type.",
+              "default": "ReloadScreen",
+              "deprecated": "Deprecated as of version 2.11.0, use UnableToLoad instead.",
+              "name": "ReloadScreen",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Resize Column\" illustration type.",
+              "default": "ResizeColumn",
+              "deprecated": "Deprecated as of version 2.11.0, use ResizingColumns instead.",
+              "name": "ResizeColumn",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Resizing Columns\" illustration type.",
+              "default": "ResizingColumns",
+              "name": "ResizingColumns",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Receive Appreciation\" illustration type.",
+              "default": "ReceiveAppreciation",
+              "name": "ReceiveAppreciation",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Search Earth\" illustration type.",
+              "default": "SearchEarth",
+              "deprecated": "Deprecated as of version 2.11.0, use BeforeSearch instead.",
+              "name": "SearchEarth",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Search Folder\" illustration type.",
+              "default": "SearchFolder",
+              "deprecated": "Deprecated as of version 2.11.0, use NoSearchResults instead.",
+              "name": "SearchFolder",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Sign Out\" illustration type.",
+              "default": "SignOut",
+              "name": "SignOut",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple Balloon\" illustration type.",
+              "default": "SimpleBalloon",
+              "deprecated": "Deprecated as of version 2.11.0, use ReceiveAppreciation instead.",
+              "name": "SimpleBalloon",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple Bell\" illustration type.",
+              "default": "SimpleBell",
+              "deprecated": "Deprecated as of version 2.11.0, use NoNotifications instead.",
+              "name": "SimpleBell",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple Calendar\" illustration type.",
+              "default": "SimpleCalendar",
+              "deprecated": "Deprecated as of version 2.11.0, use NoActivities instead.",
+              "name": "SimpleCalendar",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple CheckMark\" illustration type.",
+              "default": "SimpleCheckMark",
+              "deprecated": "Deprecated as of version 2.11.0, use KeyTask instead.",
+              "name": "SimpleCheckMark",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple Connection\" illustration type.",
+              "default": "SimpleConnection",
+              "deprecated": "Deprecated as of version 2.11.0, use UnableToLoad instead.",
+              "name": "SimpleConnection",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple Empty Doc\" illustration type.",
+              "default": "SimpleEmptyDoc",
+              "deprecated": "Deprecated as of version 2.11.0, use NoData instead.",
+              "name": "SimpleEmptyDoc",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple Empty List\" illustration type.",
+              "default": "SimpleEmptyList",
+              "deprecated": "Deprecated as of version 2.11.0, use NoEntries instead.",
+              "name": "SimpleEmptyList",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple Error\" illustration type.",
+              "default": "SimpleError",
+              "deprecated": "Deprecated as of version 2.11.0, use UnableToUpload instead.",
+              "name": "SimpleError",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple Magnifier\" illustration type.",
+              "default": "SimpleMagnifier",
+              "deprecated": "Deprecated as of version 2.11.0, use BeforeSearch instead.",
+              "name": "SimpleMagnifier",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple Mail\" illustration type.",
+              "default": "SimpleMail",
+              "deprecated": "Deprecated as of version 2.11.0, use NoMail instead.",
+              "name": "SimpleMail",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple No Saved Items\" illustration type.",
+              "default": "SimpleNoSavedItems",
+              "deprecated": "Deprecated as of version 2.11.0, use NoSavedItems instead.",
+              "name": "SimpleNoSavedItems",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple Not Found Magnifier\" illustration type.",
+              "default": "SimpleNotFoundMagnifier",
+              "deprecated": "Deprecated as of version 2.11.0, use NoSearchResults instead.",
+              "name": "SimpleNotFoundMagnifier",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple Reload\" illustration type.",
+              "default": "SimpleReload",
+              "deprecated": "Deprecated as of version 2.11.0, use UnableToLoad instead.",
+              "name": "SimpleReload",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Simple Task\" illustration type.",
+              "default": "SimpleTask",
+              "deprecated": "Deprecated as of version 2.11.0, use NoTasks instead.",
+              "name": "SimpleTask",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Sleeping Bell\" illustration type.",
+              "default": "SleepingBell",
+              "deprecated": "Deprecated as of version 2.11.0, use NoNotifications instead.",
+              "name": "SleepingBell",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Sort Column\" illustration type.",
+              "default": "SortColumn",
+              "deprecated": "Deprecated as of version 2.11.0, use SortingColumns instead.",
+              "name": "SortColumn",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Sorting Columns\" illustration type.",
+              "default": "SortingColumns",
+              "name": "SortingColumns",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Success Balloon\" illustration type.",
+              "default": "SuccessBalloon",
+              "deprecated": "Deprecated as of version 2.11.0, use ReceiveAppreciation instead.",
+              "name": "SuccessBalloon",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Success CheckMark\" illustration type.",
+              "default": "SuccessCheckMark",
+              "deprecated": "Deprecated as of version 2.11.0, use KeyTask instead.",
+              "name": "SuccessCheckMark",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Success HighFive\" illustration type.",
+              "default": "SuccessHighFive",
+              "deprecated": "Deprecated as of version 2.11.0, use ReceiveAppreciation instead.",
+              "name": "SuccessHighFive",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Success Screen\" illustration type.",
+              "default": "SuccessScreen",
+              "deprecated": "Deprecated as of version 2.11.0, use KeyTask instead.",
+              "name": "SuccessScreen",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Survey\" illustration type.",
+              "default": "Survey",
+              "name": "Survey",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Tent\" illustration type.",
+              "default": "Tent",
+              "deprecated": "Deprecated as of version 2.11.0, use NoData instead.",
+              "name": "Tent",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"Upload Collection\" illustration type.",
+              "default": "UploadCollection",
+              "deprecated": "Deprecated as of version 2.11.0, use DragFilesToUpload instead.",
+              "name": "UploadCollection",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"User Has Signed Up\" illustration type.",
+              "default": "UserHasSignedUp",
+              "name": "UserHasSignedUp",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntAvatar\" illustration type.",
+              "default": "TntAvatar",
+              "name": "TntAvatar",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntCalculator\" illustration type.",
+              "default": "TntCalculator",
+              "name": "TntCalculator",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntChartArea\" illustration type.",
+              "default": "TntChartArea",
+              "name": "TntChartArea",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntChartArea2\" illustration type.",
+              "default": "TntChartArea2",
+              "name": "TntChartArea2",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntChartBar\" illustration type.",
+              "default": "TntChartBar",
+              "name": "TntChartBar",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntChartBPMNFlow\" illustration type.",
+              "default": "TntChartBPMNFlow",
+              "name": "TntChartBPMNFlow",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntChartBullet\" illustration type.",
+              "default": "TntChartBullet",
+              "name": "TntChartBullet",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntChartDoughnut\" illustration type.",
+              "default": "TntChartDoughnut",
+              "name": "TntChartDoughnut",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntChartFlow\" illustration type.",
+              "default": "TntChartFlow",
+              "name": "TntChartFlow",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntChartGantt\" illustration type.",
+              "default": "TntChartGantt",
+              "name": "TntChartGantt",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntChartOrg\" illustration type.",
+              "default": "TntChartOrg",
+              "name": "TntChartOrg",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntChartPie\" illustration type.",
+              "default": "TntChartPie",
+              "name": "TntChartPie",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntCodePlaceholder\" illustration type.",
+              "default": "TntCodePlaceholder",
+              "name": "TntCodePlaceholder",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntCompany\" illustration type.",
+              "default": "TntCompany",
+              "name": "TntCompany",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntCompass\" illustration type.",
+              "default": "TntCompass",
+              "name": "TntCompass",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntComponents\" illustration type.",
+              "default": "TntComponents",
+              "name": "TntComponents",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntDialog\" illustration type.",
+              "default": "TntDialog",
+              "name": "TntDialog",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntEmptyContentPane\" illustration type.",
+              "default": "TntEmptyContentPane",
+              "name": "TntEmptyContentPane",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntExternalLink\" illustration type.",
+              "default": "TntExternalLink",
+              "name": "TntExternalLink",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntFaceID\" illustration type.",
+              "default": "TntFaceID",
+              "name": "TntFaceID",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntFingerprint\" illustration type.",
+              "default": "TntFingerprint",
+              "name": "TntFingerprint",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntHandshake\" illustration type.",
+              "default": "TntHandshake",
+              "name": "TntHandshake",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntHelp\" illustration type.",
+              "default": "TntHelp",
+              "name": "TntHelp",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntLock\" illustration type.",
+              "default": "TntLock",
+              "name": "TntLock",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntMission\" illustration type.",
+              "default": "TntMission",
+              "name": "TntMission",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntMissionFailed\" illustration type.",
+              "default": "TntMissionFailed",
+              "name": "TntMissionFailed",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntNoApplications\" illustration type.",
+              "default": "TntNoApplications",
+              "name": "TntNoApplications",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntNoFlows\" illustration type.",
+              "default": "TntNoFlows",
+              "name": "TntNoFlows",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntNoUsers\" illustration type.",
+              "default": "TntNoUsers",
+              "name": "TntNoUsers",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntRadar\" illustration type.",
+              "default": "TntRadar",
+              "name": "TntRadar",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntRoadMap\" illustration type.",
+              "default": "TntRoadMap",
+              "name": "TntRoadMap",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntSecrets\" illustration type.",
+              "default": "TntSecrets",
+              "name": "TntSecrets",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntServices\" illustration type.",
+              "default": "TntServices",
+              "name": "TntServices",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntSessionExpired\" illustration type.",
+              "default": "TntSessionExpired",
+              "name": "TntSessionExpired",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntSessionExpiring\" illustration type.",
+              "default": "TntSessionExpiring",
+              "name": "TntSessionExpiring",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntSettings\" illustration type.",
+              "default": "TntSettings",
+              "name": "TntSettings",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntSuccess\" illustration type.",
+              "default": "TntSuccess",
+              "name": "TntSuccess",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntSuccessfulAuth\" illustration type.",
+              "default": "TntSuccessfulAuth",
+              "name": "TntSuccessfulAuth",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntSystems\" illustration type.",
+              "default": "TntSystems",
+              "name": "TntSystems",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntTeams\" illustration type.",
+              "default": "TntTeams",
+              "name": "TntTeams",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntTools\" illustration type.",
+              "default": "TntTools",
+              "name": "TntTools",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntTutorials\" illustration type.",
+              "default": "TntTutorials",
+              "name": "TntTutorials",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntUnableToLoad\" illustration type.",
+              "default": "TntUnableToLoad",
+              "name": "TntUnableToLoad",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntUnlock\" illustration type.",
+              "default": "TntUnlock",
+              "name": "TntUnlock",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntUnsuccessfulAuth\" illustration type.",
+              "default": "TntUnsuccessfulAuth",
+              "name": "TntUnsuccessfulAuth",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "\"TntUser2\" illustration type.",
+              "default": "TntUser2",
+              "name": "TntUser2",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "IllustrationMessageType",
+            "module": "dist/types/IllustrationMessageType.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/MediaGalleryItemLayout.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "MediaGalleryItemLayout",
+          "description": "Defines the layout of the content displayed in the `ui5-media-gallery-item`.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Recommended to use when the item contains an image.\n\nWhen a thumbnail is selected, it makes the corresponding enlarged content appear in a square display area.",
+              "default": "Square",
+              "name": "Square",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Recommended to use when the item contains video content.\n\nWhen a thumbnail is selected, it makes the corresponding enlarged content appear in a wide display area\n(stretched to fill all of the available width) for optimal user experiance.",
+              "default": "Wide",
+              "name": "Wide",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "MediaGalleryItemLayout",
+            "module": "dist/types/MediaGalleryItemLayout.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/MediaGalleryLayout.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "MediaGalleryLayout",
+          "description": "Defines the layout type of the thumbnails list of the `ui5-media-gallery` component.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "The layout is determined automatically.",
+              "default": "Auto",
+              "name": "Auto",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Displays the layout as a vertical split between the thumbnails list and the selected image.",
+              "default": "Vertical",
+              "name": "Vertical",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Displays the layout as a horizontal split between the thumbnails list and the selected image.",
+              "default": "Horizontal",
+              "name": "Horizontal",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "MediaGalleryLayout",
+            "module": "dist/types/MediaGalleryLayout.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/MediaGalleryMenuHorizontalAlign.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "MediaGalleryMenuHorizontalAlign",
+          "description": "Defines the horizontal alignment of the thumbnails menu of the `ui5-media-gallery` component.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Displays the menu on the left side of the target.",
+              "default": "Left",
+              "name": "Left",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Displays the menu on the right side of the target.",
+              "default": "Right",
+              "name": "Right",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "MediaGalleryMenuHorizontalAlign",
+            "module": "dist/types/MediaGalleryMenuHorizontalAlign.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/MediaGalleryMenuVerticalAlign.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "MediaGalleryMenuVerticalAlign",
+          "description": "Types for the vertical alignment of the thumbnails menu of the `ui5-media-gallery` component.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Displays the menu at the top of the reference control.",
+              "default": "Top",
+              "name": "Top",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Displays the menu at the bottom of the reference control.",
+              "default": "Bottom",
+              "name": "Bottom",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "MediaGalleryMenuVerticalAlign",
+            "module": "dist/types/MediaGalleryMenuVerticalAlign.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/NavigationLayoutMode.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "NavigationLayoutMode",
+          "description": "Specifies the navigation layout mode.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Automatically calculates the navigation layout mode based on the screen device type.\n`Expanded` on desktop and `Collapsed` on tablet and phone.",
+              "default": "Auto",
+              "name": "Auto",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Collapsed side navigation.",
+              "default": "Collapsed",
+              "name": "Collapsed",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Expanded side navigation.",
+              "default": "Expanded",
+              "name": "Expanded",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "NavigationLayoutMode",
+            "module": "dist/types/NavigationLayoutMode.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/NotificationListItemImportance.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "NotificationListItemImportance",
+          "description": "Different types of NotificationListItemImportance.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "default": "Standard",
+              "name": "Standard",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "default": "Important",
+              "name": "Important",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "NotificationListItemImportance",
+            "module": "dist/types/NotificationListItemImportance.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/PageBackgroundDesign.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "PageBackgroundDesign",
+          "description": "Available Page Background Design.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Page background color when a List is set as the Page content.",
+              "default": "List",
+              "name": "List",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "A solid background color dependent on the theme.",
+              "default": "Solid",
+              "name": "Solid",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Transparent background for the page.",
+              "default": "Transparent",
+              "name": "Transparent",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "PageBackgroundDesign",
+            "module": "dist/types/PageBackgroundDesign.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/SearchMode.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "SearchMode",
+          "description": "Search mode options.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Search field with default appearance.",
+              "default": "Default",
+              "name": "Default",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Search field with additional scope select.",
+              "default": "Scoped",
+              "name": "Scoped",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "SearchMode",
+            "module": "dist/types/SearchMode.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/SideContentFallDown.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "SideContentFallDown",
+          "description": "SideContent FallDown options.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Side content falls down on breakpoints below XL",
+              "default": "BelowXL",
+              "name": "BelowXL",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Side content falls down on breakpoints below L",
+              "default": "BelowL",
+              "name": "BelowL",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Side content falls down on breakpoints below M",
+              "default": "BelowM",
+              "name": "BelowM",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Side content falls down on breakpoint M and the minimum width for the side content",
+              "default": "OnMinimumWidth",
+              "name": "OnMinimumWidth",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "SideContentFallDown",
+            "module": "dist/types/SideContentFallDown.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/SideContentPosition.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "SideContentPosition",
+          "description": "Side Content position options.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "The side content is on the right side of the main container\nin left-to-right mode and on the left side in right-to-left mode.",
+              "default": "End",
+              "name": "End",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "The side content is on the left side of the main container\nin left-to-right mode and on the right side in right-to-left mode.",
+              "default": "Start",
+              "name": "Start",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "SideContentPosition",
+            "module": "dist/types/SideContentPosition.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/SideContentVisibility.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "SideContentVisibility",
+          "description": "Side Content visibility options.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Show the side content on any breakpoint",
+              "default": "AlwaysShow",
+              "name": "AlwaysShow",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Show the side content on XL breakpoint",
+              "default": "ShowAboveL",
+              "name": "ShowAboveL",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Show the side content on L and XL breakpoints",
+              "default": "ShowAboveM",
+              "name": "ShowAboveM",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Show the side content on M, L and XL breakpoints",
+              "default": "ShowAboveS",
+              "name": "ShowAboveS",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Don't show the side content on any breakpoints",
+              "default": "NeverShow",
+              "name": "NeverShow",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "SideContentVisibility",
+            "module": "dist/types/SideContentVisibility.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/SideNavigationItemDesign.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "SideNavigationItemDesign",
+          "description": "SideNavigationItem designs.",
+          "_ui5privacy": "public",
+          "_ui5since": "2.7.0",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Design for items that perform navigation, contain navigation child items, or both.",
+              "default": "Default",
+              "name": "Default",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Design for items that trigger an action, such as opening a dialog.\n\n**Note:** Items with this design must not have sub-items.\n\n**Note:** Items that open a dialog must set `hasPopup=\"dialog\"` via `accessibilityAttributes` property.",
+              "default": "Action",
+              "name": "Action",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "SideNavigationItemDesign",
+            "module": "dist/types/SideNavigationItemDesign.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/TimelineGrowingMode.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "TimelineGrowingMode",
+          "description": "Timeline growing modes.",
+          "_ui5privacy": "public",
+          "_ui5since": "2.7.0",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Event `load-more` is fired\nupon pressing a \"More\" button at the end.",
+              "default": "Button",
+              "name": "Button",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Event `load-more` is fired upon scroll.",
+              "default": "Scroll",
+              "name": "Scroll",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "The growing feature is not enabled.",
+              "default": "None",
+              "name": "None",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "TimelineGrowingMode",
+            "module": "dist/types/TimelineGrowingMode.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/TimelineLayout.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "TimelineLayout",
+          "description": "Available Timeline layout orientation",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Vertical layout\nDefault type",
+              "default": "Vertical",
+              "name": "Vertical",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Horizontal layout",
+              "default": "Horizontal",
+              "name": "Horizontal",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "TimelineLayout",
+            "module": "dist/types/TimelineLayout.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/UploadCollectionDnDMode.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "UploadCollectionDnDOverlayMode",
+            "module": "dist/types/UploadCollectionDnDMode.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/UploadCollectionSelectionMode.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "UploadCollectionSelectionMode",
+          "description": "Different UploadCollection selection modes.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Default mode (no selection).",
+              "default": "None",
+              "name": "None",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Right-positioned single selection mode (only one list item can be selected).",
+              "default": "Single",
+              "name": "Single",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Left-positioned single selection mode (only one list item can be selected).",
+              "default": "SingleStart",
+              "name": "SingleStart",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Selected item is highlighted but no selection element is visible\n(only one list item can be selected).",
+              "default": "SingleEnd",
+              "name": "SingleEnd",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Selected item is highlighted and selection is changed upon arrow navigation\n(only one list item can be selected - this is always the focused item).",
+              "default": "SingleAuto",
+              "name": "SingleAuto",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Multi selection mode (more than one list item can be selected).",
+              "default": "Multiple",
+              "name": "Multiple",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "UploadCollectionSelectionMode",
+            "module": "dist/types/UploadCollectionSelectionMode.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/UploadState.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "UploadState",
+          "description": "Different types of UploadState.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "The file has been uploaded successfully.",
+              "default": "Complete",
+              "name": "Complete",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "The file cannot be uploaded due to an error.",
+              "default": "Error",
+              "name": "Error",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "The file is awaiting an explicit command to start being uploaded.",
+              "default": "Ready",
+              "name": "Ready",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "The file is currently being uploaded.",
+              "default": "Uploading",
+              "name": "Uploading",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "UploadState",
+            "module": "dist/types/UploadState.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/ViewSettingsDialogMode.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "ViewSettingsDialogMode",
+          "description": "Different types of ViewSettings.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "_ui5since": "1.0.0-rc.16",
+              "description": "Default type",
+              "default": "Sort",
+              "name": "Sort",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "_ui5since": "1.0.0-rc.16",
+              "description": "Filter type",
+              "default": "Filter",
+              "name": "Filter",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "_ui5since": "2.13.0",
+              "description": "Group type",
+              "default": "Group",
+              "name": "Group",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "ViewSettingsDialogMode",
+            "module": "dist/types/ViewSettingsDialogMode.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/WizardContentLayout.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "WizardContentLayout",
+          "description": "Enumeration for different content layouts of the `ui5-wizard`.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Display the content of the `ui5-wizard` as multiple steps in a scroll section.",
+              "default": "MultipleSteps",
+              "name": "MultipleSteps",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Display the content of the `ui5-wizard` as single step.",
+              "default": "SingleStep",
+              "name": "SingleStep",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "WizardContentLayout",
+            "module": "dist/types/WizardContentLayout.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/upload-utils/UploadCollectionBodyDnD.js",
+      "declarations": [],
+      "exports": []
     }
   ]
 }

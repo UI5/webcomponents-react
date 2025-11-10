@@ -5,6 +5,8 @@ import type {
   FCLAccessibilityAttributes,
   FlexibleColumnLayoutColumnLayout,
   FlexibleColumnLayoutLayoutChangeEventDetail,
+  FlexibleColumnLayoutLayoutConfigurationChangeEventDetail,
+  LayoutConfiguration,
 } from '@ui5/webcomponents-fiori/dist/FlexibleColumnLayout.js';
 import type FCLLayout from '@ui5/webcomponents-fiori/dist/types/FCLLayout.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
@@ -55,6 +57,24 @@ interface FlexibleColumnLayoutAttributes {
    * @default "OneColumn"
    */
   layout?: FCLLayout | keyof typeof FCLLayout;
+
+  /**
+   * Allows to customize the column proportions per screen size and layout.
+   * If no custom proportion provided for a specific layout, the default will be used.
+   *
+   * **Notes:**
+   *
+   * - The proportions should be given in percentages. For example ["30%", "40%", "30%"], ["70%", "30%", 0], etc.
+   * - The proportions should add up to 100%.
+   * - Hidden columns are marked as "0px", e.g. ["0px", "70%", "30%"]. Specifying 0 or "0%" for hidden columns is also valid.
+   * - If the proportions do not match the layout (e.g. if provided proportions ["70%", "30%", "0px"] for "OneColumn" layout), then the default proportions will be used instead.
+   * - Whenever the user drags the columns separator to resize the columns, the `layoutsConfiguration` object will be updated with the user-specified proportions for the given layout (and the `layout-configuration-change` event will be fired).
+   * - No custom configuration available for the phone screen size, as the default of 100% column width is always used there.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents-fiori**.
+   * @default {}
+   */
+  layoutsConfiguration?: LayoutConfiguration;
 }
 
 interface FlexibleColumnLayoutDomRef extends Required<FlexibleColumnLayoutAttributes>, Ui5DomRef {
@@ -91,7 +111,12 @@ interface FlexibleColumnLayoutPropTypes
   extends FlexibleColumnLayoutAttributes,
     Omit<
       CommonProps,
-      keyof FlexibleColumnLayoutAttributes | 'endColumn' | 'midColumn' | 'startColumn' | 'onLayoutChange'
+      | keyof FlexibleColumnLayoutAttributes
+      | 'endColumn'
+      | 'midColumn'
+      | 'startColumn'
+      | 'onLayoutChange'
+      | 'onLayoutConfigurationChange'
     > {
   /**
    * Defines the content in the end column.
@@ -142,6 +167,19 @@ interface FlexibleColumnLayoutPropTypes
   onLayoutChange?: (
     event: Ui5CustomEvent<FlexibleColumnLayoutDomRef, FlexibleColumnLayoutLayoutChangeEventDetail>,
   ) => void;
+
+  /**
+   * Fired when the `layoutsConfiguration` changes via user interaction by dragging the separators.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents-fiori**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onLayoutConfigurationChange?: (
+    event: Ui5CustomEvent<FlexibleColumnLayoutDomRef, FlexibleColumnLayoutLayoutConfigurationChangeEventDetail>,
+  ) => void;
 }
 
 /**
@@ -187,10 +225,10 @@ interface FlexibleColumnLayoutPropTypes
  */
 const FlexibleColumnLayout = withWebComponent<FlexibleColumnLayoutPropTypes, FlexibleColumnLayoutDomRef>(
   'ui5-flexible-column-layout',
-  ['accessibilityAttributes', 'layout'],
+  ['accessibilityAttributes', 'layout', 'layoutsConfiguration'],
   ['disableResizing'],
   ['endColumn', 'midColumn', 'startColumn'],
-  ['layout-change'],
+  ['layout-change', 'layout-configuration-change'],
 );
 
 FlexibleColumnLayout.displayName = 'FlexibleColumnLayout';

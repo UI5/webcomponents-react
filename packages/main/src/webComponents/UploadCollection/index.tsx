@@ -1,6 +1,7 @@
 'use client';
 
 import '@ui5/webcomponents-fiori/dist/UploadCollection.js';
+import type TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import type UploadCollectionSelectionMode from '@ui5/webcomponents-fiori/dist/types/UploadCollectionSelectionMode.js';
 import type {
   UploadCollectionItemDeleteEventDetail,
@@ -32,6 +33,14 @@ interface UploadCollectionAttributes {
    * @default undefined
    */
   noDataDescription?: string | undefined;
+
+  /**
+   * Defines the header level of the 'No data' text.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents-fiori**.
+   * @default "H2"
+   */
+  noDataHeaderLevel?: TitleLevel | keyof typeof TitleLevel;
 
   /**
    * Allows you to set your own text for the 'No data' text.
@@ -112,7 +121,7 @@ interface UploadCollectionPropTypes
  */
 const UploadCollection = withWebComponent<UploadCollectionPropTypes, UploadCollectionDomRef>(
   'ui5-upload-collection',
-  ['accessibleName', 'noDataDescription', 'noDataText', 'selectionMode'],
+  ['accessibleName', 'noDataDescription', 'noDataHeaderLevel', 'noDataText', 'selectionMode'],
   ['hideDragOverlay'],
   ['header'],
   ['item-delete', 'selection-change'],

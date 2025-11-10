@@ -10,11 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ui5/webcomponents": "2.15.1",
-    "@ui5/webcomponents-base": "2.15.1",
-    "@ui5/webcomponents-fiori": "2.15.1",
-    "@ui5/webcomponents-icons": "2.15.1",
-    "@ui5/webcomponents-react": "2.15.3",
+    "@ui5/webcomponents": "2.16.1",
+    "@ui5/webcomponents-base": "2.16.1",
+    "@ui5/webcomponents-fiori": "2.16.1",
+    "@ui5/webcomponents-icons": "2.16.1",
+    "@ui5/webcomponents-react": "2.16.0",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },
@@ -22,12 +22,12 @@
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "@vitejs/plugin-react": "5.1.0",
-    "eslint": "9.39.0",
+    "eslint": "9.39.1",
     "eslint-plugin-react-hooks": "7.0.0",
     "eslint-plugin-react-refresh": "0.4.24",
     "globals": "16.5.0",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.46.2",
-    "vite": "7.1.12"
+    "typescript-eslint": "8.46.3",
+    "vite": "7.2.2"
   }
 }

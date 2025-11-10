@@ -201,6 +201,8 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
           borderInlineStart: dragOver ? `3px solid ${ThemingParameters.sapSelectedColor}` : undefined,
         }}
         aria-haspopup={hasPopover ? 'menu' : undefined}
+        aria-expanded={hasPopover ? (popoverOpen ? 'true' : 'false') : undefined}
+        aria-controls={hasPopover ? `${id}-popover` : undefined}
         role={role}
         draggable={isDraggable}
         onDragEnter={onDragEnter}
@@ -281,6 +283,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
           // eslint-disable-next-line react-hooks/refs
           column.render(RenderColumnTypes.Popover, {
             popoverProps: {
+              id: `${id}-popover`,
               openerRef: columnHeaderRef,
               openerId: `${id}-opener`,
               setOpen: setPopoverOpen,

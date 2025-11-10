@@ -160,7 +160,7 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
         }
         prepareRow(row);
         const { key, ...rowProps } = row.getRowProps({
-          'aria-rowindex': virtualRow.index + 1,
+          'aria-rowindex': virtualRow.index + 2,
           'data-virtual-row-index': virtualRow.index,
         });
         const isNavigatedCell = typeof markNavigatedRow === 'function' ? markNavigatedRow(row) : false;

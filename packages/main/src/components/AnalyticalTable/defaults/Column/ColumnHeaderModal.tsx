@@ -34,7 +34,7 @@ import type { TableInstanceWithPopoverProps } from '../../types/index.js';
 import { RenderColumnTypes } from '../../types/index.js';
 
 export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
-  const { setOpen, openerRef, openerId } = instance.popoverProps;
+  const { id, setOpen, openerRef, openerId } = instance.popoverProps;
   const { column, state, webComponentsReactProperties } = instance;
   const { isRtl, groupBy } = state;
   const { onGroup, onSort, classes: classNames } = webComponentsReactProperties;
@@ -178,6 +178,7 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
 
   return (
     <Popover
+      id={id}
       // todo: remove openerRef in v3.0.0
       // eslint-disable-next-line react-hooks/refs
       opener={openerId ?? openerRef.current}

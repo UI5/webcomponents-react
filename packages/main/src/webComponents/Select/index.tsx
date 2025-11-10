@@ -2,6 +2,7 @@
 
 import '@ui5/webcomponents/dist/Select.js';
 import type { IOption, SelectChangeEventDetail, SelectLiveChangeEventDetail } from '@ui5/webcomponents/dist/Select.js';
+import type SelectTextSeparator from '@ui5/webcomponents/dist/types/SelectTextSeparator.js';
 import type ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
@@ -68,6 +69,14 @@ interface SelectAttributes {
    * @default false
    */
   required?: boolean;
+
+  /**
+   * Defines the separator type for the two columns layout when Select is in read-only mode.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents**.
+   * @default "Dash"
+   */
+  textSeparator?: SelectTextSeparator | keyof typeof SelectTextSeparator;
 
   /**
    * Defines the tooltip of the select.
@@ -272,6 +281,7 @@ const Select = withWebComponent<SelectPropTypes, SelectDomRef>(
     'accessibleName',
     'accessibleNameRef',
     'name',
+    'textSeparator',
     'tooltip',
     'value',
     'valueState',

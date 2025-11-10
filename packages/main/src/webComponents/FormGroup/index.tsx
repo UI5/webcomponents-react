@@ -8,6 +8,22 @@ import type { ReactNode } from 'react';
 
 interface FormGroupAttributes {
   /**
+   * Defines the accessible ARIA name of the component.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleName?: string | undefined;
+
+  /**
+   * Defines id (or many ids) of the element (or elements) that label the component.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleNameRef?: string | undefined;
+
+  /**
    * Defines column span of the component,
    * e.g how many columns the group should span to.
    * @default undefined
@@ -64,7 +80,7 @@ interface FormGroupPropTypes extends FormGroupAttributes, Omit<CommonProps, keyo
  */
 const FormGroup = withWebComponent<FormGroupPropTypes, FormGroupDomRef>(
   'ui5-form-group',
-  ['columnSpan', 'headerLevel', 'headerText'],
+  ['accessibleName', 'accessibleNameRef', 'columnSpan', 'headerLevel', 'headerText'],
   [],
   [],
   [],

@@ -1,13 +1,29 @@
 'use client';
 
 import '@ui5/webcomponents/dist/Form.js';
+import type FormAccessibleMode from '@ui5/webcomponents/dist/types/FormAccessibleMode.js';
 import type FormItemSpacing from '@ui5/webcomponents/dist/types/FormItemSpacing.js';
 import type TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
-import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
+import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
 
 interface FormAttributes {
+  /**
+   * Defines the accessibility mode of the component in "edit" and "display" use-cases.
+   *
+   * Based on the mode, the component renders different HTML elements and ARIA attributes,
+   * which are appropriate for the use-case.
+   *
+   * **Usage:**
+   * - Set this property to "Display", when the form consists of non-editable (e.g. texts) form items.
+   * - Set this property to "Edit", when the form consists of editable (e.g. input fields) form items.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents**.
+   * @default "Display"
+   */
+  accessibleMode?: FormAccessibleMode | keyof typeof FormAccessibleMode;
+
   /**
    * Defines the accessible ARIA name of the component.
    *
@@ -15,6 +31,14 @@ interface FormAttributes {
    * @default undefined
    */
   accessibleName?: string | undefined;
+
+  /**
+   * Defines id (or many ids) of the element (or elements) that label the component.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleNameRef?: string | undefined;
 
   /**
    * Defines the number of cells that are empty at the end of each form item, configurable by breakpoint.
@@ -51,9 +75,9 @@ interface FormAttributes {
   /**
    * Defines the vertical spacing between form items.
    *
-   * **Note:** If the Form is meant to be switched between "non-edit" and "edit" modes,
-   * we recommend using "Large" item spacing in "non-edit" mode, and "Normal" - for "edit" mode,
-   * to avoid "jumping" effect, caused by the hight difference between texts in "non-edit" mode and the input fields in "edit" mode.
+   * **Note:** If the Form is meant to be switched between "display"("non-edit") and "edit" modes,
+   * we recommend using "Large" item spacing in "display"("non-edit") mode, and "Normal" - for "edit" mode,
+   * to avoid "jumping" effect, caused by the hight difference between texts in "display"("non-edit") mode and the input fields in "edit" mode.
    * @default "Normal"
    */
   itemSpacing?: FormItemSpacing | keyof typeof FormItemSpacing;
@@ -253,7 +277,17 @@ interface FormPropTypes extends FormAttributes, Omit<CommonProps, keyof FormAttr
  */
 const Form = withWebComponent<FormPropTypes, FormDomRef>(
   'ui5-form',
-  ['accessibleName', 'emptySpan', 'headerLevel', 'headerText', 'itemSpacing', 'labelSpan', 'layout'],
+  [
+    'accessibleMode',
+    'accessibleName',
+    'accessibleNameRef',
+    'emptySpan',
+    'headerLevel',
+    'headerText',
+    'itemSpacing',
+    'labelSpan',
+    'layout',
+  ],
   [],
   ['header'],
   [],

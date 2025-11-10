@@ -106,7 +106,7 @@ export const Default: Story = {
             text="User Account"
             tooltip="User Account"
             headerText="User Account"
-            pages={
+            tabs={
               <>
                 <UserSettingsView>
                   <Icon name="person-placeholder" />
@@ -166,7 +166,7 @@ export const Default: Story = {
             text="Language & Region"
             tooltip="Language & Region"
             headerText="Language & Region"
-            pages={
+            tabs={
               <UserSettingsView>
                 <div className="us-container">
                   <div className="lr-item">

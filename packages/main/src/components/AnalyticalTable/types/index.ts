@@ -93,8 +93,16 @@ export interface ColumnType extends Omit<AnalyticalTableColumnDefinition, 'id'> 
 export interface CellType {
   column: ColumnType;
   row: RowType;
-  value: string | undefined;
-  getCellProps: (props?: any) => any;
+  value: string | undefined | null;
+  getCellProps: (userProps?: any) => any;
+  /**
+   * Indicates whether the cell is aggregated.
+   *
+   * __Note:__ This is a numeric flag where `1` means true and `0` means false.
+   */
+  isAggregated: 0 | 1;
+  isGrouped: boolean;
+  isPlaceholder: boolean;
   [key: string]: any;
 }
 
@@ -212,16 +220,21 @@ export interface TableInstance {
 }
 
 export interface WCRPropertiesType {
+  canUseVoiceOver: boolean;
   fontsReady: boolean;
+  isFirefox: boolean;
   selectionMode: AnalyticalTablePropTypes['selectionMode'];
   onRowSelect?: AnalyticalTablePropTypes['onRowSelect'];
+  a11yElementIds: {
+    cellSelectDescId: string;
+    cellUnselectDescId: string;
+    cellExpandDescId: string;
+    cellCollapseDescId: string;
+    cellEmptyDescId: string;
+  };
   translatableTexts: {
     selectAllText: string;
     deselectAllText: string;
-    expandA11yText: string;
-    collapseA11yText: string;
-    selectA11yText: string;
-    unselectA11yText: string;
     expandNodeA11yText: string;
     collapseNodeA11yText: string;
     filteredA11yText: string;
@@ -230,6 +243,9 @@ export interface WCRPropertiesType {
     deselectAllA11yText: string;
     rowExpandedAnnouncementText: string;
     rowCollapsedAnnouncementText: string;
+    selectionHeaderCellText: string;
+    highlightHeaderCellText: string;
+    navigationHeaderCellText: string;
   };
   tagNamesWhichShouldNotSelectARow: Set<string>;
   tableRef: MutableRefObject<DivWithCustomScrollProp>;
@@ -257,27 +273,33 @@ export interface WCRPropertiesType {
   onFilter: AnalyticalTablePropTypes['onFilter'];
 }
 
-export type CellInstance = TableInstance & { cell: CellType } & Omit<CellType, 'getCellProps'>;
+export type CellInstance = TableInstance & { cell: CellType } & Omit<
+    CellType,
+    'getCellProps' | 'isAggregated' | 'isGrouped' | 'isPlaceholder'
+  >;
 
 export interface RowType {
-  allCells: Record<string, any>[];
   canExpand: boolean;
-  cells: Record<string, any>[];
+  cells: CellType[];
+  allCells: Record<string, any>[];
   depth: number;
-  getRowProps: (props?: any) => any;
-  getToggleRowExpandedProps: (userProps?: any) => any;
-  getToggleRowSelectedProps: (userProps?: any) => any;
   id: string;
   index: number;
-  isExpanded: boolean;
+  isExpanded: boolean | undefined;
   isSelected: boolean;
   isSomeSelected: boolean;
+  getRowProps: (props?: any) => any;
   original: Record<string, any>;
   originalSubRows: Record<string, any>[];
-  subRows: Record<string, any>[];
-  toggleRowExpanded: (isExpanded?: boolean) => void;
-  toggleRowSelected: (isSelected?: boolean) => void;
+  subRows: RowType[];
   values: Record<string, any>;
+  groupByID?: string;
+  groupByVal?: string;
+  leafRows?: Omit<RowType, 'leafRows'>[];
+  getToggleRowExpandedProps?: (userProps?: any) => any;
+  getToggleRowSelectedProps?: (userProps?: any) => any;
+  toggleRowExpanded?: (isExpanded?: boolean) => void;
+  toggleRowSelected?: (isSelected?: boolean) => void;
   [key: string]: any;
 }
 
@@ -355,6 +377,7 @@ interface ScaleWidthModeOptions {
 }
 
 interface PopoverProps {
+  id: string;
   /**
    * Set the state of the popover. If set to `false` the component is unmounted.
    */
@@ -740,9 +763,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   /**
    * Indicates whether a loading indicator should be shown.
    *
-   * __Note:__
-   * - If the data array is not empty and loading is set to `true` a `BusyIndicator` will be displayed on top of the table, otherwise a skeleton placeholder will be shown. You can control this behavior via the `alwaysShowBusyIndicator` prop.
-   * - __We recommend setting this prop to `true` when loading times are under 1 second.__
+   * __Note:__ If the data array is not empty and loading is set to `true` a `BusyIndicator` will be displayed on top of the table, otherwise a skeleton placeholder will be shown. You can control this behavior via the `alwaysShowBusyIndicator` prop.
    */
   loading?: boolean;
   /**
@@ -757,6 +778,8 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   showOverlay?: boolean;
   /**
    * If `true`, always shows the `BusyIndicator` component when loading instead of the skeleton loader.
+   *
+   * __We recommend setting this prop to `true` when loading times are under 1 second.__
    */
   alwaysShowBusyIndicator?: boolean;
   /**

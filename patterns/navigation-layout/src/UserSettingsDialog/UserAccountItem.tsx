@@ -31,7 +31,7 @@ export function UserAccountItem() {
         text="User Account"
         tooltip="User Account"
         headerText="User Account"
-        pages={
+        tabs={
           <UserSettingsView>
             <div className="container">
               <Avatar size="L" className="ua-info-profile">

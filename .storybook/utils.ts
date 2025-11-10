@@ -1,5 +1,5 @@
 import type * as CEM from '@ui5/webcomponents-tools/lib/cem/types-internal';
-import { useMemo } from 'react';
+import { useMemo, useRef, useState, useTransition } from 'react';
 // @ts-expect-error: storybook can handle this
 import cemAi from './custom-element-manifests/ai.json';
 // @ts-expect-error: storybook can handle this
@@ -84,4 +84,80 @@ export function useGetSubComponentsOfModule(moduleName: string, tags: string[]) 
   return useMemo(() => {
     return findSubComponentsRecursively(moduleName, cem);
   }, [cem, moduleName]);
+}
+
+type StartStreamOptions = {
+  text: string;
+  onComplete?: (fullText: string) => void;
+  onProcessingComplete?: () => void;
+};
+export function useFakeStream(typingDelay = 10, startingDelay = 1500) {
+  const [value, setValue] = useState('');
+  const [transitionIsPending, startTransition] = useTransition(); // active character updates
+  const [isProcessing, setIsProcessing] = useState(false); // starting delay
+  const [isTyping, setIsTyping] = useState(false); // actively typing characters
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const startStream = ({ text, onComplete, onProcessingComplete }: StartStreamOptions) => {
+    // Stop previous stream and timeout
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+
+    setValue('');
+    setIsProcessing(true);
+
+    timeoutRef.current = setTimeout(() => {
+      setIsProcessing(false);
+
+      if (onProcessingComplete) {
+        onProcessingComplete();
+      }
+
+      setIsTyping(true);
+      let index = 0;
+
+      intervalRef.current = setInterval(() => {
+        if (index < text.length) {
+          const nextChar = text[index];
+          index++;
+
+          startTransition(() => {
+            setValue((prev) => prev + nextChar);
+          });
+        } else {
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
+          setIsTyping(false);
+
+          if (onComplete) {
+            onComplete(text);
+          }
+        }
+      }, typingDelay);
+    }, startingDelay);
+  };
+
+  const stopStream = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setIsProcessing(false);
+    setIsTyping(false);
+  };
+
+  return { value, transitionIsPending, isProcessing, isTyping, setValue, startStream, stopStream };
 }

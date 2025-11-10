@@ -133,7 +133,7 @@ jobs:
 
       - name: publish to npm
         run: |
-          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-git ${{ github.event.inputs.snapshot == 'true' && '--pre-dist-tag dev' }}
+          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-git ${{ (github.event.inputs.snapshot == 'true' && '--pre-dist-tag dev') || '' }}
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
