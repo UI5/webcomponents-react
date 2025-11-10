@@ -130,7 +130,7 @@ export const WithFakeStream: Story = {
     const [placeholder, setPlaceholder] = useState(initialPlaceholder);
     const hasHistory = versionHistory.length > 0;
     const currentActionRef = useRef<string>('');
-    const { value, isTyping, isProcessing, setValue, startStream, stopStream } = useFakeStream(50);
+    const { value, isTyping, isProcessing, setValue, startStream, stopStream } = useFakeStream();
 
     const handleVersionChange: InputPropTypes['onVersionChange'] = (e) => {
       setCurrentHistoryIndex((prev) => (e.detail.backwards ? prev - 1 : prev + 1));
