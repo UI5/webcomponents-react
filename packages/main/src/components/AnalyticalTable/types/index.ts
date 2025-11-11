@@ -394,7 +394,7 @@ interface PopoverProps {
   openerId: string;
 }
 
-export interface TableInstanceWithPopoverProps extends TableInstance {
+export interface TableInstanceWithPopoverProps extends CellInstance {
   popoverProps: PopoverProps;
 }
 

@@ -98,7 +98,7 @@ const useGetTableProps = (
       currentlyFocusedCell.current = null;
       tableRef.current.tabIndex = 0;
     }
-  }, [data, columns, showOverlay]);
+  }, [data, columns, showOverlay, tableRef]);
 
   const onTableFocus = useCallback(
     (e) => {

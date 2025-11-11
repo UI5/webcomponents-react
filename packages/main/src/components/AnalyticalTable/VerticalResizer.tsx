@@ -17,6 +17,12 @@ interface VerticalResizerProps {
   classNames: ClassNames;
 }
 
+interface VerticalResizerPosition {
+  left: number;
+  top: number;
+  width: number;
+}
+
 const isTouchEvent = (e, touchEvent) => {
   if (e.type === touchEvent) {
     return !(e.touches && e.touches.length > 1);
@@ -39,7 +45,7 @@ export const VerticalResizer = (props: VerticalResizerProps) => {
 
   const startY = useRef(null);
   const verticalResizerRef = useRef(null);
-  const [resizerPosition, setResizerPosition] = useState(undefined);
+  const [resizerPosition, setResizerPosition] = useState<undefined | VerticalResizerPosition>(undefined);
   const [isDragging, setIsDragging] = useState(false);
   const [mountTouchEvents, setMountTouchEvents] = useState(false);
 
@@ -54,34 +60,37 @@ export const VerticalResizer = (props: VerticalResizerProps) => {
   }, []);
 
   const handleMove = useCallback(
-    (e) => {
+    (e: TouchEvent | MouseEvent) => {
       setResizerPosition((prev) => ({
         ...prev,
-        top: isTouchEvent(e, 'touchmove') ? Math.round(e.touches[0].pageY) : e.pageY,
+        top: isTouchEvent(e, 'touchmove') ? Math.round((e as TouchEvent).touches[0].pageY) : (e as MouseEvent).pageY,
       }));
     },
     [setResizerPosition],
   );
-  const handleResizeEnd = (e: TouchEvent | MouseEvent) => {
-    setIsDragging(false);
-    const rowCount = Math.floor(
-      (analyticalTableRef.current.clientHeight +
-        (isTouchEvent(e, 'touchend')
-          ? Math.round((e as TouchEvent).changedTouches[0].pageY)
-          : (e as MouseEvent).pageY) -
-        startY.current -
-        extensionsHeight -
-        5) /*resizer height*/ /
-        popInRowHeight,
-    );
-    if (hasPopInColumns) {
-      dispatch({ type: 'INTERACTIVE_ROWS_HAVE_POPIN', payload: true });
-    }
-    dispatch({
-      type: 'VISIBLE_ROWS',
-      payload: { visibleRows: rowCount },
-    });
-  };
+  const handleResizeEnd = useCallback(
+    (e: TouchEvent | MouseEvent) => {
+      setIsDragging(false);
+      const rowCount = Math.floor(
+        (analyticalTableRef.current.clientHeight +
+          (isTouchEvent(e, 'touchend')
+            ? Math.round((e as TouchEvent).changedTouches[0].pageY)
+            : (e as MouseEvent).pageY) -
+          startY.current -
+          extensionsHeight -
+          5) /*resizer height*/ /
+          popInRowHeight,
+      );
+      if (hasPopInColumns) {
+        dispatch({ type: 'INTERACTIVE_ROWS_HAVE_POPIN', payload: true });
+      }
+      dispatch({
+        type: 'VISIBLE_ROWS',
+        payload: { visibleRows: rowCount },
+      });
+    },
+    [analyticalTableRef, dispatch, extensionsHeight, hasPopInColumns, popInRowHeight],
+  );
 
   useEffect(() => {
     const removeEventListeners = () => {
@@ -107,7 +116,7 @@ export const VerticalResizer = (props: VerticalResizerProps) => {
     return () => {
       removeEventListeners();
     };
-  }, [isDragging]);
+  }, [handleMove, handleResizeEnd, isDragging, mountTouchEvents]);
 
   useEffect(() => {
     const resizerPosTop = verticalResizerRef.current?.getBoundingClientRect()?.top + window.scrollY;
@@ -126,15 +135,7 @@ export const VerticalResizer = (props: VerticalResizerProps) => {
       handleOnLoadMore({ type: 'tableGrow' } as Event);
     }
     isInitial.current = false;
-  }, [rowsLength, visibleRows]);
-
-  const [allowed, setAllowed] = useState(false);
-  useEffect(() => {
-    setAllowed(true);
-  }, []);
-  if (!allowed) {
-    return null;
-  }
+  }, [handleOnLoadMore, rowsLength, visibleRows]);
 
   return (
     <div

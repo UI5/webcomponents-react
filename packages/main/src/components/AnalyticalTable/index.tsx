@@ -12,7 +12,7 @@ import {
   useSyncRef,
 } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
-import type { CSSProperties, MutableRefObject } from 'react';
+import type { CSSProperties } from 'react';
 import { forwardRef, useCallback, useEffect, useId, useMemo, useRef } from 'react';
 import {
   useColumnOrder,
@@ -406,7 +406,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     !!Object.keys(tableState.subComponentsHeight);
 
   if (tableInstance && {}.hasOwnProperty.call(tableInstance, 'current')) {
-    (tableInstance as MutableRefObject<Record<string, any>>).current = tableInstanceRef.current;
+    (tableInstance as { current: TableInstance }).current = tableInstanceRef.current;
   }
   if (typeof tableInstance === 'function') {
     tableInstance(tableInstanceRef.current);
@@ -496,15 +496,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         });
       }
     }
-  }, [
-    analyticalTableRef.current?.parentElement?.getBoundingClientRect().height,
-    analyticalTableRef.current?.getBoundingClientRect().y,
-    extensionsHeight,
-    popInRowHeight,
-    visibleRowCountMode,
-    includeSubCompRowHeight,
-    tableState.subComponentsHeight,
-  ]);
+  }, [extensionsHeight, popInRowHeight, visibleRowCountMode, includeSubCompRowHeight, tableState.subComponentsHeight]);
 
   useEffect(() => {
     setGlobalFilter(globalFilterValue);
@@ -526,7 +518,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       tableWidthObserver.disconnect();
       parentHeightObserver.disconnect();
     };
-  }, [updateTableClientWidth, updateRowsCount]);
+  }, [updateTableClientWidth, updateRowsCount, analyticalTableRef]);
 
   useIsomorphicLayoutEffect(() => {
     dispatch({ type: 'IS_RTL', payload: { isRtl } });
@@ -547,7 +539,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         payload: { visibleRows: undefined },
       });
     }
-  }, [visibleRowCountMode, tableState.visibleRows]);
+  }, [visibleRowCountMode, tableState.visibleRows, dispatch]);
 
   useEffect(() => {
     if (groupBy) {
@@ -559,13 +551,13 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     if (selectedRowIds) {
       dispatch({ type: 'SET_SELECTED_ROW_IDS', payload: { selectedRowIds } });
     }
-  }, [selectedRowIds]);
+  }, [dispatch, selectedRowIds]);
 
   const tableBodyHeight = useMemo(() => {
     if (typeof tableState.bodyHeight === 'number') {
       return tableState.bodyHeight;
     }
-    let rowNum;
+    let rowNum: number;
     if (visibleRowCountMode === AnalyticalTableVisibleRowCountMode.AutoWithEmptyRows) {
       rowNum = internalVisibleRowCount;
     } else {

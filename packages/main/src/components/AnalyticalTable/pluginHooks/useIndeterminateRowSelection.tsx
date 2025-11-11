@@ -7,10 +7,10 @@ import type { ReactTableHooks, RowType, TableInstance } from '../types/index.js'
 
 type onIndeterminateChange = (e: {
   indeterminateRowsById: Record<string | number, boolean>;
-  tableInstance: Record<string, any>;
+  tableInstance: TableInstance;
 }) => void;
 
-const getParentRow = (id, rowsById) => {
+const getParentRow = (id: string, rowsById: TableInstance['rowsById']): [RowType, number] => {
   let lastDotIndex = id.lastIndexOf('.');
   if (lastDotIndex === -1) {
     lastDotIndex = Infinity;

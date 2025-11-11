@@ -1,5 +1,6 @@
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import paperPlaneIcon from '@ui5/webcomponents-icons/paper-plane.js';
+import { isIOS, isMac } from '@ui5/webcomponents-react-base/Device';
 import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import { useCallback, useEffect, useMemo, useRef, useState, version as reactVersion } from 'react';
 import type {
@@ -80,7 +81,6 @@ import { useRowDisableSelection } from './pluginHooks/useRowDisableSelection';
 import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import type { RowType } from '@/packages/main/src/components/AnalyticalTable/types/index.js';
 import { getUi5TagWithSuffix } from '@/packages/main/src/internal/utils.js';
-import { isIOS, isMac } from '@ui5/webcomponents-react-base/Device';
 
 const canUseVoiceOver = isIOS() || isMac();
 
