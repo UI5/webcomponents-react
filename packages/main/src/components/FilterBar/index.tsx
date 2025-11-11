@@ -121,9 +121,11 @@ const FilterBar = forwardRef<HTMLDivElement, FilterBarPropTypes>((props, ref) =>
 
   useEffect(() => {
     if (filterBarCollapsed !== undefined) {
+      // syncing controlled prop to state
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShowFilters(!hideToolbar ? !filterBarCollapsed : true);
     }
-  }, [setShowFilters, hideToolbar, filterBarCollapsed]);
+  }, [hideToolbar, filterBarCollapsed]);
 
   useStylesheet(styleData, FilterBar.displayName);
 
@@ -207,6 +209,8 @@ const FilterBar = forwardRef<HTMLDivElement, FilterBarPropTypes>((props, ref) =>
     }
   };
 
+  const calculatedChildren = renderChildren();
+
   const handleFBRestore = () => {
     handleRestoreFilters({
       source: 'filterBar',
@@ -288,7 +292,7 @@ const FilterBar = forwardRef<HTMLDivElement, FilterBarPropTypes>((props, ref) =>
   useEffect(() => {
     const debouncedObserverFn = debounce(([area]: ResizeObserverEntry[]) => {
       const firstChild = area.target?.children?.[0] as HTMLDivElement;
-      if (firstChild && firstChild.offsetWidth !== firstChildWidth) {
+      if (firstChild) {
         setFirstChildWidth(firstChild.offsetWidth + 16 /*margin*/);
       }
     }, 100);
@@ -300,14 +304,12 @@ const FilterBar = forwardRef<HTMLDivElement, FilterBarPropTypes>((props, ref) =>
       debouncedObserverFn.cancel();
       filterAreaObserver.disconnect();
     };
-  }, [filterAreaRef.current, hideToolbar]);
+  }, [hideToolbar]);
 
   useEffect(() => {
     const debouncedObserverFn = debounce(([area]: ResizeObserverEntry[]) => {
       const filterWidth = resizeObserverEntryWidth(area);
-      if (filterWidth !== filterBarButtonsWidth) {
-        setFilterAreaWidth(filterWidth);
-      }
+      setFilterAreaWidth(filterWidth);
     }, 100);
     const filterAreaObserver = new ResizeObserver(debouncedObserverFn);
     if (hideToolbar && filterAreaRef.current) {
@@ -317,14 +319,12 @@ const FilterBar = forwardRef<HTMLDivElement, FilterBarPropTypes>((props, ref) =>
       debouncedObserverFn.cancel();
       filterAreaObserver.disconnect();
     };
-  }, [filterAreaWidth, filterAreaRef.current, hideToolbar]);
+  }, [hideToolbar]);
 
   useEffect(() => {
     const debouncedObserverFn = debounce(([buttons]: ResizeObserverEntry[]) => {
       const buttonsWidth = resizeObserverEntryWidth(buttons);
-      if (buttonsWidth !== filterBarButtonsWidth) {
-        setFilterBarButtonsWidth(buttonsWidth);
-      }
+      setFilterBarButtonsWidth(buttonsWidth);
     }, 100);
     const filterBarButtonsObserver = new ResizeObserver(debouncedObserverFn);
     if (hideToolbar && filterBarButtonsRef.current) {
@@ -334,9 +334,7 @@ const FilterBar = forwardRef<HTMLDivElement, FilterBarPropTypes>((props, ref) =>
       debouncedObserverFn.cancel();
       filterBarButtonsObserver.disconnect();
     };
-  }, [filterBarButtonsRef.current, hideToolbar, filterBarButtonsWidth]);
-
-  const calculatedChildren = renderChildren();
+  }, [hideToolbar]);
 
   // calculates the number of spacers depending on the available width inside the row
   const renderSpacers = () => {
