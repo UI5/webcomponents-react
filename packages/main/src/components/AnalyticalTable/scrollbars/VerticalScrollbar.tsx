@@ -1,5 +1,6 @@
 import { isChrome as isChromeFn } from '@ui5/webcomponents-react-base/Device';
 import { useSyncRef } from '@ui5/webcomponents-react-base/internal/hooks';
+import { debounce } from '@ui5/webcomponents-react-base/internal/utils/debounce';
 import { clsx } from 'clsx';
 import type { MutableRefObject } from 'react';
 import { forwardRef, useEffect, useRef, useState } from 'react';
@@ -20,15 +21,28 @@ const isChrome = isChromeFn();
 export const VerticalScrollbar = forwardRef<HTMLDivElement, VerticalScrollbarProps>((props, ref) => {
   const { internalRowHeight, tableRef, tableBodyHeight, scrollContainerRef, classNames } = props;
   const [hasHorizontalScrollbar, setHasHorizontalScrollbar] = useState(false);
-  const horizontalScrollbarSectionStyles = clsx(hasHorizontalScrollbar && classNames.bottomSection);
   const [componentRef, scrollbarRef] = useSyncRef<HTMLDivElement>(ref);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (tableRef?.current) {
-      const hasScrollbar = tableRef.current.offsetWidth !== tableRef.current.scrollWidth;
-      setHasHorizontalScrollbar(hasScrollbar);
-    }
+    const tableElement = tableRef?.current;
+    if (!tableElement) return;
+
+    const debouncedCheckScrollbar = debounce(() => {
+      requestAnimationFrame(() => {
+        const hasScrollbar = tableElement.offsetWidth !== tableElement.scrollWidth;
+        setHasHorizontalScrollbar(hasScrollbar);
+      });
+    }, 100);
+
+    const resizeObserver = new ResizeObserver(debouncedCheckScrollbar);
+    resizeObserver.observe(tableElement);
+    debouncedCheckScrollbar();
+
+    return () => {
+      debouncedCheckScrollbar.cancel();
+      resizeObserver.disconnect();
+    };
   }, [tableRef]);
 
   // Force style recalculation to fix Chrome scrollbar-color bug (track height not updating correctly)
@@ -83,7 +97,7 @@ export const VerticalScrollbar = forwardRef<HTMLDivElement, VerticalScrollbarPro
           className={classNames.verticalScroller}
         />
       </div>
-      <div className={horizontalScrollbarSectionStyles} />
+      <div className={clsx(hasHorizontalScrollbar && classNames.bottomSection)} />
     </FlexBox>
   );
 });
