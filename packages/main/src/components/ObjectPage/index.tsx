@@ -117,11 +117,19 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     setCurrentTabModeSection(currentSection);
   }, [mode, children, internalSelectedSectionId]);
 
-  const fireOnSelectedChangedEvent = (targetEvent, index, id, section) => {
-    if (typeof onSelectedSectionChange === 'function' && targetEvent && prevInternalSelectedSectionId.current !== id) {
-      onSelectedSectionChange(
+  const onSelectedSectionChangeRef = useRef(onSelectedSectionChange);
+  // Keep ref in sync with prop to avoid stale closure in debounced function
+  onSelectedSectionChangeRef.current = onSelectedSectionChange;
+
+  const fireOnSelectedChangedEvent = (targetEvent, index: number | string, id: string, section) => {
+    if (
+      typeof onSelectedSectionChangeRef.current === 'function' &&
+      targetEvent &&
+      prevInternalSelectedSectionId.current !== id
+    ) {
+      onSelectedSectionChangeRef.current(
         enrichEventWithDetails(targetEvent, {
-          selectedSectionIndex: parseInt(index, 10),
+          selectedSectionIndex: typeof index === 'number' ? index : parseInt(index, 10),
           selectedSectionId: id,
           section,
         }),
@@ -150,6 +158,27 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     },
   );
   const scrollPaddingBlock = `${Math.ceil(12 + topHeaderHeight + TAB_CONTAINER_HEADER_HEIGHT + (!headerCollapsed && headerPinned ? headerContentHeight : 0))}px ${footerArea ? 'calc(var(--_ui5wcr-BarHeight) + 1.25rem)' : 0}`;
+
+  const onToggleHeaderContentVisibility = (e) => {
+    isToggledRef.current = true;
+    scrollTimeout.current = performance.now() + 500;
+    setToggledCollapsedHeaderWasVisible(false);
+    if (!e.detail.visible) {
+      if (objectPageRef.current.scrollTop <= headerContentHeight) {
+        setToggledCollapsedHeaderWasVisible(true);
+        if (firstSectionId === internalSelectedSectionId || mode === ObjectPageMode.IconTabBar) {
+          objectPageRef.current.scrollTop = 0;
+        }
+      }
+      setHeaderCollapsedInternal(true);
+      setScrolledHeaderExpanded(false);
+    } else {
+      setHeaderCollapsedInternal(false);
+      if (objectPageRef.current.scrollTop >= headerContentHeight && objectPageRef.current.scrollTop > 0) {
+        setScrolledHeaderExpanded(true);
+      }
+    }
+  };
 
   useEffect(() => {
     if (typeof onToggleHeaderArea === 'function' && isToggledRef.current) {
@@ -301,7 +330,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       scrollToSectionById(selectedSubSectionId, true);
       isProgrammaticallyScrolled.current = false;
     }
-  }, [selectedSubSectionId, isProgrammaticallyScrolled.current, sectionSpacer]);
+  }, [selectedSubSectionId, sectionSpacer]);
 
   useEffect(() => {
     if (headerPinnedProp !== undefined) {
@@ -426,27 +455,6 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       observer.disconnect();
     };
   }, [topHeaderHeight, headerContentHeight, currentTabModeSection, children, mode, isHeaderPinnedAndExpanded]);
-
-  const onToggleHeaderContentVisibility = (e) => {
-    isToggledRef.current = true;
-    scrollTimeout.current = performance.now() + 500;
-    setToggledCollapsedHeaderWasVisible(false);
-    if (!e.detail.visible) {
-      if (objectPageRef.current.scrollTop <= headerContentHeight) {
-        setToggledCollapsedHeaderWasVisible(true);
-        if (firstSectionId === internalSelectedSectionId || mode === ObjectPageMode.IconTabBar) {
-          objectPageRef.current.scrollTop = 0;
-        }
-      }
-      setHeaderCollapsedInternal(true);
-      setScrolledHeaderExpanded(false);
-    } else {
-      setHeaderCollapsedInternal(false);
-      if (objectPageRef.current.scrollTop >= headerContentHeight && objectPageRef.current.scrollTop > 0) {
-        setScrolledHeaderExpanded(true);
-      }
-    }
-  };
 
   const { onScroll: _0, selectedSubSectionId: _1, ...propsWithoutOmitted } = rest;
 

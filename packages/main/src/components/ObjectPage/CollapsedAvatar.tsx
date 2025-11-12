@@ -41,6 +41,8 @@ export const CollapsedAvatar = (props: CollapsedAvatarPropTypes) => {
   }, [image, imageShapeCircle]);
 
   useEffect(() => {
+    // Trigger fade-in animation after mount
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
   }, []);
 
