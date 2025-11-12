@@ -119,6 +119,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
 
   const onSelectedSectionChangeRef = useRef(onSelectedSectionChange);
   // Keep ref in sync with prop to avoid stale closure in debounced function
+  // eslint-disable-next-line react-hooks/refs
   onSelectedSectionChangeRef.current = onSelectedSectionChange;
 
   const fireOnSelectedChangedEvent = (targetEvent, index: number | string, id: string, section) => {
@@ -137,6 +138,8 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       prevInternalSelectedSectionId.current = id;
     }
   };
+  // Extracting .current immediately is safe - useRef creates stable reference on mount
+  // eslint-disable-next-line react-hooks/refs
   const debouncedOnSectionChange = useRef(debounce(fireOnSelectedChangedEvent, 500)).current;
   useEffect(() => {
     return () => {
@@ -599,6 +602,8 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     }
   }, []);
 
+  // Passing refs to custom hooks is normal React usage
+  // eslint-disable-next-line react-hooks/refs
   const handleTabSelect = useHandleTabSelect({
     onBeforeNavigate,
     headerPinned,
@@ -687,6 +692,8 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
             data-component-name="ObjectPageTitleAreaClickElement"
           />
           {titleArea &&
+            // Passing props (including refs via cloneElement) is normal React usage
+            // eslint-disable-next-line react-hooks/refs
             cloneElement(titleArea as ReactElement<ObjectPageTitlePropsWithDataAttributes>, {
               className: clsx(titleArea?.props?.className),
               onToggleHeaderContentVisibility: onTitleClick,
