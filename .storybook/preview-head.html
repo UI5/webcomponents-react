@@ -176,18 +176,18 @@
     padding-block: 0;
   }
 
-  /* TODO remove this workaround as soon as https://github.com/storybookjs/storybook/issues/20497 is fixed */
-  .docs-story > div > div[scale] {
-    min-height: 20px;
-    height: auto;
-  }
-
+  /*ObjectStatus "InListOrTable" story */
   .interactive-table-row:active .object-status,
-  .interactive-analytical-table [role='row']:active .object-status,
   .interactive-li[active] .object-status {
     --ui5wcr-object-status-icon-color: var(--sapList_Active_TextColor);
     color: var(--sapList_Active_TextColor);
     text-shadow: none;
+  }
+
+  /* TODO remove this workaround as soon as https://github.com/storybookjs/storybook/issues/20497 is fixed */
+  .docs-story > div > div[scale] {
+    min-height: 20px;
+    height: auto;
   }
 </style>
 <script data-ui5-config type="application/json">

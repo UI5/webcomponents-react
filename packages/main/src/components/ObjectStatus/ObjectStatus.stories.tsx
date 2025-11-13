@@ -160,12 +160,12 @@ export const InListOrTable: Story = {
         {
           accessor: 'os1',
           Header: 'ObjectStatus (controllable)',
-          Cell: () => <ObjectStatus {...args} className={'object-status'} />,
+          Cell: () => <ObjectStatus {...args} />,
         },
         {
           accessor: 'os2',
           Header: 'ObjectStatus ("Negative")',
-          Cell: () => <ObjectStatus {...args} className={'object-status'} state={'Negative'} />,
+          Cell: () => <ObjectStatus {...args} state={'Negative'} />,
         },
       ],
       [args],
@@ -206,7 +206,6 @@ export const InListOrTable: Story = {
           minRows={1}
           selectionMode={'Single'}
           selectionBehavior={'RowOnly'}
-          className="interactive-analytical-table"
         />
       </>
     );

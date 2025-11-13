@@ -184,8 +184,14 @@
     & [data-component-name='ObjectStatus'][data-inverted='false']:not([data-state^='Indication']) {
       --ui5wcr-object-status-icon-color: var(--sapContent_ContrastTextColor);
       color: var(--sapContent_ContrastTextColor);
+      text-shadow: none;
     }
   }
+}
+.trActive:active [data-component-name='ObjectStatus'][data-inverted='false'] {
+  --ui5wcr-object-status-icon-color: var(--sapList_Active_TextColor);
+  color: var(--sapList_Active_TextColor);
+  text-shadow: none;
 }
 
 .trActive {

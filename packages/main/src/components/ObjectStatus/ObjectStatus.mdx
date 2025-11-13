@@ -44,7 +44,8 @@ import * as ComponentStories from './ObjectStatus.stories';
 
 **Applicable since v2.17.0**
 
-When a normal (non-inverted) `ObjectStatus` is used in interactive lists or tables, you can override the text and icon `color` and `text-shadow` to comply with design specs.
+The `AnalyticalTable` component includes active state styling for `ObjectStatus` out of the box, as it is developed within project and can be styled accordingly.
+For lists or tables from `@ui5/webcomponents(-fiori/-ai/-compat)` (e.g., `List`, `Table`), custom CSS is required to override the text and icon `color` and `text-shadow` to ensure proper styling when rows are in active state:
 
 ```css
 .object-status {
@@ -62,7 +63,6 @@ When a normal (non-inverted) `ObjectStatus` is used in interactive lists or tabl
 
     ```css
     .interactive-table-row:active .object-status,
-    .interactive-analytical-table [role='row']:active .object-status,
     .interactive-li[active] .object-status {
       --ui5wcr-object-status-icon-color: var(--sapList_Active_TextColor);
       color: var(--sapList_Active_TextColor);
@@ -77,12 +77,12 @@ When a normal (non-inverted) `ObjectStatus` is used in interactive lists or tabl
           {
             accessor: 'os1',
             Header: 'ObjectStatus (controllable)',
-            Cell: () => <ObjectStatus {...objectStatusProps} className={'object-status'} />,
+            Cell: () => <ObjectStatus {...objectStatusProps} />,
           },
           {
             accessor: 'os2',
             Header: 'ObjectStatus ("Negative")',
-            Cell: () => <ObjectStatus {...objectStatusProps} className={'object-status'} state={'Negative'} />,
+            Cell: () => <ObjectStatus {...objectStatusProps} state={'Negative'} />,
           },
         ],
         [objectStatusProps],
@@ -123,7 +123,6 @@ When a normal (non-inverted) `ObjectStatus` is used in interactive lists or tabl
             minRows={1}
             selectionMode={'Single'}
             selectionBehavior={'RowOnly'}
-            className="interactive-analytical-table"
           />
         </>
       );
