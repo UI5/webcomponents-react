@@ -3,10 +3,23 @@ import IconMode from '@ui5/webcomponents/dist/types/IconMode.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import cancelIcon from '@ui5/webcomponents-icons/dist/sys-cancel.js';
 import { ThemingParameters } from '@ui5/webcomponents-react-base';
+import { useMemo } from 'react';
 import { IndicationColor } from '../../enums/IndicationColor.js';
 import { Icon } from '../../webComponents/Icon/index.js';
 import { Label } from '../../webComponents/Label/index.js';
+import { List } from '../../webComponents/List/index.js';
+import { ListItemCustom } from '../../webComponents/ListItemCustom/index.js';
+import { Table } from '../../webComponents/Table/index.js';
+import { TableCell } from '../../webComponents/TableCell/index.js';
+import { TableHeaderCell } from '../../webComponents/TableHeaderCell/index.js';
+import { TableHeaderRow } from '../../webComponents/TableHeaderRow/index.js';
+import { TableRow } from '../../webComponents/TableRow/index.js';
+import { TableSelectionSingle } from '../../webComponents/TableSelectionSingle/index.js';
 import { Text } from '../../webComponents/Text/index.js';
+import { Tree } from '../../webComponents/Tree/index.js';
+import { TreeItemCustom } from '../../webComponents/TreeItemCustom/index.js';
+import type { AnalyticalTableColumnDefinition } from '../AnalyticalTable/index.js';
+import { AnalyticalTable } from '../AnalyticalTable/index.js';
 import type { ObjectStatusPropTypes } from './index.js';
 import { ObjectStatus } from './index.js';
 
@@ -132,6 +145,69 @@ export const InvertedObjectStatus: Story = {
         </Label>
         {renderStatuses(true, true)}
       </div>
+    );
+  },
+};
+
+const atData = [{ os1: 'ObjectStatus', os2: 'ObjectStatus' }];
+
+export const InListOrTable: Story = {
+  args: { state: 'Positive' },
+  render(args) {
+    const atCols: AnalyticalTableColumnDefinition[] = useMemo(
+      () => [
+        {
+          accessor: 'os1',
+          Header: 'ObjectStatus (controllable)',
+          Cell: () => <ObjectStatus {...args} className={'object-status'} />,
+        },
+        {
+          accessor: 'os2',
+          Header: 'ObjectStatus ("Negative")',
+          Cell: () => <ObjectStatus {...args} className={'object-status'} state={'Negative'} />,
+        },
+      ],
+      [args],
+    );
+    return (
+      <>
+        Table
+        <Table
+          headerRow={
+            <TableHeaderRow>
+              <TableHeaderCell>ObjectStatus (controllable)</TableHeaderCell>
+              <TableHeaderCell>ObjectStatus ("Negative")</TableHeaderCell>
+            </TableHeaderRow>
+          }
+          features={<TableSelectionSingle behavior={'RowOnly'} />}
+        >
+          <TableRow rowKey={'0'} className={'interactive-table-row'}>
+            <TableCell>
+              <ObjectStatus {...args} className={'object-status'} />
+            </TableCell>
+            <TableCell>
+              <ObjectStatus {...args} className={'object-status'} state={'Negative'} />
+            </TableCell>
+          </TableRow>
+        </Table>
+        <hr />
+        List
+        <List selectionMode="Single">
+          <ListItemCustom className={'interactive-li'}>
+            <ObjectStatus {...args} className={'object-status'} />
+          </ListItemCustom>
+        </List>
+        <hr />
+        AnalyticalTable
+        <AnalyticalTable
+          data={atData}
+          columns={atCols}
+          minRows={1}
+          selectionMode={'Single'}
+          selectionBehavior={'RowOnly'}
+          className="interactive-analytical-table"
+        />
+      </>
     );
   },
 };
