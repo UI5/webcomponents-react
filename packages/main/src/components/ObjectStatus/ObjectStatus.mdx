@@ -71,7 +71,7 @@ For lists or tables from `@ui5/webcomponents(-fiori/-ai/-compat)` (e.g., `List`,
     ```
 
     ```tsx
-    function ObjectStatusInListOrTable(objectStatusProps: ObjectStatusPropTypes) {
+    function ObjectStatusInListOrTable(objectStatusProps: Omit<ObjectStatusPropTypes, 'inverted'>) {
       const atCols: AnalyticalTableColumnDefinition[] = useMemo(
         () => [
           {
