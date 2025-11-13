@@ -182,6 +182,7 @@
   .tr[data-is-selected],
   .trActive:hover {
     & [data-component-name='ObjectStatus'][data-inverted='false']:not([data-state^='Indication']) {
+      --ui5wcr-object-status-icon-color: var(--sapContent_ContrastTextColor);
       color: var(--sapContent_ContrastTextColor);
     }
   }
