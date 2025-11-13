@@ -152,7 +152,8 @@ export const InvertedObjectStatus: Story = {
 const atData = [{ os1: 'ObjectStatus', os2: 'ObjectStatus' }];
 
 export const InListOrTable: Story = {
-  args: { state: 'Positive' },
+  args: { state: 'Positive', inverted: false },
+  argTypes: { inverted: { control: false, table: { disable: false } } },
   render(args) {
     const atCols: AnalyticalTableColumnDefinition[] = useMemo(
       () => [
