@@ -16,8 +16,6 @@ import { TableHeaderRow } from '../../webComponents/TableHeaderRow/index.js';
 import { TableRow } from '../../webComponents/TableRow/index.js';
 import { TableSelectionSingle } from '../../webComponents/TableSelectionSingle/index.js';
 import { Text } from '../../webComponents/Text/index.js';
-import { Tree } from '../../webComponents/Tree/index.js';
-import { TreeItemCustom } from '../../webComponents/TreeItemCustom/index.js';
 import type { AnalyticalTableColumnDefinition } from '../AnalyticalTable/index.js';
 import { AnalyticalTable } from '../AnalyticalTable/index.js';
 import type { ObjectStatusPropTypes } from './index.js';
