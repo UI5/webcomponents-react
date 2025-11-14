@@ -8,6 +8,8 @@ export function useCanUseVoiceOver() {
   const [canUseVoiceOver, setCanUseVoiceOver] = useState(false);
 
   useEffect(() => {
+    // Needs another rendering cycle to prevent hydration errors
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCanUseVoiceOver(isIOS() || isMac());
   }, []);
 

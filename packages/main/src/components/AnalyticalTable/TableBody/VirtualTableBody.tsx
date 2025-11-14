@@ -6,7 +6,6 @@ import type {
   AnalyticalTablePropTypes,
   ClassNames,
   DivWithCustomScrollProp,
-  ReactVirtualScrollToMethods,
   TableInstance,
   TriggerScrollState,
 } from '../types/index.js';
@@ -35,7 +34,6 @@ interface VirtualTableBodyProps {
   subRowsKey: string;
   scrollContainerRef?: MutableRefObject<HTMLDivElement>;
   triggerScroll?: TriggerScrollState;
-  scrollToRef: MutableRefObject<ReactVirtualScrollToMethods>;
   rowVirtualizer: Virtualizer<DivWithCustomScrollProp, HTMLElement>;
 }
 
@@ -54,7 +52,6 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
     classes,
     prepareRow,
     rows,
-    scrollToRef,
     isTreeTable,
     internalRowHeight,
     visibleColumns,
@@ -75,12 +72,6 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
 
   const rowHeight = popInRowHeight !== internalRowHeight ? popInRowHeight : internalRowHeight;
   const lastNonEmptyRow = useRef(null);
-
-  scrollToRef.current = {
-    ...scrollToRef.current,
-    scrollToOffset: rowVirtualizer.scrollToOffset,
-    scrollToIndex: rowVirtualizer.scrollToIndex,
-  };
 
   useEffect(() => {
     if (triggerScroll && triggerScroll.direction === 'vertical') {
@@ -112,6 +103,8 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
         width: `${columnVirtualizer.getTotalSize()}px`,
       }}
     >
+      {/* Safe to update: lastNonEmptyRow ref holds non-render data only.*/}
+      {/* eslint-disable-next-line react-hooks/refs */}
       {rowVirtualizer.getVirtualItems().map((virtualRow, visibleRowIndex) => {
         const row = rows[virtualRow.index];
         const rowIndexWithHeader = virtualRow.index + 1;
