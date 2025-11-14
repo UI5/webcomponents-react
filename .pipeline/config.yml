@@ -9,6 +9,7 @@ steps:
     customVersionField: 'version'
 
   detectExecuteScan:
+    dockerImage: sapmachine:lts-jdk-alpine
     serverUrl: 'https://sap.blackducksoftware.com'
     projectName: 'ui5-webcomponents-react'
     groups:
