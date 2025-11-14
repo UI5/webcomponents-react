@@ -20,3 +20,6 @@ steps:
       - 'LERNA'
     customEnvironmentVariables:
       - 'DETECT_YARN_DEPENDENCY_TYPES_EXCLUDED=NON_PRODUCTION'
+    customTlsCertificateLinks:
+      - https://aia.pki.co.sap.com/aia/SAPNetCA_G2_2.crt
+      - https://aia.pki.co.sap.com/aia/SAP%20Global%20Root%20CA.crt
