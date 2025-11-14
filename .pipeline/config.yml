@@ -9,7 +9,7 @@ steps:
     customVersionField: 'version'
 
   detectExecuteScan:
-    dockerImage: sapmachine:lts
+    dockerImage: maven:3.8-jdk-11
     serverUrl: 'https://sap.blackducksoftware.com'
     projectName: 'ui5-webcomponents-react'
     groups:
@@ -20,6 +20,3 @@ steps:
       - 'LERNA'
     customEnvironmentVariables:
       - 'DETECT_YARN_DEPENDENCY_TYPES_EXCLUDED=NON_PRODUCTION'
-    customTlsCertificateLinks:
-      - https://aia.pki.co.sap.com/aia/SAPNetCA_G2_2.crt
-      - https://aia.pki.co.sap.com/aia/SAP%20Global%20Root%20CA.crt
