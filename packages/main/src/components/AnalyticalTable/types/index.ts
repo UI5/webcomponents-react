@@ -211,7 +211,7 @@ export interface TableInstance {
   useControlledState: (
     state: TableInstance['state'] & Record<string, any>,
     instance?: { instance: TableInstance },
-  ) => TableInstance['state'];
+  ) => TableInstance['state'] & Record<string, any>;
   virtualRowsRange?: {
     startIndex: number;
     endIndex: number;
