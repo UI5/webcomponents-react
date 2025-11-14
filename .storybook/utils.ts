@@ -1,5 +1,5 @@
 import type * as CEM from '@ui5/webcomponents-tools/lib/cem/types-internal';
-import { useMemo, useRef, useState, useTransition } from 'react';
+import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
 // @ts-expect-error: storybook can handle this
 import cemAi from './custom-element-manifests/ai.json';
 // @ts-expect-error: storybook can handle this
@@ -91,13 +91,17 @@ type StartStreamOptions = {
   onComplete?: (fullText: string) => void;
   onProcessingComplete?: () => void;
 };
-export function useFakeStream(typingDelay = 10, startingDelay = 1500) {
-  const [value, setValue] = useState('');
+export function useFakeStream(initialValue = '', typingDelay = 10, startingDelay = 1500) {
+  const [value, setValue] = useState(initialValue);
   const [transitionIsPending, startTransition] = useTransition(); // active character updates
   const [isProcessing, setIsProcessing] = useState(false); // starting delay
   const [isTyping, setIsTyping] = useState(false); // actively typing characters
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isProcessingRef = useRef(isProcessing);
+  const isTypingRef = useRef(isTyping);
+  isProcessingRef.current = isProcessing;
+  isTypingRef.current = isTyping;
 
   const startStream = ({ text, onComplete, onProcessingComplete }: StartStreamOptions) => {
     // Stop previous stream and timeout
@@ -160,4 +164,25 @@ export function useFakeStream(typingDelay = 10, startingDelay = 1500) {
   };
 
   return { value, transitionIsPending, isProcessing, isTyping, setValue, startStream, stopStream };
+}
+
+export function useStopStreamByESC(loading: boolean, stopStream: () => void, onStop?: () => void) {
+  const loadingRef = useRef(loading);
+  loadingRef.current = loading;
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && loadingRef.current) {
+        stopStream();
+        if (onStop) {
+          onStop();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [stopStream, onStop]);
 }
