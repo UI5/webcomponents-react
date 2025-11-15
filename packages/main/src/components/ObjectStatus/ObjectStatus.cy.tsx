@@ -8,7 +8,16 @@ import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import type { IndicationColor } from '../../enums/index.js';
 import { INDICATION_COLOR } from '../../i18n/i18n-defaults.js';
-import { Icon } from '../../webComponents/index.js';
+import { Icon } from '../../webComponents/Icon/index.js';
+import { List } from '../../webComponents/List/index.js';
+import { ListItemCustom } from '../../webComponents/ListItemCustom/index.js';
+import { Table } from '../../webComponents/Table/index.js';
+import { TableCell } from '../../webComponents/TableCell/index.js';
+import { TableHeaderCell } from '../../webComponents/TableHeaderCell/index.js';
+import { TableHeaderRow } from '../../webComponents/TableHeaderRow/index.js';
+import { TableRow } from '../../webComponents/TableRow/index.js';
+import { TableSelectionSingle } from '../../webComponents/TableSelectionSingle/index.js';
+import { AnalyticalTable } from '../AnalyticalTable/index.js';
 import { ObjectStatus } from './index.js';
 import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 
@@ -322,6 +331,98 @@ describe('ObjectStatus', () => {
     cy.mount(<ObjectStatus large data-testid="os" state={ValueState.Negative} showDefaultIcon inverted />);
     cy.findByTestId('os').should('have.css', 'font-size', '20px');
     cy.get('[ui5-icon]').should('have.css', 'height', '24px');
+  });
+
+  it('active state in interactive lists and tables', () => {
+    cy.document().then((doc) => {
+      const style = doc.createElement('style');
+      style.textContent = `
+      .interactive-table-row:active .object-status,
+      .interactive-li[active] .object-status {
+        --ui5wcr-object-status-icon-color: var(--sapList_Active_TextColor);
+        color: var(--sapList_Active_TextColor);
+        text-shadow: none;
+      }
+    `;
+      doc.head.appendChild(style);
+    });
+
+    const activeTextColor = cssVarToRgb(ThemingParameters.sapList_Active_TextColor);
+    const atData = [{ os1: 'ObjectStatus', os2: 'ObjectStatus' }];
+    const args = { state: ValueState.Positive, inverted: false, showDefaultIcon: true, children: 'ObjectStatus' };
+    const atCols = [
+      {
+        accessor: 'os1',
+        Header: 'ObjectStatus (controllable)',
+        Cell: () => <ObjectStatus {...args} data-testid="os-at" />,
+      },
+      {
+        accessor: 'os2',
+        Header: 'ObjectStatus ("Negative")',
+        Cell: () => <ObjectStatus {...args} state={'Negative'} data-testid="os-at-negative" />,
+      },
+    ];
+
+    cy.mount(
+      <>
+        <Table
+          headerRow={
+            <TableHeaderRow>
+              <TableHeaderCell>ObjectStatus (controllable)</TableHeaderCell>
+              <TableHeaderCell>ObjectStatus ("Negative")</TableHeaderCell>
+            </TableHeaderRow>
+          }
+          features={<TableSelectionSingle behavior={'RowOnly'} />}
+        >
+          <TableRow rowKey={'0'} className={'interactive-table-row'}>
+            <TableCell>
+              <ObjectStatus {...args} className={'object-status'} data-testid="os-table" />
+            </TableCell>
+            <TableCell>
+              <ObjectStatus {...args} className={'object-status'} state={'Negative'} data-testid="os-table-negative" />
+            </TableCell>
+          </TableRow>
+        </Table>
+        <List selectionMode="Single">
+          <ListItemCustom className={'interactive-li'}>
+            <ObjectStatus {...args} className={'object-status'} data-testid="os-list" />
+          </ListItemCustom>
+        </List>
+        <AnalyticalTable
+          data={atData}
+          columns={atCols}
+          minRows={1}
+          selectionMode={'Single'}
+          selectionBehavior={'RowOnly'}
+          data-testid="at"
+        />
+      </>,
+    );
+
+    cy.get('.interactive-table-row').realMouseDown();
+    cy.findByTestId('os-table').should('have.css', 'color', activeTextColor);
+    cy.findByTestId('os-table')
+      .find('[data-component-name="ObjectStatusDefaultIcon"]')
+      .should('have.css', 'color', activeTextColor);
+    cy.get('.interactive-table-row').realMouseUp();
+
+    cy.get('.interactive-li').realMouseDown();
+    cy.findByTestId('os-list').should('have.css', 'color', activeTextColor);
+    cy.findByTestId('os-list')
+      .find('[data-component-name="ObjectStatusDefaultIcon"]')
+      .should('have.css', 'color', activeTextColor);
+    cy.get('.interactive-li').realMouseUp();
+
+    cy.get('[data-testid="at"] [role="row"]')
+      .eq(1)
+      .realMouseDown({ position: { x: 100, y: 10 } }); // don't click in the middle as there's the resizer
+    cy.findByTestId('os-at').should('have.css', 'color', activeTextColor);
+    cy.findByTestId('os-at')
+      .find('[data-component-name="ObjectStatusDefaultIcon"]')
+      .should('have.css', 'color', activeTextColor);
+    cy.get('[data-testid="at"] [role="row"]')
+      .eq(1)
+      .realMouseUp({ position: { x: 100, y: 10 } });
   });
 
   cypressPassThroughTestsFactory(ObjectStatus);
