@@ -21,19 +21,19 @@
     "@ui5/webcomponents-react": "2.16.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "react-router": "7.9.5"
+    "react-router": "7.9.6"
   },
   "devDependencies": {
-    "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.2",
+    "@types/react": "19.2.5",
+    "@types/react-dom": "19.2.3",
     "@ui5/webcomponents-cypress-commands": "2.16.0",
-    "@vitejs/plugin-react": "5.1.0",
+    "@vitejs/plugin-react": "5.1.1",
     "cypress": "15.6.0",
     "eslint": "9.39.1",
     "eslint-plugin-react-hooks": "6.1.1",
     "eslint-plugin-react-refresh": "0.4.24",
     "globals": "16.5.0",
-    "typescript-eslint": "8.46.3",
+    "typescript-eslint": "8.46.4",
     "vite": "7.2.2"
   }
 }

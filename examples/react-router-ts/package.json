@@ -11,8 +11,8 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@react-router/node": "7.9.5",
-    "@react-router/serve": "7.9.5",
+    "@react-router/node": "7.9.6",
+    "@react-router/serve": "7.9.6",
     "@ui5/webcomponents": "2.16.1",
     "@ui5/webcomponents-base": "2.16.1",
     "@ui5/webcomponents-fiori": "2.16.1",
@@ -21,12 +21,12 @@
     "isbot": "5.1.32",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "react-router": "7.9.5"
+    "react-router": "7.9.6"
   },
   "devDependencies": {
-    "@react-router/dev": "7.9.5",
-    "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.2",
+    "@react-router/dev": "7.9.6",
+    "@types/react": "19.2.5",
+    "@types/react-dom": "19.2.3",
     "eslint": "9.39.1",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-import": "2.32.0",
@@ -35,7 +35,7 @@
     "eslint-plugin-react-hooks": "6.1.1",
     "globals": "16.5.0",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.46.3",
+    "typescript-eslint": "8.46.4",
     "vite": "7.2.2",
     "vite-tsconfig-paths": "5.1.4"
   },
