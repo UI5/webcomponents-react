@@ -235,6 +235,7 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
                   position: 'absolute',
                   width: `${virtualColumn.size}px`,
                   top: 0,
+                  height: `${rowHeight}px`,
                   ...getDirectionStyles(isRtl, virtualColumn),
                 },
               };
