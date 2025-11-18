@@ -4382,6 +4382,7 @@ describe('AnalyticalTable', () => {
       .should('have.prop', 'scrollTop', 3000);
     cy.get('[data-component-name="AnalyticalTableBody"]').should('have.prop', 'scrollTop', 3000);
 
+    cy.wait(100);
     cy.get('[data-component-name="AnalyticalTableContainerWithScrollbar"]').realMouseWheel({ deltaY: 500 });
     cy.get('[data-component-name="AnalyticalTableBody"]').should('have.prop', 'scrollTop', 3500);
     cy.get('[data-component-name="AnalyticalTableVerticalScrollbar"]').should('have.prop', 'scrollTop', 3500);
