@@ -663,3 +663,42 @@ export const KitchenSink: Story = {
     return context.viewMode === 'story' ? <AnalyticalTable {...args} /> : <ToggleableTable {...args} />;
   },
 };
+
+// ===================== Not displayed in sidebar & tags popover =====================
+
+export const EllipsisExamples: Story = {
+  tags: ['excludeFromSidebar'],
+  args: {
+    data: dataLarge.slice(0, 5),
+    columns: [
+      {
+        Header: 'Plain String (Automatic Ellipsis)',
+        accessor: 'name',
+        width: 60,
+        Cell: ({ value }) => value,
+      },
+      {
+        Header: 'With textEllipsis Class',
+        accessor: 'friend.name',
+        width: 60,
+        Cell: ({ value, webComponentsReactProperties }) => (
+          <div className={webComponentsReactProperties.classes.textEllipsis} title={value}>
+            {value}
+          </div>
+        ),
+      },
+      {
+        Header: 'With Text Component',
+        id: 'description',
+        width: 60,
+        Cell: () => (
+          <Text maxLines={1} title="This is a very long text that demonstrates how the Text component handles ellipsis">
+            This is a very long text that demonstrates how the Text component handles ellipsis
+          </Text>
+        ),
+      },
+    ],
+    visibleRows: 5,
+    style: { width: 'min(100%, 300px)' },
+  },
+};

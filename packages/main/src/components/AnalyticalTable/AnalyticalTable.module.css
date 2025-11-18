@@ -155,6 +155,7 @@
 }
 
 .tr {
+  height: var(--_ui5wcr_AnalyticalTable_RowHeight);
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;
@@ -226,12 +227,12 @@
   display: block;
 }
 
-.tableText {
+/* PUBLIC: When removed or changed, first check if custom inline Cell content is still truncated (Recipes) */
+.textEllipsis {
   display: inline-block;
   font-size: var(--sapFontSize);
   max-width: 100%;
   box-sizing: border-box;
-  font-weight: normal;
   overflow: hidden;
   word-wrap: normal;
   white-space: nowrap;
@@ -265,6 +266,12 @@
 
   &[aria-selected='true']:not([data-empty-row-cell]):focus::after {
     inset-block-end: 2px;
+  }
+
+  /* Make ellipsis work for text-only content */
+  &:not(:has(*)) {
+    display: block;
+    line-height: var(--_ui5wcr_AnalyticalTable_RowHeight);
   }
 }
 

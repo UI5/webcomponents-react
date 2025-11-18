@@ -16,7 +16,7 @@ export const Cell = (props: CellInstance) => {
     <span
       id={`${webComponentsReactProperties.uniqueId}${column.id}${row.id}`}
       title={cellContent}
-      className={webComponentsReactProperties.classes.tableText}
+      className={webComponentsReactProperties.classes.textEllipsis}
       data-column-id-cell-text={column.id}
       // VoiceOver announces blank because of `aria-hidden` although `aria-labelledby` is set on the `gridcell` element - this is a known bug and there's no workaround
       aria-hidden="true"

@@ -455,10 +455,11 @@ export interface AnalyticalTableColumnDefinition {
   headerTooltip?: string;
   /**
    * Custom cell renderer. If set, the table will use this component or render the provided string for every cell,
-   * passing all necessary information as props, e.g., the cell value as `props.cell.value`.
+   * passing all necessary information as props, e.g., the cell value as `props.value`.
    *
-   * __Note:__ Using a custom component __can impact performance__!
-   * If you pass a component, __memoizing it is strongly recommended__, especially for complex components or large datasets.
+   * __Note:__
+   * - Using a custom component __can impact performance__! If you pass a component, __memoizing it is strongly recommended__, especially for complex components or large datasets.
+   * - For custom elements, text truncation needs to be applied manually. [Here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs) you can find out more.
    */
   Cell?: string | ComponentType<CellInstance>;
   /**
