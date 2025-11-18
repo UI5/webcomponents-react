@@ -1,1 +1,0 @@
-import{c as m}from"./iframe-CDzsgyAV.js";import{E as p}from"./ExpandableText-B7Rn7PpU.js";import"./preload-helper-PPVm8Dsz.js";import"./Link-Dp8FrNqY.js";function i(t){const{className:a,text:r,maxCharacters:e,part:s}=t;return m(p,{part:s,class:a,text:r,maxCharacters:e})}export{i as default};
