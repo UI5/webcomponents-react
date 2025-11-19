@@ -5,12 +5,13 @@ import { Input } from '../../../../webComponents/Input/index.js';
 import type { FilterProps } from '../../types/index.js';
 
 export const DefaultFilterComponent = ({ column, accessibleNameRef }: FilterProps) => {
+  const { setFilter } = column;
   const handleInput: InputPropTypes['onInput'] = useCallback(
     (e) => {
       // Setting the filter to `undefined` removes it
-      column.setFilter(e.target.value || undefined);
+      setFilter(e.target.value || undefined);
     },
-    [column.setFilter],
+    [setFilter],
   );
 
   const handleKeyDown: InputPropTypes['onKeyDown'] = (e) => {

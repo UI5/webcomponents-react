@@ -23,6 +23,8 @@ export function useSyncScroll(
       return;
     }
 
+    // Is a React ref
+    // eslint-disable-next-line react-hooks/immutability
     scrollbar.scrollTop = content.scrollTop;
 
     const sync = (source: 'content' | 'scrollbar') => {

@@ -319,13 +319,6 @@ export interface TriggerScrollState {
   args: [number, Omit<ScrollToOptions, 'behavior'>?];
 }
 
-export interface ReactVirtualScrollToMethods {
-  scrollToOffset?: (offset: number, options?: ScrollToOptions) => void;
-  scrollToIndex?: (index: number, options?: ScrollToOptions) => void;
-  horizontalScrollToOffset?: (offset: number, options?: ScrollToOptions) => void;
-  horizontalScrollToIndex?: (index: number, options?: ScrollToOptions) => void;
-}
-
 interface PopInColumnsState {
   id: string;
   column: ColumnType;
@@ -394,11 +387,17 @@ interface PopoverProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
   /**
    * React Ref that holds the reference to the respective table header element.
+   *
+   * @deprecated Use `openerId` instead.
    */
   openerRef: MutableRefObject<HTMLDivElement>;
+  /**
+   * ID of the respective table header element that opens the popover.
+   */
+  openerId: string;
 }
 
-export interface TableInstanceWithPopoverProps extends TableInstance {
+export interface TableInstanceWithPopoverProps extends CellInstance {
   popoverProps: PopoverProps;
 }
 

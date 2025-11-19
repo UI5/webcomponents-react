@@ -75,6 +75,7 @@ const TimelineChartColumnLabel = ({
       const newLabelArray = columnLabels
         ? columnLabels
         : Array.from(Array(totalDuration).keys()).map((num) => `${num + start}`);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLabelArray(newLabelArray);
     }
   }, [isDiscrete, columnLabels, start, totalDuration]);
@@ -95,7 +96,7 @@ const TimelineChartColumnLabel = ({
           height: `${halfHeaderHeight}px`,
           lineHeight: `${halfHeaderHeight}px`,
         }}
-      ></div>
+      />
       {isDiscrete ? (
         <div
           className={classNames.columnLabelItems}

@@ -16,7 +16,7 @@ import {
 import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
-import { useRef, useState } from 'react';
+import { useId, useState } from 'react';
 import classes from './ProjectTemplate.module.css';
 
 interface ProjectTemplatePropTypes {
@@ -58,7 +58,7 @@ export function ProjectTemplate(props: ProjectTemplatePropTypes) {
     note,
   } = props;
   const [popoverOpen, setPopoverOpen] = useState(false);
-  const linkRef = useRef(null);
+  const linkId = useId() + '-link';
 
   return (
     <ThemeProvider>
@@ -68,7 +68,7 @@ export function ProjectTemplate(props: ProjectTemplatePropTypes) {
             <MessageStrip hideCloseButton design={MessageStripDesign.Critical} className={classes.unssupportedMessage}>
               Currently not supported by V2.{' '}
               <Link
-                ref={linkRef}
+                id={linkId}
                 accessibleRole="Button"
                 onClick={() => {
                   setPopoverOpen(true);
@@ -79,7 +79,7 @@ export function ProjectTemplate(props: ProjectTemplatePropTypes) {
             </MessageStrip>
             <Popover
               className={classes.popover}
-              opener={linkRef.current}
+              opener={linkId}
               open={popoverOpen}
               onClose={() => {
                 setPopoverOpen(false);

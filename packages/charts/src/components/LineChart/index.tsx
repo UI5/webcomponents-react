@@ -1,7 +1,7 @@
 'use client';
 
 import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
-import { forwardRef, useCallback, useRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import type { LineProps, YAxisProps } from 'recharts';
 import {
   Brush,
@@ -182,32 +182,29 @@ const LineChart = forwardRef<HTMLDivElement, LineChartProps>((props, ref) => {
 
   const onItemLegendClick = useLegendItemClick(onLegendClick);
   const preventOnClickCall = useRef(0);
-  const onDataPointClickInternal = useCallback(
-    (payload, eventOrIndex) => {
-      if (eventOrIndex.dataKey && typeof onDataPointClick === 'function') {
-        preventOnClickCall.current = 2;
-        onDataPointClick(
-          enrichEventWithDetails({} as any, {
-            value: eventOrIndex.value,
-            dataKey: eventOrIndex.dataKey,
-            dataIndex: eventOrIndex.index,
-            payload: eventOrIndex.payload,
-          }),
-        );
-      } else if (typeof onClick === 'function' && preventOnClickCall.current === 0) {
-        onClick(
-          enrichEventWithDetails(eventOrIndex, {
-            payload: payload?.activePayload?.[0]?.payload,
-            activePayloads: payload?.activePayload,
-          }),
-        );
-      }
-      if (preventOnClickCall.current > 0) {
-        preventOnClickCall.current -= 1;
-      }
-    },
-    [onDataPointClick, preventOnClickCall.current],
-  );
+  const onDataPointClickInternal = (payload, eventOrIndex) => {
+    if (eventOrIndex.dataKey && typeof onDataPointClick === 'function') {
+      preventOnClickCall.current = 2;
+      onDataPointClick(
+        enrichEventWithDetails({} as any, {
+          value: eventOrIndex.value,
+          dataKey: eventOrIndex.dataKey,
+          dataIndex: eventOrIndex.index,
+          payload: eventOrIndex.payload,
+        }),
+      );
+    } else if (typeof onClick === 'function' && preventOnClickCall.current === 0) {
+      onClick(
+        enrichEventWithDetails(eventOrIndex, {
+          payload: payload?.activePayload?.[0]?.payload,
+          activePayloads: payload?.activePayload,
+        }),
+      );
+    }
+    if (preventOnClickCall.current > 0) {
+      preventOnClickCall.current -= 1;
+    }
+  };
 
   const isBigDataSet = dataset?.length > 30;
   const primaryDimensionAccessor = primaryDimension?.accessor;

@@ -5,10 +5,10 @@ import { FlexBoxDirection } from '../../../../enums/FlexBoxDirection.js';
 import { FlexBoxWrap } from '../../../../enums/FlexBoxWrap.js';
 import { Text } from '../../../../webComponents/Text/index.js';
 import { FlexBox } from '../../../FlexBox/index.js';
-import type { TableInstance } from '../../types/index.js';
+import type { CellInstance } from '../../types/index.js';
 import { RenderColumnTypes } from '../../types/index.js';
 
-export const PopIn = (instance: TableInstance) => {
+export const PopIn = (instance: CellInstance) => {
   const {
     state,
     contentToRender,
