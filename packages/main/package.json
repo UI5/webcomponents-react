@@ -137,8 +137,8 @@
       "default": "./dist/components/VariantManagement/index.js"
     },
     "./VariantItem": {
-      "types": "./dist/components/VariantManagement/VariantItem.d.ts",
-      "default": "./dist/components/VariantManagement/VariantItem.js"
+      "types": "./dist/components/VariantItem/index.d.ts",
+      "default": "./dist/components/VariantItem/index.js"
     },
     "./Avatar": {
       "types": "./dist/webComponents/Avatar/index.d.ts",

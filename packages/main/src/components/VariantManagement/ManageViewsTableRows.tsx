@@ -27,7 +27,7 @@ import { TableCell } from '../../webComponents/TableCell/index.js';
 import { TableRow } from '../../webComponents/TableRow/index.js';
 import { TableRowAction } from '../../webComponents/TableRowAction/index.js';
 import { Text } from '../../webComponents/Text/index.js';
-import type { VariantItemPropTypes } from './VariantItem.js';
+import type { VariantItemPropTypes } from '../VariantItem/index.js';
 
 interface ManageViewsTableRowsProps extends Partial<VariantItemPropTypes> {
   variantNames: string[];

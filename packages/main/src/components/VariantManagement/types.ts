@@ -9,7 +9,7 @@ import type { InputDomRef } from '../../webComponents/Input/index.js';
 import type { ListDomRef } from '../../webComponents/List/index.js';
 import type { ResponsivePopoverPropTypes } from '../../webComponents/ResponsivePopover/index.js';
 import type { TitlePropTypes } from '../../webComponents/Title/index.js';
-import type { VariantItemPropTypes } from './VariantItem.js';
+import type { VariantItemPropTypes } from '../VariantItem/index.js';
 
 export interface SelectedVariantWithStringBool
   extends Omit<

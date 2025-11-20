@@ -39,11 +39,11 @@ import type { ResponsivePopoverDomRef } from '../../webComponents/ResponsivePopo
 import { ResponsivePopover } from '../../webComponents/ResponsivePopover/index.js';
 import { Title } from '../../webComponents/Title/index.js';
 import { FlexBox } from '../FlexBox/index.js';
+import type { VariantItemPropTypes } from '../VariantItem/index.js';
 import type { ManageViewsDialogPropTypes } from './ManageViewsDialog.js';
 import { ManageViewsDialog } from './ManageViewsDialog.js';
 import { SaveViewDialog } from './SaveViewDialog.js';
 import type { SelectedVariantWithStringBool, VariantManagementPropTypes } from './types.js';
-import type { VariantItemPropTypes } from './VariantItem.js';
 import { classNames, styleData } from './VariantManagement.module.css.js';
 
 const booleanProps = {

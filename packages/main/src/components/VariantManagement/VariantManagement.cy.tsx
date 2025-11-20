@@ -1,8 +1,8 @@
 import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { useState } from 'react';
-import type { VariantItemPropTypes } from './VariantItem';
-import { VariantItem } from './VariantItem';
+import type { VariantItemPropTypes } from '../VariantItem/index.js';
+import { VariantItem } from '../VariantItem/index.js';
 import { WithCustomValidation as WithCustomValidationStory } from './VariantManagement.stories';
 import type { VariantManagementPropTypes } from './index.js';
 import { VariantManagement } from './index.js';
