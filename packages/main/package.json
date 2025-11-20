@@ -132,13 +132,13 @@
       "types": "./dist/components/ThemeProvider/index.d.ts",
       "default": "./dist/components/ThemeProvider/index.js"
     },
-    "./VariantManagement": {
-      "types": "./dist/components/VariantManagement/index.d.ts",
-      "default": "./dist/components/VariantManagement/index.js"
-    },
     "./VariantItem": {
       "types": "./dist/components/VariantItem/index.d.ts",
       "default": "./dist/components/VariantItem/index.js"
+    },
+    "./VariantManagement": {
+      "types": "./dist/components/VariantManagement/index.d.ts",
+      "default": "./dist/components/VariantManagement/index.js"
     },
     "./Avatar": {
       "types": "./dist/webComponents/Avatar/index.d.ts",
