@@ -68,13 +68,13 @@
       "types": "./dist/components/MessageBox/index.d.ts",
       "default": "./dist/components/MessageBox/index.js"
     },
+    "./MessageItem": {
+      "types": "./dist/components/MessageItem/index.d.ts",
+      "default": "./dist/components/MessageItem/index.js"
+    },
     "./MessageView": {
       "types": "./dist/components/MessageView/index.d.ts",
       "default": "./dist/components/MessageView/index.js"
-    },
-    "./MessageItem": {
-      "types": "./dist/components/MessageView/MessageItem.d.ts",
-      "default": "./dist/components/MessageView/MessageItem.js"
     },
     "./MessageViewButton": {
       "types": "./dist/components/MessageViewButton/index.d.ts",

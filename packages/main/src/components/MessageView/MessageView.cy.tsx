@@ -2,7 +2,7 @@ import WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { Link } from '@ui5/webcomponents-react';
 import { useRef } from 'react';
-import { MessageItem } from './MessageItem';
+import { MessageItem } from '../MessageItem/index.js';
 import { MessageView } from './index.js';
 import { Dialog } from '../../webComponents/Dialog/index.js';
 
