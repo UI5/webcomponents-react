@@ -1,8 +1,0 @@
-import{j as o}from"./iframe-DDMtxVo3.js";import{useMDXComponents as n}from"./index-DJVQNbCr.js";import{M as e,C as s}from"./blocks-CloLtOA5.js";import"./Tag-YMrSkp2O.js";import"./index-DsF6G_NH.js";import{C as a}from"./ControlsWithNote-BTWSyMXk.js";import{D as x}from"./DocsHeader-BIZ9rjwC.js";import{F as f}from"./CommandsAndQueries-GL7iyaCL.js";import{C as m,D as i}from"./DynamicSideContent.stories-BC8EskKs.js";import"./preload-helper-PPVm8Dsz.js";import"./information-CyNj2j11.js";import"./sys-enter-2-Go-dkBfP.js";import"./alert-jQ4OjDPb.js";import"./index-DtIsK-ZK.js";import"./index-ayjT0mLt.js";import"./Link-D3MGth0a.js";import"./copy-BHzUH3vb.js";import"./copy-BTGdlJRd.js";import"./GitHub-Mark-BOZXbKPz.js";import"./TableOfContent-C7oul5sD.js";import"./index-rp8XBFdR.js";import"./index-BHqqB-9b.js";import"./index-BbSpKNs2.js";import"./index-DIh6sAKH.js";import"./index-BeupWmR_.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-IIlbXN7B.js";import"./addCustomCSSWithScoping-CwVVs2bm.js";import"./query-CzSBusdE.js";import"./parameters-bundle.css-7Zy0dxyD.js";import"./i18n-defaults-k5o3Svb4.js";function p(t){const r={h2:"h2",...n(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(e,{of:m}),`
-`,o.jsx(x,{of:m,since:"0.21.0"}),`
-`,o.jsx("br",{}),`
-`,o.jsx(r.h2,{id:"example",children:"Example"}),`
-`,o.jsx(s,{of:i}),`
-`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
-`,o.jsx(a,{of:i}),`
-`,o.jsx(f,{})]})}function I(t={}){const{wrapper:r}={...n(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(p,{...t})}):p(t)}export{I as default};
