@@ -1,0 +1,12 @@
+import{j as o,e as p}from"./iframe-DM8isA9c.js";import{useMDXComponents as s}from"./index-Do0cpSGj.js";import{A as a}from"./ArgTypesWithNote-BJUgZm-c.js";import{C as x}from"./ControlsWithNote-Cpjdo5La.js";import{D as c}from"./DocsHeader-YDZSqGW1.js";import{F as f}from"./CommandsAndQueries-DM-8oq2s.js";import{S as d}from"./SubcomponentsSection-BVy4lpQe.js";import{M as j,C as u,a as h,D as l}from"./blocks-Crph7jgT.js";import{S as m}from"./index-BX4ZAVg2.js";import{C as e,D as n}from"./SegmentedButton.stories-gG25QfFy.js";import"./preload-helper-PPVm8Dsz.js";import"./index-BgbeFss3.js";import"./information-CLqibrfC.js";import"./sys-enter-2-COJQOFoX.js";import"./alert-WVpRlSFd.js";import"./Tag-BtR3uqsq.js";import"./index-CNSbSmbI.js";import"./index-FrVWogAp.js";import"./Link-j0sjRyW5.js";import"./copy-DwRRccgB.js";import"./copy-DYIgCYkz.js";import"./GitHub-Mark-CBMDN6NV.js";import"./TableOfContent-Dm7xBpZm.js";import"./index-C6UNmCtN.js";import"./index-BS8NgEfP.js";import"./index-B6NdOyDM.js";import"./index-Cf1wRWYr.js";import"./index-ozpDTdfP.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-B9ZULNfD.js";import"./addCustomCSSWithScoping-AinZnCKl.js";import"./SegmentedButton-B4cfzXrG.js";function i(t){const r={h2:"h2",...s(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(j,{of:e}),`
+`,o.jsx(c,{of:e,since:"0.9.0"}),`
+`,o.jsx("br",{}),`
+`,o.jsx(r.h2,{id:"example",children:"Example"}),`
+`,o.jsx(u,{of:n}),`
+`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
+`,o.jsx(x,{of:n}),`
+`,o.jsx(h,{children:d}),`
+`,o.jsx(r.h2,{id:"segmentedbuttonitem",children:"SegmentedButtonItem"}),`
+`,o.jsx(l,{of:m}),`
+`,o.jsx(a,{metaOf:e,hideHTMLPropsNote:!0,exclude:p,of:m}),`
+`,o.jsx(f,{})]})}function V(t={}){const{wrapper:r}={...s(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(i,{...t})}):i(t)}export{V as default};
