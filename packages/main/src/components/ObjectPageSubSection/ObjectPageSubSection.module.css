@@ -27,7 +27,7 @@
 .subSectionContent {
   background-color: var(--_ui5wcr_ObjectPage_SubSectionBackgroundColor);
   border-radius: var(--_ui5wcr_ObjectPage_SubSectionBorderRadius);
-  padding-block: 1rem;
+  padding-block: 0.5rem;
 }
 
 .spacer {
