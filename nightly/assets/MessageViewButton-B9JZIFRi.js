@@ -1,0 +1,10 @@
+import{j as o}from"./iframe-BsBPxA6U.js";import{useMDXComponents as n}from"./index-C_R4y4V0.js";import{M as p,C as e}from"./blocks-CEOEebKO.js";import"./Tag-DSoKri1G.js";import"./index-Doky9Mkb.js";import{C as a}from"./ControlsWithNote-B9F0Q_Ut.js";import{D as x}from"./DocsHeader-Ddc9j-Y5.js";import{F as f}from"./CommandsAndQueries-DGdgKo6k.js";import{C as i,D as m,S as d}from"./MessageViewButton.stories-Xgs0qH_X.js";import"./preload-helper-PPVm8Dsz.js";import"./information-Bj9U_7MQ.js";import"./sys-enter-2-C6mBZBNJ.js";import"./alert-Y2sfMbhe.js";import"./index-CNyanKq8.js";import"./index-gPsABUAK.js";import"./Link-BHFGfTB0.js";import"./copy-DwJ7RQvd.js";import"./copy-CRGjVpRv.js";import"./GitHub-Mark-BL2-Zv-6.js";import"./TableOfContent-DrNJuZzj.js";import"./index-CAH0250y.js";import"./index-Dmhochbe.js";import"./index-Cihbk1NA.js";import"./index-BLjU5XqX.js";import"./index-DNCqkTDx.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-Dmx-BJlM.js";import"./addCustomCSSWithScoping-DbsNQuuI.js";import"./index-DSmYoENh.js";function s(t){const r={h2:"h2",...n(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(p,{of:i}),`
+`,o.jsx(x,{of:i}),`
+`,o.jsx("br",{}),`
+`,o.jsx(r.h2,{id:"example",children:"Example"}),`
+`,o.jsx(e,{of:m}),`
+`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
+`,o.jsx(a,{of:m}),`
+`,o.jsx(r.h2,{id:"messageviewbuttons-ordered-by-severity",children:"MessageViewButtons ordered by severity"}),`
+`,o.jsx(e,{of:d}),`
+`,o.jsx(f,{})]})}function A(t={}){const{wrapper:r}={...n(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(s,{...t})}):s(t)}export{A as default};
