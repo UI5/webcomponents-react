@@ -50,8 +50,7 @@ interface ProgressIndicatorAttributes {
 interface ProgressIndicatorDomRef extends Required<ProgressIndicatorAttributes>, Ui5DomRef {}
 
 interface ProgressIndicatorPropTypes
-  extends ProgressIndicatorAttributes,
-    Omit<CommonProps, keyof ProgressIndicatorAttributes> {}
+  extends ProgressIndicatorAttributes, Omit<CommonProps, keyof ProgressIndicatorAttributes> {}
 
 /**
  * Shows the progress of a process in a graphical way. To indicate the progress,

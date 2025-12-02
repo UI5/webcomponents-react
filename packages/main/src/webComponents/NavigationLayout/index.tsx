@@ -23,7 +23,8 @@ interface NavigationLayoutDomRef extends Required<NavigationLayoutAttributes>, U
 }
 
 interface NavigationLayoutPropTypes
-  extends NavigationLayoutAttributes,
+  extends
+    NavigationLayoutAttributes,
     Omit<CommonProps, keyof NavigationLayoutAttributes | 'children' | 'header' | 'sideContent'> {
   /**
    * Defines the content.

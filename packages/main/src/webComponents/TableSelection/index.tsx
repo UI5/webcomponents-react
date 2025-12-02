@@ -21,8 +21,7 @@ interface TableSelectionAttributes {
 interface TableSelectionDomRef extends Required<TableSelectionAttributes>, Ui5DomRef {}
 
 interface TableSelectionPropTypes
-  extends TableSelectionAttributes,
-    Omit<CommonProps, keyof TableSelectionAttributes | 'onChange'> {
+  extends TableSelectionAttributes, Omit<CommonProps, keyof TableSelectionAttributes | 'onChange'> {
   /**
    * Fired when the selection is changed by user interaction.
    *

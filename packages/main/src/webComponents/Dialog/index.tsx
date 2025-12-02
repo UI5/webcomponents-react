@@ -141,7 +141,8 @@ interface DialogDomRef extends Required<DialogAttributes>, Ui5DomRef {
 }
 
 interface DialogPropTypes
-  extends DialogAttributes,
+  extends
+    DialogAttributes,
     Omit<
       CommonProps,
       | keyof DialogAttributes

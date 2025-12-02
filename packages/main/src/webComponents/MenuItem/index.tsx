@@ -150,7 +150,8 @@ interface MenuItemAttributes {
 interface MenuItemDomRef extends Required<MenuItemAttributes>, Ui5DomRef {}
 
 interface MenuItemPropTypes
-  extends MenuItemAttributes,
+  extends
+    MenuItemAttributes,
     Omit<
       CommonProps,
       | keyof MenuItemAttributes

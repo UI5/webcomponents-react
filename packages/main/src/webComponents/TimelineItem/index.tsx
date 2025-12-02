@@ -52,8 +52,7 @@ interface TimelineItemAttributes {
 interface TimelineItemDomRef extends Required<TimelineItemAttributes>, Ui5DomRef {}
 
 interface TimelineItemPropTypes
-  extends TimelineItemAttributes,
-    Omit<CommonProps, keyof TimelineItemAttributes | 'children' | 'onNameClick'> {
+  extends TimelineItemAttributes, Omit<CommonProps, keyof TimelineItemAttributes | 'children' | 'onNameClick'> {
   /**
    * Defines the content of the `TimelineItem`.
    *

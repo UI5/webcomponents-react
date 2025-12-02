@@ -40,8 +40,7 @@ interface BreadcrumbsItemAttributes {
 interface BreadcrumbsItemDomRef extends Required<BreadcrumbsItemAttributes>, Ui5DomRef {}
 
 interface BreadcrumbsItemPropTypes
-  extends BreadcrumbsItemAttributes,
-    Omit<CommonProps, keyof BreadcrumbsItemAttributes | 'children'> {
+  extends BreadcrumbsItemAttributes, Omit<CommonProps, keyof BreadcrumbsItemAttributes | 'children'> {
   /**
    * Defines the text of the component.
    *

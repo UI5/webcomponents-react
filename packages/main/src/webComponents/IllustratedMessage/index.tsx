@@ -84,7 +84,8 @@ interface IllustratedMessageAttributes {
 interface IllustratedMessageDomRef extends Required<IllustratedMessageAttributes>, Ui5DomRef {}
 
 interface IllustratedMessagePropTypes
-  extends IllustratedMessageAttributes,
+  extends
+    IllustratedMessageAttributes,
     Omit<CommonProps, keyof IllustratedMessageAttributes | 'children' | 'subtitle' | 'title'> {
   /**
    * Defines the component actions.

@@ -21,7 +21,8 @@ interface BarcodeScannerDialogAttributes {
 interface BarcodeScannerDialogDomRef extends Required<BarcodeScannerDialogAttributes>, Ui5DomRef {}
 
 interface BarcodeScannerDialogPropTypes
-  extends BarcodeScannerDialogAttributes,
+  extends
+    BarcodeScannerDialogAttributes,
     Omit<
       CommonProps,
       keyof BarcodeScannerDialogAttributes | 'footer' | 'header' | 'onClose' | 'onScanError' | 'onScanSuccess'

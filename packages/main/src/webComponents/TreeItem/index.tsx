@@ -153,7 +153,8 @@ interface TreeItemDomRef extends Required<TreeItemAttributes>, Ui5DomRef {
 }
 
 interface TreeItemPropTypes
-  extends TreeItemAttributes,
+  extends
+    TreeItemAttributes,
     Omit<CommonProps, keyof TreeItemAttributes | 'children' | 'deleteButton' | 'image' | 'onDetailClick'> {
   /**
    * Defines the items of the component.

@@ -54,8 +54,7 @@ interface UserMenuAccountAttributes {
 interface UserMenuAccountDomRef extends Required<UserMenuAccountAttributes>, Ui5DomRef {}
 
 interface UserMenuAccountPropTypes
-  extends UserMenuAccountAttributes,
-    Omit<CommonProps, keyof UserMenuAccountAttributes> {}
+  extends UserMenuAccountAttributes, Omit<CommonProps, keyof UserMenuAccountAttributes> {}
 
 /**
  * The `UserMenuAccount` represents an account in the `UserMenu`.

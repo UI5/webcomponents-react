@@ -34,8 +34,7 @@ interface CalendarLegendAttributes {
 interface CalendarLegendDomRef extends Required<CalendarLegendAttributes>, Ui5DomRef {}
 
 interface CalendarLegendPropTypes
-  extends CalendarLegendAttributes,
-    Omit<CommonProps, keyof CalendarLegendAttributes | 'children'> {
+  extends CalendarLegendAttributes, Omit<CommonProps, keyof CalendarLegendAttributes | 'children'> {
   /**
    * Defines the items of the component.
    *

@@ -65,7 +65,8 @@ interface ExpandableTextAttributes {
 interface ExpandableTextDomRef extends Required<ExpandableTextAttributes>, Ui5DomRef {}
 
 interface ExpandableTextPropTypes
-  extends ExpandableTextAttributes,
+  extends
+    ExpandableTextAttributes,
     Omit<CommonProps, keyof ExpandableTextAttributes | 'children'>,
     DeprecatedExpandableTextProps {}
 

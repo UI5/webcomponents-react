@@ -40,8 +40,7 @@ interface PageAttributes {
 interface PageDomRef extends Required<PageAttributes>, Ui5DomRef {}
 
 interface PagePropTypes
-  extends PageAttributes,
-    Omit<CommonProps, keyof PageAttributes | 'children' | 'footer' | 'header'> {
+  extends PageAttributes, Omit<CommonProps, keyof PageAttributes | 'children' | 'footer' | 'header'> {
   /**
    * Defines the content HTML Element.
    *

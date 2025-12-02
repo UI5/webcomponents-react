@@ -68,7 +68,8 @@ interface ToolbarSelectAttributes {
 interface ToolbarSelectDomRef extends Required<ToolbarSelectAttributes>, Ui5DomRef {}
 
 interface ToolbarSelectPropTypes
-  extends ToolbarSelectAttributes,
+  extends
+    ToolbarSelectAttributes,
     Omit<CommonProps, keyof ToolbarSelectAttributes | 'children' | 'label' | 'onChange' | 'onClose' | 'onOpen'> {
   /**
    * Defines the component options.

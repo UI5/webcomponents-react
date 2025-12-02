@@ -61,7 +61,8 @@ interface SearchAttributes {
 interface SearchDomRef extends Required<SearchAttributes>, Ui5DomRef {}
 
 interface SearchPropTypes
-  extends SearchAttributes,
+  extends
+    SearchAttributes,
     Omit<
       CommonProps,
       | keyof SearchAttributes

@@ -54,7 +54,8 @@ interface UserMenuAttributes {
 interface UserMenuDomRef extends Required<UserMenuAttributes>, Ui5DomRef {}
 
 interface UserMenuPropTypes
-  extends UserMenuAttributes,
+  extends
+    UserMenuAttributes,
     Omit<
       CommonProps,
       | keyof UserMenuAttributes

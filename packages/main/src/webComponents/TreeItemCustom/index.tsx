@@ -147,7 +147,8 @@ interface TreeItemCustomDomRef extends Required<TreeItemCustomAttributes>, Ui5Do
 }
 
 interface TreeItemCustomPropTypes
-  extends TreeItemCustomAttributes,
+  extends
+    TreeItemCustomAttributes,
     Omit<
       CommonProps,
       keyof TreeItemCustomAttributes | 'children' | 'content' | 'deleteButton' | 'image' | 'onDetailClick'

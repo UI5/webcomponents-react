@@ -82,8 +82,7 @@ interface TableHeaderCellAttributes {
 interface TableHeaderCellDomRef extends Required<TableHeaderCellAttributes>, Ui5DomRef {}
 
 interface TableHeaderCellPropTypes
-  extends TableHeaderCellAttributes,
-    Omit<CommonProps, keyof TableHeaderCellAttributes | 'action' | 'children'> {
+  extends TableHeaderCellAttributes, Omit<CommonProps, keyof TableHeaderCellAttributes | 'action' | 'children'> {
   /**
    * Defines the action of the column.
    *

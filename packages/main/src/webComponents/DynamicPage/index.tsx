@@ -34,7 +34,8 @@ interface DynamicPageAttributes {
 interface DynamicPageDomRef extends Required<DynamicPageAttributes>, Ui5DomRef {}
 
 interface DynamicPagePropTypes
-  extends DynamicPageAttributes,
+  extends
+    DynamicPageAttributes,
     Omit<
       CommonProps,
       | keyof DynamicPageAttributes

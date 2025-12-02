@@ -68,8 +68,7 @@ interface ButtonAttributes {
 interface ButtonDomRef extends Required<ButtonAttributes>, Ui5DomRef {}
 
 interface ButtonPropTypes
-  extends ButtonAttributes,
-    Omit<CommonProps, keyof ButtonAttributes | 'children' | 'onArrowButtonClick' | 'onClick'> {
+  extends ButtonAttributes, Omit<CommonProps, keyof ButtonAttributes | 'children' | 'onArrowButtonClick' | 'onClick'> {
   /**
    * Defines the available states of the component.
    * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that

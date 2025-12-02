@@ -21,8 +21,7 @@ interface FilterItemOptionAttributes {
 interface FilterItemOptionDomRef extends Required<FilterItemOptionAttributes>, Ui5DomRef {}
 
 interface FilterItemOptionPropTypes
-  extends FilterItemOptionAttributes,
-    Omit<CommonProps, keyof FilterItemOptionAttributes> {}
+  extends FilterItemOptionAttributes, Omit<CommonProps, keyof FilterItemOptionAttributes> {}
 
 /**
  * The `FilterItemOption` component defines individual filter values within a `FilterItem`.

@@ -168,7 +168,8 @@ interface InputAttributes {
 interface InputDomRef extends Required<InputAttributes>, Ui5DomRef {}
 
 interface InputPropTypes
-  extends InputAttributes,
+  extends
+    InputAttributes,
     Omit<
       CommonProps,
       | keyof InputAttributes

@@ -32,8 +32,7 @@ interface BarAttributes {
 interface BarDomRef extends Required<BarAttributes>, Ui5DomRef {}
 
 interface BarPropTypes
-  extends BarAttributes,
-    Omit<CommonProps, keyof BarAttributes | 'children' | 'endContent' | 'startContent'> {
+  extends BarAttributes, Omit<CommonProps, keyof BarAttributes | 'children' | 'endContent' | 'startContent'> {
   /**
    * Defines the content in the middle of the bar.
    *

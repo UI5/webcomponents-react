@@ -17,8 +17,7 @@ interface UserMenuItemGroupAttributes {
 interface UserMenuItemGroupDomRef extends Required<UserMenuItemGroupAttributes>, Ui5DomRef {}
 
 interface UserMenuItemGroupPropTypes
-  extends UserMenuItemGroupAttributes,
-    Omit<CommonProps, keyof UserMenuItemGroupAttributes | 'children'> {
+  extends UserMenuItemGroupAttributes, Omit<CommonProps, keyof UserMenuItemGroupAttributes | 'children'> {
   /**
    * Defines the items of this component.
    * **Note:** The slot can hold any combination of components of type `ui5-menu-item` or `ui5-menu-separator` or both.

@@ -34,8 +34,7 @@ interface CardHeaderAttributes {
 interface CardHeaderDomRef extends Required<CardHeaderAttributes>, Ui5DomRef {}
 
 interface CardHeaderPropTypes
-  extends CardHeaderAttributes,
-    Omit<CommonProps, keyof CardHeaderAttributes | 'action' | 'avatar' | 'onClick'> {
+  extends CardHeaderAttributes, Omit<CommonProps, keyof CardHeaderAttributes | 'action' | 'avatar' | 'onClick'> {
   /**
    * Defines an action, displayed in the right most part of the header.
    *

@@ -70,8 +70,7 @@ interface PanelAttributes {
 interface PanelDomRef extends Required<PanelAttributes>, Ui5DomRef {}
 
 interface PanelPropTypes
-  extends PanelAttributes,
-    Omit<CommonProps, keyof PanelAttributes | 'children' | 'header' | 'onToggle'> {
+  extends PanelAttributes, Omit<CommonProps, keyof PanelAttributes | 'children' | 'header' | 'onToggle'> {
   /**
    * Defines the content of the component. The content is visible only when the component is expanded.
    *

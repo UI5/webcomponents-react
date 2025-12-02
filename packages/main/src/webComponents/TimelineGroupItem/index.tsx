@@ -22,8 +22,7 @@ interface TimelineGroupItemAttributes {
 interface TimelineGroupItemDomRef extends Required<TimelineGroupItemAttributes>, Ui5DomRef {}
 
 interface TimelineGroupItemPropTypes
-  extends TimelineGroupItemAttributes,
-    Omit<CommonProps, keyof TimelineGroupItemAttributes | 'children' | 'onToggle'> {
+  extends TimelineGroupItemAttributes, Omit<CommonProps, keyof TimelineGroupItemAttributes | 'children' | 'onToggle'> {
   /**
    * Determines the content of the `TimelineGroupItem`.
    *

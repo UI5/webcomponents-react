@@ -155,8 +155,7 @@ interface ButtonAttributes {
 interface ButtonDomRef extends Required<ButtonAttributes>, Ui5DomRef {}
 
 interface ButtonPropTypes
-  extends ButtonAttributes,
-    Omit<CommonProps, keyof ButtonAttributes | 'badge' | 'children' | 'onClick'> {
+  extends ButtonAttributes, Omit<CommonProps, keyof ButtonAttributes | 'badge' | 'children' | 'onClick'> {
   /**
    * Adds a badge to the button.
    *

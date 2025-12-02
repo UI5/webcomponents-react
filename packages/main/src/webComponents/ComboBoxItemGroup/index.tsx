@@ -42,7 +42,8 @@ interface ComboBoxItemGroupAttributes {
 interface ComboBoxItemGroupDomRef extends Required<ComboBoxItemGroupAttributes>, Ui5DomRef {}
 
 interface ComboBoxItemGroupPropTypes
-  extends ComboBoxItemGroupAttributes,
+  extends
+    ComboBoxItemGroupAttributes,
     Omit<CommonProps, keyof ComboBoxItemGroupAttributes | 'children' | 'header' | 'onMove' | 'onMoveOver'> {
   /**
    * Defines the items of the <code>ui5-cb-item-group</code>.

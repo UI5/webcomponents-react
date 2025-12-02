@@ -52,7 +52,8 @@ interface MediaGalleryAttributes {
 interface MediaGalleryDomRef extends Required<MediaGalleryAttributes>, Ui5DomRef {}
 
 interface MediaGalleryPropTypes
-  extends MediaGalleryAttributes,
+  extends
+    MediaGalleryAttributes,
     Omit<
       CommonProps,
       keyof MediaGalleryAttributes | 'children' | 'onDisplayAreaClick' | 'onOverflowClick' | 'onSelectionChange'

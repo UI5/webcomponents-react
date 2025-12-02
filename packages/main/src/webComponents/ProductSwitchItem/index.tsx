@@ -55,8 +55,7 @@ interface ProductSwitchItemAttributes {
 interface ProductSwitchItemDomRef extends Required<ProductSwitchItemAttributes>, Ui5DomRef {}
 
 interface ProductSwitchItemPropTypes
-  extends ProductSwitchItemAttributes,
-    Omit<CommonProps, keyof ProductSwitchItemAttributes | 'image' | 'onClick'> {
+  extends ProductSwitchItemAttributes, Omit<CommonProps, keyof ProductSwitchItemAttributes | 'image' | 'onClick'> {
   /**
    * Defines an image to be displayed instead of the standard icon.
    *

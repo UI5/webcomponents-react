@@ -126,7 +126,8 @@ interface MultiComboBoxAttributes {
 interface MultiComboBoxDomRef extends Required<MultiComboBoxAttributes>, Ui5DomRef {}
 
 interface MultiComboBoxPropTypes
-  extends MultiComboBoxAttributes,
+  extends
+    MultiComboBoxAttributes,
     Omit<
       CommonProps,
       | keyof MultiComboBoxAttributes

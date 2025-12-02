@@ -83,8 +83,7 @@ interface RatingIndicatorAttributes {
 interface RatingIndicatorDomRef extends Required<RatingIndicatorAttributes>, Ui5DomRef {}
 
 interface RatingIndicatorPropTypes
-  extends RatingIndicatorAttributes,
-    Omit<CommonProps, keyof RatingIndicatorAttributes | 'onChange'> {
+  extends RatingIndicatorAttributes, Omit<CommonProps, keyof RatingIndicatorAttributes | 'onChange'> {
   /**
    * The event is fired when the value changes.
    *

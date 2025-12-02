@@ -94,7 +94,8 @@ interface CalendarAttributes {
 interface CalendarDomRef extends Required<CalendarAttributes>, Ui5DomRef {}
 
 interface CalendarPropTypes
-  extends CalendarAttributes,
+  extends
+    CalendarAttributes,
     Omit<CommonProps, keyof CalendarAttributes | 'calendarLegend' | 'children' | 'specialDates' | 'onSelectionChange'> {
   /**
    * Defines the calendar legend of the component.

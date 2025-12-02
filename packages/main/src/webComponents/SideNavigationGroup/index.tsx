@@ -43,8 +43,7 @@ interface SideNavigationGroupAttributes {
 interface SideNavigationGroupDomRef extends Required<SideNavigationGroupAttributes>, Ui5DomRef {}
 
 interface SideNavigationGroupPropTypes
-  extends SideNavigationGroupAttributes,
-    Omit<CommonProps, keyof SideNavigationGroupAttributes | 'children'> {
+  extends SideNavigationGroupAttributes, Omit<CommonProps, keyof SideNavigationGroupAttributes | 'children'> {
   /**
    * Defines nested items by passing `SideNavigationItem` to the default slot.
    *

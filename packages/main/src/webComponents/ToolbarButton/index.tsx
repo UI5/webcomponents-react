@@ -114,8 +114,7 @@ interface ToolbarButtonAttributes {
 interface ToolbarButtonDomRef extends Required<ToolbarButtonAttributes>, Ui5DomRef {}
 
 interface ToolbarButtonPropTypes
-  extends ToolbarButtonAttributes,
-    Omit<CommonProps, keyof ToolbarButtonAttributes | 'onClick'> {
+  extends ToolbarButtonAttributes, Omit<CommonProps, keyof ToolbarButtonAttributes | 'onClick'> {
   /**
    * Fired when the component is activated either with a
    * mouse/tap or by using the Enter or Space key.

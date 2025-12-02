@@ -43,7 +43,8 @@ interface ListDomRefWithPrivateAPIs extends ListDomRef {
 }
 
 export interface SelectDialogPropTypes
-  extends Omit<DialogPropTypes, 'header' | 'headerText' | 'footer' | 'children' | 'state' | 'accessibleName'>,
+  extends
+    Omit<DialogPropTypes, 'header' | 'headerText' | 'footer' | 'children' | 'state' | 'accessibleName'>,
     Pick<ListPropTypes, 'growing' | 'onLoadMore'> {
   /**
    * Defines the accessible name of the component.

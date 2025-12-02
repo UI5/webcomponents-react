@@ -115,8 +115,7 @@ interface AvatarAttributes {
 interface AvatarDomRef extends Required<AvatarAttributes>, Ui5DomRef {}
 
 interface AvatarPropTypes
-  extends AvatarAttributes,
-    Omit<CommonProps, keyof AvatarAttributes | 'badge' | 'children' | 'onClick'> {
+  extends AvatarAttributes, Omit<CommonProps, keyof AvatarAttributes | 'badge' | 'children' | 'onClick'> {
   /**
    * Defines the optional badge that will be used for visual affordance.
    *

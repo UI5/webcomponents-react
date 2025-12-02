@@ -63,7 +63,8 @@ interface AvatarGroupDomRef extends Required<AvatarGroupAttributes>, Ui5DomRef {
 }
 
 interface AvatarGroupPropTypes
-  extends AvatarGroupAttributes,
+  extends
+    AvatarGroupAttributes,
     Omit<CommonProps, keyof AvatarGroupAttributes | 'children' | 'overflowButton' | 'onClick' | 'onOverflow'> {
   /**
    * Defines the items of the component. Use the `Avatar` component as an item.

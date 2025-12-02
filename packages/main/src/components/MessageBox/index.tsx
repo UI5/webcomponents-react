@@ -35,11 +35,10 @@ import { classNames, styleData } from './MessageBox.module.css.js';
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 type MessageBoxActionType = MessageBoxAction | keyof typeof MessageBoxAction | string;
 
-export interface MessageBoxPropTypes
-  extends Omit<
-    DialogPropTypes,
-    'children' | 'footer' | 'headerText' | 'onClose' | 'state' | 'accessibleNameRef' | 'open' | 'initialFocus'
-  > {
+export interface MessageBoxPropTypes extends Omit<
+  DialogPropTypes,
+  'children' | 'footer' | 'headerText' | 'onClose' | 'state' | 'accessibleNameRef' | 'open' | 'initialFocus'
+> {
   /**
    * Defines the IDs of the elements that label the component.
    *

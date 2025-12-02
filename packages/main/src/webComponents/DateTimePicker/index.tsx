@@ -212,7 +212,8 @@ interface DateTimePickerDomRef extends Required<DateTimePickerAttributes>, Ui5Do
 }
 
 interface DateTimePickerPropTypes
-  extends DateTimePickerAttributes,
+  extends
+    DateTimePickerAttributes,
     Omit<
       CommonProps,
       | keyof DateTimePickerAttributes

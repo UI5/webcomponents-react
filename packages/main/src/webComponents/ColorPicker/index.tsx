@@ -35,8 +35,7 @@ interface ColorPickerAttributes {
 interface ColorPickerDomRef extends Required<ColorPickerAttributes>, Ui5DomRef {}
 
 interface ColorPickerPropTypes
-  extends ColorPickerAttributes,
-    Omit<CommonProps, keyof ColorPickerAttributes | 'onChange'> {
+  extends ColorPickerAttributes, Omit<CommonProps, keyof ColorPickerAttributes | 'onChange'> {
   /**
    * Fired when the the selected color is changed
    *

@@ -24,8 +24,7 @@ interface SearchItemShowMoreAttributes {
 interface SearchItemShowMoreDomRef extends Required<SearchItemShowMoreAttributes>, Ui5DomRef {}
 
 interface SearchItemShowMorePropTypes
-  extends SearchItemShowMoreAttributes,
-    Omit<CommonProps, keyof SearchItemShowMoreAttributes | 'onClick'> {
+  extends SearchItemShowMoreAttributes, Omit<CommonProps, keyof SearchItemShowMoreAttributes | 'onClick'> {
   /**
    * Fired when the component is activated, either with a mouse/tap
    * or by pressing the Enter or Space keys.

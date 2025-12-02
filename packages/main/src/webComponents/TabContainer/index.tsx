@@ -80,7 +80,8 @@ interface TabContainerDomRef extends Required<TabContainerAttributes>, Ui5DomRef
 }
 
 interface TabContainerPropTypes
-  extends TabContainerAttributes,
+  extends
+    TabContainerAttributes,
     Omit<
       CommonProps,
       | keyof TabContainerAttributes

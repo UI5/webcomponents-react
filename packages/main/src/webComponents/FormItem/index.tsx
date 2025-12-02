@@ -21,8 +21,7 @@ interface FormItemAttributes {
 interface FormItemDomRef extends Required<FormItemAttributes>, Ui5DomRef {}
 
 interface FormItemPropTypes
-  extends FormItemAttributes,
-    Omit<CommonProps, keyof FormItemAttributes | 'children' | 'labelContent'> {
+  extends FormItemAttributes, Omit<CommonProps, keyof FormItemAttributes | 'children' | 'labelContent'> {
   /**
    * Defines the content of the component,
    * associated to `labelContent`.

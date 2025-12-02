@@ -29,8 +29,7 @@ interface DynamicDateRangeDomRef extends Required<DynamicDateRangeAttributes>, U
 }
 
 interface DynamicDateRangePropTypes
-  extends DynamicDateRangeAttributes,
-    Omit<CommonProps, keyof DynamicDateRangeAttributes | 'onChange'> {
+  extends DynamicDateRangeAttributes, Omit<CommonProps, keyof DynamicDateRangeAttributes | 'onChange'> {
   /**
    * Fired when the input operation has finished by pressing Enter or on focusout or a value is selected in the popover.
    *

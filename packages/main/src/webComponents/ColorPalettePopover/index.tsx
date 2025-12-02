@@ -55,7 +55,8 @@ interface ColorPalettePopoverAttributes {
 interface ColorPalettePopoverDomRef extends Required<ColorPalettePopoverAttributes>, Ui5DomRef {}
 
 interface ColorPalettePopoverPropTypes
-  extends ColorPalettePopoverAttributes,
+  extends
+    ColorPalettePopoverAttributes,
     Omit<CommonProps, keyof ColorPalettePopoverAttributes | 'children' | 'onClose' | 'onItemClick'> {
   /**
    * Defines the content of the component.

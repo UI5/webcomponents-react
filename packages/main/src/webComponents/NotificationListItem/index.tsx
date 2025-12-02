@@ -69,7 +69,8 @@ interface NotificationListItemAttributes {
 interface NotificationListItemDomRef extends Required<NotificationListItemAttributes>, Ui5DomRef {}
 
 interface NotificationListItemPropTypes
-  extends NotificationListItemAttributes,
+  extends
+    NotificationListItemAttributes,
     Omit<CommonProps, keyof NotificationListItemAttributes | 'avatar' | 'children' | 'footnotes' | 'menu' | 'onClose'> {
   /**
    * Defines the avatar, displayed in the `NotificationListItem`.

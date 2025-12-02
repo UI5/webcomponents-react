@@ -155,7 +155,8 @@ interface MultiInputAttributes {
 interface MultiInputDomRef extends Required<MultiInputAttributes>, Ui5DomRef {}
 
 interface MultiInputPropTypes
-  extends MultiInputAttributes,
+  extends
+    MultiInputAttributes,
     Omit<
       CommonProps,
       | keyof MultiInputAttributes

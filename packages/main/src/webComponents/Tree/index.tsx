@@ -87,7 +87,8 @@ interface TreeDomRef extends Required<TreeAttributes>, Ui5DomRef {
 }
 
 interface TreePropTypes
-  extends TreeAttributes,
+  extends
+    TreeAttributes,
     Omit<
       CommonProps,
       | keyof TreeAttributes

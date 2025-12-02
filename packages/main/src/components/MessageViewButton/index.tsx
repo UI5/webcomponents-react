@@ -22,8 +22,10 @@ import type { ButtonDomRef, ButtonPropTypes } from '../../webComponents/Button/i
 import { Button } from '../../webComponents/Button/index.js';
 import { classNames, styleData } from './MessageViewButton.module.css.js';
 
-export interface MessageViewButtonProptypes
-  extends Omit<ButtonPropTypes, 'design' | 'icon' | 'iconEnd' | 'children' | 'type' | 'submits'> {
+export interface MessageViewButtonProptypes extends Omit<
+  ButtonPropTypes,
+  'design' | 'icon' | 'iconEnd' | 'children' | 'type' | 'submits'
+> {
   /**
    * Specifies the type of the button.
    *

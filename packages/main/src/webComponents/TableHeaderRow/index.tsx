@@ -18,8 +18,7 @@ interface TableHeaderRowAttributes {
 interface TableHeaderRowDomRef extends Required<TableHeaderRowAttributes>, Ui5DomRef {}
 
 interface TableHeaderRowPropTypes
-  extends TableHeaderRowAttributes,
-    Omit<CommonProps, keyof TableHeaderRowAttributes | 'children'> {
+  extends TableHeaderRowAttributes, Omit<CommonProps, keyof TableHeaderRowAttributes | 'children'> {
   /**
    * Defines the cells of the component.
    *

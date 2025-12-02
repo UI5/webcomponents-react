@@ -42,7 +42,8 @@ interface MultiComboBoxItemGroupAttributes {
 interface MultiComboBoxItemGroupDomRef extends Required<MultiComboBoxItemGroupAttributes>, Ui5DomRef {}
 
 interface MultiComboBoxItemGroupPropTypes
-  extends MultiComboBoxItemGroupAttributes,
+  extends
+    MultiComboBoxItemGroupAttributes,
     Omit<CommonProps, keyof MultiComboBoxItemGroupAttributes | 'children' | 'header' | 'onMove' | 'onMoveOver'> {
   /**
    * Defines the items of the <code>ui5-mcb-item-group</code>.

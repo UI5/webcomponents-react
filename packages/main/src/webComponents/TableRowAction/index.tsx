@@ -34,8 +34,7 @@ interface TableRowActionAttributes {
 interface TableRowActionDomRef extends Required<TableRowActionAttributes>, Ui5DomRef {}
 
 interface TableRowActionPropTypes
-  extends TableRowActionAttributes,
-    Omit<CommonProps, keyof TableRowActionAttributes | 'onClick'> {
+  extends TableRowActionAttributes, Omit<CommonProps, keyof TableRowActionAttributes | 'onClick'> {
   /**
    * Fired when a row action is clicked.
    *

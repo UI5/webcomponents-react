@@ -11,11 +11,10 @@ import type { ResponsivePopoverPropTypes } from '../../webComponents/ResponsiveP
 import type { TitlePropTypes } from '../../webComponents/Title/index.js';
 import type { VariantItemPropTypes } from '../VariantItem/index.js';
 
-export interface SelectedVariantWithStringBool
-  extends Omit<
-    SelectedVariant,
-    'favorite' | 'global' | 'isDefault' | 'labelReadOnly' | 'applyAutomatically' | 'readOnly' | 'hideDelete'
-  > {
+export interface SelectedVariantWithStringBool extends Omit<
+  SelectedVariant,
+  'favorite' | 'global' | 'isDefault' | 'labelReadOnly' | 'applyAutomatically' | 'readOnly' | 'hideDelete'
+> {
   favorite?: boolean | string;
   global?: boolean | string;
   isDefault?: boolean | string;

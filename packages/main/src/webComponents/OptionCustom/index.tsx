@@ -36,8 +36,7 @@ interface OptionCustomAttributes {
 interface OptionCustomDomRef extends Required<OptionCustomAttributes>, Ui5DomRef {}
 
 interface OptionCustomPropTypes
-  extends OptionCustomAttributes,
-    Omit<CommonProps, keyof OptionCustomAttributes | 'children'> {
+  extends OptionCustomAttributes, Omit<CommonProps, keyof OptionCustomAttributes | 'children'> {
   /**
    * Defines the content of the component.
    *

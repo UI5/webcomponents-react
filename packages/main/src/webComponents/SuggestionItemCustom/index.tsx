@@ -17,8 +17,7 @@ interface SuggestionItemCustomAttributes {
 interface SuggestionItemCustomDomRef extends Required<SuggestionItemCustomAttributes>, Ui5DomRef {}
 
 interface SuggestionItemCustomPropTypes
-  extends SuggestionItemCustomAttributes,
-    Omit<CommonProps, keyof SuggestionItemCustomAttributes | 'children'> {
+  extends SuggestionItemCustomAttributes, Omit<CommonProps, keyof SuggestionItemCustomAttributes | 'children'> {
   /**
    * Defines the content of the component.
    *

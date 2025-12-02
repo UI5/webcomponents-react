@@ -133,7 +133,8 @@ interface UploadCollectionItemAttributes {
 interface UploadCollectionItemDomRef extends Required<UploadCollectionItemAttributes>, Ui5DomRef {}
 
 interface UploadCollectionItemPropTypes
-  extends UploadCollectionItemAttributes,
+  extends
+    UploadCollectionItemAttributes,
     Omit<
       CommonProps,
       | keyof UploadCollectionItemAttributes

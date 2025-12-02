@@ -159,7 +159,8 @@ interface ListDomRef extends Required<ListAttributes>, Ui5DomRef {
 }
 
 interface ListPropTypes
-  extends ListAttributes,
+  extends
+    ListAttributes,
     Omit<
       CommonProps,
       | keyof ListAttributes

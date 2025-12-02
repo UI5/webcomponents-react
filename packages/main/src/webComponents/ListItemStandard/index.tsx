@@ -149,7 +149,8 @@ interface ListItemStandardAttributes {
 interface ListItemStandardDomRef extends Required<ListItemStandardAttributes>, Ui5DomRef {}
 
 interface ListItemStandardPropTypes
-  extends ListItemStandardAttributes,
+  extends
+    ListItemStandardAttributes,
     Omit<CommonProps, keyof ListItemStandardAttributes | 'children' | 'deleteButton' | 'image' | 'onDetailClick'> {
   /**
    * Defines the custom formatted text of the component.

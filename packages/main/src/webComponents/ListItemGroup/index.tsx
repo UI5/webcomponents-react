@@ -42,7 +42,8 @@ interface ListItemGroupAttributes {
 interface ListItemGroupDomRef extends Required<ListItemGroupAttributes>, Ui5DomRef {}
 
 interface ListItemGroupPropTypes
-  extends ListItemGroupAttributes,
+  extends
+    ListItemGroupAttributes,
     Omit<CommonProps, keyof ListItemGroupAttributes | 'children' | 'header' | 'onMove' | 'onMoveOver'> {
   /**
    * Defines the items of the <code>ui5-li-group</code>.
