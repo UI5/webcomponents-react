@@ -16,13 +16,13 @@ jobs:
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
       - name: artifactPrepareVersion
-        uses: SAP/project-piper-action@265efc02b220fbd7b2e30a7c60306a615f4973e4 # v1.24.0
+        uses: SAP/project-piper-action@f5707cddbf1ed8a72adbfad43a677bbfb7fd6ac9 # v1.25.1
         with:
           step-name: artifactPrepareVersion
           flags: --versioningType cloud_noTag
 
       - name: detectExecuteScan
-        uses: SAP/project-piper-action@265efc02b220fbd7b2e30a7c60306a615f4973e4 # v1.24.0
+        uses: SAP/project-piper-action@f5707cddbf1ed8a72adbfad43a677bbfb7fd6ac9 # v1.25.1
         with:
           step-name: detectExecuteScan
           flags: '--token ${{ secrets.DETECT_TOKEN }}'
