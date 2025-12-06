@@ -105,21 +105,15 @@
   z-index: 4;
 }
 
+.tabContainerSpacer {
+  height: 3px;
+  background: var(--sapObjectHeader_Background);
+}
+
 .tabContainer {
   position: sticky;
   z-index: 3;
   background: var(--sapObjectHeader_Background);
-  padding-block-start: 3px;
-  &::after {
-    content: '';
-    pointer-events: none;
-    position: absolute;
-    height: 1px;
-    inset-block-end: -1px;
-    inset-inline-start: 0;
-    width: 100%;
-    box-shadow: var(--sapContent_HeaderShadow);
-  }
 }
 
 .tabContainerComponent {
@@ -130,7 +124,6 @@
   &::part(tabstrip) {
     padding: 0;
     padding-inline: var(--_ui5wcr_ObjectPage_tab_bar_inline_padding);
-    box-shadow: none;
   }
 }
 

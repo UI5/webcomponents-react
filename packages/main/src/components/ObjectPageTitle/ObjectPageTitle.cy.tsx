@@ -78,7 +78,7 @@ describe('ObjectPageTitle', () => {
     );
     // no nav actions
     // The overflow breadcrumbs button requires time until it's mounted -> value can be different initially
-    cy.findByTestId('breadcrumbs').parent().should('have.css', 'width', '1793px' /*100%*/);
+    cy.findByTestId('breadcrumbs').parent().should('have.css', 'width', '1808px' /*100%*/);
     cy.mount(
       <PageComponent
         titleProps={{
@@ -93,10 +93,10 @@ describe('ObjectPageTitle', () => {
       />,
     );
     // nav actions in actions toolbar
-    cy.findByTestId('breadcrumbs').parent().should('have.css', 'width', '1793px' /*100%*/);
+    cy.findByTestId('breadcrumbs').parent().should('have.css', 'width', '1808px' /*100%*/);
     cy.viewport(1000, 1000);
     // w/ nav actions
-    cy.findByTestId('breadcrumbs').parent().should('have.css', 'width', '452.5px' /*50% (min-width)*/);
+    cy.findByTestId('breadcrumbs').parent().should('have.css', 'width', '460px' /*50% (min-width)*/);
   });
 
   it('expandedContent & snappedContent', () => {
