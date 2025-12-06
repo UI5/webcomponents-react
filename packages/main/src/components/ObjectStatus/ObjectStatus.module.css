@@ -3,6 +3,7 @@
 }
 
 .objectStatus {
+  --ui5wcr-object-status-icon-color: var(--sapNeutralElementColor);
   --_ui5wcr-ObjectStatus-focs-outline: 0.125rem var(--sapContent_FocusColor);
   --_ui5wcr-ObjectStatus-focs-background: var(--sapContent_FocusColor);
 
@@ -18,7 +19,7 @@
   color: var(--sapNeutralTextColor);
 
   [ui5-icon] {
-    color: var(--sapNeutralElementColor);
+    color: var(--ui5wcr-object-status-icon-color);
   }
 }
 
@@ -38,7 +39,6 @@
   line-height: 1rem;
   vertical-align: top;
   padding-inline-end: 0.25rem;
-  text-shadow: var(--sapContent_TextShadow);
 
   &[data-icon-only='true'] {
     padding-inline-end: 0;
@@ -66,115 +66,73 @@
 }
 
 .positive {
+  --ui5wcr-object-status-icon-color: var(--sapPositiveElementColor);
   color: var(--sapPositiveTextColor);
-
-  [ui5-icon] {
-    color: var(--sapPositiveElementColor);
-  }
 }
 
 .critical {
+  --ui5wcr-object-status-icon-color: var(--sapCriticalElementColor);
   color: var(--sapCriticalTextColor);
-
-  [ui5-icon] {
-    color: var(--sapCriticalElementColor);
-  }
 }
 
 .negative {
+  --ui5wcr-object-status-icon-color: var(--sapNegativeElementColor);
   color: var(--sapNegativeTextColor);
-
-  [ui5-icon] {
-    color: var(--sapNegativeElementColor);
-  }
 }
 
 .information {
+  --ui5wcr-object-status-icon-color: var(--sapInformativeElementColor);
   color: var(--sapInformativeTextColor);
-
-  [ui5-icon] {
-    color: var(--sapInformativeElementColor);
-  }
 }
 
 .indication01 {
+  --ui5wcr-object-status-icon-color: var(--sapIndicationColor_1);
   color: var(--sapIndicationColor_1);
-
-  [ui5-icon] {
-    color: var(--sapIndicationColor_1);
-  }
 }
 
 .indication02 {
+  --ui5wcr-object-status-icon-color: var(--sapIndicationColor_2);
   color: var(--sapIndicationColor_2);
-
-  [ui5-icon] {
-    color: var(--sapIndicationColor_2);
-  }
 }
 
 .indication03 {
+  --ui5wcr-object-status-icon-color: var(--sapIndicationColor_3);
   color: var(--sapIndicationColor_3);
-
-  [ui5-icon] {
-    color: var(--sapIndicationColor_3);
-  }
 }
 
 .indication04 {
+  --ui5wcr-object-status-icon-color: var(--sapIndicationColor_4);
   color: var(--sapIndicationColor_4);
-
-  [ui5-icon] {
-    color: var(--sapIndicationColor_4);
-  }
 }
 
 .indication05 {
+  --ui5wcr-object-status-icon-color: var(--sapIndicationColor_5);
   color: var(--sapIndicationColor_5);
-
-  [ui5-icon] {
-    color: var(--sapIndicationColor_5);
-  }
 }
 
 .indication06 {
+  --ui5wcr-object-status-icon-color: var(--sapIndicationColor_6);
   color: var(--sapIndicationColor_6);
-
-  [ui5-icon] {
-    color: var(--sapIndicationColor_6);
-  }
 }
 
 .indication07 {
+  --ui5wcr-object-status-icon-color: var(--sapIndicationColor_7);
   color: var(--sapIndicationColor_7);
-
-  [ui5-icon] {
-    color: var(--sapIndicationColor_7);
-  }
 }
 
 .indication08 {
+  --ui5wcr-object-status-icon-color: var(--sapIndicationColor_8);
   color: var(--sapIndicationColor_8);
-
-  [ui5-icon] {
-    color: var(--sapIndicationColor_8);
-  }
 }
 
 .indication09 {
+  --ui5wcr-object-status-icon-color: var(--sapIndicationColor_9);
   color: var(--sapIndicationColor_9);
-
-  [ui5-icon] {
-    color: var(--sapIndicationColor_9);
-  }
 }
 
 .indication10 {
+  --ui5wcr-object-status-icon-color: var(--sapIndicationColor_10);
   color: var(--sapIndicationColor_10);
-
-  [ui5-icon] {
-    color: var(--sapIndicationColor_10);
-  }
 }
 
 .active {

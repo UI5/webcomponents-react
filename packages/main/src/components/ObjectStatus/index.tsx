@@ -161,6 +161,8 @@ const getStateSpecifics = (state, showDefaultIcon, userIcon, stateAnnouncementTe
 
 /**
  * Status information that can be either text with a value state, or an icon.
+ *
+ * __Note:__ When used in interactive lists or tables, consider overriding the active state styling. Learn more [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-objectstatus--docs#objectstatus-in-interactive-lists-or-tables).
  */
 const ObjectStatus = forwardRef<HTMLDivElement | HTMLButtonElement, ObjectStatusPropTypes>((props, ref) => {
   const {
