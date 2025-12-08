@@ -9,6 +9,22 @@ import type { ReactNode } from 'react';
 
 interface BarAttributes {
   /**
+   * Defines the accessible ARIA name of the component.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleName?: string | undefined;
+
+  /**
+   * Receives id(or many ids) of the elements that label the bar.
+   *
+   * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleNameRef?: string | undefined;
+
+  /**
    * Specifies the ARIA role applied to the component for accessibility purposes.
    *
    * **Note:**
@@ -95,7 +111,7 @@ interface BarPropTypes
  */
 const Bar = withWebComponent<BarPropTypes, BarDomRef>(
   'ui5-bar',
-  ['accessibleRole', 'design'],
+  ['accessibleName', 'accessibleNameRef', 'accessibleRole', 'design'],
   [],
   ['endContent', 'startContent'],
   [],

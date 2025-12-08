@@ -89,6 +89,19 @@ interface ToolbarButtonAttributes {
   preventOverflowClosing?: boolean;
 
   /**
+   * Defines whether the button text should only be displayed in the overflow popover.
+   *
+   * When set to `true`, the button appears as icon-only in the main toolbar,
+   * but shows both icon and text when moved to the overflow popover.
+   *
+   * **Note:** This property only takes effect when the `text` property is also set.
+   *
+   * **Note:** Available since [v2.17.0](https://github.com/UI5/webcomponents/releases/tag/v2.17.0) of **@ui5/webcomponents**.
+   * @default false
+   */
+  showOverflowText?: boolean;
+
+  /**
    * Button text
    * @default undefined
    */
@@ -156,7 +169,7 @@ const ToolbarButton = withWebComponent<ToolbarButtonPropTypes, ToolbarButtonDomR
     'tooltip',
     'width',
   ],
-  ['disabled', 'preventOverflowClosing'],
+  ['disabled', 'preventOverflowClosing', 'showOverflowText'],
   [],
   ['click'],
 );
