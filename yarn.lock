@@ -3582,10 +3582,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rolldown/pluginutils@npm:1.0.0-beta.47":
-  version: 1.0.0-beta.47
-  resolution: "@rolldown/pluginutils@npm:1.0.0-beta.47"
-  checksum: 10c0/eb0cfa7334d66f090c47eaac612174936b05f26e789352428cb6e03575b590f355de30d26b42576ea4e613d8887b587119d19b2e4b3a8909ceb232ca1cf746c8
+"@rolldown/pluginutils@npm:1.0.0-beta.53":
+  version: 1.0.0-beta.53
+  resolution: "@rolldown/pluginutils@npm:1.0.0-beta.53"
+  checksum: 10c0/e8b0a7eb76be22f6f103171f28072de821525a4e400454850516da91a7381957932ff0ce495f227bcb168e86815788b0c1d249ca9e34dca366a82c8825b714ce
   languageName: node
   linkType: hard
 
@@ -5845,19 +5845,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-react@npm:5.1.1":
-  version: 5.1.1
-  resolution: "@vitejs/plugin-react@npm:5.1.1"
+"@vitejs/plugin-react@npm:5.1.2":
+  version: 5.1.2
+  resolution: "@vitejs/plugin-react@npm:5.1.2"
   dependencies:
     "@babel/core": "npm:^7.28.5"
     "@babel/plugin-transform-react-jsx-self": "npm:^7.27.1"
     "@babel/plugin-transform-react-jsx-source": "npm:^7.27.1"
-    "@rolldown/pluginutils": "npm:1.0.0-beta.47"
+    "@rolldown/pluginutils": "npm:1.0.0-beta.53"
     "@types/babel__core": "npm:^7.20.5"
     react-refresh: "npm:^0.18.0"
   peerDependencies:
     vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
-  checksum: 10c0/e590efaea1eabfbb1beb6e8c9fac0742fd299808e3368e63b2825ce24740adb8a28fcb2668b14b7ca1bdb42890cfefe94d02dd358dcbbf8a27ddf377b9a82abf
+  checksum: 10c0/d788f269cdf7474425071ba7c4ea7013f174ddaef12b758defe809a551a03ac62a4a80cd858872deb618e7936ccc7cffe178bc12b62e9c836a467e13f15b9390
   languageName: node
   linkType: hard
 
@@ -8562,9 +8562,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:15.7.0":
-  version: 15.7.0
-  resolution: "cypress@npm:15.7.0"
+"cypress@npm:15.7.1":
+  version: 15.7.1
+  resolution: "cypress@npm:15.7.1"
   dependencies:
     "@cypress/request": "npm:^3.0.9"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -8610,7 +8610,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10c0/e0d25943862ae442c16320f1f5766fd1e38986a9a1b20592cec8247b7a6a5ec1066abecc283d8e5c7cbc4a447b20b55e5dbb662e86046ad846e0cff61c4b2056
+  checksum: 10c0/537d5352c86067455b96fcbc35934820b391413e6d3327204d0936ac14ffb4d69a02290a5007dc532c87976c43b6ebe503d84907768c0daa7d68318907b7ac80
   languageName: node
   linkType: hard
 
@@ -17767,12 +17767,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.7.3":
-  version: 3.7.3
-  resolution: "prettier@npm:3.7.3"
+"prettier@npm:3.7.4":
+  version: 3.7.4
+  resolution: "prettier@npm:3.7.4"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10c0/ee86bb06121c74dadc54f30b6f99aff6288966d9b842ce501d6991e20d20c6ce2d45028651b3b0955ca6e5fa89c1bee1e72b6f810243a93cef8bc69737972ef7
+  checksum: 10c0/9675d2cd08eacb1faf1d1a2dbfe24bfab6a912b059fc9defdb380a408893d88213e794a40a2700bd29b140eb3172e0b07c852853f6e22f16f3374659a1a13389
   languageName: node
   linkType: hard
 
@@ -18197,10 +18197,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:19.2.0":
-  version: 19.2.0
-  resolution: "react-is@npm:19.2.0"
-  checksum: 10c0/a63cb346aeced8ac0e671b0f9b33720d2906de02a066ca067075d871a5d4c64cdb328f495baf9b5842d5868c0d5edd1ce18465a7358b52f4b6aa983479c9bfa2
+"react-is@npm:19.2.1":
+  version: 19.2.1
+  resolution: "react-is@npm:19.2.1"
+  checksum: 10c0/0ebeaedb4ff615055cbcd758c7e22ba9644e21110adbd293dd1aada3591abf7399152a786cd120e324c10706d75e28c2130c27d1b9b5ae637aef4c52f4d17a91
   languageName: node
   linkType: hard
 
@@ -20940,10 +20940,10 @@ __metadata:
     "@ui5/webcomponents-fiori": "npm:2.17.0"
     "@ui5/webcomponents-icons": "npm:2.17.0"
     "@ui5/webcomponents-tools": "npm:2.17.0"
-    "@vitejs/plugin-react": "npm:5.1.1"
+    "@vitejs/plugin-react": "npm:5.1.2"
     chromatic: "npm:13.3.4"
     cssnano: "npm:7.1.2"
-    cypress: "npm:15.7.0"
+    cypress: "npm:15.7.1"
     cypress-real-events: "npm:1.15.0"
     dedent: "npm:1.7.0"
     documentation: "npm:14.0.3"
@@ -20967,7 +20967,7 @@ __metadata:
     postcss-import: "npm:16.1.1"
     postcss-modules: "npm:6.0.1"
     postcss-nesting: "npm:13.0.2"
-    prettier: "npm:3.7.3"
+    prettier: "npm:3.7.4"
     react: "npm:19.2.1"
     react-dom: "npm:19.2.1"
     remark-gfm: "npm:4.0.1"
@@ -20976,7 +20976,7 @@ __metadata:
     tocbot: "npm:4.36.4"
     typescript: "npm:5.7.3"
     typescript-eslint: "npm:8.48.1"
-    vite: "npm:7.2.6"
+    vite: "npm:7.2.7"
     vite-plugin-istanbul: "npm:7.2.1"
     vite-tsconfig-paths: "npm:5.1.4"
   languageName: unknown
@@ -21670,9 +21670,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:7.2.6":
-  version: 7.2.6
-  resolution: "vite@npm:7.2.6"
+"vite@npm:7.2.7":
+  version: 7.2.7
+  resolution: "vite@npm:7.2.7"
   dependencies:
     esbuild: "npm:^0.25.0"
     fdir: "npm:^6.5.0"
@@ -21721,7 +21721,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/d444a159ab8f0f854d596d1938f201b449d59ed4d336e587be9dc89005467214d85848c212c2495f76a8421372ffe4d061d023d659600f1aaa3ba5ac13e804f7
+  checksum: 10c0/0c502d9eb898d9c05061dbd8fd199f280b524bbb4c12ab5f88c7b12779947386684a269e4dd0aa424aa35bcd857f1aa44aadb9ea764702a5043af433052455b5
   languageName: node
   linkType: hard
 
