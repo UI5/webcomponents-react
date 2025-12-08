@@ -736,6 +736,10 @@
       "types": "./dist/webComponents/UserMenuItemGroup/index.d.ts",
       "default": "./dist/webComponents/UserMenuItemGroup/index.js"
     },
+    "./UserSettingsAccountView": {
+      "types": "./dist/webComponents/UserSettingsAccountView/index.d.ts",
+      "default": "./dist/webComponents/UserSettingsAccountView/index.js"
+    },
     "./UserSettingsDialog": {
       "types": "./dist/webComponents/UserSettingsDialog/index.d.ts",
       "default": "./dist/webComponents/UserSettingsDialog/index.js"
