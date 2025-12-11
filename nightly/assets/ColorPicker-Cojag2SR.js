@@ -1,0 +1,8 @@
+import{j as o}from"./iframe-RmeQ8XGC.js";import{useMDXComponents as n}from"./index-kR0XEGhk.js";import{M as e,C as s}from"./blocks-DaxiJjGb.js";import"./Tag-SV0H5ODo.js";import"./index-1jGrAlxH.js";import{C as a}from"./ControlsWithNote-DR8yiqR3.js";import{D as x}from"./DocsHeader-BKDiKraC.js";import{F as f}from"./CommandsAndQueries-C1TIWg_l.js";import{C as m,D as i}from"./ColorPicker.stories-KEPvUYh1.js";import"./preload-helper-PPVm8Dsz.js";import"./information-BGE1sBpB.js";import"./sys-enter-2-CFWWj7rX.js";import"./alert-DOCQy2rj.js";import"./index-Dn-It_jb.js";import"./index-Dg9UiDQJ.js";import"./Link-DiD1re6X.js";import"./copy-8JrxNrui.js";import"./copy-Bxjpqlrz.js";import"./GitHub-Mark-CV1P4XZF.js";import"./TableOfContent-BD56OkoI.js";import"./index-BIaOPhno.js";import"./index-CaXdH-JM.js";import"./index-P4hNb3E_.js";import"./index-BzAkCwZQ.js";import"./index-ICvStq6z.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-BCSTig2E.js";import"./addCustomCSSWithScoping-D6LA06yL.js";import"./ColorPicker-BHzZxZze.js";import"./Slider-ByQtZ6AP.js";import"./SliderTooltip-ir_sEzIm.js";import"./Input-C0RQAQ_K.js";import"./ResponsivePopoverCommon.css-Bb2CDDwj.js";import"./ValueStateMessage.css-A-AQ78Le.js";import"./Suggestions.css-DQpTb0pt.js";function p(t){const r={h2:"h2",...n(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(e,{of:m}),`
+`,o.jsx(x,{of:m}),`
+`,o.jsx("br",{}),`
+`,o.jsx(r.h2,{id:"example",children:"Example"}),`
+`,o.jsx(s,{of:i}),`
+`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
+`,o.jsx(a,{of:i}),`
+`,o.jsx(f,{})]})}function Q(t={}){const{wrapper:r}={...n(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(p,{...t})}):p(t)}export{Q as default};
