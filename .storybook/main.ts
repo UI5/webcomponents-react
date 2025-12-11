@@ -1,4 +1,3 @@
-import { dirname, join } from 'path';
 import type { StorybookConfig } from '@storybook/react-vite';
 import remarkGfm from 'remark-gfm';
 import type { StoriesEntry } from 'storybook/internal/types';
@@ -52,9 +51,8 @@ const storyList: StoriesEntry[] = isChromatic
 
 const addons = [
   './addons/version-switch',
-  getAbsolutePath('@storybook/react-vite'),
   {
-    name: getAbsolutePath('@storybook/addon-docs'),
+    name: '@storybook/addon-docs',
     options: {
       mdxPluginOptions: {
         mdxCompileOptions: {
@@ -70,7 +68,7 @@ if (isDevMode) {
 
 const config: StorybookConfig = {
   framework: {
-    name: getAbsolutePath('@storybook/react-vite'),
+    name: '@storybook/react-vite',
     options: {},
   },
   stories: storyList,
@@ -88,7 +86,3 @@ const config: StorybookConfig = {
 };
 
 export default config;
-
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')));
-}

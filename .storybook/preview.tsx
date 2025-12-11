@@ -133,7 +133,7 @@ const preview: Preview = {
     controls: {
       sort: 'requiredFirst',
     },
-    backgrounds: { disable: true },
+    backgrounds: { disabled: true },
     options: {
       storySort: {
         method: 'alphabetical',
