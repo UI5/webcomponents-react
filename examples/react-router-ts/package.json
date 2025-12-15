@@ -19,15 +19,15 @@
     "@ui5/webcomponents-react": "2.17.0",
     "cross-env": "10.1.0",
     "isbot": "5.1.32",
-    "react": "19.2.1",
-    "react-dom": "19.2.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-router": "7.10.1"
   },
   "devDependencies": {
     "@react-router/dev": "7.10.1",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
-    "eslint": "9.39.1",
+    "eslint": "9.39.2",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jsx-a11y": "6.10.2",

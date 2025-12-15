@@ -15,16 +15,16 @@
     "@ui5/webcomponents-fiori": "2.17.0",
     "@ui5/webcomponents-icons": "2.17.0",
     "@ui5/webcomponents-react": "2.17.0",
-    "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.2",
-    "eslint": "9.39.1",
+    "eslint": "9.39.2",
     "eslint-plugin-react-hooks": "6.1.1",
-    "eslint-plugin-react-refresh": "0.4.24",
+    "eslint-plugin-react-refresh": "0.4.25",
     "globals": "16.5.0",
     "typescript": "5.8.3",
     "typescript-eslint": "8.49.0",
