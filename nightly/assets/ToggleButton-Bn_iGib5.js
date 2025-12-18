@@ -1,8 +1,0 @@
-import{j as o}from"./iframe-C-IdMOTF.js";import{useMDXComponents as n}from"./index-8Reouw5a.js";import{M as e,C as s}from"./blocks-D6xfaR3T.js";import"./Tag-BJpDTkrR.js";import"./index-MVeIUVva.js";import{C as a}from"./ControlsWithNote-DUmHhhde.js";import{D as x}from"./DocsHeader-B5-aSgVt.js";import{F as f}from"./CommandsAndQueries-BrMhh7sy.js";import{C as m,D as i}from"./ToggleButton.stories-EHFDFOev.js";import"./preload-helper-PPVm8Dsz.js";import"./information-BEN_uXq9.js";import"./sys-enter-2-Bq6u4lfD.js";import"./alert-6-dTv6Ft.js";import"./index-D6nYdynl.js";import"./index-CZVRMt16.js";import"./Link-pmU5zsTc.js";import"./copy-DqMtsEgu.js";import"./copy-F55MzcCW.js";import"./GitHub-Mark-CM1egXrj.js";import"./TableOfContent-Dx5PRGec.js";import"./index-hTsIN61t.js";import"./index-D23QN9vi.js";import"./index-gC0QYgWs.js";import"./index-DtAqbdZo.js";import"./index-C0vIcEg8.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-BKAG68DO.js";import"./addCustomCSSWithScoping-D9pslfxW.js";import"./index-DAfp8Dyw.js";import"./ToggleButton-DkzxOAA0.js";function p(t){const r={h2:"h2",...n(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(e,{of:m}),`
-`,o.jsx(x,{of:m}),`
-`,o.jsx("br",{}),`
-`,o.jsx(r.h2,{id:"example",children:"Example"}),`
-`,o.jsx(s,{of:i}),`
-`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
-`,o.jsx(a,{of:i}),`
-`,o.jsx(f,{})]})}function G(t={}){const{wrapper:r}={...n(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(p,{...t})}):p(t)}export{G as default};
