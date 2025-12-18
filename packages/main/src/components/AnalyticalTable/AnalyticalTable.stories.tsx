@@ -627,6 +627,8 @@ export const NoData: Story = {
       NoDataComponent: NoDataComponent,
     };
 
+    const isAutoRowCount = args.visibleRowCountMode?.startsWith('Auto');
+
     return (
       <>
         <SegmentedButton onSelectionChange={handleChange} accessibleName="Select data view mode">
@@ -645,11 +647,15 @@ export const NoData: Story = {
           Table filtered
         </ToggleButton>
         {context.viewMode === 'story' ? (
-          <AnalyticalTable {...tableProps} />
+          <div style={{ height: isAutoRowCount ? '300px' : 'auto' }}>
+            <AnalyticalTable {...tableProps} />
+          </div>
         ) : (
           <>
             <hr />
-            <ToggleableTable {...tableProps} />
+            <div style={{ height: isAutoRowCount ? '300px' : 'auto' }}>
+              <ToggleableTable {...tableProps} />
+            </div>
           </>
         )}
       </>
