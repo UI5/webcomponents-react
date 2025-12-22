@@ -65,7 +65,6 @@ export interface MessageItemPropTypes extends Pick<ListItemCustomPropTypes, 'acc
 const MessageItem = forwardRef<ListItemCustomDomRef, MessageItemPropTypes>((props, ref) => {
   const { titleText, subtitleText, counter, type = ValueState.Negative, children, className, ...rest } = props;
   const [isTitleTextOverflowing, setIsTitleTextIsOverflowing] = useState(false);
-  const [titleTextStr, setTitleTextStr] = useState('');
   const titleTextRef = useRef<HTMLSpanElement>(null);
   const hasDetails = !!(children || isTitleTextOverflowing);
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
