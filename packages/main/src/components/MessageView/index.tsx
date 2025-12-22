@@ -158,7 +158,7 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
     if (internalRef.current) {
       internalRef.current.navigateBack = navigateBack;
     }
-  }, [internalRef.current, navigateBack]);
+  }, [internalRef, navigateBack]);
 
   const handleListFilterChange: SegmentedButtonPropTypes['onSelectionChange'] = (e) => {
     setListFilter(e.detail.selectedItems.at(0).dataset.key as never);
