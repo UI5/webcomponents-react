@@ -8471,18 +8471,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dedent@npm:1.7.0":
-  version: 1.7.0
-  resolution: "dedent@npm:1.7.0"
-  peerDependencies:
-    babel-plugin-macros: ^3.1.0
-  peerDependenciesMeta:
-    babel-plugin-macros:
-      optional: true
-  checksum: 10c0/c5e8a8beb5072bd5e520cb64b27a82d7ec3c2a63ee5ce47dbc2a05d5b7700cefd77a992a752cd0a8b1d979c1db06b14fb9486e805f3ad6088eda6e07cd9bf2d5
-  languageName: node
-  linkType: hard
-
 "dedent@npm:1.7.1":
   version: 1.7.1
   resolution: "dedent@npm:1.7.1"
@@ -20339,7 +20327,7 @@ __metadata:
     cssnano: "npm:7.1.2"
     cypress: "npm:15.7.1"
     cypress-real-events: "npm:1.15.0"
-    dedent: "npm:1.7.0"
+    dedent: "npm:1.7.1"
     documentation: "npm:14.0.3"
     eslint: "npm:9.39.2"
     eslint-config-prettier: "npm:10.1.8"

@@ -72,7 +72,7 @@
     "cssnano": "7.1.2",
     "cypress": "15.7.1",
     "cypress-real-events": "1.15.0",
-    "dedent": "1.7.0",
+    "dedent": "1.7.1",
     "documentation": "14.0.3",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
