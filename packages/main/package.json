@@ -1,6 +1,6 @@
 {
   "name": "@ui5/webcomponents-react",
-  "version": "2.16.0",
+  "version": "2.17.0",
   "description": "React Wrapper for UI5 Web Components and additional components",
   "type": "module",
   "main": "dist/index.js",
@@ -68,13 +68,13 @@
       "types": "./dist/components/MessageBox/index.d.ts",
       "default": "./dist/components/MessageBox/index.js"
     },
+    "./MessageItem": {
+      "types": "./dist/components/MessageItem/index.d.ts",
+      "default": "./dist/components/MessageItem/index.js"
+    },
     "./MessageView": {
       "types": "./dist/components/MessageView/index.d.ts",
       "default": "./dist/components/MessageView/index.js"
-    },
-    "./MessageItem": {
-      "types": "./dist/components/MessageView/MessageItem.d.ts",
-      "default": "./dist/components/MessageView/MessageItem.js"
     },
     "./MessageViewButton": {
       "types": "./dist/components/MessageViewButton/index.d.ts",
@@ -132,13 +132,13 @@
       "types": "./dist/components/ThemeProvider/index.d.ts",
       "default": "./dist/components/ThemeProvider/index.js"
     },
+    "./VariantItem": {
+      "types": "./dist/components/VariantItem/index.d.ts",
+      "default": "./dist/components/VariantItem/index.js"
+    },
     "./VariantManagement": {
       "types": "./dist/components/VariantManagement/index.d.ts",
       "default": "./dist/components/VariantManagement/index.js"
-    },
-    "./VariantItem": {
-      "types": "./dist/components/VariantManagement/VariantItem.d.ts",
-      "default": "./dist/components/VariantManagement/VariantItem.js"
     },
     "./Avatar": {
       "types": "./dist/webComponents/Avatar/index.d.ts",
@@ -736,6 +736,10 @@
       "types": "./dist/webComponents/UserMenuItemGroup/index.d.ts",
       "default": "./dist/webComponents/UserMenuItemGroup/index.js"
     },
+    "./UserSettingsAccountView": {
+      "types": "./dist/webComponents/UserSettingsAccountView/index.d.ts",
+      "default": "./dist/webComponents/UserSettingsAccountView/index.js"
+    },
     "./UserSettingsDialog": {
       "types": "./dist/webComponents/UserSettingsDialog/index.d.ts",
       "default": "./dist/webComponents/UserSettingsDialog/index.js"
@@ -785,7 +789,7 @@
     "watch:css": "yarn build:css --watch"
   },
   "dependencies": {
-    "@tanstack/react-virtual": "3.13.12",
+    "@tanstack/react-virtual": "3.13.13",
     "@ui5/webcomponents-react-base": "workspace:~",
     "clsx": "2.1.1",
     "react-table": "7.8.0"
@@ -793,10 +797,10 @@
   "peerDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@ui5/webcomponents": "~2.16.1",
-    "@ui5/webcomponents-base": "~2.16.1",
-    "@ui5/webcomponents-fiori": "~2.16.1",
-    "@ui5/webcomponents-icons": "~2.16.1",
+    "@ui5/webcomponents": "~2.17.0",
+    "@ui5/webcomponents-base": "~2.17.0",
+    "@ui5/webcomponents-fiori": "~2.17.0",
+    "@ui5/webcomponents-icons": "~2.17.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
   },

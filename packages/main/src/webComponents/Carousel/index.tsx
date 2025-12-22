@@ -122,8 +122,7 @@ interface CarouselDomRef extends Required<CarouselAttributes>, Ui5DomRef {
 }
 
 interface CarouselPropTypes
-  extends CarouselAttributes,
-    Omit<CommonProps, keyof CarouselAttributes | 'children' | 'onNavigate'> {
+  extends CarouselAttributes, Omit<CommonProps, keyof CarouselAttributes | 'children' | 'onNavigate'> {
   /**
    * Defines the content of the component.
    *

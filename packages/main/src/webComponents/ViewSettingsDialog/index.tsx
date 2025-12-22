@@ -48,7 +48,8 @@ interface ViewSettingsDialogDomRef extends Required<ViewSettingsDialogAttributes
 }
 
 interface ViewSettingsDialogPropTypes
-  extends ViewSettingsDialogAttributes,
+  extends
+    ViewSettingsDialogAttributes,
     Omit<
       CommonProps,
       | keyof ViewSettingsDialogAttributes

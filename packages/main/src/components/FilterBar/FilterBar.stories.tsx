@@ -27,8 +27,8 @@ import {
 import { Text } from '../../webComponents/Text/index.js';
 import { FilterGroupItem } from '../FilterGroupItem/index.js';
 import { FlexBox } from '../FlexBox/index.js';
+import { VariantItem } from '../VariantItem/index.js';
 import { VariantManagement } from '../VariantManagement/index.js';
-import { VariantItem } from '../VariantManagement/VariantItem.js';
 import type { FilterBarPropTypes } from './index.js';
 import { FilterBar } from './index.js';
 

@@ -42,8 +42,7 @@ interface BusyIndicatorAttributes {
 interface BusyIndicatorDomRef extends Required<BusyIndicatorAttributes>, Ui5DomRef {}
 
 interface BusyIndicatorPropTypes
-  extends BusyIndicatorAttributes,
-    Omit<CommonProps, keyof BusyIndicatorAttributes | 'children'> {
+  extends BusyIndicatorAttributes, Omit<CommonProps, keyof BusyIndicatorAttributes | 'children'> {
   /**
    * Determines the content over which the component will appear.
    *

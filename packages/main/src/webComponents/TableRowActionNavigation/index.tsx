@@ -23,8 +23,7 @@ interface TableRowActionNavigationAttributes {
 interface TableRowActionNavigationDomRef extends Required<TableRowActionNavigationAttributes>, Ui5DomRef {}
 
 interface TableRowActionNavigationPropTypes
-  extends TableRowActionNavigationAttributes,
-    Omit<CommonProps, keyof TableRowActionNavigationAttributes | 'onClick'> {
+  extends TableRowActionNavigationAttributes, Omit<CommonProps, keyof TableRowActionNavigationAttributes | 'onClick'> {
   /**
    * Fired when a row action is clicked.
    *

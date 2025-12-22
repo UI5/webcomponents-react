@@ -135,7 +135,8 @@ interface TimePickerDomRef extends Required<TimePickerAttributes>, Ui5DomRef {
 }
 
 interface TimePickerPropTypes
-  extends TimePickerAttributes,
+  extends
+    TimePickerAttributes,
     Omit<
       CommonProps,
       keyof TimePickerAttributes | 'valueStateMessage' | 'onChange' | 'onClose' | 'onInput' | 'onOpen'

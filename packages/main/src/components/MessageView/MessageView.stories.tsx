@@ -14,8 +14,8 @@ import { Link } from '../../webComponents/Link/index.js';
 import { ResponsivePopover } from '../../webComponents/ResponsivePopover/index.js';
 import { Title } from '../../webComponents/Title/index.js';
 import { FlexBox } from '../FlexBox/index.js';
+import { MessageItem } from '../MessageItem/index.js';
 import { MessageViewButton } from '../MessageViewButton/index.js';
-import { MessageItem } from './MessageItem.js';
 import type { MessageViewDomRef } from './index.js';
 import { MessageView } from './index.js';
 

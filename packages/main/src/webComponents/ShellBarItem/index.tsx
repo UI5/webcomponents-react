@@ -54,8 +54,7 @@ interface ShellBarItemAttributes {
 interface ShellBarItemDomRef extends Required<ShellBarItemAttributes>, Ui5DomRef {}
 
 interface ShellBarItemPropTypes
-  extends ShellBarItemAttributes,
-    Omit<CommonProps, keyof ShellBarItemAttributes | 'onClick'> {
+  extends ShellBarItemAttributes, Omit<CommonProps, keyof ShellBarItemAttributes | 'onClick'> {
   /**
    * Fired, when the item is pressed.
    *

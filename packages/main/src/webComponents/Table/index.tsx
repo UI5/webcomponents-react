@@ -77,7 +77,8 @@ interface TableAttributes {
 interface TableDomRef extends Required<TableAttributes>, Ui5DomRef {}
 
 interface TablePropTypes
-  extends TableAttributes,
+  extends
+    TableAttributes,
     Omit<
       CommonProps,
       | keyof TableAttributes

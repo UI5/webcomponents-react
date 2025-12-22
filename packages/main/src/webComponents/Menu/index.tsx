@@ -71,7 +71,8 @@ interface MenuAttributes {
 interface MenuDomRef extends Required<MenuAttributes>, Ui5DomRef {}
 
 interface MenuPropTypes
-  extends MenuAttributes,
+  extends
+    MenuAttributes,
     Omit<
       CommonProps,
       keyof MenuAttributes | 'children' | 'onBeforeClose' | 'onBeforeOpen' | 'onClose' | 'onItemClick' | 'onOpen'

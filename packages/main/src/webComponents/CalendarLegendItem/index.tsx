@@ -22,8 +22,7 @@ interface CalendarLegendItemAttributes {
 interface CalendarLegendItemDomRef extends Required<CalendarLegendItemAttributes>, Ui5DomRef {}
 
 interface CalendarLegendItemPropTypes
-  extends CalendarLegendItemAttributes,
-    Omit<CommonProps, keyof CalendarLegendItemAttributes> {}
+  extends CalendarLegendItemAttributes, Omit<CommonProps, keyof CalendarLegendItemAttributes> {}
 
 /**
  * Each `CalendarLegendItem` represents a legend item, displaying a color with a label.

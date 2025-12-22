@@ -10,7 +10,8 @@ interface DynamicPageTitleAttributes {}
 interface DynamicPageTitleDomRef extends Required<DynamicPageTitleAttributes>, Ui5DomRef {}
 
 interface DynamicPageTitlePropTypes
-  extends DynamicPageTitleAttributes,
+  extends
+    DynamicPageTitleAttributes,
     Omit<
       CommonProps,
       | 'actionsBar'

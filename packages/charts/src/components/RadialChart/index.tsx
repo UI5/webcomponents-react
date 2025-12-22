@@ -19,7 +19,8 @@ interface RadialChartConfig {
   [rest: string]: any;
 }
 export interface RadialChartProps
-  extends Omit<CommonProps, 'onClick' | 'children' | 'onLegendClick'>,
+  extends
+    Omit<CommonProps, 'onClick' | 'children' | 'onLegendClick'>,
     Pick<IChartBaseProps, 'loading' | 'loadingDelay'> {
   /**
    * The actual value which defines how much the ring is filled.

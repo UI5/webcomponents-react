@@ -108,7 +108,8 @@ interface FlexibleColumnLayoutDomRef extends Required<FlexibleColumnLayoutAttrib
 }
 
 interface FlexibleColumnLayoutPropTypes
-  extends FlexibleColumnLayoutAttributes,
+  extends
+    FlexibleColumnLayoutAttributes,
     Omit<
       CommonProps,
       | keyof FlexibleColumnLayoutAttributes

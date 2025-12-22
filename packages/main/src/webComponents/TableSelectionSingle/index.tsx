@@ -38,8 +38,7 @@ interface TableSelectionSingleDomRef extends Required<TableSelectionSingleAttrib
 }
 
 interface TableSelectionSinglePropTypes
-  extends TableSelectionSingleAttributes,
-    Omit<CommonProps, keyof TableSelectionSingleAttributes | 'onChange'> {
+  extends TableSelectionSingleAttributes, Omit<CommonProps, keyof TableSelectionSingleAttributes | 'onChange'> {
   /**
    * Fired when the selection is changed by user interaction.
    *

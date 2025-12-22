@@ -155,6 +155,7 @@
 }
 
 .tr {
+  height: var(--_ui5wcr_AnalyticalTable_RowHeight);
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;
@@ -182,9 +183,16 @@
   .tr[data-is-selected],
   .trActive:hover {
     & [data-component-name='ObjectStatus'][data-inverted='false']:not([data-state^='Indication']) {
+      --ui5wcr-object-status-icon-color: var(--sapContent_ContrastTextColor);
       color: var(--sapContent_ContrastTextColor);
+      text-shadow: none;
     }
   }
+}
+.trActive:active [data-component-name='ObjectStatus'][data-inverted='false'] {
+  --ui5wcr-object-status-icon-color: var(--sapList_Active_TextColor);
+  color: var(--sapList_Active_TextColor);
+  text-shadow: none;
 }
 
 .trActive {
@@ -194,6 +202,11 @@
   }
   &[data-is-selected]:hover {
     background-color: var(--sapList_Hover_SelectionBackground);
+  }
+  &:active:not([data-empty-row]) {
+    background-color: var(--sapList_Active_Background);
+    color: var(--sapList_Active_TextColor);
+    text-shadow: none;
   }
 }
 
@@ -221,12 +234,12 @@
   display: block;
 }
 
-.tableText {
+/* PUBLIC: When removed or changed, first check if custom inline Cell content is still truncated (Recipes) */
+.textEllipsis {
   display: inline-block;
   font-size: var(--sapFontSize);
   max-width: 100%;
   box-sizing: border-box;
-  font-weight: normal;
   overflow: hidden;
   word-wrap: normal;
   white-space: nowrap;
@@ -260,6 +273,12 @@
 
   &[aria-selected='true']:not([data-empty-row-cell]):focus::after {
     inset-block-end: 2px;
+  }
+
+  /* Make ellipsis work for text-only content */
+  &:not(:has(*)) {
+    display: block;
+    line-height: var(--_ui5wcr_AnalyticalTable_RowHeight);
   }
 }
 

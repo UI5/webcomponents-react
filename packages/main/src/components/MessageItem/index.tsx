@@ -20,8 +20,8 @@ import type { LinkPropTypes } from '../../webComponents/Link/index.js';
 import type { ListItemCustomDomRef, ListItemCustomPropTypes } from '../../webComponents/ListItemCustom/index.js';
 import { ListItemCustom } from '../../webComponents/ListItemCustom/index.js';
 import { FlexBox } from '../FlexBox/index.js';
+import { getIconNameForType, getValueStateMap } from '../MessageView/utils.js';
 import { classNames, styleData } from './MessageItem.module.css.js';
-import { getIconNameForType, getValueStateMap } from './utils.js';
 
 export interface MessageItemPropTypes extends Pick<ListItemCustomPropTypes, 'accessibleName' | 'tooltip'>, CommonProps {
   /**

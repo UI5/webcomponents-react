@@ -112,7 +112,8 @@ interface ComboBoxAttributes {
 interface ComboBoxDomRef extends Required<ComboBoxAttributes>, Ui5DomRef {}
 
 interface ComboBoxPropTypes
-  extends ComboBoxAttributes,
+  extends
+    ComboBoxAttributes,
     Omit<
       CommonProps,
       | keyof ComboBoxAttributes

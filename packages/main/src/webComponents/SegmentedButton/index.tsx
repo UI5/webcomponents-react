@@ -73,7 +73,8 @@ interface SegmentedButtonDomRef extends Required<SegmentedButtonAttributes>, Ui5
 }
 
 interface SegmentedButtonPropTypes
-  extends SegmentedButtonAttributes,
+  extends
+    SegmentedButtonAttributes,
     Omit<CommonProps, keyof SegmentedButtonAttributes | 'children' | 'onSelectionChange'> {
   /**
    * Defines the items of `SegmentedButton`.

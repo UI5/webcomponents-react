@@ -73,7 +73,8 @@ interface TokenizerAttributes {
 interface TokenizerDomRef extends Required<TokenizerAttributes>, Ui5DomRef {}
 
 interface TokenizerPropTypes
-  extends TokenizerAttributes,
+  extends
+    TokenizerAttributes,
     Omit<CommonProps, keyof TokenizerAttributes | 'children' | 'onSelectionChange' | 'onTokenDelete'> {
   /**
    * Defines the tokens to be displayed.

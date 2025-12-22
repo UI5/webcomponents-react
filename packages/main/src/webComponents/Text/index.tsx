@@ -34,25 +34,21 @@ interface TextPropTypes extends TextAttributes, Omit<CommonProps, keyof TextAttr
 }
 
 /**
- * <h3>Overview</h3>
- *
  * The `Text` component displays text that can be used in any content area of an application.
  *
- * <h3>Usage</h3>
+ * ### Usage
  *
  * - Use the `Text` if you want to display text inside a form, table, or any other content area.
  * - Do not use the `Text` if you need to reference input type of components (use ui5-label).
  *
- * <h3>Responsive behavior</h3>
+ * ### Responsive behavior
  *
  * The `Text` component is fully adaptive to all screen sizes.
  * By default, the text will wrap when the space is not enough.
- * In addition, the component supports truncation via the <code>max-lines</code> property,
+ * In addition, the component supports truncation via the `max-lines` property,
  * by defining the number of lines the text should wrap before start truncating.
  *
- * <h3>ES6 Module Import</h3>
  *
- * <code>import "@ui5/webcomponents/dist/Text";</code>
  *
  * __Note:__ This is a UI5 Web Component! [Text UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Text) | [Repository](https://github.com/UI5/webcomponents)
  *

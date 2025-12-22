@@ -558,7 +558,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       return tableState.bodyHeight;
     }
     let rowNum: number;
-    if (visibleRowCountMode === AnalyticalTableVisibleRowCountMode.AutoWithEmptyRows) {
+    const noDataAuto = !rows.length && visibleRowCountMode.startsWith('Auto');
+    if (visibleRowCountMode === AnalyticalTableVisibleRowCountMode.AutoWithEmptyRows || noDataAuto) {
       rowNum = internalVisibleRowCount;
     } else {
       rowNum = rows.length < internalVisibleRowCount ? Math.max(rows.length, minRows) : internalVisibleRowCount;

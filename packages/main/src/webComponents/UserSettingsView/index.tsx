@@ -29,8 +29,7 @@ interface UserSettingsViewAttributes {
 interface UserSettingsViewDomRef extends Required<UserSettingsViewAttributes>, Ui5DomRef {}
 
 interface UserSettingsViewPropTypes
-  extends UserSettingsViewAttributes,
-    Omit<CommonProps, keyof UserSettingsViewAttributes | 'children'> {
+  extends UserSettingsViewAttributes, Omit<CommonProps, keyof UserSettingsViewAttributes | 'children'> {
   /**
    * Defines the content of the view.
    *

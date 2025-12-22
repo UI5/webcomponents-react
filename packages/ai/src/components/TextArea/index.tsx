@@ -160,7 +160,8 @@ interface TextAreaAttributes {
 interface TextAreaDomRef extends Required<TextAreaAttributes>, Ui5DomRef {}
 
 interface TextAreaPropTypes
-  extends TextAreaAttributes,
+  extends
+    TextAreaAttributes,
     Omit<
       CommonProps,
       | keyof TextAreaAttributes

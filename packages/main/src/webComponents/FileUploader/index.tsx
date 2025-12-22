@@ -123,7 +123,8 @@ interface FileUploaderDomRef extends Required<FileUploaderAttributes>, Ui5DomRef
 }
 
 interface FileUploaderPropTypes
-  extends FileUploaderAttributes,
+  extends
+    FileUploaderAttributes,
     Omit<
       CommonProps,
       keyof FileUploaderAttributes | 'children' | 'valueStateMessage' | 'onChange' | 'onFileSizeExceed'

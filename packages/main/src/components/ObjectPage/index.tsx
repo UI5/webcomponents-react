@@ -762,6 +762,8 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
                   : `${topHeaderHeight}px`,
             }}
           >
+            {/* Spacer required to prevent overlapping of tabbar btns and expand/pin btns*/}
+            <div aria-hidden="true" className={classNames.tabContainerSpacer} />
             <TabContainer
               collapsed
               onTabSelect={handleTabSelect}

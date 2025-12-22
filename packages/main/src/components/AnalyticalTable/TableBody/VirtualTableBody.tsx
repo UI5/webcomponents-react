@@ -192,7 +192,7 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
               transform: `translateY(${virtualRow.start}px)`,
               position: 'absolute',
               boxSizing: 'border-box',
-              height: `${updatedHeight}px`,
+              '--_ui5wcr_AnalyticalTable_RowHeight': `${updatedHeight}px`,
             }}
           >
             {typeof renderRowSubComponent === 'function' && (

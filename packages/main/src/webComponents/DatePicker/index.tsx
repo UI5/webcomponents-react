@@ -212,7 +212,8 @@ interface DatePickerDomRef extends Required<DatePickerAttributes>, Ui5DomRef {
 }
 
 interface DatePickerPropTypes
-  extends DatePickerAttributes,
+  extends
+    DatePickerAttributes,
     Omit<
       CommonProps,
       | keyof DatePickerAttributes

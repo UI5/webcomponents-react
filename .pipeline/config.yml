@@ -9,6 +9,7 @@ steps:
     customVersionField: 'version'
 
   detectExecuteScan:
+    dockerImage: maven:3.8-jdk-11
     serverUrl: 'https://sap.blackducksoftware.com'
     projectName: 'ui5-webcomponents-react'
     groups:

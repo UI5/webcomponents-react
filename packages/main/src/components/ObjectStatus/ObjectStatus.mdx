@@ -22,22 +22,116 @@ import * as ComponentStories from './ObjectStatus.stories';
 
 <br />
 
-## ObjectStatus with default icons
+## ObjectStatus With Default Icons
 
 <Canvas of={ComponentStories.WithDefaultIcons} />
 
-## ObjectStatus with custom Icon
+## ObjectStatus With Custom Icon
 
 <Canvas of={ComponentStories.WithCustomIcon} />
 
-## ObjectStatus with Icon only
+## ObjectStatus With Icon Only
 
 <Canvas of={ComponentStories.WithIconOnly} />
 
-## All ObjectStatus states
+## All ObjectStatus States
 
 **Note:** Only the `inverted` `ObjectStatus` supports `IndicationColor`s 11-20. For non-inverted `ObjectStatus`, these colors default to the `"None"` `state` color and should **not** be used.
 
 <Canvas of={ComponentStories.InvertedObjectStatus} />
+
+## ObjectStatus in Interactive Lists or Tables
+
+**Applicable since v2.17.0**
+
+The `AnalyticalTable` component includes active state styling for `ObjectStatus` out of the box, as it is developed within project and can be styled accordingly.
+For lists or tables from `@ui5/webcomponents(-fiori/-ai/-compat)` (e.g., `List`, `Table`), custom CSS is required to override the text and icon `color` and `text-shadow` to ensure proper styling when rows are in active state:
+
+```css
+.object-status {
+  --ui5wcr-object-status-icon-color: var(--sapList_Active_TextColor);
+  color: var(--sapList_Active_TextColor);
+  text-shadow: none;
+}
+```
+
+<Canvas of={ComponentStories.InListOrTable} />
+
+<details>
+
+    <summary>Show Static Code</summary>
+
+    ```css
+    .interactive-table-row:active .object-status,
+    .interactive-li[active] .object-status {
+      --ui5wcr-object-status-icon-color: var(--sapList_Active_TextColor);
+      color: var(--sapList_Active_TextColor);
+      text-shadow: none;
+    }
+    ```
+
+    ```tsx
+    function ObjectStatusInListOrTable(objectStatusProps: Omit<ObjectStatusPropTypes, 'inverted'>) {
+      const atCols: AnalyticalTableColumnDefinition[] = useMemo(
+        () => [
+          {
+            accessor: 'os1',
+            Header: 'ObjectStatus (controllable)',
+            Cell: () => <ObjectStatus {...objectStatusProps} />,
+          },
+          {
+            accessor: 'os2',
+            Header: 'ObjectStatus ("Negative")',
+            Cell: () => <ObjectStatus {...objectStatusProps} state={'Negative'} />,
+          },
+        ],
+        [objectStatusProps],
+      );
+      return (
+        <>
+          Table
+          <Table
+            headerRow={
+              <TableHeaderRow>
+                <TableHeaderCell>ObjectStatus (controllable)</TableHeaderCell>
+                <TableHeaderCell>ObjectStatus (&#34;Negative&#34;)</TableHeaderCell>
+              </TableHeaderRow>
+            }
+            features={<TableSelectionSingle behavior={'RowOnly'} />}
+          >
+            <TableRow rowKey={'0'} className={'interactive-table-row'}>
+              <TableCell>
+                <ObjectStatus {...objectStatusProps} className={'object-status'} />
+              </TableCell>
+              <TableCell>
+                <ObjectStatus {...objectStatusProps} className={'object-status'} state={'Negative'} />
+              </TableCell>
+            </TableRow>
+          </Table>
+          <hr />
+          List
+          <List selectionMode="Single">
+            <ListItemCustom className={'interactive-li'}>
+              <ObjectStatus {...objectStatusProps} className={'object-status'} />
+            </ListItemCustom>
+          </List>
+          <hr />
+          AnalyticalTable
+          <AnalyticalTable
+            data={atData}
+            columns={atCols}
+            minRows={1}
+            selectionMode={'Single'}
+            selectionBehavior={'RowOnly'}
+          />
+        </>
+      );
+    }
+    ```
+
+</details>
+
+<br />
+<br />
 
 <Footer />

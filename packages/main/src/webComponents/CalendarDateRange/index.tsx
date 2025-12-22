@@ -21,8 +21,7 @@ interface CalendarDateRangeAttributes {
 interface CalendarDateRangeDomRef extends Required<CalendarDateRangeAttributes>, Ui5DomRef {}
 
 interface CalendarDateRangePropTypes
-  extends CalendarDateRangeAttributes,
-    Omit<CommonProps, keyof CalendarDateRangeAttributes> {}
+  extends CalendarDateRangeAttributes, Omit<CommonProps, keyof CalendarDateRangeAttributes> {}
 
 /**
  * The `CalendarDateRange` component defines a range of dates to be used inside `Calendar`

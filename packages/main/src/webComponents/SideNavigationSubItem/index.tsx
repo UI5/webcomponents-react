@@ -127,8 +127,7 @@ interface SideNavigationSubItemAttributes {
 interface SideNavigationSubItemDomRef extends Required<SideNavigationSubItemAttributes>, Ui5DomRef {}
 
 interface SideNavigationSubItemPropTypes
-  extends SideNavigationSubItemAttributes,
-    Omit<CommonProps, keyof SideNavigationSubItemAttributes | 'onClick'> {
+  extends SideNavigationSubItemAttributes, Omit<CommonProps, keyof SideNavigationSubItemAttributes | 'onClick'> {
   /**
    * Fired when the component is activated either with a click/tap or by using the [Enter] or [Space] keys.
    *

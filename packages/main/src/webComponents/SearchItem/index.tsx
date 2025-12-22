@@ -48,8 +48,7 @@ interface SearchItemAttributes {
 interface SearchItemDomRef extends Required<SearchItemAttributes>, Ui5DomRef {}
 
 interface SearchItemPropTypes
-  extends SearchItemAttributes,
-    Omit<CommonProps, keyof SearchItemAttributes | 'actions' | 'image' | 'onDelete'> {
+  extends SearchItemAttributes, Omit<CommonProps, keyof SearchItemAttributes | 'actions' | 'image' | 'onDelete'> {
   /**
    * Defines the actionable elements.
    * This slot allows placing additional interactive elements (such as buttons, icons, or tags)

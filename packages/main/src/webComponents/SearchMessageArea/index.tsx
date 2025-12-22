@@ -21,8 +21,7 @@ interface SearchMessageAreaAttributes {
 interface SearchMessageAreaDomRef extends Required<SearchMessageAreaAttributes>, Ui5DomRef {}
 
 interface SearchMessageAreaPropTypes
-  extends SearchMessageAreaAttributes,
-    Omit<CommonProps, keyof SearchMessageAreaAttributes> {}
+  extends SearchMessageAreaAttributes, Omit<CommonProps, keyof SearchMessageAreaAttributes> {}
 
 /**
  * `import "@ui5/webcomponents-fiori/dist/SearchMessageArea.js";`

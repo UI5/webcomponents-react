@@ -74,8 +74,7 @@ interface SegmentedButtonItemAttributes {
 interface SegmentedButtonItemDomRef extends Required<SegmentedButtonItemAttributes>, Ui5DomRef {}
 
 interface SegmentedButtonItemPropTypes
-  extends SegmentedButtonItemAttributes,
-    Omit<CommonProps, keyof SegmentedButtonItemAttributes | 'children'> {
+  extends SegmentedButtonItemAttributes, Omit<CommonProps, keyof SegmentedButtonItemAttributes | 'children'> {
   /**
    * Defines the text of the component.
    *

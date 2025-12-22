@@ -156,7 +156,8 @@ interface ShellBarDomRef extends Required<ShellBarAttributes>, Ui5DomRef {
 }
 
 interface ShellBarPropTypes
-  extends ShellBarAttributes,
+  extends
+    ShellBarAttributes,
     Omit<
       CommonProps,
       | keyof ShellBarAttributes

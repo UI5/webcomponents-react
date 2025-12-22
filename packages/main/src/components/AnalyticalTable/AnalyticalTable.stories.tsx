@@ -628,6 +628,8 @@ export const NoData: Story = {
       NoDataComponent: NoDataComponent,
     };
 
+    const isAutoRowCount = args.visibleRowCountMode?.startsWith('Auto');
+
     return (
       <>
         <SegmentedButton onSelectionChange={handleChange} accessibleName="Select data view mode">
@@ -646,11 +648,15 @@ export const NoData: Story = {
           Table filtered
         </ToggleButton>
         {context.viewMode === 'story' ? (
-          <AnalyticalTable {...tableProps} />
+          <div style={{ height: isAutoRowCount ? '300px' : 'auto' }}>
+            <AnalyticalTable {...tableProps} />
+          </div>
         ) : (
           <>
             <hr />
-            <ToggleableTable {...tableProps} />
+            <div style={{ height: isAutoRowCount ? '300px' : 'auto' }}>
+              <ToggleableTable {...tableProps} />
+            </div>
           </>
         )}
       </>
@@ -662,5 +668,44 @@ export const KitchenSink: Story = {
   args: kitchenSinkArgs,
   render(args, context) {
     return context.viewMode === 'story' ? <AnalyticalTable {...args} /> : <ToggleableTable {...args} />;
+  },
+};
+
+// ===================== Not displayed in sidebar & tags popover =====================
+
+export const EllipsisExamples: Story = {
+  tags: ['excludeFromSidebar'],
+  args: {
+    data: dataLarge.slice(0, 5),
+    columns: [
+      {
+        Header: 'Plain String (Automatic Ellipsis)',
+        accessor: 'name',
+        width: 60,
+        Cell: ({ value }) => value,
+      },
+      {
+        Header: 'With textEllipsis Class',
+        accessor: 'friend.name',
+        width: 60,
+        Cell: ({ value, webComponentsReactProperties }) => (
+          <div className={webComponentsReactProperties.classes.textEllipsis} title={value}>
+            {value}
+          </div>
+        ),
+      },
+      {
+        Header: 'With Text Component',
+        id: 'description',
+        width: 60,
+        Cell: () => (
+          <Text maxLines={1} title="This is a very long text that demonstrates how the Text component handles ellipsis">
+            This is a very long text that demonstrates how the Text component handles ellipsis
+          </Text>
+        ),
+      },
+    ],
+    visibleRows: 5,
+    style: { width: 'min(100%, 300px)' },
   },
 };

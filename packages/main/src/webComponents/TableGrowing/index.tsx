@@ -40,8 +40,7 @@ interface TableGrowingAttributes {
 interface TableGrowingDomRef extends Required<TableGrowingAttributes>, Ui5DomRef {}
 
 interface TableGrowingPropTypes
-  extends TableGrowingAttributes,
-    Omit<CommonProps, keyof TableGrowingAttributes | 'onLoadMore'> {
+  extends TableGrowingAttributes, Omit<CommonProps, keyof TableGrowingAttributes | 'onLoadMore'> {
   /**
    * Fired when the growing button is pressed or the user scrolls to the end of the table.
    *

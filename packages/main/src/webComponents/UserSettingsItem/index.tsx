@@ -66,7 +66,8 @@ interface UserSettingsItemAttributes {
 interface UserSettingsItemDomRef extends Required<UserSettingsItemAttributes>, Ui5DomRef {}
 
 interface UserSettingsItemPropTypes
-  extends UserSettingsItemAttributes,
+  extends
+    UserSettingsItemAttributes,
     Omit<CommonProps, keyof UserSettingsItemAttributes | 'children' | 'tabs' | 'onSelectionChange'> {
   /**
    * Defines the page views of the user settings item.

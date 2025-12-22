@@ -58,7 +58,8 @@ interface UploadCollectionAttributes {
 interface UploadCollectionDomRef extends Required<UploadCollectionAttributes>, Ui5DomRef {}
 
 interface UploadCollectionPropTypes
-  extends UploadCollectionAttributes,
+  extends
+    UploadCollectionAttributes,
     Omit<CommonProps, keyof UploadCollectionAttributes | 'children' | 'header' | 'onItemDelete' | 'onSelectionChange'> {
   /**
    * Defines the items of the `UploadCollection`.

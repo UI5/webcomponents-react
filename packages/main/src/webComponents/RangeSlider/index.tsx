@@ -99,8 +99,7 @@ interface RangeSliderAttributes {
 interface RangeSliderDomRef extends Required<RangeSliderAttributes>, Ui5DomRef {}
 
 interface RangeSliderPropTypes
-  extends RangeSliderAttributes,
-    Omit<CommonProps, keyof RangeSliderAttributes | 'onChange' | 'onInput'> {
+  extends RangeSliderAttributes, Omit<CommonProps, keyof RangeSliderAttributes | 'onChange' | 'onInput'> {
   /**
    * Fired when the value changes and the user has finished interacting with the slider.
    *

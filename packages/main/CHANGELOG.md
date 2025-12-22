@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.17.0](https://github.com/UI5/webcomponents-react/compare/v2.16.0...v2.17.0) (2025-12-08)
+
+### Bug Fixes
+
+- **AnalyticalTable - TypeScript:** improve instance types ([#7935](https://github.com/UI5/webcomponents-react/issues/7935)) ([6dc1b12](https://github.com/UI5/webcomponents-react/commit/6dc1b12d88db88c8540b3c883ac8c1525326cb21))
+- **AnalyticalTable:** text ellipsis for strings & class for elements for custom Cell ([#7951](https://github.com/UI5/webcomponents-react/issues/7951)) ([c338dc1](https://github.com/UI5/webcomponents-react/commit/c338dc1fdfc32e7e5958e10765ca421768f1861f))
+- **AnalyticalTable:** update active row state style ([#7936](https://github.com/UI5/webcomponents-react/issues/7936)) ([8511f5a](https://github.com/UI5/webcomponents-react/commit/8511f5a552effdbd80345f462a2786581a35701d))
+- **ObjectPage:** update section spacings to latest specs ([#7977](https://github.com/UI5/webcomponents-react/issues/7977)) ([0c058c1](https://github.com/UI5/webcomponents-react/commit/0c058c121b78ba2ca9fad7e403e18fb95bc90b95)), closes [#7917](https://github.com/UI5/webcomponents-react/issues/7917)
+- **ObjectPage:** use UI5WC tabbar shadow ([#7975](https://github.com/UI5/webcomponents-react/issues/7975)) ([85d82a0](https://github.com/UI5/webcomponents-react/commit/85d82a07137b965046c32f4a360528e7da5c180b))
+
+### Features
+
+- **ObjectStatus:** simplify active state styling in lists & tables ([#7930](https://github.com/UI5/webcomponents-react/issues/7930)) ([2529bd4](https://github.com/UI5/webcomponents-react/commit/2529bd4074b1b9f5300930befd2bfbb99b3b3753)), closes [#7929](https://github.com/UI5/webcomponents-react/issues/7929)
+- update to UI5 Web Components v2.17.0 ([#8011](https://github.com/UI5/webcomponents-react/issues/8011)) ([8c280d9](https://github.com/UI5/webcomponents-react/commit/8c280d9b8eb016b03dd80314e779a39939bbb53a))
+
 # [2.16.0](https://github.com/UI5/webcomponents-react/compare/v2.15.3...v2.16.0) (2025-11-07)
 
 ### Bug Fixes

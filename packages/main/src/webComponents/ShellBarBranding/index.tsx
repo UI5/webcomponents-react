@@ -41,7 +41,8 @@ interface ShellBarBrandingAttributes {
 interface ShellBarBrandingDomRef extends Required<ShellBarBrandingAttributes>, Ui5DomRef {}
 
 interface ShellBarBrandingPropTypes
-  extends ShellBarBrandingAttributes,
+  extends
+    ShellBarBrandingAttributes,
     Omit<CommonProps, keyof ShellBarBrandingAttributes | 'children' | 'logo' | 'onClick'> {
   /**
    * Defines the title for the ui5-shellbar-branding component.

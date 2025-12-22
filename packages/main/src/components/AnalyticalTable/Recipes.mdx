@@ -1,7 +1,8 @@
 import { TableOfContent } from '@sb/components';
-import { Meta } from '@storybook/addon-docs/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 import { Footer } from '@sb/components';
-import { MessageStrip } from '../../webComponents/index';
+import { MessageStrip } from '../../webComponents/MessageStrip/index';
+import * as ComponentStories from './AnalyticalTable.stories';
 
 <Meta title="Data Display / AnalyticalTable / Recipes" />
 
@@ -366,5 +367,82 @@ To initially select or expand a row; reorder, filter, group, hide or sort a colu
   }}
 />
 ```
+
+## How to show ellipsis for custom Cells?
+
+**Applicable since v2.16.1**
+
+When using custom `Cell` renderers, text truncation with ellipsis works automatically if you return a plain string. However, when rendering custom content, you need to handle ellipsis styling yourself.
+
+### Automatic Ellipsis (Plain Strings)
+
+If your custom `Cell` renderer returns a plain string, ellipsis is ensured automatically:
+
+```jsx
+const columns = [
+  {
+    Header: 'Name',
+    accessor: 'name',
+    Cell: ({ value }) => value // Plain string - ellipsis works automatically
+  },
+];
+```
+
+### Manual Ellipsis (Custom Elements)
+
+When rendering custom elements, you need to apply ellipsis styling:
+
+#### Inline Content
+
+Use the `webComponentsReactProperties.classes.textEllipsis` class for inline content that should truncate with ellipsis:
+
+```jsx
+const columns = [
+  {
+    Header: 'Name',
+    accessor: 'name',
+    Cell: ({ value, webComponentsReactProperties }) => (
+      <span
+        className={webComponentsReactProperties.classes.textEllipsis}
+        title={value} // Show full text on hover
+      >
+        {value}
+      </span>
+    ),
+  },
+];
+```
+
+#### For Web Components with Built-in Text Handling
+
+Some Web Components like `Text` and `Label` handle text truncation internally and don't require the `textEllipsis` class:
+
+```jsx
+import { Text } from '@ui5/webcomponents-react';
+
+const columns = [
+  {
+    Header: 'Description',
+    accessor: 'description',
+    Cell: ({ value }) => (
+      <Text maxLines={1}>{value}</Text> // Text component handles ellipsis internally
+    ),
+  },
+];
+```
+
+#### For Other Custom Components
+
+For multi-line content or custom components that don't handle ellipsis, truncation must be ensured by defining the styles yourself.
+
+### Example
+
+<details>
+  <summary>Show Example</summary>
+  <Canvas of={ComponentStories.EllipsisExamples} />
+</details>
+
+<br />
+<br />
 
 <Footer />

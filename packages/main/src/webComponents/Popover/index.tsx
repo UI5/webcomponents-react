@@ -149,7 +149,8 @@ interface PopoverDomRef extends Required<PopoverAttributes>, Ui5DomRef {
 }
 
 interface PopoverPropTypes
-  extends PopoverAttributes,
+  extends
+    PopoverAttributes,
     Omit<
       CommonProps,
       | keyof PopoverAttributes

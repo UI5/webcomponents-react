@@ -149,7 +149,8 @@ interface ResponsivePopoverDomRef extends Required<ResponsivePopoverAttributes>,
 }
 
 interface ResponsivePopoverPropTypes
-  extends ResponsivePopoverAttributes,
+  extends
+    ResponsivePopoverAttributes,
     Omit<
       CommonProps,
       | keyof ResponsivePopoverAttributes

@@ -9,18 +9,18 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@ui5/webcomponents": "2.16.1",
-    "@ui5/webcomponents-base": "2.16.1",
-    "@ui5/webcomponents-fiori": "2.16.1",
-    "@ui5/webcomponents-react": "2.16.0",
-    "@types/node": "24.10.0",
-    "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.2",
-    "eslint": "9.39.1",
-    "eslint-config-next": "16.0.1",
-    "next": "16.0.1",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "@ui5/webcomponents": "2.17.1",
+    "@ui5/webcomponents-base": "2.17.1",
+    "@ui5/webcomponents-fiori": "2.17.1",
+    "@ui5/webcomponents-react": "2.17.0",
+    "@types/node": "24.10.4",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.39.2",
+    "eslint-config-next": "16.1.0",
+    "next": "16.1.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "typescript": "5.9.3"
   }
 }

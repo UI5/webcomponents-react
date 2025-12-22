@@ -1,11 +1,8 @@
-import type * as CEM from '@ui5/webcomponents-tools/lib/cem/types-internal';
+import type * as CEM from '@ui5/webcomponents-tools/lib/cem/types-internal.js';
 import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
-// @ts-expect-error: storybook can handle this
-import cemAi from './custom-element-manifests/ai.json';
-// @ts-expect-error: storybook can handle this
-import cemFiori from './custom-element-manifests/fiori.json';
-// @ts-expect-error: storybook can handle this
-import cemMain from './custom-element-manifests/main.json';
+import cemAi from './custom-element-manifests/ai.json' with { type: 'json' };
+import cemFiori from './custom-element-manifests/fiori.json' with { type: 'json' };
+import cemMain from './custom-element-manifests/main.json' with { type: 'json' };
 
 export const isChromatic = process.env.STORYBOOK_ENV === 'chromatic';
 

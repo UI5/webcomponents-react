@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type { MessageItemPropTypes } from '../components/MessageView/MessageItem.js';
+import type { MessageItemPropTypes } from '../components/MessageItem/index.js';
 
 export type SelectedMessage = MessageItemPropTypes & { titleTextStr: string };
 

@@ -21,7 +21,8 @@ interface NotificationListAttributes {
 interface NotificationListDomRef extends Required<NotificationListAttributes>, Ui5DomRef {}
 
 interface NotificationListPropTypes
-  extends NotificationListAttributes,
+  extends
+    NotificationListAttributes,
     Omit<CommonProps, keyof NotificationListAttributes | 'children' | 'onItemClick' | 'onItemClose' | 'onItemToggle'> {
   /**
    * Defines the items of the component.

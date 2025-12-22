@@ -31,7 +31,8 @@ interface UserSettingsDialogAttributes {
 interface UserSettingsDialogDomRef extends Required<UserSettingsDialogAttributes>, Ui5DomRef {}
 
 interface UserSettingsDialogPropTypes
-  extends UserSettingsDialogAttributes,
+  extends
+    UserSettingsDialogAttributes,
     Omit<
       CommonProps,
       | keyof UserSettingsDialogAttributes

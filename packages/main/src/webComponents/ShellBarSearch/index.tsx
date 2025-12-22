@@ -67,7 +67,8 @@ interface ShellBarSearchAttributes {
 interface ShellBarSearchDomRef extends Required<ShellBarSearchAttributes>, Ui5DomRef {}
 
 interface ShellBarSearchPropTypes
-  extends ShellBarSearchAttributes,
+  extends
+    ShellBarSearchAttributes,
     Omit<
       CommonProps,
       | keyof ShellBarSearchAttributes

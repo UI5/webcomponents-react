@@ -4,10 +4,11 @@
   &:first-of-type {
     margin-block-start: 1px;
   }
+  margin-block-end: 1rem;
 }
 
 .section [data-component-name='ObjectPageSubSection']:not(:first-child) {
-  padding-block-start: 0.5rem;
+  padding-block-start: 1rem;
 }
 
 .section:focus {
@@ -28,8 +29,8 @@
 }
 
 .title {
-  height: var(--_ui5wcr_ObjectPage_SectionTitleHeight);
-  line-height: var(--_ui5wcr_ObjectPage_SectionTitleLineHeight);
+  height: 2.25rem;
+  line-height: 2.25rem;
   color: var(--sapGroup_TitleTextColor);
   font-size: var(--sapFontHeader4Size);
   display: inline-block;
@@ -62,7 +63,7 @@
 }
 
 .sectionContentInner {
-  padding-block: 0.5rem;
+  padding-block-start: 1rem;
   font-family: var(--sapFontFamily);
   height: 100%;
   box-sizing: border-box;

@@ -41,12 +41,12 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 0
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
@@ -62,20 +62,18 @@ jobs:
           ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version ${{ github.event.inputs.release_type }} \
             ${{ (github.event.inputs.prerelease == 'true' && '--conventional-prerelease') || '--conventional-graduate' }} \
             --no-push \
-            --no-git-tag-version 
+            --no-git-tag-version
 
       - name: version - Snapshot
         if: ${{ github.event.inputs.snapshot == 'true' }}
         run: |
           git_hash=$(git rev-parse --short "${{ github.sha }}")
-          
+
           ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version "0.0.0-${git_hash}" \
             --exact \
             --no-push \
             --no-git-tag-version \
             --allow-branch ${{ github.ref_name }}
-          
-          
 
   build-and-release:
     needs: ['test', 'release-dryrun', 'check-charts-compat-peer-deps']
@@ -88,13 +86,13 @@ jobs:
       id-token: write
       issues: write
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
           fetch-depth: 0
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
@@ -122,7 +120,7 @@ jobs:
         if: ${{ github.event.inputs.snapshot == 'true' }}
         run: |
           git_hash=$(git rev-parse --short "${{ github.sha }}")
-          
+
           ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version "0.0.0-${git_hash}" \
             --exact \
             --no-push \

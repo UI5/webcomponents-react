@@ -46,8 +46,7 @@ interface TableRowAttributes {
 interface TableRowDomRef extends Required<TableRowAttributes>, Ui5DomRef {}
 
 interface TableRowPropTypes
-  extends TableRowAttributes,
-    Omit<CommonProps, keyof TableRowAttributes | 'actions' | 'children'> {
+  extends TableRowAttributes, Omit<CommonProps, keyof TableRowAttributes | 'actions' | 'children'> {
   /**
    * Defines the actions of the component.
    *

@@ -3,7 +3,7 @@ import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { Link } from '@ui5/webcomponents-react';
 import { useRef } from 'react';
 import { Dialog } from '../../webComponents/Dialog/index.js';
-import { MessageItem } from './MessageItem';
+import { MessageItem } from '../MessageItem/index.js';
 import { MessageView } from './index.js';
 
 describe('MessageView', () => {

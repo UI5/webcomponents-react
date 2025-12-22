@@ -60,8 +60,7 @@ interface TableSelectionMultiDomRef extends Required<TableSelectionMultiAttribut
 }
 
 interface TableSelectionMultiPropTypes
-  extends TableSelectionMultiAttributes,
-    Omit<CommonProps, keyof TableSelectionMultiAttributes | 'onChange'> {
+  extends TableSelectionMultiAttributes, Omit<CommonProps, keyof TableSelectionMultiAttributes | 'onChange'> {
   /**
    * Fired when the selection is changed by user interaction.
    *

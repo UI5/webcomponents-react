@@ -53,7 +53,8 @@ interface NotificationListGroupItemAttributes {
 interface NotificationListGroupItemDomRef extends Required<NotificationListGroupItemAttributes>, Ui5DomRef {}
 
 interface NotificationListGroupItemPropTypes
-  extends NotificationListGroupItemAttributes,
+  extends
+    NotificationListGroupItemAttributes,
     Omit<CommonProps, keyof NotificationListGroupItemAttributes | 'children' | 'onLoadMore' | 'onToggle'> {
   /**
    * Defines the items of the `NotificationListGroupItem`,

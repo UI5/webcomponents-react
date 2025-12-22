@@ -42,7 +42,8 @@ interface SuggestionItemGroupAttributes {
 interface SuggestionItemGroupDomRef extends Required<SuggestionItemGroupAttributes>, Ui5DomRef {}
 
 interface SuggestionItemGroupPropTypes
-  extends SuggestionItemGroupAttributes,
+  extends
+    SuggestionItemGroupAttributes,
     Omit<CommonProps, keyof SuggestionItemGroupAttributes | 'children' | 'header' | 'onMove' | 'onMoveOver'> {
   /**
    * Defines the items of the <code>ui5-suggestion-item-group</code>.

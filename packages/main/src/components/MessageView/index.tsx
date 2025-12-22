@@ -30,7 +30,7 @@ import type { SegmentedButtonPropTypes } from '../../webComponents/SegmentedButt
 import { SegmentedButtonItem } from '../../webComponents/SegmentedButtonItem/index.js';
 import { Title } from '../../webComponents/Title/index.js';
 import { FlexBox } from '../FlexBox/index.js';
-import type { MessageItemPropTypes } from './MessageItem.js';
+import type { MessageItemPropTypes } from '../MessageItem/index.js';
 import { classNames, styleData } from './MessageView.module.css.js';
 import { getIconNameForType, getValueStateMap } from './utils.js';
 

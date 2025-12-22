@@ -4213,7 +4213,7 @@
               "type": {
                 "text": "number | undefined"
               },
-              "description": "Specifies the number of additional items available to show.\nThis value replaces the placeholder (N) in the \"Show more (N)\" text.\nIf not set, the placeholder will remain as (N).",
+              "description": "Specifies the number of additional items available to show.\nIf no value is defined, the control shows \"Show more\" (without any counter).\nIf a number is provided, it displays \"Show more (N)\", where N is that number.",
               "privacy": "public",
               "default": "undefined"
             },
@@ -4260,7 +4260,7 @@
           ],
           "attributes": [
             {
-              "description": "Specifies the number of additional items available to show.\nThis value replaces the placeholder (N) in the \"Show more (N)\" text.\nIf not set, the placeholder will remain as (N).",
+              "description": "Specifies the number of additional items available to show.\nIf no value is defined, the control shows \"Show more\" (without any counter).\nIf a number is provided, it displays \"Show more (N)\", where N is that number.",
               "name": "items-to-show-count",
               "default": "undefined",
               "fieldName": "itemsToShowCount",
@@ -9861,6 +9861,203 @@
     },
     {
       "kind": "javascript-module",
+      "path": "dist/UserSettingsAccountView.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-user-settings-account-view` represents a view displayed in the `ui5-user-settings-item`.",
+          "name": "UserSettingsAccountView",
+          "slots": [
+            {
+              "name": "account",
+              "description": "Defines the user account.",
+              "_ui5type": {
+                "text": "Array<UserMenuAccount> | undefined",
+                "references": [
+                  {
+                    "name": "UserMenuAccount",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/UserMenuAccount.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
+            },
+            {
+              "name": "default",
+              "description": "Defines the content of the view.",
+              "_ui5propertyName": "content",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public",
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "showManageAccount",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines if the User Menu shows the `Manage Account` option.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the title text of the user settings view.",
+              "privacy": "public",
+              "default": "undefined",
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the view is selected. There can be just one selected view at a time.",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "secondary",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates whether the view is secondary. It is relevant only if the view is used in `pages` slot of `ui5-user-settings-item`\nand controls the visibility of the back button.",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "edit-accounts-click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the `Edit Accounts` button is selected.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false
+            },
+            {
+              "name": "manage-account-click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the `Manage Account` button is selected.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines if the User Menu shows the `Manage Account` option.",
+              "name": "show-manage-account",
+              "default": "false",
+              "fieldName": "showManageAccount",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the title text of the user settings view.",
+              "name": "text",
+              "default": "undefined",
+              "fieldName": "text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            },
+            {
+              "description": "Defines whether the view is selected. There can be just one selected view at a time.",
+              "name": "selected",
+              "default": "false",
+              "fieldName": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            },
+            {
+              "description": "Indicates whether the view is secondary. It is relevant only if the view is used in `pages` slot of `ui5-user-settings-item`\nand controls the visibility of the back button.",
+              "name": "secondary",
+              "default": "false",
+              "fieldName": "secondary",
+              "type": {
+                "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "UserSettingsView",
+            "package": "@ui5/webcomponents-fiori",
+            "module": "dist/UserSettingsView.js"
+          },
+          "tagName": "ui5-user-settings-account-view",
+          "customElement": true,
+          "_ui5experimental": true,
+          "_ui5since": "2.17.0",
+          "_ui5privacy": "public"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "UserSettingsAccountView",
+            "module": "dist/UserSettingsAccountView.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-user-settings-account-view",
+          "declaration": {
+            "name": "UserSettingsAccountView",
+            "module": "dist/UserSettingsAccountView.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "dist/UserSettingsDialog.js",
       "declarations": [
         {
@@ -10465,6 +10662,12 @@
           "kind": "class",
           "description": "### Overview\nThe `ui5-view-settings-dialog` component helps the user to sort data within a list or a table.\nIt consists of several lists like `Sort order` which is built-in and `Sort By` and `Filter By` lists,\nfor which you must be provide items(`ui5-sort-item` & `ui5-filter-item` respectively)\nThese options can be used to create sorters for a table.\n\nThe `ui5-view-settings-dialog` interrupts the current application processing as it is the only focused UI element and\nthe main screen is dimmed/blocked.\nThe `ui5-view-settings-dialog` is modal, which means that user action is required before returning to the parent window is possible.\n\n### Structure\nA `ui5-view-settings-dialog` consists of a header, content, and a footer for action buttons.\nThe `ui5-view-settings-dialog` is usually displayed at the center of the screen.\n\n### Responsive Behavior\n`ui5-view-settings-dialog` stretches on full screen on phones.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/ViewSettingsDialog.js\";`",
           "name": "ViewSettingsDialog",
+          "cssParts": [
+            {
+              "description": "Used to style the header.",
+              "name": "header"
+            }
+          ],
           "slots": [
             {
               "name": "sortItems",

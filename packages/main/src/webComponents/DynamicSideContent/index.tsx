@@ -76,7 +76,8 @@ interface DynamicSideContentDomRef extends Required<DynamicSideContentAttributes
 }
 
 interface DynamicSideContentPropTypes
-  extends DynamicSideContentAttributes,
+  extends
+    DynamicSideContentAttributes,
     Omit<CommonProps, keyof DynamicSideContentAttributes | 'children' | 'sideContent' | 'onLayoutChange'> {
   /**
    * Defines the main content.

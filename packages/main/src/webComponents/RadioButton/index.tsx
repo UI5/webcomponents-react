@@ -106,8 +106,7 @@ interface RadioButtonAttributes {
 interface RadioButtonDomRef extends Required<RadioButtonAttributes>, Ui5DomRef {}
 
 interface RadioButtonPropTypes
-  extends RadioButtonAttributes,
-    Omit<CommonProps, keyof RadioButtonAttributes | 'onChange'> {
+  extends RadioButtonAttributes, Omit<CommonProps, keyof RadioButtonAttributes | 'onChange'> {
   /**
    * Fired when the component checked state changes.
    *

@@ -31,7 +31,8 @@ interface SideNavigationAttributes {
 interface SideNavigationDomRef extends Required<SideNavigationAttributes>, Ui5DomRef {}
 
 interface SideNavigationPropTypes
-  extends SideNavigationAttributes,
+  extends
+    SideNavigationAttributes,
     Omit<CommonProps, keyof SideNavigationAttributes | 'children' | 'fixedItems' | 'header' | 'onSelectionChange'> {
   /**
    * Defines the main items of the component.

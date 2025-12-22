@@ -15,8 +15,8 @@ import { Select } from '../../webComponents/Select/index.js';
 import { Text } from '../../webComponents/Text/index.js';
 import { FilterBar } from '../FilterBar/index.js';
 import { FilterGroupItem } from '../FilterGroupItem/index.js';
-import type { VariantItemPropTypes } from './VariantItem.js';
-import { VariantItem } from './VariantItem.js';
+import type { VariantItemPropTypes } from '../VariantItem/index.js';
+import { VariantItem } from '../VariantItem/index.js';
 import { VariantManagement } from './index.js';
 
 const meta = {

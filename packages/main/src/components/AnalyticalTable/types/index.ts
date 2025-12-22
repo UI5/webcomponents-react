@@ -93,7 +93,7 @@ export interface ColumnType extends Omit<AnalyticalTableColumnDefinition, 'id'> 
 export interface CellType {
   column: ColumnType;
   row: RowType;
-  value: string | undefined | null;
+  value: boolean | number | string | undefined | null;
   getCellProps: (userProps?: any) => any;
   /**
    * Indicates whether the cell is aggregated.
@@ -107,16 +107,16 @@ export interface CellType {
 }
 
 export interface TableInstance {
-  allColumns?: ColumnType[];
+  allColumns: ColumnType[];
   allColumnsHidden?: boolean;
   columns: ColumnType[];
   data: Record<string, any>[];
-  defaultColumn?: Record<string, any>;
-  disableFilters?: boolean;
+  defaultColumn: Record<string, any>;
+  disableFilters: boolean;
   disableGlobalFilter?: boolean;
-  disableGroupBy?: boolean;
-  disableSortBy?: boolean;
-  dispatch?: (action: {
+  disableGroupBy: boolean;
+  disableSortBy: boolean;
+  dispatch: (action: {
     type: string;
     payload?: Record<string, unknown> | AnalyticalTableState['popInColumns'] | boolean | string | number;
     clientX?: number;
@@ -126,28 +126,28 @@ export interface TableInstance {
   filteredFlatRows?: RowType[];
   filteredRows?: RowType[];
   filteredRowsById?: Record<string, RowType>;
-  flatHeaders?: ColumnType[];
-  flatRows?: RowType[];
+  flatHeaders: ColumnType[];
+  flatRows: RowType[];
   footerGroups?: Record<string, any>[];
-  getHooks?: () => any[];
-  getRowId?: (row: RowType, index: number, parent?: any) => string;
-  getSubRows?: (row: RowType, relativeIndex?: number) => RowType[];
-  getTableBodyProps?: any;
-  getTableProps?: any;
-  getToggleAllPageRowsSelectedProps?: any;
-  getToggleAllRowsExpandedProps?: any;
-  getToggleAllRowsSelectedProps?: any;
-  getToggleHideAllColumnsProps?: any;
+  getHooks: () => ReactTableHooks;
+  getRowId: (row: RowType, index: number, parent?: any) => string;
+  getSubRows: (row: RowType, relativeIndex?: number) => RowType[];
+  getTableBodyProps?: (userProps?: Record<string, any>) => Record<string, any>;
+  getTableProps?: (userProps?: Record<string, any>) => Record<string, any>;
+  getToggleAllPageRowsSelectedProps?: (userProps?: Record<string, any>) => Record<string, any>;
+  getToggleAllRowsExpandedProps?: (userProps?: Record<string, any>) => Record<string, any>;
+  getToggleAllRowsSelectedProps?: (userProps?: Record<string, any>) => Record<string, any>;
+  getToggleHideAllColumnsProps?: (userProps?: Record<string, any>) => Record<string, any>;
   globalFilteredFlatRows?: RowType[];
   globalFilteredRows?: RowType[];
   globalFilteredRowsById?: Record<string, RowType>;
   groupedFlatRows?: RowType[];
   groupedRows?: RowType[];
   groupedRowsById?: Record<string, RowType>;
-  headerGroups?: Record<string, any>[];
-  headers?: ColumnType[];
-  initialRows?: RowType[];
-  initialState?: Record<string, any>;
+  headerGroups: Record<string, any>[];
+  headers: ColumnType[];
+  initialRows: RowType[];
+  initialState: Record<string, any>;
   isAllPageRowsSelected?: boolean;
   isAllRowsExpanded?: boolean;
   isAllRowsSelected?: boolean;
@@ -155,7 +155,7 @@ export interface TableInstance {
   nonGroupedRowsById?: Record<string, RowType>;
   onlyGroupedFlatRows?: RowType[];
   onlyGroupedRowsById?: Record<string, RowType>;
-  plugins?: any[];
+  plugins: ((hooks: ReactTableHooks) => void)[];
   preExpandedRows?: RowType[];
   preFilteredFlatRows?: RowType[];
   preFilteredRows?: RowType[];
@@ -169,13 +169,13 @@ export interface TableInstance {
   preSortedFlatRows?: RowType[];
   preSortedRows?: RowType[];
   prepareRow?: (row: RowType) => void;
-  resetResizing?: any;
+  resetResizing?: () => void;
   rows: RowType[];
-  rowsById?: Record<string, RowType>;
-  selectSubRows?: boolean;
+  rowsById: Record<string, RowType>;
+  selectSubRows: boolean;
   selectedFlatRows?: RowType[];
   setAllFilters?: (filtersObjectArray: Record<string, any>[]) => void;
-  setColumnOrder?: any;
+  setColumnOrder?: (columnOrder: AnalyticalTableState['columnOrder']) => void;
   /**
    * Set the filter value for the defined column.
    *
@@ -185,8 +185,8 @@ export interface TableInstance {
   setGlobalFilter?: (filterValue: string) => void;
   setGroupBy?: (columnIds: string[]) => void;
   setHiddenColumns?: (columnIds: string[]) => void;
-  setSortBy?: any;
-  sortTypes?: Record<string, any>;
+  setSortBy?: (sortBy: AnalyticalTableState['sortBy']) => void;
+  sortTypes: Record<string, any>;
   sortedFlatRows?: Record<string, RowType>[];
   sortedRows?: Record<string, RowType>[];
   state: AnalyticalTableState & Record<string, any>;
@@ -208,7 +208,10 @@ export interface TableInstance {
   totalColumnsMaxWidth?: number;
   totalColumnsMinWidth?: number;
   totalColumnsWidth?: number;
-  useControlledState?: any;
+  useControlledState: (
+    state: TableInstance['state'] & Record<string, any>,
+    instance?: { instance: TableInstance },
+  ) => TableInstance['state'] & Record<string, any>;
   virtualRowsRange?: {
     startIndex: number;
     endIndex: number;
@@ -451,10 +454,11 @@ export interface AnalyticalTableColumnDefinition {
   headerTooltip?: string;
   /**
    * Custom cell renderer. If set, the table will use this component or render the provided string for every cell,
-   * passing all necessary information as props, e.g., the cell value as `props.cell.value`.
+   * passing all necessary information as props, e.g., the cell value as `props.value`.
    *
-   * __Note:__ Using a custom component __can impact performance__!
-   * If you pass a component, __memoizing it is strongly recommended__, especially for complex components or large datasets.
+   * __Note:__
+   * - Using a custom component __can impact performance__! If you pass a component, __memoizing it is strongly recommended__, especially for complex components or large datasets.
+   * - For custom elements, text truncation needs to be applied manually. [Here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs) you can find out more.
    */
   Cell?: string | ComponentType<CellInstance>;
   /**
@@ -972,7 +976,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    * - When rendering active elements inside the subcomponent, make sure to add the `data-subcomponent-active-element' attribute, otherwise focus behavior won't be consistent.
    * - Subcomponents can affect performance, especially when used in a tree table (`isTreeTable={true}`). If you face performance issues, please try memoizing your subcomponent.
    */
-  renderRowSubComponent?: (row?: RowType) => ReactNode;
+  renderRowSubComponent?: (row: RowType) => ReactNode;
   /**
    * Defines the rendering and height calculation behavior of subcomponents when `renderRowSubComponent` is used.
    *
@@ -993,7 +997,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    *
    * __Must be memoized!__
    */
-  markNavigatedRow?: (row?: RowType) => boolean;
+  markNavigatedRow?: (row: RowType) => boolean;
   /**
    * Fired when the sorting of the rows changes.
    */
@@ -1032,7 +1036,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   /**
    * Fired when a row is expanded or collapsed
    */
-  onRowExpandChange?: (e: CustomEvent<{ row: unknown; column: unknown }>) => void;
+  onRowExpandChange?: (e: CustomEvent<{ row: RowType; column: ColumnType }>) => void;
   /**
    * Fired when the columns order is changed.
    */
@@ -1054,7 +1058,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    * non-memoized or expensive calculations can have a __huge impact on performance__ and cause visible lag.
    * Throttling or debouncing is always recommended to reduce performance overhead.
    */
-  onTableScroll?: (e: CustomEvent<{ rows: Record<string, any>[]; rowElements: HTMLCollection }>) => void;
+  onTableScroll?: (e: CustomEvent<{ rows: RowType[]; rowElements: HTMLCollection }>) => void;
   /**
    * Fired when the table is resized by double-clicking the Resizer.
    *

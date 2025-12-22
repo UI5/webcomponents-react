@@ -27,8 +27,7 @@ interface MultiComboBoxItemAttributes {
 interface MultiComboBoxItemDomRef extends Required<MultiComboBoxItemAttributes>, Ui5DomRef {}
 
 interface MultiComboBoxItemPropTypes
-  extends MultiComboBoxItemAttributes,
-    Omit<CommonProps, keyof MultiComboBoxItemAttributes> {}
+  extends MultiComboBoxItemAttributes, Omit<CommonProps, keyof MultiComboBoxItemAttributes> {}
 
 /**
  * The `MultiComboBoxItem` represents the item for a `MultiComboBox`.

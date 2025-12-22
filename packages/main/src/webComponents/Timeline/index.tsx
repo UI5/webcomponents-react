@@ -57,8 +57,7 @@ interface TimelineAttributes {
 interface TimelineDomRef extends Required<TimelineAttributes>, Ui5DomRef {}
 
 interface TimelinePropTypes
-  extends TimelineAttributes,
-    Omit<CommonProps, keyof TimelineAttributes | 'children' | 'onLoadMore'> {
+  extends TimelineAttributes, Omit<CommonProps, keyof TimelineAttributes | 'children' | 'onLoadMore'> {
   /**
    * Determines the content of the `Timeline`.
    *

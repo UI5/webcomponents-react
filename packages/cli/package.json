@@ -3,7 +3,7 @@
   "description": "CLI for UI5 Web Components for React",
   "author": "SAP SE (https://www.sap.com)",
   "license": "Apache-2.0",
-  "version": "2.16.0",
+  "version": "2.17.0",
   "type": "module",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
@@ -33,8 +33,8 @@
     "patches"
   ],
   "dependencies": {
-    "dedent": "1.7.0",
-    "execa": "9.6.0",
+    "dedent": "1.7.1",
+    "execa": "9.6.1",
     "patch-package": "8.0.1"
   }
 }

@@ -42,7 +42,8 @@ interface SearchItemGroupAttributes {
 interface SearchItemGroupDomRef extends Required<SearchItemGroupAttributes>, Ui5DomRef {}
 
 interface SearchItemGroupPropTypes
-  extends SearchItemGroupAttributes,
+  extends
+    SearchItemGroupAttributes,
     Omit<CommonProps, keyof SearchItemGroupAttributes | 'children' | 'header' | 'onMove' | 'onMoveOver'> {
   /**
    * Defines the items of the <code>ui5-li-group</code>.

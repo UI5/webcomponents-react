@@ -147,6 +147,7 @@ export * from './UserMenu/index.js';
 export * from './UserMenuAccount/index.js';
 export * from './UserMenuItem/index.js';
 export * from './UserMenuItemGroup/index.js';
+export * from './UserSettingsAccountView/index.js';
 export * from './UserSettingsDialog/index.js';
 export * from './UserSettingsItem/index.js';
 export * from './UserSettingsView/index.js';

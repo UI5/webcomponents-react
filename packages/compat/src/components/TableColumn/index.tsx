@@ -52,8 +52,7 @@ interface TableColumnAttributes {
 interface TableColumnDomRef extends Required<TableColumnAttributes>, Ui5DomRef {}
 
 interface TableColumnPropTypes
-  extends TableColumnAttributes,
-    Omit<CommonProps, keyof TableColumnAttributes | 'children'> {
+  extends TableColumnAttributes, Omit<CommonProps, keyof TableColumnAttributes | 'children'> {
   /**
    * Defines the content of the column header
    *

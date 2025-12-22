@@ -20,6 +20,7 @@
   --_ui5wcr_ActionSheet_MobileHeaderBoxShadow: none;
   --_ui5wcr_ActionSheet_MobileHeaderTextColor: var(--sapContent_ContrastTextColor);
   --_ui5wcr_ObjectPage_SectionTitleFontFamily: var(--sapFontFamily);
+  /*ToDo: no used anymore - remove in next major version */
   --_ui5wcr_ObjectPage_SectionTitleLineHeight: 2.25rem;
   --_ui5wcr_ObjectPage_SubSectionBorderRadius: 0;
   --_ui5wcr_Splitter_BarBorderHighContrastFix: var(--sapContent_FocusWidth) solid var(--sapContent_FocusColor);

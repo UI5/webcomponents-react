@@ -161,8 +161,7 @@ interface ToggleButtonAttributes {
 interface ToggleButtonDomRef extends Required<ToggleButtonAttributes>, Ui5DomRef {}
 
 interface ToggleButtonPropTypes
-  extends ToggleButtonAttributes,
-    Omit<CommonProps, keyof ToggleButtonAttributes | 'badge' | 'children' | 'onClick'> {
+  extends ToggleButtonAttributes, Omit<CommonProps, keyof ToggleButtonAttributes | 'badge' | 'children' | 'onClick'> {
   /**
    * Adds a badge to the button.
    *

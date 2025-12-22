@@ -40,8 +40,7 @@ interface TableVirtualizerDomRef extends Required<TableVirtualizerAttributes>, U
 }
 
 interface TableVirtualizerPropTypes
-  extends TableVirtualizerAttributes,
-    Omit<CommonProps, keyof TableVirtualizerAttributes | 'onRangeChange'> {
+  extends TableVirtualizerAttributes, Omit<CommonProps, keyof TableVirtualizerAttributes | 'onRangeChange'> {
   /**
    * Fired when the virtualizer is changed by user interaction e.g. on scrolling.
    *

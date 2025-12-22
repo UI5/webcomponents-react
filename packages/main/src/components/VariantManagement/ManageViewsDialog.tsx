@@ -32,10 +32,10 @@ import type { TablePropTypes } from '../../webComponents/Table/index.js';
 import { TableHeaderCell } from '../../webComponents/TableHeaderCell/index.js';
 import { TableHeaderRow } from '../../webComponents/TableHeaderRow/index.js';
 import { FlexBox } from '../FlexBox/index.js';
+import type { VariantItemPropTypes } from '../VariantItem/index.js';
 import { classNames, styleData } from './ManageViewsDialog.module.css.js';
 import { ManageViewsTableRows } from './ManageViewsTableRows.js';
 import type { VariantManagementPropTypes } from './types.js';
-import type { VariantItemPropTypes } from './VariantItem.js';
 
 type ManageViewsDialogChildType = boolean | undefined | null | ReactElement<VariantItemPropTypes>;
 

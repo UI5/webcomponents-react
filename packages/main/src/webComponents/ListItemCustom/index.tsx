@@ -86,7 +86,8 @@ interface ListItemCustomAttributes {
 interface ListItemCustomDomRef extends Required<ListItemCustomAttributes>, Ui5DomRef {}
 
 interface ListItemCustomPropTypes
-  extends ListItemCustomAttributes,
+  extends
+    ListItemCustomAttributes,
     Omit<CommonProps, keyof ListItemCustomAttributes | 'children' | 'deleteButton' | 'onDetailClick'> {
   /**
    * Defines the content of the component.

@@ -22,8 +22,7 @@ interface SpecialCalendarDateAttributes {
 interface SpecialCalendarDateDomRef extends Required<SpecialCalendarDateAttributes>, Ui5DomRef {}
 
 interface SpecialCalendarDatePropTypes
-  extends SpecialCalendarDateAttributes,
-    Omit<CommonProps, keyof SpecialCalendarDateAttributes> {}
+  extends SpecialCalendarDateAttributes, Omit<CommonProps, keyof SpecialCalendarDateAttributes> {}
 
 /**
  * The `SpecialCalendarDate` component defines a special calendar date to be used inside `Calendar`,

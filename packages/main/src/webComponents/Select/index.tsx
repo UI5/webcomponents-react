@@ -117,7 +117,8 @@ interface SelectDomRef extends Required<SelectAttributes>, Ui5DomRef {
 }
 
 interface SelectPropTypes
-  extends SelectAttributes,
+  extends
+    SelectAttributes,
     Omit<
       CommonProps,
       | keyof SelectAttributes

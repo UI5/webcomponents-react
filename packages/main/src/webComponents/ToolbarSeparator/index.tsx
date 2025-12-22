@@ -24,8 +24,7 @@ interface ToolbarSeparatorAttributes {
 interface ToolbarSeparatorDomRef extends Required<ToolbarSeparatorAttributes>, Ui5DomRef {}
 
 interface ToolbarSeparatorPropTypes
-  extends ToolbarSeparatorAttributes,
-    Omit<CommonProps, keyof ToolbarSeparatorAttributes> {}
+  extends ToolbarSeparatorAttributes, Omit<CommonProps, keyof ToolbarSeparatorAttributes> {}
 
 /**
  * The `ToolbarSeparator` is an element, used for visual separation between two elements.

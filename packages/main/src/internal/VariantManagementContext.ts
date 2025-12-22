@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type { VariantItemPropTypes } from '../components/VariantManagement/VariantItem.js';
+import type { VariantItemPropTypes } from '../components/VariantItem/index.js';
 import type { ListItemStandardDomRef } from '../webComponents/ListItemStandard/index.js';
 
 interface VariantManagementContextTypes {

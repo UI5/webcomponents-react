@@ -51,8 +51,10 @@ interface DimensionConfig extends IChartDimension {
   interval?: YAxisProps['interval'];
 }
 
-export interface ColumnChartWithTrendProps
-  extends Omit<IChartBaseProps<Omit<ICartesianChartConfig, 'secondYAxis' | 'secondYAxisConfig'>>, 'syncId'> {
+export interface ColumnChartWithTrendProps extends Omit<
+  IChartBaseProps<Omit<ICartesianChartConfig, 'secondYAxis' | 'secondYAxisConfig'>>,
+  'syncId'
+> {
   /**
    * An array of config objects. Each object will define one dimension of the chart.
    *

@@ -1,7 +1,10 @@
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
+import NoDataIllustration from '@ui5/webcomponents-fiori/dist/illustrations/NoData.js';
+import NoFilterResults from '@ui5/webcomponents-fiori/dist/illustrations/NoFilterResults.js';
 import paperPlaneIcon from '@ui5/webcomponents-icons/paper-plane.js';
 import { isIOS, isMac } from '@ui5/webcomponents-react-base/Device';
 import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
+import type { ComponentClass, ComponentProps } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState, version as reactVersion } from 'react';
 import type {
   AnalyticalTableCellInstance,
@@ -54,6 +57,7 @@ import {
   FileUploader,
   IndicationColor,
   Icon,
+  IllustratedMessage,
   Input,
   MessageViewButton,
   MultiComboBox,
@@ -1857,6 +1861,70 @@ describe('AnalyticalTable', () => {
     cy.get('[ui5-input]').typeIntoUi5Input('test123');
     cy.findByText('Lorem').should('not.exist');
     cy.findByText('No data found. Try adjusting the filter settings.').should('be.visible');
+  });
+
+  it('NoDataComponent', () => {
+    const NoDataComponent = (
+      props: ComponentProps<Exclude<AnalyticalTablePropTypes['NoDataComponent'], ComponentClass<any>>>,
+    ) => {
+      return props.noDataReason === 'Filtered' ? (
+        <IllustratedMessage role={props.accessibleRole} name={NoFilterResults} />
+      ) : (
+        <IllustratedMessage role={props.accessibleRole} name={NoDataIllustration} />
+      );
+    };
+
+    cy.mount(<AnalyticalTable data={data} columns={columns} NoDataComponent={NoDataComponent} />);
+    cy.get('[data-component-name="AnalyticalTableBody"]').should('have.attr', 'style').and('include', 'height: 220px');
+    cy.mount(<AnalyticalTable data={[]} columns={columns} NoDataComponent={NoDataComponent} />);
+    cy.get('[data-component-name="AnalyticalTableNoDataContainer"]')
+      .should('have.attr', 'style')
+      .and('include', 'height: 220px');
+
+    cy.mount(
+      <div style={{ height: '400px' }}>
+        <AnalyticalTable
+          data={[...data, ...data]}
+          columns={columns}
+          NoDataComponent={NoDataComponent}
+          visibleRowCountMode="Auto"
+        />
+      </div>,
+    );
+    cy.get('[data-component-name="AnalyticalTableBody"]').should('have.attr', 'style').and('include', 'height: 352px');
+    cy.mount(
+      <div style={{ height: '400px' }}>
+        <AnalyticalTable data={[]} columns={columns} NoDataComponent={NoDataComponent} visibleRowCountMode="Auto" />
+      </div>,
+    );
+    cy.get('[data-component-name="AnalyticalTableNoDataContainer"]')
+      .should('have.attr', 'style')
+      .and('include', 'height: 352px');
+
+    cy.mount(
+      <div style={{ height: '400px' }}>
+        <AnalyticalTable
+          data={data}
+          columns={columns}
+          NoDataComponent={NoDataComponent}
+          visibleRowCountMode="AutoWithEmptyRows"
+        />
+      </div>,
+    );
+    cy.get('[data-component-name="AnalyticalTableBody"]').should('have.attr', 'style').and('include', 'height: 352px');
+    cy.mount(
+      <div style={{ height: '400px' }}>
+        <AnalyticalTable
+          data={[]}
+          columns={columns}
+          NoDataComponent={NoDataComponent}
+          visibleRowCountMode="AutoWithEmptyRows"
+        />
+      </div>,
+    );
+    cy.get('[data-component-name="AnalyticalTableNoDataContainer"]')
+      .should('have.attr', 'style')
+      .and('include', 'height: 352px');
   });
 
   it('Alternate Row Color', () => {
@@ -4383,6 +4451,7 @@ describe('AnalyticalTable', () => {
       .should('have.prop', 'scrollTop', 3000);
     cy.get('[data-component-name="AnalyticalTableBody"]').should('have.prop', 'scrollTop', 3000);
 
+    cy.wait(100);
     cy.get('[data-component-name="AnalyticalTableContainerWithScrollbar"]').realMouseWheel({ deltaY: 500 });
     cy.get('[data-component-name="AnalyticalTableBody"]').should('have.prop', 'scrollTop', 3500);
     cy.get('[data-component-name="AnalyticalTableVerticalScrollbar"]').should('have.prop', 'scrollTop', 3500);

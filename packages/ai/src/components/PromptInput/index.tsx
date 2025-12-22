@@ -100,7 +100,8 @@ interface PromptInputAttributes {
 interface PromptInputDomRef extends Required<PromptInputAttributes>, Ui5DomRef {}
 
 interface PromptInputPropTypes
-  extends PromptInputAttributes,
+  extends
+    PromptInputAttributes,
     Omit<
       CommonProps,
       keyof PromptInputAttributes | 'children' | 'valueStateMessage' | 'onChange' | 'onInput' | 'onSubmit'

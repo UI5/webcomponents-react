@@ -75,7 +75,8 @@ interface SplitButtonAttributes {
 interface SplitButtonDomRef extends Required<SplitButtonAttributes>, Ui5DomRef {}
 
 interface SplitButtonPropTypes
-  extends SplitButtonAttributes,
+  extends
+    SplitButtonAttributes,
     Omit<CommonProps, keyof SplitButtonAttributes | 'children' | 'onArrowClick' | 'onClick'> {
   /**
    * Defines the text of the component.
