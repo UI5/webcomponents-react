@@ -165,6 +165,8 @@ export function useFakeStream(initialValue = '', typingDelay = 10, startingDelay
 
 export function useStopStreamByESC(loading: boolean, stopStream: () => void, onStop?: () => void) {
   const loadingRef = useRef(loading);
+  // Ref update during render doesn't trigger re-renders and is only read in event handler
+  // eslint-disable-next-line react-hooks/refs
   loadingRef.current = loading;
 
   useEffect(() => {

@@ -1,13 +1,13 @@
 import type { Controls } from '@storybook/addon-docs/blocks';
 import { Heading, Subheading, useOf } from '@storybook/addon-docs/blocks';
 import TagDesign from '@ui5/webcomponents/dist/types/TagDesign.js';
-import { Tag, Link, MessageStrip, Popover } from '@ui5/webcomponents-react';
 import type * as CEM from '@ui5/webcomponents-tools/lib/cem/types';
 import type { ComponentProps, ReactNode } from 'react';
 import { Fragment, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetCem } from '../utils.js';
 import classes from './DomRefTable.module.css';
+import { Tag, Link, MessageStrip, Popover } from '@ui5/webcomponents-react';
 
 export function CodeBlock(props: { children: ReactNode }) {
   return (

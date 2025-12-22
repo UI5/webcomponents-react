@@ -1,9 +1,9 @@
 import iconArrowDown from '@ui5/webcomponents-icons/dist/slim-arrow-down.js';
 import iconArrowRight from '@ui5/webcomponents-icons/dist/slim-arrow-right.js';
-import { Button, MessageStrip, Link } from '@ui5/webcomponents-react';
 import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import { Fragment, useState } from 'react';
 import versionInfo from '../../config/version-info.json';
+import { Button, MessageStrip, Link } from '@ui5/webcomponents-react';
 
 const allWCRVersions: string[] = Object.values(versionInfo);
 
