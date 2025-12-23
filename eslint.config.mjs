@@ -96,17 +96,15 @@ const config = tseslint.config(
       'import/order': [
         'error',
         {
-          'newlines-between': 'never',
+          groups: ['builtin', 'external', 'parent', 'sibling', 'index'],
           pathGroups: [
             {
-              pattern: '@ui5/webcomponents-react{,/**}',
+              pattern: '@ui5/webcomponents-react**',
               group: 'internal',
+              position: 'after',
             },
           ],
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
+          alphabetize: { order: 'asc' },
         },
       ],
 

@@ -1,5 +1,5 @@
-import type { debounce } from '@ui5/webcomponents-react-base';
 import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
+import type { debounce } from '@ui5/webcomponents-react-base';
 import type { Dispatch, JSXElementConstructor, MutableRefObject, ReactElement, RefObject, SetStateAction } from 'react';
 import { isValidElement } from 'react';
 import { ObjectPageMode } from '../../enums/ObjectPageMode.js';

@@ -8,8 +8,8 @@ import { Children, isValidElement, forwardRef, useMemo } from 'react';
 import { ObjectPageMode } from '../../enums/ObjectPageMode.js';
 import type { CommonProps } from '../../types/index.js';
 import type { TabDomRef } from '../../webComponents/Tab/index.js';
-import { useObjectPageContext } from '../ObjectPage/context.js';
 import { navigateSections } from '../ObjectPage/ObjectPageUtils.js';
+import { useObjectPageContext } from '../ObjectPage/context.js';
 import { classNames, styleData } from './ObjectPageSection.module.css.js';
 
 export interface ObjectPageSectionPropTypes extends CommonProps {

@@ -16,8 +16,8 @@ import {
   VARIANT_MANAGEMENT_ERROR_DUPLICATE,
   VIEW,
 } from '../../i18n/i18n-defaults.js';
-import { trimAndRemoveSpaces } from '../../internal/utils.js';
 import type { SelectedVariant } from '../../internal/VariantManagementContext.js';
+import { trimAndRemoveSpaces } from '../../internal/utils.js';
 import type { Ui5CustomEvent } from '../../types/index.js';
 import { Bar } from '../../webComponents/Bar/index.js';
 import type { ButtonDomRef } from '../../webComponents/Button/index.js';
