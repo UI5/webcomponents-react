@@ -52,8 +52,11 @@ const SplitterElement = forwardRef<HTMLDivElement, SplitterElementPropTypes>((pr
   const _size = typeof size === 'number' ? `${size}px` : size;
   const [flexBasisApplied, setFlexBasisApplied] = useState(false);
   const [observedFlex, setObservedFlex] = useState<CSSProperties | null>(null);
-  const flexStyles =
-    _size !== 'auto' ? { flex: `0 1 ${_size}` } : (observedFlex ?? { flex: '1 0 min-content', ...safariStyles });
+  const flexStyles = reset
+    ? undefined
+    : _size !== 'auto'
+      ? { flex: `0 1 ${_size}` }
+      : (observedFlex ?? { flex: '1 0 min-content', ...safariStyles });
 
   useStylesheet(styleData, SplitterElement.displayName);
   useEffect(() => {
@@ -85,6 +88,8 @@ const SplitterElement = forwardRef<HTMLDivElement, SplitterElementPropTypes>((pr
       setFlexBasisApplied(false);
     }
   }, [reset]);
+
+  console.log(flexStyles, reset);
 
   return (
     <div

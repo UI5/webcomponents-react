@@ -20,7 +20,7 @@ export const Default: Story = {};
 
 export const CheckBoxStates: Story = {
   name: 'CheckBox States',
-  render(args) {
+  render() {
     return (
       <>
         <CheckBox text="Error" valueState={ValueState.Negative} />
