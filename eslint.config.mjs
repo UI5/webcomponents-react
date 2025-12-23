@@ -97,7 +97,12 @@ const config = tseslint.config(
         'error',
         {
           'newlines-between': 'never',
-
+          pathGroups: [
+            {
+              pattern: '@ui5/webcomponents-react{,/**}',
+              group: 'internal',
+            },
+          ],
           alphabetize: {
             order: 'asc',
             caseInsensitive: true,
