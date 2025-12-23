@@ -72,7 +72,7 @@ const simpleDataSet = [
 ];
 
 export const WithAnalyticalCardHeader = {
-  render: (args) => {
+  render: () => {
     return (
       <Card
         header={

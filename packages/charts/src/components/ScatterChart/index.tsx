@@ -25,10 +25,10 @@ import type { ICartesianChartConfig } from '../../interfaces/ICartesianChartConf
 import type { IChartBaseProps } from '../../interfaces/IChartBaseProps.js';
 import type { IChartMeasure } from '../../interfaces/IChartMeasure.js';
 import { ChartContainer } from '../../internal/ChartContainer.js';
-import { defaultFormatter } from '../../internal/defaults.js';
-import { tickLineConfig, tooltipContentStyle, tooltipFillOpacity, xAxisPadding } from '../../internal/staticProps.js';
 import { XAxisTicks } from '../../internal/XAxisTicks.js';
 import { YAxisTicks } from '../../internal/YAxisTicks.js';
+import { defaultFormatter } from '../../internal/defaults.js';
+import { tickLineConfig, tooltipContentStyle, tooltipFillOpacity, xAxisPadding } from '../../internal/staticProps.js';
 import { ScatterChartPlaceholder } from './Placeholder.js';
 
 interface MeasureConfig extends Omit<IChartMeasure, 'color' | 'hideDataLabel' | 'DataLabel'> {

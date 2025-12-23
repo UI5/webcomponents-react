@@ -12,7 +12,7 @@ import {
   useSyncRef,
 } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
-import type { CSSProperties, MutableRefObject } from 'react';
+import type { CSSProperties } from 'react';
 import { forwardRef, useCallback, useEffect, useId, useMemo, useRef } from 'react';
 import {
   useColumnOrder,
@@ -59,6 +59,10 @@ import { BusyIndicator } from '../../webComponents/BusyIndicator/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { classNames, styleData } from './AnalyticalTable.module.css.js';
 import { ColumnHeaderContainer } from './ColumnHeader/ColumnHeaderContainer.js';
+import { VirtualTableBody } from './TableBody/VirtualTableBody.js';
+import { VirtualTableBodyContainer } from './TableBody/VirtualTableBodyContainer.js';
+import { TitleBar } from './TitleBar/index.js';
+import { VerticalResizer } from './VerticalResizer.js';
 import { DefaultColumn } from './defaults/Column/index.js';
 import { TablePlaceholder } from './defaults/LoadingComponent/TablePlaceholder.js';
 import { DefaultNoDataComponent } from './defaults/NoDataComponent/index.js';
@@ -84,10 +88,7 @@ import { useSyncScroll } from './hooks/useSyncScroll.js';
 import { useToggleRowExpand } from './hooks/useToggleRowExpand.js';
 import { useVisibleColumnsWidth } from './hooks/useVisibleColumnsWidth.js';
 import { VerticalScrollbar } from './scrollbars/VerticalScrollbar.js';
-import { VirtualTableBody } from './TableBody/VirtualTableBody.js';
-import { VirtualTableBodyContainer } from './TableBody/VirtualTableBodyContainer.js';
 import { stateReducer } from './tableReducer/stateReducer.js';
-import { TitleBar } from './TitleBar/index.js';
 import type {
   AnalyticalTableColumnDefinition,
   AnalyticalTableDomRef,
@@ -103,7 +104,6 @@ import {
   getSubRowsByString,
   tagNamesWhichShouldNotSelectARow,
 } from './util/index.js';
-import { VerticalResizer } from './VerticalResizer.js';
 
 // When a sorted column is removed from the visible columns array (e.g. when "popped-in"), it doesn't clean up the sorted columns leading to an undefined `sortType`.
 const sortTypesFallback = {
@@ -388,13 +388,6 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     }
   }, [tableState.groupBy, tableState.columnOrder]);
 
-  if (parentRef.current) {
-    scrollToRef.current = {
-      ...scrollToRef.current,
-      horizontalScrollToOffset: columnVirtualizer.scrollToOffset,
-      horizontalScrollToIndex: columnVirtualizer.scrollToIndex,
-    };
-  }
   useEffect(() => {
     if (triggerScroll && triggerScroll.direction === 'horizontal') {
       if (triggerScroll.type === 'offset') {
@@ -413,7 +406,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     !!Object.keys(tableState.subComponentsHeight);
 
   if (tableInstance && {}.hasOwnProperty.call(tableInstance, 'current')) {
-    (tableInstance as MutableRefObject<Record<string, any>>).current = tableInstanceRef.current;
+    (tableInstance as { current: TableInstance }).current = tableInstanceRef.current;
   }
   if (typeof tableInstance === 'function') {
     tableInstance(tableInstanceRef.current);
@@ -503,15 +496,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         });
       }
     }
-  }, [
-    analyticalTableRef.current?.parentElement?.getBoundingClientRect().height,
-    analyticalTableRef.current?.getBoundingClientRect().y,
-    extensionsHeight,
-    popInRowHeight,
-    visibleRowCountMode,
-    includeSubCompRowHeight,
-    tableState.subComponentsHeight,
-  ]);
+  }, [extensionsHeight, popInRowHeight, visibleRowCountMode, includeSubCompRowHeight, tableState.subComponentsHeight]);
 
   useEffect(() => {
     setGlobalFilter(globalFilterValue);
@@ -533,7 +518,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       tableWidthObserver.disconnect();
       parentHeightObserver.disconnect();
     };
-  }, [updateTableClientWidth, updateRowsCount]);
+  }, [updateTableClientWidth, updateRowsCount, analyticalTableRef]);
 
   useIsomorphicLayoutEffect(() => {
     dispatch({ type: 'IS_RTL', payload: { isRtl } });
@@ -554,7 +539,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         payload: { visibleRows: undefined },
       });
     }
-  }, [visibleRowCountMode, tableState.visibleRows]);
+  }, [visibleRowCountMode, tableState.visibleRows, dispatch]);
 
   useEffect(() => {
     if (groupBy) {
@@ -566,19 +551,13 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     if (selectedRowIds) {
       dispatch({ type: 'SET_SELECTED_ROW_IDS', payload: { selectedRowIds } });
     }
-  }, [selectedRowIds]);
-
-  useEffect(() => {
-    if (tableState?.interactiveRowsHavePopIn && (!tableState?.popInColumns || tableState?.popInColumns?.length === 0)) {
-      dispatch({ type: 'WITH_POPIN', payload: false });
-    }
-  }, [tableState?.interactiveRowsHavePopIn, tableState?.popInColumns?.length]);
+  }, [dispatch, selectedRowIds]);
 
   const tableBodyHeight = useMemo(() => {
     if (typeof tableState.bodyHeight === 'number') {
       return tableState.bodyHeight;
     }
-    let rowNum;
+    let rowNum: number;
     const noDataAuto = !rows.length && visibleRowCountMode.startsWith('Auto');
     if (visibleRowCountMode === AnalyticalTableVisibleRowCountMode.AutoWithEmptyRows || noDataAuto) {
       rowNum = internalVisibleRowCount;
@@ -747,6 +726,16 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   // add range to instance for `useAutoResize` plugin hook
   tableInstanceRef.current.virtualRowsRange = rowVirtualizer.range;
 
+  if (parentRef.current) {
+    scrollToRef.current = {
+      ...scrollToRef.current,
+      horizontalScrollToOffset: columnVirtualizer.scrollToOffset,
+      horizontalScrollToIndex: columnVirtualizer.scrollToIndex,
+      scrollToOffset: rowVirtualizer.scrollToOffset,
+      scrollToIndex: rowVirtualizer.scrollToIndex,
+    };
+  }
+
   return (
     <>
       <div
@@ -876,7 +865,6 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                   classes={classNames}
                   prepareRow={prepareRow}
                   rows={rows}
-                  scrollToRef={scrollToRef}
                   isTreeTable={isTreeTable}
                   internalRowHeight={internalRowHeight}
                   popInRowHeight={popInRowHeight}
@@ -915,7 +903,6 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
             analyticalTableRef={analyticalTableRef}
             dispatch={dispatch}
             extensionsHeight={extensionsHeight}
-            internalRowHeight={internalRowHeight}
             rowsLength={rows.length}
             visibleRows={internalVisibleRowCount}
             handleOnLoadMore={handleOnLoadMore}

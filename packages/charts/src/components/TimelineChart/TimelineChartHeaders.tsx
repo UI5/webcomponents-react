@@ -2,8 +2,8 @@ import { ThemingParameters, useStylesheet } from '@ui5/webcomponents-react-base'
 import type { CSSProperties, ReactElement } from 'react';
 import { useEffect, useState } from 'react';
 import type { ITimelineChartRow } from './types/TimelineChartTypes.js';
-import { DEFAULT_CHART_VERTICAL_COLS, SPACING, TICK_LENGTH, TOLERANCE } from './util/constants.js';
 import { classNames, styleData } from './util/TimelineChart.module.css.js';
+import { DEFAULT_CHART_VERTICAL_COLS, SPACING, TICK_LENGTH, TOLERANCE } from './util/constants.js';
 
 interface TimelineChartRowLabelsProps {
   width: number;
@@ -75,6 +75,7 @@ const TimelineChartColumnLabel = ({
       const newLabelArray = columnLabels
         ? columnLabels
         : Array.from(Array(totalDuration).keys()).map((num) => `${num + start}`);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLabelArray(newLabelArray);
     }
   }, [isDiscrete, columnLabels, start, totalDuration]);
@@ -95,7 +96,7 @@ const TimelineChartColumnLabel = ({
           height: `${halfHeaderHeight}px`,
           lineHeight: `${halfHeaderHeight}px`,
         }}
-      ></div>
+      />
       {isDiscrete ? (
         <div
           className={classNames.columnLabelItems}

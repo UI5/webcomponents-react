@@ -1,5 +1,5 @@
-import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 import { useI18nBundle } from '@ui5/webcomponents-react-base';
+import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 import type { FocusEventHandler, KeyboardEventHandler } from 'react';
 import { useCallback, useEffect } from 'react';
 import { INCLUDES_X } from '../../../i18n/i18n-defaults.js';
@@ -213,7 +213,8 @@ function findFirstFocusableInside(element: HTMLElement) {
  * Init `cellContentTabIndex` if the plugin hook is used.
  */
 function useInstanceBeforeDimensions(instance: TableInstance) {
+  const { dispatch } = instance;
   useEffect(() => {
-    instance.dispatch({ type: 'CELL_CONTENT_TAB_INDEX', payload: -1 });
-  }, [instance.dispatch]);
+    dispatch({ type: 'CELL_CONTENT_TAB_INDEX', payload: -1 });
+  }, [dispatch]);
 }

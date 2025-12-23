@@ -65,10 +65,17 @@ export interface MessageItemPropTypes extends Pick<ListItemCustomPropTypes, 'acc
 const MessageItem = forwardRef<ListItemCustomDomRef, MessageItemPropTypes>((props, ref) => {
   const { titleText, subtitleText, counter, type = ValueState.Negative, children, className, ...rest } = props;
   const [isTitleTextOverflowing, setIsTitleTextIsOverflowing] = useState(false);
-  const [titleTextStr, setTitleTextStr] = useState('');
   const titleTextRef = useRef<HTMLSpanElement>(null);
   const hasDetails = !!(children || isTitleTextOverflowing);
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
+  const titleTextStr = (() => {
+    if (typeof titleText === 'string') {
+      return titleText;
+    } else if (isValidElement<LinkPropTypes>(titleText) && typeof titleText.props.children === 'string') {
+      return titleText.props.children;
+    }
+    return '';
+  })();
 
   useStylesheet(styleData, MessageItem.displayName);
 
@@ -125,14 +132,6 @@ const MessageItem = forwardRef<ListItemCustomDomRef, MessageItemPropTypes>((prop
     };
   }, [hasChildren]);
 
-  useEffect(() => {
-    if (typeof titleText === 'string') {
-      setTitleTextStr(titleText);
-    } else if (isValidElement<LinkPropTypes>(titleText) && typeof titleText.props.children === 'string') {
-      setTitleTextStr(titleText.props.children);
-    }
-  }, [titleText]);
-
   return (
     <ListItemCustom
       onClick={handleListItemClick}
@@ -148,10 +147,7 @@ const MessageItem = forwardRef<ListItemCustomDomRef, MessageItemPropTypes>((prop
         <div className={classNames.iconContainer}>
           <Icon name={getIconNameForType(type as ValueState)} className={classNames.icon} mode={IconMode.Decorative} />
         </div>
-        <FlexBox
-          direction={FlexBoxDirection.Column}
-          style={{ flex: 'auto', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
-        >
+        <FlexBox direction={FlexBoxDirection.Column} className={classNames.titleContainer}>
           {titleText && (
             <span className={classNames.title} ref={titleTextRef}>
               {titleText}

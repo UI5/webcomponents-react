@@ -72,6 +72,7 @@ describe('I18nProvider', () => {
       return (
         <>
           <span>{i18nBundle.getText('PLEASE_WAIT')}</span>
+          {/* eslint-disable-next-line react-hooks/refs */}
           <span data-testid="counter">{renderCounter.current}</span>
         </>
       );

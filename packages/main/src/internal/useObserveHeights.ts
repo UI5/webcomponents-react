@@ -26,6 +26,8 @@ export const useObserveHeights = (
 
   const prevScrollTop = useRef(0);
   const onScroll = useCallback(
+    // ToDo: Check how to properly memoize this callback so it supports React Compiler
+    // eslint-disable-next-line react-hooks/preserve-manual-memoization
     (e) => {
       const scrollDown = prevScrollTop.current <= e.target.scrollTop;
       prevScrollTop.current = e.target.scrollTop;

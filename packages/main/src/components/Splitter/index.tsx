@@ -59,7 +59,7 @@ const Splitter = forwardRef<HTMLDivElement, SplitterPropTypes>((props, ref) => {
   const positionKeys = vertical ? verticalPositionInfo : horizontalPositionInfo;
 
   const [isDragging, setIsDragging] = useState<boolean | string>(false);
-  const [isSiblings, setIsSiblings] = useState(['previousSibling', 'nextSibling']);
+  const isSiblings = isRtl && !vertical ? ['nextSibling', 'previousSibling'] : ['previousSibling', 'nextSibling'];
 
   const animationFrameIdRef = useRef(null);
   const fireOnResize = (prevSibling: HTMLElement, nextSibling: HTMLElement) => {
@@ -281,10 +281,6 @@ const Splitter = forwardRef<HTMLDivElement, SplitterPropTypes>((props, ref) => {
       removeEventListeners();
     };
   }, [isDragging]);
-
-  useEffect(() => {
-    setIsSiblings(isRtl && !vertical ? ['nextSibling', 'previousSibling'] : ['previousSibling', 'nextSibling']);
-  }, [isRtl, vertical]);
 
   const currentTheme = useCurrentTheme();
   const isHighContrast =

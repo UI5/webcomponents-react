@@ -1,7 +1,7 @@
 'use client';
 
-import { getTheme } from '@ui5/webcomponents-base/dist/config/Theme.js';
 import { getScopedVarName } from '@ui5/webcomponents-base/dist/CustomElementsScope.js';
+import { getTheme } from '@ui5/webcomponents-base/dist/config/Theme.js';
 import { attachLanguageChange, detachLanguageChange } from '@ui5/webcomponents-base/dist/locale/languageChange.js';
 import { attachThemeLoaded, detachThemeLoaded } from '@ui5/webcomponents-base/dist/theming/ThemeLoaded.js';
 import { I18nStore, StyleStore, useIsomorphicLayoutEffect, useStylesheet } from '@ui5/webcomponents-react-base';
