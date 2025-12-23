@@ -54,7 +54,7 @@ export const useObserveHeights = (
     if (headerContentRef.current && headerCollapsed !== undefined) {
       setHeaderContentHeight(headerContentRef.current.getBoundingClientRect().height);
     }
-  }, [headerCollapsed, headerContentRef]);
+  }, [headerCollapsed]);
 
   useEffect(() => {
     const page = pageRef.current;
@@ -64,7 +64,7 @@ export const useObserveHeights = (
     return () => {
       page.removeEventListener('scroll', onScroll);
     };
-  }, [onScroll, fixedHeader, preserveHeaderStateOnScroll, pageRef]);
+  }, [onScroll, fixedHeader, preserveHeaderStateOnScroll]);
 
   // top header
   useEffect(() => {
@@ -78,7 +78,7 @@ export const useObserveHeights = (
     return () => {
       headerContentResizeObserver.disconnect();
     };
-  }, [topHeaderRef]);
+  }, []);
 
   // header content
   useEffect(() => {
@@ -95,7 +95,7 @@ export const useObserveHeights = (
     return () => {
       headerContentResizeObserver.disconnect();
     };
-  }, [isIntersecting, fixedHeader, headerContentRef]);
+  }, [isIntersecting, fixedHeader]);
   const totalHeaderHeight = noHeader ? 0 : topHeaderHeight + headerContentHeight;
 
   return { topHeaderHeight, headerContentHeight, totalHeaderHeight, headerCollapsed };
