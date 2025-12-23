@@ -89,7 +89,7 @@ const FilterGroupItem = forwardRef<HTMLDivElement, FilterGroupItemPropTypes & Fi
       if (prevIsListView?.current !== isListView) {
         listViewHasChanged.current = true;
       }
-    }, [isListView]);
+    }, [isListView, prevIsListView]);
 
     const inFB = !isFilterInDialog;
     const withReordering = enableReordering && !withValues && isListView;
@@ -113,7 +113,7 @@ const FilterGroupItem = forwardRef<HTMLDivElement, FilterGroupItemPropTypes & Fi
       if (index === filtersCount - 1) {
         setItemPosition('last');
       }
-    }, [index]);
+    }, [index, filtersCount]);
 
     const handleReorder = (e: Parameters<ButtonPropTypes['onClick']>[0]) => {
       setItemPosition(undefined);
@@ -173,7 +173,7 @@ const FilterGroupItem = forwardRef<HTMLDivElement, FilterGroupItemPropTypes & Fi
       if (listViewHasChanged?.current) {
         listViewHasChanged.current = false;
       }
-    }, [inFB, hidden, hiddenInFilterBar, filterKey, setSelectedKeys, isListView, required]);
+    }, [inFB, hidden, hiddenInFilterBar, filterKey, setSelectedKeys, isListView, required, setRequiredKeys]);
 
     if (!required && (hidden || (inFB && hiddenInFilterBar))) return null;
 
