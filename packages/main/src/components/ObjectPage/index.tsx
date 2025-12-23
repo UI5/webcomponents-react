@@ -146,6 +146,8 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     return () => {
       debouncedOnSectionChange.cancel();
       if (selectionScrollTimeout.current) {
+        // Access .current at cleanup time to clear the actual timeout, not the stale value from mount
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         clearTimeout(selectionScrollTimeout.current);
       }
     };
