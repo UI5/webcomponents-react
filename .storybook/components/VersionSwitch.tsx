@@ -55,11 +55,11 @@ addons.register(ADDON_ID, () => {
       return (
         <>
           <IconButton
-            active
             key={TOOL_ID}
             id={TOOL_ID}
             title="Version Switch"
             style={{ order: -1 }}
+            variant="solid"
             onClick={() => {
               setOpen(true);
             }}

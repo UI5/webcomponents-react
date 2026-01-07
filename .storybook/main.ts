@@ -50,7 +50,6 @@ const storyList: StoriesEntry[] = isChromatic
     ];
 
 const addons = [
-  './addons/version-switch',
   {
     name: '@storybook/addon-docs',
     options: {
