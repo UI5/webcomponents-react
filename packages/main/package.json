@@ -740,6 +740,18 @@
       "types": "./dist/webComponents/UserSettingsAccountView/index.d.ts",
       "default": "./dist/webComponents/UserSettingsAccountView/index.js"
     },
+    "./UserSettingsAppearanceView": {
+      "types": "./dist/webComponents/UserSettingsAppearanceView/index.d.ts",
+      "default": "./dist/webComponents/UserSettingsAppearanceView/index.js"
+    },
+    "./UserSettingsAppearanceViewGroup": {
+      "types": "./dist/webComponents/UserSettingsAppearanceViewGroup/index.d.ts",
+      "default": "./dist/webComponents/UserSettingsAppearanceViewGroup/index.js"
+    },
+    "./UserSettingsAppearanceViewItem": {
+      "types": "./dist/webComponents/UserSettingsAppearanceViewItem/index.d.ts",
+      "default": "./dist/webComponents/UserSettingsAppearanceViewItem/index.js"
+    },
     "./UserSettingsDialog": {
       "types": "./dist/webComponents/UserSettingsDialog/index.d.ts",
       "default": "./dist/webComponents/UserSettingsDialog/index.js"

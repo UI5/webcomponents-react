@@ -3,11 +3,14 @@ import { ArgTypes, Canvas, Description, Markdown, Meta } from '@storybook/addon-
 import SubcomponentsSection from '@sb/docs/SubcomponentsSection.md?raw';
 import { UserSettingsItem } from '../UserSettingsItem/index';
 import { UserSettingsView } from '../UserSettingsView/index';
+import { UserSettingsAppearanceView } from '../UserSettingsAppearanceView/index';
+import { UserSettingsAppearanceViewGroup } from '../UserSettingsAppearanceViewGroup/index';
+import { UserSettingsAppearanceViewItem } from '../UserSettingsAppearanceViewItem/index';
 import * as ComponentStories from './UserSettingsDialog.stories';
 
 <Meta of={ComponentStories} />
 
-<DocsHeader of={ComponentStories} experimental mergeSubComponents subComponents={['UserSettingsItem', 'UserSettingsView']} />
+<DocsHeader of={ComponentStories} experimental mergeSubComponents subComponents={['UserSettingsItem', 'UserSettingsView', "UserSettingsAppearanceView","UserSettingsAppearanceViewGroup","UserSettingsAppearanceViewItem"]} />
 
 <br />
 
@@ -30,5 +33,20 @@ import * as ComponentStories from './UserSettingsDialog.stories';
 
 <Description of={UserSettingsView} />
 <ArgTypes of={UserSettingsView} />
+
+## UserSettingsAppearanceView
+
+<Description of={UserSettingsAppearanceView} />
+<ArgTypes of={UserSettingsAppearanceView} />
+
+## UserSettingsAppearanceViewGroup
+
+<Description of={UserSettingsAppearanceViewGroup} />
+<ArgTypes of={UserSettingsAppearanceViewGroup} />
+
+## UserSettingsAppearanceViewItem
+
+<Description of={UserSettingsAppearanceViewItem} />
+<ArgTypes of={UserSettingsAppearanceViewItem} />
 
 <Footer />

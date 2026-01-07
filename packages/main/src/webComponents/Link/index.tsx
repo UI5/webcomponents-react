@@ -170,6 +170,15 @@ interface LinkPropTypes extends LinkAttributes, Omit<CommonProps, keyof LinkAttr
    * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
+
+  /**
+   * Defines the text of the component.
+   *
+   * **Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
+   *
+   * __Supported Node Type/s:__ `Array<Node>`
+   */
+  children?: ReactNode | ReactNode[];
   /**
    * Fired when the component is triggered either with a mouse/tap
    * or by using the Enter key.

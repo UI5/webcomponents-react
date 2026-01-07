@@ -45,6 +45,18 @@ interface SearchAttributes {
   placeholder?: string | undefined;
 
   /**
+   * Defines the value of the component:
+   *
+   * Applications are responsible for setting the correct scope value.
+   *
+   * **Note:** If the given value does not match any existing scopes,
+   * no scope will be selected and the SearchField scope component will be displayed as empty.
+   *
+   * **Note:** Available since [v2.18.0](https://github.com/UI5/webcomponents/releases/tag/v2.18.0) of **@ui5/webcomponents-fiori**.
+   */
+  scopeValue?: string | undefined;
+
+  /**
    * Defines whether the clear icon of the search will be shown.
    * @default false
    */
@@ -221,7 +233,7 @@ interface SearchPropTypes
  */
 const Search = withWebComponent<SearchPropTypes, SearchDomRef>(
   'ui5-search',
-  ['accessibleDescription', 'accessibleName', 'placeholder', 'value'],
+  ['accessibleDescription', 'accessibleName', 'placeholder', 'scopeValue', 'value'],
   ['loading', 'noTypeahead', 'open', 'showClearIcon'],
   ['action', 'filterButton', 'illustration', 'messageArea', 'scopes'],
   ['close', 'input', 'open', 'scope-change', 'search'],

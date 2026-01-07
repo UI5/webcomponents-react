@@ -3578,6 +3578,21 @@
                 "name": "SearchField",
                 "module": "dist/SearchField.js"
               }
+            },
+            {
+              "kind": "field",
+              "name": "scopeValue",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the value of the component:\n\nApplications are responsible for setting the correct scope value.\n\n**Note:** If the given value does not match any existing scopes,\nno scope will be selected and the SearchField scope component will be displayed as empty.",
+              "privacy": "public",
+              "default": "\"\"",
+              "_ui5since": "2.18.0",
+              "inheritedFrom": {
+                "name": "SearchField",
+                "module": "dist/SearchField.js"
+              }
             }
           ],
           "events": [
@@ -3751,6 +3766,19 @@
               "name": "accessible-description",
               "default": "undefined",
               "fieldName": "accessibleDescription",
+              "type": {
+                "text": "string | undefined"
+              },
+              "inheritedFrom": {
+                "name": "SearchField",
+                "module": "dist/SearchField.js"
+              }
+            },
+            {
+              "description": "Defines the value of the component:\n\nApplications are responsible for setting the correct scope value.\n\n**Note:** If the given value does not match any existing scopes,\nno scope will be selected and the SearchField scope component will be displayed as empty.",
+              "name": "scope-value",
+              "default": "\"\"",
+              "fieldName": "scopeValue",
               "type": {
                 "text": "string | undefined"
               },
@@ -4411,12 +4439,12 @@
             },
             {
               "kind": "field",
-              "name": "selected",
+              "name": "value",
               "type": {
-                "text": "boolean"
+                "text": "string | undefined"
               },
-              "description": "Indicates whether the item is selected",
-              "default": "false",
+              "description": "Defines the value of the `ui5-search-scope`.\nUsed for selection in Search scopes.",
+              "default": "undefined",
               "privacy": "public"
             }
           ],
@@ -4431,12 +4459,12 @@
               }
             },
             {
-              "description": "Indicates whether the item is selected",
-              "name": "selected",
-              "default": "false",
-              "fieldName": "selected",
+              "description": "Defines the value of the `ui5-search-scope`.\nUsed for selection in Search scopes.",
+              "name": "value",
+              "default": "undefined",
+              "fieldName": "value",
               "type": {
-                "text": "boolean"
+                "text": "string | undefined"
               }
             }
           ],
@@ -5644,6 +5672,21 @@
                 "name": "SearchField",
                 "module": "dist/SearchField.js"
               }
+            },
+            {
+              "kind": "field",
+              "name": "scopeValue",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the value of the component:\n\nApplications are responsible for setting the correct scope value.\n\n**Note:** If the given value does not match any existing scopes,\nno scope will be selected and the SearchField scope component will be displayed as empty.",
+              "privacy": "public",
+              "default": "\"\"",
+              "_ui5since": "2.18.0",
+              "inheritedFrom": {
+                "name": "SearchField",
+                "module": "dist/SearchField.js"
+              }
             }
           ],
           "attributes": [
@@ -5752,6 +5795,19 @@
               "name": "accessible-description",
               "default": "undefined",
               "fieldName": "accessibleDescription",
+              "type": {
+                "text": "string | undefined"
+              },
+              "inheritedFrom": {
+                "name": "SearchField",
+                "module": "dist/SearchField.js"
+              }
+            },
+            {
+              "description": "Defines the value of the component:\n\nApplications are responsible for setting the correct scope value.\n\n**Note:** If the given value does not match any existing scopes,\nno scope will be selected and the SearchField scope component will be displayed as empty.",
+              "name": "scope-value",
+              "default": "\"\"",
+              "fieldName": "scopeValue",
               "type": {
                 "text": "string | undefined"
               },
@@ -10052,6 +10108,715 @@
           "declaration": {
             "name": "UserSettingsAccountView",
             "module": "dist/UserSettingsAccountView.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/UserSettingsAppearanceView.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-user-settings-appearance-view` represents a view displayed in the `ui5-user-settings-item`.\n\n### ES6 Module Import\n`import \"@ui5/webcomponents-fiori/dist/UserSettingsAppearanceView.js\";`",
+          "name": "UserSettingsAppearanceView",
+          "slots": [
+            {
+              "name": "default",
+              "description": "Defines the items of the component.",
+              "_ui5propertyName": "items",
+              "_ui5type": {
+                "text": "Array<UserSettingsAppearanceViewGroup | UserSettingsAppearanceViewItem>"
+              },
+              "_ui5privacy": "public",
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            },
+            {
+              "name": "additionalContent",
+              "description": "Defines additional content displayed below the items list.",
+              "_ui5type": {
+                "text": "Array<HTMLElement> | undefined"
+              },
+              "_ui5privacy": "public"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the title text of the user settings view.",
+              "privacy": "public",
+              "default": "undefined",
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the view is selected. There can be just one selected view at a time.",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "secondary",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates whether the view is secondary. It is relevant only if the view is used in `pages` slot of `ui5-user-settings-item`\nand controls the visibility of the back button.",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "selection-change",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<UserSettingsAppearanceViewItemSelectEventDetail>",
+                "references": [
+                  {
+                    "name": "UserSettingsAppearanceViewItemSelectEventDetail",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/UserSettingsAppearanceView.js"
+                  }
+                ]
+              },
+              "description": "Fired when an item is selected.",
+              "_ui5Cancelable": true,
+              "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": false,
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "UserSettingsAppearanceViewItem",
+                    "references": [
+                      {
+                        "name": "UserSettingsAppearanceViewItem",
+                        "package": "@ui5/webcomponents-fiori",
+                        "module": "dist/UserSettingsAppearanceViewItem.js"
+                      }
+                    ]
+                  },
+                  "name": "item",
+                  "_ui5privacy": "public",
+                  "description": "The selected `user settings appearance view item`."
+                }
+              ]
+            }
+          ],
+          "superclass": {
+            "name": "UserSettingsView",
+            "package": "@ui5/webcomponents-fiori",
+            "module": "dist/UserSettingsView.js"
+          },
+          "tagName": "ui5-user-settings-appearance-view",
+          "customElement": true,
+          "_ui5experimental": true,
+          "_ui5since": "2.17.0",
+          "_ui5privacy": "public",
+          "attributes": [
+            {
+              "description": "Defines the title text of the user settings view.",
+              "name": "text",
+              "default": "undefined",
+              "fieldName": "text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            },
+            {
+              "description": "Defines whether the view is selected. There can be just one selected view at a time.",
+              "name": "selected",
+              "default": "false",
+              "fieldName": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            },
+            {
+              "description": "Indicates whether the view is secondary. It is relevant only if the view is used in `pages` slot of `ui5-user-settings-item`\nand controls the visibility of the back button.",
+              "name": "secondary",
+              "default": "false",
+              "fieldName": "secondary",
+              "type": {
+                "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "UserSettingsView",
+                "module": "dist/UserSettingsView.js"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "UserSettingsAppearanceView",
+            "module": "dist/UserSettingsAppearanceView.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-user-settings-appearance-view",
+          "declaration": {
+            "name": "UserSettingsAppearanceView",
+            "module": "dist/UserSettingsAppearanceView.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/UserSettingsAppearanceViewGroup.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-user-settings-appearance-view-group` is a special list item group used to group appearance view items.\n\nThis is the item to use inside a `ui5-user-settings-appearance-view`.\n\n### ES6 Module Import\n`import \"@ui5/webcomponents-fiori/dist/UserSettingsAppearanceViewGroup.js\";`",
+          "name": "UserSettingsAppearanceViewGroup",
+          "slots": [
+            {
+              "name": "default",
+              "description": "Defines the items of the <code>ui5-user-settings-appearance-view-group</code>.",
+              "_ui5propertyName": "items",
+              "_ui5type": {
+                "text": "Array<UserSettingsAppearanceViewItem>",
+                "references": [
+                  {
+                    "name": "UserSettingsAppearanceViewItem",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/UserSettingsAppearanceViewItem.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
+            },
+            {
+              "name": "header",
+              "description": "Defines the header of the component.\n\n**Note:** Using this slot, the default header text of group and the value of `headerText` property will be overwritten.",
+              "_ui5type": {
+                "text": "Array<ListItemBase>",
+                "references": [
+                  {
+                    "name": "ListItemBase",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemBase.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
+            }
+          ],
+          "superclass": {
+            "name": "ListItemGroup",
+            "package": "@ui5/webcomponents",
+            "module": "dist/ListItemGroup.js"
+          },
+          "tagName": "ui5-user-settings-appearance-view-group",
+          "customElement": true,
+          "_ui5experimental": true,
+          "_ui5since": "2.17.0",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "name": "headerText",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "privacy": "public",
+              "default": "undefined"
+            },
+            {
+              "kind": "field",
+              "name": "headerAccessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible name of the header.",
+              "privacy": "public",
+              "default": "undefined"
+            },
+            {
+              "kind": "field",
+              "name": "wrappingType",
+              "type": {
+                "text": "WrappingType",
+                "references": [
+                  {
+                    "name": "WrappingType",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/WrappingType.js"
+                  }
+                ]
+              },
+              "default": "\"None\"",
+              "description": "Defines if the text of the component should wrap when it's too long.\nWhen set to \"Normal\", the content (title, description) will be wrapped\nusing the `ui5-expandable-text` component.<br/>\n\nThe text can wrap up to 100 characters on small screens (size S) and\nup to 300 characters on larger screens (size M and above). When text exceeds\nthese limits, it truncates with an ellipsis followed by a text expansion trigger.\n\nAvailable options are:\n- `None` (default) - The text will truncate with an ellipsis.\n- `Normal` - The text will wrap (without truncation).",
+              "privacy": "public",
+              "_ui5since": "2.15.0"
+            }
+          ],
+          "events": [
+            {
+              "name": "move-over",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ListItemGroupMoveEventDetail>",
+                "references": [
+                  {
+                    "name": "ListItemGroupMoveEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemGroup.js"
+                  }
+                ]
+              },
+              "description": "Fired when a movable list item is moved over a potential drop target during a dragging operation.\n\nIf the new position is valid, prevent the default action of the event using `preventDefault()`.",
+              "_ui5Cancelable": true,
+              "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.1.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "object"
+                  },
+                  "name": "source",
+                  "_ui5privacy": "public",
+                  "description": "Contains information about the moved element under `element` property."
+                },
+                {
+                  "type": {
+                    "text": "object"
+                  },
+                  "name": "destination",
+                  "_ui5privacy": "public",
+                  "description": "Contains information about the destination of the moved element. Has `element` and `placement` properties."
+                }
+              ]
+            },
+            {
+              "name": "move",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ListItemGroupMoveEventDetail>",
+                "references": [
+                  {
+                    "name": "ListItemGroupMoveEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemGroup.js"
+                  }
+                ]
+              },
+              "description": "Fired when a movable list item is dropped onto a drop target.\n\n**Note:** `move` event is fired only if there was a preceding `move-over` with prevented default action.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.1.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "object"
+                  },
+                  "name": "source",
+                  "_ui5privacy": "public",
+                  "description": "Contains information about the moved element under `element` property."
+                },
+                {
+                  "type": {
+                    "text": "object"
+                  },
+                  "name": "destination",
+                  "_ui5privacy": "public",
+                  "description": "Contains information about the destination of the moved element. Has `element` and `placement` properties."
+                }
+              ]
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "Used to style the header item of the group",
+              "name": "header"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "UserSettingsAppearanceViewGroup",
+            "module": "dist/UserSettingsAppearanceViewGroup.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-user-settings-appearance-view-group",
+          "declaration": {
+            "name": "UserSettingsAppearanceViewGroup",
+            "module": "dist/UserSettingsAppearanceViewGroup.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/UserSettingsAppearanceViewItem.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-user-settings-appearance-view-item` represents a theme/appearance option item\nwithin the `ui5-user-settings-appearance-view`.\n\nIt displays a theme with an avatar icon, text label, and can be selected.\n\n### ES6 Module Import\n`import \"@ui5/webcomponents-fiori/dist/UserSettingsAppearanceViewItem.js\";`",
+          "name": "UserSettingsAppearanceViewItem",
+          "members": [
+            {
+              "kind": "field",
+              "name": "itemKey",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Defines the unique identifier of the item.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "text",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Defines the text label displayed for the appearance item.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"product\"",
+              "description": "Defines the icon of the appearance item.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "colorScheme",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Accent7\"",
+              "description": "Defines the color scheme of the avatar.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "movable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the item is movable.",
+              "privacy": "public",
+              "_ui5since": "2.0.0",
+              "inheritedFrom": {
+                "name": "ListItemBase",
+                "module": "dist/ListItemBase.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the text alternative of the component.\n\n**Note**: If not provided a default text alternative will be set, if present.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "1.0.0-rc.15",
+              "inheritedFrom": {
+                "name": "ListItem",
+                "module": "dist/ListItem.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "ListItemType",
+                "references": [
+                  {
+                    "name": "ListItemType",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/ListItemType.js"
+                  }
+                ]
+              },
+              "default": "\"Active\"",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive` and `Detail` - will not.",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "ListItem",
+                "module": "dist/ListItem.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "accessibilityAttributes",
+              "type": {
+                "text": "ListItemAccessibilityAttributes",
+                "references": [
+                  {
+                    "name": "ListItemAccessibilityAttributes",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItem.js"
+                  }
+                ]
+              },
+              "default": "{}",
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **ariaSetsize**: Defines the number of items in the current set  when not all items in the set are present in the DOM.\n**Note:** The value is an integer reflecting the number of items in the complete set. If the size of the entire set is unknown, set `-1`.\n\n\t- **ariaPosinset**: Defines an element's number or position in the current set when not all items are present in the DOM.\n\t**Note:** The value is an integer greater than or equal to 1, and less than or equal to the size of the set when that size is known.",
+              "privacy": "public",
+              "_ui5since": "1.15.0",
+              "inheritedFrom": {
+                "name": "ListItem",
+                "module": "dist/ListItem.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "navigated",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "The navigated state of the list item.\nIf set to `true`, a navigation indicator is displayed at the end of the list item.",
+              "privacy": "public",
+              "_ui5since": "1.10.0",
+              "inheritedFrom": {
+                "name": "ListItem",
+                "module": "dist/ListItem.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "tooltip",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the text of the tooltip that would be displayed for the list item.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "1.23.0",
+              "inheritedFrom": {
+                "name": "ListItem",
+                "module": "dist/ListItem.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "highlight",
+              "type": {
+                "text": "Highlight",
+                "references": [
+                  {
+                    "name": "Highlight",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/Highlight.js"
+                  }
+                ]
+              },
+              "default": "\"None\"",
+              "description": "Defines the highlight state of the list items.\nAvailable options are: `\"None\"` (by default), `\"Positive\"`, `\"Critical\"`, `\"Information\"` and `\"Negative\"`.",
+              "privacy": "public",
+              "_ui5since": "1.24",
+              "inheritedFrom": {
+                "name": "ListItem",
+                "module": "dist/ListItem.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines the selected state of the component.",
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "ListItemBase",
+                "module": "dist/ListItemBase.js"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines the unique identifier of the item.",
+              "name": "item-key",
+              "default": "\"\"",
+              "fieldName": "itemKey",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Defines the text label displayed for the appearance item.",
+              "name": "text",
+              "default": "\"\"",
+              "fieldName": "text",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Defines the icon of the appearance item.",
+              "name": "icon",
+              "default": "\"product\"",
+              "fieldName": "icon",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Defines the color scheme of the avatar.",
+              "name": "color-scheme",
+              "default": "\"Accent7\"",
+              "fieldName": "colorScheme",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "ListItemCustom",
+            "package": "@ui5/webcomponents",
+            "module": "dist/ListItemCustom.js"
+          },
+          "tagName": "ui5-user-settings-appearance-view-item",
+          "customElement": true,
+          "_ui5experimental": true,
+          "_ui5since": "2.17.0",
+          "_ui5privacy": "public",
+          "slots": [
+            {
+              "description": "Defines the content of the component.",
+              "name": "default",
+              "_ui5privacy": "public",
+              "_ui5type": {
+                "text": "Array<Node>"
+              }
+            },
+            {
+              "name": "deleteButton",
+              "description": "Defines the delete button, displayed in \"Delete\" mode.\n**Note:** While the slot allows custom buttons, to match\ndesign guidelines, please use the `ui5-button` component.\n**Note:** When the slot is not present, a built-in delete button will be displayed.",
+              "_ui5since": "1.9.0",
+              "_ui5type": {
+                "text": "Array<IButton>",
+                "references": [
+                  {
+                    "name": "IButton",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/Button.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public",
+              "inheritedFrom": {
+                "name": "ListItem",
+                "module": "dist/ListItem.js"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "detail-click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the user clicks on the detail button when type is `Detail`.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "inheritedFrom": {
+                "name": "ListItem",
+                "module": "dist/ListItem.js"
+              }
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "Used to style the main li tag of the list item",
+              "name": "native-li"
+            },
+            {
+              "description": "Used to style the content area of the list item",
+              "name": "content"
+            },
+            {
+              "description": "Used to style the button rendered when the list item is of type detail",
+              "name": "detail-button"
+            },
+            {
+              "description": "Used to style the button rendered when the list item is in delete mode",
+              "name": "delete-button"
+            },
+            {
+              "description": "Used to style the radio button rendered when the list item is in single selection mode",
+              "name": "radio"
+            },
+            {
+              "description": "Used to style the checkbox rendered when the list item is in multiple selection mode",
+              "name": "checkbox"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "UserSettingsAppearanceViewItem",
+            "module": "dist/UserSettingsAppearanceViewItem.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-user-settings-appearance-view-item",
+          "declaration": {
+            "name": "UserSettingsAppearanceViewItem",
+            "module": "dist/UserSettingsAppearanceViewItem.js"
           }
         }
       ]
