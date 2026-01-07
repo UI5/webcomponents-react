@@ -386,8 +386,8 @@ const FilterBar = forwardRef<HTMLDivElement, FilterBarPropTypes>((props, ref) =>
             <FilterGroupItem data-with-toolbar={!hideToolbar} filterKey={`${uniqueId}-search`}>
               <div className={classNames.searchContainer}>
                 {cloneElement(search, {
-                  placeholder: searchText,
-                  noTypeahead: true,
+                  placeholder: search.props.placeholder ?? searchText,
+                  noTypeahead: search.props.noTypeahead ?? true,
                   showClearIcon: true,
                   type: InputType.Search,
                   icon: <Icon name={searchIcon} />,
