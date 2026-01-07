@@ -1,0 +1,65 @@
+import{j as e}from"./iframe-DZzGW3BN.js";import{useMDXComponents as m}from"./index-4a2WG_Ci.js";import{A as p}from"./ArgTypesWithNote-CLCCZJe9.js";import{C as c}from"./ControlsWithNote-J7aujsrk.js";import{D as l}from"./DocsHeader-CUglE8Ik.js";import{F as d}from"./CommandsAndQueries-agOrjqHb.js";import{M as x,C as r,a as u,D as h}from"./blocks-CBLhE6Mj.js";import{C as t,D as i,W as k}from"./Tokenizer.stories-NxlodnrK.js";import{T as s}from"./index-ZClHHRUi.js";import{S as f}from"./SubcomponentsSection-BVy4lpQe.js";import"./preload-helper-PPVm8Dsz.js";import"./index-CwFc8wWn.js";import"./information-BknITroB.js";import"./sys-enter-2-KPnKgmjd.js";import"./alert-mneIjgbe.js";import"./Tag-DsKJkF-r.js";import"./index-d1jeh3JQ.js";import"./index-Dq5fA6-V.js";import"./Link-S_PR-7tK.js";import"./copy-v1vkht8L.js";import"./copy-Dn2hDQ0W.js";import"./GitHub-Mark-MwcdGwIF.js";import"./TableOfContent-mBBS85_5.js";import"./index-DRP5oWUe.js";import"./index-kAqP9TvQ.js";import"./index-KWsyOko9.js";import"./index-Cwa4PueL.js";import"./index-DDMDh9Sd.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-BsBnjZtI.js";import"./addCustomCSSWithScoping-63LVGehW.js";import"./Token-Bd6GT3me.js";import"./ScrollEnablement-Dlejz-Cm.js";import"./animate-JylhYHXj.js";import"./ListItemStandard-BSpNUPFr.js";import"./ResponsivePopoverCommon.css-BNCzU2w3.js";import"./Suggestions.css-Bxrtjpe4.js";function a(o){const n={code:"code",h2:"h2",pre:"pre",...m(),...o.components};return e.jsxs(e.Fragment,{children:[e.jsx(x,{of:t}),`
+`,e.jsx(l,{of:t,subComponents:["Token"],experimental:!0}),`
+`,e.jsx("br",{}),`
+`,e.jsx(n.h2,{id:"example",children:"Example"}),`
+`,e.jsx(r,{of:i}),`
+`,e.jsx(n.h2,{id:"properties",children:"Properties"}),`
+`,e.jsx(c,{of:i}),`
+`,e.jsx(n.h2,{id:"more-examples",children:"More examples"}),`
+`,e.jsx(n.h2,{id:"tokenizer-with-selection--delete-logic",children:"Tokenizer with selection & delete logic"}),`
+`,e.jsx(r,{of:k}),`
+`,e.jsxs("details",{children:[e.jsx("summary",{children:"Show Code"}),e.jsx(n.pre,{children:e.jsx(n.code,{className:"language-tsx",children:`function TokenizerComponent(props) {
+  const [countries, setCountries] = useState([
+    'Andorra',
+    'Bulgaria',
+    'Canada',
+    'Denmark',
+    'Estonia',
+    'Fiji',
+    'Ghana',
+    'India',
+    'Japan',
+    'Kenya',
+    'Luxembourg',
+    'Mexico',
+    'Nepal',
+    'Qatar',
+    'Uganda'
+  ]);
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+  const handleTokenDelete: TokenizerPropTypes['onTokenDelete'] = (e) => {
+    const { tokens } = e.detail;
+    if (tokens) {
+      const tokensToDelete = tokens.map((token) => token.text);
+      setCountries((prev) => prev.filter((country) => !tokensToDelete.includes(country)));
+      setSelectedCountries([]);
+    }
+  };
+  const handleSelectionChange: TokenizerPropTypes['onSelectionChange'] = (e) => {
+    const { tokens } = e.detail;
+    if (tokens) {
+      const selectedTokens = tokens.map((token) => token.text);
+      setSelectedCountries(selectedTokens);
+    }
+  };
+  return (
+    <>
+      <Tokenizer {...props} onTokenDelete={handleTokenDelete} onSelectionChange={handleSelectionChange}>
+        {countries.map((country) => (
+          <Token key={country} text={country} />
+        ))}
+      </Tokenizer>
+      <br />
+      <div style={{ display: 'flex', gap: '0.2rem' }}>
+        <Label showColon>Selected countries</Label>
+        <Text>{selectedCountries.join(', ')}</Text>
+      </div>
+    </>
+  );
+}
+`})})]}),`
+`,e.jsx(u,{children:f}),`
+`,e.jsx(n.h2,{id:"token",children:"Token"}),`
+`,e.jsx(h,{of:s}),`
+`,e.jsx(p,{metaOf:t,of:s}),`
+`,e.jsx(d,{})]})}function ne(o={}){const{wrapper:n}={...m(),...o.components};return n?e.jsx(n,{...o,children:e.jsx(a,{...o})}):a(o)}export{ne as default};
