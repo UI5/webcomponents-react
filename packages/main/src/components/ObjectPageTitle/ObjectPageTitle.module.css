@@ -48,7 +48,6 @@
 
 .title {
   flex-shrink: 1;
-  min-width: 3rem;
   overflow-x: hidden;
   font-family: var(--sapObjectHeader_Title_FontFamily);
   color: var(--sapObjectHeader_Title_TextColor);
@@ -123,20 +122,22 @@
   justify-content: flex-end;
   align-self: flex-start;
 
-  > [ui5-toolbar] {
-    padding: 0;
-    border: none;
+  /*ToDo: remove after legacy toolbar support isn't required anymore*/
+  &:has([data-in-object-page-title]) {
+    min-width: 2.125rem;
   }
-
-  > [ui5-toolbar]:not(:first-child):last-child {
-    flex: 0 1;
-  }
-
   > [data-component-name='Toolbar']:not(:first-child):last-child {
     width: unset;
     flex-shrink: 0;
   }
 
+  > [ui5-toolbar] {
+    padding: 0;
+    border: none;
+  }
+  > [ui5-toolbar]:not(:first-child):last-child {
+    flex: 0 1;
+  }
   > [ui5-toolbar]:only-child {
     flex-grow: 1;
     flex-shrink: 0;
