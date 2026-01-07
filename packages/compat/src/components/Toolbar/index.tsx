@@ -212,7 +212,9 @@ const Toolbar = forwardRef<HTMLDivElement, ToolbarPropTypes>((props, ref) => {
       return (
         <div
           ref={(node) => {
-            controlMetaData.current[index].ref.current = node;
+            if (controlMetaData.current[index]) {
+              controlMetaData.current[index].ref.current = node;
+            }
           }}
           key={index}
           className={classNames.childContainer}
