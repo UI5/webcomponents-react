@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.18.0](https://github.com/UI5/webcomponents-react/compare/v2.17.0...v2.18.0) (2026-01-07)
+
+### Bug Fixes
+
+- **deps:** update dependency dedent to v1.7.1 ([#8042](https://github.com/UI5/webcomponents-react/issues/8042)) ([03df64b](https://github.com/UI5/webcomponents-react/commit/03df64bf8ceaab2bd5980b07e99c15f7c0314a5a))
+
 # [2.17.0](https://github.com/UI5/webcomponents-react/compare/v2.16.0...v2.17.0) (2025-12-08)
 
 ### Bug Fixes

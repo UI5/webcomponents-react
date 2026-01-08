@@ -6,15 +6,16 @@ import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 interface SearchScopeAttributes {
   /**
-   * Indicates whether the item is selected
-   * @default false
-   */
-  selected?: boolean;
-
-  /**
    * Defines the text of the component.
    */
   text?: string;
+
+  /**
+   * Defines the value of the `SearchScope`.
+   * Used for selection in Search scopes.
+   * @default undefined
+   */
+  value?: string | undefined;
 }
 
 interface SearchScopeDomRef extends Required<SearchScopeAttributes>, Ui5DomRef {}
@@ -32,8 +33,8 @@ interface SearchScopePropTypes extends SearchScopeAttributes, Omit<CommonProps, 
  */
 const SearchScope = withWebComponent<SearchScopePropTypes, SearchScopeDomRef>(
   'ui5-search-scope',
-  ['text'],
-  ['selected'],
+  ['text', 'value'],
+  [],
   [],
   [],
 );

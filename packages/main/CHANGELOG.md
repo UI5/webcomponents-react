@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.18.0](https://github.com/UI5/webcomponents-react/compare/v2.17.0...v2.18.0) (2026-01-07)
+
+### Bug Fixes
+
+- **AnalyticalTable:** adjust `NoDataComponent` height to "Auto" mode height ([#8047](https://github.com/UI5/webcomponents-react/issues/8047)) ([1d7bad7](https://github.com/UI5/webcomponents-react/commit/1d7bad72a7196416488fcdb131d2a712793ecfec)), closes [#8046](https://github.com/UI5/webcomponents-react/issues/8046)
+- **deps:** update dependency @tanstack/react-virtual to v3.13.13 ([#8012](https://github.com/UI5/webcomponents-react/issues/8012)) ([0546b3f](https://github.com/UI5/webcomponents-react/commit/0546b3f6dc5c3d31162f91544eb58cf4b4af11f9))
+- **deps:** update dependency @tanstack/react-virtual to v3.13.17 ([#8062](https://github.com/UI5/webcomponents-react/issues/8062)) ([601c823](https://github.com/UI5/webcomponents-react/commit/601c823a815848cdc82227af5dd58c706cd805ca))
+- **Toolbar - compat:** support React version >= 19.2 & StrictMode ([#8073](https://github.com/UI5/webcomponents-react/issues/8073)) ([763e091](https://github.com/UI5/webcomponents-react/commit/763e0914218f7dfc586f8b250219aac75f4241c2)), closes [#8063](https://github.com/UI5/webcomponents-react/issues/8063)
+
+### Features
+
+- **FilterBar:** allow customizing search field `placeholder` and `noTypeahead` props ([#8074](https://github.com/UI5/webcomponents-react/issues/8074)) ([1b367ce](https://github.com/UI5/webcomponents-react/commit/1b367ce88cb97eb8757205d5d9112fc71fa7d31f)), closes [#8068](https://github.com/UI5/webcomponents-react/issues/8068)
+- update to UI5 Web Components v2.18.0 ([#8075](https://github.com/UI5/webcomponents-react/issues/8075)) ([e01d461](https://github.com/UI5/webcomponents-react/commit/e01d461851db0bfe8b550cdd667565402d902197))
+
 # [2.17.0](https://github.com/UI5/webcomponents-react/compare/v2.16.0...v2.17.0) (2025-12-08)
 
 ### Bug Fixes

@@ -1,8 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import actionSettingsIcon from '@ui5/webcomponents-icons/dist/action-settings.js';
 import { useEffect, useRef, useState } from 'react';
+import { Switch } from '../Switch/index.js';
+import { UserSettingsAppearanceView } from '../UserSettingsAppearanceView/index.js';
+import { UserSettingsAppearanceViewGroup } from '../UserSettingsAppearanceViewGroup/index.js';
+import { UserSettingsAppearanceViewItem } from '../UserSettingsAppearanceViewItem/index.js';
 import { UserSettingsDialog } from './index.js';
-import type { UserMenuDomRef, UserMenuPropTypes } from '@ui5/webcomponents-react';
 import {
   Avatar,
   Button,
@@ -11,8 +14,6 @@ import {
   Icon,
   Text,
   Label,
-  List,
-  ListItemStandard,
   Panel,
   ShellBar,
   UserMenu,
@@ -24,6 +25,7 @@ import {
   Title,
   RadioButton,
 } from '@ui5/webcomponents-react';
+import type { UserMenuDomRef, UserMenuPropTypes } from '@ui5/webcomponents-react';
 
 const meta = {
   title: 'Modals & Popovers / UserSettingsDialog',
@@ -141,26 +143,50 @@ export const Default: Story = {
             }
           />
           <UserSettingsItem icon="palette" text="Appearance" tooltip="Appearance" headerText="Appearance">
-            <UserSettingsView text="Themes">
-              <List separators="Inner">
-                <ListItemStandard icon="palette" text="SAP Morning Horizon" />
-                <ListItemStandard icon="palette" text="SAP Evening Horizon" />
-                <ListItemStandard icon="palette" text="SAP High Contrast Black (SAP Horizon)" />
-                <ListItemStandard icon="palette" text="SAP High Contrast White (SAP Horizon)" />
-              </List>
-              <Button className="save-btn" design="Emphasized">
-                Save
-              </Button>
-            </UserSettingsView>
-            <UserSettingsView text="Display settings">
-              <CheckBox checked text="Optimized for Touch Input" />
-              <Panel fixed>
-                <Label>
-                  Increases the size and spacing of controls to allow you to interact with them more easily using your
-                  fingertip. This is useful for hybrid devices that combine touch and mouse events.
-                </Label>
-              </Panel>
-            </UserSettingsView>
+            <UserSettingsAppearanceView
+              text="Themes"
+              additionalContent={
+                <div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '0.5rem',
+                      width: '100%',
+                    }}
+                  >
+                    <Text>Optimize for Touch Input</Text>
+                    <Switch />
+                  </div>
+
+                  <Text
+                    style={{
+                      display: 'block',
+                      color: 'var(--sapContent_LabelColor)',
+                      fontSize: 'var(--sapFontSmallSize)',
+                    }}
+                  >
+                    Increases the size and spacing of controls to allow you to interact with them more easily using your
+                    fingertip. This is useful for hybrid devices that combine touch and mouse events.
+                  </Text>
+                </div>
+              }
+            >
+              <UserSettingsAppearanceViewGroup headerText="SAP Horizon">
+                <UserSettingsAppearanceViewItem itemKey="sap_horizon" text="SAP Morning Horizon" />
+                <UserSettingsAppearanceViewItem itemKey="sap_horizon_dark" text="SAP Evening Horizon" />
+                <UserSettingsAppearanceViewItem itemKey="sap_horizon_hcb" text="SAP Horizon High Contrast Black" />
+                <UserSettingsAppearanceViewItem itemKey="sap_horizon_hcw" text="SAP Horizon High Contrast White" />
+              </UserSettingsAppearanceViewGroup>
+
+              <UserSettingsAppearanceViewGroup headerText="SAP Quartz">
+                <UserSettingsAppearanceViewItem itemKey="sap_fiori_3" text="SAP Quartz Light" />
+                <UserSettingsAppearanceViewItem itemKey="sap_fiori_3_dark" text="SAP Quartz Dark" />
+                <UserSettingsAppearanceViewItem itemKey="sap_fiori_3_hcb" text="SAP Quartz High Contrast Black" />
+                <UserSettingsAppearanceViewItem itemKey="sap_fiori_3_hcw" text="SAP Quartz High Contrast White" />
+              </UserSettingsAppearanceViewGroup>
+            </UserSettingsAppearanceView>
           </UserSettingsItem>
           <UserSettingsItem
             text="Language & Region"

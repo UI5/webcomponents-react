@@ -41,11 +41,12 @@ export const WithScopeAndItems: Story = {
   args: {
     showClearIcon: true,
     placeholder: 'Search Apps, Products',
+    scopeValue: 'all',
     scopes: (
       <>
-        <SearchScope selected text="All" />
-        <SearchScope text="Apps" />
-        <SearchScope text="Products" />
+        <SearchScope text="All" value="all" />
+        <SearchScope text="Apps" value="apps" />
+        <SearchScope text="Products" value="products" />
       </>
     ),
   },

@@ -84,7 +84,7 @@ export interface FilterBarPropTypes extends CommonProps {
   /**
    * Defines the search field rendered as first filter item.
    *
-   * __Note:__ Per default `placeholder`, `icon`, `noTypeahead`, `showClearIcon` and `type` are applied to the search input.
+   * __Note:__ By default, `placeholder`, `icon`, `noTypeahead`, `showClearIcon`, and `type` are applied to the search input. Only `placeholder` and `noTypeahead` can be overridden.
    *
    * __Note:__ The field is only available in the FilterBar not inside the filter configuration dialog.
    */
