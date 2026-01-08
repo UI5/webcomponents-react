@@ -2,7 +2,10 @@ import BarDesign from '@ui5/webcomponents/dist/types/BarDesign.js';
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import TableOverflowMode from '@ui5/webcomponents/dist/types/TableOverflowMode.js';
 import { getScopedVarName } from '@ui5/webcomponents-base/dist/CustomElementsScope.js';
+import { isPhone as getIsPhone } from '@ui5/webcomponents-base/dist/Device.js';
+import NoEntriesIllu from '@ui5/webcomponents-fiori/dist/illustrations/NoEntries.js';
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
+import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import type { MouseEventHandler, ReactElement } from 'react';
 import { Children, isValidElement, useEffect, useId, useRef, useState } from 'react';
@@ -13,6 +16,8 @@ import {
   CANCEL,
   CREATED_BY,
   DEFAULT,
+  NO_VIEWS_DEFINED_TITLE,
+  NO_VIEWS_DEFINED_SUBTITLE,
   MANAGE_VIEWS,
   SAVE,
   SEARCH,
@@ -22,15 +27,18 @@ import {
 import type { CommonProps } from '../../types/CommonProps.js';
 import { Bar } from '../../webComponents/Bar/index.js';
 import { Button } from '../../webComponents/Button/index.js';
+import type { ButtonDomRef } from '../../webComponents/Button/index.js';
 import type { DialogPropTypes } from '../../webComponents/Dialog/index.js';
 import { Dialog } from '../../webComponents/Dialog/index.js';
 import { Icon } from '../../webComponents/Icon/index.js';
+import { IllustratedMessage } from '../../webComponents/IllustratedMessage/index.js';
 import type { InputDomRef } from '../../webComponents/Input/index.js';
 import { Input } from '../../webComponents/Input/index.js';
 import { Table } from '../../webComponents/Table/index.js';
-import type { TablePropTypes } from '../../webComponents/Table/index.js';
+import type { TableDomRef, TablePropTypes } from '../../webComponents/Table/index.js';
 import { TableHeaderCell } from '../../webComponents/TableHeaderCell/index.js';
 import { TableHeaderRow } from '../../webComponents/TableHeaderRow/index.js';
+import type { TableRowDomRef } from '../../webComponents/TableRow/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import type { VariantItemPropTypes } from '../VariantItem/index.js';
 import { classNames, styleData } from './ManageViewsDialog.module.css.js';
@@ -59,6 +67,8 @@ export interface ManageViewsDialogPropTypes {
   onManageViewsCancel?: VariantManagementPropTypes['onManageViewsCancel'];
 }
 
+const isPhone = getIsPhone();
+
 export const ManageViewsDialog = (props: ManageViewsDialogPropTypes) => {
   const {
     children,
@@ -74,6 +84,8 @@ export const ManageViewsDialog = (props: ManageViewsDialogPropTypes) => {
   } = props;
   const uniqueId = useId();
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
+  const tableRef = useRef<TableDomRef>(null);
+  const cancelBtnRef = useRef<ButtonDomRef>(null);
   const cancelText = i18nBundle.getText(CANCEL);
   const saveText = i18nBundle.getText(SAVE);
   const viewHeaderText = i18nBundle.getText(VIEW);
@@ -158,18 +170,21 @@ export const ManageViewsDialog = (props: ManageViewsDialogPropTypes) => {
   };
   const deletedTableRows = useRef(new Set([]));
   const handleDelete: TablePropTypes['onRowActionClick'] = (e) => {
-    const variantChild = e.detail.row.dataset.id;
+    const { nextElementSibling, previousElementSibling, dataset } = e.detail.row;
+    const variantChild = dataset.id;
+
     deletedTableRows.current.add(variantChild);
-    setChildrenProps((prev) =>
-      prev
-        .filter((item) => item.children !== variantChild)
-        .map((item) => {
-          if (Object.prototype.hasOwnProperty.call(changedTableRows.current, item.children)) {
-            return { ...item, ...changedTableRows.current[item.children] };
-          }
-          return item;
-        }),
-    );
+    let nextFocusElement: Ui5DomRef | null = null;
+    if (nextElementSibling?.hasAttribute('ui5-table-row')) {
+      nextFocusElement = nextElementSibling as TableRowDomRef;
+    } else if (previousElementSibling?.hasAttribute('ui5-table-row')) {
+      nextFocusElement = previousElementSibling as TableRowDomRef;
+    } else {
+      nextFocusElement = cancelBtnRef.current;
+    }
+    void nextFocusElement?.focus();
+
+    setChildrenProps((prev) => prev.filter((item) => item.children !== variantChild));
   };
 
   const handleSave = (e) => {
@@ -222,6 +237,7 @@ export const ManageViewsDialog = (props: ManageViewsDialogPropTypes) => {
   return (
     <Dialog
       open
+      stretch={isPhone}
       className={classNames.manageViewsDialog}
       data-component-name="VariantManagementManageViewsDialog"
       onClose={onAfterClose}
@@ -255,7 +271,7 @@ export const ManageViewsDialog = (props: ManageViewsDialogPropTypes) => {
               <Button design={ButtonDesign.Emphasized} onClick={handleSave}>
                 {saveText}
               </Button>
-              <Button design={ButtonDesign.Transparent} onClick={handleCancel}>
+              <Button design={ButtonDesign.Transparent} onClick={handleCancel} ref={cancelBtnRef}>
                 {cancelText}
               </Button>
             </>
@@ -264,10 +280,19 @@ export const ManageViewsDialog = (props: ManageViewsDialogPropTypes) => {
       }
     >
       <Table
+        ref={tableRef}
         headerRow={headerRow}
         overflowMode={TableOverflowMode.Popin}
         rowActionCount={1}
         onRowActionClick={handleDelete}
+        noData={
+          <IllustratedMessage
+            name={NoEntriesIllu}
+            design={'Medium'}
+            titleText={i18nBundle.getText(NO_VIEWS_DEFINED_TITLE)}
+            subtitleText={i18nBundle.getText(NO_VIEWS_DEFINED_SUBTITLE)}
+          />
+        }
       >
         {filteredProps.map((itemProps) => {
           return (
