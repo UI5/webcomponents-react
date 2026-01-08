@@ -43,7 +43,7 @@ export function NLShellBar(props: NLShellBarProps) {
   const [assistantBtnPressed, setAssistantBtnPressed] = useState(false);
   const [notificationsPopoverOpen, setNotificationsPopoverOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [scopeData, setScopeData] = useState(_scopeData);
+  const [scope, setScope] = useState<undefined | string>('all');
 
   const handleAssistantClick: ToggleButtonPropTypes['onClick'] = (e) => {
     setAssistantBtnPressed(e.currentTarget!.pressed);
@@ -72,8 +72,7 @@ export function NLShellBar(props: NLShellBarProps) {
   };
 
   const handleSearchScopeChange: ShellBarSearchPropTypes['onScopeChange'] = (e) => {
-    const scopeText = e.detail.scope?.text === 'All' ? '' : e.detail.scope?.text?.toLowerCase();
-    setScopeData(_scopeData.filter((item) => !scopeText || item.scope === scopeText));
+    setScope(e.detail.scope?.value);
   };
 
   return (
@@ -122,15 +121,17 @@ export function NLShellBar(props: NLShellBarProps) {
             onScopeChange={handleSearchScopeChange}
             scopes={
               <>
-                <SearchScope text="All" selected />
-                <SearchScope text="Apps" />
-                <SearchScope text="Products" />
+                <SearchScope text="All" value="all" />
+                <SearchScope text="Apps" value="apps" />
+                <SearchScope text="Products" value="products" />
               </>
             }
           >
-            {scopeData.map((item) => (
-              <SearchItem key={item.name} text={item.name} scopeName={item.scope} />
-            ))}
+            {_scopeData
+              .filter((item) => scope === 'all' || item.scope === scope)
+              .map((item) => (
+                <SearchItem key={item.name} text={item.name} scopeName={item.scope} />
+              ))}
           </ShellBarSearch>
         }
         profile={
