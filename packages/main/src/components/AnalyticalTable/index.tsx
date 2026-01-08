@@ -59,10 +59,6 @@ import { BusyIndicator } from '../../webComponents/BusyIndicator/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { classNames, styleData } from './AnalyticalTable.module.css.js';
 import { ColumnHeaderContainer } from './ColumnHeader/ColumnHeaderContainer.js';
-import { VirtualTableBody } from './TableBody/VirtualTableBody.js';
-import { VirtualTableBodyContainer } from './TableBody/VirtualTableBodyContainer.js';
-import { TitleBar } from './TitleBar/index.js';
-import { VerticalResizer } from './VerticalResizer.js';
 import { DefaultColumn } from './defaults/Column/index.js';
 import { TablePlaceholder } from './defaults/LoadingComponent/TablePlaceholder.js';
 import { DefaultNoDataComponent } from './defaults/NoDataComponent/index.js';
@@ -88,7 +84,10 @@ import { useSyncScroll } from './hooks/useSyncScroll.js';
 import { useToggleRowExpand } from './hooks/useToggleRowExpand.js';
 import { useVisibleColumnsWidth } from './hooks/useVisibleColumnsWidth.js';
 import { VerticalScrollbar } from './scrollbars/VerticalScrollbar.js';
+import { VirtualTableBody } from './TableBody/VirtualTableBody.js';
+import { VirtualTableBodyContainer } from './TableBody/VirtualTableBodyContainer.js';
 import { stateReducer } from './tableReducer/stateReducer.js';
+import { TitleBar } from './TitleBar/index.js';
 import type {
   AnalyticalTableColumnDefinition,
   AnalyticalTableDomRef,
@@ -104,6 +103,7 @@ import {
   getSubRowsByString,
   tagNamesWhichShouldNotSelectARow,
 } from './util/index.js';
+import { VerticalResizer } from './VerticalResizer.js';
 
 // When a sorted column is removed from the visible columns array (e.g. when "popped-in"), it doesn't clean up the sorted columns leading to an undefined `sortType`.
 const sortTypesFallback = {

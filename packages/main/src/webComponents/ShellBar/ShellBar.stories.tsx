@@ -5,13 +5,13 @@ import navBackIcon from '@ui5/webcomponents-icons/dist/nav-back.js';
 import sysHelpIcon from '@ui5/webcomponents-icons/dist/sys-help.js';
 import { FlexBox } from '../../components/FlexBox/index.js';
 import { Button } from '../Button/index.js';
+import { Avatar, ShellBarItem, ShellBarSpacer } from '../index.js';
 import { Label } from '../Label/index.js';
 import { ShellBarBranding } from '../ShellBarBranding/index.js';
 import { ShellBarSearch } from '../ShellBarSearch/index.js';
 import { Switch } from '../Switch/index.js';
 import { Tag } from '../Tag/index.js';
 import { Text } from '../Text/index.js';
-import { Avatar, ShellBarItem, ShellBarSpacer } from '../index.js';
 import { ShellBar } from './index.js';
 
 const meta = {

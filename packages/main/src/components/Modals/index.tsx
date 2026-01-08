@@ -3,8 +3,8 @@
 import type { MutableRefObject } from 'react';
 import { createRef, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
-import { ModalStore } from '../../internal/ModalStore.js';
 import { getRandomId } from '../../internal/getRandomId.js';
+import { ModalStore } from '../../internal/ModalStore.js';
 import type { DialogDomRef, DialogPropTypes } from '../../webComponents/Dialog/index.js';
 import { Dialog } from '../../webComponents/Dialog/index.js';
 import type { MenuDomRef, MenuPropTypes } from '../../webComponents/Menu/index.js';

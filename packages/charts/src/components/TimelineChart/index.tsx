@@ -2,11 +2,10 @@ import type { CommonProps } from '@ui5/webcomponents-react';
 import { throttle, useStylesheet } from '@ui5/webcomponents-react-base';
 import type { CSSProperties, ReactNode, MouseEvent as ReactMouseEvent } from 'react';
 import { forwardRef, useEffect, useRef, useState } from 'react';
+import { TimelineChartBody } from './chartbody/TimelineChartBody.js';
 import { TimelineChartPlaceholder } from './Placeholder.js';
 import { TimelineChartColumnLabel, TimelineChartRowTitle, TimelineChartRowLabels } from './TimelineChartHeaders.js';
-import { TimelineChartBody } from './chartbody/TimelineChartBody.js';
 import type { ITimelineChartRow } from './types/TimelineChartTypes.js';
-import { classNames, styleData } from './util/TimelineChart.module.css.js';
 import {
   DEFAULT_ROW_HEIGHT,
   DEFAULT_WIDTH,
@@ -19,6 +18,7 @@ import {
   ROW_TITLE_WIDTH,
 } from './util/constants.js';
 import { IllegalConnectionError, InvalidDiscreteLabelError } from './util/error.js';
+import { classNames, styleData } from './util/TimelineChart.module.css.js';
 
 export interface TimelineChartProps extends CommonProps {
   /**

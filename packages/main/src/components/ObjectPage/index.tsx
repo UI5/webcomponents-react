@@ -23,9 +23,9 @@ import type { InternalProps as ObjectPageHeaderPropTypesWithInternals } from '..
 import type { ObjectPageSectionPropTypes } from '../ObjectPageSection/index.js';
 import type { ObjectPageSubSectionPropTypes } from '../ObjectPageSubSection/index.js';
 import { CollapsedAvatar } from './CollapsedAvatar.js';
+import { ObjectPageContext } from './context.js';
 import { classNames, styleData } from './ObjectPage.module.css.js';
 import { getSectionById, getSectionElementById } from './ObjectPageUtils.js';
-import { ObjectPageContext } from './context.js';
 import type {
   HandleOnSectionSelectedType,
   ObjectPageDomRef,

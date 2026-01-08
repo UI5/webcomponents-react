@@ -26,9 +26,6 @@ import type { IChartDimension } from '../../interfaces/IChartDimension.js';
 import type { IChartMeasure } from '../../interfaces/IChartMeasure.js';
 import { ChartContainer } from '../../internal/ChartContainer.js';
 import { ChartDataLabel } from '../../internal/ChartDataLabel.js';
-import { resolvePrimaryAndSecondaryMeasures } from '../../internal/Utils.js';
-import { XAxisTicks } from '../../internal/XAxisTicks.js';
-import { YAxisTicks } from '../../internal/YAxisTicks.js';
 import { defaultFormatter } from '../../internal/defaults.js';
 import {
   brushProps,
@@ -37,6 +34,9 @@ import {
   tooltipFillOpacity,
   xAxisPadding,
 } from '../../internal/staticProps.js';
+import { resolvePrimaryAndSecondaryMeasures } from '../../internal/Utils.js';
+import { XAxisTicks } from '../../internal/XAxisTicks.js';
+import { YAxisTicks } from '../../internal/YAxisTicks.js';
 import { LineChartPlaceholder } from './Placeholder.js';
 
 interface MeasureConfig extends IChartMeasure {

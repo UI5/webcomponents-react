@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 
 import type { API, ASTPath, Collection, FileInfo, JSCodeshift, JSXElement } from 'jscodeshift';
-
 const config = require('./codemodConfig.json');
 
 interface ComponentTransformConfig {

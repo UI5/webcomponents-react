@@ -32,11 +32,11 @@ import type { IChartDimension } from '../../interfaces/IChartDimension.js';
 import type { IChartMeasure } from '../../interfaces/IChartMeasure.js';
 import { ChartContainer } from '../../internal/ChartContainer.js';
 import { ChartDataLabel } from '../../internal/ChartDataLabel.js';
+import { defaultFormatter } from '../../internal/defaults.js';
+import { brushProps, tickLineConfig, tooltipContentStyle, tooltipFillOpacity } from '../../internal/staticProps.js';
 import { getCellColors, resolvePrimaryAndSecondaryMeasures } from '../../internal/Utils.js';
 import { XAxisTicks } from '../../internal/XAxisTicks.js';
 import { YAxisTicks } from '../../internal/YAxisTicks.js';
-import { defaultFormatter } from '../../internal/defaults.js';
-import { brushProps, tickLineConfig, tooltipContentStyle, tooltipFillOpacity } from '../../internal/staticProps.js';
 import { BarChartPlaceholder } from './Placeholder.js';
 
 const dimensionDefaults = {

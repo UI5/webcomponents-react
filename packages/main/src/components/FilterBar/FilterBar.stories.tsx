@@ -3,7 +3,6 @@ import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import { useId, useReducer, useRef, useState } from 'react';
 import { fn } from 'storybook/test';
 import { FlexBoxDirection } from '../../enums/index.js';
-import { Text } from '../../webComponents/Text/index.js';
 import {
   ComboBox,
   ComboBoxItem,
@@ -25,6 +24,7 @@ import {
   Title,
   Token,
 } from '../../webComponents/index.js';
+import { Text } from '../../webComponents/Text/index.js';
 import { FilterGroupItem } from '../FilterGroupItem/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { VariantItem } from '../VariantItem/index.js';

@@ -2,11 +2,11 @@
 
 import '@ui5/webcomponents-fiori/dist/UploadCollection.js';
 import type TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
+import type UploadCollectionSelectionMode from '@ui5/webcomponents-fiori/dist/types/UploadCollectionSelectionMode.js';
 import type {
   UploadCollectionItemDeleteEventDetail,
   UploadCollectionSelectionChangeEventDetail,
 } from '@ui5/webcomponents-fiori/dist/UploadCollection.js';
-import type UploadCollectionSelectionMode from '@ui5/webcomponents-fiori/dist/types/UploadCollectionSelectionMode.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
