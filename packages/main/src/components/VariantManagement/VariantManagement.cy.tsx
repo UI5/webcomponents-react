@@ -691,11 +691,9 @@ describe('VariantManagement', () => {
     cy.focused().should('have.attr', 'ui5-table-row');
     cy.focused().should('have.attr', 'data-id', 'VariantItem 2');
 
-    cy.get('[ui5-table-row-action][text="Delete View"]').each(($action) => {
-      if ($action.parent().attr('data-id') !== 'VariantItem 3') {
-        cy.wrap($action).click();
-      }
-    });
+    // no other rows remaining
+    cy.get('@deleteActions').first().click();
+    cy.findByText('Cancel').should('be.focused');
   });
 
   it('Manage Views input validation', () => {
