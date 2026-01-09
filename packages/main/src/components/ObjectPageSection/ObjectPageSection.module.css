@@ -1,5 +1,6 @@
 .section {
   box-sizing: border-box;
+  background: var(--sapBackgroundColor);
 
   &:first-of-type {
     margin-block-start: 1px;
@@ -16,6 +17,10 @@
   outline-offset: calc(-1 * var(--sapContent_FocusWidth));
 }
 
+.outlineSpacerDiv {
+  height: 2px;
+}
+
 .headerContainer {
   padding-block: 0.5rem;
   color: var(--sapGroup_TitleTextColor);
@@ -26,6 +31,14 @@
   border-block-start: var(--_ui5wcr_ObjectPage_SectionBorderTop);
   box-sizing: border-box;
   height: 2.25rem;
+}
+
+.sticky {
+  position: sticky;
+  background: var(--sapBackgroundColor);
+  /*-1 -> subpixel rounding errors */
+  inset-block-start: calc(var(--_ui5wcr_ObjectPage_header_height) - 1px);
+  z-index: 3;
 }
 
 .title {

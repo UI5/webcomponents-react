@@ -114,7 +114,7 @@ describe('ObjectPage', () => {
       cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 15').should('have.attr', 'aria-selected', 'true');
 
       if (mode === ObjectPageMode.Default) {
-        cy.findByTestId('op').scrollTo(0, 4750);
+        cy.findByTestId('op').scrollTo(0, 4858);
 
         cy.findByText('Content 7').should('be.visible');
         cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 7').should('have.attr', 'aria-selected', 'true');
@@ -124,7 +124,7 @@ describe('ObjectPage', () => {
         for (let i = 0; i < 15; i++) {
           cy.findByText('Add').click();
         }
-        cy.findByTestId('op').scrollTo(0, 4750);
+        cy.findByTestId('op').scrollTo(0, 4858);
 
         cy.findByText('Content 7').should('be.visible');
         cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 7').should('have.attr', 'aria-selected', 'true');
@@ -374,12 +374,6 @@ describe('ObjectPage', () => {
     );
     cy.wait(200);
 
-    // first titleText should never be displayed (not.be.visible doesn't work here - only invisible for sighted users)
-    cy.findByText('Goals')
-      .parent()
-      .should('have.css', 'width', '1px')
-      .and('have.css', 'margin', '-1px')
-      .and('have.css', 'position', 'absolute');
     cy.findByText('Employment').should('not.be.visible');
     cy.findByText('Test').should('be.visible');
 
@@ -712,19 +706,19 @@ describe('ObjectPage', () => {
     };
     cy.mount(<TestComp height="2000px" mode={ObjectPageMode.Default} />);
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2290}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2330}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2290}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2330}').should('exist');
 
     cy.mount(<TestComp height="2000px" withFooter mode={ObjectPageMode.Default} />);
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2330}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2370}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2330}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2370}').should('exist');
 
     cy.mount(<TestComp height="400px" mode={ObjectPageMode.Default} />);
     cy.findByText('Update Heights').click();
@@ -923,12 +917,6 @@ describe('ObjectPage', () => {
       cy.get('[ui5-tabcontainer]').findUi5TabByText('Goals').click();
       cy.findByText('Custom Header Section One').should('be.visible');
       cy.findByText('toggle titleText1').click({ scrollBehavior: false, force: true });
-      // first titleText should never be displayed (not.be.visible doesn't work here - only invisible for sighted users)
-      cy.findByText('Goals')
-        .parent()
-        .should('have.css', 'width', '1px')
-        .and('have.css', 'margin', '-1px')
-        .and('have.css', 'position', 'absolute');
       cy.findByText('Custom Header Section One').should('be.visible');
 
       cy.get('[ui5-tabcontainer]').findUi5TabByText('Personal').click();
@@ -1843,6 +1831,55 @@ describe('ObjectPage', () => {
     }
     cy.focused().should('be.visible').and('have.attr', 'ui5-table-row');
   });
+
+  it('sticky headers', () => {
+    cy.mount(
+      <ObjectPage
+        titleArea={DPTitle}
+        headerArea={DPContent}
+        mode="IconTabBar"
+        style={{ height: '1000px' }}
+        data-testid="op"
+      >
+        {OPContent}
+        {OPContentWithCustomHeaderSections}
+      </ObjectPage>,
+    );
+
+    cy.findByText('Goals').should('not.be.visible');
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').click();
+    cy.findByText('Employment').should('not.be.visible');
+    cy.findByText('Employee Details').parent().should('have.css', 'position', 'sticky');
+
+    cy.mount(
+      <ObjectPage titleArea={DPTitle} headerArea={DPContent} style={{ height: '1000px' }} data-testid="op">
+        {OPContent}
+        {OPContentWithCustomHeaderSections}
+      </ObjectPage>,
+    );
+
+    cy.findByText('Goals').should('be.visible').parent().should('have.css', 'position', 'sticky');
+    cy.findByTestId('op').scrollTo(0, 500);
+    cy.findByText('Goals').should('be.visible');
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Personal').click();
+    // has subsections -> only subsection headers are sticky
+    cy.findByText('Personal').should('be.visible').parent().should('have.css', 'position', 'static');
+    cy.findByText('Connect').should('be.visible').parent().should('have.css', 'position', 'sticky');
+    cy.findByTestId('op').scrollTo(0, 2500);
+    cy.findByText('Goals').should('not.be.visible');
+    cy.findByText('Payment Information').should('be.visible');
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Custom Header Section One').click();
+    cy.findByText('Custom Header Section One').should('be.visible').parent().should('have.css', 'position', 'sticky');
+    cy.findByTestId('op').scrollTo(0, 3500);
+    cy.findByText('Custom Header Section One').should('be.visible');
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Custom Header Section Two').click();
+    // has subsections -> only subsection headers are sticky
+    cy.findByText('Custom Header Section Two').should('be.visible').parent().should('have.css', 'position', 'static');
+    cy.findByText('Subsection1').should('be.visible').parent().should('have.css', 'position', 'sticky');
+    cy.findByTestId('op').scrollTo(0, 4000);
+    cy.findByText('Custom Header Section Two').should('not.be.visible');
+    cy.findByText('Subsection1').should('be.visible');
+  });
 });
 
 const DPTitle = (
@@ -1938,6 +1975,44 @@ const OPContent = [
       <div style={{ height: '100px', width: '100%', background: 'lightgrey' }}>
         <span data-testid="employment-job-relationship-content">employment-job-relationship-content</span>
       </div>
+    </ObjectPageSubSection>
+  </ObjectPageSection>,
+];
+
+const OPContentWithCustomHeaderSections = [
+  <ObjectPageSection
+    key={'customheader1'}
+    titleText="Custom Header Section One"
+    hideTitleText
+    id="custom1"
+    header={<Title>Custom Header Section One</Title>}
+  >
+    <div style={{ width: '100%', height: '200px', background: 'lightgreen' }} />
+  </ObjectPageSection>,
+  <ObjectPageSection
+    key={'customheader2'}
+    titleText="Custom Header Section Two"
+    hideTitleText
+    id="custom2"
+    header={<MessageStrip hideCloseButton>Custom Header Section Two</MessageStrip>}
+  >
+    <ObjectPageSubSection
+      titleText="Subsection1"
+      id="sub1"
+      actions={
+        <>
+          <Button design={ButtonDesign.Emphasized} style={{ minWidth: '120px' }}>
+            Custom Action
+          </Button>
+          <Button design={ButtonDesign.Transparent} icon="action-settings" tooltip="settings" />
+          <Button design={ButtonDesign.Transparent} icon="download" tooltip="download" />
+        </>
+      }
+    >
+      <div style={{ width: '100%', height: '300px', background: 'cadetblue' }} />
+    </ObjectPageSubSection>
+    <ObjectPageSubSection titleText="Subsection2" id="sub2">
+      <div style={{ width: '100%', height: '300px', background: 'cadetblue' }} />
     </ObjectPageSubSection>
   </ObjectPageSection>,
 ];
