@@ -1832,66 +1832,56 @@ describe('ObjectPage', () => {
     cy.focused().should('be.visible').and('have.attr', 'ui5-table-row');
   });
 
-  for (let i = 0; i < 5; i++) {
-    it.only('sticky headers', () => {
-      for (let i = 0; i < 3; i++) {
-        cy.mount(
-          <ObjectPage
-            titleArea={DPTitle}
-            headerArea={DPContent}
-            mode="IconTabBar"
-            style={{ height: '1000px' }}
-            data-testid="op"
-          >
-            {OPContent}
-            {OPContentWithCustomHeaderSections}
-          </ObjectPage>,
-        );
-        console.log(version);
+  it.only('sticky headers', () => {
+    cy.mount(
+      <ObjectPage
+        titleArea={DPTitle}
+        headerArea={DPContent}
+        mode="IconTabBar"
+        style={{ height: '1000px' }}
+        data-testid="op"
+      >
+        {OPContent}
+        {OPContentWithCustomHeaderSections}
+      </ObjectPage>,
+    );
+    console.log(version);
 
-        cy.findByText('Goals').should('not.be.visible');
-        cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').click();
-        cy.findByText('Employment').should('not.be.visible');
-        cy.findByText('Employee Details').parent().should('have.css', 'position', 'sticky');
+    cy.findByText('Goals').should('not.be.visible');
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').click();
+    cy.findByText('Employment').should('not.be.visible');
+    cy.findByText('Employee Details').parent().should('have.css', 'position', 'sticky');
 
-        cy.mount(
-          <ObjectPage titleArea={DPTitle} headerArea={DPContent} style={{ height: '1000px' }} data-testid="op">
-            {OPContent}
-            {OPContentWithCustomHeaderSections}
-          </ObjectPage>,
-        );
+    cy.mount(
+      <ObjectPage titleArea={DPTitle} headerArea={DPContent} style={{ height: '1000px' }} data-testid="op">
+        {OPContent}
+        {OPContentWithCustomHeaderSections}
+      </ObjectPage>,
+    );
 
-        cy.wait(500);
-        cy.findByText('Goals').should('be.visible').parent().should('have.css', 'position', 'sticky');
-        cy.findByTestId('op').scrollTo(0, 500);
-        cy.findByText('Goals').should('be.visible');
-        cy.get('[ui5-tabcontainer]').findUi5TabByText('Personal').click();
-        // has subsections -> only subsection headers are sticky
-        cy.findByText('Personal').should('be.visible').parent().should('have.css', 'position', 'static');
-        cy.findByText('Connect').should('be.visible').parent().should('have.css', 'position', 'sticky');
-        cy.findByTestId('op').scrollTo(0, 2500);
-        cy.findByText('Goals').should('not.be.visible');
-        cy.findByText('Payment Information').should('be.visible');
-        cy.get('[ui5-tabcontainer]').findUi5TabByText('Custom Header Section One').click();
-        cy.findByText('Custom Header Section One')
-          .should('be.visible')
-          .parent()
-          .should('have.css', 'position', 'sticky');
-        cy.findByTestId('op').scrollTo(0, 3500);
-        cy.findByText('Custom Header Section One').should('be.visible');
-        cy.get('[ui5-tabcontainer]').findUi5TabByText('Custom Header Section Two').click();
-        // has subsections -> only subsection headers are sticky
-        cy.findByText('Custom Header Section Two')
-          .should('be.visible')
-          .parent()
-          .should('have.css', 'position', 'static');
-        cy.findByText('Subsection1').should('be.visible').parent().should('have.css', 'position', 'sticky');
-        cy.findByTestId('op').scrollTo(0, 4000);
-        cy.findByText('Custom Header Section Two').should('not.be.visible');
-        cy.findByText('Subsection1').should('be.visible');
-      }
-    });
-  }
+    cy.wait(500);
+    cy.findByText('Goals').should('be.visible').parent().should('have.css', 'position', 'sticky');
+    cy.findByTestId('op').scrollTo(0, 500);
+    cy.findByText('Goals').should('be.visible');
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Personal').click();
+    // has subsections -> only subsection headers are sticky
+    cy.findByText('Personal').should('be.visible').parent().should('have.css', 'position', 'static');
+    cy.findByText('Connect').should('be.visible').parent().should('have.css', 'position', 'sticky');
+    cy.findByTestId('op').scrollTo(0, 2500);
+    cy.findByText('Goals').should('not.be.visible');
+    cy.findByText('Payment Information').should('be.visible');
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Custom Header Section One').click();
+    cy.findByText('Custom Header Section One').should('be.visible').parent().should('have.css', 'position', 'sticky');
+    cy.findByTestId('op').scrollTo(0, 3500);
+    cy.findByText('Custom Header Section One').should('be.visible');
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Custom Header Section Two').click();
+    // has subsections -> only subsection headers are sticky
+    cy.findByText('Custom Header Section Two').should('be.visible').parent().should('have.css', 'position', 'static');
+    cy.findByText('Subsection1').should('be.visible').parent().should('have.css', 'position', 'sticky');
+    cy.findByTestId('op').scrollTo(0, 4000);
+    cy.findByText('Custom Header Section Two').should('not.be.visible');
+    cy.findByText('Subsection1').should('be.visible');
+  });
 });
 
 const DPTitle = (
