@@ -1831,7 +1831,10 @@ describe('ObjectPage', () => {
     }
     cy.focused().should('be.visible').and('have.attr', 'ui5-table-row');
   });
+});
 
+// When not isolated, this tests fails in CI for React18
+describe('ObjectPage (isolated test)', () => {
   it('sticky headers', () => {
     cy.mount(
       <ObjectPage
