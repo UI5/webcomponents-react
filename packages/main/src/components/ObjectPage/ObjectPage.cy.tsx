@@ -7,7 +7,7 @@ import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import IllustrationMessageType from '@ui5/webcomponents-fiori/dist/types/IllustrationMessageType.js';
 import type { CSSProperties } from 'react';
-import { useEffect, useLayoutEffect, useReducer, useRef, useState, version } from 'react';
+import { useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react';
 import type { ObjectPagePropTypes } from '../..';
 import {
   CheckBox,
@@ -1832,7 +1832,7 @@ describe('ObjectPage', () => {
     cy.focused().should('be.visible').and('have.attr', 'ui5-table-row');
   });
 
-  it.only('sticky headers', () => {
+  it('sticky headers', () => {
     cy.mount(
       <ObjectPage
         titleArea={DPTitle}
@@ -1845,7 +1845,6 @@ describe('ObjectPage', () => {
         {OPContentWithCustomHeaderSections}
       </ObjectPage>,
     );
-    console.log(version);
 
     cy.findByText('Goals').should('not.be.visible');
     cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').click();
@@ -1859,7 +1858,6 @@ describe('ObjectPage', () => {
       </ObjectPage>,
     );
 
-    cy.wait(500);
     cy.findByText('Goals').should('be.visible').parent().should('have.css', 'position', 'sticky');
     cy.findByTestId('op').scrollTo(0, 500);
     cy.findByText('Goals').should('be.visible');

@@ -15,7 +15,7 @@
     "build:storybook-sitemap": "node ./scripts/create-storybook-sitemap.js --directory .out",
     "test:prepare": "rimraf temp && lerna run build",
     "test:open": "CYPRESS_COVERAGE=false cypress open --component --browser chrome",
-    "test": "yarn test:prepare && cypress run --component --browser chrome --spec packages/main/src/components/ObjectPage",
+    "test": "yarn test:prepare && cypress run --component --browser chrome --spec packages",
     "clean": "tsc --build --clean && tsc --build tsconfig.build.json --clean && rimraf temp .out && lerna run clean",
     "clean:remove-modules": "yarn clean && rimraf node_modules",
     "prettier:all": "prettier --write --config ./prettier.config.js \"**/*\"",
@@ -33,11 +33,7 @@
     "create-cypress-commands-docs": "documentation build ./packages/cypress-commands/src/commands.ts -f json -o ./packages/cypress-commands/api-commands.json && documentation build ./packages/cypress-commands/src/queries.ts -f json -o ./packages/cypress-commands/api-queries.json",
     "sb:prepare-cem": "node packages/cli/dist/bin/index.js resolve-cem --packageName @ui5/webcomponents --out ./.storybook/custom-element-manifests/main.json && node packages/cli/dist/bin/index.js resolve-cem --packageName @ui5/webcomponents-fiori --out ./.storybook/custom-element-manifests/fiori.json && node packages/cli/dist/bin/index.js resolve-cem --packageName @ui5/webcomponents-ai --out ./.storybook/custom-element-manifests/ai.json",
     "create-theming-parameters": "node scripts/generate-theming-parameters.js",
-    "create-exports": "node --experimental-strip-types scripts/create-export-paths.ts",
-    "prepare:react18": "yarn add react@18 react-dom@18 @types/react@18 @types/react-dom@18 --exact",
-    "restore:react19": "yarn add react@19 react-dom@19 @types/react@19 @types/react-dom@19 --exact",
-    "start:storybook:react18": "yarn run prepare:react18 && storybook dev -p 6006",
-    "test:open:react18": "yarn run prepare:react18 && CYPRESS_COVERAGE=false cypress open --component --browser chrome"
+    "create-exports": "node --experimental-strip-types scripts/create-export-paths.ts"
   },
   "dependencies": {
     "@stackblitz/sdk": "1.11.0",
@@ -49,8 +45,8 @@
     "@ui5/webcomponents-compat": "2.18.1",
     "@ui5/webcomponents-fiori": "2.18.1",
     "@ui5/webcomponents-icons": "2.18.1",
-    "react": "18",
-    "react-dom": "18",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "remark-gfm": "4.0.1",
     "storybook": "10.1.11",
     "tocbot": "4.36.4"
@@ -68,8 +64,8 @@
     "@testing-library/cypress": "10.1.0",
     "@types/jscodeshift": "17.3.0",
     "@types/node": "24.10.7",
-    "@types/react": "18",
-    "@types/react-dom": "18",
+    "@types/react": "19.2.8",
+    "@types/react-dom": "19.2.3",
     "@ui5/webcomponents-tools": "2.18.1",
     "@vitejs/plugin-react": "5.1.2",
     "chromatic": "13.3.5",
