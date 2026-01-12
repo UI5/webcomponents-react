@@ -7,7 +7,7 @@ import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import IllustrationMessageType from '@ui5/webcomponents-fiori/dist/types/IllustrationMessageType.js';
 import type { CSSProperties } from 'react';
-import { useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useReducer, useRef, useState, version as reactVersion } from 'react';
 import type { ObjectPagePropTypes } from '../..';
 import {
   CheckBox,
@@ -1852,7 +1852,13 @@ describe('ObjectPage', () => {
     cy.findByText('Employee Details').parent().should('have.css', 'position', 'sticky');
 
     cy.mount(
-      <ObjectPage titleArea={DPTitle} headerArea={DPContent} style={{ height: '1000px' }} data-testid="op">
+      <ObjectPage
+        titleArea={DPTitle}
+        headerArea={DPContent}
+        // scrollBehavior "auto" prevents flaky behavior when test is run with React18
+        style={{ height: '1000px', scrollBehavior: reactVersion.startsWith('18') ? 'auto' : 'smooth' }}
+        data-testid="op"
+      >
         {OPContent}
         {OPContentWithCustomHeaderSections}
       </ObjectPage>,
