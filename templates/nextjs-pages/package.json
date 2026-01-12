@@ -13,8 +13,8 @@
     "@ui5/webcomponents-base": "2.18.1",
     "@ui5/webcomponents-fiori": "2.18.1",
     "@ui5/webcomponents-react": "2.18.0",
-    "@types/node": "24.10.4",
-    "@types/react": "19.2.7",
+    "@types/node": "24.10.7",
+    "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",
     "eslint": "9.39.2",
     "eslint-config-next": "16.1.1",
@@ -24,7 +24,7 @@
     "typescript": "5.9.3"
   },
   "overrides": {
-    "@types/react": "19.2.7",
+    "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3"
   }
 }
