@@ -1833,7 +1833,7 @@ describe('ObjectPage', () => {
   });
 
   for (let i = 0; i < 5; i++) {
-    it.only('sticky headers', () => {
+    it('sticky headers', () => {
       for (let i = 0; i < 3; i++) {
         cy.mount(
           <ObjectPage
