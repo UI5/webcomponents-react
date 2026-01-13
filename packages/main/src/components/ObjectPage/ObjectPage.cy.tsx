@@ -1101,7 +1101,17 @@ describe('ObjectPage', () => {
       .should('have.css', 'border-radius', '50%')
       .should('have.css', 'overflow', 'hidden');
     cy.mount(<ObjectPage data-testid="op" titleArea={DPTitle} headerArea={DPContent} image={<Avatar />} />);
-    cy.get('[ui5-avatar]').should('have.attr', 'size', 'L').should('be.visible');
+    cy.get('[data-component-name="ObjectPageCollapsedAvatar"]')
+      .should('exist')
+      .should('have.attr', 'aria-hidden', 'true')
+      .should('not.be.visible');
+    cy.get('[data-component-name="ObjectPageHeaderImage"]').should('be.visible');
+
+    cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
+    cy.get('[data-component-name="ObjectPageCollapsedAvatar"]')
+      .should('be.visible')
+      .should('have.attr', 'aria-hidden', 'false');
+    cy.get('[data-component-name="ObjectPageHeaderImage"]').should('not.be.visible');
   });
 
   [ObjectPageMode.Default, ObjectPageMode.IconTabBar].forEach((mode) => {

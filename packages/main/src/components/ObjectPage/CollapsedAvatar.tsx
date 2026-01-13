@@ -1,5 +1,5 @@
 import AvatarSize from '@ui5/webcomponents/dist/types/AvatarSize.js';
-import { useStylesheet } from '@ui5/webcomponents-react-base';
+import { useStylesheet } from '@ui5/webcomponents-react-base/internal/hooks';
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { cloneElement, useEffect, useMemo, useRef, useState } from 'react';
@@ -10,10 +10,11 @@ export interface CollapsedAvatarPropTypes {
   image?: ObjectPagePropTypes['image'];
   imageShapeCircle?: ObjectPagePropTypes['imageShapeCircle'];
   style?: CSSProperties;
+  hideCollapsedAvatar?: boolean;
 }
 
 export const CollapsedAvatar = (props: CollapsedAvatarPropTypes) => {
-  const { image, imageShapeCircle, style } = props;
+  const { image, imageShapeCircle, style, hideCollapsedAvatar } = props;
   useStylesheet(styleData, CollapsedAvatar.displayName);
   const [isMounted, setIsMounted] = useState(false);
   const domRef = useRef(null);
@@ -23,10 +24,7 @@ export const CollapsedAvatar = (props: CollapsedAvatarPropTypes) => {
 
     if (typeof image === 'string') {
       return (
-        <span
-          className={classNames.imageContainer}
-          style={{ borderRadius: imageShapeCircle ? '50%' : 0, overflow: 'hidden' }}
-        >
+        <span className={clsx(classNames.imageContainer, imageShapeCircle ? classNames.circle : undefined)}>
           <img className={classNames.image} src={image} alt="Object Page Image" />
         </span>
       );
@@ -44,10 +42,20 @@ export const CollapsedAvatar = (props: CollapsedAvatarPropTypes) => {
     setIsMounted(true);
   }, []);
 
-  const containerClasses = clsx(classNames.base, isMounted ? classNames.visible : classNames.hidden);
+  const containerClasses = clsx(
+    classNames.base,
+    isMounted ? classNames.visible : classNames.hidden,
+    hideCollapsedAvatar ? classNames.notDisplayed : undefined,
+  );
 
   return (
-    <div ref={domRef} className={containerClasses} style={style} data-component-name="ObjectPageCollapsedAvatar">
+    <div
+      ref={domRef}
+      className={containerClasses}
+      style={style}
+      data-component-name="ObjectPageCollapsedAvatar"
+      aria-hidden={hideCollapsedAvatar ? 'true' : 'false'}
+    >
       {avatarContent}
     </div>
   );

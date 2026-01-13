@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.18.1](https://github.com/UI5/webcomponents-react/compare/v2.18.0...v2.18.1) (2026-01-13)
+
+### Bug Fixes
+
+- **AnalyticalTable:** prevent SSR error ([#8096](https://github.com/UI5/webcomponents-react/issues/8096)) ([b7830a9](https://github.com/UI5/webcomponents-react/commit/b7830a90906935c4226ff8488aad17a88769f0b2)), closes [#8095](https://github.com/UI5/webcomponents-react/issues/8095)
+- **deps:** update dependency @tanstack/react-virtual to v3.13.18 ([#8077](https://github.com/UI5/webcomponents-react/issues/8077)) ([0735ae5](https://github.com/UI5/webcomponents-react/commit/0735ae5d10ae65d34fefb3af2c960f7b049fe226))
+- **ObjectPage:** always render snapped image to prevent repeating network calls ([#8097](https://github.com/UI5/webcomponents-react/issues/8097)) ([6f418a0](https://github.com/UI5/webcomponents-react/commit/6f418a0dddca2c70387abd5d9e6b85fbcd1b88b5)), closes [#8093](https://github.com/UI5/webcomponents-react/issues/8093)
+- **VariantManagement:** update "Manage Views" dialog to latest specs ([#8080](https://github.com/UI5/webcomponents-react/issues/8080)) ([ee1796f](https://github.com/UI5/webcomponents-react/commit/ee1796fc62f635d698bb7de706657268c5e30f30)), closes [#8079](https://github.com/UI5/webcomponents-react/issues/8079)
+
 # [2.18.0](https://github.com/UI5/webcomponents-react/compare/v2.17.0...v2.18.0) (2026-01-07)
 
 ### Bug Fixes
