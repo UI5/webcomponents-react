@@ -3,7 +3,7 @@ import { isSSR } from '../../../internal/utils.js';
 
 // If reused, think about implementing the behavior via useSyncExternalStore
 
-const isClient = !isSSR() && document.fonts?.status === 'loaded';
+const isClient = !isSSR();
 
 /**
  * Hook that returns whether the fonts are loaded and ready to use.
