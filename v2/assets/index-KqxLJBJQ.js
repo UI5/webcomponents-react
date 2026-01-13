@@ -1,0 +1,62 @@
+import{r as m,o,aP as h,x as f,aO as g,j as y,Q as C,a_ as B,a$ as w,b0 as N,b1 as I,b2 as A,b3 as x,b4 as k,b5 as S}from"./iframe-M6Wvc0fq.js";import{a as T,e as R}from"./alert-BNoNYb7g.js";import{i as V}from"./information-Cj4hRV-U.js";import{s as D}from"./sys-enter-2-CYdmpg8V.js";const U="@layer ui5-webcomponents-react{._btn_1y8oi_1{background:var(--sapButton_Information_Background);border-color:var(--sapButton_Information_BorderColor);color:var(--sapButton_Information_TextColor);text-shadow:var(--sapContent_TextShadow)}._btn_1y8oi_1::part(button):after{border-color:var(--sapContent_FocusColor)}._btn_1y8oi_1:hover{background:var(--sapButton_Information_Hover_Background);border-color:var(--sapButton_Information_Hover_BorderColor);color:var(--sapButton_Information_Hover_TextColor)}._btn_1y8oi_1:active{background:var(--sapButton_Information_Active_Background);border-color:var(--sapButton_Information_Active_BorderColor);color:var(--sapButton_Information_Active_TextColor)}._btn_1y8oi_1:active::part(button):after{border-color:var(--sapContent_FocusColor)}._btn_1y8oi_1[data-type=Negative]{background:var(--sapButton_Negative_Background);border-color:var(--sapButton_Negative_BorderColor);color:var(--sapButton_Negative_TextColor);text-shadow:var(--sapContent_ContrastTextShadow)}._btn_1y8oi_1[data-type=Negative]::part(button):after{border-color:var(--sapContent_ContrastFocusColor)}._btn_1y8oi_1[data-type=Negative]:hover{background:var(--sapButton_Negative_Hover_Background);border-color:var(--sapButton_Negative_Hover_BorderColor);color:var(--sapButton_Negative_Hover_TextColor)}._btn_1y8oi_1[data-type=Negative]:active{background:var(--sapButton_Negative_Active_Background);border-color:var(--sapButton_Negative_Active_BorderColor);color:var(--sapButton_Negative_Active_TextColor)}._btn_1y8oi_1[data-type=Negative]:active::part(button):after{border-color:var(--sapContent_FocusColor)}._btn_1y8oi_1[data-type=Critical]{background:var(--sapButton_Critical_Background);border-color:var(--sapButton_Critical_BorderColor);color:var(--sapButton_Critical_TextColor);text-shadow:var(--sapContent_ContrastTextShadow)}._btn_1y8oi_1[data-type=Critical]::part(button):after{border-color:var(--sapContent_ContrastFocusColor)}._btn_1y8oi_1[data-type=Critical]:hover{background:var(--sapButton_Critical_Hover_Background);border-color:var(--sapButton_Critical_Hover_BorderColor);color:var(--sapButton_Critical_Hover_TextColor)}._btn_1y8oi_1[data-type=Critical]:active{background:var(--sapButton_Critical_Active_Background);border-color:var(--sapButton_Critical_Active_BorderColor);color:var(--sapButton_Critical_Active_TextColor)}._btn_1y8oi_1[data-type=Critical]:active::part(button):after{border-color:var(--sapContent_FocusColor)}._btn_1y8oi_1[data-type=Positive]{background:var(--sapButton_Success_Background);border-color:var(--sapButton_Success_BorderColor);color:var(--sapButton_Success_TextColor);text-shadow:var(--sapContent_ContrastTextShadow)}._btn_1y8oi_1[data-type=Positive]::part(button):after{border-color:var(--sapContent_ContrastFocusColor)}._btn_1y8oi_1[data-type=Positive]:hover{background:var(--sapButton_Success_Hover_Background);border-color:var(--sapButton_Success_Hover_BorderColor);color:var(--sapButton_Success_Hover_TextColor)}._btn_1y8oi_1[data-type=Positive]:active{background:var(--sapButton_Success_Active_Background);border-color:var(--sapButton_Success_Active_BorderColor);color:var(--sapButton_Success_Active_TextColor)}._btn_1y8oi_1[data-type=Positive]:active::part(button):after{border-color:var(--sapContent_FocusColor)}}",E={btn:"_btn_1y8oi_1"},P=e=>{switch(e){case o.Negative:return{icon:R,i18nLabel:S,tooltip:k};case o.Positive:return{icon:D,i18nLabel:x,tooltip:A};case o.Critical:return{icon:T,i18nLabel:I,tooltip:N};default:return{icon:V,i18nLabel:w,tooltip:B}}},a=m.forwardRef((e,s)=>{const{type:n=o.Negative,counter:t,className:i,tooltip:l,accessibleName:c,...u}=e;h(U,a.displayName);const p=f(E.btn,i),{icon:d,i18nLabel:b,tooltip:_}=P(n),r=g("@ui5/webcomponents-react"),v=r.getText(b);return y.jsx(C,{ref:s,className:p,icon:d,...u,"data-type":n,tooltip:l??r.getText(_),accessibleName:c??`${t>0?`${t} `:""}${v}`,children:t>0&&t})});a.displayName="MessageViewButton";try{a.displayName="MessageViewButton",a.__docgenInfo={description:"The `MessageViewButton` can be used for opening a `Popover` containing the `MessageView` component. It should always reflect the message `type` with the highest severity.",displayName:"MessageViewButton",props:{type:{defaultValue:{value:'"Negative"'},description:'Specifies the type of the button.\n\n__Note:__ `"None"` is displayed as `"Information"`.',name:"type",required:!1,type:{name:"enum",value:[{value:'"None"'},{value:'"Critical"'},{value:'"Information"'},{value:'"None"'},{value:'"Positive"'},{value:'"Critical"'},{value:'"Negative"'},{value:'"Information"'},{value:'"Positive"'},{value:'"Negative"'}]}},counter:{defaultValue:null,description:`Defines the number of messages for a given message type.
+
+__Note:__ Numbers smaller than 1 are not displayed.`,name:"counter",required:!1,type:{name:"number"}},className:{defaultValue:null,description:`CSS Class Name which will be appended to the most outer element of a component.
+Use this prop carefully, overwriting CSS rules might break the component.`,name:"className",required:!1,type:{name:"string"}},style:{defaultValue:null,description:`Element style which will be appended to the most outer element of a component.
+Use this prop carefully, some css properties might break the component.`,name:"style",required:!1,type:{name:"CSSProperties"}},onClick:{defaultValue:null,description:`Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+
+**Note:** The event will not be fired if the \`disabled\` property is set to \`true\`.
+
+**Note:** Call \`event.preventDefault()\` inside the handler of this event to prevent its default action/s.
+
+**Note:** Available since [v2.10.0](https://github.com/UI5/webcomponents/releases/tag/v2.10.0) of **@ui5/webcomponents**.
+
+| cancelable | bubbles |
+| :--------: | :-----: |
+| ✅|✅|`,name:"onClick",required:!1,type:{name:"(event: Ui5CustomEvent<ButtonDomRef, ButtonClickEventDetail>) => void"}},tooltip:{defaultValue:{value:"undefined"},description:`Defines the tooltip of the component.
+
+**Note:** A tooltip attribute should be provided for icon-only buttons, in order to represent their exact meaning/function.
+
+**Note:** Available since [v1.2.0](https://github.com/UI5/webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents**.`,name:"tooltip",required:!1,type:{name:"string"}},accessibleNameRef:{defaultValue:{value:"undefined"},description:`Receives id(or many ids) of the elements that label the component.
+
+**Note:** Available since [v1.1.0](https://github.com/UI5/webcomponents/releases/tag/v1.1.0) of **@ui5/webcomponents**.`,name:"accessibleNameRef",required:!1,type:{name:"string"}},accessibleDescription:{defaultValue:{value:"undefined"},description:`Defines the accessible description of the component.
+
+**Note:** Available since [v2.5.0](https://github.com/UI5/webcomponents/releases/tag/v2.5.0) of **@ui5/webcomponents**.`,name:"accessibleDescription",required:!1,type:{name:"string"}},accessibleName:{defaultValue:{value:"undefined"},description:"Defines the accessible ARIA name of the component.",name:"accessibleName",required:!1,type:{name:"string"}},accessibleRole:{defaultValue:{value:'"Button"'},description:`Describes the accessibility role of the button.
+
+**Note:** Use <code>ButtonAccessibleRole.Link</code> role only with a press handler, which performs a navigation. In all other scenarios the default button semantics are recommended.
+
+**Note:** Available since [v1.23](https://github.com/UI5/webcomponents/releases/tag/v1.23) of **@ui5/webcomponents**.`,name:"accessibleRole",required:!1,type:{name:"enum",value:[{value:'"Button"'},{value:'"Link"'},{value:'"Button"'},{value:'"Link"'}]}},accessibilityAttributes:{defaultValue:{value:"{}"},description:`Defines the additional accessibility attributes that will be applied to the component.
+The following fields are supported:
+
+- **expanded**: Indicates whether the button, or another grouping element it controls, is currently expanded or collapsed.
+Accepts the following string values: \`true\` or \`false\`
+
+- **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.
+Accepts the following string values: \`dialog\`, \`grid\`, \`listbox\`, \`menu\` or \`tree\`.
+
+- **ariaLabel**: Defines the accessible ARIA name of the component.
+Accepts any string value.
+
+ - **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.
+
+- **controls**: Identifies the element (or elements) whose contents or presence are controlled by the button element.
+Accepts a lowercase string value.
+
+**Note:** Available since [v1.2.0](https://github.com/UI5/webcomponents/releases/tag/v1.2.0) of **@ui5/webcomponents**.`,name:"accessibilityAttributes",required:!1,type:{name:"ButtonAccessibilityAttributes"}},disabled:{defaultValue:{value:"false"},description:`Defines whether the component is disabled.
+A disabled component can't be pressed or
+focused, and it is not in the tab chain.`,name:"disabled",required:!1,type:{name:"boolean"}},endIcon:{defaultValue:{value:"undefined"},description:"Defines the icon, displayed as graphical element within the component after the button text.\n\n**Note:** It is highly recommended to use `endIcon` property only together with `icon` and/or `text` properties.\nUsage of `endIcon` only should be avoided.\n\nThe SAP-icons font provides numerous options.\n\nExample:\nSee all the available icons within the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",name:"endIcon",required:!1,type:{name:"string"}},loading:{defaultValue:{value:"false"},description:`Defines whether the button shows a loading indicator.
+
+**Note:** If set to \`true\`, a busy indicator component will be displayed on the related button.
+
+**Note:** Available since [v2.13.0](https://github.com/UI5/webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents**.`,name:"loading",required:!1,type:{name:"boolean"}},loadingDelay:{defaultValue:{value:"1000"},description:`Specifies the delay in milliseconds before the loading indicator appears within the associated button.
+
+**Note:** Available since [v2.13.0](https://github.com/UI5/webcomponents/releases/tag/v2.13.0) of **@ui5/webcomponents**.`,name:"loadingDelay",required:!1,type:{name:"number"}},badge:{defaultValue:null,description:`Adds a badge to the button.
+
+__Note:__ The content of the prop will be rendered into a [&lt;slot&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) by assigning the respective [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) attribute (\`slot="badge"\`).
+Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
+
+__Note:__ When passing a custom React component to this prop, you have to make sure your component reads the \`slot\` prop and appends it to the most outer element of your component.
+Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+
+**Note:** Available since [v2.7.0](https://github.com/UI5/webcomponents/releases/tag/v2.7.0) of **@ui5/webcomponents**.
+
+__Supported Node Type/s:__ \`Array<ButtonBadge>\``,name:"badge",required:!1,type:{name:"UI5WCSlotsNode"}}}}}catch{}export{a as M};
