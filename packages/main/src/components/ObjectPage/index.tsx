@@ -684,10 +684,13 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
               onToggleHeaderContentVisibility: onTitleClick,
               'data-not-clickable': !!preserveHeaderStateOnClick,
               'data-header-content-visible': headerArea && headerCollapsed !== true,
-              _snappedAvatar:
-                (!headerArea && image) || (image && headerCollapsed === true) ? (
-                  <CollapsedAvatar image={image} imageShapeCircle={imageShapeCircle} />
-                ) : null,
+              _snappedAvatar: (
+                <CollapsedAvatar
+                  image={image}
+                  imageShapeCircle={imageShapeCircle}
+                  className={!image || (headerArea && !headerCollapsed) ? classNames.collapsedAvatarHidden : undefined}
+                />
+              ),
             })}
         </header>
         {renderHeaderContentSection()}
