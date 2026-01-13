@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { isSSR } from '../../../internal/utils.js';
 
 // If reused, think about implementing the behavior via useSyncExternalStore
 
@@ -8,9 +9,9 @@ import { useState, useEffect } from 'react';
  * @returns boolean
  */
 export function useFontsReady(): boolean {
-  const [fontsReady, setFontsReady] = useState(document.fonts?.status === 'loaded');
+  const [fontsReady, setFontsReady] = useState(false);
   useEffect(() => {
-    if (!document.fonts) {
+    if (isSSR() || !document.fonts) {
       return;
     }
 
