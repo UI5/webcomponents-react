@@ -16,7 +16,7 @@
     "@ui5/webcomponents": "2.18.1",
     "@ui5/webcomponents-base": "2.18.1",
     "@ui5/webcomponents-fiori": "2.18.1",
-    "@ui5/webcomponents-react": "2.18.0",
+    "@ui5/webcomponents-react": "2.18.1",
     "cross-env": "10.1.0",
     "isbot": "5.1.32",
     "react": "19.2.3",
