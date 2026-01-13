@@ -150,7 +150,6 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     },
   );
   const scrollPaddingBlock = `${Math.ceil(12 + topHeaderHeight + TAB_CONTAINER_HEADER_HEIGHT + (!headerCollapsed && headerPinned ? headerContentHeight : 0))}px ${footerArea ? 'calc(var(--_ui5wcr-BarHeight) + 1.25rem)' : 0}`;
-  const hideCollapsedAvatar = !image || (headerArea && !headerCollapsed);
 
   useEffect(() => {
     if (typeof onToggleHeaderArea === 'function' && isToggledRef.current) {
@@ -689,7 +688,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
                 <CollapsedAvatar
                   image={image}
                   imageShapeCircle={imageShapeCircle}
-                  hideCollapsedAvatar={hideCollapsedAvatar}
+                  hideCollapsedAvatar={!image || (headerArea && !headerCollapsed)}
                 />
               ),
             })}
