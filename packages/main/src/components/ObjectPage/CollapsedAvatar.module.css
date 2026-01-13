@@ -30,3 +30,7 @@
 .circle {
   border-radius: 50%;
 }
+
+.notDisplayed {
+  display: none;
+}
