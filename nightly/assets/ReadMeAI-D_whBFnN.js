@@ -1,0 +1,39 @@
+import{j as n}from"./iframe-Cig4nsrF.js";import{useMDXComponents as i}from"./index-rt57_u-y.js";import{M as s,a as r}from"./blocks-DAEBkYYF.js";import"./Tag-Bs_1btou.js";import"./index-FKwq6U9j.js";import{F as m}from"./CommandsAndQueries-D3xhwJA5.js";import"./copy-C7r52zpO.js";import{T as a}from"./TableOfContent-CFzYaydv.js";import"./preload-helper-PPVm8Dsz.js";import"./information-B6HgxZBq.js";import"./sys-enter-2-BRRws0JK.js";import"./alert-Cb5ARKKh.js";import"./index-B2RnTjWc.js";import"./index-BB06tsQb.js";import"./index-5C4HFP5l.js";import"./Link-Br9IVr1w.js";import"./index-BrrdpEgt.js";import"./index-ftQeoy-6.js";import"./index-BmqXmyDH.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-DsK0-Mz_.js";import"./addCustomCSSWithScoping-BWNNT1nj.js";import"./index-BL2sJT6Z.js";const p=`# @ui5/webcomponents-ai-react
+
+React wrapper for the [@ui5/webcomponents-ai](https://ui5.github.io/webcomponents/components/ai/) web components.
+
+## Installation
+
+To consume \`@ui5/webcomponents-ai-react\`, you need to install the npm modules and required peer dependencies:
+
+\`\`\`bash
+npm install @ui5/webcomponents-ai-react @ui5/webcomponents-ai
+\`\`\`
+
+## Provided assets
+
+| Assets           | Module                                 | Notes                                                  |
+| ---------------- | -------------------------------------- | ------------------------------------------------------ |
+| \`i18n\`, \`themes\` | \`@ui5/webcomponents-ai/dist/Assets.js\` | Theming parameters and translations for the components |
+
+## UI5 Web Components Documentation and Patterns
+
+- Components: https://ui5.github.io/webcomponents/components/ai/
+- Patterns: https://ui5.github.io/webcomponents/components/patterns/
+
+## Documentation
+
+You can find an interactive documentation in our [Storybook](https://ui5.github.io/webcomponents-react/).
+
+## Contribute
+
+Please check our [Contribution Guidelines](https://github.com/UI5/webcomponents-react/blob/main/CONTRIBUTING.md).
+
+## License
+
+Please see our [LICENSE](https://github.com/UI5/webcomponents-react/blob/main/LICENSE) for copyright and license information.
+Detailed information including third-party components and their licensing/copyright information is available via the [REUSE tool](https://api.reuse.software/info/github.com/UI5/webcomponents-react).
+`;function e(t){return n.jsxs(n.Fragment,{children:[n.jsx(s,{title:"AI / Docs"}),`
+`,n.jsx(a,{}),`
+`,n.jsx(r,{children:p.split("## Documentation")[0].trim()}),`
+`,n.jsx(m,{})]})}function L(t={}){const{wrapper:o}={...i(),...t.components};return o?n.jsx(o,{...t,children:n.jsx(e,{...t})}):e()}export{L as default};

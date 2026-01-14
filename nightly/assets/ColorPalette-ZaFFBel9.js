@@ -1,0 +1,12 @@
+import{j as o,e as s}from"./iframe-Cig4nsrF.js";import{useMDXComponents as n}from"./index-rt57_u-y.js";import{A as a}from"./ArgTypesWithNote-DaOsX7T7.js";import{C as c}from"./ControlsWithNote-BEmXSTpX.js";import{D as x}from"./DocsHeader-DsziQCYn.js";import{F as f}from"./CommandsAndQueries-D3xhwJA5.js";import{S as l}from"./SubcomponentsSection-BVy4lpQe.js";import{M as j,C as d,a as h,D as u}from"./blocks-DAEBkYYF.js";import{C as m}from"./index-D1LB1WIl.js";import{C as i,D as e}from"./ColorPalette.stories-Cd8vk787.js";import"./preload-helper-PPVm8Dsz.js";import"./index-FKwq6U9j.js";import"./information-B6HgxZBq.js";import"./sys-enter-2-BRRws0JK.js";import"./alert-Cb5ARKKh.js";import"./Tag-Bs_1btou.js";import"./index-BL2sJT6Z.js";import"./index-5C4HFP5l.js";import"./Link-Br9IVr1w.js";import"./copy-Y9mZrYG3.js";import"./copy-C7r52zpO.js";import"./GitHub-Mark-lRZYtsJv.js";import"./TableOfContent-CFzYaydv.js";import"./index-B2RnTjWc.js";import"./index-BB06tsQb.js";import"./index-BrrdpEgt.js";import"./index-ftQeoy-6.js";import"./index-BmqXmyDH.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-DsK0-Mz_.js";import"./addCustomCSSWithScoping-BWNNT1nj.js";import"./query-CzSBusdE.js";import"./ColorPaletteMoreColorsTemplate-Cc3i5RCJ.js";import"./ColorPicker-Br0p2Exz.js";import"./Slider-BCBodRg7.js";import"./SliderTooltip-eu5XV5pQ.js";import"./Input-RuURL5K_.js";import"./ResponsivePopoverCommon.css-CMdAayek.js";import"./ValueStateMessage.css-DVzvrXAG.js";import"./Suggestions.css-orKcFsj8.js";function p(t){const r={h2:"h2",...n(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(j,{of:i}),`
+`,o.jsx(x,{of:i,since:"0.14.0"}),`
+`,o.jsx("br",{}),`
+`,o.jsx(r.h2,{id:"example",children:"Example"}),`
+`,o.jsx(d,{of:e}),`
+`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
+`,o.jsx(c,{of:e}),`
+`,o.jsx(h,{children:l}),`
+`,o.jsx(r.h2,{id:"colorpaletteitem",children:"ColorPaletteItem"}),`
+`,o.jsx(u,{of:m}),`
+`,o.jsx(a,{metaOf:i,hideHTMLPropsNote:!0,exclude:s,of:m}),`
+`,o.jsx(f,{})]})}function mo(t={}){const{wrapper:r}={...n(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(p,{...t})}):p(t)}export{mo as default};
