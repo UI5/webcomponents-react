@@ -27,6 +27,8 @@ export default defineConfig({
       framework: 'react',
       bundler: 'vite',
     },
+    experimentalRunAllSpecs: true,
+    excludeSpecPattern: ['**/e2e/**'],
   },
   includeShadowDom: true,
   viewportWidth: 1920,
