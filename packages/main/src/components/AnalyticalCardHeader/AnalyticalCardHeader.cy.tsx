@@ -84,16 +84,21 @@ describe('AnalyticalCardHeader', () => {
       it(`numeric tooltip & aria-label (trend: ${trend}, state: ${state})`, () => {
         cy.mount(<AnalyticalCardHeader titleText={'Header'} trend={trend} value={'65.34'} state={state} scale={'K'} />);
         if (trend === 'None') {
+          const shouldVal = `65.34K\n${semanticColorMap.get(state)}`.trim();
+          cy.get('[data-component-name="AnalyticalCardHeaderNumericContent"]').should('have.attr', 'title', shouldVal);
           cy.get('[data-component-name="AnalyticalCardHeaderNumericContent"]').should(
             'have.attr',
-            'title',
-            `65.34K\n${semanticColorMap.get(state)}`.trim(),
+            'aria-label',
+            shouldVal,
           );
         } else {
+          const shouldVal =
+            `65.34K\n${trend === 'Up' ? 'Ascending' : 'Descending'}\n${semanticColorMap.get(state)}`.trim();
+          cy.get('[data-component-name="AnalyticalCardHeaderNumericContent"]').should('have.attr', 'title', shouldVal);
           cy.get('[data-component-name="AnalyticalCardHeaderNumericContent"]').should(
             'have.attr',
-            'title',
-            `65.34K\n${trend === 'Up' ? 'Ascending' : 'Descending'}\n${semanticColorMap.get(state)}`.trim(),
+            'aria-label',
+            shouldVal,
           );
         }
       });
