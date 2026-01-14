@@ -59,6 +59,8 @@ export interface AnalyticalCardHeaderPropTypes extends CommonProps {
    * The semantic color which represents the state of the main number indicator.
    * Available options are: <ul> <li><code>None</code></li> <li><code>Error</code></li> <li><code>Critical</code></li> <li><code>Good</code></li> <li><code>Neutral</code></li></ul>
    *
+   * __Note__: "None" has the same color as "Neutral" but doesn't add the tooltip and accessible-name.
+   *
    * @default `"None"`
    */
   state?: ValueColor | keyof typeof ValueColor;
@@ -185,9 +187,9 @@ export const AnalyticalCardHeader = forwardRef<HTMLDivElement, AnalyticalCardHea
       role="group"
       aria-roledescription={i18nBundle.getText(ARIA_DESC_CARD_HEADER)}
       aria-labelledby={cardLabelledBy}
+      slot="header"
       {...rest}
       onClick={onClick}
-      slot={'header'}
     >
       <div>
         <div className={classNames.headerTitles}>
@@ -209,7 +211,14 @@ export const AnalyticalCardHeader = forwardRef<HTMLDivElement, AnalyticalCardHea
           )}
         </div>
         <div className={classNames.kpiContent}>
-          <div className={valueAndUnitClasses} id={`${headerId}-mainIndicator`} aria-label={kpiAriaLabel} role="img">
+          <div
+            className={valueAndUnitClasses}
+            id={`${headerId}-mainIndicator`}
+            aria-label={kpiAriaLabel.trim()}
+            title={kpiAriaLabel.trim()}
+            role="img"
+            data-component-name="AnalyticalCardHeaderNumericContent"
+          >
             <span className={classNames.value}>{value}</span>
             <div className={classNames.indicatorAndUnit}>
               {trend !== DeviationIndicator.None && (
