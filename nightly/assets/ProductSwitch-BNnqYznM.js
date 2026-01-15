@@ -1,0 +1,12 @@
+import{j as o}from"./iframe-DzsY3-MS.js";import{useMDXComponents as s}from"./index-DFSYB4hO.js";import{A as p}from"./ArgTypesWithNote-Bs7c56s2.js";import{C as a}from"./ControlsWithNote-xp0YhEc5.js";import{D as c}from"./DocsHeader-Cq6IcOwz.js";import{F as x}from"./CommandsAndQueries-DBuYeihv.js";import{S as f}from"./SubcomponentsSection-BVy4lpQe.js";import{M as j,C as d,a as h,D as u}from"./blocks-DS0Y1BZg.js";import{C as i,D as m,P as n}from"./ProductSwitch.stories-Dks3Yh5E.js";import"./preload-helper-PPVm8Dsz.js";import"./index-DdAKftEE.js";import"./information-a2aTFncM.js";import"./sys-enter-2-7qDJkwn8.js";import"./alert-BRYQ7SuA.js";import"./Tag-L2pUIWpP.js";import"./index-C5c1rTpg.js";import"./index-BfsMxbQ9.js";import"./Link-3hYic3jw.js";import"./copy-UgNSKKPX.js";import"./copy-BminF4Iy.js";import"./GitHub-Mark-Bq8LtgDP.js";import"./TableOfContent-D6dPMkmb.js";import"./index-DKfHbnjd.js";import"./index-DkJZCu2R.js";import"./index-BndW4ILr.js";import"./index-DQ0Bmg4X.js";import"./index-DTlY8Kzq.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-C7IVEmPi.js";import"./addCustomCSSWithScoping-0WSQwudS.js";import"./home-BmddXVg4.js";import"./home-0cPuGSeD.js";import"./parameters-bundle.css-BZkrnAIc.js";import"./i18n-defaults-i0ThFMss.js";function e(t){const r={h2:"h2",...s(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(j,{of:i}),`
+`,o.jsx(c,{of:i,since:"0.7.0"}),`
+`,o.jsx("br",{}),`
+`,o.jsx(r.h2,{id:"example",children:"Example"}),`
+`,o.jsx(d,{of:m}),`
+`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
+`,o.jsx(a,{of:m}),`
+`,o.jsx(h,{children:f}),`
+`,o.jsx(r.h2,{id:"productswitchitem",children:"ProductSwitchItem"}),`
+`,o.jsx(u,{of:n}),`
+`,o.jsx(p,{metaOf:i,of:n}),`
+`,o.jsx(x,{})]})}function Y(t={}){const{wrapper:r}={...s(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(e,{...t})}):e(t)}export{Y as default};
