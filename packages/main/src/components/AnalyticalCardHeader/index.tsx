@@ -59,7 +59,7 @@ export interface AnalyticalCardHeaderPropTypes extends CommonProps {
    * The semantic color which represents the state of the main number indicator.
    * Available options are: <ul> <li><code>None</code></li> <li><code>Error</code></li> <li><code>Critical</code></li> <li><code>Good</code></li> <li><code>Neutral</code></li></ul>
    *
-   * __Note__: "None" has the same color as "Neutral" but doesn't add the tooltip and accessible-name.
+   * __Note__: "None" has the same color as "Neutral" but doesn't add the tooltip and accessible-name for the numeric content.
    *
    * @default `"None"`
    */

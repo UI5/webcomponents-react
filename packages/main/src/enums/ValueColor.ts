@@ -18,7 +18,7 @@ export enum ValueColor {
   /**
    * None value color.
    *
-   * __Note__: "None" has the same color as "Neutral" but doesn't add the tooltip and accessible-name.
+   * __Note__: "None" has the same color as "Neutral" but doesn't add the tooltip and accessible-name for the numeric content.
    */
   None = 'None',
 }
