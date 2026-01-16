@@ -1,9 +1,7 @@
-// For some reason a different import/order is expected in CI
-// eslint-disable-next-line import/order
-import { MessageStrip, ThemeProvider } from '@ui5/webcomponents-react';
 import UXCIntegrationApp from '../patterns/navigation-layout/src/App.js';
 import '../patterns/navigation-layout/src/index.css';
 import { EmbeddedStackBlitz } from '@/docs/EmbeddedStackBlitz.js';
+import { MessageStrip, ThemeProvider } from '@ui5/webcomponents-react';
 
 function UXCIntegration() {
   return (
