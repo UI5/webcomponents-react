@@ -666,8 +666,9 @@ describe('VariantManagement', () => {
 
     cy.get('[icon="navigation-down-arrow"]').click();
     cy.findByText('Manage').click();
+    cy.get('[ui5-table-row-action][text="Delete View"]').as('deleteActions');
 
-    cy.get('[ui5-table-row-action][text="Delete View"]').each(($action) => {
+    cy.get('@deleteActions').each(($action) => {
       if ($action.parent().attr('data-id') !== 'VariantItem 3') {
         cy.wrap($action).click();
       }
@@ -678,6 +679,21 @@ describe('VariantManagement', () => {
     cy.findByText(
       '{"nativeDetail":1,"deletedVariants":[{"children":"VariantItem 1"},{"selected":true,"children":"VariantItem 2"}],"prevVariants":[{"children":"VariantItem 1"},{"selected":true,"children":"VariantItem 2"},{"isDefault":true,"children":"VariantItem 3"}],"updatedVariants":[],"variants":[{"isDefault":true,"children":"VariantItem 3"}]}',
     );
+
+    cy.get('[icon="navigation-down-arrow"]').click();
+    cy.findByText('Manage').click();
+
+    cy.get('@deleteActions').first().click();
+    cy.focused().should('have.attr', 'ui5-table-row');
+    cy.focused().should('have.attr', 'data-id', 'VariantItem 2');
+
+    cy.get('@deleteActions').last().click();
+    cy.focused().should('have.attr', 'ui5-table-row');
+    cy.focused().should('have.attr', 'data-id', 'VariantItem 2');
+
+    // no other rows remaining
+    cy.get('@deleteActions').first().click();
+    cy.findByText('Cancel').should('be.focused');
   });
 
   it('Manage Views input validation', () => {

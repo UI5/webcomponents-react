@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
+import { isSSR } from '../../../internal/utils.js';
 
 // If reused, think about implementing the behavior via useSyncExternalStore
+
+const isClient = !isSSR();
 
 /**
  * Hook that returns whether the fonts are loaded and ready to use.
@@ -8,7 +11,7 @@ import { useState, useEffect } from 'react';
  * @returns boolean
  */
 export function useFontsReady(): boolean {
-  const [fontsReady, setFontsReady] = useState(document.fonts?.status === 'loaded');
+  const [fontsReady, setFontsReady] = useState(isClient && document.fonts?.status === 'loaded');
   useEffect(() => {
     if (!document.fonts) {
       return;

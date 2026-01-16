@@ -184,3 +184,7 @@
   position: absolute;
   inset: 0;
 }
+
+.collapsedAvatarHidden {
+  display: none;
+}
