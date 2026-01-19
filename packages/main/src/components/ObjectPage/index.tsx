@@ -11,7 +11,17 @@ import {
 } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { CSSProperties, FocusEventHandler, MouseEventHandler, ReactElement, UIEventHandler } from 'react';
-import { cloneElement, forwardRef, isValidElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  cloneElement,
+  Children,
+  forwardRef,
+  isValidElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { ObjectPageMode } from '../../enums/ObjectPageMode.js';
 import { safeGetChildrenArray } from '../../internal/safeGetChildrenArray.js';
 import { useObserveHeights } from '../../internal/useObserveHeights.js';
@@ -85,6 +95,8 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     selectedSectionId ?? firstSectionId,
   );
   const [tabSelectId, setTabSelectId] = useState<null | string>(null);
+  const hasOnlySingleSection = Children.count(children) === 1;
+  const tabContainerHeaderHeight = hasOnlySingleSection ? 1 : TAB_CONTAINER_HEADER_HEIGHT;
 
   const isProgrammaticallyScrolled = useRef(false);
   const [componentRef, objectPageRef] = useSyncRef(ref);
@@ -150,7 +162,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       scrollTimeout,
     },
   );
-  const scrollPaddingBlock = `${Math.ceil(12 + topHeaderHeight + TAB_CONTAINER_HEADER_HEIGHT + (!headerCollapsed && headerPinned ? headerContentHeight : 0))}px ${footerArea ? 'calc(var(--_ui5wcr-BarHeight) + 1.25rem)' : 0}`;
+  const scrollPaddingBlock = `${Math.ceil(12 + topHeaderHeight + tabContainerHeaderHeight + (!headerCollapsed && headerPinned ? headerContentHeight : 0))}px ${footerArea ? 'calc(var(--_ui5wcr-BarHeight) + 1.25rem)' : 0}`;
 
   useEffect(() => {
     if (typeof onToggleHeaderArea === 'function' && isToggledRef.current) {
@@ -207,7 +219,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
         const scrollMargin =
           -1 /* reduce margin-block so that intersection observer detects correct section*/ +
           safeTopHeaderHeight +
-          TAB_CONTAINER_HEADER_HEIGHT +
+          tabContainerHeaderHeight +
           (headerPinned && !headerCollapsed ? headerContentHeight : 0);
         section.style.scrollMarginBlockStart = scrollMargin + 'px';
         if (isSubSection) {
@@ -426,7 +438,16 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     return () => {
       observer.disconnect();
     };
-  }, [topHeaderHeight, headerContentHeight, currentTabModeSection, children, mode, isHeaderPinnedAndExpanded]);
+  }, [
+    topHeaderHeight,
+    headerContentHeight,
+    currentTabModeSection,
+    children,
+    mode,
+    isHeaderPinnedAndExpanded,
+    hasOnlySingleSection,
+    objectPageRef,
+  ]);
 
   const onToggleHeaderContentVisibility = (e) => {
     isToggledRef.current = true;
@@ -459,7 +480,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     }
     const sectionNodes = objectPageRef.current?.querySelectorAll('section[data-component-name="ObjectPageSection"]');
     // only the sticky part of the header must be added as margin
-    const rootMargin = `-${((headerPinned && !headerCollapsed) || scrolledHeaderExpanded ? totalHeaderHeight : topHeaderHeight) + TAB_CONTAINER_HEADER_HEIGHT}px 0px 0px 0px`;
+    const rootMargin = `-${((headerPinned && !headerCollapsed) || scrolledHeaderExpanded ? totalHeaderHeight : topHeaderHeight) + tabContainerHeaderHeight}px 0px 0px 0px`;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -613,8 +634,8 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     ...style,
     [ObjectPageCssVariables.fullHeaderHeight]:
       headerPinned || scrolledHeaderExpanded
-        ? `${topHeaderHeight + (headerCollapsed === true ? 0 : headerContentHeight) + TAB_CONTAINER_HEADER_HEIGHT}px`
-        : `${topHeaderHeight + TAB_CONTAINER_HEADER_HEIGHT}px`,
+        ? `${topHeaderHeight + (headerCollapsed === true ? 0 : headerContentHeight) + tabContainerHeaderHeight}px`
+        : `${topHeaderHeight + tabContainerHeaderHeight}px`,
   } as CSSProperties;
   if (headerCollapsed === true && headerArea) {
     objectPageStyles[ObjectPageCssVariables.titleFontSize] = ThemingParameters.sapObjectHeader_Title_SnappedFontSize;
@@ -722,7 +743,21 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
             />
           </div>
         )}
-        {!placeholder && (
+        {hasOnlySingleSection && (
+          <div
+            ref={tabContainerContainerRef}
+            aria-hidden="true"
+            data-component-name="ObjectPageTabContainerPlaceholder"
+            className={classNames.tabContainerPlaceholder}
+            style={{
+              insetBlockStart:
+                headerPinned || scrolledHeaderExpanded
+                  ? `${topHeaderHeight + (headerCollapsed === true ? 0 : headerContentHeight)}px`
+                  : `${topHeaderHeight}px`,
+            }}
+          />
+        )}
+        {!placeholder && !hasOnlySingleSection && (
           <div
             ref={tabContainerContainerRef}
             className={classNames.tabContainer}

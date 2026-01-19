@@ -662,29 +662,52 @@ describe('ObjectPage', () => {
     cy.findByTestId('footer').should('be.visible');
   });
 
-  it('single section - Default mode', () => {
-    document.body.style.margin = '0px';
-    const TestComp = ({
-      mode,
-      height,
-      withFooter,
-    }: {
-      height: CSSProperties['height'];
-      withFooter?: boolean;
-      mode: ObjectPageMode;
-    }) => {
-      const ref = useRef(null);
-      const [showCurrentHeights, setShowCurrentHeights] = useState({ offset: null, scroll: null });
-      return (
-        <ObjectPage
-          style={{ height: '100vh' }}
-          titleArea={DPTitle}
-          headerArea={DPContent}
-          data-testid="op"
-          ref={ref}
-          footerArea={withFooter && Footer}
-          mode={mode}
-        >
+  const TestSingleSectionComp = ({
+    mode,
+    height,
+    withFooter,
+    withSubSections,
+  }: {
+    height: CSSProperties['height'];
+    withFooter?: boolean;
+    mode: ObjectPageMode;
+    withSubSections?: boolean;
+  }) => {
+    const ref = useRef(null);
+    const [showCurrentHeights, setShowCurrentHeights] = useState({ offset: null, scroll: null });
+    return (
+      <ObjectPage
+        style={{ height: '100vh' }}
+        titleArea={DPTitle}
+        headerArea={DPContent}
+        data-testid="op"
+        ref={ref}
+        footerArea={withFooter && Footer}
+        mode={mode}
+      >
+        {withSubSections ? (
+          <ObjectPageSection key="0" titleText="Goals" id="goals" aria-label="Goals">
+            <ObjectPageSubSection id="0.0" titleText="0.0">
+              <div data-testid="section 1" style={{ height, width: '100%', background: 'lightblue' }}>
+                <Button
+                  onClick={() => {
+                    setShowCurrentHeights({
+                      // rounding offset/scroll-height differs from browser to browser and maybe even from headless tests
+                      offset: Math.floor(ref.current?.offsetHeight / 10) * 10,
+                      scroll: Math.floor(ref.current?.scrollHeight / 10) * 10,
+                    });
+                  }}
+                >
+                  Update Heights
+                </Button>
+                {JSON.stringify(showCurrentHeights)}
+              </div>
+            </ObjectPageSubSection>
+            <ObjectPageSubSection id="0.1" titleText="0.0">
+              <div data-testid="section 2" style={{ height: '400px', width: '100%', background: 'lightgreen' }}></div>
+            </ObjectPageSubSection>
+          </ObjectPageSection>
+        ) : (
           <ObjectPageSection key="0" titleText="Goals" id="goals" aria-label="Goals">
             <div data-testid="section 1" style={{ height, width: '100%', background: 'lightblue' }}>
               <Button
@@ -701,26 +724,35 @@ describe('ObjectPage', () => {
               {JSON.stringify(showCurrentHeights)}
             </div>
           </ObjectPageSection>
-        </ObjectPage>
-      );
-    };
-    cy.mount(<TestComp height="2000px" mode={ObjectPageMode.Default} />);
+        )}
+      </ObjectPage>
+    );
+  };
+
+  it('single section - Default mode', () => {
+    document.body.style.margin = '0px';
+
+    cy.mount(<TestSingleSectionComp height="2000px" mode={ObjectPageMode.Default} />);
+
+    cy.get('[data-component-name="ObjectPageTabContainerPlaceholder"]').should('exist');
+    cy.get('[data-component-name="ObjectPageTabContainer"]').should('not.exist');
+
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2330}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2280}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2330}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2280}').should('exist');
 
-    cy.mount(<TestComp height="2000px" withFooter mode={ObjectPageMode.Default} />);
+    cy.mount(<TestSingleSectionComp height="2000px" withFooter mode={ObjectPageMode.Default} />);
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2370}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2320}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2370}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2320}').should('exist');
 
-    cy.mount(<TestComp height="400px" mode={ObjectPageMode.Default} />);
+    cy.mount(<TestSingleSectionComp height="400px" mode={ObjectPageMode.Default} />);
     cy.findByText('Update Heights').click();
     cy.findByText('{"offset":1080,"scroll":1080}').should('exist');
 
@@ -732,7 +764,7 @@ describe('ObjectPage', () => {
     cy.findByText('Update Heights').click({ force: true });
     cy.findByText('{"offset":1080,"scroll":1080}').should('exist');
 
-    cy.mount(<TestComp height="400px" withFooter mode={ObjectPageMode.Default} />);
+    cy.mount(<TestSingleSectionComp height="400px" withFooter mode={ObjectPageMode.Default} />);
     cy.findByText('Update Heights').click();
     cy.findByText('{"offset":1080,"scroll":1080}').should('exist');
 
@@ -744,7 +776,7 @@ describe('ObjectPage', () => {
     cy.findByText('Update Heights').click({ force: true });
     cy.findByText('{"offset":1080,"scroll":1080}').should('exist');
 
-    cy.mount(<TestComp height="925px" mode={ObjectPageMode.Default} />);
+    cy.mount(<TestSingleSectionComp height="925px" mode={ObjectPageMode.Default} />);
     cy.findByText('https://github.com/UI5/webcomponents-react').should('be.visible');
 
     cy.wait(50);
@@ -757,67 +789,36 @@ describe('ObjectPage', () => {
 
     cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
     cy.findByText('https://github.com/UI5/webcomponents-react').should('not.be.visible');
+
+    cy.log('with subsections');
+    cy.mount(<TestSingleSectionComp height="2000px" withSubSections mode={ObjectPageMode.Default} />);
+    cy.get('[data-component-name="ObjectPageTabContainerPlaceholder"]').should('exist');
+    cy.get('[data-component-name="ObjectPageTabContainer"]').should('not.exist');
   });
 
   it('single section - Tab mode', () => {
     document.body.style.margin = '0px';
-    const TestComp = ({
-      mode,
-      height,
-      withFooter,
-    }: {
-      height: CSSProperties['height'];
-      withFooter?: boolean;
-      mode: ObjectPageMode;
-    }) => {
-      const ref = useRef(null);
-      const [showCurrentHeights, setShowCurrentHeights] = useState({ offset: null, scroll: null });
-      return (
-        <ObjectPage
-          style={{ height: '100vh' }}
-          titleArea={DPTitle}
-          headerArea={DPContent}
-          data-testid="op"
-          ref={ref}
-          footerArea={withFooter && Footer}
-          mode={mode}
-        >
-          <ObjectPageSection key="0" titleText="Goals" id="goals" aria-label="Goals">
-            <div data-testid="section 1" style={{ height, width: '100%', background: 'lightblue' }}>
-              <Button
-                onClick={() => {
-                  setShowCurrentHeights({
-                    // rounding offset/scroll-height differs from browser to browser and maybe even from headless tests
-                    offset: Math.floor(ref.current?.offsetHeight / 10) * 10,
-                    scroll: Math.floor(ref.current?.scrollHeight / 10) * 10,
-                  });
-                }}
-              >
-                Update Heights
-              </Button>
-              {JSON.stringify(showCurrentHeights)}
-            </div>
-          </ObjectPageSection>
-        </ObjectPage>
-      );
-    };
-    cy.mount(<TestComp height="2000px" mode={ObjectPageMode.IconTabBar} />);
+    cy.mount(<TestSingleSectionComp height="2000px" mode={ObjectPageMode.IconTabBar} />);
+
+    cy.get('[data-component-name="ObjectPageTabContainerPlaceholder"]').should('exist');
+    cy.get('[data-component-name="ObjectPageTabContainer"]').should('not.exist');
+
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2290}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2240}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2290}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2240}').should('exist');
 
-    cy.mount(<TestComp height="2000px" withFooter mode={ObjectPageMode.IconTabBar} />);
+    cy.mount(<TestSingleSectionComp height="2000px" withFooter mode={ObjectPageMode.IconTabBar} />);
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2350}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2300}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2350}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2300}').should('exist');
 
-    cy.mount(<TestComp height="400px" mode={ObjectPageMode.IconTabBar} />);
+    cy.mount(<TestSingleSectionComp height="400px" mode={ObjectPageMode.IconTabBar} />);
     cy.findByText('Update Heights').click();
     cy.findByText('{"offset":1080,"scroll":1080}').should('exist');
 
@@ -829,7 +830,7 @@ describe('ObjectPage', () => {
     cy.findByText('Update Heights').click({ force: true });
     cy.findByText('{"offset":1080,"scroll":1080}').should('exist');
 
-    cy.mount(<TestComp height="400px" withFooter mode={ObjectPageMode.IconTabBar} />);
+    cy.mount(<TestSingleSectionComp height="400px" withFooter mode={ObjectPageMode.IconTabBar} />);
     cy.findByText('Update Heights').click();
     cy.findByText('{"offset":1080,"scroll":1080}').should('exist');
 
@@ -841,7 +842,7 @@ describe('ObjectPage', () => {
     cy.findByText('Update Heights').click({ force: true });
     cy.findByText('{"offset":1080,"scroll":1080}').should('exist');
 
-    cy.mount(<TestComp height="925px" mode={ObjectPageMode.IconTabBar} />);
+    cy.mount(<TestSingleSectionComp height="925px" mode={ObjectPageMode.IconTabBar} />);
     cy.findByText('https://github.com/UI5/webcomponents-react').should('be.visible');
 
     cy.wait(50);
@@ -854,7 +855,13 @@ describe('ObjectPage', () => {
 
     cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
     cy.findByText('https://github.com/UI5/webcomponents-react').should('not.be.visible');
+
+    cy.log('with subsections');
+    cy.mount(<TestSingleSectionComp height="2000px" withSubSections mode={ObjectPageMode.Default} />);
+    cy.get('[data-component-name="ObjectPageTabContainerPlaceholder"]').should('exist');
+    cy.get('[data-component-name="ObjectPageTabContainer"]').should('not.exist');
   });
+
   [ObjectPageMode.Default, ObjectPageMode.IconTabBar].forEach((mode) => {
     it(`ObjectPageSection/SubSection: Custom header & hideTitleText (mode: ${mode})`, () => {
       document.body.style.margin = '0px';

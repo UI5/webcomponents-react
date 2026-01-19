@@ -104,6 +104,13 @@
   background: var(--sapObjectHeader_Background);
 }
 
+.tabContainerPlaceholder {
+  composes: tabContainer;
+  box-shadow: var(--sapContent_HeaderShadow);
+  height: 1px;
+  flex-shrink: 0;
+}
+
 .tabContainerComponent {
   &::part(content) {
     display: none;
