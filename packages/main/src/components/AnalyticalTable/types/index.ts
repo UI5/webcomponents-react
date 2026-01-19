@@ -1030,6 +1030,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
       nativeDetail: number;
     }>,
   ) => void;
+  //todo: add cursor pointer when this prop is active in next major version update.
   /**
    * Fired when a row is clicked
    */

@@ -246,12 +246,15 @@ const ObjectPageSection = forwardRef<HTMLElement, ObjectPageSectionPropTypes>((p
       onBlur={objectPageMode === ObjectPageMode.Default ? handleBlur : props.onBlur}
       onKeyDown={objectPageMode === ObjectPageMode.Default ? handleKeyDown : props.onKeyDown}
     >
-      {!!header && <div className={classNames.headerContainer}>{header}</div>}
+      <div className={classNames.outlineSpacerDiv} aria-hidden="true" />
+      {!!header && (
+        <div className={clsx(classNames.headerContainer, !hasSubSection ? classNames.sticky : undefined)}>{header}</div>
+      )}
       {!hideTitleText && (
         <div
           role="heading"
           aria-level={parseInt(titleTextLevel.slice(1))}
-          className={classNames.titleContainer}
+          className={clsx(classNames.titleContainer, !header && !hasSubSection ? classNames.sticky : undefined)}
           data-component-name="ObjectPageSectionTitleText"
         >
           <div className={titleClasses}>{titleText}</div>

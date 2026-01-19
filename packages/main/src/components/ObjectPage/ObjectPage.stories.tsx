@@ -56,7 +56,6 @@ const meta = {
   },
   args: {
     mode: ObjectPageMode.Default,
-    selectedSectionId: 'goals',
     imageShapeCircle: true,
     image: SampleImage,
     style: { height: '700px', maxHeight: '90vh' },
@@ -345,7 +344,68 @@ export const SectionWithCustomHeader: Story = {
           aria-label="Personal"
           header={<MessageStrip hideCloseButton>Custom Header Section Two</MessageStrip>}
         >
-          <div style={{ width: '100%', height: '500px', background: 'cadetblue' }} />
+          <ObjectPageSubSection
+            titleText="Connect"
+            id="personal-connect"
+            aria-label="Connect"
+            actions={
+              <>
+                <Button design={ButtonDesign.Emphasized} style={{ minWidth: '120px' }}>
+                  Custom Action
+                </Button>
+                <Button design={ButtonDesign.Transparent} icon="action-settings" tooltip="settings" />
+                <Button design={ButtonDesign.Transparent} icon="download" tooltip="download" />
+              </>
+            }
+          >
+            <Form style={{ alignItems: 'baseline' }}>
+              <FormGroup headerText="Phone Numbers">
+                <FormItem labelContent={<Label showColon>Home</Label>}>
+                  <Text>+1 234-567-8901</Text>
+                  <Text>+1 234-567-5555</Text>
+                </FormItem>
+              </FormGroup>
+              <FormGroup headerText="Social Accounts">
+                <FormItem labelContent={<Label showColon>LinkedIn</Label>}>
+                  <Text>/DeniseSmith</Text>
+                </FormItem>
+                <FormItem labelContent={<Label showColon>Twitter</Label>}>
+                  <Text>@DeniseSmith</Text>
+                </FormItem>
+              </FormGroup>
+              <FormGroup headerText="Addresses">
+                <FormItem labelContent={<Label showColon>Home Address</Label>}>
+                  <Text>2096 Mission Street</Text>
+                </FormItem>
+                <FormItem labelContent={<Label showColon>Mailing Address</Label>}>
+                  <Text>PO Box 32114</Text>
+                </FormItem>
+              </FormGroup>
+              <FormGroup headerText="Mailing Address">
+                <FormItem labelContent={<Label showColon>Work</Label>}>
+                  <Text>DeniseSmith@sap.com</Text>
+                </FormItem>
+              </FormGroup>
+            </Form>
+          </ObjectPageSubSection>
+          <ObjectPageSubSection
+            titleText="Payment Information"
+            id="personal-payment-information"
+            aria-label="Payment Information"
+          >
+            <Form>
+              <FormGroup headerText="Salary">
+                <FormItem labelContent={<Label showColon>Bank Transfer</Label>}>
+                  <Text>Money Bank, Inc.</Text>
+                </FormItem>
+              </FormGroup>
+              <FormGroup headerText="Payment method for Expenses">
+                <FormItem labelContent={<Label showColon>Extra Travel Expenses</Label>}>
+                  <Text>Cash 100 USD</Text>
+                </FormItem>
+              </FormGroup>
+            </Form>
+          </ObjectPageSubSection>
         </ObjectPageSection>
         <ObjectPageSection
           titleText="Employment"
@@ -384,6 +444,93 @@ export const FullScreenSingleSection: Story = {
         </ObjectPageSection>
         <ObjectPageSection titleText="Section with Overflow" id="section3" style={{ height: '100%', overflow: 'auto' }}>
           <div style={{ height: '300%', background: 'lightyellow' }} />
+        </ObjectPageSection>
+      </ObjectPage>
+    );
+  },
+};
+
+export const SingleSection: Story = {
+  name: 'with single section',
+  render(args) {
+    return (
+      <ObjectPage {...args}>
+        <ObjectPageSection titleText="Employment" id="employment" aria-label="Employment">
+          <ObjectPageSubSection
+            titleText="Job Information"
+            id="employment-job-information"
+            aria-label="Job Information"
+          >
+            <Form>
+              <FormItem labelContent={<Label showColon>Job Classification</Label>}>
+                <FlexBox direction={FlexBoxDirection.Column}>
+                  <Text>Senior UI Developer</Text>
+                  <Label>(UIDEV-SR)</Label>
+                </FlexBox>
+              </FormItem>
+              <FormItem labelContent={<Label showColon>Job Title</Label>}>
+                <Text>Developer</Text>
+              </FormItem>
+              <FormItem labelContent={<Label showColon>Employee Class</Label>}>
+                <Text>Employee</Text>
+              </FormItem>
+              <FormItem labelContent={<Label showColon>Manager</Label>}>
+                <FlexBox direction={FlexBoxDirection.Column}>
+                  <Text>Dan Smith</Text>
+                  <Label>Development Manager</Label>
+                </FlexBox>
+              </FormItem>
+              <FormItem labelContent={<Label showColon>Pay Grade</Label>}>
+                <Text>Salary Grade 18 (GR-14)</Text>
+              </FormItem>
+              <FormItem labelContent={<Label showColon>FTE</Label>}>
+                <Text>1</Text>
+              </FormItem>
+            </Form>
+          </ObjectPageSubSection>
+          <ObjectPageSubSection
+            titleText="Employee Details"
+            id="employment-employee-details"
+            aria-label="Employee Details"
+          >
+            <Form>
+              <FormItem labelContent={<Label showColon>Start Date</Label>}>
+                <Text>Jan 01, 2018</Text>
+              </FormItem>
+              <FormItem labelContent={<Label showColon>End Date</Label>}>
+                <Text>Dec 31, 9999</Text>
+              </FormItem>
+              <FormItem labelContent={<Label showColon>Payroll Start Date</Label>}>
+                <Text>Jan 01, 2018</Text>
+              </FormItem>
+              <FormItem labelContent={<Label showColon>Benefits Start Date</Label>}>
+                <Text>Jul 01, 2018</Text>
+              </FormItem>
+              <FormItem labelContent={<Label showColon>Company Car Eligibility</Label>}>
+                <Text>Jan 01, 2021</Text>
+              </FormItem>
+              <FormItem labelContent={<Label showColon>Equity Start Date</Label>}>
+                <Text>Jul 01, 2018</Text>
+              </FormItem>
+            </Form>
+          </ObjectPageSubSection>
+          <ObjectPageSubSection
+            titleText="Job Relationship"
+            id="employment-job-relationship"
+            aria-label="Job Relationship"
+          >
+            <Form>
+              <FormItem labelContent={<Label showColon>Manager</Label>}>
+                <Text>John Doe</Text>
+              </FormItem>
+              <FormItem labelContent={<Label showColon>Scrum Master</Label>}>
+                <Text>Michael Adams</Text>
+              </FormItem>
+              <FormItem labelContent={<Label showColon>Product Owner</Label>}>
+                <Text>John Miller</Text>
+              </FormItem>
+            </Form>
+          </ObjectPageSubSection>
         </ObjectPageSection>
       </ObjectPage>
     );
