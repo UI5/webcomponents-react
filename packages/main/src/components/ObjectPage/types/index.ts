@@ -32,17 +32,18 @@ export interface ObjectPagePropTypes extends Omit<CommonProps, 'placeholder'> {
   /**
    * Defines the upper, always static, title section of the `ObjectPage`.
    *
-   * __Note:__ Although this prop accepts all HTML Elements, it is strongly recommended that you only use `ObjectPageTitle` in order to preserve the intended design.
-   *
-   * __Note:__ When the `ObjectPageTitle` is rendered inside a custom component, it's essential to pass through all props, as otherwise the component won't function as intended!
+   * __Note:__
+   * - Use the `ObjectPageTitle` component in order to preserve the intended design.
+   * - When the `ObjectPageTitle` is rendered inside a custom component, it's essential to pass through all props, as otherwise the component won't function as intended!
    */
   titleArea?: ReactElement<ObjectPageTitlePropTypes>;
   /**
    * Defines the `ObjectPageHeader` section of the `ObjectPage`.
    *
-   * __Note:__ Although this prop accepts all HTML Elements, it is strongly recommended that you only use `ObjectPageHeader` in order to preserve the intended design.
-   *
-   * __Note:__ When the `ObjectPageHeader` is rendered inside a custom component, it's essential to pass through all props, as otherwise the component won't function as intended!
+   * __Note:__
+   * - Use the `ObjectPageHeader` component in order to preserve the intended design.
+   * - The `ObjectPageHeader` is essentially the `DynamicPageHeader` recommended by SAP Design. It was renamed in v2 to avoid conflicts with the `DynamicPageHeader` from `@ui5/webcomponents`.
+   * - When the `ObjectPageHeader` is rendered inside a custom component, it's essential to pass through all props, as otherwise the component won't function as intended!
    */
   headerArea?: ReactElement<ObjectPageHeaderPropTypes>;
   /**
