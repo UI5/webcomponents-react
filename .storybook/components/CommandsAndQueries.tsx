@@ -1,7 +1,7 @@
 import { Heading, Markdown } from '@storybook/addon-docs/blocks';
-import { Tag as WCRTag } from '@ui5/webcomponents-react';
 import dedent from 'dedent';
 import { Fragment } from 'react';
+import { Tag as WCRTag } from '@ui5/webcomponents-react';
 
 // Note: these types may be incomplete or faulty. If an error is thrown, first check if the interfaces have to be extended.
 interface TextNode {

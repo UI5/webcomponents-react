@@ -5,7 +5,7 @@ import { CheckBox } from '../../../webComponents/CheckBox/index.js';
 import type { ReactTableHooks, RowType, TableInstance } from '../types/index.js';
 import { getBy } from '../util/index.js';
 
-type DisableRowSelectionType = string | ((row: Record<any, any>) => boolean);
+type DisableRowSelectionType = string | ((row: RowType) => boolean);
 
 const customCheckBoxStyling = {
   verticalAlign: 'middle',

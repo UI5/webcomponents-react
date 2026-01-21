@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { MenuPropTypes } from '@ui5/webcomponents-react';
 import { Menu, MenuItem } from '@ui5/webcomponents-react';
+import type { MenuPropTypes } from '@ui5/webcomponents-react';
 import { useRef, useState } from 'react';
 import { useFakeStream, useStopStreamByESC } from '../../../../../.storybook/utils.js';
 import type { TextAreaPropTypes } from './index.js';

@@ -93,6 +93,8 @@ function AppShell() {
       <ResponsivePopover
         className={classes.popover}
         open={popoverOpen}
+        // The `opener` property of UI5 Web Components allows passing a reference of a DOM element. You can also use an ID string here to prevent the eslint error.
+        // eslint-disable-next-line react-hooks/refs
         opener={popoverOpenerRef.current}
         onClose={() => {
           setPopoverOpen(false);

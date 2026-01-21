@@ -1,3 +1,4 @@
+import { ProductCollection } from './products.json';
 import {
   FlexBox,
   FlexBoxDirection,
@@ -9,7 +10,6 @@ import {
   TableRow,
   Text,
 } from '@ui5/webcomponents-react';
-import { ProductCollection } from './products.json';
 
 export const ProductsTable = () => {
   return (

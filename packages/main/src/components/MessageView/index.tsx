@@ -8,8 +8,8 @@ import { getAnimationMode } from '@ui5/webcomponents-base/dist/config/AnimationM
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import announce from '@ui5/webcomponents-base/dist/util/InvisibleMessage.js';
 import iconSlimArrowLeft from '@ui5/webcomponents-icons/dist/slim-arrow-left.js';
-import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 import { useI18nBundle, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
+import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { ReactElement, ReactNode } from 'react';
 import { useRef, Children, forwardRef, Fragment, isValidElement, useCallback, useEffect, useState } from 'react';
@@ -158,7 +158,7 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
     if (internalRef.current) {
       internalRef.current.navigateBack = navigateBack;
     }
-  }, [internalRef.current, navigateBack]);
+  }, [internalRef, navigateBack]);
 
   const handleListFilterChange: SegmentedButtonPropTypes['onSelectionChange'] = (e) => {
     setListFilter(e.detail.selectedItems.at(0).dataset.key as never);

@@ -23,7 +23,7 @@ export const useManualRowSelect = (manualRowSelectedKey = 'isSelected') => {
           toggleRowSelected(id, original.isSelected);
         }
       });
-    }, [flatRows, manualRowSelectedKey]);
+    }, [flatRows, toggleRowSelected]);
   };
 
   const manualRowSelect = (hooks: ReactTableHooks) => {
