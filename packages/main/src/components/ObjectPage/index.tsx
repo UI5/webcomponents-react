@@ -38,6 +38,7 @@ import { useOnScrollEnd } from './useOnScrollEnd.js';
 const ObjectPageCssVariables = {
   headerDisplay: '--_ui5wcr_ObjectPage_header_display',
   titleFontSize: '--_ui5wcr_ObjectPage_title_fontsize',
+  fullHeaderHeight: '--_ui5wcr_ObjectPage_header_height',
 };
 
 const TAB_CONTAINER_HEADER_HEIGHT = 44 + 4; // tabbar height + custom 4px padding-block-start
@@ -611,7 +612,11 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
   });
   const objectPageStyles: CSSProperties = {
     ...style,
-  };
+    [ObjectPageCssVariables.fullHeaderHeight]:
+      headerPinned || scrolledHeaderExpanded
+        ? `${topHeaderHeight + (headerCollapsed === true ? 0 : headerContentHeight) + TAB_CONTAINER_HEADER_HEIGHT}px`
+        : `${topHeaderHeight + TAB_CONTAINER_HEADER_HEIGHT}px`,
+  } as CSSProperties;
   if (headerCollapsed === true && headerArea) {
     objectPageStyles[ObjectPageCssVariables.titleFontSize] = ThemingParameters.sapObjectHeader_Title_SnappedFontSize;
   }

@@ -2,6 +2,7 @@
   container: objectPage / inline-size;
   --_ui5wcr_ObjectPage_header_display: block;
   --_ui5wcr_ObjectPage_title_fontsize: var(--sapObjectHeader_Title_FontSize);
+  --_ui5wcr_ObjectPage_header_height: 0;
 
   box-sizing: border-box;
   position: relative;
@@ -23,19 +24,6 @@
   &[data-in-iframe='true'] {
     scroll-behavior: auto;
   }
-
-  /*invisible first heading*/
-  section[id*='ObjectPageSection-']:first-of-type > div[role='heading'] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-    white-space: nowrap;
-  }
 }
 
 .iconTabBarMode section[data-component-name='ObjectPageSection'] > div[role='heading'] {
@@ -49,7 +37,7 @@
   background-color: var(--sapObjectHeader_Background);
   position: sticky;
   inset-block-start: 0;
-  z-index: 4;
+  z-index: 5;
   cursor: pointer;
   display: grid;
   grid-auto-columns: 100%;
@@ -102,7 +90,7 @@
 
 .anchorBar {
   position: sticky;
-  z-index: 4;
+  z-index: 5;
 }
 
 .tabContainerSpacer {
@@ -112,7 +100,7 @@
 
 .tabContainer {
   position: sticky;
-  z-index: 3;
+  z-index: 4;
   background: var(--sapObjectHeader_Background);
 }
 
@@ -169,6 +157,7 @@
   position: sticky;
   inset-block-end: 0.5rem;
   margin: 0 0.5rem;
+  z-index: 4;
 }
 
 .footerSpacer {
