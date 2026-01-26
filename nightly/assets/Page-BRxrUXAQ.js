@@ -1,0 +1,8 @@
+import{j as o}from"./iframe-D_U86qCv.js";import{useMDXComponents as n}from"./index-Bg9tEBEE.js";import{M as e,C as s}from"./blocks-D61FyfHK.js";import"./Tag-B3d92F0E.js";import"./index-DY3WUczD.js";import{C as a}from"./ControlsWithNote-D5S_Midd.js";import{D as x}from"./DocsHeader-RwaG2gO7.js";import{F as f}from"./CommandsAndQueries-TugN8T6l.js";import{C as m,D as i}from"./Page.stories-ChHiBLga.js";import"./preload-helper-PPVm8Dsz.js";import"./information-DVWvWtO-.js";import"./sys-enter-2-CVo9vLlV.js";import"./alert-Dk_EKidz.js";import"./index-WEtnzuU5.js";import"./index-D9Q3nud9.js";import"./Link-Cw10wX3R.js";import"./copy-BX4vSZO9.js";import"./copy-Crjp4Ac1.js";import"./GitHub-Mark-1bpW3JCO.js";import"./TableOfContent-CQJqnL0A.js";import"./index-DfxZA3Js.js";import"./index-DQ8_SEuH.js";import"./index-hUHwRYTv.js";import"./index-BgwtpBeW.js";import"./index-DjRObmYp.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-AccWPG8C.js";import"./addCustomCSSWithScoping-peiruV29.js";import"./BarDesign-0UK-o0dt.js";import"./AnimationMode-uCcocOyC.js";import"./parameters-bundle.css-BZkrnAIc.js";import"./index-DSXBJBFQ.js";import"./Bar-vWcG-byW.js";function p(t){const r={h2:"h2",...n(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(e,{of:m}),`
+`,o.jsx(x,{of:m,since:"0.14.0"}),`
+`,o.jsx("br",{}),`
+`,o.jsx(r.h2,{id:"example",children:"Example"}),`
+`,o.jsx(s,{of:i}),`
+`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
+`,o.jsx(a,{of:i}),`
+`,o.jsx(f,{})]})}function K(t={}){const{wrapper:r}={...n(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(p,{...t})}):p(t)}export{K as default};
