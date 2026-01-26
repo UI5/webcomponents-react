@@ -79,5 +79,39 @@ describe('AnalyticalCardHeader', () => {
     cy.get('[ui5-icon]').should('have.attr', 'name', 'up');
   });
 
+  Object.values(ValueColor).forEach((state: AnalyticalCardHeaderPropTypes['state']) => {
+    Object.values(DeviationIndicator).forEach((trend: AnalyticalCardHeaderPropTypes['trend']) => {
+      it(`numeric tooltip & aria-label (trend: ${trend}, state: ${state})`, () => {
+        cy.mount(<AnalyticalCardHeader titleText={'Header'} trend={trend} value={'65.34'} state={state} scale={'K'} />);
+        if (trend === 'None') {
+          const shouldVal = `65.34K\n${semanticColorMap.get(state)}`.trim();
+          cy.get('[data-component-name="AnalyticalCardHeaderNumericContent"]').should('have.attr', 'title', shouldVal);
+          cy.get('[data-component-name="AnalyticalCardHeaderNumericContent"]').should(
+            'have.attr',
+            'aria-label',
+            shouldVal,
+          );
+        } else {
+          const shouldVal =
+            `65.34K\n${trend === 'Up' ? 'Ascending' : 'Descending'}\n${semanticColorMap.get(state)}`.trim();
+          cy.get('[data-component-name="AnalyticalCardHeaderNumericContent"]').should('have.attr', 'title', shouldVal);
+          cy.get('[data-component-name="AnalyticalCardHeaderNumericContent"]').should(
+            'have.attr',
+            'aria-label',
+            shouldVal,
+          );
+        }
+      });
+    });
+  });
+
   cypressPassThroughTestsFactory(AnalyticalCardHeader);
 });
+
+const semanticColorMap = new Map<AnalyticalCardHeaderPropTypes['state'], any>([
+  [ValueColor.Neutral, 'Neutral'],
+  [ValueColor.Good, 'Good'],
+  [ValueColor.Critical, 'Warning'],
+  [ValueColor.Error, 'Critical'],
+  [ValueColor.None, ''],
+]);
