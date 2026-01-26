@@ -1,0 +1,8 @@
+import{j as o}from"./iframe-THm39tdL.js";import{useMDXComponents as n}from"./index-B4tiZj28.js";import{M as e,C as s}from"./blocks-exNB_fpK.js";import"./Tag-DAVE_HUz.js";import"./index-GpdeEFTa.js";import{C as a}from"./ControlsWithNote-VMJauc9Q.js";import{D as x}from"./DocsHeader-DVVTlue-.js";import{F as f}from"./CommandsAndQueries-CM3XC2Lj.js";import{C as m,D as i}from"./Page.stories-T51Euluh.js";import"./preload-helper-PPVm8Dsz.js";import"./information-Cma2Q91K.js";import"./sys-enter-2-iw8Fxy6e.js";import"./alert-Buz1y0R3.js";import"./index-BQ6gEIJW.js";import"./index-DLy3fIdu.js";import"./Link-CGyr18oq.js";import"./copy-DKTSvVxt.js";import"./copy-BpRW8fgI.js";import"./GitHub-Mark-XuzE5-bu.js";import"./TableOfContent-k5L_S4AO.js";import"./index-DPta9qsd.js";import"./index-Dg0TKbRC.js";import"./index-BziYS9gD.js";import"./index-Dfp6johM.js";import"./index-KiDRbvAF.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-BGXn0jIO.js";import"./addCustomCSSWithScoping-msj5utEH.js";import"./BarDesign-0UK-o0dt.js";import"./AnimationMode-BbGJ3K_1.js";import"./parameters-bundle.css-BZkrnAIc.js";import"./index-Cgm_MG4y.js";import"./Bar-B8MtnzK8.js";function p(t){const r={h2:"h2",...n(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(e,{of:m}),`
+`,o.jsx(x,{of:m,since:"0.14.0"}),`
+`,o.jsx("br",{}),`
+`,o.jsx(r.h2,{id:"example",children:"Example"}),`
+`,o.jsx(s,{of:i}),`
+`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
+`,o.jsx(a,{of:i}),`
+`,o.jsx(f,{})]})}function K(t={}){const{wrapper:r}={...n(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(p,{...t})}):p(t)}export{K as default};
