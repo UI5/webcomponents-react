@@ -1,0 +1,8 @@
+import{j as o}from"./iframe-mz-DPMfO.js";import{useMDXComponents as p}from"./index-BQe-Y6f4.js";import{M as e,C as s}from"./blocks-CqHnwxUT.js";import"./Tag-mNyMFg7D.js";import"./index-wUrz4SBY.js";import{C as a}from"./ControlsWithNote-C6fhLtSi.js";import{D as x}from"./DocsHeader-Cu3c3bks.js";import{F as f}from"./CommandsAndQueries-CNdgb_xD.js";import{C as m,D as i}from"./AvatarGroup.stories-AU87j81K.js";import"./preload-helper-PPVm8Dsz.js";import"./information-DMiSc-jE.js";import"./sys-enter-2-Ll_1TI3l.js";import"./alert-CKymAgR2.js";import"./index--R_eUibk.js";import"./index-BPrj4A7u.js";import"./Link-BKhYH1SV.js";import"./copy-C-F6vPMT.js";import"./copy-40awRikg.js";import"./GitHub-Mark-DLjJ43nZ.js";import"./TableOfContent-BpsnHKEY.js";import"./index-Da-CbngW.js";import"./index-D9y5V_y0.js";import"./index-3wg9O5k7.js";import"./index-B9dZeu2z.js";import"./index-VFO9WUy1.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-idDvu4gP.js";import"./addCustomCSSWithScoping-DOUHBih7.js";import"./AvatarColorScheme-8OTP3zdx.js";function n(t){const r={h2:"h2",...p(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(e,{of:m}),`
+`,o.jsx(x,{of:m,since:"0.13.0"}),`
+`,o.jsx("br",{}),`
+`,o.jsx(r.h2,{id:"example",children:"Example"}),`
+`,o.jsx(s,{of:i}),`
+`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
+`,o.jsx(a,{of:i}),`
+`,o.jsx(f,{})]})}function B(t={}){const{wrapper:r}={...p(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(n,{...t})}):n(t)}export{B as default};
