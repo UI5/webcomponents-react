@@ -155,6 +155,7 @@ export const WithLinearGradient: Story = {
         accessor: 'users',
         width: 2,
         color: 'url(#colorUsers)',
+        hideDataLabel: false,
       },
     ],
   },

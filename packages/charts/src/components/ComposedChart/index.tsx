@@ -492,8 +492,13 @@ const ComposedChart = forwardRef<HTMLDivElement, ComposedChartProps>((props, ref
               key={element.reactKey}
               name={element.label ?? element.accessor}
               label={
-                element.type === 'bar' || isBigDataSet ? undefined : (
-                  <ChartDataLabel config={element} chartType={element.type} position={labelPosition} />
+                element.type === 'bar' ? undefined : (
+                  <ChartDataLabel
+                    config={element}
+                    chartType={element.type}
+                    position={labelPosition}
+                    isBigDataSet={isBigDataSet}
+                  />
                 )
               }
               stroke={element.color ?? `var(--sapChart_OrderedColor_${(index % 12) + 1})`}
