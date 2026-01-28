@@ -21,6 +21,24 @@ import { Toast } from '../../webComponents/Toast/index.js';
 import type { MessageBoxPropTypes } from '../MessageBox/index.js';
 import { MessageBox } from '../MessageBox/index.js';
 
+interface ModalConfig {
+  /**
+   * Optional container where the component should be mounted. Defaults to `document.body`.
+   */
+  container?: Element | DocumentFragment;
+}
+
+interface ModalConfigPopover extends ModalConfig {
+  /**
+   * If set to `true`, opening a new Popover will automatically close all currently opened Popovers that share the __same opener__.
+   *
+   * __Note:__
+   * - This only affects `Popover`, `Menu`, and `ResponsivePopover`.
+   * - Only closes open Popovers with the __same opener__.
+   */
+  autoClosePopovers?: boolean;
+}
+
 type ModalReturnType<DomRef> = {
   ref: MutableRefObject<DomRef>;
 };
@@ -62,12 +80,27 @@ function showDialogFn(
   };
 }
 
+function showPopoverFn(props: PopoverPropTypes, config?: ModalConfigPopover): ClosableModalReturnType<PopoverDomRef>;
 function showPopoverFn(
   props: PopoverPropTypes,
   container?: Element | DocumentFragment,
+): ClosableModalReturnType<PopoverDomRef>;
+function showPopoverFn(
+  props: PopoverPropTypes,
+  containerOrConfig?: Element | DocumentFragment | ModalConfigPopover,
 ): ClosableModalReturnType<PopoverDomRef> {
+  const isContainer = containerOrConfig instanceof Element || containerOrConfig instanceof DocumentFragment;
   const id = getRandomId();
   const ref = createRef<PopoverDomRef>();
+  if (!isContainer && containerOrConfig?.autoClosePopovers) {
+    const openPopovers = ModalStore.getPopoversWithSameOpener(props.opener);
+    openPopovers.forEach((popover) => {
+      const popoverRef = popover.ref as MutableRefObject<PopoverDomRef>;
+      if (popoverRef.current) {
+        popoverRef.current.open = false;
+      }
+    });
+  }
   ModalStore.addModal({
     Component: Popover,
     props: {
@@ -81,7 +114,7 @@ function showPopoverFn(
       },
     },
     ref,
-    container,
+    container: isContainer ? containerOrConfig : containerOrConfig?.container,
     id,
   });
 
