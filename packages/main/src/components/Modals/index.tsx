@@ -59,10 +59,16 @@ function autoClose(props: { opener?: PopoverPropTypes['opener'] }) {
   });
 }
 
+function showDialogFn(props: DialogPropTypes, config?: ModalConfig): ClosableModalReturnType<DialogDomRef>;
 function showDialogFn(
   props: DialogPropTypes,
   container?: Element | DocumentFragment,
+): ClosableModalReturnType<DialogDomRef>;
+function showDialogFn(
+  props: DialogPropTypes,
+  containerOrConfig?: Element | DocumentFragment | ModalConfig,
 ): ClosableModalReturnType<DialogDomRef> {
+  const isContainer = containerOrConfig instanceof Element || containerOrConfig instanceof DocumentFragment;
   const id = getRandomId();
   const ref = createRef<DialogDomRef>();
   ModalStore.addModal({
@@ -78,7 +84,7 @@ function showDialogFn(
       },
     },
     ref,
-    container,
+    container: isContainer ? containerOrConfig : containerOrConfig?.container,
     id,
   });
 
@@ -136,10 +142,22 @@ function showPopoverFn(
 
 function showResponsivePopoverFn(
   props: ResponsivePopoverPropTypes,
+  config?: ModalConfigPopover,
+): ClosableModalReturnType<ResponsivePopoverDomRef>;
+function showResponsivePopoverFn(
+  props: ResponsivePopoverPropTypes,
   container?: Element | DocumentFragment,
+): ClosableModalReturnType<ResponsivePopoverDomRef>;
+function showResponsivePopoverFn(
+  props: ResponsivePopoverPropTypes,
+  containerOrConfig?: Element | DocumentFragment | ModalConfigPopover,
 ): ClosableModalReturnType<ResponsivePopoverDomRef> {
+  const isContainer = containerOrConfig instanceof Element || containerOrConfig instanceof DocumentFragment;
   const id = getRandomId();
   const ref = createRef<ResponsivePopoverDomRef>();
+  if (!isContainer && containerOrConfig?.autoClosePopovers) {
+    autoClose(props);
+  }
   ModalStore.addModal({
     Component: ResponsivePopover,
     props: {
@@ -153,7 +171,7 @@ function showResponsivePopoverFn(
       },
     },
     ref,
-    container,
+    container: isContainer ? containerOrConfig : containerOrConfig?.container,
     id,
   });
 
@@ -167,9 +185,18 @@ function showResponsivePopoverFn(
   };
 }
 
-function showMenuFn(props: MenuPropTypes, container?: Element | DocumentFragment): ClosableModalReturnType<MenuDomRef> {
+function showMenuFn(props: MenuPropTypes, config?: ModalConfigPopover): ClosableModalReturnType<MenuDomRef>;
+function showMenuFn(props: MenuPropTypes, container?: Element | DocumentFragment): ClosableModalReturnType<MenuDomRef>;
+function showMenuFn(
+  props: MenuPropTypes,
+  containerOrConfig?: Element | DocumentFragment | ModalConfigPopover,
+): ClosableModalReturnType<MenuDomRef> {
+  const isContainer = containerOrConfig instanceof Element || containerOrConfig instanceof DocumentFragment;
   const id = getRandomId();
   const ref = createRef<MenuDomRef>();
+  if (!isContainer && containerOrConfig?.autoClosePopovers) {
+    autoClose(props);
+  }
   ModalStore.addModal({
     Component: Menu,
     props: {
@@ -183,7 +210,7 @@ function showMenuFn(props: MenuPropTypes, container?: Element | DocumentFragment
       },
     },
     ref,
-    container,
+    container: isContainer ? containerOrConfig : containerOrConfig?.container,
     id,
   });
 
@@ -197,10 +224,16 @@ function showMenuFn(props: MenuPropTypes, container?: Element | DocumentFragment
   };
 }
 
+function showMessageBoxFn(props: MessageBoxPropTypes, config?: ModalConfig): ClosableModalReturnType<DialogDomRef>;
 function showMessageBoxFn(
   props: MessageBoxPropTypes,
   container?: Element | DocumentFragment,
+): ClosableModalReturnType<DialogDomRef>;
+function showMessageBoxFn(
+  props: MessageBoxPropTypes,
+  containerOrConfig?: Element | DocumentFragment | ModalConfig,
 ): ClosableModalReturnType<DialogDomRef> {
+  const isContainer = containerOrConfig instanceof Element || containerOrConfig instanceof DocumentFragment;
   const id = getRandomId();
   const ref = createRef<DialogDomRef>();
   ModalStore.addModal({
@@ -217,7 +250,7 @@ function showMessageBoxFn(
       },
     },
     ref,
-    container,
+    container: isContainer ? containerOrConfig : containerOrConfig?.container,
     id,
   });
 
@@ -231,7 +264,13 @@ function showMessageBoxFn(
   };
 }
 
-function showToastFn(props: ToastPropTypes, container?: Element | DocumentFragment): ModalReturnType<ToastDomRef> {
+function showToastFn(props: ToastPropTypes, config?: ModalConfig): ModalReturnType<ToastDomRef>;
+function showToastFn(props: ToastPropTypes, container?: Element | DocumentFragment): ModalReturnType<ToastDomRef>;
+function showToastFn(
+  props: ToastPropTypes,
+  containerOrConfig?: Element | DocumentFragment | ModalConfig,
+): ModalReturnType<ToastDomRef> {
+  const isContainer = containerOrConfig instanceof Element || containerOrConfig instanceof DocumentFragment;
   const ref = createRef<ToastDomRef>();
   const id = getRandomId();
   ModalStore.addModal({
@@ -247,7 +286,7 @@ function showToastFn(props: ToastPropTypes, container?: Element | DocumentFragme
       },
     },
     ref,
-    container,
+    container: isContainer ? containerOrConfig : containerOrConfig?.container,
     id,
   });
 
