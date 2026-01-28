@@ -11,11 +11,14 @@ interface CustomDataLabelProps {
   position?: string;
   value?: any;
   children?: any;
+  isBigDataSet?: boolean;
 }
 
 export const ChartDataLabel = (props: CustomDataLabelProps) => {
-  const { config, chartType, viewBox } = props;
-  if (config.hideDataLabel) {
+  const { config, chartType, viewBox, isBigDataSet } = props;
+  const hideLabel = config.hideDataLabel !== false && (isBigDataSet || config.hideDataLabel || props.value == null);
+
+  if (hideLabel) {
     return null;
   }
 

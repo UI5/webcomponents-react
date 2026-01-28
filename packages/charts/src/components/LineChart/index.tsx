@@ -305,7 +305,7 @@ const LineChart = forwardRef<HTMLDivElement, LineChartProps>((props, ref) => {
               key={element.reactKey}
               name={element.label ?? element.accessor}
               strokeOpacity={element.opacity}
-              label={isBigDataSet ? false : <ChartDataLabel config={element} chartType="line" position="top" />}
+              label={<ChartDataLabel config={element} chartType="line" position="top" isBigDataSet={isBigDataSet} />}
               type="monotone"
               dataKey={element.accessor}
               stroke={element.color ?? `var(--sapChart_OrderedColor_${(index % 12) + 1})`}

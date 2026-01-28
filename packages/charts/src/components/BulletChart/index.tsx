@@ -479,7 +479,12 @@ const BulletChart = forwardRef<HTMLDivElement, BulletChartProps>((props, ref) =>
               key={element.reactKey}
               name={element.label ?? element.accessor}
               label={
-                isBigDataSet ? null : <ChartDataLabel config={element} chartType={'bar'} position={labelPosition} />
+                <ChartDataLabel
+                  config={element}
+                  chartType={'bar'}
+                  position={labelPosition}
+                  isBigDataSet={isBigDataSet}
+                />
               }
               stroke={element.color ?? `var(--sapChart_OrderedColor_${(index % 12) + 1})`}
               fill={element.color ?? `var(--sapChart_OrderedColor_${(index % 12) + 1})`}
