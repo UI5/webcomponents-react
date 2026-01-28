@@ -21,6 +21,9 @@ import { Toast } from '../../webComponents/Toast/index.js';
 import type { MessageBoxPropTypes } from '../MessageBox/index.js';
 import { MessageBox } from '../MessageBox/index.js';
 
+/**
+ * @since 2.19.0
+ */
 interface ModalConfig {
   /**
    * Optional container where the component should be mounted.
@@ -30,6 +33,9 @@ interface ModalConfig {
   container?: Element | DocumentFragment;
 }
 
+/**
+ * @since 2.19.0
+ */
 interface ModalConfigPopover extends ModalConfig {
   /**
    * If set to `true`, opening a new Popover will automatically close all currently opened Popovers that share the __same opener__.
@@ -60,6 +66,9 @@ function autoClose(props: { opener?: PopoverPropTypes['opener'] }) {
 }
 
 function showDialogFn(props: DialogPropTypes, config?: ModalConfig): ClosableModalReturnType<DialogDomRef>;
+/**
+ * @deprecated Passing `container` directly is deprecated. Use the `config` object with `config.container` instead.
+ */
 function showDialogFn(
   props: DialogPropTypes,
   container?: Element | DocumentFragment,
@@ -99,6 +108,9 @@ function showDialogFn(
 }
 
 function showPopoverFn(props: PopoverPropTypes, config?: ModalConfigPopover): ClosableModalReturnType<PopoverDomRef>;
+/**
+ * @deprecated Passing `container` directly is deprecated. Use the `config` object with `config.container` instead.
+ */
 function showPopoverFn(
   props: PopoverPropTypes,
   container?: Element | DocumentFragment,
@@ -144,6 +156,9 @@ function showResponsivePopoverFn(
   props: ResponsivePopoverPropTypes,
   config?: ModalConfigPopover,
 ): ClosableModalReturnType<ResponsivePopoverDomRef>;
+/**
+ * @deprecated Passing `container` directly is deprecated. Use the `config` object with `config.container` instead.
+ */
 function showResponsivePopoverFn(
   props: ResponsivePopoverPropTypes,
   container?: Element | DocumentFragment,
@@ -186,6 +201,9 @@ function showResponsivePopoverFn(
 }
 
 function showMenuFn(props: MenuPropTypes, config?: ModalConfigPopover): ClosableModalReturnType<MenuDomRef>;
+/**
+ * @deprecated Passing `container` directly is deprecated. Use the `config` object with `config.container` instead.
+ */
 function showMenuFn(props: MenuPropTypes, container?: Element | DocumentFragment): ClosableModalReturnType<MenuDomRef>;
 function showMenuFn(
   props: MenuPropTypes,
@@ -225,6 +243,9 @@ function showMenuFn(
 }
 
 function showMessageBoxFn(props: MessageBoxPropTypes, config?: ModalConfig): ClosableModalReturnType<DialogDomRef>;
+/**
+ * @deprecated Passing `container` directly is deprecated. Use the `config` object with `config.container` instead.
+ */
 function showMessageBoxFn(
   props: MessageBoxPropTypes,
   container?: Element | DocumentFragment,
@@ -265,6 +286,9 @@ function showMessageBoxFn(
 }
 
 function showToastFn(props: ToastPropTypes, config?: ModalConfig): ModalReturnType<ToastDomRef>;
+/**
+ * @deprecated Passing `container` directly is deprecated. Use the `config` object with `config.container` instead.
+ */
 function showToastFn(props: ToastPropTypes, container?: Element | DocumentFragment): ModalReturnType<ToastDomRef>;
 function showToastFn(
   props: ToastPropTypes,
