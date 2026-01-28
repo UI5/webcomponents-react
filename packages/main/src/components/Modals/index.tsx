@@ -23,7 +23,9 @@ import { MessageBox } from '../MessageBox/index.js';
 
 interface ModalConfig {
   /**
-   * Optional container where the component should be mounted. Defaults to `document.body`.
+   * Optional container where the component should be mounted.
+   *
+   * @default `document.body`
    */
   container?: Element | DocumentFragment;
 }
@@ -46,6 +48,16 @@ type ModalReturnType<DomRef> = {
 type ClosableModalReturnType<DomRef> = ModalReturnType<DomRef> & {
   close: () => void;
 };
+
+function autoClose(props: { opener?: PopoverPropTypes['opener'] }) {
+  const openPopovers = ModalStore.getPopoversWithSameOpener(props.opener);
+  openPopovers.forEach((popover) => {
+    const popoverRef = popover.ref as MutableRefObject<HTMLElement & { open: boolean }>;
+    if (popoverRef.current) {
+      popoverRef.current.open = false;
+    }
+  });
+}
 
 function showDialogFn(
   props: DialogPropTypes,
@@ -93,13 +105,7 @@ function showPopoverFn(
   const id = getRandomId();
   const ref = createRef<PopoverDomRef>();
   if (!isContainer && containerOrConfig?.autoClosePopovers) {
-    const openPopovers = ModalStore.getPopoversWithSameOpener(props.opener);
-    openPopovers.forEach((popover) => {
-      const popoverRef = popover.ref as MutableRefObject<PopoverDomRef>;
-      if (popoverRef.current) {
-        popoverRef.current.open = false;
-      }
-    });
+    autoClose(props);
   }
   ModalStore.addModal({
     Component: Popover,
