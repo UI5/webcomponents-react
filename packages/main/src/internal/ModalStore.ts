@@ -1,5 +1,6 @@
 import { getCurrentRuntimeIndex } from '@ui5/webcomponents-base/dist/Runtimes.js';
 import type { ComponentType, RefCallback, RefObject } from 'react';
+import type { PopoverPropTypes } from '../webComponents/Popover/index.js';
 
 globalThis['@ui5/webcomponents-react'] ??= {};
 const STORE_LOCATION = globalThis['@ui5/webcomponents-react'];
@@ -59,5 +60,8 @@ export const ModalStore = {
   removeModal(id: string) {
     STORE_LOCATION[getStyleStoreSymbol()] = getSnapshot().filter((modal) => modal.id !== id);
     emitChange();
+  },
+  getPopoversWithSameOpener(opener: PopoverPropTypes['opener']) {
+    return getSnapshot().filter((popover) => popover.props?.opener === opener);
   },
 };
