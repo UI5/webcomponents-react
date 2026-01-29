@@ -1,8 +1,0 @@
-import{j as o}from"./iframe-CyAbfAjR.js";import{useMDXComponents as n}from"./index-06KDG4AT.js";import{M as e,C as s}from"./blocks-D91UiS7A.js";import"./Tag-DcmGlVyp.js";import"./index-Dx49XSH_.js";import{C as a}from"./ControlsWithNote-CXY6QOFG.js";import{D as x}from"./DocsHeader-DYghzqu4.js";import{F as f}from"./CommandsAndQueries-B2npLt1g.js";import{C as m,D as i}from"./ProgressIndicator.stories-B5A5XpIJ.js";import"./preload-helper-PPVm8Dsz.js";import"./information-Rep9dVOS.js";import"./sys-enter-2-_ycOnn14.js";import"./alert-BWU-sYPN.js";import"./index-DGFLZE4P.js";import"./index-C2mRWa3H.js";import"./Link-Cj1yeMGo.js";import"./copy-XzXIZVUb.js";import"./copy-DuIUrssG.js";import"./GitHub-Mark-DmmIQwOR.js";import"./TableOfContent-BN3tMLts.js";import"./index-B_ujFW-9.js";import"./index-zvTPe1JW.js";import"./index-DTVJfpj2.js";import"./index-DhltPY3F.js";import"./index-CmuOjIMO.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-CyLeRq-g.js";import"./addCustomCSSWithScoping-zxsplMRu.js";import"./index-yyQp38EV.js";import"./ProgressIndicator-DKK1wvA4.js";import"./AnimationMode-DgO4kpsG.js";function p(t){const r={h2:"h2",...n(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(e,{of:m}),`
-`,o.jsx(x,{of:m,since:"0.10.0"}),`
-`,o.jsx("br",{}),`
-`,o.jsx(r.h2,{id:"example",children:"Example"}),`
-`,o.jsx(s,{of:i}),`
-`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
-`,o.jsx(a,{of:i}),`
-`,o.jsx(f,{})]})}function I(t={}){const{wrapper:r}={...n(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(p,{...t})}):p(t)}export{I as default};
