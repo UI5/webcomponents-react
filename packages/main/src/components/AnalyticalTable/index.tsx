@@ -158,7 +158,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     minRows = 5,
     noDataText,
     overscanCount,
-    overscanCountHorizontal = 5,
+    overscanCountHorizontal = 10,
     retainColumnWidth,
     reactTableOptions,
     renderRowSubComponent,
@@ -365,7 +365,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     getScrollElement: () => tableRef.current,
     estimateSize: useCallback((index) => visibleColumnsWidth[index], [visibleColumnsWidth]),
     horizontal: true,
-    overscan: isRtl ? Infinity : overscanCountHorizontal,
+    overscan: isRtl || scaleWidthMode !== AnalyticalTableScaleWidthMode.Default ? Infinity : overscanCountHorizontal,
     indexAttribute: 'data-column-index',
     // necessary as otherwise values are rounded which leads to wrong total width calculation leading to unnecessary scrollbar
     measureElement: !scaleXFactor || scaleXFactor === 1 ? (el) => el.getBoundingClientRect().width : undefined,
