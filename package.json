@@ -37,9 +37,9 @@
   },
   "dependencies": {
     "@stackblitz/sdk": "1.11.0",
-    "@storybook/addon-a11y": "10.2.0",
-    "@storybook/addon-docs": "10.2.0",
-    "@storybook/react-vite": "10.2.0",
+    "@storybook/addon-a11y": "10.2.3",
+    "@storybook/addon-docs": "10.2.3",
+    "@storybook/react-vite": "10.2.3",
     "@ui5/webcomponents": "2.18.1",
     "@ui5/webcomponents-ai": "2.18.1",
     "@ui5/webcomponents-compat": "2.18.1",
@@ -48,7 +48,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "remark-gfm": "4.0.1",
-    "storybook": "10.2.0",
+    "storybook": "10.2.3",
     "tocbot": "4.36.4"
   },
   "devDependencies": {
