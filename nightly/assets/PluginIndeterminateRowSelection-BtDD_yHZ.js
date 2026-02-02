@@ -1,0 +1,28 @@
+import{j as e}from"./iframe-0eQE2YFm.js";import{useMDXComponents as r}from"./index-CrzDrume.js";import{I as n,F as a}from"./CommandsAndQueries-vs4Uf2fG.js";import{M as s,C as m}from"./blocks-DA7tG1fG.js";import"./Tag-D9KB_OaV.js";import{M as p}from"./index-CO0N_mR_.js";import"./copy-BusSvtxV.js";import{PluginIndeterminateRowSelection as l}from"./AnalyticalTableHooks.stories-BFUnxggX.js";import"./preload-helper-PPVm8Dsz.js";import"./index-CAidMbCx.js";import"./index-nxBbAPWP.js";import"./index-DXkWzVKM.js";import"./Link-CbRTBueg.js";import"./index-CX4m4aKj.js";import"./index-DIoC19fn.js";import"./index-DCkfYqwc.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-CwbZNxPW.js";import"./addCustomCSSWithScoping-CEa4HZHN.js";import"./index-Cl7aYaAj.js";import"./information-DHaKlJ23.js";import"./sys-enter-2-CjOjN1qK.js";import"./alert-D98VDEUp.js";import"./Friends500-CRbR9XAn.js";import"./AnalyticalTable.stories-DYg0i2eY.js";import"./delete-CoYQXplb.js";import"./settings-VZnwFT1a.js";import"./NoData-BQniyW5-.js";import"./IllustratedMessage-B0A1-0ks.js";import"./i18n-defaults-Begitp65.js";import"./parameters-bundle.css-BZkrnAIc.js";import"./NoFilterResults-teAEBMAS.js";import"./index-DB3CcisP.js";import"./index-D-LeeP8b.js";import"./slim-arrow-down-CkX7thXh.js";import"./Input-BaZHhr9A.js";import"./ResponsivePopoverCommon.css-B4yMTcW1.js";import"./ValueStateMessage.css-CDY6pP0f.js";import"./Suggestions.css-Dmp7acZ3.js";import"./ListBoxItemGroupTemplate-H0m4nnsY.js";import"./ComboBoxItemGroup-rbI26ojW.js";import"./ListItemBaseTemplate-CXUx-zU1.js";import"./Token-CIFLWQCf.js";import"./ScrollEnablement-BrxI8ufh.js";import"./animate-JylhYHXj.js";import"./ListItemStandard-D9gf_cfX.js";import"./ToggleButton-CRw4HV0q.js";import"./SuggestionItem-CGZYm_I2.js";import"./index-DYuYdSg5.js";import"./Option-CJ-Q9Osb.js";import"./index-DbU22zDM.js";import"./SegmentedButton-C0dzqyrm.js";import"./index-BuNlLbX6.js";import"./Select-Dkvc-1du.js";import"./InvisibleMessage-BLfENYQH.js";import"./slim-arrow-down-BPzYFF0q.js";import"./index-CjCjG_de.js";import"./index-B6adVHqs.js";import"./index-CCMgeDTf.js";import"./index-YR2Vv4g_.js";import"./IconDesign-DXd8PPVF.js";import"./filter-BYqc3-cj.js";import"./group-2-LwVDXe1y.js";import"./sort-descending-DLo-C6x1.js";import"./ThemingParameters-pyhX3s39.js";import"./stopPropagation-CsBxLuUS.js";import"./index-DBbdY5LP.js";import"./utils-kn_XFzdZ.js";import"./index-BynfEZ9N.js";import"./index-IPEBGIZt.js";import"./index-Drp4RYe3.js";import"./navigation-down-arrow-BlUbHMqy.js";import"./navigation-right-arrow-BiBjVNSK.js";import"./navigation-right-arrow-BWLrQnKx.js";import"./useCurrentTheme-EU1exHdB.js";import"./index-CgfgYE9g.js";import"./debounce-D7W5PopO.js";import"./useIsRTL-Bhd782rf.js";import"./paper-plane-DxvI1Ia-.js";import"./index-xSCZdNeR.js";import"./less-COfx4Qkm.js";function i(o){const t={code:"code",h1:"h1",h2:"h2",h4:"h4",p:"p",pre:"pre",strong:"strong",...r(),...o.components};return e.jsxs(e.Fragment,{children:[e.jsx(s,{title:"Data Display / AnalyticalTable / Plugin Hooks / useIndeterminateRowSelection"}),`
+`,e.jsx(t.h1,{id:"analyticaltable-plugin-useindeterminaterowselection",children:"AnalyticalTable Plugin: useIndeterminateRowSelection"}),`
+`,e.jsx(n,{moduleName:"useIndeterminateRowSelection",packageName:"@ui5/webcomponents-react/AnalyticalTableHooks"}),`
+`,e.jsxs(t.p,{children:["The ",e.jsx(t.code,{children:"useIndeterminateRowSelection"}),` plugin hook allows marking parent rows as indeterminate when a child row is selected.
+When using this hook, it is recommended to also select all sub-rows when selecting a row. (`,e.jsx(t.code,{children:"reactTableOptions={{ selectSubRows: true }}"}),")"]}),`
+`,e.jsxs(t.p,{children:[e.jsx(t.strong,{children:"Note:"})," This hook has to traverse the whole data tree on each selection, which can lead to performance degradation with large datasets. Please use with caution!"]}),`
+`,e.jsxs(t.p,{children:[e.jsx(t.strong,{children:"Note:"})," Using this hook in combination with the deprecated ",e.jsx(t.code,{children:"useRowDisableSelection"})," plugin hook is not supported!"]}),`
+`,e.jsx(p,{hideCloseButton:!0,children:e.jsxs(e.Fragment,{children:["The indeterminate state has a higher priority than the selected state. Therefore, a row can be selected and indeterminate at the same time. This can for example happen, if ",e.jsx(t.code,{children:"selectSubRows: true"})," is set and a row with sub-rows is selected and then a sub-row is unselected."]})}),`
+`,e.jsx(t.h2,{id:"example",children:"Example"}),`
+`,e.jsx(m,{sourceState:"none",of:l}),`
+`,e.jsx(t.pre,{children:e.jsx(t.code,{className:"language-jsx",children:`const tableHooks = [useIndeterminateRowSelection()]; // should be memoized
+
+<AnalyticalTable
+  selectionMode={AnalyticalTableSelectionMode.Multiple}
+  data={data}
+  columns={columns}
+  isTreeTable
+  tableHooks={tableHooks}
+  reactTableOptions={{ selectSubRows: true }}
+/>
+`})}),`
+`,e.jsx(t.h4,{id:"optional-function-parameter",children:"Optional function parameter"}),`
+`,e.jsx(t.p,{children:"The plugin hook allows passing a callback as parameter with the following structure:"}),`
+`,e.jsx(t.pre,{children:e.jsx(t.code,{className:"language-js",children:`({indeterminateRowsById, tableInstance}) => void;
+`})}),`
+`,e.jsxs(t.p,{children:["The callback is fired, every time the internal ",e.jsx(t.code,{children:"indeterminateRows"}),` state is changed.
+The event parameter is an object, with all indeterminate rows by id (e.g. `,e.jsx(t.code,{children:'{"0.1":true}'}),") and the table instance."]}),`
+`,e.jsx(a,{})]})}function Be(o={}){const{wrapper:t}={...r(),...o.components};return t?e.jsx(t,{...o,children:e.jsx(i,{...o})}):i(o)}export{Be as default};
