@@ -11,6 +11,7 @@ export default defineConfig({
         '**/*.stories.tsx',
         '**/*.test.{ts,tsx}',
         '**/node_modules/**',
+        '**/dist/**',
         'packages/*/src/index.ts',
         'packages/main/src/components/AnalyticalTable/types/*',
         'packages/main/src/webComponents/**',
