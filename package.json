@@ -15,7 +15,7 @@
     "build:storybook-sitemap": "node ./scripts/create-storybook-sitemap.js --directory .out",
     "test:prepare": "rimraf temp && lerna run build",
     "test:open": "CYPRESS_COVERAGE=false cypress open --component --browser chrome",
-    "test": "yarn test:prepare && cypress run --component --browser chrome --spec packages/main/src/components/SplitterLayout",
+    "test": "yarn test:prepare && cypress run --component --browser chrome --spec packages/main/src/components/AnalyticalTable",
     "clean": "tsc --build --clean && tsc --build tsconfig.build.json --clean && rimraf temp .out && lerna run clean",
     "clean:remove-modules": "yarn clean && rimraf node_modules",
     "prettier:all": "prettier --write --config ./prettier.config.js \"**/*\"",

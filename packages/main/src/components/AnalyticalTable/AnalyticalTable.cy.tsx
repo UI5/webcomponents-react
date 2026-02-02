@@ -395,10 +395,9 @@ for (let i = 0; i < 20; i++) {
       cy.findByRole('grid').should('have.attr', 'data-per-page', '15');
       cy.findByText('Name-14').should('be.visible');
       cy.findByText('Name-15').should('not.be.visible');
-      cy.findByTitle('Drag to resize')
-        .trigger('mousedown')
-        .trigger('mousemove', { pageY: 200, force: true })
-        .trigger('mouseup', { pageY: 200 });
+      cy.findByTitle('Drag to resize').realMouseDown();
+      cy.findByTitle('Drag to resize').realMouseMove(0, -540, { scrollBehavior: false });
+      cy.get('body').realMouseUp({ position: { x: 100, y: 200 } });
       cy.findByRole('grid').should('have.attr', 'data-per-page', '3');
       cy.findByText('Name-2').should('be.visible');
       cy.findByText('Name-3').should('not.be.visible');
