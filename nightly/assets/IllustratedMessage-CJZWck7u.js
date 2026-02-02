@@ -1,0 +1,20 @@
+import{j as t}from"./iframe-Cv4sgl-6.js";import{useMDXComponents as n}from"./index-CBIpMKi2.js";import{M as l,C as a}from"./blocks-DPiPd9tl.js";import"./Tag-BCHKI4FR.js";import{M as m,a as h}from"./index-DcbEzSTS.js";import{C as p}from"./ControlsWithNote-BDU2GaF-.js";import{D as c}from"./DocsHeader-BrY58g2d.js";import{F as d}from"./CommandsAndQueries-DF8E8wiu.js";import{C as o,D as i}from"./IllustratedMessage.stories-J3s2jmih.js";import{I as u}from"./index-CAs4bF1N.js";import"./preload-helper-PPVm8Dsz.js";import"./information-D12ZJp7Z.js";import"./sys-enter-2-B0uzD6GZ.js";import"./alert-BQ9eRDhW.js";import"./index-BdK0aYpg.js";import"./index-CeG26Jn9.js";import"./Link-BXe55YD0.js";import"./copy-Buz7yFy9.js";import"./copy-Bby_UTo9.js";import"./GitHub-Mark-CKxe69xP.js";import"./TableOfContent-Bh8N9yMW.js";import"./index-BbeCayQT.js";import"./index-CtOMiTIA.js";import"./index-AkExkdLb.js";import"./index-CP4yHlqi.js";import"./index-C5UblPZZ.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-CEw8P-vI.js";import"./addCustomCSSWithScoping-ChLo0vcI.js";import"./IllustratedMessage-BAzjlPuO.js";import"./i18n-defaults-Begitp65.js";import"./parameters-bundle.css-BZkrnAIc.js";function r(s){const e={a:"a",br:"br",code:"code",h2:"h2",p:"p",pre:"pre",strong:"strong",...n(),...s.components};return t.jsxs(t.Fragment,{children:[t.jsx(l,{of:o}),`
+`,t.jsx(c,{of:o,since:"0.18.0"}),`
+`,t.jsx("br",{}),`
+`,t.jsx(e.h2,{id:"example",children:"Example"}),`
+`,t.jsx(a,{of:i,story:{height:"300px"},layout:"fullscreen"}),`
+`,t.jsx(e.h2,{id:"properties",children:"Properties"}),`
+`,t.jsx(p,{of:i}),`
+`,t.jsx(e.h2,{id:"illustrations",children:"Illustrations"}),`
+`,t.jsxs(e.p,{children:["You can find all available illustrations ",t.jsx(e.a,{href:"https://ui5.github.io/webcomponents/components/fiori/enums/IllustrationMessageType/",rel:"nofollow",children:"here"}),"."]}),`
+`,t.jsx(e.h2,{id:"fully-customizable-title",children:"Fully customizable title"}),`
+`,t.jsx(m,{design:h.Critical,hideCloseButton:!0,children:t.jsxs(t.Fragment,{children:["As the ",t.jsx(e.code,{children:"title"})," slot name collides with the standard HTML ",t.jsx(e.code,{children:"title"})," attribute, using the"," ",t.jsx(e.code,{children:"title"})," prop will not work. ",t.jsx(e.br,{}),"You must pass the ",t.jsx(e.code,{children:"title"})," slot as part of the components ",t.jsx(e.code,{children:"children"}),"."]})}),`
+`,t.jsxs(e.p,{children:["In some cases you might need to fully customize the title element of the ",t.jsx(e.code,{children:"IllustratedMessage"}),`.
+You can achieve this by using the `,t.jsx(e.code,{children:"title"})," slot."]}),`
+`,t.jsxs(e.p,{children:[t.jsx(e.strong,{children:"Note:"})," Using this slot, the default title text of illustration and the value of ",t.jsx(e.code,{children:"titleText"})," property will be overwritten."]}),`
+`,t.jsx(e.pre,{children:t.jsx(e.code,{className:"language-jsx",children:`<IllustratedMessage style={{ height: '400px' }}>
+  <h5 slot="title">This is my fully customized title</h5>
+</IllustratedMessage>
+`})}),`
+`,t.jsx(u,{style:{height:"400px"},children:t.jsx("h5",{slot:"title",children:"This is my fully customized title"})}),`
+`,t.jsx(d,{})]})}function J(s={}){const{wrapper:e}={...n(),...s.components};return e?t.jsx(e,{...s,children:t.jsx(r,{...s})}):r(s)}export{J as default};
