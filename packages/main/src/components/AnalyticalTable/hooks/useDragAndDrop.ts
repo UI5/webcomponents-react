@@ -1,5 +1,5 @@
-import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import type { ReactTableHooks, TableInstance } from '../types/index.js';
+import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 
 const getColumnId = (column) => {
   return typeof column.accessor === 'string' ? column.accessor : column.id;

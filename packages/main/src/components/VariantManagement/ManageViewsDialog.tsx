@@ -7,8 +7,6 @@ import NoEntriesIllu from '@ui5/webcomponents-fiori/dist/illustrations/NoEntries
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
 import { Children, isValidElement, useEffect, useId, useRef, useState } from 'react';
 import type { MouseEventHandler, ReactElement } from 'react';
-import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
-import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import {
@@ -44,6 +42,8 @@ import type { VariantItemPropTypes } from '../VariantItem/index.js';
 import { classNames, styleData } from './ManageViewsDialog.module.css.js';
 import { ManageViewsTableRows } from './ManageViewsTableRows.js';
 import type { VariantManagementPropTypes } from './types.js';
+import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
+import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 type ManageViewsDialogChildType = boolean | undefined | null | ReactElement<VariantItemPropTypes>;
 

@@ -14,7 +14,6 @@ import {
   Tooltip,
 } from 'recharts';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils.js';
-import { enrichEventWithDetails, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { useLegendItemClick } from '../../hooks/useLegendItemClick.js';
 import { useOnClickInternal } from '../../hooks/useOnClickInternal.js';
 import type { IChartBaseProps } from '../../interfaces/IChartBaseProps.js';
@@ -26,6 +25,7 @@ import { defaultFormatter } from '../../internal/defaults.js';
 import { tooltipContentStyle, tooltipFillOpacity } from '../../internal/staticProps.js';
 import { classNames, styleData } from './PieChart.module.css.js';
 import { PieChartPlaceholder } from './Placeholder.js';
+import { enrichEventWithDetails, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 
 interface MeasureConfig extends Omit<IChartMeasure, 'accessor' | 'label' | 'color' | 'hideDataLabel'> {
   /**

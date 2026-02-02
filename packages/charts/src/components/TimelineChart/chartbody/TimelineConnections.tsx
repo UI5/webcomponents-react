@@ -1,9 +1,9 @@
 import type { ReactElement } from 'react';
 import { useState } from 'react';
-import { ThemingParameters, useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base';
 import type { ITimelineChartMileStone, ITimelineChartRow, ITimelineChartTask } from '../types/TimelineChartTypes.js';
 import { TimelineChartConnection } from '../types/TimelineChartTypes.js';
 import { ARROWHEAD_HEIGHT, ARROWHEAD_WIDTH, ARROW_CLEARANCE } from '../util/constants.js';
+import { ThemingParameters, useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base';
 
 interface TimelineChartConnectionsProps {
   dataSet: ITimelineChartRow[];

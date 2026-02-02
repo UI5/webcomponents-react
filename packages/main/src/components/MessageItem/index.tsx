@@ -8,7 +8,6 @@ import iconArrowRight from '@ui5/webcomponents-icons/dist/slim-arrow-right.js';
 import { clsx } from 'clsx';
 import { Children, isValidElement, forwardRef, useContext, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import { COUNTER, HAS_DETAILS } from '../../i18n/i18n-defaults.js';
@@ -22,6 +21,7 @@ import { ListItemCustom } from '../../webComponents/ListItemCustom/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { getIconNameForType, getValueStateMap } from '../MessageView/utils.js';
 import { classNames, styleData } from './MessageItem.module.css.js';
+import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 export interface MessageItemPropTypes extends Pick<ListItemCustomPropTypes, 'accessibleName' | 'tooltip'>, CommonProps {
   /**

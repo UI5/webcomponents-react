@@ -14,7 +14,6 @@ import {
   YAxis,
   ZAxis,
 } from 'recharts';
-import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
 import { useChartMargin } from '../../hooks/useChartMargin.js';
 import { useLegendItemClick } from '../../hooks/useLegendItemClick.js';
 import { useLongestYAxisLabel } from '../../hooks/useLongestYAxisLabel.js';
@@ -30,6 +29,7 @@ import { tickLineConfig, tooltipContentStyle, tooltipFillOpacity, xAxisPadding }
 import { XAxisTicks } from '../../internal/XAxisTicks.js';
 import { YAxisTicks } from '../../internal/YAxisTicks.js';
 import { ScatterChartPlaceholder } from './Placeholder.js';
+import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
 
 interface MeasureConfig extends Omit<IChartMeasure, 'color' | 'hideDataLabel' | 'DataLabel'> {
   /**

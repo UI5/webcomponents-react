@@ -6,6 +6,8 @@ import { clsx } from 'clsx';
 import type { Dispatch, FC, HTMLAttributes, ReactElement, ReactNode, Ref, SetStateAction } from 'react';
 import { isValidElement, cloneElement, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { getOverflowPopoverContext } from '../../internal/OverflowPopoverContext.js';
+import type { ToolbarPropTypes } from './index.js';
 import { WITH_X_ITEMS, SHOW_MORE, X_OF_Y } from '@ui5/webcomponents-react/dist/i18n/i18n-defaults.js';
 import { stopPropagation } from '@ui5/webcomponents-react/dist/internal/stopPropagation.js';
 import { getUi5TagWithSuffix } from '@ui5/webcomponents-react/dist/internal/utils.js';
@@ -18,8 +20,6 @@ import type {
 } from '@ui5/webcomponents-react/dist/webComponents/ToggleButton/index.js';
 import { ToggleButton } from '@ui5/webcomponents-react/dist/webComponents/ToggleButton/index.js';
 import { Device, useI18nBundle, useSyncRef } from '@ui5/webcomponents-react-base';
-import { getOverflowPopoverContext } from '../../internal/OverflowPopoverContext.js';
-import type { ToolbarPropTypes } from './index.js';
 
 interface OverflowPopoverProps {
   lastVisibleIndex: number;

@@ -14,16 +14,16 @@ import {
   useRef,
   useState,
 } from 'react';
+import { ToolbarDesign } from '../../enums/ToolbarDesign.js';
+import { ToolbarStyle } from '../../enums/ToolbarStyle.js';
+import { OverflowPopover } from './OverflowPopover.js';
+import { classNames, styleData } from './Toolbar.module.css.js';
 import { flattenFragments } from '@ui5/webcomponents-react/dist/internal/utils.js';
 import type { CommonProps } from '@ui5/webcomponents-react/dist/types/CommonProps.js';
 import type { ButtonPropTypes } from '@ui5/webcomponents-react/dist/webComponents/Button/index.js';
 import type { PopoverDomRef } from '@ui5/webcomponents-react/dist/webComponents/Popover/index.js';
 import type { ToggleButtonPropTypes } from '@ui5/webcomponents-react/dist/webComponents/ToggleButton/index.js';
 import { debounce, useIsomorphicLayoutEffect, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
-import { ToolbarDesign } from '../../enums/ToolbarDesign.js';
-import { ToolbarStyle } from '../../enums/ToolbarStyle.js';
-import { OverflowPopover } from './OverflowPopover.js';
-import { classNames, styleData } from './Toolbar.module.css.js';
 
 export interface ToolbarPropTypes extends Omit<CommonProps, 'onClick' | 'children'> {
   /**

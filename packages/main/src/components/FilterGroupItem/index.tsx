@@ -10,7 +10,6 @@ import moveDownIcon from '@ui5/webcomponents-icons/dist/navigation-down-arrow.js
 import moveUpIcon from '@ui5/webcomponents-icons/dist/navigation-up-arrow.js';
 import { clsx } from 'clsx';
 import { forwardRef, useContext, useEffect, useRef, useState } from 'react';
-import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import { FlexBoxJustifyContent } from '../../enums/FlexBoxJustifyContent.js';
@@ -37,6 +36,7 @@ import { TableRow } from '../../webComponents/TableRow/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { classNames, styleData } from './FilterGroupItem.module.css.js';
 import type { FilterGroupItemInternalProps, FilterGroupItemPropTypes } from './types.js';
+import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 const isMac = isMacFn();
 

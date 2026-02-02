@@ -5,6 +5,13 @@ import editIcon from '@ui5/webcomponents-icons/dist/edit.js';
 import favoriteIcon from '@ui5/webcomponents-icons/dist/favorite.js';
 import settingsIcon from '@ui5/webcomponents-icons/dist/settings.js';
 import { useState } from 'react';
+import { ToolbarDesign } from '../../enums/ToolbarDesign.js';
+import { ToolbarStyle } from '../../enums/ToolbarStyle.js';
+import { OverflowToolbarButton } from '../OverflowToolbarButton/index.js';
+import { OverflowToolbarToggleButton } from '../OverflowToolbarToggleButton/index.js';
+import { ToolbarSeparator } from '../ToolbarSeparator/index.js';
+import { ToolbarSpacer } from '../ToolbarSpacer/index.js';
+import { Toolbar } from './index.js';
 import { Button } from '@ui5/webcomponents-react/dist/webComponents/Button/index.js';
 import { DatePicker } from '@ui5/webcomponents-react/dist/webComponents/DatePicker/index.js';
 import { Icon } from '@ui5/webcomponents-react/dist/webComponents/Icon/index.js';
@@ -16,13 +23,6 @@ import { Slider } from '@ui5/webcomponents-react/dist/webComponents/Slider/index
 import { Switch } from '@ui5/webcomponents-react/dist/webComponents/Switch/index.js';
 import { Text } from '@ui5/webcomponents-react/dist/webComponents/Text/index.js';
 import { ToggleButton } from '@ui5/webcomponents-react/dist/webComponents/ToggleButton/index.js';
-import { ToolbarDesign } from '../../enums/ToolbarDesign.js';
-import { ToolbarStyle } from '../../enums/ToolbarStyle.js';
-import { OverflowToolbarButton } from '../OverflowToolbarButton/index.js';
-import { OverflowToolbarToggleButton } from '../OverflowToolbarToggleButton/index.js';
-import { ToolbarSeparator } from '../ToolbarSeparator/index.js';
-import { ToolbarSpacer } from '../ToolbarSpacer/index.js';
-import { Toolbar } from './index.js';
 
 const meta = {
   title: 'Toolbar',

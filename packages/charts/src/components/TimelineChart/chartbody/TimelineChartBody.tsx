@@ -1,6 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { useStylesheet } from '@ui5/webcomponents-react-base';
 import type { ITimelineChartRow } from '../types/TimelineChartTypes.js';
 import { MAX_BODY_WIDTH, SCALE_FACTOR } from '../util/constants.js';
 import { TimelineChartBodyCtx } from '../util/context.js';
@@ -9,6 +8,7 @@ import { TimelineChartGrid } from './TimelineChartGrid.js';
 import { TimelineChartLayer } from './TimelineChartLayer.js';
 import { TimelineChartRowGroup } from './TimelineChartRow.js';
 import { TimelineChartConnections } from './TimelineConnections.js';
+import { useStylesheet } from '@ui5/webcomponents-react-base';
 
 interface TimelineChartBodyProps {
   dataset: ITimelineChartRow[];

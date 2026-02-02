@@ -4,12 +4,12 @@ import iconNavDownArrow from '@ui5/webcomponents-icons/dist/navigation-down-arro
 import iconNavRightArrow from '@ui5/webcomponents-icons/dist/navigation-right-arrow.js';
 import { clsx } from 'clsx';
 import type { FocusEvent } from 'react';
-import { CssSizeVariables, useCurrentTheme } from '@ui5/webcomponents-react-base';
 import type { ButtonDomRef } from '../../../../webComponents/Button/index.js';
 import { Button } from '../../../../webComponents/Button/index.js';
 import { Icon } from '../../../../webComponents/Icon/index.js';
 import type { ColumnType, RowType, WCRPropertiesType } from '../../types/index.js';
 import { RenderColumnTypes } from '../../types/index.js';
+import { CssSizeVariables, useCurrentTheme } from '@ui5/webcomponents-react-base';
 
 const getPadding = (level) => {
   switch (level) {

@@ -3,11 +3,11 @@
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { forwardRef, useEffect, useRef, useState } from 'react';
-import { debounce, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { SplitterLayoutContext } from '../../internal/SplitterLayoutContext.js';
 import { classNames, styleData } from './SplitterLayout.module.css.js';
 import type { SplitterLayoutPropTypes } from './types.js';
 import { useConcatSplitterElements } from './useConcatSplitterElements.js';
+import { debounce, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 
 /**
  * A layout that contains several content areas. The content that is added to the `SplitterLayout` should be wrapped

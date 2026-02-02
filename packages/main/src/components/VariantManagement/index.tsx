@@ -22,7 +22,6 @@ import {
   version as reactVersion,
 } from 'react';
 import type { ComponentElement, ReactElement } from 'react';
-import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { MANAGE, MY_VIEWS, SAVE, SAVE_AS, SEARCH, SEARCH_VARIANT, SELECT_VIEW } from '../../i18n/i18n-defaults.js';
 import { stopPropagation } from '../../internal/stopPropagation.js';
 import type { SelectedVariant } from '../../internal/VariantManagementContext.js';
@@ -45,6 +44,7 @@ import { ManageViewsDialog } from './ManageViewsDialog.js';
 import { SaveViewDialog } from './SaveViewDialog.js';
 import type { SelectedVariantWithStringBool, VariantManagementPropTypes } from './types.js';
 import { classNames, styleData } from './VariantManagement.module.css.js';
+import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 const booleanProps = {
   favorite: true,

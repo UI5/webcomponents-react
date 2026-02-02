@@ -9,7 +9,6 @@ import iconSysHelp from '@ui5/webcomponents-icons/dist/sys-help-2.js';
 import { clsx } from 'clsx';
 import { cloneElement, forwardRef, isValidElement, useId } from 'react';
 import type { ReactElement, ReactNode } from 'react';
-import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { MessageBoxAction } from '../../enums/MessageBoxAction.js';
 import { MessageBoxType } from '../../enums/MessageBoxType.js';
 import {
@@ -31,6 +30,7 @@ import {
 import type { ButtonPropTypes, DialogDomRef, DialogPropTypes } from '../../webComponents/index.js';
 import { Button, Dialog, Icon, Text, Title } from '../../webComponents/index.js';
 import { classNames, styleData } from './MessageBox.module.css.js';
+import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 type MessageBoxActionType = MessageBoxAction | keyof typeof MessageBoxAction | string;

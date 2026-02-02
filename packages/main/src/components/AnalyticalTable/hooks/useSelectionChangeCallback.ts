@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import type { ReactTableHooks, TableInstance } from '../types/index.js';
+import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 
 export const useSelectionChangeCallback = (hooks: ReactTableHooks) => {
   hooks.useControlledState.push((state, { instance }: { instance: TableInstance }) => {

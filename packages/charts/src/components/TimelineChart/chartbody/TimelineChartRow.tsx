@@ -1,8 +1,8 @@
 import type { CSSProperties, MouseEvent as ReactMouseEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { throttle } from '@ui5/webcomponents-react-base';
 import type { ITimelineChartRow } from '../types/TimelineChartTypes.js';
 import { HOVER_OPACITY, NORMAL_OPACITY, THROTTLE_INTERVAL } from '../util/constants.js';
+import { throttle } from '@ui5/webcomponents-react-base';
 
 interface TimelineChartRowProps {
   rowData: ITimelineChartRow;

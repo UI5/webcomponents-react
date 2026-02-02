@@ -15,7 +15,6 @@ import successIcon from '@ui5/webcomponents-icons/dist/sys-enter-2.js';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import type { MouseEventHandler, ReactNode } from 'react';
-import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import type { IndicationColor } from '../../enums/IndicationColor.js';
 import {
   ARIA_OBJ_STATUS_DESC,
@@ -26,6 +25,7 @@ import {
 import type { CommonProps } from '../../types/index.js';
 import { Icon } from '../../webComponents/Icon/index.js';
 import { classNames, styleData } from './ObjectStatus.module.css.js';
+import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 export interface ObjectStatusPropTypes extends CommonProps {
   /**

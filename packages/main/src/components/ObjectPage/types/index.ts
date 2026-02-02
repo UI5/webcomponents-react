@@ -1,6 +1,5 @@
 import type { TabContainerTabSelectEventDetail } from '@ui5/webcomponents/dist/TabContainer.js';
 import type { ReactElement, ReactNode } from 'react';
-import type { CommonProps, Ui5CustomEvent } from '@ui5/webcomponents-react-base';
 import type { ObjectPageMode } from '../../../enums/ObjectPageMode.js';
 import type { AvatarPropTypes } from '../../../webComponents/Avatar/index.js';
 import type { ButtonPropTypes } from '../../../webComponents/Button/index.js';
@@ -11,6 +10,7 @@ import type {
   InternalProps as ObjectPageTitlePropTypesWithInternals,
   ObjectPageTitlePropTypes,
 } from '../../ObjectPageTitle/types/index.js';
+import type { CommonProps, Ui5CustomEvent } from '@ui5/webcomponents-react-base';
 
 type ObjectPageSectionType = ReactElement<ObjectPageSectionPropTypes> | boolean;
 

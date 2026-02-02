@@ -11,8 +11,6 @@ import iconSlimArrowLeft from '@ui5/webcomponents-icons/dist/slim-arrow-left.js'
 import { clsx } from 'clsx';
 import { useRef, Children, forwardRef, Fragment, isValidElement, useCallback, useEffect, useState } from 'react';
 import type { ReactElement, ReactNode } from 'react';
-import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
-import { useI18nBundle, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import { ALL, LIST_NO_DATA, NAVIGATE_BACK, MESSAGE_DETAILS, MESSAGE_TYPES } from '../../i18n/i18n-defaults.js';
 import type { SelectedMessage } from '../../internal/MessageViewContext.js';
@@ -33,6 +31,8 @@ import { FlexBox } from '../FlexBox/index.js';
 import type { MessageItemPropTypes } from '../MessageItem/index.js';
 import { classNames, styleData } from './MessageView.module.css.js';
 import { getIconNameForType, getValueStateMap } from './utils.js';
+import { useI18nBundle, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
+import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 export interface MessageViewDomRef extends HTMLDivElement {
   /**

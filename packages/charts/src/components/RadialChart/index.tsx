@@ -3,12 +3,12 @@
 import type { CSSProperties } from 'react';
 import { forwardRef } from 'react';
 import { PolarAngleAxis, RadialBar, RadialBarChart } from 'recharts';
-import type { CommonProps } from '@ui5/webcomponents-react';
-import { enrichEventWithDetails, ThemingParameters } from '@ui5/webcomponents-react-base';
 import { useOnClickInternal } from '../../hooks/useOnClickInternal.js';
 import type { IChartBaseProps } from '../../interfaces/IChartBaseProps.js';
 import { ChartContainer } from '../../internal/ChartContainer.js';
 import { PieChartPlaceholder } from '../PieChart/Placeholder.js';
+import type { CommonProps } from '@ui5/webcomponents-react';
+import { enrichEventWithDetails, ThemingParameters } from '@ui5/webcomponents-react-base';
 
 // todo remove this when recharts export the `CategoricalChartProps` interface themselves
 interface RadialChartConfig {

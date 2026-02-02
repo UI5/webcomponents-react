@@ -2,11 +2,11 @@
 
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { useStylesheet } from '@ui5/webcomponents-react-base';
 import { ValueColor } from '../../enums/ValueColor.js';
 import type { CommonProps } from '../../types/index.js';
 import { Text } from '../../webComponents/Text/index.js';
 import { classNames, styleData } from './NumericSideIndicator.module.css.js';
+import { useStylesheet } from '@ui5/webcomponents-react-base';
 
 export interface NumericSideIndicatorPropTypes extends CommonProps {
   /**

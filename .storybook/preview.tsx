@@ -6,11 +6,11 @@ import { setLanguage } from '@ui5/webcomponents-base/dist/config/Language.js';
 import { setTheme } from '@ui5/webcomponents-base/dist/config/Theme.js';
 import applyDirection from '@ui5/webcomponents-base/dist/locale/applyDirection.js';
 import { StrictMode, useEffect } from 'react';
-import { ContentDensity, Modals, ThemeProvider } from '@ui5/webcomponents-react';
 import 'tocbot/dist/tocbot.css';
 import '../packages/main/dist/Assets.js';
 import languages from './components/languageCodes.json';
 import { MAPPED_THEMES } from './utils';
+import { ContentDensity, Modals, ThemeProvider } from '@ui5/webcomponents-react';
 
 const argTypesCategoryCommonProps = {
   table: { category: 'Common props' },

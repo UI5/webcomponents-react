@@ -1,5 +1,6 @@
 import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import { useReducer, useRef, useState } from 'react';
+import classes from './FilterBarExample.module.css';
 import type { FilterBarPropTypes } from '@ui5/webcomponents-react';
 import {
   DatePicker,
@@ -18,7 +19,6 @@ import {
   ThemeProvider,
   Title,
 } from '@ui5/webcomponents-react';
-import classes from './FilterBarExample.module.css';
 
 const initialState = {
   age: 37,

@@ -15,11 +15,11 @@ import type {
   MouseEventHandler,
   ReactNode,
 } from 'react';
-import { ThemingParameters, useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base';
 import { Icon } from '../../../webComponents/Icon/index.js';
 import { Text } from '../../../webComponents/Text/index.js';
 import type { ClassNames, ColumnType, DivWithCustomScrollProp } from '../types/index.js';
 import { RenderColumnTypes } from '../types/index.js';
+import { ThemingParameters, useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base';
 
 export interface ColumnHeaderProps {
   visibleColumnIndex: number;

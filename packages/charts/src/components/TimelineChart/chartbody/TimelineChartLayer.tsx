@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import { useStylesheet } from '@ui5/webcomponents-react-base';
 import { classNames, styleData } from '../util/TimelineChart.module.css.js';
+import { useStylesheet } from '@ui5/webcomponents-react-base';
 
 interface TimelineChartLayerProps {
   ignoreClick?: boolean;

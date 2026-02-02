@@ -11,7 +11,6 @@ import {
   RadarChart as RadarChartLib,
   Tooltip,
 } from 'recharts';
-import { enrichEventWithDetails, ThemingParameters } from '@ui5/webcomponents-react-base';
 import { useLabelFormatter } from '../../hooks/useLabelFormatter.js';
 import { useLegendItemClick } from '../../hooks/useLegendItemClick.js';
 import { usePrepareDimensionsAndMeasures } from '../../hooks/usePrepareDimensionsAndMeasures.js';
@@ -24,6 +23,7 @@ import { ChartDataLabel } from '../../internal/ChartDataLabel.js';
 import { defaultFormatter } from '../../internal/defaults.js';
 import { tooltipContentStyle, tooltipFillOpacity } from '../../internal/staticProps.js';
 import { PieChartPlaceholder } from '../PieChart/Placeholder.js';
+import { enrichEventWithDetails, ThemingParameters } from '@ui5/webcomponents-react-base';
 
 interface MeasureConfig extends IChartMeasure {
   /**

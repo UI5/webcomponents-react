@@ -15,7 +15,6 @@ import {
   YAxis,
 } from 'recharts';
 import type { YAxisProps } from 'recharts';
-import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
 import { useChartMargin } from '../../hooks/useChartMargin.js';
 import { useLabelFormatter } from '../../hooks/useLabelFormatter.js';
 import { useLegendItemClick } from '../../hooks/useLegendItemClick.js';
@@ -36,6 +35,7 @@ import { XAxisTicks } from '../../internal/XAxisTicks.js';
 import { YAxisTicks } from '../../internal/YAxisTicks.js';
 import { ComparisonLine } from './ComparisonLine.js';
 import { BulletChartPlaceholder } from './Placeholder.js';
+import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
 
 const dimensionDefaults = {
   formatter: defaultFormatter,

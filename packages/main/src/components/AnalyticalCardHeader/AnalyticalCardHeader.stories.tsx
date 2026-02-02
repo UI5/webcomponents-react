@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { LineChart } from '@ui5/webcomponents-react-charts';
 import { DeviationIndicator, ValueColor } from '../../enums';
 import { Card } from '../../webComponents/Card/index';
 import { NumericSideIndicator } from '../NumericSideIndicator';
 import { AnalyticalCardHeader } from './index';
+import { LineChart } from '@ui5/webcomponents-react-charts';
 
 const simpleDataSet = [
   {

@@ -12,7 +12,6 @@ import iconSearch from '@ui5/webcomponents-icons/dist/search.js';
 import { clsx } from 'clsx';
 import { forwardRef, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
-import { enrichEventWithDetails, useI18nBundle, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { CANCEL, CLEAR, SEARCH, SELECT, SELECTED, SELECTED_ITEMS } from '../../i18n/i18n-defaults.js';
 import type { Ui5CustomEvent } from '../../types/index.js';
@@ -31,6 +30,7 @@ import { Text } from '../../webComponents/Text/index.js';
 import { Title } from '../../webComponents/Title/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { classNames, styleData } from './SelectDialog.module.css.js';
+import { enrichEventWithDetails, useI18nBundle, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 
 interface ListDomRefWithPrivateAPIs extends ListDomRef {
   get hasData(): boolean;

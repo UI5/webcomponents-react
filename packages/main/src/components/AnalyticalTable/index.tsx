@@ -16,15 +16,6 @@ import {
   useSortBy,
   useTable,
 } from 'react-table';
-import {
-  debounce,
-  enrichEventWithDetails,
-  useI18nBundle,
-  useIsomorphicLayoutEffect,
-  useIsRTL,
-  useStylesheet,
-  useSyncRef,
-} from '@ui5/webcomponents-react-base';
 import { AnalyticalTableNoDataReason } from '../../enums/AnalyticalTableNoDataReason.js';
 import { AnalyticalTablePopinDisplay } from '../../enums/AnalyticalTablePopinDisplay.js';
 import { AnalyticalTableScaleWidthMode } from '../../enums/AnalyticalTableScaleWidthMode.js';
@@ -104,6 +95,15 @@ import {
   tagNamesWhichShouldNotSelectARow,
 } from './util/index.js';
 import { VerticalResizer } from './VerticalResizer.js';
+import {
+  debounce,
+  enrichEventWithDetails,
+  useI18nBundle,
+  useIsomorphicLayoutEffect,
+  useIsRTL,
+  useStylesheet,
+  useSyncRef,
+} from '@ui5/webcomponents-react-base';
 
 // When a sorted column is removed from the visible columns array (e.g. when "popped-in"), it doesn't clean up the sorted columns leading to an undefined `sortType`.
 const sortTypesFallback = {

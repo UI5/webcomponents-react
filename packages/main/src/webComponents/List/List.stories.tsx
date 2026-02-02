@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import ListGrowingMode from '@ui5/webcomponents/dist/types/ListGrowingMode.js';
 import ListSelectionMode from '@ui5/webcomponents/dist/types/ListSelectionMode.js';
 import ListSeparator from '@ui5/webcomponents/dist/types/ListSeparator.js';
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import { FlexBox } from '../../components/FlexBox/index.js';
 import { FlexBoxJustifyContent } from '../../enums/index.js';
 import { Text } from '../../webComponents/Text/index.js';
@@ -11,6 +10,7 @@ import { ListItemGroup } from '../ListItemGroup/index.js';
 import { ListItemStandard } from '../ListItemStandard/index.js';
 import { ProgressIndicator } from '../ProgressIndicator/index.js';
 import { List } from './index.js';
+import { ThemingParameters } from '@ui5/webcomponents-react-base';
 
 const meta = {
   title: 'Data Display / List',

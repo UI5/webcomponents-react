@@ -5,12 +5,12 @@ import horizontalGripIcon from '@ui5/webcomponents-icons/dist/horizontal-grip.js
 import verticalGripIcon from '@ui5/webcomponents-icons/dist/vertical-grip.js';
 import type { KeyboardEventHandler, PointerEventHandler } from 'react';
 import { forwardRef, useEffect, useRef, useState } from 'react';
-import { useCurrentTheme, useI18nBundle, useIsRTL, useSyncRef, useStylesheet } from '@ui5/webcomponents-react-base';
 import { PRESS_ARROW_KEYS_TO_MOVE } from '../../i18n/i18n-defaults.js';
 import { Button } from '../../webComponents/Button/index.js';
 import { Icon } from '../../webComponents/Icon/index.js';
 import type { SplitterLayoutPropTypes } from '../SplitterLayout/types.js';
 import { classNames, styleData } from './Splitter.module.css.js';
+import { useCurrentTheme, useI18nBundle, useIsRTL, useSyncRef, useStylesheet } from '@ui5/webcomponents-react-base';
 
 export interface SplitterPropTypes {
   height: string | number;

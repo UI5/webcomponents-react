@@ -5,7 +5,6 @@ import {
   VALUE_STATE_WARNING,
 } from '@ui5/webcomponents/dist/generated/i18n/i18n-defaults.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import type { IndicationColor } from '../../enums/index.js';
 import { INDICATION_COLOR } from '../../i18n/i18n-defaults.js';
 import { Icon } from '../../webComponents/Icon/index.js';
@@ -20,6 +19,7 @@ import { TableSelectionSingle } from '../../webComponents/TableSelectionSingle/i
 import { AnalyticalTable } from '../AnalyticalTable/index.js';
 import { ObjectStatus } from './index.js';
 import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
+import { ThemingParameters } from '@ui5/webcomponents-react-base';
 
 const statesWithCSSVars: {
   state: ValueState | keyof typeof ValueState | IndicationColor | keyof typeof IndicationColor;

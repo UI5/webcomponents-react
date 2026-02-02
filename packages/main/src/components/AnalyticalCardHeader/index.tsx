@@ -5,7 +5,6 @@ import iconUp from '@ui5/webcomponents-icons/dist/up.js';
 import { clsx } from 'clsx';
 import type { HTMLAttributes, MouseEventHandler, ReactElement, ReactNode } from 'react';
 import { cloneElement, forwardRef, useId } from 'react';
-import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { DeviationIndicator } from '../../enums/DeviationIndicator.js';
 import { ValueColor } from '../../enums/ValueColor.js';
 import {
@@ -22,6 +21,7 @@ import type { CommonProps } from '../../types/index.js';
 import { Icon } from '../../webComponents/Icon/index.js';
 import type { NumericSideIndicatorPropTypes } from '../NumericSideIndicator/index.js';
 import { classNames, content } from './AnalyticalCardHeader.module.css.js';
+import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 export interface AnalyticalCardHeaderPropTypes extends CommonProps {
   /**

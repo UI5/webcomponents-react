@@ -7,7 +7,6 @@ import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
 import { clsx } from 'clsx';
 import { Children, cloneElement, forwardRef, isValidElement, useEffect, useId, useRef, useState } from 'react';
 import type { CSSProperties, ElementType, ReactElement } from 'react';
-import { debounce, Device, enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import {
   ADAPT_FILTERS,
@@ -32,6 +31,7 @@ import { FlexBox } from '../FlexBox/index.js';
 import { classNames, styleData } from './FilterBar.module.css.js';
 import { FilterDialog } from './FilterDialog.js';
 import type { FilterBarChild, FilterBarPropTypes, SafeChildrenFn } from './types.js';
+import { debounce, Device, enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 const isPhone = Device.isPhone();
 const isTablet = Device.isTablet();

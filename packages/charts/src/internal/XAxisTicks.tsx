@@ -1,8 +1,8 @@
 import type { XAxisProps } from 'recharts';
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import type { IChartDimension } from '../interfaces/IChartDimension.js';
 import type { IChartMeasure } from '../interfaces/IChartMeasure.js';
 import { getTextWidth, truncateLongLabel } from './Utils.js';
+import { ThemingParameters } from '@ui5/webcomponents-react-base';
 
 interface XAxisTicksProps {
   visibleTicksCount?: number;

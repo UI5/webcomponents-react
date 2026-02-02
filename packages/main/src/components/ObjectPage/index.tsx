@@ -4,14 +4,6 @@ import AvatarSize from '@ui5/webcomponents/dist/types/AvatarSize.js';
 import { clsx } from 'clsx';
 import type { CSSProperties, FocusEventHandler, MouseEventHandler, ReactElement, UIEventHandler } from 'react';
 import { cloneElement, forwardRef, isValidElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import {
-  debounce,
-  enrichEventWithDetails,
-  ThemingParameters,
-  useIsomorphicLayoutEffect,
-  useStylesheet,
-  useSyncRef,
-} from '@ui5/webcomponents-react-base';
 import { ObjectPageMode } from '../../enums/ObjectPageMode.js';
 import { safeGetChildrenArray } from '../../internal/safeGetChildrenArray.js';
 import { useObserveHeights } from '../../internal/useObserveHeights.js';
@@ -34,6 +26,14 @@ import type {
 } from './types/index.js';
 import { useHandleTabSelect } from './useHandleTabSelect.js';
 import { useOnScrollEnd } from './useOnScrollEnd.js';
+import {
+  debounce,
+  enrichEventWithDetails,
+  ThemingParameters,
+  useIsomorphicLayoutEffect,
+  useStylesheet,
+  useSyncRef,
+} from '@ui5/webcomponents-react-base';
 
 const ObjectPageCssVariables = {
   headerDisplay: '--_ui5wcr_ObjectPage_header_display',

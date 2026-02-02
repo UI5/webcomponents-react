@@ -2,9 +2,9 @@
 
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
+import { classNames, styleData } from './ToolbarSeparator.module.css.js';
 import type { CommonProps } from '@ui5/webcomponents-react/dist/types/CommonProps.js';
 import { useStylesheet } from '@ui5/webcomponents-react-base';
-import { classNames, styleData } from './ToolbarSeparator.module.css.js';
 
 export type ToolbarSeparatorPropTypes = CommonProps;
 

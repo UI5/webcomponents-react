@@ -2,12 +2,12 @@
 
 import { clsx } from 'clsx';
 import { forwardRef, useContext, useEffect } from 'react';
-import { useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { VariantManagementContext } from '../../internal/VariantManagementContext.js';
 import type { InputPropTypes } from '../../webComponents/Input/index.js';
 import type { ListItemStandardDomRef, ListItemStandardPropTypes } from '../../webComponents/ListItemStandard/index.js';
 import { ListItemStandard } from '../../webComponents/ListItemStandard/index.js';
 import { classNames, styleData } from './VariantItem.module.css.js';
+import { useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 
 export interface VariantItemPropTypes extends Pick<ListItemStandardPropTypes, 'accessibleName' | 'selected'> {
   /**

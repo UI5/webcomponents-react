@@ -1,8 +1,8 @@
 import { clsx } from 'clsx';
 import type { MutableRefObject } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import type { AnalyticalTablePropTypes, TableInstance } from '../types/index.js';
+import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 
 interface VirtualTableBodyContainerProps {
   tableBodyHeight: number;

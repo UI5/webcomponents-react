@@ -1,10 +1,10 @@
 import type { FocusEventHandler, KeyboardEventHandler } from 'react';
 import { useCallback, useEffect } from 'react';
-import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
-import { useI18nBundle } from '@ui5/webcomponents-react-base';
 import { INCLUDES_X } from '../../../i18n/i18n-defaults.js';
 import type { CellInstance, CellType, ReactTableHooks, TableInstance } from '../types/index.js';
 import { NAVIGATION_KEYS } from '../util/index.js';
+import { useI18nBundle } from '@ui5/webcomponents-react-base';
+import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 const NON_STANDARD_INTERACTIVE_ELEMENTS = [
   '[ui5-checkbox]',

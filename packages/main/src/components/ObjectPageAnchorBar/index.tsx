@@ -7,7 +7,6 @@ import iconArrowUp from '@ui5/webcomponents-icons/dist/slim-arrow-up.js';
 import { clsx } from 'clsx';
 import { forwardRef, useEffect, useRef } from 'react';
 import type { CSSProperties, Dispatch, MouseEvent, SetStateAction } from 'react';
-import { debounce, enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { COLLAPSE_HEADER, EXPAND_HEADER, PIN_HEADER, UNPIN_HEADER } from '../../i18n/i18n-defaults.js';
 import { cssVarVersionInfoPrefix, getUi5TagWithSuffix } from '../../internal/utils.js';
 import type { CommonProps } from '../../types/index.js';
@@ -17,6 +16,7 @@ import type { ToggleButtonDomRef, ToggleButtonPropTypes } from '../../webCompone
 import { ToggleButton } from '../../webComponents/ToggleButton/index.js';
 import type { ObjectPagePropTypes } from '../ObjectPage/types/index.js';
 import { classNames, styleData } from './ObjectPageAnchorBar.module.css.js';
+import { debounce, enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 const _buttonBaseMinWidth = `${cssVarVersionInfoPrefix}button_base_min_width`;
 const _buttonBaseHeight = `${cssVarVersionInfoPrefix}button_base_height`;

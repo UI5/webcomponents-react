@@ -4,7 +4,6 @@ import type TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
 import { forwardRef } from 'react';
-import { useStylesheet } from '@ui5/webcomponents-react-base';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import { FlexBoxJustifyContent } from '../../enums/FlexBoxJustifyContent.js';
@@ -12,6 +11,7 @@ import type { CommonProps } from '../../types/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { navigateSections } from '../ObjectPage/ObjectPageUtils.js';
 import { classNames, styleData } from './ObjectPageSubSection.module.css.js';
+import { useStylesheet } from '@ui5/webcomponents-react-base';
 
 export interface ObjectPageSubSectionPropTypes extends CommonProps {
   /**
