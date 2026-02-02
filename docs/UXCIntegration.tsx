@@ -1,7 +1,7 @@
+/* eslint-disable import/order */
 import UXCIntegrationApp from '../patterns/navigation-layout/src/App.js';
 import { MessageStrip, ThemeProvider } from '@ui5/webcomponents-react';
 import '../patterns/navigation-layout/src/index.css';
-// eslint-disable-next-line import/order
 import { EmbeddedStackBlitz } from '@/docs/EmbeddedStackBlitz.js';
 
 function UXCIntegration() {
