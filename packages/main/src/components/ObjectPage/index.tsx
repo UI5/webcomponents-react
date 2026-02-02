@@ -84,6 +84,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     selectedSectionId ?? firstSectionId,
   );
   const [tabSelectId, setTabSelectId] = useState<null | string>(null);
+  const titleAreaInteractive = headerArea && !preserveHeaderStateOnClick;
 
   const isProgrammaticallyScrolled = useRef(false);
   const [componentRef, objectPageRef] = useSyncRef(ref);
@@ -550,7 +551,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
 
   const onTitleClick = (e) => {
     e.stopPropagation();
-    if (!preserveHeaderStateOnClick) {
+    if (titleAreaInteractive) {
       onToggleHeaderContentVisibility(enrichEventWithDetails(e, { visible: headerCollapsed }));
     }
   };
@@ -705,7 +706,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
           data-component-name="ObjectPageTopHeader"
           ref={topHeaderRef}
           role={accessibilityAttributes?.objectPageTopHeader?.role}
-          data-not-clickable={!!preserveHeaderStateOnClick}
+          data-not-clickable={!titleAreaInteractive}
           aria-roledescription={
             accessibilityAttributes?.objectPageTopHeader?.ariaRoledescription ?? 'Object Page header'
           }
@@ -720,7 +721,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
             cloneElement(titleArea as ReactElement<ObjectPageTitlePropsWithDataAttributes>, {
               className: clsx(titleArea?.props?.className),
               onToggleHeaderContentVisibility: onTitleClick,
-              'data-not-clickable': !!preserveHeaderStateOnClick,
+              'data-not-clickable': !titleAreaInteractive,
               'data-header-content-visible': headerArea && headerCollapsed !== true,
               _snappedAvatar: (
                 <CollapsedAvatar

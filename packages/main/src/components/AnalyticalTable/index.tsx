@@ -128,7 +128,8 @@ const measureElement = (el: HTMLElement) => {
  *| `visibleRowCountMode: "Auto"`         | `"AutoWithEmptyRows"` is preferred. `"Auto"` mode can lead to inconsistent table heights depending on the container.                                                                                                                                     |
  *| `alwaysShowBusyIndicator`             | Should generally be `true`, only if loading times are over 1 second, the default skeleton loading indicator is sufficient: [Fiori Skeleton Loading](https://www.sap.com/design-system/fiori-design-ios/ui-elements/patterns/skeleton-loading/?external). |
  *| `scaleWidthMode`                      | Only the default mode is available out of the box for the `sap.m.Table`; similar behavior to the `"Grow"` mode can be achieved in `sap.ui.table` using `autoResizeColumn`.                                                                               |
- *| `renderRowSubComponent`               | There is no design concept regarding this functionality.                                                                                                                                                                                                 |
+ *| `renderRowSubComponent`               | There is no design/UX concept for this functionality.                                                                                                                                                                                                 |
+ *| `useIndeterminateRowSelection`        | There is no design/UX concept for this functionality.                                                                                                                                                                                                 |
  *| `useRowDisableSelection` (deprecated) | Table rows should not be disabled.                                                                                                                                                                                                                       |
  */
 const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTypes>((props, ref) => {
@@ -157,7 +158,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     minRows = 5,
     noDataText,
     overscanCount,
-    overscanCountHorizontal = 5,
+    overscanCountHorizontal = 10,
     retainColumnWidth,
     reactTableOptions,
     renderRowSubComponent,
@@ -364,7 +365,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     getScrollElement: () => tableRef.current,
     estimateSize: useCallback((index) => visibleColumnsWidth[index], [visibleColumnsWidth]),
     horizontal: true,
-    overscan: isRtl ? Infinity : overscanCountHorizontal,
+    overscan: isRtl || scaleWidthMode !== AnalyticalTableScaleWidthMode.Default ? Infinity : overscanCountHorizontal,
     indexAttribute: 'data-column-index',
     // necessary as otherwise values are rounded which leads to wrong total width calculation leading to unnecessary scrollbar
     measureElement: !scaleXFactor || scaleXFactor === 1 ? (el) => el.getBoundingClientRect().width : undefined,

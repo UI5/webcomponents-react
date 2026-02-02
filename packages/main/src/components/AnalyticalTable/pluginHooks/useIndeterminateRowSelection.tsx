@@ -71,9 +71,10 @@ const getIndeterminate = (rows, rowsById, state) => {
  * A plugin hook that marks parent rows as indeterminate if a child row is selected in `Multiple` mode.
  * When using this hook, it is recommended to also select all sub-rows when selecting a row. (`reactTableOptions={{ selectSubRows: true }}`)
  *
- * __Note:__ The `indeterminate` state has a higher priority than the `selected` state. Therefore, a row can be selected and indeterminate at the same time. This can for example happen, if `selectSubRows: true` is set and a row with sub-rows is selected and then a sub-row is unselected.
- *
- * __Note:__ This hook has to traverse the whole data tree on each selection, which can lead to performance degradation with large datasets. Please use with caution!
+ * __Note:__
+ * - This functionality is not covered by SAP UXC design guidelines and should be avoided if UXC is required.
+ * - The `indeterminate` state has a higher priority than the `selected` state. Therefore, a row can be selected and indeterminate at the same time. This can for example happen, if `selectSubRows: true` is set and a row with sub-rows is selected and then a sub-row is unselected.
+ * - This hook has to traverse the whole data tree on each selection, which can lead to performance degradation with large datasets. Please use with caution!
  *
  * @param {event} onIndeterminateChange Fired when the indeterminate state of rows is changed.
  */
