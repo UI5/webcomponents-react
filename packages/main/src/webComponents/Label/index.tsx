@@ -2,9 +2,9 @@
 
 import '@ui5/webcomponents/dist/Label.js';
 import type WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface LabelAttributes {
   /**

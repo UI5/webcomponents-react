@@ -1,10 +1,10 @@
 'use client';
 
 import type TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
-import { useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
 import { forwardRef } from 'react';
+import { useStylesheet } from '@ui5/webcomponents-react-base';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import { FlexBoxJustifyContent } from '../../enums/FlexBoxJustifyContent.js';

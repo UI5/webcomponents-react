@@ -7,9 +7,9 @@ import actionIcon from '@ui5/webcomponents-icons/dist/action.js';
 import declineIcon from '@ui5/webcomponents-icons/dist/decline.js';
 import exitFSIcon from '@ui5/webcomponents-icons/dist/exit-full-screen.js';
 import fullscreenIcon from '@ui5/webcomponents-icons/dist/full-screen.js';
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { useRef } from 'react';
+import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import {
   Bar,
   Breadcrumbs,

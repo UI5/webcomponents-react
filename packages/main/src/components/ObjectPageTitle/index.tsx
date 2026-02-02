@@ -1,8 +1,8 @@
 'use client';
 
-import { debounce, Device, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { cloneElement, forwardRef, isValidElement, useEffect, useRef, useState } from 'react';
+import { debounce, Device, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import { FlexBoxJustifyContent } from '../../enums/FlexBoxJustifyContent.js';

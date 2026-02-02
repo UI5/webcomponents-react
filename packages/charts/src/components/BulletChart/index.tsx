@@ -1,6 +1,5 @@
 'use client';
 
-import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
 import type { CSSProperties } from 'react';
 import { forwardRef, useCallback, useMemo } from 'react';
 import {
@@ -16,6 +15,7 @@ import {
   YAxis,
 } from 'recharts';
 import type { YAxisProps } from 'recharts';
+import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
 import { useChartMargin } from '../../hooks/useChartMargin.js';
 import { useLabelFormatter } from '../../hooks/useLabelFormatter.js';
 import { useLegendItemClick } from '../../hooks/useLegendItemClick.js';

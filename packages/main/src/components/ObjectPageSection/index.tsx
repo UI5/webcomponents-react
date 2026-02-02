@@ -1,10 +1,10 @@
 'use client';
 
 import type TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
-import { useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { ReactNode, FocusEventHandler, KeyboardEventHandler, FocusEvent, Ref } from 'react';
 import { Children, isValidElement, forwardRef, useMemo } from 'react';
+import { useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { ObjectPageMode } from '../../enums/ObjectPageMode.js';
 import type { CommonProps } from '../../types/index.js';
 import type { TabDomRef } from '../../webComponents/Tab/index.js';

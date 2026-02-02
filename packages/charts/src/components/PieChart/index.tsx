@@ -1,6 +1,5 @@
 'use client';
 
-import { enrichEventWithDetails, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { cloneElement, forwardRef, isValidElement, useCallback, useMemo } from 'react';
@@ -15,6 +14,7 @@ import {
   Tooltip,
 } from 'recharts';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils.js';
+import { enrichEventWithDetails, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { useLegendItemClick } from '../../hooks/useLegendItemClick.js';
 import { useOnClickInternal } from '../../hooks/useOnClickInternal.js';
 import type { IChartBaseProps } from '../../interfaces/IChartBaseProps.js';

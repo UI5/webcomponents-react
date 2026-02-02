@@ -2,11 +2,11 @@
 
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import { isPhone } from '@ui5/webcomponents-base/dist/Device.js';
-import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
-import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { clsx } from 'clsx';
 import type { ReactElement } from 'react';
 import { forwardRef, useEffect, useReducer, useRef, useState } from 'react';
+import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
+import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { AVAILABLE_ACTIONS, CANCEL, X_OF_Y } from '../../i18n/i18n-defaults.js';
 import { flattenFragments, getUi5TagWithSuffix } from '../../internal/utils.js';
 import { CustomThemingParameters } from '../../themes/CustomVariables.js';

@@ -3,9 +3,9 @@
 import '@ui5/webcomponents-compat/dist/TableRow.js';
 import type TableRowType from '@ui5/webcomponents-compat/dist/types/TableRowType.js';
 import { getCompatCustomElementsScopingSuffix } from '@ui5/webcomponents-compat/dist/utils/CompatCustomElementsScope.js';
+import type { ReactNode } from 'react';
 import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
 import { withWebComponent } from '@ui5/webcomponents-react-base/withWebComponent';
-import type { ReactNode } from 'react';
 
 const compatScopingSuffix = getCompatCustomElementsScopingSuffix();
 const tagSuffix = compatScopingSuffix ? `-${compatScopingSuffix}` : '';

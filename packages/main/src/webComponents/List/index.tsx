@@ -15,9 +15,9 @@ import type ListAccessibleRole from '@ui5/webcomponents/dist/types/ListAccessibl
 import type ListGrowingMode from '@ui5/webcomponents/dist/types/ListGrowingMode.js';
 import type ListSelectionMode from '@ui5/webcomponents/dist/types/ListSelectionMode.js';
 import type ListSeparator from '@ui5/webcomponents/dist/types/ListSeparator.js';
+import type { ReactNode } from 'react';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface ListAttributes {
   /**

@@ -1,5 +1,5 @@
-import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import { useEffect } from 'react';
+import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import type { ReactTableHooks, TableInstance } from '../types/index.js';
 

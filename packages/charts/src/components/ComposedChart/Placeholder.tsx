@@ -1,5 +1,5 @@
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import ContentLoader from 'react-content-loader';
+import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import type { IChartMeasure } from '../../interfaces/IChartMeasure.js';
 
 const barContentVertical = (

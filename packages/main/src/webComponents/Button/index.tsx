@@ -5,9 +5,9 @@ import type { ButtonAccessibilityAttributes, ButtonClickEventDetail } from '@ui5
 import type ButtonAccessibleRole from '@ui5/webcomponents/dist/types/ButtonAccessibleRole.js';
 import type ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import type ButtonType from '@ui5/webcomponents/dist/types/ButtonType.js';
+import type { ReactNode } from 'react';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface ButtonAttributes {
   /**

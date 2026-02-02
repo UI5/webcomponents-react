@@ -2,15 +2,6 @@
 
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { ARIA_LABEL_EMPTY_CELL } from '@ui5/webcomponents/dist/generated/i18n/i18n-defaults.js';
-import {
-  debounce,
-  enrichEventWithDetails,
-  useI18nBundle,
-  useIsomorphicLayoutEffect,
-  useIsRTL,
-  useStylesheet,
-  useSyncRef,
-} from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { CSSProperties, MutableRefObject } from 'react';
 import { forwardRef, useCallback, useEffect, useId, useMemo, useRef } from 'react';
@@ -25,6 +16,15 @@ import {
   useSortBy,
   useTable,
 } from 'react-table';
+import {
+  debounce,
+  enrichEventWithDetails,
+  useI18nBundle,
+  useIsomorphicLayoutEffect,
+  useIsRTL,
+  useStylesheet,
+  useSyncRef,
+} from '@ui5/webcomponents-react-base';
 import { AnalyticalTableNoDataReason } from '../../enums/AnalyticalTableNoDataReason.js';
 import { AnalyticalTablePopinDisplay } from '../../enums/AnalyticalTablePopinDisplay.js';
 import { AnalyticalTableScaleWidthMode } from '../../enums/AnalyticalTableScaleWidthMode.js';

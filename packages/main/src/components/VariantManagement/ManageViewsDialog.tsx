@@ -5,10 +5,10 @@ import { getScopedVarName } from '@ui5/webcomponents-base/dist/CustomElementsSco
 import { isPhone as getIsPhone } from '@ui5/webcomponents-base/dist/Device.js';
 import NoEntriesIllu from '@ui5/webcomponents-fiori/dist/illustrations/NoEntries.js';
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
+import { Children, isValidElement, useEffect, useId, useRef, useState } from 'react';
+import type { MouseEventHandler, ReactElement } from 'react';
 import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
-import type { MouseEventHandler, ReactElement } from 'react';
-import { Children, isValidElement, useEffect, useId, useRef, useState } from 'react';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import {

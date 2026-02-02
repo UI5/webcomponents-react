@@ -1,8 +1,8 @@
 import { getTheme, setTheme } from '@ui5/webcomponents-base/dist/config/Theme.js';
-import { FlexBox, FlexBoxDirection, Label, Option, Panel, Select, Text, ThemeProvider } from '@ui5/webcomponents-react';
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import { useEffect, useReducer, useState } from 'react';
 import type { CSSProperties } from 'react';
+import { FlexBox, FlexBoxDirection, Label, Option, Panel, Select, Text, ThemeProvider } from '@ui5/webcomponents-react';
+import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import { MAPPED_THEMES } from '../../.storybook/utils';
 
 const containerStyles = {

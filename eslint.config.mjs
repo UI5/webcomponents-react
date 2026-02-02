@@ -96,8 +96,16 @@ const config = tseslint.config(
       'import/order': [
         'error',
         {
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+          // Ensure wcr packages are always resolved as 'internal' no matter if local dist folders exist (without defined pathGroups they would resolve as 'external' w/o dist)
+          pathGroups: [
+            { pattern: '@ui5/webcomponents-react*', group: 'internal' },
+            { pattern: '@ui5/webcomponents-react*/**', group: 'internal' },
+            { pattern: '@ui5/webcomponents-cypress-commands', group: 'internal' },
+            { pattern: '@ui5/webcomponents-cypress-commands/**', group: 'internal' },
+          ],
+          pathGroupsExcludedImportTypes: ['builtin'],
           'newlines-between': 'never',
-
           alphabetize: {
             order: 'asc',
             caseInsensitive: true,

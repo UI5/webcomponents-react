@@ -1,7 +1,7 @@
-import type { debounce } from '@ui5/webcomponents-react-base';
-import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import type { Dispatch, JSXElementConstructor, MutableRefObject, ReactElement, RefObject, SetStateAction } from 'react';
 import { isValidElement, useEffect, useState } from 'react';
+import type { debounce } from '@ui5/webcomponents-react-base';
+import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import { ObjectPageMode } from '../../enums/ObjectPageMode.js';
 import type { TabContainerPropTypes } from '../../webComponents/TabContainer/index.js';
 import type { ObjectPageSectionPropTypes } from '../ObjectPageSection/index.js';

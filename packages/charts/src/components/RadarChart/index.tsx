@@ -1,6 +1,5 @@
 'use client';
 
-import { enrichEventWithDetails, ThemingParameters } from '@ui5/webcomponents-react-base';
 import { forwardRef, useCallback, useRef } from 'react';
 import type { PolarGridProps } from 'recharts';
 import {
@@ -12,6 +11,7 @@ import {
   RadarChart as RadarChartLib,
   Tooltip,
 } from 'recharts';
+import { enrichEventWithDetails, ThemingParameters } from '@ui5/webcomponents-react-base';
 import { useLabelFormatter } from '../../hooks/useLabelFormatter.js';
 import { useLegendItemClick } from '../../hooks/useLegendItemClick.js';
 import { usePrepareDimensionsAndMeasures } from '../../hooks/usePrepareDimensionsAndMeasures.js';

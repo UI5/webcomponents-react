@@ -3,9 +3,9 @@
 import '@ui5/webcomponents-fiori/dist/UserSettingsAppearanceViewGroup.js';
 import type { ListItemGroupMoveEventDetail } from '@ui5/webcomponents/dist/ListItemGroup.js';
 import type WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface UserSettingsAppearanceViewGroupAttributes {
   /**

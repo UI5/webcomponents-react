@@ -4,6 +4,9 @@ import { Description, Subtitle, Title, useOf } from '@storybook/addon-docs/block
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import MessageStripDesign from '@ui5/webcomponents/dist/types/MessageStripDesign.js';
 import copyIcon from '@ui5/webcomponents-icons/dist/copy.js';
+import { clsx } from 'clsx';
+import type { ComponentProps } from 'react';
+import { Fragment } from 'react';
 import {
   Button,
   FlexBox,
@@ -14,9 +17,6 @@ import {
   Text,
   ThemeProvider,
 } from '@ui5/webcomponents-react';
-import { clsx } from 'clsx';
-import type { ComponentProps } from 'react';
-import { Fragment } from 'react';
 import { useGetSubComponentsOfModule } from '../utils';
 import classes from './DocsHeader.module.css';
 import { GitHubLogo } from './GitHub-Mark';

@@ -1,11 +1,11 @@
 'use client';
 
-import { ThemingParameters, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { forwardRef, useId } from 'react';
 import type { DefaultLegendContentProps, YAxisProps } from 'recharts';
 import { DefaultLegendContent } from 'recharts';
+import { ThemingParameters, useStylesheet } from '@ui5/webcomponents-react-base';
 import { useLongestYAxisLabel } from '../../hooks/useLongestYAxisLabel.js';
 import { usePrepareDimensionsAndMeasures } from '../../hooks/usePrepareDimensionsAndMeasures.js';
 import { usePrepareTrendMeasures } from '../../hooks/usePrepareTrendMeasures.js';

@@ -1,9 +1,9 @@
 'use client';
 
 import '@ui5/webcomponents-fiori/dist/WizardStep.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface WizardStepAttributes {
   /**

@@ -4,9 +4,9 @@ import '@ui5/webcomponents-fiori/dist/SideNavigationItem.js';
 import type { SideNavigationItemClickEventDetail } from '@ui5/webcomponents-fiori/dist/SideNavigationItemBase.js';
 import type { SideNavigationItemAccessibilityAttributes } from '@ui5/webcomponents-fiori/dist/SideNavigationSelectableItemBase.js';
 import type SideNavigationItemDesign from '@ui5/webcomponents-fiori/dist/types/SideNavigationItemDesign.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface SideNavigationItemAttributes {
   /**

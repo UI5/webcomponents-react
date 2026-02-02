@@ -2,9 +2,9 @@
 
 import '@ui5/webcomponents-fiori/dist/Search.js';
 import type { SearchFieldScopeSelectionChangeDetails } from '@ui5/webcomponents-fiori/dist/SearchField.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface SearchAttributes {
   /**

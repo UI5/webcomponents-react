@@ -1,8 +1,8 @@
 'use client';
 
-import { useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { forwardRef, useContext, useEffect } from 'react';
+import { useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { VariantManagementContext } from '../../internal/VariantManagementContext.js';
 import type { InputPropTypes } from '../../webComponents/Input/index.js';
 import type { ListItemStandardDomRef, ListItemStandardPropTypes } from '../../webComponents/ListItemStandard/index.js';

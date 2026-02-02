@@ -1,7 +1,7 @@
 import type { VirtualItem } from '@tanstack/react-virtual';
-import { useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base';
 import { useRef } from 'react';
 import type { ReactNode } from 'react';
+import { useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base';
 import type { ClassNames, RowType } from '../types/index.js';
 
 interface RowSubComponentProps {

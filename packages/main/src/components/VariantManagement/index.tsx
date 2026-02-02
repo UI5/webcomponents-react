@@ -9,9 +9,7 @@ import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import IllustrationMessageType from '@ui5/webcomponents-fiori/dist/types/IllustrationMessageType.js';
 import navDownIcon from '@ui5/webcomponents-icons/dist/navigation-down-arrow.js';
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
-import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
-import type { ComponentElement, ReactElement } from 'react';
 import {
   Children,
   cloneElement,
@@ -23,6 +21,8 @@ import {
   useState,
   version as reactVersion,
 } from 'react';
+import type { ComponentElement, ReactElement } from 'react';
+import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { MANAGE, MY_VIEWS, SAVE, SAVE_AS, SEARCH, SEARCH_VARIANT, SELECT_VIEW } from '../../i18n/i18n-defaults.js';
 import { stopPropagation } from '../../internal/stopPropagation.js';
 import type { SelectedVariant } from '../../internal/VariantManagementContext.js';

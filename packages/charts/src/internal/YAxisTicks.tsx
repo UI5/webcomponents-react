@@ -1,5 +1,5 @@
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import type { XAxisProps } from 'recharts';
+import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import type { IChartDimension } from '../interfaces/IChartDimension.js';
 import type { IChartMeasure } from '../interfaces/IChartMeasure.js';
 import { defaultMaxYAxisWidth } from './defaults.js';

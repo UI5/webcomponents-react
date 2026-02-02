@@ -1,11 +1,11 @@
-import { BusyIndicator, Label } from '@ui5/webcomponents-react';
-import type { CommonProps } from '@ui5/webcomponents-react';
-import { useStylesheet } from '@ui5/webcomponents-react-base';
-import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { clsx } from 'clsx';
 import type { ComponentType, ReactElement, ReactNode } from 'react';
 import { Component, forwardRef } from 'react';
 import { ResponsiveContainer } from 'recharts';
+import { BusyIndicator, Label } from '@ui5/webcomponents-react';
+import type { CommonProps } from '@ui5/webcomponents-react';
+import { useStylesheet } from '@ui5/webcomponents-react-base';
+import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { classNames, styleData } from './ChartContainer.module.css.js';
 
 //todo: add feature request for parts or even a fix if this turns out to be a bug

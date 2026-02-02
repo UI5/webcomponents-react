@@ -2,9 +2,9 @@
 
 import '@ui5/webcomponents/dist/Toast.js';
 import type ToastPlacement from '@ui5/webcomponents/dist/types/ToastPlacement.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface ToastAttributes {
   /**

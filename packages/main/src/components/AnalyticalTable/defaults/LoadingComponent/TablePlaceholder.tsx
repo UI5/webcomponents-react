@@ -1,6 +1,6 @@
-import { useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { CSSProperties, FC } from 'react';
+import { useStylesheet } from '@ui5/webcomponents-react-base';
 import type { ColumnType } from '../../types/index.js';
 import { resolveCellAlignment } from '../../util/index.js';
 import { classNames, content } from './TablePlaceholder.module.css.js';

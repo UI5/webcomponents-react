@@ -3,9 +3,9 @@
 import '@ui5/webcomponents-ai/dist/Button.js';
 import type ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import type { AIButtonAccessibilityAttributes } from '@ui5/webcomponents-ai/dist/Button.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface ButtonAttributes {
   /**

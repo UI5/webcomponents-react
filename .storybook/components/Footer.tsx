@@ -1,6 +1,9 @@
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import PopoverPlacement from '@ui5/webcomponents/dist/types/PopoverPlacement.js';
 import WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
+import { clsx } from 'clsx';
+import { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { ButtonPropTypes, PopoverDomRef } from '@ui5/webcomponents-react';
 import {
   Button,
@@ -14,9 +17,6 @@ import {
   Text,
 } from '@ui5/webcomponents-react';
 import type { CommonProps } from '@ui5/webcomponents-react-base';
-import { clsx } from 'clsx';
-import { useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
 import BestRunLogo from '../../assets/SAP_Best_R_grad_blk_scrn.png';
 import classes from './Footer.module.css';
 

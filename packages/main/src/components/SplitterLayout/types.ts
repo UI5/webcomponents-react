@@ -1,5 +1,5 @@
-import type { CommonProps } from '@ui5/webcomponents-react-base';
 import type { DependencyList, ReactElement } from 'react';
+import type { CommonProps } from '@ui5/webcomponents-react-base';
 import type { SplitterElementPropTypes } from '../SplitterElement/index.js';
 
 interface SplitterLayoutOptions {

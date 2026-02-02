@@ -3,9 +3,9 @@
 import '@ui5/webcomponents/dist/Bar.js';
 import type BarAccessibleRole from '@ui5/webcomponents/dist/types/BarAccessibleRole.js';
 import type BarDesign from '@ui5/webcomponents/dist/types/BarDesign.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface BarAttributes {
   /**

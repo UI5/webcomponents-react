@@ -1,5 +1,5 @@
-import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import { useCallback } from 'react';
+import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 
 export const useLegendItemClick = (handler, dataKeyExtractor?) => {
   return useCallback(

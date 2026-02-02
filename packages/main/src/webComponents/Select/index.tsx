@@ -4,9 +4,9 @@ import '@ui5/webcomponents/dist/Select.js';
 import type { IOption, SelectChangeEventDetail, SelectLiveChangeEventDetail } from '@ui5/webcomponents/dist/Select.js';
 import type SelectTextSeparator from '@ui5/webcomponents/dist/types/SelectTextSeparator.js';
 import type ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface SelectAttributes {
   /**

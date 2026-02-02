@@ -2,9 +2,9 @@
 
 import '@ui5/webcomponents-fiori/dist/NotificationListGroupItem.js';
 import type NotificationListGrowingMode from '@ui5/webcomponents/dist/types/NotificationListGrowingMode.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface NotificationListGroupItemAttributes {
   /**

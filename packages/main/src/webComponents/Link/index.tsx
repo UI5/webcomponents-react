@@ -6,9 +6,9 @@ import type InteractiveAreaSize from '@ui5/webcomponents/dist/types/InteractiveA
 import type LinkAccessibleRole from '@ui5/webcomponents/dist/types/LinkAccessibleRole.js';
 import type LinkDesign from '@ui5/webcomponents/dist/types/LinkDesign.js';
 import type WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
+import type { ReactNode } from 'react';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface LinkAttributes {
   /**

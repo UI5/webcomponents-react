@@ -1,7 +1,7 @@
-import type { CommonProps } from '@ui5/webcomponents-react';
-import { throttle, useStylesheet } from '@ui5/webcomponents-react-base';
 import type { CSSProperties, ReactNode, MouseEvent as ReactMouseEvent } from 'react';
 import { forwardRef, useEffect, useRef, useState } from 'react';
+import type { CommonProps } from '@ui5/webcomponents-react';
+import { throttle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { TimelineChartBody } from './chartbody/TimelineChartBody.js';
 import { TimelineChartPlaceholder } from './Placeholder.js';
 import { TimelineChartColumnLabel, TimelineChartRowTitle, TimelineChartRowLabels } from './TimelineChartHeaders.js';

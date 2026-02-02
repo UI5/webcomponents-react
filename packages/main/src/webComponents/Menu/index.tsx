@@ -8,9 +8,9 @@ import type {
 } from '@ui5/webcomponents/dist/Menu.js';
 import type PopoverHorizontalAlign from '@ui5/webcomponents/dist/types/PopoverHorizontalAlign.js';
 import type PopoverPlacement from '@ui5/webcomponents/dist/types/PopoverPlacement.js';
+import type { ReactNode } from 'react';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface MenuAttributes {
   /**

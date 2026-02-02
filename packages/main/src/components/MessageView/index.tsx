@@ -8,11 +8,11 @@ import { getAnimationMode } from '@ui5/webcomponents-base/dist/config/AnimationM
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import announce from '@ui5/webcomponents-base/dist/util/InvisibleMessage.js';
 import iconSlimArrowLeft from '@ui5/webcomponents-icons/dist/slim-arrow-left.js';
+import { clsx } from 'clsx';
+import { useRef, Children, forwardRef, Fragment, isValidElement, useCallback, useEffect, useState } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 import { useI18nBundle, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
-import { clsx } from 'clsx';
-import type { ReactElement, ReactNode } from 'react';
-import { useRef, Children, forwardRef, Fragment, isValidElement, useCallback, useEffect, useState } from 'react';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import { ALL, LIST_NO_DATA, NAVIGATE_BACK, MESSAGE_DETAILS, MESSAGE_TYPES } from '../../i18n/i18n-defaults.js';
 import type { SelectedMessage } from '../../internal/MessageViewContext.js';

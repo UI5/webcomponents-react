@@ -1,9 +1,9 @@
 import getElementSelection from '@ui5/webcomponents-base/dist/util/SelectionAssistant.js';
 import ai from '@ui5/webcomponents-icons/dist/ai.js';
-import type { ButtonDomRef, InputPropTypes } from '@ui5/webcomponents-react';
-import { Button, Input, Label, Toast } from '@ui5/webcomponents-react';
 import type { CSSProperties } from 'react';
 import { useRef, useState } from 'react';
+import type { ButtonDomRef, InputPropTypes } from '@ui5/webcomponents-react';
+import { Button, Input, Label, Toast } from '@ui5/webcomponents-react';
 import { SelectionAssistantContainer } from '@/patterns/selection-assistant/SelectionAssistantContainer.js';
 
 type ElementSelection = ReturnType<typeof getElementSelection>;

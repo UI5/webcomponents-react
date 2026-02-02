@@ -1,8 +1,8 @@
 import BarDesign from '@ui5/webcomponents/dist/types/BarDesign.js';
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
-import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { useId, useRef, useState } from 'react';
+import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import {

@@ -3,9 +3,9 @@
 import '@ui5/webcomponents/dist/TableHeaderCell.js';
 import type TableCellHorizontalAlign from '@ui5/webcomponents/dist/types/TableCellHorizontalAlign.js';
 import type SortOrder from '@ui5/webcomponents-base/dist/types/SortOrder.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface TableHeaderCellAttributes {
   /**

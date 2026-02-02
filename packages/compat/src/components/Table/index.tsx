@@ -9,9 +9,9 @@ import type { TableRowClickEventDetail } from '@ui5/webcomponents-compat/dist/Ta
 import type TableGrowingMode from '@ui5/webcomponents-compat/dist/types/TableGrowingMode.js';
 import type TableMode from '@ui5/webcomponents-compat/dist/types/TableMode.js';
 import { getCompatCustomElementsScopingSuffix } from '@ui5/webcomponents-compat/dist/utils/CompatCustomElementsScope.js';
+import type { ReactNode } from 'react';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import { withWebComponent } from '@ui5/webcomponents-react-base/withWebComponent';
-import type { ReactNode } from 'react';
 
 const compatScopingSuffix = getCompatCustomElementsScopingSuffix();
 const tagSuffix = compatScopingSuffix ? `-${compatScopingSuffix}` : '';

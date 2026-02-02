@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import actionSettingsIcon from '@ui5/webcomponents-icons/dist/action-settings.js';
+import { useEffect, useRef, useState } from 'react';
 import type { UserMenuDomRef, UserMenuPropTypes } from '@ui5/webcomponents-react';
 import {
   Avatar,
@@ -20,7 +21,6 @@ import {
   Title,
   RadioButton,
 } from '@ui5/webcomponents-react';
-import { useEffect, useRef, useState } from 'react';
 import { Switch } from '../Switch/index.js';
 import { UserSettingsAppearanceView } from '../UserSettingsAppearanceView/index.js';
 import { UserSettingsAppearanceViewGroup } from '../UserSettingsAppearanceViewGroup/index.js';

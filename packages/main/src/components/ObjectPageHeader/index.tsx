@@ -1,9 +1,9 @@
 'use client';
 
-import { useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
 import { forwardRef, useMemo } from 'react';
+import { useStylesheet } from '@ui5/webcomponents-react-base';
 import type { CommonProps } from '../../types/index.js';
 import { classNames, styleData } from './ObjectPageHeader.module.css.js';
 

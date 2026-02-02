@@ -1,5 +1,5 @@
-import { debounce } from '@ui5/webcomponents-react-base';
 import { useRef, useState } from 'react';
+import { debounce } from '@ui5/webcomponents-react-base';
 
 export const useCancelAnimationFallback = (
   noAnimation: boolean,

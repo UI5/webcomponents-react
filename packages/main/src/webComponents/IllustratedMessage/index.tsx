@@ -2,9 +2,9 @@
 
 import '@ui5/webcomponents-fiori/dist/IllustratedMessage.js';
 import type IllustrationMessageDesign from '@ui5/webcomponents-fiori/dist/types/IllustrationMessageDesign.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface IllustratedMessageAttributes {
   /**

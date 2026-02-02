@@ -1,9 +1,9 @@
 'use client';
 
 import '@ui5/webcomponents/dist/Card.js';
+import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
-import type { ReactNode } from 'react';
 
 interface CardAttributes {
   /**
