@@ -40,16 +40,20 @@ declare global {
       /**
        * Asserts that the element never gains the given attribute.
        *
-       * __Note:__ An error is thrown if the attribute is not found, therefore it does not block the test if the subject
+       * __Note:__ An error is thrown if the attribute is found, therefore it does not block the test if the subject
        * never includes the given attribute.
        *
-       *
        * @param attributeName - The name of the attribute which must not appear.
-       * @param observerTime - How long (in ms) to watch for mutations (default: 500).
+       * @param options
+       * @param options.observerTime - How long (in ms) to watch for mutations (default: 500).
+       * @param options.delayed - How long (in ms) to wait before starting observation (default: 0).
        * @example
-       * cy.get('button').shouldNeverHaveAttribute('disabled', 1000);
+       * cy.get('button').shouldNeverHaveAttribute('disabled', { observerTime: 500, delayed: 100 });
        */
-      shouldNeverHaveAttribute(attributeName: string, observerTime?: number): Chainable<JQuery<HTMLElement>>;
+      shouldNeverHaveAttribute(
+        attributeName: string,
+        options?: { observerTime?: number; delayed?: number },
+      ): Chainable<JQuery<HTMLElement>>;
     }
   }
 }
@@ -114,7 +118,6 @@ Cypress.Commands.add('shouldNeverHaveAttribute', { prevSubject: 'element' }, (su
         }
       }
     });
-
     observer.observe(el, { attributes: true });
     activeObservers.push(observer);
 

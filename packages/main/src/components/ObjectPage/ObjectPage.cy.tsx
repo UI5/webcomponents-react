@@ -441,12 +441,14 @@ describe('ObjectPage', () => {
       cy.wait(200);
       //fallback click
       cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').realClick();
+      cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').realClick();
       cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected', { observerTime: 500 });
       cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected', {
         observerTime: 1000,
         delayed: 500,
       });
       cy.findByTestId('footer').should('be.visible');
+      cy.wait(1000);
       cy.findByText('Employment').should('be.visible');
       cy.findByText('Job Information').should('be.visible');
 
