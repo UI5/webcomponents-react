@@ -82,7 +82,7 @@ Cypress.Commands.add(
 
 const activeObservers: MutationObserver[] = [];
 
-Cypress.Commands.add('shouldNeverHaveAttribute', { prevSubject: 'element' }, (subject, attributeName, options) => {
+Cypress.Commands.add('shouldNeverHaveAttribute', { prevSubject: 'element' }, (subject, attributeName, options = {}) => {
   const { observerTime = 500, delayed = 0 } = options;
   // Disconnect all previous observers when a new assertion starts
   while (activeObservers.length > 0) {
