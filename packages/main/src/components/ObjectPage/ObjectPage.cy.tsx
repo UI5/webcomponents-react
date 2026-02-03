@@ -431,17 +431,19 @@ describe('ObjectPage', () => {
       cy.findByText('Test').should('be.visible');
       cy.findByTestId('footer').should('be.visible');
 
-      // Select Employment tab
       cy.get('[ui5-tabcontainer]').findUi5TabByText('Goals').focus();
-      cy.get('[ui5-tabcontainer]').realPress('ArrowRight');
-      cy.get('[ui5-tabcontainer]').realPress('ArrowRight');
-      cy.get('[ui5-tabcontainer]').realPress('ArrowRight');
-      cy.get('[ui5-tabcontainer]').realPress('Enter');
+      cy.wait(50);
+      cy.realPress('ArrowRight');
+      cy.focused().should('contain.text', 'Test');
+      cy.wait(50);
+      cy.realPress('ArrowRight');
+      cy.focused().should('contain.text', 'Personal');
+      cy.wait(50);
+      cy.realPress('ArrowRight');
+      cy.focused().should('contain.text', 'Employment');
+      cy.wait(50);
+      cy.realPress('Enter');
 
-      cy.wait(200);
-      //fallback click
-      cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').realClick();
-      cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').realClick();
       cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected', { observerTime: 500 });
       cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected', {
         observerTime: 1000,
