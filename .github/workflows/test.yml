@@ -19,6 +19,7 @@ jobs:
           - charts
           - cypress-commands
           - main/src/components
+          - main/src/components/ObjectPage
           - main/src/webComponents
           - main/src/internal
           - compat

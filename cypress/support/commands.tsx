@@ -80,35 +80,50 @@ Cypress.Commands.add(
   },
 );
 
-Cypress.Commands.add(
-  'shouldNeverHaveAttribute',
-  { prevSubject: 'element' },
-  (subject, attributeName, observerTime = 500) => {
-    cy.wrap(subject).then(($el) => {
-      const el = $el[0];
-      const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-          if (mutation.attributeName === attributeName) {
-            Cypress.log({
-              name: 'shouldNeverHaveAttribute',
-              message: `${attributeName} was found!`,
-              consoleProps: () => ({
-                attributeName,
-                element: el,
-              }),
-            });
+const activeObservers: MutationObserver[] = [];
 
-            observer.disconnect();
-            throw new Error(`${attributeName} was found!`);
+Cypress.Commands.add('shouldNeverHaveAttribute', { prevSubject: 'element' }, (subject, attributeName, options) => {
+  const { observerTime = 500, delayed = 0 } = options;
+  // Disconnect all previous observers when a new assertion starts
+  while (activeObservers.length > 0) {
+    activeObservers.pop()?.disconnect();
+  }
+
+  cy.wait(delayed);
+
+  cy.wrap(subject).then(($el) => {
+    const el = $el[0];
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.attributeName === attributeName) {
+          Cypress.log({
+            name: 'shouldNeverHaveAttribute',
+            message: `${attributeName} was found!`,
+            consoleProps: () => ({
+              attributeName,
+              element: el,
+            }),
+          });
+
+          observer.disconnect();
+          const index = activeObservers.indexOf(observer);
+          if (index > -1) {
+            activeObservers.splice(index, 1);
           }
+          throw new Error(`${attributeName} was found!`);
         }
-      });
-
-      observer.observe(el, { attributes: true });
-
-      setTimeout(() => {
-        observer.disconnect();
-      }, observerTime);
+      }
     });
-  },
-);
+
+    observer.observe(el, { attributes: true });
+    activeObservers.push(observer);
+
+    setTimeout(() => {
+      observer.disconnect();
+      const index = activeObservers.indexOf(observer);
+      if (index > -1) {
+        activeObservers.splice(index, 1);
+      }
+    }, observerTime);
+  });
+});
