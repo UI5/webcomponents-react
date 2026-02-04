@@ -52,7 +52,6 @@ export const Expandable = (props: CellInstance) => {
   return (
     <>
       {columnIndex === 0 && (
-        // todo rowProps should be applied to the whole row, not just the cell. We should consider refactoring this.
         <>
           {row.canExpand || subComponentExpandable ? (
             <span

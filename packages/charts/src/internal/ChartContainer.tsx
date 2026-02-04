@@ -8,7 +8,6 @@ import { Component, forwardRef } from 'react';
 import { ResponsiveContainer } from 'recharts';
 import { classNames, styleData } from './ChartContainer.module.css.js';
 
-//todo: add feature request for parts or even a fix if this turns out to be a bug
 addCustomCSSWithScoping(
   'ui5-busy-indicator',
   `
