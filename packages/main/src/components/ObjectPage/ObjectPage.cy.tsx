@@ -6,8 +6,8 @@ import InputType from '@ui5/webcomponents/dist/types/InputType.js';
 import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import IllustrationMessageType from '@ui5/webcomponents-fiori/dist/types/IllustrationMessageType.js';
-import type { CSSProperties } from 'react';
 import { useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import type { ObjectPagePropTypes } from '../..';
 import {
   CheckBox,

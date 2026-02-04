@@ -8,8 +8,8 @@ import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import iconSysHelp from '@ui5/webcomponents-icons/dist/sys-help-2.js';
 import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
-import type { ReactElement, ReactNode } from 'react';
 import { cloneElement, forwardRef, isValidElement, useId } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import { MessageBoxAction } from '../../enums/MessageBoxAction.js';
 import { MessageBoxType } from '../../enums/MessageBoxType.js';
 import {

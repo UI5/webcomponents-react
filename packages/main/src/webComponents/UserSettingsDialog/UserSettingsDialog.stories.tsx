@@ -1,11 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import actionSettingsIcon from '@ui5/webcomponents-icons/dist/action-settings.js';
-import { useEffect, useRef, useState } from 'react';
-import { Switch } from '../Switch/index.js';
-import { UserSettingsAppearanceView } from '../UserSettingsAppearanceView/index.js';
-import { UserSettingsAppearanceViewGroup } from '../UserSettingsAppearanceViewGroup/index.js';
-import { UserSettingsAppearanceViewItem } from '../UserSettingsAppearanceViewItem/index.js';
-import { UserSettingsDialog } from './index.js';
 import {
   Avatar,
   Button,
@@ -26,6 +20,12 @@ import {
   RadioButton,
 } from '@ui5/webcomponents-react';
 import type { UserMenuDomRef, UserMenuPropTypes } from '@ui5/webcomponents-react';
+import { useEffect, useRef, useState } from 'react';
+import { Switch } from '../Switch/index.js';
+import { UserSettingsAppearanceView } from '../UserSettingsAppearanceView/index.js';
+import { UserSettingsAppearanceViewGroup } from '../UserSettingsAppearanceViewGroup/index.js';
+import { UserSettingsAppearanceViewItem } from '../UserSettingsAppearanceViewItem/index.js';
+import { UserSettingsDialog } from './index.js';
 
 const meta = {
   title: 'Modals & Popovers / UserSettingsDialog',

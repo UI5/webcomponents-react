@@ -5,8 +5,8 @@ import { getScopedVarName } from '@ui5/webcomponents-base/dist/CustomElementsSco
 import { attachLanguageChange, detachLanguageChange } from '@ui5/webcomponents-base/dist/locale/languageChange.js';
 import { attachThemeLoaded, detachThemeLoaded } from '@ui5/webcomponents-base/dist/theming/ThemeLoaded.js';
 import { I18nStore, StyleStore, useIsomorphicLayoutEffect, useStylesheet } from '@ui5/webcomponents-react-base';
-import type { FC, ReactNode } from 'react';
 import { useEffect, useId } from 'react';
+import type { FC, ReactNode } from 'react';
 import VersionInfo from '../../generated/VersionInfo.js';
 import { styleData } from './ThemeProvider.css.js';
 

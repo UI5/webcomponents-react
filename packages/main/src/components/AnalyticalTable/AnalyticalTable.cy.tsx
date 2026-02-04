@@ -4,8 +4,8 @@ import NoFilterResults from '@ui5/webcomponents-fiori/dist/illustrations/NoFilte
 import paperPlaneIcon from '@ui5/webcomponents-icons/paper-plane.js';
 import { isIOS, isMac } from '@ui5/webcomponents-react-base/Device';
 import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
-import type { ComponentClass, ComponentProps } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState, version as reactVersion } from 'react';
+import type { ComponentClass, ComponentProps } from 'react';
 import type {
   AnalyticalTableCellInstance,
   AnalyticalTableColumnDefinition,
