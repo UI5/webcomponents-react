@@ -1,9 +1,9 @@
 import { DomRefTable } from '@sb/components/DomRefTable.js';
 import { ArgTypes, type Controls } from '@storybook/addon-docs/blocks';
 import MessageStripDesign from '@ui5/webcomponents/dist/types/MessageStripDesign.js';
+import { MessageStrip } from '@ui5/webcomponents-react';
 import type { ComponentProps, ReactNode } from 'react';
 import classes from './ArgTypesWithNote.module.css';
-import { MessageStrip } from '@ui5/webcomponents-react';
 
 interface ArgTypesWithNotePropTypes {
   hideHTMLPropsNote?: boolean;

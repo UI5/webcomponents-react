@@ -1,5 +1,5 @@
-import { forwardRef, type ReactNode } from 'react';
 import { Card, FlexBox } from '@ui5/webcomponents-react';
+import { forwardRef, type ReactNode } from 'react';
 
 export const SelectionAssistantContainer = forwardRef<HTMLDivElement, { children: ReactNode }>(({ children }, ref) => {
   return (

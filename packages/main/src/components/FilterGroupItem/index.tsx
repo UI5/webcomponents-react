@@ -108,6 +108,8 @@ const FilterGroupItem = forwardRef<HTMLDivElement, FilterGroupItemPropTypes & Fi
 
     useEffect(() => {
       if (index === 0) {
+        // Todo: check this
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setItemPosition('first');
       }
       if (index === filtersCount - 1) {

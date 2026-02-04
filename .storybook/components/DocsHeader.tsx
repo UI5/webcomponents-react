@@ -4,14 +4,6 @@ import { Description, Subtitle, Title, useOf } from '@storybook/addon-docs/block
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import MessageStripDesign from '@ui5/webcomponents/dist/types/MessageStripDesign.js';
 import copyIcon from '@ui5/webcomponents-icons/dist/copy.js';
-import { clsx } from 'clsx';
-import type { ComponentProps } from 'react';
-import { Fragment } from 'react';
-import { useGetSubComponentsOfModule } from '../utils';
-import classes from './DocsHeader.module.css';
-import { GitHubLogo } from './GitHub-Mark';
-import { Import } from './Import';
-import { TableOfContent } from './TableOfContent';
 import {
   Button,
   FlexBox,
@@ -22,6 +14,14 @@ import {
   Text,
   ThemeProvider,
 } from '@ui5/webcomponents-react';
+import { clsx } from 'clsx';
+import type { ComponentProps } from 'react';
+import { Fragment } from 'react';
+import { useGetSubComponentsOfModule } from '../utils';
+import classes from './DocsHeader.module.css';
+import { GitHubLogo } from './GitHub-Mark';
+import { Import } from './Import';
+import { TableOfContent } from './TableOfContent';
 
 const Links = ({ isChart }: { isChart?: boolean }) => {
   const githubUrl = `https://github.com/UI5/webcomponents-react`;
@@ -95,7 +95,6 @@ export const InfoTable = ({
               <Button
                 design={ButtonDesign.Transparent}
                 className={clsx('ui5-content-density-compact', classes.copyBtn)}
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 onClick={handleCopy}
                 icon={copyIcon}
                 tooltip="copy"
@@ -153,7 +152,6 @@ export const InfoTable = ({
                 <Button
                   design={ButtonDesign.Transparent}
                   className={clsx('ui5-content-density-compact', classes.copyBtn)}
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
                   onClick={handleCopy}
                   icon={copyIcon}
                   tooltip="copy"
