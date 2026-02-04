@@ -3,6 +3,7 @@ import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import declineIcon from '@ui5/webcomponents-icons/dist/decline.js';
 import favoriteIcon from '@ui5/webcomponents-icons/dist/favorite.js';
 import unfavoriteIcon from '@ui5/webcomponents-icons/dist/unfavorite.js';
+import { ThemingParameters, useI18nBundle } from '@ui5/webcomponents-react-base';
 import { useReducer, useRef, useState } from 'react';
 import {
   APPLY_AUTOMATICALLY,
@@ -27,7 +28,6 @@ import { TableRow } from '../../webComponents/TableRow/index.js';
 import { TableRowAction } from '../../webComponents/TableRowAction/index.js';
 import { Text } from '../../webComponents/Text/index.js';
 import type { VariantItemPropTypes } from '../VariantItem/index.js';
-import { ThemingParameters, useI18nBundle } from '@ui5/webcomponents-react-base';
 
 interface ManageViewsTableRowsProps extends Partial<VariantItemPropTypes> {
   variantNames: string[];

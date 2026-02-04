@@ -1,9 +1,9 @@
+import { ThemingParameters, useStylesheet } from '@ui5/webcomponents-react-base';
 import type { CSSProperties, ReactElement } from 'react';
 import { useEffect, useState } from 'react';
 import type { ITimelineChartRow } from './types/TimelineChartTypes.js';
 import { DEFAULT_CHART_VERTICAL_COLS, SPACING, TICK_LENGTH, TOLERANCE } from './util/constants.js';
 import { classNames, styleData } from './util/TimelineChart.module.css.js';
-import { ThemingParameters, useStylesheet } from '@ui5/webcomponents-react-base';
 
 interface TimelineChartRowLabelsProps {
   width: number;

@@ -4,9 +4,9 @@ import '@ui5/webcomponents/dist/Breadcrumbs.js';
 import type { BreadcrumbsItemClickEventDetail } from '@ui5/webcomponents/dist/Breadcrumbs.js';
 import type BreadcrumbsDesign from '@ui5/webcomponents/dist/types/BreadcrumbsDesign.js';
 import type BreadcrumbsSeparator from '@ui5/webcomponents/dist/types/BreadcrumbsSeparator.js';
-import type { ReactNode } from 'react';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
+import type { ReactNode } from 'react';
 
 interface BreadcrumbsAttributes {
   /**

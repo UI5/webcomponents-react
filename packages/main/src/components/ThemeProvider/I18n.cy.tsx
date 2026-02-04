@@ -1,7 +1,7 @@
 import { registerI18nLoader } from '@ui5/webcomponents-base/dist/asset-registries/i18n.js';
 import { setFetchDefaultLanguage, setLanguage } from '@ui5/webcomponents-base/dist/config/Language.js';
-import { useEffect, useRef } from 'react';
 import { useI18nBundle } from '@ui5/webcomponents-react-base';
+import { useEffect, useRef } from 'react';
 
 const TestComponent = () => {
   const i18nBundle = useI18nBundle('myApp');

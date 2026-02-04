@@ -1,10 +1,10 @@
 import AvatarSize from '@ui5/webcomponents/dist/types/AvatarSize.js';
+import { useStylesheet } from '@ui5/webcomponents-react-base/internal/hooks';
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { cloneElement, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, styleData } from './CollapsedAvatar.module.css.js';
 import type { ObjectPagePropTypes } from './index.js';
-import { useStylesheet } from '@ui5/webcomponents-react-base/internal/hooks';
 
 export interface CollapsedAvatarPropTypes {
   image?: ObjectPagePropTypes['image'];

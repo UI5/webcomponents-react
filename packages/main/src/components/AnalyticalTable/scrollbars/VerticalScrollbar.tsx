@@ -1,11 +1,11 @@
+import { isChrome as isChromeFn } from '@ui5/webcomponents-react-base/Device';
+import { useSyncRef } from '@ui5/webcomponents-react-base/internal/hooks';
 import { clsx } from 'clsx';
 import type { MutableRefObject } from 'react';
 import { forwardRef, useEffect, useRef } from 'react';
 import { FlexBoxDirection } from '../../../enums/FlexBoxDirection.js';
 import { FlexBox } from '../../FlexBox/index.js';
 import type { ClassNames } from '../types/index.js';
-import { isChrome as isChromeFn } from '@ui5/webcomponents-react-base/Device';
-import { useSyncRef } from '@ui5/webcomponents-react-base/internal/hooks';
 
 interface VerticalScrollbarProps {
   internalRowHeight: number;

@@ -1,5 +1,5 @@
-import { useReducer } from 'react';
 import { ObjectStatus } from '@ui5/webcomponents-react';
+import { useReducer } from 'react';
 
 interface CondRenderCompProps {
   testid?: string;

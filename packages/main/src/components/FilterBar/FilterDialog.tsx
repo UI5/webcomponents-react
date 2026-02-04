@@ -4,6 +4,8 @@ import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import group2Icon from '@ui5/webcomponents-icons/dist/group-2.js';
 import listIcon from '@ui5/webcomponents-icons/dist/list.js';
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
+import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
+import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { Children, cloneElement, useEffect, useId, useReducer, useRef, useState } from 'react';
 import type { ReactElement, RefObject } from 'react';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
@@ -60,8 +62,6 @@ import { FlexBox } from '../FlexBox/index.js';
 import { MessageBox } from '../MessageBox/index.js';
 import { classNames, styleData } from './FilterBarDialog.module.css.js';
 import type { FilterBarPropTypes } from './types.js';
-import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
-import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 
 interface ForceRequiredObject {
   required: string[];

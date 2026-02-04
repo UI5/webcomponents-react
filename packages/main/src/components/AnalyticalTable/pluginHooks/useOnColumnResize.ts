@@ -1,8 +1,8 @@
 'use client';
 
+import { debounce } from '@ui5/webcomponents-react-base';
 import { useEffect, useRef } from 'react';
 import type { ReactTableHooks, TableInstance } from '../types/index.js';
-import { debounce } from '@ui5/webcomponents-react-base';
 
 interface useOnColumnResizeOptions {
   /**

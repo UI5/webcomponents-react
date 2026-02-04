@@ -9,6 +9,7 @@ import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import IllustrationMessageType from '@ui5/webcomponents-fiori/dist/types/IllustrationMessageType.js';
 import navDownIcon from '@ui5/webcomponents-icons/dist/navigation-down-arrow.js';
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
+import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import {
   Children,
@@ -44,7 +45,6 @@ import { ManageViewsDialog } from './ManageViewsDialog.js';
 import { SaveViewDialog } from './SaveViewDialog.js';
 import type { SelectedVariantWithStringBool, VariantManagementPropTypes } from './types.js';
 import { classNames, styleData } from './VariantManagement.module.css.js';
-import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 const booleanProps = {
   favorite: true,

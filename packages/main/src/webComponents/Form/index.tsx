@@ -4,9 +4,9 @@ import '@ui5/webcomponents/dist/Form.js';
 import type FormAccessibleMode from '@ui5/webcomponents/dist/types/FormAccessibleMode.js';
 import type FormItemSpacing from '@ui5/webcomponents/dist/types/FormItemSpacing.js';
 import type TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
-import type { ReactNode } from 'react';
 import type { CommonProps, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
+import type { ReactNode } from 'react';
 
 interface FormAttributes {
   /**

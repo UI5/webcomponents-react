@@ -12,6 +12,7 @@ import alertIcon from '@ui5/webcomponents-icons/dist/alert.js';
 import errorIcon from '@ui5/webcomponents-icons/dist/error.js';
 import informationIcon from '@ui5/webcomponents-icons/dist/information.js';
 import successIcon from '@ui5/webcomponents-icons/dist/sys-enter-2.js';
+import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import type { MouseEventHandler, ReactNode } from 'react';
@@ -25,7 +26,6 @@ import {
 import type { CommonProps } from '../../types/index.js';
 import { Icon } from '../../webComponents/Icon/index.js';
 import { classNames, styleData } from './ObjectStatus.module.css.js';
-import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 export interface ObjectStatusPropTypes extends CommonProps {
   /**

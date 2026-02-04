@@ -1,5 +1,6 @@
 'use client';
 
+import { enrichEventWithDetails, ThemingParameters } from '@ui5/webcomponents-react-base';
 import { forwardRef, useCallback, useRef } from 'react';
 import type { PolarGridProps } from 'recharts';
 import {
@@ -23,7 +24,6 @@ import { ChartDataLabel } from '../../internal/ChartDataLabel.js';
 import { defaultFormatter } from '../../internal/defaults.js';
 import { tooltipContentStyle, tooltipFillOpacity } from '../../internal/staticProps.js';
 import { PieChartPlaceholder } from '../PieChart/Placeholder.js';
-import { enrichEventWithDetails, ThemingParameters } from '@ui5/webcomponents-react-base';
 
 interface MeasureConfig extends IChartMeasure {
   /**

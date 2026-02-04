@@ -4,6 +4,7 @@ import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import InputType from '@ui5/webcomponents/dist/types/InputType.js';
 import ToolbarDesign from '@ui5/webcomponents/dist/types/ToolbarDesign.js';
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
+import { debounce, Device, enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { Children, cloneElement, forwardRef, isValidElement, useEffect, useId, useRef, useState } from 'react';
 import type { CSSProperties, ElementType, ReactElement } from 'react';
@@ -31,7 +32,6 @@ import { FlexBox } from '../FlexBox/index.js';
 import { classNames, styleData } from './FilterBar.module.css.js';
 import { FilterDialog } from './FilterDialog.js';
 import type { FilterBarChild, FilterBarPropTypes, SafeChildrenFn } from './types.js';
-import { debounce, Device, enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 const isPhone = Device.isPhone();
 const isTablet = Device.isTablet();

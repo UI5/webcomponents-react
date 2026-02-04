@@ -1,6 +1,6 @@
+import { debounce } from '@ui5/webcomponents-react-base';
 import type { RefObject } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { debounce } from '@ui5/webcomponents-react-base';
 
 const defaultAxisHeight = 30;
 

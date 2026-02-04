@@ -5,6 +5,7 @@ import alertIcon from '@ui5/webcomponents-icons/dist/alert.js';
 import errorIcon from '@ui5/webcomponents-icons/dist/error.js';
 import informationIcon from '@ui5/webcomponents-icons/dist/information.js';
 import sysEnter2Icon from '@ui5/webcomponents-icons/dist/sys-enter-2.js';
+import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import {
@@ -20,7 +21,6 @@ import {
 import type { ButtonDomRef, ButtonPropTypes } from '../../webComponents/Button/index.js';
 import { Button } from '../../webComponents/Button/index.js';
 import { classNames, styleData } from './MessageViewButton.module.css.js';
-import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 export interface MessageViewButtonProptypes extends Omit<
   ButtonPropTypes,

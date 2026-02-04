@@ -3,9 +3,9 @@
 import '@ui5/webcomponents/dist/BusyIndicator.js';
 import type BusyIndicatorSize from '@ui5/webcomponents/dist/types/BusyIndicatorSize.js';
 import type BusyIndicatorTextPlacement from '@ui5/webcomponents/dist/types/BusyIndicatorTextPlacement.js';
-import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
+import type { ReactNode } from 'react';
 
 interface BusyIndicatorAttributes {
   /**

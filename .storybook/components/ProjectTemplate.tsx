@@ -1,10 +1,6 @@
 import TsLogo from '@sb/images/logo-ts.png';
 import LinkDesign from '@ui5/webcomponents/dist/types/LinkDesign.js';
 import MessageStripDesign from '@ui5/webcomponents/dist/types/MessageStripDesign.js';
-import { clsx } from 'clsx';
-import type { ReactNode } from 'react';
-import { useRef, useState } from 'react';
-import classes from './ProjectTemplate.module.css';
 import {
   Avatar,
   Card,
@@ -17,6 +13,10 @@ import {
   ThemeProvider,
 } from '@ui5/webcomponents-react';
 import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
+import { clsx } from 'clsx';
+import type { ReactNode } from 'react';
+import { useRef, useState } from 'react';
+import classes from './ProjectTemplate.module.css';
 
 interface ProjectTemplatePropTypes {
   title: string;

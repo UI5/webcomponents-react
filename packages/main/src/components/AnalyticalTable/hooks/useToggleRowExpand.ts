@@ -1,6 +1,6 @@
 import announce from '@ui5/webcomponents-base/dist/util/InvisibleMessage.js';
-import type { ReactTableHooks, RowType, TableInstance } from '../types/index.js';
 import { debounce, enrichEventWithDetails } from '@ui5/webcomponents-react-base';
+import type { ReactTableHooks, RowType, TableInstance } from '../types/index.js';
 
 // debounce announce to prevent excessive successive announcements
 const debouncedAnnounce = debounce((announcement: string) => {

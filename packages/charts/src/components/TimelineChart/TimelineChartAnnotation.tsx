@@ -1,9 +1,9 @@
+import type { CommonProps } from '@ui5/webcomponents-react';
+import { useStylesheet } from '@ui5/webcomponents-react-base';
 import type { CSSProperties, JSX } from 'react';
 import { forwardRef } from 'react';
 import { DEFAULT_ROW_HEIGHT } from './util/constants.js';
 import { classNames, styleData } from './util/TimelineChart.module.css.js';
-import type { CommonProps } from '@ui5/webcomponents-react';
-import { useStylesheet } from '@ui5/webcomponents-react-base';
 
 interface TimelineChartAnnotationProps extends CommonProps {
   /**

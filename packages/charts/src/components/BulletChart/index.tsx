@@ -1,5 +1,6 @@
 'use client';
 
+import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
 import type { CSSProperties } from 'react';
 import { forwardRef, useCallback, useMemo } from 'react';
 import {
@@ -35,7 +36,6 @@ import { XAxisTicks } from '../../internal/XAxisTicks.js';
 import { YAxisTicks } from '../../internal/YAxisTicks.js';
 import { ComparisonLine } from './ComparisonLine.js';
 import { BulletChartPlaceholder } from './Placeholder.js';
-import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
 
 const dimensionDefaults = {
   formatter: defaultFormatter,

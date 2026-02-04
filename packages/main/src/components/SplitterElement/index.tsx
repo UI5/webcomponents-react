@@ -1,12 +1,12 @@
 'use client';
 
+import { Device, useIsomorphicLayoutEffect, useSyncRef, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { CSSProperties, ReactNode } from 'react';
 import { forwardRef, useContext, useEffect, useState } from 'react';
 import { SplitterLayoutContext } from '../../internal/SplitterLayoutContext.js';
 import type { CommonProps } from '../../types/index.js';
 import { classNames, styleData } from './SplitterElement.module.css.js';
-import { Device, useIsomorphicLayoutEffect, useSyncRef, useStylesheet } from '@ui5/webcomponents-react-base';
 
 export interface SplitterElementPropTypes extends CommonProps {
   /**

@@ -8,6 +8,7 @@ import iconFilter from '@ui5/webcomponents-icons/dist/filter.js';
 import iconGroup from '@ui5/webcomponents-icons/dist/group-2.js';
 import iconSortAscending from '@ui5/webcomponents-icons/dist/sort-ascending.js';
 import iconSortDescending from '@ui5/webcomponents-icons/dist/sort-descending.js';
+import { enrichEventWithDetails, useI18nBundle } from '@ui5/webcomponents-react-base';
 import { useEffect, useId, useMemo, useRef } from 'react';
 import { FlexBoxAlignItems } from '../../../../enums/FlexBoxAlignItems.js';
 import { TextAlign } from '../../../../enums/TextAlign.js';
@@ -31,7 +32,6 @@ import { Text } from '../../../../webComponents/Text/index.js';
 import { FlexBox } from '../../../FlexBox/index.js';
 import type { TableInstanceWithPopoverProps } from '../../types/index.js';
 import { RenderColumnTypes } from '../../types/index.js';
-import { enrichEventWithDetails, useI18nBundle } from '@ui5/webcomponents-react-base';
 
 export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
   const { setOpen, openerRef, id } = instance.popoverProps;

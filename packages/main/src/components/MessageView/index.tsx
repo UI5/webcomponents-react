@@ -8,6 +8,8 @@ import { getAnimationMode } from '@ui5/webcomponents-base/dist/config/AnimationM
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import announce from '@ui5/webcomponents-base/dist/util/InvisibleMessage.js';
 import iconSlimArrowLeft from '@ui5/webcomponents-icons/dist/slim-arrow-left.js';
+import { useI18nBundle, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
+import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { useRef, Children, forwardRef, Fragment, isValidElement, useCallback, useEffect, useState } from 'react';
 import type { ReactElement, ReactNode } from 'react';
@@ -31,8 +33,6 @@ import { FlexBox } from '../FlexBox/index.js';
 import type { MessageItemPropTypes } from '../MessageItem/index.js';
 import { classNames, styleData } from './MessageView.module.css.js';
 import { getIconNameForType, getValueStateMap } from './utils.js';
-import { useI18nBundle, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
-import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 export interface MessageViewDomRef extends HTMLDivElement {
   /**

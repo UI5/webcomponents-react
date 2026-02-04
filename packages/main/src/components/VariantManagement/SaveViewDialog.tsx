@@ -1,5 +1,6 @@
 import BarDesign from '@ui5/webcomponents/dist/types/BarDesign.js';
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
+import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { useId, useRef, useState } from 'react';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
@@ -30,7 +31,6 @@ import { Label } from '../../webComponents/Label/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { classNames, styleData } from './SaveViewDialog.module.css.js';
 import type { VariantManagementPropTypes } from './types.js';
-import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 interface SaveViewDialogPropTypes {
   onAfterClose: (event: Ui5CustomEvent<DialogDomRef>) => void;

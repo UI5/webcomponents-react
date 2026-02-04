@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
-import { useEffect, useRef } from 'react';
 import type { CarouselDomRef, CarouselPropTypes } from '@ui5/webcomponents-react';
 import { Carousel } from '@ui5/webcomponents-react';
+import type { ReactNode } from 'react';
+import { useEffect, useRef } from 'react';
 
 export function StoryCarousel(props: Omit<CarouselPropTypes, 'children'> & { children: ReactNode[] }) {
   const { children } = props;

@@ -1,7 +1,7 @@
 import type { StoryObj, Meta } from '@storybook/react-vite';
+import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import { Text } from '../../webComponents/Text/index.js';
 import { ResponsiveGridLayout } from './index.js';
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
 
 const meta = {
   title: 'Layouts & Floorplans / ResponsiveGridLayout',

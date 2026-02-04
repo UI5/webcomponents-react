@@ -8,9 +8,9 @@ import type {
 } from '@ui5/webcomponents/dist/MenuItem.js';
 import type Highlight from '@ui5/webcomponents/dist/types/Highlight.js';
 import type ListItemType from '@ui5/webcomponents/dist/types/ListItemType.js';
-import type { ReactNode } from 'react';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
+import type { ReactNode } from 'react';
 
 interface MenuItemAttributes {
   /**

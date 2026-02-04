@@ -1,5 +1,6 @@
 'use client';
 
+import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
 import type { CSSProperties } from 'react';
 import { forwardRef, useCallback } from 'react';
 import {
@@ -37,7 +38,6 @@ import { getCellColors, resolvePrimaryAndSecondaryMeasures } from '../../interna
 import { XAxisTicks } from '../../internal/XAxisTicks.js';
 import { YAxisTicks } from '../../internal/YAxisTicks.js';
 import { BarChartPlaceholder } from './Placeholder.js';
-import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
 
 const dimensionDefaults = {
   formatter: defaultFormatter,

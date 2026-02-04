@@ -1,9 +1,9 @@
+import { CssSizeVariablesNames, enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import type { CSSProperties } from 'react';
 import { AnalyticalTableSelectionBehavior } from '../../../enums/AnalyticalTableSelectionBehavior.js';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import { CheckBox } from '../../../webComponents/CheckBox/index.js';
 import type { ReactTableHooks, TableInstance } from '../types/index.js';
-import { CssSizeVariablesNames, enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 
 const customCheckBoxStyling = {
   verticalAlign: 'middle',

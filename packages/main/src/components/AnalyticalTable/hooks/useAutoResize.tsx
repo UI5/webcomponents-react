@@ -1,7 +1,7 @@
+import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import { DEFAULT_COLUMN_WIDTH } from '../defaults/Column/index.js';
 import type { ReactTableHooks, TableInstance } from '../types/index.js';
 import { CELL_PADDING_PX } from './useDynamicColumnWidths.js';
-import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 
 function setResizerProps(props, { instance, header }: { instance: TableInstance; header: TableInstance['header'] }) {
   const { dispatch, virtualRowsRange, rows, webComponentsReactProperties } = instance;

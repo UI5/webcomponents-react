@@ -1,5 +1,6 @@
 'use client';
 
+import { ThemingParameters, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { forwardRef, useId } from 'react';
@@ -16,7 +17,6 @@ import { defaultFormatter } from '../../internal/defaults.js';
 import { ComposedChart } from '../ComposedChart/index.js';
 import { classNames, content } from './ColumnChartWithTrend.module.css.js';
 import { ColumnChartWithTrendPlaceholder } from './Placeholder.js';
-import { ThemingParameters, useStylesheet } from '@ui5/webcomponents-react-base';
 
 interface MeasureConfig extends IChartMeasure {
   /**

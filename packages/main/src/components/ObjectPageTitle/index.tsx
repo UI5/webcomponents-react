@@ -1,5 +1,6 @@
 'use client';
 
+import { debounce, Device, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { cloneElement, forwardRef, isValidElement, useEffect, useRef, useState } from 'react';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
@@ -10,7 +11,6 @@ import type { ToolbarDomRef } from '../../webComponents/Toolbar/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { classNames, styleData } from './ObjectPageTitle.module.css.js';
 import type { InternalProps, ObjectPageTitlePropTypes } from './types/index.js';
-import { debounce, Device, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 
 /**
  * The `ObjectPageTitle` component is used to serve as title of the `ObjectPage`.

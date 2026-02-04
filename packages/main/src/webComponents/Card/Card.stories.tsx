@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import personIcon from '@ui5/webcomponents-icons/dist/person-placeholder.js';
+import { LineChart } from '@ui5/webcomponents-react-charts';
 import { AnalyticalCardHeader } from '../../components/AnalyticalCardHeader';
 import { NumericSideIndicator } from '../../components/NumericSideIndicator';
 import { DeviationIndicator, ValueColor } from '../../enums';
@@ -8,7 +9,6 @@ import { Icon } from '../Icon';
 import { List } from '../List';
 import { ListItemStandard } from '../ListItemStandard';
 import { Card } from './index.js';
-import { LineChart } from '@ui5/webcomponents-react-charts';
 
 const meta = {
   title: 'Data Display / Card',

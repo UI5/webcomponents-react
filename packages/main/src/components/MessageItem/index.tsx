@@ -5,6 +5,7 @@ import ListItemType from '@ui5/webcomponents/dist/types/ListItemType.js';
 import WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import iconArrowRight from '@ui5/webcomponents-icons/dist/slim-arrow-right.js';
+import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { Children, isValidElement, forwardRef, useContext, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -21,7 +22,6 @@ import { ListItemCustom } from '../../webComponents/ListItemCustom/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { getIconNameForType, getValueStateMap } from '../MessageView/utils.js';
 import { classNames, styleData } from './MessageItem.module.css.js';
-import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 export interface MessageItemPropTypes extends Pick<ListItemCustomPropTypes, 'accessibleName' | 'tooltip'>, CommonProps {
   /**

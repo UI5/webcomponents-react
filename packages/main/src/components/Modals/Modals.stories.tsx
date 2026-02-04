@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { FlexBox, FlexBoxJustifyContent } from '@ui5/webcomponents-react';
 import { MessageBoxType } from '../../enums/index.js';
 import { Button, MenuItem } from '../../webComponents/index.js';
 import { Modals } from './index.js';
-import { FlexBox, FlexBoxJustifyContent } from '@ui5/webcomponents-react';
 
 const meta = {
   title: 'User Feedback / Modals',

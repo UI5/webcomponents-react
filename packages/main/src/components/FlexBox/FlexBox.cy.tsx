@@ -1,8 +1,8 @@
+import { camelToKebabCase, lowercaseFirstLetter } from '@ui5/webcomponents-react-base';
 import { FlexBoxJustifyContent, FlexBoxAlignItems, FlexBoxDirection, FlexBoxWrap } from '../../enums/index.js';
 import { FlexBox } from './index.js';
 import type { FlexBoxPropTypes } from './index.js';
 import { cypressPassThroughTestsFactory, mountWithCustomTagName } from '@/cypress/support/utils';
-import { camelToKebabCase, lowercaseFirstLetter } from '@ui5/webcomponents-react-base';
 
 describe('FlexBox', () => {
   Object.values(FlexBoxJustifyContent).forEach((val: FlexBoxPropTypes['justifyContent']) => {

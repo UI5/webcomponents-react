@@ -1,6 +1,7 @@
 'use client';
 
 import type TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
+import { useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
 import { forwardRef } from 'react';
@@ -11,7 +12,6 @@ import type { CommonProps } from '../../types/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { navigateSections } from '../ObjectPage/ObjectPageUtils.js';
 import { classNames, styleData } from './ObjectPageSubSection.module.css.js';
-import { useStylesheet } from '@ui5/webcomponents-react-base';
 
 export interface ObjectPageSubSectionPropTypes extends CommonProps {
   /**

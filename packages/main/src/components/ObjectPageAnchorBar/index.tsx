@@ -4,6 +4,7 @@ import iconPushPinOff from '@ui5/webcomponents-icons/dist/pushpin-off.js';
 import iconPushPinOn from '@ui5/webcomponents-icons/dist/pushpin-on.js';
 import iconArrowDown from '@ui5/webcomponents-icons/dist/slim-arrow-down.js';
 import iconArrowUp from '@ui5/webcomponents-icons/dist/slim-arrow-up.js';
+import { debounce, enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { forwardRef, useEffect, useRef } from 'react';
 import type { CSSProperties, Dispatch, MouseEvent, SetStateAction } from 'react';
@@ -16,7 +17,6 @@ import type { ToggleButtonDomRef, ToggleButtonPropTypes } from '../../webCompone
 import { ToggleButton } from '../../webComponents/ToggleButton/index.js';
 import type { ObjectPagePropTypes } from '../ObjectPage/types/index.js';
 import { classNames, styleData } from './ObjectPageAnchorBar.module.css.js';
-import { debounce, enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 const _buttonBaseMinWidth = `${cssVarVersionInfoPrefix}button_base_min_width`;
 const _buttonBaseHeight = `${cssVarVersionInfoPrefix}button_base_height`;

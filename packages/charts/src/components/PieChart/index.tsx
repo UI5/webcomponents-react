@@ -1,5 +1,6 @@
 'use client';
 
+import { enrichEventWithDetails, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { cloneElement, forwardRef, isValidElement, useCallback, useMemo } from 'react';
@@ -25,7 +26,6 @@ import { defaultFormatter } from '../../internal/defaults.js';
 import { tooltipContentStyle, tooltipFillOpacity } from '../../internal/staticProps.js';
 import { classNames, styleData } from './PieChart.module.css.js';
 import { PieChartPlaceholder } from './Placeholder.js';
-import { enrichEventWithDetails, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 
 interface MeasureConfig extends Omit<IChartMeasure, 'accessor' | 'label' | 'color' | 'hideDataLabel'> {
   /**

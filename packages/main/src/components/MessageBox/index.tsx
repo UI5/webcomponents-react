@@ -6,6 +6,7 @@ import PopupAccessibleRole from '@ui5/webcomponents/dist/types/PopupAccessibleRo
 import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import iconSysHelp from '@ui5/webcomponents-icons/dist/sys-help-2.js';
+import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { cloneElement, forwardRef, isValidElement, useId } from 'react';
 import type { ReactElement, ReactNode } from 'react';
@@ -30,7 +31,6 @@ import {
 import type { ButtonPropTypes, DialogDomRef, DialogPropTypes } from '../../webComponents/index.js';
 import { Button, Dialog, Icon, Text, Title } from '../../webComponents/index.js';
 import { classNames, styleData } from './MessageBox.module.css.js';
-import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 type MessageBoxActionType = MessageBoxAction | keyof typeof MessageBoxAction | string;

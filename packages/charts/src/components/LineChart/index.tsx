@@ -1,5 +1,6 @@
 'use client';
 
+import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
 import { forwardRef, useCallback, useRef } from 'react';
 import type { LineProps, YAxisProps } from 'recharts';
 import {
@@ -37,7 +38,6 @@ import { resolvePrimaryAndSecondaryMeasures } from '../../internal/Utils.js';
 import { XAxisTicks } from '../../internal/XAxisTicks.js';
 import { YAxisTicks } from '../../internal/YAxisTicks.js';
 import { LineChartPlaceholder } from './Placeholder.js';
-import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
 
 interface MeasureConfig extends IChartMeasure {
   /**

@@ -1,5 +1,6 @@
 'use client';
 
+import { useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { CSSProperties, ElementType, ReactNode } from 'react';
 import { forwardRef } from 'react';
@@ -9,7 +10,6 @@ import { FlexBoxJustifyContent } from '../../enums/FlexBoxJustifyContent.js';
 import { FlexBoxWrap } from '../../enums/FlexBoxWrap.js';
 import type { CommonProps } from '../../types/index.js';
 import { classNames, styleData } from './FlexBox.module.css.js';
-import { useStylesheet } from '@ui5/webcomponents-react-base';
 
 export interface FlexBoxPropTypes extends CommonProps {
   /**

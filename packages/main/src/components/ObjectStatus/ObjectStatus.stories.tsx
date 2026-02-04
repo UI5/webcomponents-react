@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import IconMode from '@ui5/webcomponents/dist/types/IconMode.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import cancelIcon from '@ui5/webcomponents-icons/dist/sys-cancel.js';
+import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import { useMemo } from 'react';
 import { IndicationColor } from '../../enums/IndicationColor.js';
 import { Icon } from '../../webComponents/Icon/index.js';
@@ -19,7 +20,6 @@ import type { AnalyticalTableColumnDefinition } from '../AnalyticalTable/index.j
 import { AnalyticalTable } from '../AnalyticalTable/index.js';
 import type { ObjectStatusPropTypes } from './index.js';
 import { ObjectStatus } from './index.js';
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
 
 const meta = {
   title: 'Data Display / ObjectStatus',

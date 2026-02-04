@@ -3,12 +3,12 @@ import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import aiIcon from '@ui5/webcomponents-icons/dist/ai.js';
 import navDownIcon from '@ui5/webcomponents-icons/dist/navigation-down-arrow.js';
 import stopIcon from '@ui5/webcomponents-icons/dist/stop.js';
+import { Menu, MenuItem, MenuSeparator } from '@ui5/webcomponents-react';
+import type { MenuPropTypes } from '@ui5/webcomponents-react';
 import { useRef, useState } from 'react';
 import { ButtonState } from '../ButtonState/index.js';
 import type { ButtonDomRef, ButtonPropTypes } from './index.js';
 import { Button } from './index.js';
-import { Menu, MenuItem, MenuSeparator } from '@ui5/webcomponents-react';
-import type { MenuPropTypes } from '@ui5/webcomponents-react';
 
 const meta = {
   title: 'Button',

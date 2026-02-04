@@ -2,6 +2,7 @@ import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import IconMode from '@ui5/webcomponents/dist/types/IconMode.js';
 import iconNavDownArrow from '@ui5/webcomponents-icons/dist/navigation-down-arrow.js';
 import iconNavRightArrow from '@ui5/webcomponents-icons/dist/navigation-right-arrow.js';
+import { CssSizeVariables, useCurrentTheme } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { FocusEvent } from 'react';
 import type { ButtonDomRef } from '../../../../webComponents/Button/index.js';
@@ -9,7 +10,6 @@ import { Button } from '../../../../webComponents/Button/index.js';
 import { Icon } from '../../../../webComponents/Icon/index.js';
 import type { ColumnType, RowType, WCRPropertiesType } from '../../types/index.js';
 import { RenderColumnTypes } from '../../types/index.js';
-import { CssSizeVariables, useCurrentTheme } from '@ui5/webcomponents-react-base';
 
 const getPadding = (level) => {
   switch (level) {

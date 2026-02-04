@@ -1,9 +1,9 @@
+import { useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { CSSProperties, FC } from 'react';
 import type { ColumnType } from '../../types/index.js';
 import { resolveCellAlignment } from '../../util/index.js';
 import { classNames, content } from './TablePlaceholder.module.css.js';
-import { useStylesheet } from '@ui5/webcomponents-react-base';
 
 const getArrayOfLength = (len: number) => Array.from(Array(len).keys());
 

@@ -5,9 +5,9 @@ import type {
   TokenizerSelectionChangeEventDetail,
   TokenizerTokenDeleteEventDetail,
 } from '@ui5/webcomponents/dist/Tokenizer.js';
-import type { ReactNode } from 'react';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
+import type { ReactNode } from 'react';
 
 interface TokenizerAttributes {
   /**

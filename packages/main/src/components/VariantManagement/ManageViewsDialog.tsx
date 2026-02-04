@@ -5,6 +5,8 @@ import { getScopedVarName } from '@ui5/webcomponents-base/dist/CustomElementsSco
 import { isPhone as getIsPhone } from '@ui5/webcomponents-base/dist/Device.js';
 import NoEntriesIllu from '@ui5/webcomponents-fiori/dist/illustrations/NoEntries.js';
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
+import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
+import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 import { Children, isValidElement, useEffect, useId, useRef, useState } from 'react';
 import type { MouseEventHandler, ReactElement } from 'react';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
@@ -42,8 +44,6 @@ import type { VariantItemPropTypes } from '../VariantItem/index.js';
 import { classNames, styleData } from './ManageViewsDialog.module.css.js';
 import { ManageViewsTableRows } from './ManageViewsTableRows.js';
 import type { VariantManagementPropTypes } from './types.js';
-import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
-import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 type ManageViewsDialogChildType = boolean | undefined | null | ReactElement<VariantItemPropTypes>;
 

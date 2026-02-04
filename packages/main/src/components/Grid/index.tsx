@@ -1,5 +1,6 @@
 'use client';
 
+import { useStylesheet, useViewportRange } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { CSSProperties, ReactNode } from 'react';
 import { forwardRef, isValidElement } from 'react';
@@ -7,7 +8,6 @@ import { GridPosition } from '../../enums/GridPosition.js';
 import { flattenFragments } from '../../internal/utils.js';
 import type { CommonProps } from '../../types/index.js';
 import { classNames, styleData } from './Grid.module.css.js';
-import { useStylesheet, useViewportRange } from '@ui5/webcomponents-react-base';
 
 export interface GridPropTypes extends CommonProps {
   /**
