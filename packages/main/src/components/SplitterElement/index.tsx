@@ -89,8 +89,6 @@ const SplitterElement = forwardRef<HTMLDivElement, SplitterElementPropTypes>((pr
     }
   }, [reset]);
 
-  console.log(flexStyles, reset);
-
   return (
     <div
       ref={componentRef}

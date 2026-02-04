@@ -210,6 +210,8 @@ describe('SplitterLayout', () => {
         })
         .realMouseUp({ position: 'center' });
 
+      cy.wait(100);
+
       cy.findByTestId('0')
         .invoke('text')
         .then((txt) => parseInt(txt, 10))
