@@ -1,0 +1,35 @@
+import{j as o}from"./iframe-DZSv2zZb.js";import{useMDXComponents as i}from"./index-BqdSmNlq.js";import{M as p,C as a}from"./blocks-BSnZQBrX.js";import"./Tag-BEM_u6FU.js";import"./index-BBEh2DsQ.js";import{C as m}from"./ControlsWithNote-DL936Knp.js";import{D as c}from"./DocsHeader-bziwy7Vk.js";import{F as h}from"./CommandsAndQueries-CZUib4pD.js";import{C as s,D as e}from"./Toast.stories-BuszOTnj.js";import"./preload-helper-PPVm8Dsz.js";import"./information-COD7Swxj.js";import"./sys-enter-2-CFC1gFhb.js";import"./alert-CTmlBOXX.js";import"./index-lD82309j.js";import"./index-DrF5gpEw.js";import"./Link-CCplhiXF.js";import"./copy-CG-McODA.js";import"./copy-23w1fGpY.js";import"./GitHub-Mark-B22lEhPn.js";import"./TableOfContent-D_bn0j1X.js";import"./index-C2hiyRQA.js";import"./index-CCnKvqA0.js";import"./index-EGktcBQb.js";import"./index-DRWzqH2N.js";import"./index-CYgXuNom.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-Z5sB9nBC.js";import"./addCustomCSSWithScoping-DXOZ95so.js";function r(n){const t={code:"code",h2:"h2",p:"p",pre:"pre",strong:"strong",...i(),...n.components};return o.jsxs(o.Fragment,{children:[o.jsx(p,{of:s}),`
+`,o.jsx(c,{of:s,since:"0.9.0"}),`
+`,o.jsx("br",{}),`
+`,o.jsx(t.h2,{id:"example",children:"Example"}),`
+`,o.jsx(a,{of:e}),`
+`,o.jsx(t.h2,{id:"properties",children:"Properties"}),`
+`,o.jsx(m,{of:e}),`
+`,o.jsx(t.h2,{id:"show-a-toast",children:"Show a toast"}),`
+`,o.jsxs(t.p,{children:["You can open and close the ",o.jsx(t.code,{children:"Toaast"})," component in a declarative way using the ",o.jsx(t.code,{children:"open"})," prop."]}),`
+`,o.jsx(t.p,{children:o.jsx(t.strong,{children:"Example"})}),`
+`,o.jsx(t.pre,{children:o.jsx(t.code,{className:"language-jsx",children:`export function MyComponentWithAToast() {
+  const [showToast, setShowToast] = useState(false);
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setShowToast(true);
+        }}
+      >
+        Show Toast
+      </Button>
+      <Toast
+        open={showToast}
+        onClose={() => {
+          setShowToast(false);
+        }}
+      >
+        This is my Toast!
+      </Toast>
+    </>
+  );
+}
+`})}),`
+`,o.jsx(h,{})]})}function R(n={}){const{wrapper:t}={...i(),...n.components};return t?o.jsx(t,{...n,children:o.jsx(r,{...n})}):r(n)}export{R as default};
