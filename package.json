@@ -68,7 +68,7 @@
     "@types/react-dom": "19.2.3",
     "@ui5/webcomponents-tools": "2.18.1",
     "@vitejs/plugin-react": "5.1.2",
-    "chromatic": "13.3.5",
+    "chromatic": "15.0.0",
     "cssnano": "7.1.2",
     "cypress": "15.9.0",
     "cypress-real-events": "1.15.0",
