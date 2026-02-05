@@ -345,7 +345,68 @@ export const SectionWithCustomHeader: Story = {
           aria-label="Personal"
           header={<MessageStrip hideCloseButton>Custom Header Section Two</MessageStrip>}
         >
-          <div style={{ width: '100%', height: '500px', background: 'cadetblue' }} />
+          <ObjectPageSubSection
+            titleText="Connect"
+            id="personal-connect"
+            aria-label="Connect"
+            actions={
+              <>
+                <Button design={ButtonDesign.Emphasized} style={{ minWidth: '120px' }}>
+                  Custom Action
+                </Button>
+                <Button design={ButtonDesign.Transparent} icon="action-settings" tooltip="settings" />
+                <Button design={ButtonDesign.Transparent} icon="download" tooltip="download" />
+              </>
+            }
+          >
+            <Form style={{ alignItems: 'baseline' }}>
+              <FormGroup headerText="Phone Numbers">
+                <FormItem labelContent={<Label showColon>Home</Label>}>
+                  <Text>+1 234-567-8901</Text>
+                  <Text>+1 234-567-5555</Text>
+                </FormItem>
+              </FormGroup>
+              <FormGroup headerText="Social Accounts">
+                <FormItem labelContent={<Label showColon>LinkedIn</Label>}>
+                  <Text>/DeniseSmith</Text>
+                </FormItem>
+                <FormItem labelContent={<Label showColon>Twitter</Label>}>
+                  <Text>@DeniseSmith</Text>
+                </FormItem>
+              </FormGroup>
+              <FormGroup headerText="Addresses">
+                <FormItem labelContent={<Label showColon>Home Address</Label>}>
+                  <Text>2096 Mission Street</Text>
+                </FormItem>
+                <FormItem labelContent={<Label showColon>Mailing Address</Label>}>
+                  <Text>PO Box 32114</Text>
+                </FormItem>
+              </FormGroup>
+              <FormGroup headerText="Mailing Address">
+                <FormItem labelContent={<Label showColon>Work</Label>}>
+                  <Text>DeniseSmith@sap.com</Text>
+                </FormItem>
+              </FormGroup>
+            </Form>
+          </ObjectPageSubSection>
+          <ObjectPageSubSection
+            titleText="Payment Information"
+            id="personal-payment-information"
+            aria-label="Payment Information"
+          >
+            <Form>
+              <FormGroup headerText="Salary">
+                <FormItem labelContent={<Label showColon>Bank Transfer</Label>}>
+                  <Text>Money Bank, Inc.</Text>
+                </FormItem>
+              </FormGroup>
+              <FormGroup headerText="Payment method for Expenses">
+                <FormItem labelContent={<Label showColon>Extra Travel Expenses</Label>}>
+                  <Text>Cash 100 USD</Text>
+                </FormItem>
+              </FormGroup>
+            </Form>
+          </ObjectPageSubSection>
         </ObjectPageSection>
         <ObjectPageSection
           titleText="Employment"

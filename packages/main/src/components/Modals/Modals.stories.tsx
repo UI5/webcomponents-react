@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { FlexBox, FlexBoxJustifyContent } from '@ui5/webcomponents-react';
-import { MessageBoxType } from '../../enums/index.js';
-import { Button, MenuItem } from '../../webComponents/index.js';
+import { useState } from 'react';
+import { FlexBoxDirection, FlexBoxJustifyContent, MessageBoxType } from '../../enums/index.js';
+import { Button, Label, MenuItem, Switch } from '../../webComponents/index.js';
+import { FlexBox } from '../FlexBox/index.js';
 import { Modals } from './index.js';
 
 const meta = {
@@ -38,68 +39,92 @@ export const Dialog: Story = {
 
 export const Popover = {
   render: () => {
+    const [autoClosePopovers, setAutoClosePopovers] = useState(false);
     return (
-      <>
+      <FlexBox direction={FlexBoxDirection.Column} alignItems="Start" gap="1rem">
+        <FlexBox alignItems="Center" gap="0.5rem">
+          <Switch checked={autoClosePopovers} onChange={(e) => setAutoClosePopovers(e.target.checked)} />
+          <Label>autoClosePopovers</Label>
+        </FlexBox>
         <Button
           id="modals-show-popover"
           onClick={() => {
-            Modals.showPopover({
-              opener: 'modals-show-popover',
-              headerText: 'Popover Title',
-              children: "I'm a Popover!",
-            });
+            Modals.showPopover(
+              {
+                opener: 'modals-show-popover',
+                headerText: 'Popover Title',
+                children: "I'm a Popover!",
+              },
+              { autoClosePopovers },
+            );
           }}
         >
           Show Popover
         </Button>
-      </>
+      </FlexBox>
     );
   },
 };
 
 export const ResponsivePopover = {
   render: () => {
+    const [autoClosePopovers, setAutoClosePopovers] = useState(false);
     return (
-      <>
+      <FlexBox direction={FlexBoxDirection.Column} alignItems="Start" gap="1rem">
+        <FlexBox alignItems="Center" gap="0.5rem">
+          <Switch checked={autoClosePopovers} onChange={(e) => setAutoClosePopovers(e.target.checked)} />
+          <Label>autoClosePopovers</Label>
+        </FlexBox>
         <Button
           id="modals-show-responsive-popover"
           onClick={() => {
-            Modals.showResponsivePopover({
-              opener: 'modals-show-responsive-popover',
-              headerText: 'Responsive Popover Title',
-              children: "I'm a Responsive Popover!",
-            });
+            Modals.showResponsivePopover(
+              {
+                opener: 'modals-show-responsive-popover',
+                headerText: 'Responsive Popover Title',
+                children: "I'm a Responsive Popover!",
+              },
+              { autoClosePopovers },
+            );
           }}
         >
           Show ResponsivePopover
         </Button>
-      </>
+      </FlexBox>
     );
   },
 };
 
 export const Menu = {
   render: () => {
+    const [autoClosePopovers, setAutoClosePopovers] = useState(false);
     return (
-      <>
+      <FlexBox direction={FlexBoxDirection.Column} alignItems="Start" gap="1rem">
+        <FlexBox alignItems="Center" gap="0.5rem">
+          <Switch checked={autoClosePopovers} onChange={(e) => setAutoClosePopovers(e.target.checked)} />
+          <Label>autoClosePopovers</Label>
+        </FlexBox>
         <Button
           id="modals-show-menu"
           onClick={() => {
-            Modals.showMenu({
-              opener: 'modals-show-menu',
-              headerText: 'Menu Title',
-              children: (
-                <>
-                  <MenuItem text="New File" icon="add-document" />
-                  <MenuItem text="New Folder" icon="add-folder" disabled />
-                </>
-              ),
-            });
+            Modals.showMenu(
+              {
+                opener: 'modals-show-menu',
+                headerText: 'Menu Title',
+                children: (
+                  <>
+                    <MenuItem text="New File" icon="add-document" />
+                    <MenuItem text="New Folder" icon="add-folder" disabled />
+                  </>
+                ),
+              },
+              { autoClosePopovers },
+            );
           }}
         >
           Show Menu
         </Button>
-      </>
+      </FlexBox>
     );
   },
 };
