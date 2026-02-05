@@ -40,7 +40,7 @@ const ObjectPageTitle = forwardRef<HTMLDivElement, ObjectPageTitlePropTypes>((pr
   const [componentRef, dynamicPageTitleRef] = useSyncRef<HTMLDivElement>(ref);
   const [showNavigationInTopArea, setShowNavigationInTopArea] = useState(undefined);
   const isMounted = useRef(false);
-  const [isPhone, setIsPhone] = useState(Device.getCurrentRange().name === 'Phone');
+  const [isPhone, setIsPhone] = useState(false);
   const containerClasses = clsx(classNames.container, isPhone && classNames.phone, className);
   const toolbarContainerRef = useRef<HTMLDivElement>(null);
   const _header = !props?.['data-header-content-visible'] && snappedHeader ? snappedHeader : header;
