@@ -41,7 +41,7 @@
             },
             {
               "name": "badge",
-              "description": "Defines the optional badge that will be used for visual affordance.\n\n**Note:** While the slot allows for custom badges, to achieve\nthe Fiori design, you can use the `ui5-tag` with `ui5-icon`\nin the corresponding `icon` slot, without text nodes.",
+              "description": "Defines the optional badge that will be used for visual affordance.\n\n**Note:** While the slot allows for custom badges, to achieve\nthe Fiori design, use the `ui5-avatar-badge` component.",
               "_ui5since": "1.7.0",
               "_ui5type": {
                 "text": "Array<HTMLElement>"
@@ -320,6 +320,93 @@
           "declaration": {
             "name": "Avatar",
             "module": "dist/Avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/AvatarBadge.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-avatar-badge` component is used to display a badge on top of `ui5-avatar` component.\nThe badge can display an icon and supports different states for visual affordance.\n\n### Usage\n\nThe badge should be used as a child element of `ui5-avatar` in the `badge` slot.\n\n```html\n<ui5-avatar>\n  <ui5-avatar-badge icon=\"edit\" slot=\"badge\"></ui5-avatar-badge>\n</ui5-avatar>\n```\n\n### Keyboard Handling\n\nThe badge does not receive keyboard focus.\n\n### ES6 Module Import\n`import \"@ui5/webcomponents/dist/AvatarBadge.js\";`",
+          "name": "AvatarBadge",
+          "members": [
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the icon name to be displayed inside the badge.\n\n**Note:** You should import the desired icon first, then use its name as \"icon\".\n\n`import \"@ui5/webcomponents-icons/dist/{icon_name}.js\"`",
+              "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "state",
+              "type": {
+                "text": "ValueState",
+                "references": [
+                  {
+                    "name": "ValueState",
+                    "package": "@ui5/webcomponents-base",
+                    "module": "dist/types/ValueState.js"
+                  }
+                ]
+              },
+              "description": "Defines the state of the badge, which determines its styling.\n\nAvailable options:\n- `None` (default) - Standard appearance\n- `Positive` - Green, used for success/approved states\n- `Critical` - Orange, used for warning states\n- `Negative` - Red, used for error/rejected states\n- `Information` - Blue, used for informational states",
+              "default": "\"None\"",
+              "privacy": "public"
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines the icon name to be displayed inside the badge.\n\n**Note:** You should import the desired icon first, then use its name as \"icon\".\n\n`import \"@ui5/webcomponents-icons/dist/{icon_name}.js\"`",
+              "name": "icon",
+              "default": "undefined",
+              "fieldName": "icon",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines the state of the badge, which determines its styling.\n\nAvailable options:\n- `None` (default) - Standard appearance\n- `Positive` - Green, used for success/approved states\n- `Critical` - Orange, used for warning states\n- `Negative` - Red, used for error/rejected states\n- `Information` - Blue, used for informational states",
+              "name": "state",
+              "default": "\"None\"",
+              "fieldName": "state",
+              "type": {
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
+              }
+            }
+          ],
+          "superclass": {
+            "name": "UI5Element",
+            "package": "@ui5/webcomponents-base",
+            "module": "dist/UI5Element.js"
+          },
+          "tagName": "ui5-avatar-badge",
+          "customElement": true,
+          "_ui5since": "2.19.0",
+          "_ui5privacy": "public"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "AvatarBadge",
+            "module": "dist/AvatarBadge.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-avatar-badge",
+          "declaration": {
+            "name": "AvatarBadge",
+            "module": "dist/AvatarBadge.js"
           }
         }
       ]
@@ -732,7 +819,7 @@
               "default": "\"Toolbar\"",
               "fieldName": "accessibleRole",
               "type": {
-                "text": "\"Toolbar\" | \"None\""
+                "text": "\"None\" | \"Toolbar\""
               }
             },
             {
@@ -1536,7 +1623,7 @@
               "default": "\"Default\"",
               "fieldName": "design",
               "type": {
-                "text": "\"Transparent\" | \"Default\" | \"Positive\" | \"Negative\" | \"Emphasized\" | \"Attention\""
+                "text": "\"Transparent\" | \"Positive\" | \"Negative\" | \"Default\" | \"Emphasized\" | \"Attention\""
               }
             },
             {
@@ -3464,7 +3551,7 @@
                   "type": {
                     "text": "number"
                   },
-                  "description": "The index of the target page",
+                  "description": "The index of the target item",
                   "_ui5privacy": "public"
                 }
               ],
@@ -3932,7 +4019,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -4262,6 +4349,24 @@
               "privacy": "public",
               "default": "undefined",
               "_ui5since": "1.21.0"
+            },
+            {
+              "kind": "field",
+              "name": "placement",
+              "type": {
+                "text": "PopoverPlacement",
+                "references": [
+                  {
+                    "name": "PopoverPlacement",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/PopoverPlacement.js"
+                  }
+                ]
+              },
+              "default": "\"Bottom\"",
+              "description": "Determines on which side the component is placed at.",
+              "privacy": "public",
+              "_ui5since": "2.19.0"
             }
           ],
           "events": [
@@ -4359,6 +4464,15 @@
               "fieldName": "opener",
               "type": {
                 "text": "string | HTMLElement | null | undefined"
+              }
+            },
+            {
+              "description": "Determines on which side the component is placed at.",
+              "name": "placement",
+              "default": "\"Bottom\"",
+              "fieldName": "placement",
+              "type": {
+                "text": "\"Top\" | \"Bottom\" | \"Start\" | \"End\""
               }
             }
           ],
@@ -4862,7 +4976,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -5328,6 +5442,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/CustomAnnouncement.js",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -5828,9 +5948,21 @@
               "type": {
                 "text": "Date | null"
               },
-              "description": "Currently selected date represented as a Local JavaScript Date instance.",
+              "description": "Currently selected date represented as a Local JavaScript Date instance.\nNote: this getter can only be reliably used after the component is fully defined. Use dateValueAsync which resolves only when this condition is met.",
               "privacy": "public",
               "default": "null",
+              "deprecated": "Use dateValueAsync instead",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "dateValueAsync",
+              "type": {
+                "text": "Promise<Date | null>"
+              },
+              "description": "Promise that resolves to the currently selected date represented as a Local JavaScript Date instance.",
+              "privacy": "public",
+              "default": "Promise",
               "readonly": true
             },
             {
@@ -6124,7 +6256,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -6227,10 +6359,20 @@
               }
             },
             {
-              "description": "Currently selected date represented as a Local JavaScript Date instance.",
+              "description": "Currently selected date represented as a Local JavaScript Date instance.\nNote: this getter can only be reliably used after the component is fully defined. Use dateValueAsync which resolves only when this condition is met.",
               "name": "date-value",
               "default": "null",
               "fieldName": "dateValue",
+              "type": {
+                "text": "any"
+              },
+              "deprecated": "Use dateValueAsync instead"
+            },
+            {
+              "description": "Promise that resolves to the currently selected date represented as a Local JavaScript Date instance.",
+              "name": "date-value-async",
+              "default": "Promise",
+              "fieldName": "dateValueAsync",
               "type": {
                 "text": "any"
               }
@@ -6398,6 +6540,7 @@
               "description": "**Note:** The getter method is inherited and not supported. If called it will return an empty value.",
               "privacy": "public",
               "default": "null",
+              "deprecated": "Use dateValueAsync instead",
               "readonly": true,
               "inheritedFrom": {
                 "name": "DatePicker",
@@ -6768,6 +6911,21 @@
             },
             {
               "kind": "field",
+              "name": "dateValueAsync",
+              "type": {
+                "text": "Promise<Date | null>"
+              },
+              "description": "Promise that resolves to the currently selected date represented as a Local JavaScript Date instance.",
+              "privacy": "public",
+              "default": "Promise",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DatePicker",
+                "module": "dist/DatePicker.js"
+              }
+            },
+            {
+              "kind": "field",
               "name": "primaryCalendarType",
               "type": {
                 "text": "CalendarType | undefined",
@@ -6976,7 +7134,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               },
               "inheritedFrom": {
                 "name": "DatePicker",
@@ -7120,6 +7278,19 @@
               "fieldName": "accessibleDescriptionRef",
               "type": {
                 "text": "string | undefined"
+              },
+              "inheritedFrom": {
+                "name": "DatePicker",
+                "module": "dist/DatePicker.js"
+              }
+            },
+            {
+              "description": "Promise that resolves to the currently selected date represented as a Local JavaScript Date instance.",
+              "name": "date-value-async",
+              "default": "Promise",
+              "fieldName": "dateValueAsync",
+              "type": {
+                "text": "any"
               },
               "inheritedFrom": {
                 "name": "DatePicker",
@@ -7796,9 +7967,25 @@
               "type": {
                 "text": "Date | null"
               },
-              "description": "Currently selected date represented as a Local JavaScript Date instance.",
+              "description": "Currently selected date represented as a Local JavaScript Date instance.\nNote: this getter can only be reliably used after the component is fully defined. Use dateValueAsync which resolves only when this condition is met.",
               "privacy": "public",
               "default": "null",
+              "deprecated": "Use dateValueAsync instead",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DatePicker",
+                "module": "dist/DatePicker.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "dateValueAsync",
+              "type": {
+                "text": "Promise<Date | null>"
+              },
+              "description": "Promise that resolves to the currently selected date represented as a Local JavaScript Date instance.",
+              "privacy": "public",
+              "default": "Promise",
               "readonly": true,
               "inheritedFrom": {
                 "name": "DatePicker",
@@ -8000,7 +8187,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               },
               "inheritedFrom": {
                 "name": "DatePicker",
@@ -8151,10 +8338,24 @@
               }
             },
             {
-              "description": "Currently selected date represented as a Local JavaScript Date instance.",
+              "description": "Currently selected date represented as a Local JavaScript Date instance.\nNote: this getter can only be reliably used after the component is fully defined. Use dateValueAsync which resolves only when this condition is met.",
               "name": "date-value",
               "default": "null",
               "fieldName": "dateValue",
+              "type": {
+                "text": "any"
+              },
+              "deprecated": "Use dateValueAsync instead",
+              "inheritedFrom": {
+                "name": "DatePicker",
+                "module": "dist/DatePicker.js"
+              }
+            },
+            {
+              "description": "Promise that resolves to the currently selected date represented as a Local JavaScript Date instance.",
+              "name": "date-value-async",
+              "default": "Promise",
+              "fieldName": "dateValueAsync",
               "type": {
                 "text": "any"
               },
@@ -8774,7 +8975,7 @@
               "default": "\"None\"",
               "fieldName": "state",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -9628,7 +9829,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -10405,7 +10606,7 @@
               "default": "\"Default\"",
               "fieldName": "design",
               "type": {
-                "text": "\"Default\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\" | \"Contrast\" | \"Neutral\" | \"NonInteractive\""
+                "text": "\"Positive\" | \"Critical\" | \"Negative\" | \"Information\" | \"Default\" | \"Contrast\" | \"Neutral\" | \"NonInteractive\""
               }
             },
             {
@@ -10746,6 +10947,24 @@
               "description": "Defines whether the suggestions picker is open.\nThe picker will not open if the `showSuggestions` property is set to `false`, the input is disabled or the input is readonly.\nThe picker will close automatically and `close` event will be fired if the input is not in the viewport.",
               "privacy": "public",
               "_ui5since": "2.0.0"
+            },
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "InputSuggestionsFilter",
+                "references": [
+                  {
+                    "name": "InputSuggestionsFilter",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/InputSuggestionsFilter.js"
+                  }
+                ]
+              },
+              "description": "Defines the filter type of the component.",
+              "default": "\"None\"",
+              "privacy": "public",
+              "_ui5since": "2.19.0"
             }
           ],
           "events": [
@@ -10907,7 +11126,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -10989,6 +11208,15 @@
               "fieldName": "open",
               "type": {
                 "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the filter type of the component.",
+              "name": "filter",
+              "default": "\"None\"",
+              "fieldName": "filter",
+              "type": {
+                "text": "\"None\" | \"StartsWithPerTerm\" | \"StartsWith\" | \"Contains\""
               }
             }
           ],
@@ -11181,15 +11409,6 @@
               "_ui5type": {
                 "text": "Array<Node>"
               }
-            },
-            {
-              "name": "default",
-              "description": "Defines the text of the component.\n\n**Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.",
-              "_ui5propertyName": "text",
-              "_ui5type": {
-                "text": "Array<Node>"
-              },
-              "_ui5privacy": "public"
             }
           ],
           "members": [
@@ -11753,6 +11972,17 @@
             },
             {
               "kind": "field",
+              "name": "stickyHeader",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates whether the List header is sticky or not.\nIf stickyHeader is set to true, then whenever you scroll the content or\nthe application, the header of the list will be always visible.",
+              "privacy": "public",
+              "_ui5since": "2.19.0"
+            },
+            {
+              "kind": "field",
               "name": "accessibleName",
               "type": {
                 "text": "string | undefined"
@@ -12194,6 +12424,15 @@
               }
             },
             {
+              "description": "Indicates whether the List header is sticky or not.\nIf stickyHeader is set to true, then whenever you scroll the content or\nthe application, the header of the list will be always visible.",
+              "name": "sticky-header",
+              "default": "false",
+              "fieldName": "stickyHeader",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
               "description": "Defines the accessible name of the component.",
               "name": "accessible-name",
               "default": "undefined",
@@ -12459,7 +12698,7 @@
               "default": "\"None\"",
               "fieldName": "highlight",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -12805,7 +13044,7 @@
               "default": "\"None\"",
               "fieldName": "highlight",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               },
               "inheritedFrom": {
                 "name": "ListItem",
@@ -13481,7 +13720,7 @@
               "default": "\"None\"",
               "fieldName": "additionalTextState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -13569,7 +13808,7 @@
               "default": "\"None\"",
               "fieldName": "highlight",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               },
               "inheritedFrom": {
                 "name": "ListItem",
@@ -14474,7 +14713,7 @@
               "default": "\"None\"",
               "fieldName": "highlight",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               },
               "inheritedFrom": {
                 "name": "ListItem",
@@ -14776,7 +15015,7 @@
               "default": "\"Information\"",
               "fieldName": "design",
               "type": {
-                "text": "\"Positive\" | \"Negative\" | \"Critical\" | \"Information\" | \"ColorSet1\" | \"ColorSet2\""
+                "text": "\"Positive\" | \"Critical\" | \"Negative\" | \"Information\" | \"ColorSet1\" | \"ColorSet2\""
               }
             },
             {
@@ -15020,6 +15259,16 @@
             },
             {
               "kind": "field",
+              "name": "loading",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates whether a loading indicator should be shown in the picker.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
               "name": "filter",
               "type": {
                 "text": "ComboBoxFilter",
@@ -15171,6 +15420,35 @@
                   "description": "an array of the selected items."
                 }
               ]
+            },
+            {
+              "name": "value-state-change",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<MultiComboBoxValueStateChangeEventDetail>",
+                "references": [
+                  {
+                    "name": "MultiComboBoxValueStateChangeEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/MultiComboBox.js"
+                  }
+                ]
+              },
+              "description": "Fired before the value state of the component is updated internally.\nThe event is preventable, meaning that if it's default action is\nprevented, the component will not update the value state.",
+              "_ui5Cancelable": true,
+              "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.19.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "string"
+                  },
+                  "name": "valueState",
+                  "_ui5privacy": "public",
+                  "description": "The new `valueState` that will be set."
+                }
+              ]
             }
           ],
           "attributes": [
@@ -15234,7 +15512,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -15251,6 +15529,15 @@
               "name": "required",
               "default": "false",
               "fieldName": "required",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Indicates whether a loading indicator should be shown in the picker.",
+              "name": "loading",
+              "default": "false",
+              "fieldName": "loading",
               "type": {
                 "text": "boolean"
               }
@@ -16089,6 +16376,28 @@
                 "name": "Input",
                 "module": "dist/Input.js"
               }
+            },
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "InputSuggestionsFilter",
+                "references": [
+                  {
+                    "name": "InputSuggestionsFilter",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/InputSuggestionsFilter.js"
+                  }
+                ]
+              },
+              "description": "Defines the filter type of the component.",
+              "default": "\"None\"",
+              "privacy": "public",
+              "_ui5since": "2.19.0",
+              "inheritedFrom": {
+                "name": "Input",
+                "module": "dist/Input.js"
+              }
             }
           ],
           "events": [
@@ -16363,7 +16672,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               },
               "inheritedFrom": {
                 "name": "Input",
@@ -16468,6 +16777,19 @@
               "fieldName": "open",
               "type": {
                 "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "Input",
+                "module": "dist/Input.js"
+              }
+            },
+            {
+              "description": "Defines the filter type of the component.",
+              "name": "filter",
+              "default": "\"None\"",
+              "fieldName": "filter",
+              "type": {
+                "text": "\"None\" | \"StartsWithPerTerm\" | \"StartsWith\" | \"Contains\""
               },
               "inheritedFrom": {
                 "name": "Input",
@@ -17204,7 +17526,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Defines whether the component should close when\nclicking/tapping outside of the popover.\nIf enabled, it blocks any interaction with the background.",
+              "description": "Defines whether the component should close when\nclicking/tapping outside the popover.\nIf enabled, it blocks any interaction with the background.",
               "privacy": "public"
             },
             {
@@ -17227,6 +17549,17 @@
               "default": "false",
               "description": "Determines if there is no enough space, the component can be placed\nover the target.",
               "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "resizable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Determines whether the component is resizable.\n**Note:** This property is effective only on desktop devices.",
+              "privacy": "public",
+              "_ui5since": "2.19.0"
             },
             {
               "kind": "field",
@@ -17435,7 +17768,7 @@
               }
             },
             {
-              "description": "Defines whether the component should close when\nclicking/tapping outside of the popover.\nIf enabled, it blocks any interaction with the background.",
+              "description": "Defines whether the component should close when\nclicking/tapping outside the popover.\nIf enabled, it blocks any interaction with the background.",
               "name": "modal",
               "default": "false",
               "fieldName": "modal",
@@ -17457,6 +17790,15 @@
               "name": "allow-target-overlap",
               "default": "false",
               "fieldName": "allowTargetOverlap",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Determines whether the component is resizable.\n**Note:** This property is effective only on desktop devices.",
+              "name": "resizable",
+              "default": "false",
+              "fieldName": "resizable",
               "type": {
                 "text": "boolean"
               }
@@ -17693,6 +18035,21 @@
           "declaration": {
             "name": "Popover",
             "module": "dist/Popover.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/PopoverResize.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "PopoverResize",
+            "module": "dist/PopoverResize.js"
           }
         }
       ]
@@ -18122,7 +18479,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             }
           ],
@@ -18372,7 +18729,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -18494,6 +18851,9 @@
               "description": "Defines start point of a selection - position of a first handle on the slider.",
               "default": "0",
               "privacy": "public",
+              "type": {
+                "text": "number"
+              },
               "_ui5formProperty": true,
               "_ui5formEvents": "change,input"
             },
@@ -18503,6 +18863,9 @@
               "description": "Defines end point of a selection - position of a second handle on the slider.",
               "default": "100",
               "privacy": "public",
+              "type": {
+                "text": "number"
+              },
               "_ui5formProperty": true,
               "_ui5formEvents": "change,input"
             },
@@ -19219,7 +19582,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Defines whether the component should close when\nclicking/tapping outside of the popover.\nIf enabled, it blocks any interaction with the background.",
+              "description": "Defines whether the component should close when\nclicking/tapping outside the popover.\nIf enabled, it blocks any interaction with the background.",
               "privacy": "public",
               "inheritedFrom": {
                 "name": "Popover",
@@ -19250,6 +19613,21 @@
               "default": "false",
               "description": "Determines if there is no enough space, the component can be placed\nover the target.",
               "privacy": "public",
+              "inheritedFrom": {
+                "name": "Popover",
+                "module": "dist/Popover.js"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "resizable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Determines whether the component is resizable.\n**Note:** This property is effective only on desktop devices.",
+              "privacy": "public",
+              "_ui5since": "2.19.0",
               "inheritedFrom": {
                 "name": "Popover",
                 "module": "dist/Popover.js"
@@ -19530,7 +19908,7 @@
               }
             },
             {
-              "description": "Defines whether the component should close when\nclicking/tapping outside of the popover.\nIf enabled, it blocks any interaction with the background.",
+              "description": "Defines whether the component should close when\nclicking/tapping outside the popover.\nIf enabled, it blocks any interaction with the background.",
               "name": "modal",
               "default": "false",
               "fieldName": "modal",
@@ -19560,6 +19938,19 @@
               "name": "allow-target-overlap",
               "default": "false",
               "fieldName": "allowTargetOverlap",
+              "type": {
+                "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "Popover",
+                "module": "dist/Popover.js"
+              }
+            },
+            {
+              "description": "Determines whether the component is resizable.\n**Note:** This property is effective only on desktop devices.",
+              "name": "resizable",
+              "default": "false",
+              "fieldName": "resizable",
               "type": {
                 "text": "boolean"
               },
@@ -20618,7 +21009,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -21638,7 +22029,7 @@
               "default": "\"Default\"",
               "fieldName": "design",
               "type": {
-                "text": "\"Transparent\" | \"Default\" | \"Positive\" | \"Negative\" | \"Emphasized\" | \"Attention\""
+                "text": "\"Transparent\" | \"Positive\" | \"Negative\" | \"Default\" | \"Emphasized\" | \"Attention\""
               }
             },
             {
@@ -21963,7 +22354,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -22983,7 +23374,7 @@
               "default": "\"Default\"",
               "fieldName": "design",
               "type": {
-                "text": "\"Default\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Neutral\""
+                "text": "\"Positive\" | \"Critical\" | \"Negative\" | \"Default\" | \"Neutral\""
               }
             },
             {
@@ -23519,7 +23910,7 @@
         },
         {
           "kind": "class",
-          "description": "### Overview\n\nThe `ui5-table` component provides a set of sophisticated features for displaying and dealing with vast amounts of data in a responsive manner.\nTo render the `ui5-table`, you need to define the columns and rows. You can use the provided `ui5-table-header-row` and `ui5-table-row` components for this purpose.\n\n### Features\n\nThe `ui5-table` can be enhanced in its functionalities by applying different features.\nFeatures can be slotted into the `features` slot, to enable them in the component.\nFeatures need to be imported separately, as they are not enabled by default.\n\nThe following features are currently available:\n\n* [TableSelectionMulti](../TableSelectionMulti) - adds multi-selection capabilities to the table\n* [TableSelectionSingle](../TableSelectionSingle) - adds single-selection capabilities to the table\n* [TableGrowing](../TableGrowing) - provides growing capabilities to load more data\n* [TableVirtualizer](../TableVirtualizer) - adds virtualization capabilities to the table\n\n### Keyboard Handling\n\nThis component provides a build in fast navigation group which can be used via [F6] / [Shift] + [F6] / [Ctrl] + [Alt/Option] / [Down] or [Ctrl] + [Alt/Option] + [Up].\nIn order to use this functionality, you need to import the following module:\n`import \"@ui5/webcomponents-base/dist/features/F6Navigation.js\"`\n\nFurthermore, you can interact with `ui5-table` via the following keys:\n\nIf the focus is on a row, the following keyboard shortcuts are available:\n* <kbd>Down</kbd> - Navigates down\n* <kbd>Up</kbd> - Navigates up\n* <kbd>Right</kbd> - Selects the first cell of the row\n* <kbd>Space</kbd> - Toggles the selection of the row\n* <kbd>Ctrl/Cmd + A</kbd> - In multi selection mode, toggles the selection of all rows\n* <kbd>Home</kbd> - Navigates to the first row, if the focus is on the first row, navigates to the header row\n* <kbd>End</kbd> - Navigates to the last row, if the focus is on the last row, navigates to the growing button\n* <kbd>Page Up</kbd> - Navigates one page up, if the focus is on the first row, navigates to the header row\n* <kbd>Page Down</kbd> - Navigates one page down, if the focus is on the last row, navigates to the growing button\n* <kbd>F2</kbd> - Focuses the first tabbable element in the row\n* <kbd>F7</kbd> - If focus position is remembered, moves focus to the corresponding focus position row, otherwise to the first tabbable element within the row\n* <kbd>[Shift]Tab</kbd> - Move focus to the element in the tab chain outside the table\n\nIf the focus is on a cell, the following keyboard shortcuts are available:\n* <kbd>Down</kbd> - Navigates down\n* <kbd>Up</kbd> - Navigates up\n* <kbd>Right</kbd> - Navigates right\n* <kbd>Left</kbd> - Navigates left, if the focus is on the first cell of the row, the focus is moved to the row.\n* <kbd>Home</kbd> - Navigates to the first cell of the current row, if the focus is on the first cell, navigates to the corresponding row\n* <kbd>End</kbd> - Navigates to the last cell of the current row, if the focus is on the last cell, navigates to the corresponding row\n* <kbd>Page Up</kbd> - Navigates one page up while keeping the focus in same column\n* <kbd>Page Down</kbd> - Navigates one page down while keeping the focus in same column\n* <kbd>F2</kbd> - Toggles the focus between the first tabbable cell content and the cell\n* <kbd>Enter</kbd> - Focuses the first tabbable cell content\n* <kbd>F7</kbd> - If the focus is on an interactive element inside a row, moves focus to the corresponding row and remembers the focus position of the element within the row\n* <kbd>[Shift]Tab</kbd> - Move focus to the element in the tab chain outside the table\n\nIf the focus is on an interactive cell content, the following keyboard shortcuts are available:\n* <kbd>Down</kbd> - Move the focus to the interactive element in the same column of the previous row, unless the focused element prevents the default\n* <kbd>Up</kbd> - Move the focus to the interactive element in the same column of the next row, unless the focused element prevents the default\n* <kbd>[Shift]Tab</kbd> - Move the focus to the element in the tab chain\n\n### Accessibility\n\nThe `ui5-table` follows the [ARIA grid design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/).\nThis pattern enables cell-based keyboard navigation and, as explained above, we also support row-based keyboard navigation.\nSince the grid design pattern does not inherently provide row-based keyboard behavior, if the focus is on a row, not only the row information but also the corresponding column headers for each cell must be announced.\nThis can only be achieved through a custom accessibility announcement.\nTo support this, UI5 Web Components expose its own accessibility metadata via the `accessibilityInfo` property.\nThe `ui5-table` uses this information to create the required custom announcements dynamically.\nIf you include custom web components inside table cells that are not part of the standard UI5 Web Components set, their accessibility information can be provided using the `data-ui5-table-acc-text` attribute.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/Table.js\";` (`ui5-table`)\\\n`import \"@ui5/webcomponents/dist/TableRow.js\";` (`ui5-table-row`)\\\n`import \"@ui5/webcomponents/dist/TableCell.js\";` (`ui5-table-cell`)\\\n`import \"@ui5/webcomponents/dist/TableHeaderRow.js\";` (`ui5-table-header-row`)\\\n`import \"@ui5/webcomponents/dist/TableHeaderCell.js\";` (`ui5-table-header-cell`)",
+          "description": "### Overview\n\nThe `ui5-table` component provides a set of sophisticated features for displaying and dealing with vast amounts of data in a responsive manner.\nTo render the `ui5-table`, you need to define the columns and rows. You can use the provided `ui5-table-header-row` and `ui5-table-row` components for this purpose.\n\n### Features\n\nThe `ui5-table` can be enhanced in its functionalities by applying different features.\nFeatures can be slotted into the `features` slot, to enable them in the component.\nFeatures need to be imported separately, as they are not enabled by default.\n\nThe following features are currently available:\n\n* [TableSelectionMulti](../TableSelectionMulti) - adds multi-selection capabilities to the table\n* [TableSelectionSingle](../TableSelectionSingle) - adds single-selection capabilities to the table\n* [TableGrowing](../TableGrowing) - provides growing capabilities to load more data\n* [TableVirtualizer](../TableVirtualizer) - adds virtualization capabilities to the table\n\n### Keyboard Handling\n\nThis component provides a build in fast navigation group which can be used via [F6] / [Shift] + [F6] / [Ctrl] + [Alt/Option] / [Down] or [Ctrl] + [Alt/Option] + [Up].\nIn order to use this functionality, you need to import the following module:\n`import \"@ui5/webcomponents-base/dist/features/F6Navigation.js\"`\n\nFurthermore, you can interact with `ui5-table` via the following keys:\n\nIf the focus is on a row, the following keyboard shortcuts are available:\n* <kbd>Down</kbd> - Navigates down\n* <kbd>Up</kbd> - Navigates up\n* <kbd>Right</kbd> - Selects the first cell of the row\n* <kbd>Space</kbd> - Toggles the selection of the row\n* <kbd>Ctrl/Cmd + A</kbd> - In multi selection mode, toggles the selection of all rows\n* <kbd>Home</kbd> - Navigates to the first row, if the focus is on the first row, navigates to the header row\n* <kbd>End</kbd> - Navigates to the last row, if the focus is on the last row, navigates to the growing button\n* <kbd>Page Up</kbd> - Navigates one page up, if the focus is on the first row, navigates to the header row\n* <kbd>Page Down</kbd> - Navigates one page down, if the focus is on the last row, navigates to the growing button\n* <kbd>F2</kbd> - Focuses the first tabbable element in the row\n* <kbd>F7</kbd> - If focus position is remembered, moves focus to the corresponding focus position row, otherwise to the first tabbable element within the row\n* <kbd>[Shift]Tab</kbd> - Move focus to the element in the tab chain outside the table\n\nIf the focus is on a cell, the following keyboard shortcuts are available:\n* <kbd>Down</kbd> - Navigates down\n* <kbd>Up</kbd> - Navigates up\n* <kbd>Right</kbd> - Navigates right\n* <kbd>Left</kbd> - Navigates left, if the focus is on the first cell of the row, the focus is moved to the row.\n* <kbd>Home</kbd> - Navigates to the first cell of the current row, if the focus is on the first cell, navigates to the corresponding row\n* <kbd>End</kbd> - Navigates to the last cell of the current row, if the focus is on the last cell, navigates to the corresponding row\n* <kbd>Page Up</kbd> - Navigates one page up while keeping the focus in same column\n* <kbd>Page Down</kbd> - Navigates one page down while keeping the focus in same column\n* <kbd>F2</kbd> - Toggles the focus between the first tabbable cell content and the cell\n* <kbd>Enter</kbd> - Focuses the first tabbable cell content\n* <kbd>F7</kbd> - If the focus is on an interactive element inside a row, moves focus to the corresponding row and remembers the focus position of the element within the row\n* <kbd>[Shift]Tab</kbd> - Move focus to the element in the tab chain outside the table\n\nIf the focus is on an interactive cell content, the following keyboard shortcuts are available:\n* <kbd>Down</kbd> - Move the focus to the interactive element in the same column of the previous row, unless the focused element prevents the default\n* <kbd>Up</kbd> - Move the focus to the interactive element in the same column of the next row, unless the focused element prevents the default\n* <kbd>[Shift]Tab</kbd> - Move the focus to the element in the tab chain\n\n### Accessibility\n\nThe `ui5-table` follows the [ARIA grid design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/).\nThis pattern enables cell-based keyboard navigation and, as explained above, we also support row-based keyboard navigation.\nSince the grid design pattern does not inherently provide row-based keyboard behavior, if the focus is on a row, not only the row information but also the corresponding column headers for each cell must be announced.\nThis can only be achieved through a custom accessibility announcement.\nTo support this, UI5 Web Components expose its own accessibility metadata via the `accessibilityInfo` property.\nThe `ui5-table` uses this information to create the required custom announcements dynamically.\nIf you include custom web components inside table cells that are not part of the standard UI5 Web Components set, their accessibility information can be provided using the `data-ui5-acc-text` attribute.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/Table.js\";` (`ui5-table`)\\\n`import \"@ui5/webcomponents/dist/TableRow.js\";` (`ui5-table-row`)\\\n`import \"@ui5/webcomponents/dist/TableCell.js\";` (`ui5-table-cell`)\\\n`import \"@ui5/webcomponents/dist/TableHeaderRow.js\";` (`ui5-table-header-row`)\\\n`import \"@ui5/webcomponents/dist/TableHeaderCell.js\";` (`ui5-table-header-cell`)",
           "name": "Table",
           "slots": [
             {
@@ -26164,7 +26555,7 @@
               "default": "\"Neutral\"",
               "fieldName": "design",
               "type": {
-                "text": "\"Positive\" | \"Negative\" | \"Critical\" | \"Information\" | \"Neutral\" | \"Set1\" | \"Set2\""
+                "text": "\"Positive\" | \"Critical\" | \"Negative\" | \"Information\" | \"Neutral\" | \"Set1\" | \"Set2\""
               }
             },
             {
@@ -26662,7 +27053,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -27151,7 +27542,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -27874,7 +28265,7 @@
               "default": "\"Default\"",
               "fieldName": "design",
               "type": {
-                "text": "\"Transparent\" | \"Default\" | \"Positive\" | \"Negative\" | \"Emphasized\" | \"Attention\""
+                "text": "\"Transparent\" | \"Positive\" | \"Negative\" | \"Default\" | \"Emphasized\" | \"Attention\""
               },
               "inheritedFrom": {
                 "name": "Button",
@@ -28951,7 +29342,7 @@
               "default": "\"Default\"",
               "fieldName": "design",
               "type": {
-                "text": "\"Transparent\" | \"Default\" | \"Positive\" | \"Negative\" | \"Emphasized\" | \"Attention\""
+                "text": "\"Transparent\" | \"Positive\" | \"Negative\" | \"Default\" | \"Emphasized\" | \"Attention\""
               }
             },
             {
@@ -29380,7 +29771,7 @@
               "default": "\"None\"",
               "fieldName": "valueState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -30664,7 +31055,7 @@
               "default": "\"None\"",
               "fieldName": "additionalTextState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               },
               "inheritedFrom": {
                 "name": "TreeItemBase",
@@ -30742,7 +31133,7 @@
               "default": "\"None\"",
               "fieldName": "highlight",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               },
               "inheritedFrom": {
                 "name": "ListItem",
@@ -31204,7 +31595,7 @@
               "default": "\"None\"",
               "fieldName": "additionalTextState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             },
             {
@@ -31274,7 +31665,7 @@
               "default": "\"None\"",
               "fieldName": "highlight",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               },
               "inheritedFrom": {
                 "name": "ListItem",
@@ -31727,7 +32118,7 @@
               "default": "\"None\"",
               "fieldName": "additionalTextState",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               },
               "inheritedFrom": {
                 "name": "TreeItemBase",
@@ -31805,7 +32196,7 @@
               "default": "\"None\"",
               "fieldName": "highlight",
               "type": {
-                "text": "\"None\" | \"Positive\" | \"Negative\" | \"Critical\" | \"Information\""
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               },
               "inheritedFrom": {
                 "name": "ListItem",
@@ -34025,6 +34416,66 @@
           "declaration": {
             "name": "InputKeyHint",
             "module": "dist/types/InputKeyHint.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/InputSuggestionsFilter.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "InputSuggestionsFilter",
+          "description": "Different filtering types of the Input.",
+          "_ui5privacy": "public",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Defines filtering by first symbol of each word of item's text.",
+              "default": "StartsWithPerTerm",
+              "name": "StartsWithPerTerm",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Defines filtering by starting symbol of item's text.",
+              "default": "StartsWith",
+              "name": "StartsWith",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Defines contains filtering.",
+              "default": "Contains",
+              "name": "Contains",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Removes any filtering applied while typing",
+              "default": "None",
+              "name": "None",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "InputSuggestionsFilter",
+            "module": "dist/types/InputSuggestionsFilter.js"
           }
         }
       ]

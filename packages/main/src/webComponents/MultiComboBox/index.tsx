@@ -1,7 +1,10 @@
 'use client';
 
 import '@ui5/webcomponents/dist/MultiComboBox.js';
-import type { MultiComboBoxSelectionChangeEventDetail } from '@ui5/webcomponents/dist/MultiComboBox.js';
+import type {
+  MultiComboBoxSelectionChangeEventDetail,
+  MultiComboBoxValueStateChangeEventDetail,
+} from '@ui5/webcomponents/dist/MultiComboBox.js';
 import type ComboBoxFilter from '@ui5/webcomponents/dist/types/ComboBoxFilter.js';
 import type ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
@@ -38,6 +41,12 @@ interface MultiComboBoxAttributes {
    * @default "StartsWithPerTerm"
    */
   filter?: ComboBoxFilter | keyof typeof ComboBoxFilter;
+
+  /**
+   * Indicates whether a loading indicator should be shown in the picker.
+   * @default false
+   */
+  loading?: boolean;
 
   /**
    * Determines the name by which the component will be identified upon submission in an HTML form.
@@ -139,6 +148,7 @@ interface MultiComboBoxPropTypes
       | 'onInput'
       | 'onOpen'
       | 'onSelectionChange'
+      | 'onValueStateChange'
     > {
   /**
    * Defines the component items.
@@ -228,6 +238,21 @@ interface MultiComboBoxPropTypes
    * | ✅|✅|
    */
   onSelectionChange?: (event: Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>) => void;
+
+  /**
+   * Fired before the value state of the component is updated internally.
+   * The event is preventable, meaning that if it's default action is
+   * prevented, the component will not update the value state.
+   *
+   * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
+   *
+   * **Note:** Available since [v2.19.0](https://github.com/UI5/webcomponents/releases/tag/v2.19.0) of **@ui5/webcomponents**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ✅|✅|
+   */
+  onValueStateChange?: (event: Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxValueStateChangeEventDetail>) => void;
 }
 
 /**
@@ -267,9 +292,19 @@ interface MultiComboBoxPropTypes
 const MultiComboBox = withWebComponent<MultiComboBoxPropTypes, MultiComboBoxDomRef>(
   'ui5-multi-combobox',
   ['accessibleName', 'accessibleNameRef', 'filter', 'name', 'placeholder', 'value', 'valueState'],
-  ['disabled', 'noTypeahead', 'noValidation', 'open', 'readonly', 'required', 'showClearIcon', 'showSelectAll'],
+  [
+    'disabled',
+    'loading',
+    'noTypeahead',
+    'noValidation',
+    'open',
+    'readonly',
+    'required',
+    'showClearIcon',
+    'showSelectAll',
+  ],
   ['icon', 'valueStateMessage'],
-  ['change', 'close', 'input', 'open', 'selection-change'],
+  ['change', 'close', 'input', 'open', 'selection-change', 'value-state-change'],
 );
 
 MultiComboBox.displayName = 'MultiComboBox';

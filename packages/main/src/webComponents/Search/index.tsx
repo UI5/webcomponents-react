@@ -20,6 +20,14 @@ interface SearchAttributes {
   accessibleName?: string | undefined;
 
   /**
+   * Indicates whether a loading indicator should be shown in the input field.
+   *
+   * **Note:** Available since [v2.19.0](https://github.com/UI5/webcomponents/releases/tag/v2.19.0) of **@ui5/webcomponents-fiori**.
+   * @default false
+   */
+  fieldLoading?: boolean;
+
+  /**
    * Indicates whether a loading indicator should be shown in the popup.
    * @default false
    */
@@ -234,7 +242,7 @@ interface SearchPropTypes
 const Search = withWebComponent<SearchPropTypes, SearchDomRef>(
   'ui5-search',
   ['accessibleDescription', 'accessibleName', 'placeholder', 'scopeValue', 'value'],
-  ['loading', 'noTypeahead', 'open', 'showClearIcon'],
+  ['fieldLoading', 'loading', 'noTypeahead', 'open', 'showClearIcon'],
   ['action', 'filterButton', 'illustration', 'messageArea', 'scopes'],
   ['close', 'input', 'open', 'scope-change', 'search'],
 );

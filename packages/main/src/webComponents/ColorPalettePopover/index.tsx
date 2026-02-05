@@ -2,6 +2,7 @@
 
 import '@ui5/webcomponents/dist/ColorPalettePopover.js';
 import type { ColorPalettePopoverItemClickEventDetail } from '@ui5/webcomponents/dist/ColorPalettePopover.js';
+import type PopoverPlacement from '@ui5/webcomponents/dist/types/PopoverPlacement.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
@@ -32,6 +33,14 @@ interface ColorPalettePopoverAttributes {
    * @default undefined
    */
   opener?: HTMLElement | string | null | undefined;
+
+  /**
+   * Determines on which side the component is placed at.
+   *
+   * **Note:** Available since [v2.19.0](https://github.com/UI5/webcomponents/releases/tag/v2.19.0) of **@ui5/webcomponents**.
+   * @default "Bottom"
+   */
+  placement?: PopoverPlacement | keyof typeof PopoverPlacement;
 
   /**
    * Defines whether the user can choose the default color from a button.
@@ -105,7 +114,7 @@ interface ColorPalettePopoverPropTypes
  */
 const ColorPalettePopover = withWebComponent<ColorPalettePopoverPropTypes, ColorPalettePopoverDomRef>(
   'ui5-color-palette-popover',
-  ['defaultColor', 'opener'],
+  ['defaultColor', 'opener', 'placement'],
   ['open', 'showDefaultColor', 'showMoreColors', 'showRecentColors'],
   [],
   ['close', 'item-click'],

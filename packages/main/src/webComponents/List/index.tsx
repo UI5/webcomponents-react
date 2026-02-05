@@ -147,6 +147,16 @@ interface ListAttributes {
    * @default "All"
    */
   separators?: ListSeparator | keyof typeof ListSeparator;
+
+  /**
+   * Indicates whether the List header is sticky or not.
+   * If stickyHeader is set to true, then whenever you scroll the content or
+   * the application, the header of the list will be always visible.
+   *
+   * **Note:** Available since [v2.19.0](https://github.com/UI5/webcomponents/releases/tag/v2.19.0) of **@ui5/webcomponents**.
+   * @default false
+   */
+  stickyHeader?: boolean;
 }
 
 interface ListDomRef extends Required<ListAttributes>, Ui5DomRef {
@@ -366,7 +376,7 @@ const List = withWebComponent<ListPropTypes, ListDomRef>(
     'selectionMode',
     'separators',
   ],
-  ['indent', 'loading'],
+  ['indent', 'loading', 'stickyHeader'],
   ['header'],
   ['item-click', 'item-close', 'item-delete', 'item-toggle', 'load-more', 'move-over', 'move', 'selection-change'],
 );

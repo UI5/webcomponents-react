@@ -2,6 +2,7 @@
 
 import '@ui5/webcomponents/dist/Input.js';
 import type { InputSelectionChangeEventDetail } from '@ui5/webcomponents/dist/Input.js';
+import type InputSuggestionsFilter from '@ui5/webcomponents/dist/types/InputSuggestionsFilter.js';
 import type InputType from '@ui5/webcomponents/dist/types/InputType.js';
 import type ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
@@ -44,6 +45,14 @@ interface InputAttributes {
    * @default false
    */
   disabled?: boolean;
+
+  /**
+   * Defines the filter type of the component.
+   *
+   * **Note:** Available since [v2.19.0](https://github.com/UI5/webcomponents/releases/tag/v2.19.0) of **@ui5/webcomponents**.
+   * @default "None"
+   */
+  filter?: InputSuggestionsFilter | keyof typeof InputSuggestionsFilter;
 
   /**
    * Sets the maximum number of characters available in the input field.
@@ -309,6 +318,7 @@ const Input = withWebComponent<InputPropTypes, InputDomRef>(
     'accessibleDescriptionRef',
     'accessibleName',
     'accessibleNameRef',
+    'filter',
     'maxlength',
     'name',
     'placeholder',

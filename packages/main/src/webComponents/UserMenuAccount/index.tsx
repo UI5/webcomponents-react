@@ -1,6 +1,7 @@
 'use client';
 
 import '@ui5/webcomponents-fiori/dist/UserMenuAccount.js';
+import type AvatarColorScheme from '@ui5/webcomponents/dist/types/AvatarColorScheme.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
 
@@ -9,6 +10,13 @@ interface UserMenuAccountAttributes {
    * Defines additional information for the user.
    */
   additionalInfo?: string;
+
+  /**
+   * Defines the background color of the desired image.
+   * If `avatarColorScheme` is set to `Auto`, the avatar will be displayed with the `Accent6` color.
+   * @default "Auto"
+   */
+  avatarColorScheme?: AvatarColorScheme | keyof typeof AvatarColorScheme;
 
   /**
    * Defines the avatar initials of the user.
@@ -68,7 +76,7 @@ interface UserMenuAccountPropTypes
  */
 const UserMenuAccount = withWebComponent<UserMenuAccountPropTypes, UserMenuAccountDomRef>(
   'ui5-user-menu-account',
-  ['additionalInfo', 'avatarInitials', 'avatarSrc', 'description', 'subtitleText', 'titleText'],
+  ['additionalInfo', 'avatarColorScheme', 'avatarInitials', 'avatarSrc', 'description', 'subtitleText', 'titleText'],
   ['loading', 'selected'],
   [],
   [],

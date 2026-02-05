@@ -193,7 +193,7 @@
           },
           "tagName": "ui5-ai-button",
           "customElement": true,
-          "_ui5experimental": "The Button and ButtonState web components are availabe since 2.0 under an experimental flag and their API and behaviour are subject to change.",
+          "_ui5experimental": "The **@ui5/webcomponents-ai** package (including Button and ButtonState) is under active development and considered experimental. Component APIs are subject to change.\nFurthermore, the package supports **Horizon** themes only.",
           "_ui5since": "2.0.0",
           "_ui5privacy": "public"
         }
@@ -332,7 +332,7 @@
           },
           "tagName": "ui5-ai-button-state",
           "customElement": true,
-          "_ui5experimental": "The Button and ButtonState web components are available since 2.0 under an experimental flag and their API and behaviour are subject to change.",
+          "_ui5experimental": "The **@ui5/webcomponents-ai** package (including ButtonState) is under active development and considered experimental. Component APIs are subject to change.\nFurthermore, the package supports **Horizon** themes only.",
           "_ui5since": "2.0.0",
           "_ui5privacy": "public",
           "_ui5abstract": true
@@ -640,6 +640,24 @@
               "description": "Defines whether the suggestions picker is open.\nThe picker will not open if the `showSuggestions` property is set to `false`, the input is disabled or the input is readonly.\nThe picker will close automatically and `close` event will be fired if the input is not in the viewport.",
               "privacy": "public",
               "_ui5since": "2.0.0"
+            },
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "InputSuggestionsFilter",
+                "references": [
+                  {
+                    "name": "InputSuggestionsFilter",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/InputSuggestionsFilter.js"
+                  }
+                ]
+              },
+              "description": "Defines the filter type of the component.",
+              "default": "\"None\"",
+              "privacy": "public",
+              "_ui5since": "2.19.0"
             }
           ],
           "events": [
@@ -658,12 +676,37 @@
               "name": "item-click",
               "_ui5privacy": "public",
               "type": {
-                "text": "CustomEvent"
+                "text": "CustomEvent<InputItemClickEventDetail>",
+                "references": [
+                  {
+                    "name": "InputItemClickEventDetail",
+                    "package": "@ui5/webcomponents-ai",
+                    "module": "dist/Input.js"
+                  }
+                ]
               },
               "description": "Fired when an item from the AI actions menu is clicked.",
               "_ui5Cancelable": false,
               "_ui5allowPreventDefault": false,
-              "_ui5Bubbles": false
+              "_ui5Bubbles": false,
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "HTMLElement"
+                  },
+                  "name": "item",
+                  "_ui5privacy": "public",
+                  "description": "The currently clicked menu item."
+                },
+                {
+                  "type": {
+                    "text": "string"
+                  },
+                  "name": "text",
+                  "_ui5privacy": "public",
+                  "description": "The text of the currently clicked menu item."
+                }
+              ]
             },
             {
               "name": "stop-generation",
@@ -828,7 +871,7 @@
           },
           "tagName": "ui5-ai-input",
           "customElement": true,
-          "_ui5experimental": "The **@ui5/webcomponents-ai** package is under active development and considered experimental. Component APIs are subject to change.",
+          "_ui5experimental": "The **@ui5/webcomponents-ai** package is under active development and considered experimental. Component APIs are subject to change.\nFurthermore, the package supports **Horizon** themes only.",
           "_ui5since": "2.16.0",
           "_ui5privacy": "public",
           "cssParts": [
@@ -1156,7 +1199,7 @@
           },
           "tagName": "ui5-ai-prompt-input",
           "customElement": true,
-          "_ui5experimental": "The **@ui5/webcomponents-ai** package is under development and considered experimental - components' APIs are subject to change.",
+          "_ui5experimental": "The **@ui5/webcomponents-ai** package is under development and considered experimental - components' APIs are subject to change.\nFurthermore, the package supports **Horizon** themes only.",
           "_ui5privacy": "public"
         }
       ],
@@ -1573,7 +1616,7 @@
           },
           "tagName": "ui5-ai-textarea",
           "customElement": true,
-          "_ui5experimental": "The **@ui5/webcomponents-ai** package is under development and considered experimental - components' APIs are subject to change.",
+          "_ui5experimental": "The **@ui5/webcomponents-ai** package is under development and considered experimental - components' APIs are subject to change.\nFurthermore, the package supports **Horizon** themes only.",
           "_ui5since": "2.16.0",
           "_ui5privacy": "public",
           "cssParts": [

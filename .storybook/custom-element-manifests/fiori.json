@@ -2125,7 +2125,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "### Overview\n\nThe `ui5-navigation-layout` is a container component that can be used to\ncreate a layout with a header, a side navigation and a content area.\n\n### Usage\n\nUse the `ui5-navigation-layout` to create whole screen of an application with vertical navigation.\n\n### Responsive Behavior\n\nOn desktop and tablet devices, the side navigation is visible\nby default and can be expanded or collapsed using the `mode` property.\nOn phone devices, the side navigation is hidden by default and can\nbe displayed using the `mode` property.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/NavigationLayout.js\";`",
+          "description": "### Overview\n\nThe `ui5-navigation-layout` is a container component that can be used to\ncreate a layout with a header, a side navigation and a content area.\n\n### Usage\n\nUse the `ui5-navigation-layout` to create whole screen of an application with vertical navigation.\n\n### Responsive Behavior\n\nOn larger screens with a width of 600px or more, excluding mobile phone devices, the side navigation is visible\nby default and can be expanded or collapsed using the `mode` property.\nOn mobile phone devices and screens with a width of 599px or less, the side navigation is hidden by\ndefault and can be displayed using the `mode` property.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/NavigationLayout.js\";`",
           "name": "NavigationLayout",
           "slots": [
             {
@@ -3511,6 +3511,21 @@
             },
             {
               "kind": "field",
+              "name": "fieldLoading",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates whether a loading indicator should be shown in the input field.",
+              "privacy": "public",
+              "_ui5since": "2.19.0",
+              "inheritedFrom": {
+                "name": "SearchField",
+                "module": "dist/SearchField.js"
+              }
+            },
+            {
+              "kind": "field",
               "name": "showClearIcon",
               "type": {
                 "text": "boolean"
@@ -3707,6 +3722,19 @@
               "fieldName": "open",
               "type": {
                 "text": "boolean"
+              }
+            },
+            {
+              "description": "Indicates whether a loading indicator should be shown in the input field.",
+              "name": "field-loading",
+              "default": "false",
+              "fieldName": "fieldLoading",
+              "type": {
+                "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "SearchField",
+                "module": "dist/SearchField.js"
               }
             },
             {
@@ -5605,6 +5633,21 @@
             },
             {
               "kind": "field",
+              "name": "fieldLoading",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates whether a loading indicator should be shown in the input field.",
+              "privacy": "public",
+              "_ui5since": "2.19.0",
+              "inheritedFrom": {
+                "name": "SearchField",
+                "module": "dist/SearchField.js"
+              }
+            },
+            {
+              "kind": "field",
               "name": "showClearIcon",
               "type": {
                 "text": "boolean"
@@ -5736,6 +5779,19 @@
               "inheritedFrom": {
                 "name": "Search",
                 "module": "dist/Search.js"
+              }
+            },
+            {
+              "description": "Indicates whether a loading indicator should be shown in the input field.",
+              "name": "field-loading",
+              "default": "false",
+              "fieldName": "fieldLoading",
+              "type": {
+                "text": "boolean"
+              },
+              "inheritedFrom": {
+                "name": "SearchField",
+                "module": "dist/SearchField.js"
               }
             },
             {
@@ -6099,7 +6155,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "### Overview\n\nThe `SideNavigation` is used as a standard menu in applications.\nIt consists of three containers: header (top-aligned), main navigation section (top-aligned) and the secondary section (bottom-aligned).\n\n - The header is meant for displaying user related information - profile data, avatar, etc.\n - The main navigation section is related to the user’s current work context\n - The secondary section is mostly used to link additional information that may be of interest (legal information, developer communities, external help, contact information and so on).\n\n### Usage\n\nUse the available `ui5-side-navigation-group`, `ui5-side-navigation-item`\nand `ui5-side-navigation-sub-item` components to build your menu.\nThe items can consist of text only or an icon with text. The use or non-use of icons must be consistent for all items on one level.\nYou must not combine entries with and without icons on the same level. We strongly recommend that you do not use icons on the second level.\n\nThe `ui5-side-navigation` component is designed to be used within a `ui5-navigation-layout` component to ensure an optimal user experience.\n\nUsing it standalone may not match the intended design and functionality.\nFor example, the side navigation may not exhibit the correct behavior on phones and tablets.\nPadding of the `ui5-shellbar` will not match the padding of the side navigation.\n\n### Keyboard Handling\n\n### Fast Navigation\nThis component provides a build in fast navigation group which can be used via [F6] / [Shift] + [F6] / [Ctrl] + [Alt/Option] / [Down] or [Ctrl] + [Alt/Option] + [Up].\nIn order to use this functionality, you need to import the following module:\n`import \"@ui5/webcomponents-base/dist/features/F6Navigation.js\"`\n\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/SideNavigation.js\"`\n\n`import \"@ui5/webcomponents-fiori/dist/SideNavigationGroup.js\";` (for `ui5-side-navigation-group`)\n\n`import \"@ui5/webcomponents-fiori/dist/SideNavigationItem.js\";` (for `ui5-side-navigation-item`)\n\n`import \"@ui5/webcomponents-fiori/dist/SideNavigationSubItem.js\";` (for `ui5-side-navigation-sub-item`)",
+          "description": "### Overview\n\nThe `SideNavigation` is used as a standard menu in applications.\nIt consists of three containers: header (top-aligned), main navigation section (top-aligned) and the secondary section (bottom-aligned).\n\n - The header is meant for displaying user related information - profile data, avatar, etc.\n - The main navigation section is related to the user’s current work context\n - The secondary section is mostly used to link additional information that may be of interest (legal information, developer communities, external help, contact information and so on).\n\n### Usage\n\nUse the available `ui5-side-navigation-group`, `ui5-side-navigation-item`\nand `ui5-side-navigation-sub-item` components to build your menu.\nThe items can consist of text only or an icon with text. The use or non-use of icons must be consistent for all items on one level.\nYou must not combine entries with and without icons on the same level. We strongly recommend that you do not use icons on the second level.\n\nThe `ui5-side-navigation` component is designed to be used within a `ui5-navigation-layout` component to ensure an optimal user experience.\n\nUsing it standalone may not match the intended design and functionality.\nFor example, the side navigation may not exhibit the correct behavior on smaller screens.\nAdditionally, the padding of the `ui5-shellbar` will not match the padding of the side navigation.\n\n### Keyboard Handling\n\n### Fast Navigation\nThis component provides a build in fast navigation group which can be used via [F6] / [Shift] + [F6] / [Ctrl] + [Alt/Option] / [Down] or [Ctrl] + [Alt/Option] + [Up].\nIn order to use this functionality, you need to import the following module:\n`import \"@ui5/webcomponents-base/dist/features/F6Navigation.js\"`\n\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/SideNavigation.js\"`\n\n`import \"@ui5/webcomponents-fiori/dist/SideNavigationGroup.js\";` (for `ui5-side-navigation-group`)\n\n`import \"@ui5/webcomponents-fiori/dist/SideNavigationItem.js\";` (for `ui5-side-navigation-item`)\n\n`import \"@ui5/webcomponents-fiori/dist/SideNavigationSubItem.js\";` (for `ui5-side-navigation-sub-item`)",
           "name": "SideNavigation",
           "slots": [
             {
@@ -6151,7 +6207,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Defines whether the `ui5-side-navigation` is expanded or collapsed.\n\n**Note:** The collapsed mode is not supported on phones.\nThe `ui5-side-navigation` component is intended to be used within a `ui5-navigation-layout`\ncomponent to ensure proper responsive behavior. If you choose not to use the\n`ui5-navigation-layout`, you will need to implement the appropriate responsive patterns yourself,\nparticularly for phones where the collapsed mode should not be used.",
+              "description": "Defines whether the `ui5-side-navigation` is expanded or collapsed.\n\n**Note:** On small screens (screen width of 599px or less) the collapsed mode is not supported, and in\nexpanded mode the side navigation will take the whole width of the screen.\nThe `ui5-side-navigation` component is intended to be used within a `ui5-navigation-layout`\ncomponent to ensure proper responsive behavior. If you choose not to use the\n`ui5-navigation-layout`, you will need to implement the appropriate responsive patterns yourself,\nparticularly for smaller screens where the collapsed mode should not be used.",
               "privacy": "public"
             },
             {
@@ -6205,7 +6261,7 @@
           ],
           "attributes": [
             {
-              "description": "Defines whether the `ui5-side-navigation` is expanded or collapsed.\n\n**Note:** The collapsed mode is not supported on phones.\nThe `ui5-side-navigation` component is intended to be used within a `ui5-navigation-layout`\ncomponent to ensure proper responsive behavior. If you choose not to use the\n`ui5-navigation-layout`, you will need to implement the appropriate responsive patterns yourself,\nparticularly for phones where the collapsed mode should not be used.",
+              "description": "Defines whether the `ui5-side-navigation` is expanded or collapsed.\n\n**Note:** On small screens (screen width of 599px or less) the collapsed mode is not supported, and in\nexpanded mode the side navigation will take the whole width of the screen.\nThe `ui5-side-navigation` component is intended to be used within a `ui5-navigation-layout`\ncomponent to ensure proper responsive behavior. If you choose not to use the\n`ui5-navigation-layout`, you will need to implement the appropriate responsive patterns yourself,\nparticularly for smaller screens where the collapsed mode should not be used.",
               "name": "collapsed",
               "default": "false",
               "fieldName": "collapsed",
@@ -6459,7 +6515,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the icon of the item.\n\nThe SAP-icons font provides numerous options.\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
+              "description": "Defines the icon of the item.\n\n**Note:** Icons on second-level (child) navigation items are not recommended according to the design specification.\n\nThe SAP-icons font provides numerous options.\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
               "privacy": "public",
               "default": "undefined",
               "inheritedFrom": {
@@ -6626,7 +6682,7 @@
               }
             },
             {
-              "description": "Defines the icon of the item.\n\nThe SAP-icons font provides numerous options.\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
+              "description": "Defines the icon of the item.\n\n**Note:** Icons on second-level (child) navigation items are not recommended according to the design specification.\n\nThe SAP-icons font provides numerous options.\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
               "name": "icon",
               "default": "undefined",
               "fieldName": "icon",
@@ -6953,7 +7009,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the icon of the item.\n\nThe SAP-icons font provides numerous options.\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
+              "description": "Defines the icon of the item.\n\n**Note:** Icons on second-level (child) navigation items are not recommended according to the design specification.\n\nThe SAP-icons font provides numerous options.\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
               "privacy": "public",
               "default": "undefined"
             },
@@ -7137,7 +7193,7 @@
           ],
           "attributes": [
             {
-              "description": "Defines the icon of the item.\n\nThe SAP-icons font provides numerous options.\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
+              "description": "Defines the icon of the item.\n\n**Note:** Icons on second-level (child) navigation items are not recommended according to the design specification.\n\nThe SAP-icons font provides numerous options.\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
               "name": "icon",
               "default": "undefined",
               "fieldName": "icon",
@@ -7276,7 +7332,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the icon of the item.\n\nThe SAP-icons font provides numerous options.\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
+              "description": "Defines the icon of the item.\n\n**Note:** Icons on second-level (child) navigation items are not recommended according to the design specification.\n\nThe SAP-icons font provides numerous options.\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
               "privacy": "public",
               "default": "undefined",
               "inheritedFrom": {
@@ -7444,7 +7500,7 @@
           "_ui5abstract": true,
           "attributes": [
             {
-              "description": "Defines the icon of the item.\n\nThe SAP-icons font provides numerous options.\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
+              "description": "Defines the icon of the item.\n\n**Note:** Icons on second-level (child) navigation items are not recommended according to the design specification.\n\nThe SAP-icons font provides numerous options.\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
               "name": "icon",
               "default": "undefined",
               "fieldName": "icon",
@@ -9274,6 +9330,23 @@
             },
             {
               "kind": "field",
+              "name": "avatarColorScheme",
+              "type": {
+                "text": "AvatarColorScheme",
+                "references": [
+                  {
+                    "name": "AvatarColorScheme",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/AvatarColorScheme.js"
+                  }
+                ]
+              },
+              "default": "\"Auto\"",
+              "description": "Defines the background color of the desired image.\nIf `avatarColorScheme` is set to `Auto`, the avatar will be displayed with the `Accent6` color.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
               "name": "titleText",
               "type": {
                 "text": "string"
@@ -9351,6 +9424,15 @@
               "fieldName": "avatarInitials",
               "type": {
                 "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines the background color of the desired image.\nIf `avatarColorScheme` is set to `Auto`, the avatar will be displayed with the `Accent6` color.",
+              "name": "avatar-color-scheme",
+              "default": "\"Auto\"",
+              "fieldName": "avatarColorScheme",
+              "type": {
+                "text": "\"Auto\" | \"Transparent\" | \"Accent1\" | \"Accent2\" | \"Accent3\" | \"Accent4\" | \"Accent5\" | \"Accent6\" | \"Accent7\" | \"Accent8\" | \"Accent9\" | \"Accent10\" | \"Placeholder\""
               }
             },
             {
@@ -9928,7 +10010,7 @@
               "name": "account",
               "description": "Defines the user account.",
               "_ui5type": {
-                "text": "Array<UserMenuAccount> | undefined",
+                "text": "Array<UserMenuAccount>",
                 "references": [
                   {
                     "name": "UserMenuAccount",
@@ -10138,7 +10220,7 @@
               "name": "additionalContent",
               "description": "Defines additional content displayed below the items list.",
               "_ui5type": {
-                "text": "Array<HTMLElement> | undefined"
+                "text": "Array<HTMLElement>"
               },
               "_ui5privacy": "public"
             }
@@ -13763,7 +13845,7 @@
               "kind": "field",
               "static": true,
               "privacy": "public",
-              "description": "Automatically calculates the navigation layout mode based on the screen device type.\n`Expanded` on desktop and `Collapsed` on tablet and phone.",
+              "description": "Automatically calculates the navigation layout mode based on the screen width.\n`Collapsed` on small screens (screen width of 599px or less) and `Expanded` on larger screens (screen width of 600px or more).",
               "default": "Auto",
               "name": "Auto",
               "readonly": true
