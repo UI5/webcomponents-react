@@ -7,7 +7,8 @@
     ":automergePatch",
     ":enableVulnerabilityAlerts",
     ":semanticCommits",
-    ":pinAllExceptPeerDependencies"
+    ":pinAllExceptPeerDependencies",
+    ":maintainLockFilesWeekly"
   ],
   "automerge": true,
   "platformAutomerge": true,

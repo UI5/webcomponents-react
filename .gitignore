@@ -31,6 +31,7 @@ cypress/downloads
 .nx
 
 debug-storybook.log
+.storybook/.DS_Store
 
 .vscode
 .cursor/rules/nx-rules.mdc

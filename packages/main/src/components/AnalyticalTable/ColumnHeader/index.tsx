@@ -7,6 +7,7 @@ import iconSortAscending from '@ui5/webcomponents-icons/dist/sort-ascending.js';
 import iconSortDescending from '@ui5/webcomponents-icons/dist/sort-descending.js';
 import { ThemingParameters, useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
+import { useRef, useState } from 'react';
 import type {
   AriaAttributes,
   CSSProperties,
@@ -15,7 +16,6 @@ import type {
   MouseEventHandler,
   ReactNode,
 } from 'react';
-import { useRef, useState } from 'react';
 import { Icon } from '../../../webComponents/Icon/index.js';
 import { Text } from '../../../webComponents/Text/index.js';
 import type { ClassNames, ColumnType, DivWithCustomScrollProp } from '../types/index.js';

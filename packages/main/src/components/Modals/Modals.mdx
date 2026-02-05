@@ -39,15 +39,26 @@ root.render(
 ```typescript
 import { Modals } from '@ui5/webcomponents-react/Modals';
 
+// Recommended: using config object
+const { ref, close } = Modals.showDialog(props, config);
+
+// Legacy: using container directly
 const { ref, close } = Modals.showDialog(props, container);
 ```
 
 **Parameters**
 
-| Parameter     | Description                                                                           |
-| ------------- | ------------------------------------------------------------------------------------- |
-| `props`       | All supported `Dialog` props (see table below). `open` will always be set to `true`.  |
-| _`container`_ | Optional container where the `Dialog` should be mounted. Defaults to `document.body`. |
+| Parameter     | Description                                                                                             |
+| ------------- | ------------------------------------------------------------------------------------------------------- |
+| `props`       | All supported `Dialog` props (see table below). `open` will always be set to `true`.                    |
+| _`config`_    | Optional configuration object. See config options below.                                                |
+| _`container`_ | _(deprecated)_ Optional container where the `Dialog` should be mounted. Use `config.container` instead. |
+
+**Config Options** _(since 2.19.0)_
+
+| Property    | Description                                                                            |
+| ----------- | -------------------------------------------------------------------------------------- |
+| `container` | Optional container where the component should be mounted. Defaults to `document.body`. |
 
 **Return Value**
 
@@ -71,15 +82,27 @@ The `showDialog` method returns an object with the following properties:
 ```typescript
 import { Modals } from '@ui5/webcomponents-react/Modals';
 
+// Recommended: using config object
+const { ref, close } = Modals.showPopover(props, config);
+
+// Legacy: using container directly
 const { ref, close } = Modals.showPopover(props, container);
 ```
 
 **Parameters**
 
-| Parameter     | Description                                                                            |
-| ------------- | -------------------------------------------------------------------------------------- |
-| `props`       | All supported `Popover` props (see table below).`open` will always be set to `true`.   |
-| _`container`_ | Optional container where the `Popover` should be mounted. Defaults to `document.body`. |
+| Parameter     | Description                                                                                              |
+| ------------- | -------------------------------------------------------------------------------------------------------- |
+| `props`       | All supported `Popover` props (see table below). `open` will always be set to `true`.                    |
+| _`config`_    | Optional configuration object. See config options below.                                                 |
+| _`container`_ | _(deprecated)_ Optional container where the `Popover` should be mounted. Use `config.container` instead. |
+
+**Config Options** _(since 2.19.0)_
+
+| Property            | Description                                                                                                                                                                   |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `container`         | Optional container where the component should be mounted. Defaults to `document.body`.                                                                                        |
+| `autoClosePopovers` | If set to `true`, opening a new Popover will automatically close all currently opened Popovers that share the same opener. Only affects Popover, Menu, and ResponsivePopover. |
 
 **Return Value**
 
@@ -103,15 +126,27 @@ The `showPopover` method returns an object with the following properties:
 ```typescript
 import { Modals } from '@ui5/webcomponents-react/Modals';
 
+// Recommended: using config object
+const { ref, close } = Modals.showResponsivePopover(props, config);
+
+// Legacy: using container directly
 const { ref, close } = Modals.showResponsivePopover(props, container);
 ```
 
 **Parameters**
 
-| Parameter     | Description                                                                                      |
-| ------------- | ------------------------------------------------------------------------------------------------ |
-| `props`       | All supported `ResponsivePopover` props (see table below). `open` will always be set to `true`.  |
-| _`container`_ | Optional container where the `ResponsivePopover` should be mounted. Defaults to `document.body`. |
+| Parameter     | Description                                                                                                        |
+| ------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `props`       | All supported `ResponsivePopover` props (see table below). `open` will always be set to `true`.                    |
+| _`config`_    | Optional configuration object. See config options below.                                                           |
+| _`container`_ | _(deprecated)_ Optional container where the `ResponsivePopover` should be mounted. Use `config.container` instead. |
+
+**Config Options** _(since 2.19.0)_
+
+| Property            | Description                                                                                                                                                                   |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `container`         | Optional container where the component should be mounted. Defaults to `document.body`.                                                                                        |
+| `autoClosePopovers` | If set to `true`, opening a new Popover will automatically close all currently opened Popovers that share the same opener. Only affects Popover, Menu, and ResponsivePopover. |
 
 **Return Value**
 
@@ -137,19 +172,31 @@ The `showResponsivePopover` method returns an object with the following properti
 ```typescript
 import { Modals } from '@ui5/webcomponents-react/Modals';
 
+// Recommended: using config object
+const { ref, close } = Modals.showMenu(props, config);
+
+// Legacy: using container directly
 const { ref, close } = Modals.showMenu(props, container);
 ```
 
 **Parameters**
 
-| Parameter     | Description                                                                         |
-| ------------- | ----------------------------------------------------------------------------------- |
-| `props`       | All supported `Menu` props (see table below). `open` will always be set to `true`.  |
-| _`container`_ | Optional container where the `Menu` should be mounted. Defaults to `document.body`. |
+| Parameter     | Description                                                                                           |
+| ------------- | ----------------------------------------------------------------------------------------------------- |
+| `props`       | All supported `Menu` props (see table below). `open` will always be set to `true`.                    |
+| _`config`_    | Optional configuration object. See config options below.                                              |
+| _`container`_ | _(deprecated)_ Optional container where the `Menu` should be mounted. Use `config.container` instead. |
+
+**Config Options** _(since 2.19.0)_
+
+| Property            | Description                                                                                                                                                                   |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `container`         | Optional container where the component should be mounted. Defaults to `document.body`.                                                                                        |
+| `autoClosePopovers` | If set to `true`, opening a new Popover will automatically close all currently opened Popovers that share the same opener. Only affects Popover, Menu, and ResponsivePopover. |
 
 **Return Value**
 
-The `Menu` method returns an object with the following properties:
+The `showMenu` method returns an object with the following properties:
 
 | Property  | Description                                                      |
 | --------- | ---------------------------------------------------------------- |
@@ -169,15 +216,26 @@ The `Menu` method returns an object with the following properties:
 ```typescript
 import { Modals } from '@ui5/webcomponents-react/Modals';
 
+// Recommended: using config object
+const { ref, close } = Modals.showMessageBox(props, config);
+
+// Legacy: using container directly
 const { ref, close } = Modals.showMessageBox(props, container);
 ```
 
 **Parameters**
 
-| Parameter     | Description                                                                               |
-| ------------- | ----------------------------------------------------------------------------------------- |
-| `props`       | All supported `MessageBox` props (see table below). `open` will always be set to `true`.  |
-| _`container`_ | Optional container where the `MessageBox` should be mounted. Defaults to `document.body`. |
+| Parameter     | Description                                                                                                 |
+| ------------- | ----------------------------------------------------------------------------------------------------------- |
+| `props`       | All supported `MessageBox` props (see table below). `open` will always be set to `true`.                    |
+| _`config`_    | Optional configuration object. See config options below.                                                    |
+| _`container`_ | _(deprecated)_ Optional container where the `MessageBox` should be mounted. Use `config.container` instead. |
+
+**Config Options** _(since 2.19.0)_
+
+| Property    | Description                                                                            |
+| ----------- | -------------------------------------------------------------------------------------- |
+| `container` | Optional container where the component should be mounted. Defaults to `document.body`. |
 
 **Return Value**
 
@@ -201,19 +259,30 @@ The `showMessageBox` method returns an object with the following properties:
 ```typescript
 import { Modals } from '@ui5/webcomponents-react/Modals';
 
+// Recommended: using config object
+const { ref } = Modals.showToast(props, config);
+
+// Legacy: using container directly
 const { ref } = Modals.showToast(props, container);
 ```
 
 **Parameters**
 
-| Parameter     | Description                                                                         |
-| ------------- | ----------------------------------------------------------------------------------- |
-| `props`       | All supported `Toast` props(see table below).                                       |
-| _`container`_ | Optional container where the `Toast` should be mounted.Defaults to `document.body`. |
+| Parameter     | Description                                                                                            |
+| ------------- | ------------------------------------------------------------------------------------------------------ |
+| `props`       | All supported `Toast` props (see table below).                                                         |
+| _`config`_    | Optional configuration object. See config options below.                                               |
+| _`container`_ | _(deprecated)_ Optional container where the `Toast` should be mounted. Use `config.container` instead. |
+
+**Config Options** _(since 2.19.0)_
+
+| Property    | Description                                                                            |
+| ----------- | -------------------------------------------------------------------------------------- |
+| `container` | Optional container where the component should be mounted. Defaults to `document.body`. |
 
 **Return Value**
 
-The`showToast` method returns an object with the following properties:
+The `showToast` method returns an object with the following properties:
 
 | Property | Description                                                       |
 | -------- | ----------------------------------------------------------------- |

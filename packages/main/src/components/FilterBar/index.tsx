@@ -6,8 +6,8 @@ import ToolbarDesign from '@ui5/webcomponents/dist/types/ToolbarDesign.js';
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
 import { debounce, Device, enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
-import type { CSSProperties, ElementType, ReactElement } from 'react';
 import { Children, cloneElement, forwardRef, isValidElement, useEffect, useId, useRef, useState } from 'react';
+import type { CSSProperties, ElementType, ReactElement } from 'react';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import {
   ADAPT_FILTERS,

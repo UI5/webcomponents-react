@@ -15,8 +15,8 @@ import type {
 import { ToggleButton } from '@ui5/webcomponents-react/dist/webComponents/ToggleButton/index.js';
 import { Device, useI18nBundle, useSyncRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
-import type { Dispatch, FC, HTMLAttributes, ReactElement, ReactNode, Ref, SetStateAction } from 'react';
 import { isValidElement, cloneElement, useEffect, useRef, useState } from 'react';
+import type { Dispatch, FC, HTMLAttributes, ReactElement, ReactNode, Ref, SetStateAction } from 'react';
 import { createPortal } from 'react-dom';
 import { getOverflowPopoverContext } from '../../internal/OverflowPopoverContext.js';
 import type { ToolbarPropTypes } from './index.js';

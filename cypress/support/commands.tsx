@@ -1,5 +1,5 @@
-import type { ThemeProviderPropTypes } from '@ui5/webcomponents-react';
 import { ThemeProvider } from '@ui5/webcomponents-react';
+import type { ThemeProviderPropTypes } from '@ui5/webcomponents-react';
 import type { MountOptions, MountReturn } from 'cypress/react';
 import { mount } from 'cypress/react';
 import type { ReactNode } from 'react';

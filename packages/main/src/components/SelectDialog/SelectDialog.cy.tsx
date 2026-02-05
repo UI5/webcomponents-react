@@ -314,13 +314,13 @@ describe('SelectDialog', () => {
       </SelectDialog>,
     );
     cy.findByTestId('1').click();
-    cy.findByText('Selected Items 1').should('exist');
+    cy.get('ui5-announcement-area').should('contain.text', 'Selected Items 1');
     cy.findByTestId('1').click();
-    cy.findByText('Selected Items 1').should('not.exist');
+    cy.get('ui5-announcement-area').should('not.contain.text', 'Selected Items 1');
     cy.findByTestId('1').click();
     cy.findByTestId('2').click();
     cy.findByTestId('3').click();
     cy.findByTestId('4').click();
-    cy.findByText('Selected Items 4').should('exist');
+    cy.get('ui5-announcement-area').should('contain.text', 'Selected Items 4');
   });
 });
