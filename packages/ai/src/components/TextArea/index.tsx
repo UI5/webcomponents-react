@@ -270,21 +270,22 @@ interface TextAreaPropTypes
 /**
  * The `TextArea` component extends the standard TextArea with Writing Assistant capabilities.
  * It provides AI-powered text generation, editing suggestions, and version management functionality.
- *
+ * 
  * ### Structure
  * The `TextArea` consists of the following elements:
  * - TextArea: The main text input area with all standard textarea functionality
  * - WritingAssistant: Dedicated toolbar containing:
  *   - Versioning: A component with left/right navigation buttons and a label for browsing AI-generated versions
  *   - AI Button: Opens a menu that can be extended with custom AI generation options through slotting
- *
- *
+ * 
+ * 
  *
  * __Note:__ This is a UI5 Web Component! [TextArea UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ai/TextArea) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of __@ui5/webcomponents-ai__.
  * @experimental The **@ui5/webcomponents-ai** package is under development and considered experimental - components' APIs are subject to change.
- */
+Furthermore, the package supports **Horizon** themes only.
+*/
 const TextArea = withWebComponent<TextAreaPropTypes, TextAreaDomRef>(
   'ui5-ai-textarea',
   [

@@ -2,8 +2,9 @@
 
 import '@ui5/webcomponents-ai/dist/Input.js';
 import type { InputSelectionChangeEventDetail } from '@ui5/webcomponents/dist/Input.js';
+import type InputSuggestionsFilter from '@ui5/webcomponents/dist/types/InputSuggestionsFilter.js';
 import type InputType from '@ui5/webcomponents/dist/types/InputType.js';
-import type { InputVersionChangeEventDetail, InputItemClickEventDetail } from '@ui5/webcomponents-ai/dist/Input.js';
+import type { InputItemClickEventDetail, InputVersionChangeEventDetail } from '@ui5/webcomponents-ai/dist/Input.js';
 import type ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
@@ -51,6 +52,14 @@ interface InputAttributes {
    * @default false
    */
   disabled?: boolean;
+
+  /**
+   * Defines the filter type of the component.
+   *
+   * **Note:** Available since [v2.19.0](https://github.com/UI5/webcomponents/releases/tag/v2.19.0) of **@ui5/webcomponents-ai**.
+   * @default "None"
+   */
+  filter?: InputSuggestionsFilter | keyof typeof InputSuggestionsFilter;
 
   /**
    * Defines whether the AI Writing Assistant is currently loading.
@@ -354,30 +363,31 @@ interface InputPropTypes
 
 /**
  * The `Input` component extends the standard `ui5-input` with **AI Writing Assistant** capabilities.
- *
+ * 
  * ### Structure
- *
+ * 
  * The `Input` consists of the following main parts:
- *
+ * 
  * - **Input Field** – Inherits all standard Input behaviors.
  * - **AI Action Button** – Appears when focused or loading, providing access to AI-related actions or stopping generation.
- *
+ * 
  * The component automatically determines which elements to render based on its internal state:
  * - The AI Button is only shown when there are available `actions`.
  * - The version navigation appears only when `totalVersions > 1`.
- *
+ * 
  * ### Keyboard Support
- *
+ * 
  * - **Shift + F4** — Opens the AI menu.
  * - **Ctrl + Shift + Z / Y** — Navigates backward/forward between AI-generated versions.
- *
- *
+ * 
+ * 
  *
  * __Note:__ This is a UI5 Web Component! [Input UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ai/Input) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of __@ui5/webcomponents-ai__.
  * @experimental The **@ui5/webcomponents-ai** package is under active development and considered experimental. Component APIs are subject to change.
- */
+Furthermore, the package supports **Horizon** themes only.
+*/
 const Input = withWebComponent<InputPropTypes, InputDomRef>(
   'ui5-ai-input',
   [
@@ -386,6 +396,7 @@ const Input = withWebComponent<InputPropTypes, InputDomRef>(
     'accessibleName',
     'accessibleNameRef',
     'currentVersion',
+    'filter',
     'maxlength',
     'name',
     'placeholder',
