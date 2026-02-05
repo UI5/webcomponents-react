@@ -144,6 +144,10 @@
       "types": "./dist/webComponents/Avatar/index.d.ts",
       "default": "./dist/webComponents/Avatar/index.js"
     },
+    "./AvatarBadge": {
+      "types": "./dist/webComponents/AvatarBadge/index.d.ts",
+      "default": "./dist/webComponents/AvatarBadge/index.js"
+    },
     "./AvatarGroup": {
       "types": "./dist/webComponents/AvatarGroup/index.d.ts",
       "default": "./dist/webComponents/AvatarGroup/index.js"

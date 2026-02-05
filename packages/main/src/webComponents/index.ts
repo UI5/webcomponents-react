@@ -1,4 +1,5 @@
 export * from './Avatar/index.js';
+export * from './AvatarBadge/index.js';
 export * from './AvatarGroup/index.js';
 export * from './Bar/index.js';
 export * from './BarcodeScannerDialog/index.js';
