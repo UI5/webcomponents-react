@@ -13,16 +13,16 @@ jobs:
     name: 'Security'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: artifactPrepareVersion
-        uses: SAP/project-piper-action@f5707cddbf1ed8a72adbfad43a677bbfb7fd6ac9 # v1.25.1
+        uses: SAP/project-piper-action@171450d77ebcaa10888507240544cdad77c7a7cc # v1.25.2
         with:
           step-name: artifactPrepareVersion
           flags: --versioningType cloud_noTag
 
       - name: detectExecuteScan
-        uses: SAP/project-piper-action@f5707cddbf1ed8a72adbfad43a677bbfb7fd6ac9 # v1.25.1
+        uses: SAP/project-piper-action@171450d77ebcaa10888507240544cdad77c7a7cc # v1.25.2
         with:
           step-name: detectExecuteScan
           flags: '--token ${{ secrets.DETECT_TOKEN }}'

@@ -109,9 +109,6 @@ export interface TimelineChartProps extends CommonProps {
 
 /**
  * > __Experimental Component!__ <br />
- * > This component is experimental and not subject to semantic versioning.
- * > Therefore, you could face breaking changes when updating versions.
- * > Please use with caution!
  *
  * A `TimelineChart` is a data visualization chart that can be used to represent
  * Gantt charts or any other timeline-based visualizations. The component has a
@@ -125,6 +122,8 @@ export interface TimelineChartProps extends CommonProps {
  * connections.
  *
  * __Note:__ Charts are custom-built __without__ defined design specifications! They use the Fiori color palette, but functionality and especially accessibility may not meet standard app requirements.
+ *
+ * @deprecated The component will be removed without replacement in version 3.0 of `@ui5/webcomponents-react-charts`.
  */
 const TimelineChart = forwardRef<HTMLDivElement, TimelineChartProps>(
   (

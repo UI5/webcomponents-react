@@ -12,7 +12,6 @@ import {
   Text,
   ThemeProvider,
 } from '@ui5/webcomponents-react';
-// eslint-disable-next-line import/order
 import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { clsx } from 'clsx';
 import type { ReactNode } from 'react';

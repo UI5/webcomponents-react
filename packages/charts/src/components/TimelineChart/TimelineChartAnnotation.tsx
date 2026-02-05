@@ -46,6 +46,8 @@ interface TimelineChartAnnotationProps extends CommonProps {
 /**
  * This is designed to be used for creating custom annotations, markers
  * or illustrations on the timeline of the chart.
+ *
+ * @deprecated The component will be removed without replacement in version 3.0 of `@ui5/webcomponents-react-charts`.
  */
 const TimelineChartAnnotation = forwardRef<HTMLDivElement, TimelineChartAnnotationProps>((props, ref) => {
   const { width = 'auto', height, rowIndex = 0, rowHeight = DEFAULT_ROW_HEIGHT, figure, ...rest } = props;

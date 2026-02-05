@@ -28,7 +28,9 @@ export interface InternalProps extends ObjectPageHeaderPropTypes {
 /**
  * The `ObjectPageHeader` component is used to serve as header section of the `ObjectPage`. It can hold any layout control and has two states - expanded and collapsed.
  *
- * __Note:__ When used inside a custom component, it's essential to pass through all props, as otherwise the component won't function as intended!
+ * __Note:__
+ * - When used inside a custom component, it's essential to pass through all props, as otherwise the component won't function as intended!
+ * - The `ObjectPageHeader` is essentially the `DynamicPageHeader` recommended by SAP Design. It was renamed in v2 to avoid conflicts with the `DynamicPageHeader` from `@ui5/webcomponents`.
  */
 const ObjectPageHeader = forwardRef<HTMLDivElement, InternalProps>((props, ref) => {
   const { children, headerPinned, topHeaderHeight, className, style, ...rest } = props;

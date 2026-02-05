@@ -1,6 +1,9 @@
 import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import ContentLoader from 'react-content-loader';
 
+/**
+ * @deprecated The component will be removed without replacement in version 3.0 of `@ui5/webcomponents-react-charts`.
+ */
 export const TimelineChartPlaceholder = () => {
   return (
     // @ts-expect-error: TypeScript is going crazy
