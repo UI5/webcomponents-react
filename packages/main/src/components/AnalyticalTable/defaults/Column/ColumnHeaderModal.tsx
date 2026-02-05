@@ -2,14 +2,13 @@ import IconMode from '@ui5/webcomponents/dist/types/IconMode.js';
 import ListItemType from '@ui5/webcomponents/dist/types/ListItemType.js';
 import PopoverHorizontalAlign from '@ui5/webcomponents/dist/types/PopoverHorizontalAlign.js';
 import PopoverPlacement from '@ui5/webcomponents/dist/types/PopoverPlacement.js';
-import { getScopedVarName } from '@ui5/webcomponents-base/dist/CustomElementsScope.js';
 import iconDecline from '@ui5/webcomponents-icons/dist/decline.js';
 import iconFilter from '@ui5/webcomponents-icons/dist/filter.js';
 import iconGroup from '@ui5/webcomponents-icons/dist/group-2.js';
 import iconSortAscending from '@ui5/webcomponents-icons/dist/sort-ascending.js';
 import iconSortDescending from '@ui5/webcomponents-icons/dist/sort-descending.js';
 import { enrichEventWithDetails, useI18nBundle } from '@ui5/webcomponents-react-base';
-import { useEffect, useId, useMemo, useRef } from 'react';
+import { useEffect, useId, useRef } from 'react';
 import { FlexBoxAlignItems } from '../../../../enums/FlexBoxAlignItems.js';
 import { TextAlign } from '../../../../enums/TextAlign.js';
 import {
@@ -55,15 +54,6 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
   const groupText = i18nBundle.getText(GROUP);
   const ungroupText = i18nBundle.getText(UNGROUP);
   const filterText = i18nBundle.getText(FILTER);
-
-  const filterStyles = useMemo(() => {
-    if (showFilter) {
-      return {
-        iconDimensions: `var(${getScopedVarName('--_ui5_list_item_icon_size')})`,
-        fontSize: `var(${getScopedVarName('--_ui5_list_item_title_size')})`,
-      };
-    }
-  }, [showFilter]);
 
   const handleSort = (e) => {
     const sortType = e.detail.item.getAttribute('data-sort');
@@ -220,23 +210,8 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
         {showFilter && (
           <ListItemCustom type={ListItemType.Inactive} onKeyDown={handleCustomLiKeyDown} accessibleName={filterText}>
             <FlexBox alignItems={FlexBoxAlignItems.Center}>
-              <Icon
-                name={iconFilter}
-                className={classNames.filterIcon}
-                mode={IconMode.Decorative}
-                style={{
-                  minWidth: filterStyles.iconDimensions,
-                  minHeight: filterStyles.iconDimensions,
-                }}
-              />
-              <Text
-                maxLines={1}
-                className={classNames.filterText}
-                style={{
-                  fontSize: filterStyles.fontSize,
-                }}
-                id={`${uniqueId}-filter-text`}
-              >
+              <Icon name={iconFilter} className={classNames.filterIcon} mode={IconMode.Decorative} />
+              <Text maxLines={1} className={classNames.filterText} id={`${uniqueId}-filter-text`}>
                 {filterText}
               </Text>
               {column.render(RenderColumnTypes.Filter, {

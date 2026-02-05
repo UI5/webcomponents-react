@@ -44,6 +44,9 @@ export function trimAndRemoveSpaces(value) {
   return value.trim().replace(/\s\s+/g, ' ');
 }
 
+/**
+ * @deprecated: will be removed in next minor release. Internal ui5 CSS vars are now defined on the host, making scoping redundant.
+ */
 export const cssVarVersionInfoPrefix = getScopedVarName('--_ui5_').replace('--_ui5_', '');
 
 export function getTagNameWithoutScopingSuffix(tagName) {
