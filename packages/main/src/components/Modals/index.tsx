@@ -1,7 +1,7 @@
 'use client';
 
 import type { MutableRefObject } from 'react';
-import { createRef, useEffect, useRef, useSyncExternalStore } from 'react';
+import { createRef, useEffect, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { getRandomId } from '../../internal/getRandomId.js';
 import { ModalStore } from '../../internal/ModalStore.js';
@@ -331,12 +331,10 @@ function showToastFn(
  */
 export function Modals() {
   const modals = useSyncExternalStore(ModalStore.subscribe, ModalStore.getSnapshot, ModalStore.getServerSnapshot);
-  const modalsRef = useRef(modals);
-  modalsRef.current = modals;
 
   useEffect(() => {
     return () => {
-      modalsRef.current.forEach((modal) => {
+      ModalStore.getSnapshot().forEach((modal) => {
         ModalStore.removeModal(modal.id);
       });
     };
