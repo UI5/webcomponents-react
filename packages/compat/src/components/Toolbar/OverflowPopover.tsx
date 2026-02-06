@@ -164,6 +164,7 @@ export const OverflowPopover: FC<OverflowPopoverProps> = (props: OverflowPopover
   return (
     <OverflowPopoverContextProvider value={{ inPopover: true }}>
       {overflowButton ? (
+        // eslint-disable-next-line react-hooks/refs
         cloneElement(overflowButton, { onClick: clonedOverflowButtonClick })
       ) : (
         <ToggleButton

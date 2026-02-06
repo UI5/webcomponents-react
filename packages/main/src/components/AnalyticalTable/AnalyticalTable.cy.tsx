@@ -395,10 +395,9 @@ describe('AnalyticalTable', () => {
     cy.findByRole('grid').should('have.attr', 'data-per-page', '15');
     cy.findByText('Name-14').should('be.visible');
     cy.findByText('Name-15').should('not.be.visible');
-    cy.findByTitle('Drag to resize')
-      .trigger('mousedown')
-      .trigger('mousemove', { pageY: 200, force: true })
-      .trigger('mouseup', { pageY: 200 });
+    cy.findByTitle('Drag to resize').realMouseDown();
+    cy.findByTitle('Drag to resize').realMouseMove(0, -540, { scrollBehavior: false });
+    cy.get('body').realMouseUp({ position: { x: 100, y: 200 } });
     cy.findByRole('grid').should('have.attr', 'data-per-page', '3');
     cy.findByText('Name-2').should('be.visible');
     cy.findByText('Name-3').should('not.be.visible');
@@ -3852,6 +3851,7 @@ describe('AnalyticalTable', () => {
       // transform data to the pattern which is accepted by the tree table
       // NOTES: this algorithm is less likely related to the bug, because in our reality project there is a different algorithm to generate the tree table and the bug still occurs.
       const data = useMemo(() => {
+        // eslint-disable-next-line react-hooks/refs
         raw.forEach((item) => {
           const newItem = { ...item };
           rowById.current[newItem.nodeId] = {
@@ -3875,7 +3875,7 @@ describe('AnalyticalTable', () => {
             rowById.current[newItem.parentId].subRows.push(rowById.current[newItem.nodeId]);
           }
         });
-
+        // eslint-disable-next-line react-hooks/refs
         return Object.values(rowById.current).filter((row) => !row.parentId);
       }, [raw]);
 

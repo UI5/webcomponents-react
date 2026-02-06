@@ -159,10 +159,9 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
     );
   };
 
-  const tooltipValueFormatter = useCallback(
-    (value, name) => [measure.formatter(value), dimension.formatter(name)],
-    [measure.formatter, dimension.formatter],
-  );
+  const tooltipValueFormatter = (value, name) => {
+    return [measure.formatter(value), dimension.formatter(name)];
+  };
 
   const onItemLegendClick = useLegendItemClick(onLegendClick, () => measure.accessor);
   const onClickInternal = useOnClickInternal(onClick);
@@ -248,7 +247,7 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
         </g>
       );
     },
-    [showActiveSegmentDataLabel, chartConfig.activeSegment, isDonutChart],
+    [showActiveSegmentDataLabel, chartConfig.activeSegment, isDonutChart, chartRef, measure],
   );
 
   const renderLabelLine = useCallback(
@@ -258,7 +257,7 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
       if (hideDataLabel || chartConfig.activeSegment === props.index) return null;
       return Pie.renderLabelLineItem({}, props, undefined);
     },
-    [chartConfig.activeSegment, measure.hideDataLabel],
+    [chartConfig.activeSegment, measure],
   );
 
   const legendWrapperStyle = useMemo(() => {

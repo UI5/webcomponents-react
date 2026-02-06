@@ -35,6 +35,8 @@ export function useSyncRef<RefType = never>(
           ref(node);
         }
         if ({}.hasOwnProperty.call(ref, 'current')) {
+          // React Refs are mutable
+          // eslint-disable-next-line react-hooks/immutability
           (ref as MutableRefObject<RefType>).current = node;
         }
       }

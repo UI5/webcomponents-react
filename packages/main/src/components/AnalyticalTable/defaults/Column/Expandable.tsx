@@ -8,7 +8,7 @@ import type { FocusEvent } from 'react';
 import type { ButtonDomRef } from '../../../../webComponents/Button/index.js';
 import { Button } from '../../../../webComponents/Button/index.js';
 import { Icon } from '../../../../webComponents/Icon/index.js';
-import type { ColumnType, RowType, WCRPropertiesType } from '../../types/index.js';
+import type { CellInstance } from '../../types/index.js';
 import { RenderColumnTypes } from '../../types/index.js';
 
 const getPadding = (level) => {
@@ -26,15 +26,7 @@ const getPadding = (level) => {
   }
 };
 
-interface ExpandableProps {
-  cell: Record<string, any>;
-  row: RowType;
-  column: ColumnType;
-  visibleColumns: ColumnType[];
-  webComponentsReactProperties: WCRPropertiesType;
-}
-
-export const Expandable = (props: ExpandableProps) => {
+export const Expandable = (props: CellInstance) => {
   const { cell, row, column, visibleColumns: columns, webComponentsReactProperties } = props;
   const {
     renderRowSubComponent,
@@ -60,7 +52,6 @@ export const Expandable = (props: ExpandableProps) => {
   return (
     <>
       {columnIndex === 0 && (
-        // todo rowProps should be applied to the whole row, not just the cell. We should consider refactoring this.
         <>
           {row.canExpand || subComponentExpandable ? (
             <span
@@ -92,7 +83,7 @@ export const Expandable = (props: ExpandableProps) => {
                   onClick={rowProps.onClick}
                   mode={IconMode.Interactive}
                   name={row.isExpanded ? iconNavDownArrow : iconNavRightArrow}
-                  aria-expanded={`${row.isExpanded}`}
+                  aria-expanded={`${row.isExpanded}` as 'true' | 'false'}
                   data-component-name="AnalyticalTableExpandIcon"
                   className={classNames.expandableIcon}
                   accessibleName={

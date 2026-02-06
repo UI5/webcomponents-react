@@ -10,7 +10,7 @@ import moveDownIcon from '@ui5/webcomponents-icons/dist/navigation-down-arrow.js
 import moveUpIcon from '@ui5/webcomponents-icons/dist/navigation-up-arrow.js';
 import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
-import { forwardRef, useContext, useEffect, useRef, useState } from 'react';
+import { forwardRef, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import { FlexBoxJustifyContent } from '../../enums/FlexBoxJustifyContent.js';
@@ -89,11 +89,25 @@ const FilterGroupItem = forwardRef<HTMLDivElement, FilterGroupItemPropTypes & Fi
       if (prevIsListView?.current !== isListView) {
         listViewHasChanged.current = true;
       }
-    }, [isListView]);
+    }, [isListView, prevIsListView]);
 
     const inFB = !isFilterInDialog;
     const withReordering = enableReordering && !withValues && isListView;
-    const [itemPosition, setItemPosition] = useState<undefined | 'last' | 'first'>(undefined);
+    const initialPosition = useMemo(() => {
+      if (index === 0) {
+        return 'first';
+      }
+      if (index === filtersCount - 1) {
+        return 'last';
+      }
+      return undefined;
+    }, [index, filtersCount]);
+
+    const [itemPosition, setItemPosition] = useState<undefined | 'last' | 'first'>(initialPosition);
+
+    useEffect(() => {
+      setItemPosition(initialPosition);
+    }, [initialPosition]);
 
     const handleFocus = (e) => {
       setShowBtnsOnHover(false);
@@ -105,15 +119,6 @@ const FilterGroupItem = forwardRef<HTMLDivElement, FilterGroupItemPropTypes & Fi
         setItemPosition(undefined);
       }
     };
-
-    useEffect(() => {
-      if (index === 0) {
-        setItemPosition('first');
-      }
-      if (index === filtersCount - 1) {
-        setItemPosition('last');
-      }
-    }, [index]);
 
     const handleReorder = (e: Parameters<ButtonPropTypes['onClick']>[0]) => {
       setItemPosition(undefined);
@@ -173,7 +178,7 @@ const FilterGroupItem = forwardRef<HTMLDivElement, FilterGroupItemPropTypes & Fi
       if (listViewHasChanged?.current) {
         listViewHasChanged.current = false;
       }
-    }, [inFB, hidden, hiddenInFilterBar, filterKey, setSelectedKeys, isListView, required]);
+    }, [inFB, hidden, hiddenInFilterBar, filterKey, setSelectedKeys, isListView, required, setRequiredKeys]);
 
     if (!required && (hidden || (inFB && hiddenInFilterBar))) return null;
 

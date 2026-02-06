@@ -9,6 +9,8 @@ export function useIsFirefox() {
   const [isFirefox, setIsFirefox] = useState(false);
 
   useEffect(() => {
+    // safe here because we only update state after mount for SSR hydration
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsFirefox(isFirefoxFn());
   }, []);
 

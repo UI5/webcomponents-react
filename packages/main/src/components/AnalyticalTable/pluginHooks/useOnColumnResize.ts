@@ -50,7 +50,7 @@ export const useOnColumnResize = (callback: useOnColumnResizeFunc, options?: use
       if (options?.liveUpdate) {
         return () => debouncedEvent.cancel();
       }
-    }, [options?.liveUpdate]);
+    }, []);
 
     useEffect(() => {
       if (!options?.liveUpdate) {
