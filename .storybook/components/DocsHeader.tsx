@@ -95,8 +95,7 @@ export const InfoTable = ({
               <Button
                 design={ButtonDesign.Transparent}
                 className={clsx('ui5-content-density-compact', classes.copyBtn)}
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                onClick={handleCopy}
+                onClick={void handleCopy}
                 icon={copyIcon}
                 tooltip="copy"
               />
@@ -153,8 +152,7 @@ export const InfoTable = ({
                 <Button
                   design={ButtonDesign.Transparent}
                   className={clsx('ui5-content-density-compact', classes.copyBtn)}
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                  onClick={handleCopy}
+                  onClick={void handleCopy}
                   icon={copyIcon}
                   tooltip="copy"
                 />

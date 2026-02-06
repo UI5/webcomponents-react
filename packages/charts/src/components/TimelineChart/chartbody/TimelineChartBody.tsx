@@ -55,6 +55,25 @@ const TimelineChartBody = ({
   const scaleExpRef = useRef(0);
   const [displayArrows, setDisplayArrows] = useState(false);
 
+  const onMouseWheelEvent = (evt: WheelEvent) => {
+    evt.preventDefault();
+    if (evt.deltaY < 0) {
+      // Only scale up if scaled width will not exceed MAX_BODY_WIDTH
+      const msrWidth = bodyRef.current.getBoundingClientRect().width;
+      if (msrWidth * SCALE_FACTOR < MAX_BODY_WIDTH) {
+        scaleExpRef.current++;
+      }
+    } else {
+      // Only scale down if scaled width will not be less than original
+      // width
+      if (scaleExpRef.current > 0) {
+        resetScroll();
+        scaleExpRef.current--;
+      }
+    }
+    onScale(Math.pow(SCALE_FACTOR, scaleExpRef.current));
+  };
+
   useEffect(() => {
     const bodyElement = bodyRef.current;
     bodyElement?.addEventListener('wheel', onMouseWheelEvent);
@@ -81,25 +100,6 @@ const TimelineChartBody = ({
   };
   const hideTooltip = () => tooltipRef.current?.onLeaveItem();
 
-  const onMouseWheelEvent = (evt: WheelEvent) => {
-    evt.preventDefault();
-    if (evt.deltaY < 0) {
-      // Only scale up if scaled width will not exceed MAX_BODY_WIDTH
-      const msrWidth = bodyRef.current.getBoundingClientRect().width;
-      if (msrWidth * SCALE_FACTOR < MAX_BODY_WIDTH) {
-        scaleExpRef.current++;
-      }
-    } else {
-      // Only scale down if scaled width will not be less than original
-      // width
-      if (scaleExpRef.current > 0) {
-        resetScroll();
-        scaleExpRef.current--;
-      }
-    }
-    onScale(Math.pow(SCALE_FACTOR, scaleExpRef.current));
-  };
-
   const showArrows = () => setDisplayArrows(true);
 
   return (
@@ -121,6 +121,8 @@ const TimelineChartBody = ({
             dataSet={dataset}
             width={width}
             rowHeight={rowHeight}
+            // todo: check side-effect
+            // eslint-disable-next-line react-hooks/refs
             bodyRect={bodyRef.current?.getBoundingClientRect()}
           />
         </TimelineChartLayer>

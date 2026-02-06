@@ -1,7 +1,6 @@
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import PopoverPlacement from '@ui5/webcomponents/dist/types/PopoverPlacement.js';
 import WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
-import type { ButtonPropTypes, PopoverDomRef } from '@ui5/webcomponents-react';
 import {
   Button,
   FlexBox,
@@ -13,6 +12,7 @@ import {
   Popover,
   Text,
 } from '@ui5/webcomponents-react';
+import type { ButtonPropTypes, PopoverDomRef } from '@ui5/webcomponents-react';
 import type { CommonProps } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { useRef, useState } from 'react';

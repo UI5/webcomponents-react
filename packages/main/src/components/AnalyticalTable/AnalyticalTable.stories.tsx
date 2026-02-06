@@ -254,7 +254,8 @@ export const InfiniteScrolling: Story = {
     const [data, setData] = useState(args.data.slice(0, 50));
     const [loading, setLoading] = useState(false);
     const offset = useRef(50);
-    const onLoadMore = () => {
+    const onLoadMore = (e) => {
+      args.onLoadMore(e);
       setLoading(true);
     };
     useEffect(() => {

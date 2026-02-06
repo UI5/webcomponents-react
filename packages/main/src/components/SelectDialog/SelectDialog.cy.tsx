@@ -305,6 +305,8 @@ describe('SelectDialog', () => {
   });
 
   it('invisible messaging', () => {
+    // do not remove content of ui5wc invisible message (disable `setTimeout` from running)
+    cy.clock();
     cy.mount(
       <SelectDialog open selectionMode={ListSelectionMode.Multiple}>
         <ListItemStandard text={'ListItem 1'} data-testid="1" />
@@ -313,14 +315,21 @@ describe('SelectDialog', () => {
         <ListItemStandard text={'ListItem 4'} data-testid="4" />
       </SelectDialog>,
     );
+
+    cy.get('ui5-announcement-area .ui5-invisiblemessage-polite').should('exist');
     cy.findByTestId('1').click();
+    cy.findByTestId('1').should('have.attr', 'selected');
     cy.get('ui5-announcement-area').should('contain.text', 'Selected Items 1');
     cy.findByTestId('1').click();
-    cy.get('ui5-announcement-area').should('not.contain.text', 'Selected Items 1');
+    cy.findByTestId('1').should('not.have.attr', 'selected');
     cy.findByTestId('1').click();
+    cy.findByTestId('1').should('have.attr', 'selected');
     cy.findByTestId('2').click();
+    cy.findByTestId('2').should('have.attr', 'selected');
     cy.findByTestId('3').click();
+    cy.findByTestId('3').should('have.attr', 'selected');
     cy.findByTestId('4').click();
+    cy.findByTestId('4').should('have.attr', 'selected');
     cy.get('ui5-announcement-area').should('contain.text', 'Selected Items 4');
   });
 });

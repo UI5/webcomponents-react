@@ -213,7 +213,8 @@ function findFirstFocusableInside(element: HTMLElement) {
  * Init `cellContentTabIndex` if the plugin hook is used.
  */
 function useInstanceBeforeDimensions(instance: TableInstance) {
+  const { dispatch } = instance;
   useEffect(() => {
-    instance.dispatch({ type: 'CELL_CONTENT_TAB_INDEX', payload: -1 });
-  }, [instance.dispatch]);
+    dispatch({ type: 'CELL_CONTENT_TAB_INDEX', payload: -1 });
+  }, [dispatch]);
 }

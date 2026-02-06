@@ -3,7 +3,6 @@ import SampleImage from '@sb/demoImages/Person.png';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import BarDesign from '@ui5/webcomponents/dist/types/BarDesign.js';
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
-import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import IllustrationMessageType from '@ui5/webcomponents-fiori/dist/types/IllustrationMessageType.js';
 import declineIcon from '@ui5/webcomponents-icons/dist/decline.js';
 import sunIcon from '@ui5/webcomponents-icons/dist/general-leave-request.js';
@@ -34,7 +33,6 @@ import {
   ObjectPageMode,
   ObjectPageSection,
   ObjectPageSubSection,
-  ObjectStatus,
   Text,
   Title,
   Toolbar,

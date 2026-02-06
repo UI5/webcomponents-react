@@ -53,6 +53,8 @@ const SplitterLayout = forwardRef<HTMLDivElement, SplitterLayoutPropTypes>((prop
       setReset(true);
     }
     initialCustomDep.current = false;
+    // Can't determine external dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, options?.resetOnCustomDepsChange ?? []);
 
   useEffect(() => {
@@ -76,7 +78,7 @@ const SplitterLayout = forwardRef<HTMLDivElement, SplitterLayoutPropTypes>((prop
         layoutObserver.disconnect();
       };
     }
-  }, [vertical, options?.resetOnSizeChange]);
+  }, [vertical, options?.resetOnSizeChange, sLRef]);
 
   useEffect(() => {
     if (reset) {
