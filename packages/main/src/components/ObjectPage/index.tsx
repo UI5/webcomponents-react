@@ -288,7 +288,15 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
         scroll();
       }
     },
-    [mode, topHeaderHeight, headerPinned, headerCollapsed, headerContentHeight, objectPageRef],
+    [
+      mode,
+      objectPageRef,
+      topHeaderHeight,
+      tabContainerHeaderHeight,
+      headerPinned,
+      headerCollapsed,
+      headerContentHeight,
+    ],
   );
 
   const scrollToSection = useCallback(
