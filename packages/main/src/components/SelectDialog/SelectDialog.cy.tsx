@@ -317,8 +317,10 @@ describe('SelectDialog', () => {
     );
 
     cy.get('ui5-announcement-area .ui5-invisiblemessage-polite').should('exist');
+    cy.wait(100);
     cy.findByTestId('1').click();
     cy.findByTestId('1').should('have.attr', 'selected');
+    cy.wait(100);
     cy.get('ui5-announcement-area').should('contain.text', 'Selected Items 1');
     cy.findByTestId('1').click();
     cy.findByTestId('1').should('not.have.attr', 'selected');
@@ -330,6 +332,7 @@ describe('SelectDialog', () => {
     cy.findByTestId('3').should('have.attr', 'selected');
     cy.findByTestId('4').click();
     cy.findByTestId('4').should('have.attr', 'selected');
+    cy.wait(100);
     cy.get('ui5-announcement-area').should('contain.text', 'Selected Items 4');
   });
 });
