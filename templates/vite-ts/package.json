@@ -12,11 +12,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ui5/webcomponents": "2.18.1",
-    "@ui5/webcomponents-base": "2.18.1",
-    "@ui5/webcomponents-fiori": "2.18.1",
-    "@ui5/webcomponents-icons": "2.18.1",
-    "@ui5/webcomponents-react": "2.18.1",
+    "@ui5/webcomponents": "2.19.1",
+    "@ui5/webcomponents-base": "2.19.1",
+    "@ui5/webcomponents-fiori": "2.19.1",
+    "@ui5/webcomponents-icons": "2.19.1",
+    "@ui5/webcomponents-react": "2.19.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -24,7 +24,7 @@
     "@types/react": "19.2.10",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.2",
-    "@ui5/webcomponents-cypress-commands": "2.18.1",
+    "@ui5/webcomponents-cypress-commands": "2.19.0",
     "cypress": "15.9.0",
     "eslint": "9.39.2",
     "eslint-plugin-react-hooks": "7.0.0",
