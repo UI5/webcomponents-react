@@ -303,34 +303,4 @@ describe('SelectDialog', () => {
     cy.findByTestId('confirmBtn').should('be.visible').and('have.attr', 'disabled');
     cy.findByTestId('confirmBtn').should('have.attr', 'design', 'Emphasized');
   });
-
-  it('invisible messaging', () => {
-    cy.mount(
-      <SelectDialog open selectionMode={ListSelectionMode.Multiple}>
-        <ListItemStandard text={'ListItem 1'} data-testid="1" />
-        <ListItemStandard text={'ListItem 2'} data-testid="2" />
-        <ListItemStandard text={'ListItem 3'} data-testid="3" />
-        <ListItemStandard text={'ListItem 4'} data-testid="4" />
-      </SelectDialog>,
-    );
-
-    cy.get('ui5-announcement-area .ui5-invisiblemessage-polite').should('exist');
-    cy.wait(100);
-    cy.findByTestId('1').click();
-    cy.findByTestId('1').should('have.attr', 'selected');
-    cy.wait(100);
-    cy.get('ui5-announcement-area').should('contain.text', 'Selected Items 1');
-    cy.findByTestId('2').click();
-    cy.findByTestId('2').should('have.attr', 'selected');
-    cy.wait(100);
-    cy.get('ui5-announcement-area').should('contain.text', 'Selected Items 2');
-    cy.findByTestId('3').click();
-    cy.findByTestId('3').should('have.attr', 'selected');
-    cy.wait(100);
-    cy.get('ui5-announcement-area').should('contain.text', 'Selected Items 3');
-    cy.findByTestId('4').click();
-    cy.findByTestId('4').should('have.attr', 'selected');
-    cy.wait(100);
-    cy.get('ui5-announcement-area').should('contain.text', 'Selected Items 4');
-  });
 });

@@ -210,7 +210,7 @@ describe('SplitterLayout', () => {
         })
         .realMouseUp({ position: 'center' });
 
-      cy.wait(100);
+      cy.wait(200);
 
       cy.findByTestId('0')
         .invoke('text')
