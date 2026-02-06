@@ -19,7 +19,6 @@ jobs:
           - charts
           - cypress-commands
           - main/src/components
-          - main/src/components/SplitterLayout
           - main/src/webComponents
           - main/src/internal
           - compat
