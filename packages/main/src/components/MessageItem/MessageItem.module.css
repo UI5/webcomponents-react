@@ -34,6 +34,13 @@
   height: 1rem;
 }
 
+.titleContainer {
+  flex: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .title {
   font-family: var(--sapFontHeaderFamily);
   font-size: var(--_ui5wcr-MessageItemTitleFontSize);

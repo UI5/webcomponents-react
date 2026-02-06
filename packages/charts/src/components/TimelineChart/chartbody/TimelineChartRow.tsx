@@ -27,6 +27,8 @@ const TimelineChartRow = ({
   showTooltip,
   hideTooltip,
 }: TimelineChartRowProps) => {
+  // todo: fix mutation
+  // eslint-disable-next-line react-hooks/immutability
   rowData.color = rowData.color ?? `var(--sapChart_OrderedColor_${(rowIndex % 12) + 1})`;
 
   return (

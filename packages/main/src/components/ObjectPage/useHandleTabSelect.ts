@@ -1,7 +1,7 @@
 import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import type { debounce } from '@ui5/webcomponents-react-base';
 import type { Dispatch, JSXElementConstructor, MutableRefObject, ReactElement, RefObject, SetStateAction } from 'react';
-import { isValidElement, useEffect, useState } from 'react';
+import { isValidElement } from 'react';
 import { ObjectPageMode } from '../../enums/ObjectPageMode.js';
 import type { TabContainerPropTypes } from '../../webComponents/TabContainer/index.js';
 import type { ObjectPageSectionPropTypes } from '../ObjectPageSection/index.js';
@@ -44,16 +44,6 @@ export const useHandleTabSelect = ({
   setTabSelectId,
   setWasUserSectionChange,
 }: UseHandleTabSelectProps) => {
-  const [onSectionSelectedArgs, setOnSectionSelectedArgs] = useState<
-    | false
-    | [
-        Parameters<TabContainerPropTypes['onTabSelect']>[0],
-        undefined | string,
-        string,
-        ReactElement<ObjectPageSectionPropTypes>,
-      ]
-  >(false);
-
   const handleOnSubSectionSelected = (e) => {
     isProgrammaticallyScrolled.current = true;
     const sectionId = e.detail.sectionId;
@@ -105,20 +95,13 @@ export const useHandleTabSelect = ({
       const section = childrenArray.find((el) => {
         return el.props.id == sectionId;
       });
-      setOnSectionSelectedArgs([event, section?.props?.id, index, section]);
+      handleOnSectionSelected(event, section?.props?.id, index, section);
     }
 
     if (mode === ObjectPageMode.IconTabBar) {
       setWasUserSectionChange(true);
     }
   };
-  // effect required - if event is called in `handleTabItemSelect` it's invoked twice in StrictMode
-  useEffect(() => {
-    if (onSectionSelectedArgs) {
-      handleOnSectionSelected(...onSectionSelectedArgs);
-      setOnSectionSelectedArgs(false);
-    }
-  }, [onSectionSelectedArgs]);
 
   return handleTabItemSelect;
 };

@@ -50,17 +50,22 @@ const SplitterElement = forwardRef<HTMLDivElement, SplitterElementPropTypes>((pr
   const { vertical, reset } = useContext(SplitterLayoutContext);
   const safariStyles = Device.isSafari() ? { width: 'min-content', flex: '1 1 auto' } : {};
   const _size = typeof size === 'number' ? `${size}px` : size;
-  const defaultFlexStyles = _size !== 'auto' ? { flex: `0 1 ${_size}` } : { flex: '1 0 min-content', ...safariStyles };
-  const [flexStyles, setFlexStyles] = useState(defaultFlexStyles);
   const [flexBasisApplied, setFlexBasisApplied] = useState(false);
+  const [observedFlex, setObservedFlex] = useState<CSSProperties | null>(null);
+  const flexStyles = reset
+    ? undefined
+    : _size !== 'auto'
+      ? { flex: `0 1 ${_size}` }
+      : (observedFlex ?? { flex: '1 0 min-content', ...safariStyles });
 
   useStylesheet(styleData, SplitterElement.displayName);
-
   useEffect(() => {
+    if (_size !== 'auto') return;
+
     const elementObserver = new ResizeObserver(([element]) => {
       if (element.target.getBoundingClientRect().width !== 0 && !flexBasisApplied) {
         const resetSafariStyles = Device.isSafari() ? { width: 'unset' } : {};
-        setFlexStyles({
+        setObservedFlex({
           flex: `0 0 ${element.target.getBoundingClientRect()[vertical ? 'height' : 'width']}px`,
           ...resetSafariStyles,
         });
@@ -68,29 +73,21 @@ const SplitterElement = forwardRef<HTMLDivElement, SplitterElementPropTypes>((pr
       }
     });
 
-    if (_size === 'auto' && splitterElementRef.current) {
+    if (splitterElementRef.current) {
       elementObserver.observe(splitterElementRef.current);
-    } else {
-      setFlexStyles({ flex: `0 1 ${_size}` });
     }
 
     return () => {
       elementObserver.disconnect();
     };
-  }, [_size, flexBasisApplied, vertical]);
+  }, [_size, flexBasisApplied, splitterElementRef, vertical]);
 
   useIsomorphicLayoutEffect(() => {
     if (reset) {
-      setFlexStyles(undefined);
+      setObservedFlex(null);
       setFlexBasisApplied(false);
     }
-  }, [reset, _size]);
-
-  useIsomorphicLayoutEffect(() => {
-    if (flexStyles === undefined) {
-      setFlexStyles(defaultFlexStyles);
-    }
-  }, [flexStyles]);
+  }, [reset]);
 
   return (
     <div

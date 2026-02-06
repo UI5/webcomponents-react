@@ -2,7 +2,7 @@
 
 import { debounce, Device, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
-import { cloneElement, forwardRef, isValidElement, useEffect, useRef, useState } from 'react';
+import { cloneElement, forwardRef, isValidElement, useEffect, useMemo, useRef, useState } from 'react';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import { FlexBoxJustifyContent } from '../../enums/FlexBoxJustifyContent.js';
@@ -40,9 +40,7 @@ const ObjectPageTitle = forwardRef<HTMLDivElement, ObjectPageTitlePropTypes>((pr
   const [componentRef, dynamicPageTitleRef] = useSyncRef<HTMLDivElement>(ref);
   const [showNavigationInTopArea, setShowNavigationInTopArea] = useState(undefined);
   const isMounted = useRef(false);
-  const [isPhone, setIsPhone] = useState(
-    Device.getCurrentRange(dynamicPageTitleRef.current?.getBoundingClientRect().width)?.name === 'Phone',
-  );
+  const [isPhone, setIsPhone] = useState(false);
   const containerClasses = clsx(classNames.container, isPhone && classNames.phone, className);
   const toolbarContainerRef = useRef<HTMLDivElement>(null);
   const _header = !props?.['data-header-content-visible'] && snappedHeader ? snappedHeader : header;
@@ -84,18 +82,16 @@ const ObjectPageTitle = forwardRef<HTMLDivElement, ObjectPageTitlePropTypes>((pr
       debouncedObserverFn.cancel();
       observer.disconnect();
     };
-  }, [dynamicPageTitleRef.current, showNavigationInTopArea, isMounted]);
+  }, [dynamicPageTitleRef, showNavigationInTopArea, isMounted]);
 
-  const [wcrNavToolbar, setWcrNavToolbar] = useState(null);
-  useEffect(() => {
+  const wcrNavToolbar = useMemo(() => {
     //@ts-expect-error: private identifier
     if (isValidElement(navigationBar) && navigationBar?.type?._displayName === 'UI5WCRToolbar') {
-      setWcrNavToolbar(
-        cloneElement<any>(navigationBar, {
-          numberOfAlwaysVisibleItems: Infinity,
-        }),
-      );
+      return cloneElement<any>(navigationBar, {
+        numberOfAlwaysVisibleItems: Infinity,
+      });
     }
+    return null;
   }, [navigationBar]);
 
   useEffect(() => {

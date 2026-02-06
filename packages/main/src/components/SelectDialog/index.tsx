@@ -12,7 +12,7 @@ import iconSearch from '@ui5/webcomponents-icons/dist/search.js';
 import { enrichEventWithDetails, useI18nBundle, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { forwardRef, useEffect, useState } from 'react';
-import type { ReactNode } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { CANCEL, CLEAR, SEARCH, SELECT, SELECTED, SELECTED_ITEMS } from '../../i18n/i18n-defaults.js';
 import type { Ui5CustomEvent } from '../../types/index.js';
@@ -188,7 +188,9 @@ const SelectDialog = forwardRef<DialogDomRef, SelectDialogPropTypes>((props, ref
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
   const [searchValue, setSearchValue] = useState('');
   const [selectedItems, setSelectedItems] = useState([]);
-  const [listComponentRef, listRef] = useSyncRef<ListDomRefWithPrivateAPIs>((listProps as any).ref);
+  const [listComponentRef, listRef] = useSyncRef<ListDomRefWithPrivateAPIs>(
+    (listProps as SelectDialogPropTypes['listProps'] & { ref: RefObject<ListDomRefWithPrivateAPIs> }).ref,
+  );
   const [internalOpen, setInternalOpen] = useState(open);
   useEffect(() => {
     setInternalOpen(open);

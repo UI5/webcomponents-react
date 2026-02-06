@@ -6,7 +6,7 @@ import listIcon from '@ui5/webcomponents-icons/dist/list.js';
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
 import { enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
-import { Children, cloneElement, useEffect, useId, useReducer, useRef, useState } from 'react';
+import { Children, cloneElement, useCallback, useEffect, useId, useReducer, useRef, useState } from 'react';
 import type { ReactElement, RefObject } from 'react';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
 import { FlexBoxJustifyContent } from '../../enums/FlexBoxJustifyContent.js';
@@ -200,16 +200,19 @@ export const FilterDialog = (props: FilterDialogPropTypes) => {
     }
   };
 
-  const visibleChildren = () =>
-    children.filter((item) => {
-      return !!item?.props && !item?.props?.hidden;
-    });
+  const visibleChildren = useCallback(
+    () =>
+      children.filter((item) => {
+        return !!item?.props && !item?.props?.hidden;
+      }),
+    [children],
+  );
 
   useEffect(() => {
     if (children.length) {
       setOrderedChildren(visibleChildren());
     }
-  }, [children]);
+  }, [children, visibleChildren]);
 
   const renderChildren = () => {
     const searchStringLower = searchString.toLowerCase();
@@ -408,6 +411,8 @@ export const FilterDialog = (props: FilterDialogPropTypes) => {
 
       setForceRequired(undefined);
     }
+    // `forceRequired` triggers async DOM update; no extra deps needed
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [forceRequired]);
 
   const renderGroups = () => {
@@ -450,11 +455,9 @@ export const FilterDialog = (props: FilterDialogPropTypes) => {
       });
   };
 
-  useEffect(() => {
-    if (initialSelected.current === undefined && selected.length) {
-      initialSelected.current = selectedFilters;
-    }
-  }, [selected]);
+  if (initialSelected.current === undefined && selected.length) {
+    initialSelected.current = selectedFilters;
+  }
 
   return (
     <FilterBarDialogContext.Provider

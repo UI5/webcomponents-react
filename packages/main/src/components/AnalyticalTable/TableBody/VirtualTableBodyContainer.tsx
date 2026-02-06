@@ -48,9 +48,11 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
 
   useEffect(() => {
     if (parentRef.current) {
+      // Trigger one-time re-render after first render -> safe to set state here
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsMounted(true);
     }
-  }, [parentRef.current]);
+  }, [parentRef]);
 
   const dataLength = rows.length;
 
@@ -102,16 +104,16 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
       }
     },
     [
+      handleExternalScroll,
       infiniteScroll,
       infiniteScrollThreshold,
-      onLoadMore,
-      rows,
       internalRowHeight,
-      firedInfiniteLoadEvents,
-      lastScrollTop,
-      handleExternalScroll,
+      isGrouped,
+      onLoadMore,
       popInRowHeight,
+      rows,
       tableBodyHeight,
+      visibleRows,
     ],
   );
 

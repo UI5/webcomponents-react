@@ -4,9 +4,10 @@ import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { TextAlign } from '../../../../enums/TextAlign.js';
 import { Icon } from '../../../../webComponents/Icon/index.js';
+import type { CellInstance } from '../../types/index.js';
 import { RenderColumnTypes } from '../../types/index.js';
 
-export const Grouped = (props) => {
+export const Grouped = (props: CellInstance) => {
   const { cell, row, webComponentsReactProperties } = props;
   const { translatableTexts, classes } = webComponentsReactProperties;
 

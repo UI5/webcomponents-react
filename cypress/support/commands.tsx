@@ -40,16 +40,20 @@ declare global {
       /**
        * Asserts that the element never gains the given attribute.
        *
-       * __Note:__ An error is thrown if the attribute is not found, therefore it does not block the test if the subject
+       * __Note:__ An error is thrown if the attribute is found, therefore it does not block the test if the subject
        * never includes the given attribute.
        *
-       *
        * @param attributeName - The name of the attribute which must not appear.
-       * @param observerTime - How long (in ms) to watch for mutations (default: 500).
+       * @param options
+       * @param options.observerTime - How long (in ms) to watch for mutations (default: 500).
+       * @param options.delayed - How long (in ms) to wait before starting observation (default: 0).
        * @example
-       * cy.get('button').shouldNeverHaveAttribute('disabled', 1000);
+       * cy.get('button').shouldNeverHaveAttribute('disabled', { observerTime: 500, delayed: 100 });
        */
-      shouldNeverHaveAttribute(attributeName: string, observerTime?: number): Chainable<JQuery<HTMLElement>>;
+      shouldNeverHaveAttribute(
+        attributeName: string,
+        options?: { observerTime?: number; delayed?: number },
+      ): Chainable<JQuery<HTMLElement>>;
     }
   }
 }
@@ -80,35 +84,49 @@ Cypress.Commands.add(
   },
 );
 
-Cypress.Commands.add(
-  'shouldNeverHaveAttribute',
-  { prevSubject: 'element' },
-  (subject, attributeName, observerTime = 500) => {
-    cy.wrap(subject).then(($el) => {
-      const el = $el[0];
-      const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-          if (mutation.attributeName === attributeName) {
-            Cypress.log({
-              name: 'shouldNeverHaveAttribute',
-              message: `${attributeName} was found!`,
-              consoleProps: () => ({
-                attributeName,
-                element: el,
-              }),
-            });
+const activeObservers: MutationObserver[] = [];
 
-            observer.disconnect();
-            throw new Error(`${attributeName} was found!`);
+Cypress.Commands.add('shouldNeverHaveAttribute', { prevSubject: 'element' }, (subject, attributeName, options = {}) => {
+  const { observerTime = 500, delayed = 0 } = options;
+  // Disconnect all previous observers when a new assertion starts
+  while (activeObservers.length > 0) {
+    activeObservers.pop()?.disconnect();
+  }
+
+  cy.wait(delayed);
+
+  cy.wrap(subject).then(($el) => {
+    const el = $el[0];
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.attributeName === attributeName) {
+          Cypress.log({
+            name: 'shouldNeverHaveAttribute',
+            message: `${attributeName} was found!`,
+            consoleProps: () => ({
+              attributeName,
+              element: el,
+            }),
+          });
+
+          observer.disconnect();
+          const index = activeObservers.indexOf(observer);
+          if (index > -1) {
+            activeObservers.splice(index, 1);
           }
+          throw new Error(`${attributeName} was found!`);
         }
-      });
-
-      observer.observe(el, { attributes: true });
-
-      setTimeout(() => {
-        observer.disconnect();
-      }, observerTime);
+      }
     });
-  },
-);
+    observer.observe(el, { attributes: true });
+    activeObservers.push(observer);
+
+    setTimeout(() => {
+      observer.disconnect();
+      const index = activeObservers.indexOf(observer);
+      if (index > -1) {
+        activeObservers.splice(index, 1);
+      }
+    }, observerTime);
+  });
+});
