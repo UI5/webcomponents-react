@@ -169,8 +169,16 @@ interface DateTimePickerAttributes {
 interface DateTimePickerDomRef extends Required<DateTimePickerAttributes>, Ui5DomRef {
   /**
    * Currently selected date represented as a Local JavaScript Date instance.
+   * Note: this getter can only be reliably used after the component is fully defined. Use dateValueAsync which resolves only when this condition is met.
+   *
+   * @deprecated Use dateValueAsync instead
    */
   readonly dateValue: Date | null;
+
+  /**
+   * Promise that resolves to the currently selected date represented as a Local JavaScript Date instance.
+   */
+  readonly dateValueAsync: Promise<Date | null>;
 
   /**
    * Formats a Java Script date object into a string representing a locale date

@@ -176,8 +176,15 @@ interface DateRangePickerAttributes {
 interface DateRangePickerDomRef extends Required<DateRangePickerAttributes>, Ui5DomRef {
   /**
    * **Note:** The getter method is inherited and not supported. If called it will return an empty value.
+   *
+   * @deprecated Use dateValueAsync instead
    */
   readonly dateValue: Date | null;
+
+  /**
+   * Promise that resolves to the currently selected date represented as a Local JavaScript Date instance.
+   */
+  readonly dateValueAsync: Promise<Date | null>;
 
   /**
    * **Note:** The getter method is inherited and not supported. If called it will return an empty value.

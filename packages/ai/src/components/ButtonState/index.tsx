@@ -54,20 +54,21 @@ interface ButtonStatePropTypes extends ButtonStateAttributes, Omit<CommonProps, 
 
 /**
  * `ButtonState` is the item to use for defining states of `Button` components.
- *
+ * 
  * ### Usage
- *
+ * 
  * `ButtonState` is an abstract element, representing a state of `Button`. It is meant to be used in the `default` slot
  * of `Button` and should not be used as standalone component.
- *
- *
+ * 
+ * 
  *
  * __Note:__ This is a UI5 Web Component! [ButtonState UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ai/ButtonState) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents-ai__.
  * @abstract
- * @experimental The Button and ButtonState web components are available since 2.0 under an experimental flag and their API and behaviour are subject to change.
- */
+ * @experimental The **@ui5/webcomponents-ai** package (including ButtonState) is under active development and considered experimental. Component APIs are subject to change.
+Furthermore, the package supports **Horizon** themes only.
+*/
 const ButtonState = withWebComponent<ButtonStatePropTypes, ButtonStateDomRef>(
   'ui5-ai-button-state',
   ['endIcon', 'icon', 'name', 'text'],

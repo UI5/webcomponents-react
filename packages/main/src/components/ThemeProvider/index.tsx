@@ -1,7 +1,6 @@
 'use client';
 
 import { getTheme } from '@ui5/webcomponents-base/dist/config/Theme.js';
-import { getScopedVarName } from '@ui5/webcomponents-base/dist/CustomElementsScope.js';
 import { attachLanguageChange, detachLanguageChange } from '@ui5/webcomponents-base/dist/locale/languageChange.js';
 import { attachThemeLoaded, detachThemeLoaded } from '@ui5/webcomponents-base/dist/theming/ThemeLoaded.js';
 import { I18nStore, StyleStore, useIsomorphicLayoutEffect, useStylesheet } from '@ui5/webcomponents-react-base';
@@ -12,24 +11,9 @@ import { styleData } from './ThemeProvider.css.js';
 
 let _versionInfoInjected = false;
 
-const InternalUI5WCVVarNames = {
-  '--_ui5wcr_card_header_focus_offset': `var(${getScopedVarName('--_ui5_card_header_focus_offset')})`,
-  '--_ui5wcr_card_header_focus_border': `var(${getScopedVarName('--_ui5_card_header_focus_border')})`,
-  '--_ui5wcr_card_header_focus_radius': `var(${getScopedVarName('--_ui5_card_header_focus_radius')})`,
-  '--_ui5wcr_card_header_focus_bottom_radius': `var(${getScopedVarName('--_ui5_card_header_focus_bottom_radius')})`,
-  '--_ui5wcr_popup_header_font_family': `var(${getScopedVarName('--_ui5_popup_header_font_family')})`,
-};
-
-const ui5WcVariablesStyle = `:root {${Object.entries(InternalUI5WCVVarNames)
-  .map(([key, value]) => {
-    return `${key}: ${value};`;
-  })
-  .join(' ')}}`;
-
 function ThemeProviderStyles() {
   const uniqueId = useId();
   useStylesheet(styleData, `${ThemeProvider.displayName}-${uniqueId}`);
-  useStylesheet(ui5WcVariablesStyle, `${ThemeProvider.displayName}-css-vars-${uniqueId}`, { alwaysInject: true });
   return null;
 }
 

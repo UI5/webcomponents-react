@@ -70,10 +70,10 @@ interface NavigationLayoutPropTypes
  *
  * ### Responsive Behavior
  *
- * On desktop and tablet devices, the side navigation is visible
+ * On larger screens with a width of 600px or more, excluding mobile phone devices, the side navigation is visible
  * by default and can be expanded or collapsed using the `mode` property.
- * On phone devices, the side navigation is hidden by default and can
- * be displayed using the `mode` property.
+ * On mobile phone devices and screens with a width of 599px or less, the side navigation is hidden by
+ * default and can be displayed using the `mode` property.
  *
  *
  *

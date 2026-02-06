@@ -262,7 +262,7 @@ interface TablePropTypes
  * This can only be achieved through a custom accessibility announcement.
  * To support this, UI5 Web Components expose its own accessibility metadata via the `accessibilityInfo` property.
  * The `Table` uses this information to create the required custom announcements dynamically.
- * If you include custom web components inside table cells that are not part of the standard UI5 Web Components set, their accessibility information can be provided using the `data-ui5-table-acc-text` attribute.
+ * If you include custom web components inside table cells that are not part of the standard UI5 Web Components set, their accessibility information can be provided using the `data-ui5-acc-text` attribute.
  *
  * )\
  * `import "@ui5/webcomponents/dist/TableRow.js";` (`TableRow`)\

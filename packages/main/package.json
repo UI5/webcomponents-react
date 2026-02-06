@@ -144,6 +144,10 @@
       "types": "./dist/webComponents/Avatar/index.d.ts",
       "default": "./dist/webComponents/Avatar/index.js"
     },
+    "./AvatarBadge": {
+      "types": "./dist/webComponents/AvatarBadge/index.d.ts",
+      "default": "./dist/webComponents/AvatarBadge/index.js"
+    },
     "./AvatarGroup": {
       "types": "./dist/webComponents/AvatarGroup/index.d.ts",
       "default": "./dist/webComponents/AvatarGroup/index.js"
@@ -809,10 +813,10 @@
   "peerDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@ui5/webcomponents": "~2.18.0",
-    "@ui5/webcomponents-base": "~2.18.0",
-    "@ui5/webcomponents-fiori": "~2.18.0",
-    "@ui5/webcomponents-icons": "~2.18.0",
+    "@ui5/webcomponents": "~2.19.0",
+    "@ui5/webcomponents-base": "~2.19.0",
+    "@ui5/webcomponents-fiori": "~2.19.0",
+    "@ui5/webcomponents-icons": "~2.19.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
   },

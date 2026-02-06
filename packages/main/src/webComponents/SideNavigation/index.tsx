@@ -18,11 +18,12 @@ interface SideNavigationAttributes {
   /**
    * Defines whether the `SideNavigation` is expanded or collapsed.
    *
-   * **Note:** The collapsed mode is not supported on phones.
+   * **Note:** On small screens (screen width of 599px or less) the collapsed mode is not supported, and in
+   * expanded mode the side navigation will take the whole width of the screen.
    * The `SideNavigation` component is intended to be used within a `NavigationLayout`
    * component to ensure proper responsive behavior. If you choose not to use the
    * `NavigationLayout`, you will need to implement the appropriate responsive patterns yourself,
-   * particularly for phones where the collapsed mode should not be used.
+   * particularly for smaller screens where the collapsed mode should not be used.
    * @default false
    */
   collapsed?: boolean;
@@ -100,8 +101,8 @@ interface SideNavigationPropTypes
  * The `SideNavigation` component is designed to be used within a `NavigationLayout` component to ensure an optimal user experience.
  *
  * Using it standalone may not match the intended design and functionality.
- * For example, the side navigation may not exhibit the correct behavior on phones and tablets.
- * Padding of the `ShellBar` will not match the padding of the side navigation.
+ * For example, the side navigation may not exhibit the correct behavior on smaller screens.
+ * Additionally, the padding of the `ShellBar` will not match the padding of the side navigation.
  *
  * ### Keyboard Handling
  *

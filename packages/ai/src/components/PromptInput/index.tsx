@@ -177,14 +177,15 @@ interface PromptInputPropTypes
 
 /**
  * The `PromptInput` component allows the user to write custom instructions in natural language, so that AI is guided to generate content tailored to user needs.
- *
+ * 
  * **Note:** The web component is in an experimental state
- *
- *
+ * 
+ * 
  *
  * __Note:__ This is a UI5 Web Component! [PromptInput UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ai/PromptInput) | [Repository](https://github.com/UI5/webcomponents)
  * @experimental The **@ui5/webcomponents-ai** package is under development and considered experimental - components' APIs are subject to change.
- */
+Furthermore, the package supports **Horizon** themes only.
+*/
 const PromptInput = withWebComponent<PromptInputPropTypes, PromptInputDomRef>(
   'ui5-ai-prompt-input',
   ['label', 'maxlength', 'placeholder', 'value', 'valueState'],

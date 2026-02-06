@@ -491,11 +491,14 @@
 }
 
 .filterIcon {
+  min-width: var(--_ui5_list_item_icon_size);
+  min-height: var(--_ui5_list_item_icon_size);
   padding-inline-end: 0.5rem;
   color: var(--sapContent_NonInteractiveIconColor);
 }
 
 .filterText {
+  font-size: var(--_ui5_list_item_title_size);
   overflow: visible;
   padding-inline-end: 0.5rem;
 }

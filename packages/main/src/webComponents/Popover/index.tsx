@@ -87,7 +87,7 @@ interface PopoverAttributes {
 
   /**
    * Defines whether the component should close when
-   * clicking/tapping outside of the popover.
+   * clicking/tapping outside the popover.
    * If enabled, it blocks any interaction with the background.
    * @default false
    */
@@ -131,6 +131,15 @@ interface PopoverAttributes {
    * @default false
    */
   preventInitialFocus?: boolean;
+
+  /**
+   * Determines whether the component is resizable.
+   * **Note:** This property is effective only on desktop devices.
+   *
+   * **Note:** Available since [v2.19.0](https://github.com/UI5/webcomponents/releases/tag/v2.19.0) of **@ui5/webcomponents**.
+   * @default false
+   */
+  resizable?: boolean;
 
   /**
    * Determines the vertical alignment of the component.
@@ -273,7 +282,7 @@ const Popover = withWebComponent<PopoverPropTypes, PopoverDomRef>(
     'placement',
     'verticalAlign',
   ],
-  ['allowTargetOverlap', 'hideArrow', 'modal', 'open', 'preventFocusRestore', 'preventInitialFocus'],
+  ['allowTargetOverlap', 'hideArrow', 'modal', 'open', 'preventFocusRestore', 'preventInitialFocus', 'resizable'],
   ['footer', 'header'],
   ['before-close', 'before-open', 'close', 'open'],
 );

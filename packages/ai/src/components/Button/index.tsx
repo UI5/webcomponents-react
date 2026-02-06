@@ -102,27 +102,28 @@ interface ButtonPropTypes
 /**
  * The `Button` component serves as a button for AI-related scenarios. Users can trigger actions by clicking or tapping the `Button`
  * or by pressing keyboard keys like [Enter] or [Space].
- *
+ * 
  * ### Usage
- *
+ * 
  * For the `Button` user interface, you can define one or more button states by placing `ButtonState` components in their default slot.
  * Each state has a name for identification and can include text, an icon, and an end icon, as needed for its purpose.
  * You can define a split mode for the `Button`, which will results in displaying an arrow button for additional actions.
- *
+ * 
  * You can choose from a set of predefined designs for `Button` (as in `ui5-button`) to match the desired styling.
- *
+ * 
  * The `Button` can be activated by clicking or tapping it. You can change the button state in the click event handler. When the button is
  * in split mode, you can activate the default button action by clicking or tapping it, or by pressing keyboard keys like [Enter] or [Space].
  * You can activate the arrow button by clicking or tapping it, or by pressing keyboard keys like [Arrow Up], [Arrow Down], or [F4].
  * To display additional actions, you can attach a menu to the arrow button.
- *
- *
+ * 
+ * 
  *
  * __Note:__ This is a UI5 Web Component! [Button UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ai/Button) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.0.0](https://github.com/UI5/webcomponents/releases/tag/v2.0.0) of __@ui5/webcomponents-ai__.
- * @experimental The Button and ButtonState web components are availabe since 2.0 under an experimental flag and their API and behaviour are subject to change.
- */
+ * @experimental The **@ui5/webcomponents-ai** package (including Button and ButtonState) is under active development and considered experimental. Component APIs are subject to change.
+Furthermore, the package supports **Horizon** themes only.
+*/
 const Button = withWebComponent<ButtonPropTypes, ButtonDomRef>(
   'ui5-ai-button',
   ['accessibilityAttributes', 'design', 'state'],

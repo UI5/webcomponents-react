@@ -4,7 +4,7 @@ import * as ComponentStories from './Avatar.stories';
 
 <Meta of={ComponentStories} />
 
-<DocsHeader of={ComponentStories} since="0.9.0" />
+<DocsHeader of={ComponentStories} since="0.9.0" subComponents={['AvatarBadge']}/>
 
 <br />
 
@@ -15,5 +15,25 @@ import * as ComponentStories from './Avatar.stories';
 ## Properties
 
 <ControlsWithNote of={ComponentStories.Default} />
+
+# More Examples
+
+## With Image
+
+The Avatar can show images.
+
+<Canvas of={ComponentStories.WithImage} />
+
+## With Badge
+
+The Avatar supports visual affordance through badges using the `AvatarBadge` component. Badges can display icons with different value states to indicate status or notifications.
+
+<Canvas of={ComponentStories.WithBadge} />
+
+## Custom Styling
+
+The Avatar allows customization with pure CSS on tag level.
+
+<Canvas of={ComponentStories.CustomStyling} />
 
 <Footer />

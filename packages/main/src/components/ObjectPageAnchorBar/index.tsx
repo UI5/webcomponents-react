@@ -7,9 +7,9 @@ import iconArrowUp from '@ui5/webcomponents-icons/dist/slim-arrow-up.js';
 import { debounce, enrichEventWithDetails, useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import { forwardRef, useEffect, useRef } from 'react';
-import type { CSSProperties, Dispatch, MouseEvent, SetStateAction } from 'react';
+import type { Dispatch, MouseEvent, SetStateAction } from 'react';
 import { COLLAPSE_HEADER, EXPAND_HEADER, PIN_HEADER, UNPIN_HEADER } from '../../i18n/i18n-defaults.js';
-import { cssVarVersionInfoPrefix, getUi5TagWithSuffix } from '../../internal/utils.js';
+import { getUi5TagWithSuffix } from '../../internal/utils.js';
 import type { CommonProps } from '../../types/index.js';
 import type { ButtonDomRef } from '../../webComponents/Button/index.js';
 import { Button } from '../../webComponents/Button/index.js';
@@ -17,14 +17,6 @@ import type { ToggleButtonDomRef, ToggleButtonPropTypes } from '../../webCompone
 import { ToggleButton } from '../../webComponents/ToggleButton/index.js';
 import type { ObjectPagePropTypes } from '../ObjectPage/types/index.js';
 import { classNames, styleData } from './ObjectPageAnchorBar.module.css.js';
-
-const _buttonBaseMinWidth = `${cssVarVersionInfoPrefix}button_base_min_width`;
-const _buttonBaseHeight = `${cssVarVersionInfoPrefix}button_base_height`;
-
-const anchorButtonVariables = {
-  [_buttonBaseMinWidth]: '1.5rem',
-  [_buttonBaseHeight]: '1.5rem',
-} as CSSProperties;
 
 interface ObjectPageAnchorBarPropTypes extends CommonProps {
   /**
@@ -145,7 +137,6 @@ const ObjectPageAnchorBar = forwardRef<HTMLElement, ObjectPageAnchorBarPropTypes
           classNames.anchorBarActionButtonExpandable,
           showBothActions && classNames.anchorBarActionPinnableAndExpandable,
         )}
-        style={anchorButtonVariables}
         onClick={onToggleHeaderButtonClick}
         onMouseOver={onHoverToggleButton}
         onMouseLeave={onHoverToggleButton}
@@ -161,7 +152,6 @@ const ObjectPageAnchorBar = forwardRef<HTMLElement, ObjectPageAnchorBarPropTypes
           icon={headerPinned ? iconPushPinOn : iconPushPinOff}
           data-ui5wcr-dynamic-page-header-action=""
           className={clsx(classNames.anchorBarActionButton, classNames.anchorBarActionButtonPinnable)}
-          style={anchorButtonVariables}
           pressed={headerPinned}
           onClick={onPinHeader}
           tooltip={i18nBundle.getText(headerPinned ? UNPIN_HEADER : PIN_HEADER)}

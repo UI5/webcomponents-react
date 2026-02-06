@@ -1,7 +1,6 @@
 import BarDesign from '@ui5/webcomponents/dist/types/BarDesign.js';
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import TableOverflowMode from '@ui5/webcomponents/dist/types/TableOverflowMode.js';
-import { getScopedVarName } from '@ui5/webcomponents-base/dist/CustomElementsScope.js';
 import { isPhone as getIsPhone } from '@ui5/webcomponents-base/dist/Device.js';
 import NoEntriesIllu from '@ui5/webcomponents-fiori/dist/illustrations/NoEntries.js';
 import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
@@ -24,7 +23,6 @@ import {
   SHARING,
   VIEW,
 } from '../../i18n/i18n-defaults.js';
-import type { CommonProps } from '../../types/CommonProps.js';
 import { Bar } from '../../webComponents/Bar/index.js';
 import { Button } from '../../webComponents/Button/index.js';
 import type { ButtonDomRef } from '../../webComponents/Button/index.js';
@@ -39,6 +37,7 @@ import type { TableDomRef, TablePropTypes } from '../../webComponents/Table/inde
 import { TableHeaderCell } from '../../webComponents/TableHeaderCell/index.js';
 import { TableHeaderRow } from '../../webComponents/TableHeaderRow/index.js';
 import type { TableRowDomRef } from '../../webComponents/TableRow/index.js';
+import { Title } from '../../webComponents/Title/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import type { VariantItemPropTypes } from '../VariantItem/index.js';
 import { classNames, styleData } from './ManageViewsDialog.module.css.js';
@@ -244,14 +243,13 @@ export const ManageViewsDialog = (props: ManageViewsDialogPropTypes) => {
       onBeforeClose={handleClose}
       headerText={manageViewsText}
       initialFocus={`search-${uniqueId}`}
-      style={
-        {
-          '--_ui5wcr_popup_default_header_height': `var(${getScopedVarName('--_ui5_popup_default_header_height')})`,
-        } as CommonProps['style'] & { '--_ui5wcr_popup_default_header_height': string }
-      }
       header={
         <FlexBox direction={FlexBoxDirection.Column} style={{ width: '100%' }} alignItems={FlexBoxAlignItems.Center}>
-          <h2 className={classNames.headerText}>{manageViewsText}</h2>
+          <div className={classNames.headerText}>
+            <Title wrappingType="None" level="H1">
+              {manageViewsText}
+            </Title>
+          </div>
           <Input
             id={`search-${uniqueId}`}
             className={classNames.search}
