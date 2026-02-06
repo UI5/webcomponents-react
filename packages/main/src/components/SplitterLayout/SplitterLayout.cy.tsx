@@ -201,6 +201,8 @@ for (let i = 0; i < 200; i++) {
 
         cy.mount(<TestComp />);
 
+        cy.wait(100);
+
         cy.get('@resize').should('not.have.been.called');
         cy.findAllByRole('separator')
           .eq(0)
@@ -213,14 +215,12 @@ for (let i = 0; i < 200; i++) {
 
         cy.get('@resize').should('have.been.called');
 
-        cy.findByTestId('0')
-          .invoke('text')
-          .then((txt) => parseInt(txt, 10))
-          .should('be.within', 99, 101);
-        cy.findByTestId('1')
-          .invoke('text')
-          .then((txt) => parseInt(txt, 10))
-          .should('be.within', 299, 301);
+        cy.findByTestId('0').should(($el) => {
+          expect(parseInt($el.text(), 10)).to.be.within(99, 101);
+        });
+        cy.findByTestId('1').should(($el) => {
+          expect(parseInt($el.text(), 10)).to.be.within(299, 301);
+        });
         cy.findByTestId('2').should('have.text', 'auto');
         cy.findByTestId('3').invoke('text').should('equal', '200px');
 
@@ -233,14 +233,12 @@ for (let i = 0; i < 200; i++) {
           })
           .realMouseUp({ position: 'center' });
 
-        cy.findByTestId('0')
-          .invoke('text')
-          .then((txt) => parseInt(txt, 10))
-          .should('be.within', 383, 385);
-        cy.findByTestId('1')
-          .invoke('text')
-          .then((txt) => parseInt(txt, 10))
-          .should('be.within', 15, 17);
+        cy.findByTestId('0').should(($el) => {
+          expect(parseInt($el.text(), 10)).to.be.within(383, 385);
+        });
+        cy.findByTestId('1').should(($el) => {
+          expect(parseInt($el.text(), 10)).to.be.within(15, 17);
+        });
         cy.findByTestId('2').should('have.text', 'auto');
         cy.findByTestId('3').invoke('text').should('equal', '200px');
 
@@ -251,14 +249,12 @@ for (let i = 0; i < 200; i++) {
           .realPress('ArrowDown')
           .realPress('ArrowDown');
 
-        cy.findByTestId('0')
-          .invoke('text')
-          .then((txt) => parseInt(txt, 10))
-          .should('be.within', 383, 385);
-        cy.findByTestId('1')
-          .invoke('text')
-          .then((txt) => parseInt(txt, 10))
-          .should('be.within', 15, 17);
+        cy.findByTestId('0').should(($el) => {
+          expect(parseInt($el.text(), 10)).to.be.within(383, 385);
+        });
+        cy.findByTestId('1').should(($el) => {
+          expect(parseInt($el.text(), 10)).to.be.within(15, 17);
+        });
         cy.findByTestId('2').should('have.text', '360px');
         cy.findByTestId('3').should('have.text', '140px');
       });
