@@ -263,7 +263,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
           const scrollMargin =
             -1 /* reduce margin-block so that intersection observer detects correct section*/ +
             safeTopHeaderHeight +
-            TAB_CONTAINER_HEADER_HEIGHT +
+            tabContainerHeaderHeight +
             (headerPinned && !headerCollapsed ? headerContentHeight : 0);
           section.style.scrollMarginBlockStart = scrollMargin + 'px';
           if (isSubSection) {
@@ -495,6 +495,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     children,
     mode,
     isHeaderPinnedAndExpanded,
+    hasOnlySingleSection,
     objectPageRef,
   ]);
 
@@ -560,6 +561,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     mode,
     objectPageRef,
     debouncedOnSectionChange,
+    tabContainerHeaderHeight,
   ]);
 
   const onTitleClick = (e) => {
