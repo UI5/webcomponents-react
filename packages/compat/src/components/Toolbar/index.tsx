@@ -190,9 +190,11 @@ const Toolbar = forwardRef<HTMLDivElement, ToolbarPropTypes>((props, ref) => {
   }, [children]);
 
   const childrenWithRef = useMemo(() => {
+    // eslint-disable-next-line react-hooks/refs
     controlMetaData.current = [];
 
     let hasOnlySpacersOrSeparators = true;
+    // eslint-disable-next-line react-hooks/refs
     const enrichedChildren = flatChildren.map((item, index) => {
       const itemRef: RefObject<HTMLDivElement> = createRef();
       // @ts-expect-error: if type is not defined, it's not a spacer

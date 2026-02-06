@@ -93,6 +93,9 @@ function AppShell() {
       <ResponsivePopover
         className={classes.popover}
         open={popoverOpen}
+        // The ResponsivePopover needs the ref to the ShellBarItem to position itself correctly.
+        // Since ShellBarItem is abstract and doesn't render a real DOM element, using an id is not efficient.
+        // eslint-disable-next-line react-hooks/refs
         opener={popoverOpenerRef.current}
         onClose={() => {
           setPopoverOpen(false);

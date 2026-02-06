@@ -378,8 +378,8 @@ describe('ObjectPage', () => {
     cy.findByText('Test').should('be.visible');
 
     cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').realClick();
-    cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected', 300);
-    cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected', 300);
+    cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected', { observerTime: 300 });
+    cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected', { observerTime: 300 });
     cy.get(`[ui5-tab][data-index="3"]`).should('have.attr', 'selected');
     cy.findByText('Employment').should('be.visible');
 
@@ -424,27 +424,35 @@ describe('ObjectPage', () => {
     cy.findByText('Test').should('be.visible');
     cy.findByTestId('footer').should('be.visible');
 
-    // Select Employment tab
     cy.get('[ui5-tabcontainer]').findUi5TabByText('Goals').focus();
-    cy.get('[ui5-tabcontainer]').realPress('ArrowRight');
-    cy.get('[ui5-tabcontainer]').realPress('ArrowRight');
-    cy.get('[ui5-tabcontainer]').realPress('ArrowRight');
-    cy.get('[ui5-tabcontainer]').realPress('Enter');
+    cy.wait(50);
+    cy.realPress('ArrowRight');
+    cy.focused().should('contain.text', 'Test');
+    cy.wait(50);
+    cy.realPress('ArrowRight');
+    cy.focused().should('contain.text', 'Personal');
+    cy.wait(50);
+    cy.realPress('ArrowRight');
+    cy.focused().should('contain.text', 'Employment');
+    cy.wait(50);
+    cy.realPress('Enter');
 
-    cy.wait(200);
-    //fallback click
-    cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').realClick();
-    cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected', 500);
-    cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected', 500);
+    cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected', { observerTime: 500 });
+    cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected', {
+      observerTime: 500,
+      delayed: 500,
+    });
     cy.findByTestId('footer').should('be.visible');
+    // smooth scrolling + observer check delay
+    cy.wait(1000);
     cy.findByText('Employment').should('be.visible');
     cy.findByText('Job Information').should('be.visible');
 
     cy.wait(200);
 
     cy.get('[ui5-tabcontainer]').findUi5TabByText('Goals').click();
-    cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected', 300);
-    cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected', 300);
+    cy.get('[data-section-id="test"]').shouldNeverHaveAttribute('selected', { observerTime: 300 });
+    cy.get('[data-section-id="personal"]').shouldNeverHaveAttribute('selected', { observerTime: 300 });
     cy.findByText('Test').should('be.visible');
     cy.findByTestId('footer').should('be.visible');
 
