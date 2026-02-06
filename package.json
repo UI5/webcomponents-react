@@ -37,9 +37,9 @@
   },
   "dependencies": {
     "@stackblitz/sdk": "1.11.0",
-    "@storybook/addon-a11y": "10.2.3",
-    "@storybook/addon-docs": "10.2.3",
-    "@storybook/react-vite": "10.2.3",
+    "@storybook/addon-a11y": "10.2.7",
+    "@storybook/addon-docs": "10.2.7",
+    "@storybook/react-vite": "10.2.7",
     "@ui5/webcomponents": "2.19.0",
     "@ui5/webcomponents-ai": "2.19.0",
     "@ui5/webcomponents-compat": "2.19.0",
@@ -48,7 +48,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "remark-gfm": "4.0.1",
-    "storybook": "10.2.3",
+    "storybook": "10.2.7",
     "tocbot": "4.36.4"
   },
   "devDependencies": {
@@ -82,7 +82,7 @@
     "eslint-plugin-prettier": "5.5.5",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.1",
-    "eslint-plugin-storybook": "10.2.3",
+    "eslint-plugin-storybook": "10.2.7",
     "glob": "13.0.0",
     "globals": "17.3.0",
     "husky": "9.1.7",
