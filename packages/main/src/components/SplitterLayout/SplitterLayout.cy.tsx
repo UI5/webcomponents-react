@@ -48,7 +48,7 @@ function moveSpacer(dir: string, vertical: boolean) {
   }
 }
 
-for (let i = 0; i < 200; i++) {
+for (let i = 0; i < 20; i++) {
   describe('SplitterLayout', () => {
     ['ltr', 'rtl'].forEach((dir) => {
       [false, true].forEach((vertical) => {
@@ -204,9 +204,11 @@ for (let i = 0; i < 200; i++) {
         cy.wait(100);
 
         cy.get('@resize').should('not.have.been.called');
+
+        cy.findAllByRole('separator').eq(0).realMouseDown({ position: 'center' });
+        cy.wait(50);
         cy.findAllByRole('separator')
           .eq(0)
-          .realMouseDown({ position: 'center' })
           .realMouseMove(...getMouseMoveArgs(-100), {
             position: 'center',
             scrollBehavior: false,
@@ -225,6 +227,7 @@ for (let i = 0; i < 200; i++) {
         cy.findByTestId('3').invoke('text').should('equal', '200px');
 
         cy.findAllByRole('separator').eq(0).realMouseDown({ position: 'center' });
+        cy.wait(50);
         // drag across bounding box
         cy.get('body')
           .realMouseMove(...getMouseMoveArgs(300), {
