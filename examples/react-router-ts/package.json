@@ -27,7 +27,7 @@
     "@react-router/dev": "7.13.0",
     "@types/react": "19.2.10",
     "@types/react-dom": "19.2.3",
-    "eslint": "9.39.2",
+    "eslint": "10.0.0",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
