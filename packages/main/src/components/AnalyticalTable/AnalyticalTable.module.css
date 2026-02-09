@@ -369,14 +369,20 @@
   user-select: none;
 }
 
-.checkBox::part(root) {
-  display: flex;
-  width: unset;
-  height: unset;
-  justify-content: center;
-  min-height: unset;
-  min-width: unset;
-  padding: 0;
+.checkBox {
+  vertical-align: middle;
+  pointer-events: none;
+  display: block;
+
+  &::part(root) {
+    display: flex;
+    width: unset;
+    height: unset;
+    justify-content: center;
+    min-height: unset;
+    min-width: unset;
+    padding: 0;
+  }
 }
 
 /* ==========================================================================

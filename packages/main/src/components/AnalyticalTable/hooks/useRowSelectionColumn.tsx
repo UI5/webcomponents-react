@@ -1,16 +1,8 @@
-import { CssSizeVariablesNames, enrichEventWithDetails } from '@ui5/webcomponents-react-base';
-import type { CSSProperties } from 'react';
+import { CssSizeVariablesNames } from '@ui5/webcomponents-react-base/CssSizeVariables';
 import { AnalyticalTableSelectionBehavior } from '../../../enums/AnalyticalTableSelectionBehavior.js';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import { CheckBox } from '../../../webComponents/CheckBox/index.js';
 import type { ReactTableHooks, TableInstance } from '../types/index.js';
-
-const customCheckBoxStyling = {
-  verticalAlign: 'middle',
-  pointerEvents: 'none',
-  display: 'block',
-} as CSSProperties;
-
 /*
  * COMPONENTS
  */
@@ -29,7 +21,6 @@ const Header = (instance: TableInstance) => {
     <>
       <CheckBox
         {...checkBoxProps}
-        style={customCheckBoxStyling}
         tabIndex={-1}
         onChange={undefined}
         checked={checkBoxProps.indeterminate ? true : checkBoxProps.checked}
@@ -50,18 +41,10 @@ const Cell = ({ row, webComponentsReactProperties: { selectionMode } }) => {
       {...row.getToggleRowSelectedProps()}
       tabIndex={-1}
       aria-hidden="true"
-      style={customCheckBoxStyling}
       data-name="internal_selection_column"
     />
   );
 };
-
-function getNextSelectedRowIds(rowsById) {
-  return Object.keys(rowsById).reduce((acc, cur) => {
-    acc[cur] = true;
-    return acc;
-  }, {});
-}
 
 const headerProps = (props, { instance }: { instance: TableInstance }) => {
   const {
@@ -72,14 +55,8 @@ const headerProps = (props, { instance }: { instance: TableInstance }) => {
     },
     toggleAllRowsSelected,
     isAllRowsSelected,
-    rowsById,
-    preFilteredRowsById,
-    dispatch,
-    state: { filters, globalFilter },
   } = instance;
   const style = { ...props.style, cursor: 'pointer', display: 'flex', justifyContent: 'center' };
-  const isFiltered = filters?.length > 0 || !!globalFilter;
-  const _rowsById = isFiltered ? preFilteredRowsById : rowsById;
   if (
     props.key === 'header___ui5wcr__internal_selection_column' &&
     selectionMode === AnalyticalTableSelectionMode.Multiple
@@ -88,21 +65,10 @@ const headerProps = (props, { instance }: { instance: TableInstance }) => {
       if (typeof props.onClick === 'function') {
         props.onClick(e);
       }
-      toggleAllRowsSelected(!isAllRowsSelected);
       if (typeof onRowSelect === 'function') {
-        if (isFiltered) {
-          dispatch({ type: 'SELECT_ROW_CB', payload: { event: e, row: undefined, selectAll: true, fired: true } });
-        } else {
-          onRowSelect(
-            // cannot use instance.selectedFlatRows here as it only returns all rows on the first level
-            enrichEventWithDetails(e, {
-              rowsById: _rowsById,
-              allRowsSelected: !isAllRowsSelected,
-              selectedRowIds: !isAllRowsSelected ? getNextSelectedRowIds(rowsById) : {},
-            }),
-          );
-        }
+        instance.pendingSelectEvent = { event: e, row: undefined, selectAll: true };
       }
+      toggleAllRowsSelected(!isAllRowsSelected);
     };
 
     const onKeyDown = (e) => {

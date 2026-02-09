@@ -219,6 +219,11 @@ export interface TableInstance {
   visibleColumns: ColumnType[];
   visibleColumnsWidth?: number[];
   webComponentsReactProperties: WCRPropertiesType;
+  pendingSelectEvent?: {
+    event: Event;
+    row?: RowType;
+    selectAll?: boolean;
+  };
   [key: string]: any;
 }
 
@@ -1023,7 +1028,16 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
        * __Note:__ If the event invoked by select-all press, this property is not available.
        */
       isSelected?: boolean;
+      /**
+       * Indicates if all rows (including filtered out rows) are selected.
+       */
       allRowsSelected: boolean;
+      /**
+       * Indicates if all currently visible rows are selected.
+       *
+       * __Note:__ When the table is filtered, this reflects only the non-filtered (visible) rows.
+       */
+      allVisibleRowsSelected: boolean;
       rowsById: Record<string, RowType>;
       selectedRowIds: Record<string, boolean>;
       nativeDetail: number;
