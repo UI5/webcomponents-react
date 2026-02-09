@@ -7,4 +7,5 @@ export default defineConfig({
       bundler: 'vite',
     },
   },
+  allowCypressEnv: false,
 });
