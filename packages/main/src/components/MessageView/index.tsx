@@ -265,7 +265,7 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
                       <SegmentedButtonItem data-key="All" selected={listFilter === 'All'}>
                         {i18nBundle.getText(ALL)}
                       </SegmentedButtonItem>
-                      {Object.entries(messageTypes).map(([valueState, count]) => {
+                      {(Object.entries(messageTypes) as [ValueState, number][]).map(([valueState, count]) => {
                         if (count === 0) {
                           return null;
                         }
@@ -273,7 +273,7 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
                           <SegmentedButtonItem
                             key={valueState}
                             data-key={valueState}
-                            selected={listFilter === (valueState as ValueState)}
+                            selected={listFilter === valueState}
                             icon={getIconNameForType(valueState)}
                             className={classNames.button}
                             tooltip={getValueStateMap(i18nBundle)[valueState]}
