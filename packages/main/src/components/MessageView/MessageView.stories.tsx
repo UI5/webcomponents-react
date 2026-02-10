@@ -5,6 +5,7 @@ import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import arrowLeftIcon from '@ui5/webcomponents-icons/dist/slim-arrow-left.js';
+import { useI18nBundle } from '@ui5/webcomponents-react-base/hooks';
 import { useRef, useState } from 'react';
 import { FlexBoxAlignItems, FlexBoxJustifyContent } from '../../enums/index.js';
 import { Bar } from '../../webComponents/Bar/index.js';
@@ -22,16 +23,6 @@ import { MessageView } from './index.js';
 const meta = {
   title: 'User Feedback / MessageView',
   component: MessageView,
-  argTypes: {
-    showDetailsPageHeader: { description: 'Defines whether the header of the details page will be shown.' },
-    groupItems: { description: 'Defines whether the messages are grouped or not.' },
-    onItemSelect: { description: 'Event is fired when the details of a message are shown.', action: 'onItemSelect' },
-    children: {
-      description: `A list with message items. If only one item is provided, the initial page will be the details page for the item.\n\n
-**Note:** Although this prop accepts all HTML Elements, it is strongly recommended that you only use \`Message\` in order to preserve the intended design.`,
-      control: { disable: true },
-    },
-  },
   args: {
     showDetailsPageHeader: true,
     groupItems: false,
@@ -76,23 +67,6 @@ const meta = {
         Informative message
       </MessageItem>,
       <MessageItem key={7} titleText={'Error Message Type (2)'} type={ValueState.Negative} counter={3} />,
-      <MessageItem
-        key={8}
-        titleText={
-          <Link
-            wrappingType={WrappingType.None}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            Long Error Message Type without children/details including a Link as `titleText` which has
-            wrappingType="None" applied. - The details view is only available if the `titleText` is not fully visible.
-            It is NOT recommended to use long titles!
-          </Link>
-        }
-        type={ValueState.Negative}
-        counter={3}
-      />,
     ],
   },
   tags: ['package:@ui5/webcomponents-react'],
@@ -267,6 +241,70 @@ export const WithMessageViewButton: Story = {
           </MessageView>
         </ResponsivePopover>
       </>
+    );
+  },
+};
+
+export const WithLinks: Story = {
+  name: 'with Links',
+  render(args) {
+    const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
+    const listAccessibleDescription = `${i18nBundle.getText({ key: 'LIST_INTERACTIVE_ITEMS', defaultText: 'List with interactive items.' })} ${i18nBundle.getText({ key: 'MOVE_TO_CONTENT_F2', defaultText: 'To move to the content press F2.' })}`;
+
+    return (
+      <MessageView {...args} listAccessibleDescription={listAccessibleDescription}>
+        <MessageItem
+          titleText={
+            <Link
+              wrappingType={WrappingType.None}
+              onClick={(e) => {
+                e.stopPropagation();
+                alert('Link pressed!');
+              }}
+            >
+              Error message
+            </Link>
+          }
+          subtitleText="This message contains a link"
+          type={ValueState.Negative}
+        />
+        <MessageItem
+          titleText={
+            <Link
+              wrappingType={WrappingType.None}
+              onClick={(e) => {
+                e.stopPropagation();
+                alert('Link pressed!');
+              }}
+            >
+              Click here to view the error log.
+            </Link>
+          }
+          type={ValueState.Negative}
+        />
+        <MessageItem
+          titleText={
+            <Link
+              wrappingType={WrappingType.None}
+              onClick={(e) => {
+                e.stopPropagation();
+                alert('Link pressed!');
+              }}
+            >
+              Long Error Message Type without children/details including a Link as `titleText` which has
+              wrappingType="None" applied. - The details view is only available if the `titleText` is not fully visible.
+              It is NOT recommended to use long titles!
+            </Link>
+          }
+          type={ValueState.Negative}
+          counter={3}
+        />
+        <MessageItem
+          titleText="Information Message"
+          subtitleText="No interactive elements"
+          type={ValueState.Information}
+        />
+      </MessageView>
     );
   },
 };

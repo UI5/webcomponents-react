@@ -60,6 +60,24 @@ export interface MessageViewPropTypes extends CommonProps {
   children: ReactNode | ReactNode[];
 
   /**
+   * Defines the accessible description of the `List` (`ui5-list`).
+   *
+   * __Note:__ It is recommended to set this prop when `MessageItem` components contain `Link`s, to inform screen reader users about the interactive content and how to access it (F2 key).
+   *
+   * @since 2.20.0
+   */
+  listAccessibleDescription?: ListPropTypes['accessibleDescription'];
+
+  /**
+   * Defines the IDs of the elements that describe the `List` (`ui5-list`).
+   *
+   * __Note:__ It is recommended to set this prop when `MessageItem` components contain `Link`s, to inform screen reader users about the interactive content and how to access it (F2 key).
+   *
+   * @since 2.20.0
+   */
+  listAccessibleDescriptionRef?: ListPropTypes['accessibleDescriptionRef'];
+
+  /**
    * Event is fired when the details of a message are shown.
    */
   onItemSelect?: ListPropTypes['onItemClick'];
@@ -67,7 +85,7 @@ export interface MessageViewPropTypes extends CommonProps {
 
 const withAnimation = getAnimationMode() !== 'none';
 
-export const resolveMessageTypes = (children: ReactElement<MessageItemPropTypes>[]) => {
+export const resolveMessageTypes = (children: ReactElement<MessageItemPropTypes>[]): Record<ValueState, number> => {
   return (children ?? [])
     .map((message) => message?.props?.type)
     .reduce(
@@ -83,7 +101,7 @@ export const resolveMessageTypes = (children: ReactElement<MessageItemPropTypes>
         [ValueState.Critical]: 0,
         [ValueState.Positive]: 0,
         [ValueState.Information]: 0,
-      },
+      } as Record<ValueState, number>,
     );
 };
 
@@ -111,9 +129,32 @@ export const resolveMessageGroups = (children: ReactElement<MessageItemPropTypes
 
 /**
  * The `MessageView` is used to display a summarized list of different types of messages (error, warning, success, and information messages).
+ *
+ * ### Usage
+ *
+ * The `MessageView` can be used in several scenarios, but most likely in Dialogs or Popovers.
+ *
+ * If used in a Popover it is recommended that the `MessageViewButton` is used as an opener.
+ * The `type` of the button should always reflect the highest severity (Error -> Warning -> Success -> Information).
+ *
+ * If the `MessageView` is used in a standalone way, you can set the prop `showDetailsPageHeader` to `true`.
+ * This will add a bar to the details page where a back button is contained.
+ *
+ * When used in a `Dialog` or a `Popover`, we recommend not setting the `showDetailsPageHeader` prop but rather listen
+ * to the `onItemSelect` event and add a back button to your Dialog or Popover header and use the `navigateBack()` method
+ * to get back to the list view.
  */
 const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, ref) => {
-  const { children, groupItems, showDetailsPageHeader, className, onItemSelect, ...rest } = props;
+  const {
+    children,
+    groupItems,
+    showDetailsPageHeader,
+    className,
+    onItemSelect,
+    listAccessibleDescriptionRef,
+    listAccessibleDescription,
+    ...rest
+  } = props;
   const navBtnRef = useRef<ButtonDomRef>(null);
   const listRef = useRef<ListDomRef>(null);
   const transitionTrigger = useRef<'btn' | 'list' | null>(null);
@@ -224,8 +265,7 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
                       <SegmentedButtonItem data-key="All" selected={listFilter === 'All'}>
                         {i18nBundle.getText(ALL)}
                       </SegmentedButtonItem>
-                      {/* @ts-expect-error: The key can't be typed, it's always `string`, but since the `ValueState` enum only contains strings it's fine to use here*/}
-                      {Object.entries(messageTypes).map(([valueState, count]: [ValueState, number]) => {
+                      {Object.entries(messageTypes).map(([valueState, count]) => {
                         if (count === 0) {
                           return null;
                         }
@@ -233,7 +273,7 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
                           <SegmentedButtonItem
                             key={valueState}
                             data-key={valueState}
-                            selected={listFilter === valueState}
+                            selected={listFilter === (valueState as ValueState)}
                             icon={getIconNameForType(valueState)}
                             className={classNames.button}
                             tooltip={getValueStateMap(i18nBundle)[valueState]}
@@ -252,6 +292,8 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
                 onItemClick={handleListItemClick}
                 noDataText={i18nBundle.getText(LIST_NO_DATA)}
                 separators={ListSeparator.Inner}
+                accessibleDescriptionRef={listAccessibleDescriptionRef}
+                accessibleDescription={listAccessibleDescription}
               >
                 {groupItems
                   ? groupedMessages.map(([groupName, items]) => {

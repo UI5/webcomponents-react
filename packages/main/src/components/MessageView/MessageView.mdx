@@ -25,21 +25,32 @@ This component exposes public methods. You can invoke them directly on the insta
 | ------------------ | ---------- | --------------------------------------------------------------------------- |
 | **`navigateBack`** | —          | Navigates back to the list view if you are in the details view of a message |
 
-## Usage Notes
-
-The `MessageView` can be used in several scenarios, but most likely in Dialogs or Popovers.
-
-If used in a Popover it is recommended that the `MessageViewButton` is used as an opener.
-The `type` of the button should always reflect the highest severity (Error -> Warning -> Success -> Information).
-
-If the `MessageView` is used in a standalone way, you can set the prop `showDetailsPageHeader` to `true`.
-This will add a bar to the details page where a back button is contained.
-
-When used in a `Dialog` or a `Popover`, we recommend not setting the `showDetailsPageHeader` prop but rather listen
-to the `onItemSelect` event and add a back button to your Dialog or Popover header and use the `navigateBack()` method
-to get back to the list view.
-
 ## More Examples
+
+### MessageView with Interactive Links
+
+When `MessageItem` components contain `Link`s, make sure to set the `listAccessibleDescription` or `listAccessibleDescriptionRef` prop to inform screen reader users about interactive content and how to access it (F2 key).
+
+<Canvas of={ComponentStories.WithLinks} />
+
+#### Reusing i18n texts from @ui5/webcomponents-react
+
+You can reuse the built-in translation texts with the `useI18nBundle` hook:
+
+```tsx
+import { useI18nBundle } from '@ui5/webcomponents-react-base/hooks';
+
+function MyComponent() {
+  const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
+  const listAccessibleDescription = `${i18nBundle.getText({ key: 'LIST_INTERACTIVE_ITEMS', defaultText: 'List with interactive items.' })} ${i18nBundle.getText({ key: 'MOVE_TO_CONTENT_F2', defaultText: 'To move to the content press F2.' })}`;
+
+  return (
+    <MessageView listAccessibleDescription={listAccessibleDescription}>
+      {/* MessageItems with Links */}
+    </MessageView>
+  );
+}
+```
 
 ### MessageView in a Dialog
 
