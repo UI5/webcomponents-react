@@ -234,4 +234,20 @@ describe('MessageView', () => {
     cy.get('@select').should('have.been.calledTwice');
     cy.get('[name="slim-arrow-left"]').should('not.exist');
   });
+
+  it('listAccessibleDescription & listAccessibleDescriptionRef', () => {
+    cy.mount(
+      <>
+        <span id="desc">External description</span>
+        <MessageView listAccessibleDescription="Inline description" listAccessibleDescriptionRef="desc">
+          <MessageItem titleText="Error" type={ValueState.Negative}>
+            Error
+          </MessageItem>
+        </MessageView>
+      </>,
+    );
+    cy.get('[ui5-list]')
+      .should('have.attr', 'accessible-description', 'Inline description')
+      .and('have.attr', 'accessible-description-ref', 'desc');
+  });
 });
