@@ -19,11 +19,12 @@ const emptyArray: RowType[] = [];
  * UI5WCR optimized version of react-table v7's useRowSelect hook.
  * Original source: https://github.com/TanStack/table/blob/v7/src/plugin-hooks/useRowSelect.js
  *
- * This is a fork of react-table's useRowSelect with performance optimizations:
+ * This is a fork of react-table's `useRowSelect` with performance optimizations:
  * - Early exit when `selectionMode` is 'None' or loading/showOverlay is `true`
  * - Skips `selectedFlatRows` computation, `isAllRowsSelected` checks, and `prepareRow` overhead when selection is disabled
  * - `isAllRowsSelected` computation is memoized
  * - Uses stable noop references when disabled
+ * - Fixes select-all indeterminate state considering filtered-out rows (now only visible rows are considered)
  */
 export const useRowSelect = (hooks: ReactTableHooks) => {
   hooks.getToggleRowSelectedProps = [defaultGetToggleRowSelectedProps];
@@ -75,7 +76,7 @@ const defaultGetToggleAllRowsSelectedProps = (
     style: { cursor: 'pointer' },
     checked: instance.isAllRowsSelected,
     title: 'Toggle All Rows Selected',
-    indeterminate: Boolean(!instance.isAllRowsSelected && Object.keys(instance.state.selectedRowIds).length),
+    indeterminate: Boolean(!instance.isAllRowsSelected && instance.selectedFlatRows?.length),
   },
 ];
 
