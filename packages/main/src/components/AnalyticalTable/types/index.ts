@@ -120,6 +120,8 @@ export interface TableInstance {
     type: string;
     payload?: Record<string, unknown> | AnalyticalTableState['popInColumns'] | boolean | string | number;
     clientX?: number;
+    value?: boolean;
+    id?: string;
   }) => void;
   expandedDepth?: number;
   expandedRows?: RowType[];

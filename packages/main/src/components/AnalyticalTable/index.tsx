@@ -21,7 +21,6 @@ import {
   useGlobalFilter,
   useGroupBy,
   useResizeColumns,
-  useRowSelect,
   useSortBy,
   useTable,
 } from 'react-table';
@@ -75,6 +74,7 @@ import { usePopIn } from './hooks/usePopIn.js';
 import { useResizeColumnsConfig } from './hooks/useResizeColumnsConfig.js';
 import { useRowHighlight } from './hooks/useRowHighlight.js';
 import { useRowNavigationIndicators } from './hooks/useRowNavigationIndicator.js';
+import { useRowSelect } from './hooks/useRowSelect.js';
 import { useRowSelectionColumn } from './hooks/useRowSelectionColumn.js';
 import { useScrollToRef } from './hooks/useScrollToRef.js';
 import { useSelectionChangeCallback } from './hooks/useSelectionChangeCallback.js';
