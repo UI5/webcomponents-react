@@ -41,7 +41,8 @@ const defaultGetToggleRowSelectedProps = (
   props: Record<string, unknown>,
   { instance, row }: { instance: TableInstance; row: RowType },
 ) => {
-  const { manualRowSelectedKey = 'isSelected' } = instance;
+  const { manualRowSelectedKey = 'isSelected', webComponentsReactProperties } = instance;
+  const { classes } = webComponentsReactProperties;
   let checked = false;
 
   if (row.original && row.original[manualRowSelectedKey]) {
@@ -56,9 +57,8 @@ const defaultGetToggleRowSelectedProps = (
       onChange: (e: { target: { checked: boolean } }) => {
         row.toggleRowSelected(e.target.checked);
       },
-      style: { cursor: 'pointer' },
+      className: classes.checkBox,
       checked,
-      title: 'Toggle Row Selected',
       indeterminate: row.isSomeSelected,
     },
   ];
@@ -67,37 +67,41 @@ const defaultGetToggleRowSelectedProps = (
 const defaultGetToggleAllRowsSelectedProps = (
   props: Record<string, unknown>,
   { instance }: { instance: TableInstance },
-) => [
-  props,
-  {
-    onChange: (e: { target: { checked: boolean } }) => {
-      instance.toggleAllRowsSelected?.(e.target.checked);
+) => {
+  const { classes } = instance.webComponentsReactProperties;
+  return [
+    props,
+    {
+      onChange: (e: { target: { checked: boolean } }) => {
+        instance.toggleAllRowsSelected?.(e.target.checked);
+      },
+      className: classes.checkBox,
+      checked: instance.isAllRowsSelected,
+      indeterminate: Boolean(!instance.isAllRowsSelected && instance.selectedFlatRows?.length),
     },
-    style: { cursor: 'pointer' },
-    checked: instance.isAllRowsSelected,
-    title: 'Toggle All Rows Selected',
-    indeterminate: Boolean(!instance.isAllRowsSelected && instance.selectedFlatRows?.length),
-  },
-];
+  ];
+};
 
 const defaultGetToggleAllPageRowsSelectedProps = (
   props: Record<string, unknown>,
   { instance }: { instance: TableInstance },
-) => [
-  props,
-  {
-    onChange: (e: { target: { checked: boolean } }) => {
-      instance.toggleAllPageRowsSelected?.(e.target.checked);
+) => {
+  const { classes } = instance.webComponentsReactProperties;
+  return [
+    props,
+    {
+      onChange: (e: { target: { checked: boolean } }) => {
+        instance.toggleAllPageRowsSelected?.(e.target.checked);
+      },
+      className: classes.checkBox,
+      checked: instance.isAllPageRowsSelected,
+      indeterminate: Boolean(
+        !instance.isAllPageRowsSelected &&
+        instance.page?.some(({ id }: { id: string }) => instance.state.selectedRowIds[id]),
+      ),
     },
-    style: { cursor: 'pointer' },
-    checked: instance.isAllPageRowsSelected,
-    title: 'Toggle All Current Page Rows Selected',
-    indeterminate: Boolean(
-      !instance.isAllPageRowsSelected &&
-      instance.page?.some(({ id }: { id: string }) => instance.state.selectedRowIds[id]),
-    ),
-  },
-];
+  ];
+};
 
 function reducer(
   state: TableInstance['state'],

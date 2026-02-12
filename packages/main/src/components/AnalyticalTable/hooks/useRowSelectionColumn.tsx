@@ -158,23 +158,9 @@ const getCellProps = (props, { cell }: { cell: TableInstance['cell'] }) => {
   return props;
 };
 
-const setToggleAllRowsSelectedProps = (
-  props,
-  { instance: { webComponentsReactProperties } }: { instance: TableInstance },
-) => {
-  const { classes } = webComponentsReactProperties;
-  return [props, { className: classes.checkBox, title: undefined }];
-};
-const setToggleRowSelectedProps = (props, { instance: { webComponentsReactProperties } }) => {
-  const { classes } = webComponentsReactProperties;
-  return [props, { className: classes.checkBox, title: undefined }];
-};
-
 export const useRowSelectionColumn = (hooks: ReactTableHooks) => {
   hooks.getCellProps.push(getCellProps);
   hooks.getHeaderProps.push(headerProps);
-  hooks.getToggleRowSelectedProps.push(setToggleRowSelectedProps);
-  hooks.getToggleAllRowsSelectedProps.push(setToggleAllRowsSelectedProps);
   hooks.columns.push(columns);
   hooks.visibleColumns.push(visibleColumns);
 };
