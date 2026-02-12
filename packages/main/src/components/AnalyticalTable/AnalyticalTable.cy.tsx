@@ -627,7 +627,7 @@ describe('AnalyticalTable', () => {
             filterable
             columns={columns}
             onRowSelect={(e) => {
-              const { allRowsSelected, isSelected, row, rowsById, selectedRowIds } = e.detail;
+              const { allRowsSelected, allVisibleRowsSelected, isSelected, row, rowsById, selectedRowIds } = e.detail;
               const selectedRowIdsArrayMapped = Object.keys(selectedRowIds).reduce((acc, key) => {
                 if (selectedRowIds[key]) {
                   acc.push(rowsById[key]);
@@ -636,6 +636,7 @@ describe('AnalyticalTable', () => {
               }, []);
               setRelevantPayload({
                 allRowsSelected,
+                allVisibleRowsSelected,
                 isSelected,
                 row: row.id,
                 selectedFlatRows: selectedRowIdsArrayMapped.map((item) => ({
@@ -654,6 +655,8 @@ describe('AnalyticalTable', () => {
             {JSON.stringify(relevantPayload?.selectedFlatRows?.filter(Boolean).length)}
             {JSON.stringify(relevantPayload?.selectedRowIds)}
           </div>
+          <div data-testid="payloadAllRowsSelected">{`${relevantPayload?.allRowsSelected ?? false}`}</div>
+          <div data-testid="payloadAllVisibleRowsSelected">{`${relevantPayload?.allVisibleRowsSelected ?? false}`}</div>
         </>
       );
     };
@@ -716,6 +719,16 @@ describe('AnalyticalTable', () => {
     });
     cy.get('@onRowSelectSpy').should('have.callCount', 4);
     cy.findByTestId('payloadHelper').should('have.text', '4{"0":true,"1":true,"0.2":true,"0.2.0":true}');
+
+    cy.findByTestId('payloadAllRowsSelected').should('have.text', 'false');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'true');
+
+    cy.findByText('Name').click();
+    cy.get(`[ui5-input][show-clear-icon]`).typeIntoUi5Input('{selectall}{backspace}{enter}', { force: true });
+
+    cy.findByText('Robin Moreno').click();
+    cy.findByTestId('payloadAllRowsSelected').should('have.text', 'false');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'false');
   });
 
   it('programmatic and user selection + filtering', () => {
@@ -737,6 +750,7 @@ describe('AnalyticalTable', () => {
       const [selectedFlatRows, setSelectedFlatRows] = useState([]);
       const [selectedRowIdsCb, setSelectedRowIdsCb] = useState({});
       const [allRowsSelected, setAllRowsSelected] = useState(false);
+      const [allVisibleRowsSelected, setAllVisibleRowsSelected] = useState(false);
       const [globalFilterVal, setGlobalFilterVal] = useState('');
       return (
         <>
@@ -764,6 +778,7 @@ describe('AnalyticalTable', () => {
               setSelectedFlatRows(selectedRowIdsArrayMapped.map((item) => item.id));
               setSelectedRowIdsCb(e.detail.selectedRowIds);
               setAllRowsSelected(e.detail.allRowsSelected);
+              setAllVisibleRowsSelected(e.detail.allVisibleRowsSelected);
               onRowSelect(e);
             }}
             onFilter={filterSpy}
@@ -780,6 +795,10 @@ describe('AnalyticalTable', () => {
           <p>
             "e.detail.allRowsSelected:"
             <span data-testid="payloadAllRowsSelected">{`${allRowsSelected}`}</span>
+          </p>
+          <p>
+            "e.detail.allVisibleRowsSelected:"
+            <span data-testid="payloadAllVisibleRowsSelected">{`${allVisibleRowsSelected}`}</span>
           </p>
         </>
       );
@@ -868,6 +887,7 @@ describe('AnalyticalTable', () => {
     cy.findByTestId('payload').should('have.text', '["0","1","5","7","17","20"]');
     cy.findByTestId('payloadRowsById').should('have.text', '{"0":true,"1":true,"5":true,"7":true,"17":true,"20":true}');
     cy.findByTestId('payloadAllRowsSelected').should('have.text', 'false');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'true');
 
     cy.findByText('Name').click();
     cy.get('[ui5-li-custom]').shadow().get('[ui5-input]').typeIntoUi5Input('{selectall}{backspace}{enter}');
@@ -892,6 +912,7 @@ describe('AnalyticalTable', () => {
       '{"0":true,"1":true,"2":true,"3":true,"4":true,"5":true,"6":true,"7":true,"8":true,"9":true,"10":true,"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"18":true,"19":true,"20":true}',
     );
     cy.findByTestId('payloadAllRowsSelected').should('have.text', 'false');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'false');
     cy.findByText('Name-17').click();
     cy.findByTestId('payload').should(
       'have.text',
@@ -902,6 +923,7 @@ describe('AnalyticalTable', () => {
       '{"0":true,"1":true,"2":true,"3":true,"4":true,"5":true,"6":true,"7":true,"8":true,"9":true,"10":true,"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":true,"18":true,"19":true,"20":true}',
     );
     cy.findByTestId('payloadAllRowsSelected').should('have.text', 'true');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'true');
 
     cy.findByText('Name').click();
     cy.get('[ui5-li-custom]').shadow().get('[ui5-input]').typeIntoUi5Input('{selectall}{backspace}{enter}');
@@ -918,6 +940,7 @@ describe('AnalyticalTable', () => {
       '{"0":true,"1":true,"2":true,"3":true,"4":true,"5":true,"6":true,"7":true,"8":true,"9":true,"10":true,"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"18":true,"19":true,"20":true}',
     );
     cy.findByTestId('payloadAllRowsSelected').should('have.text', 'false');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'false');
     cy.findByText('Name-17').click();
     cy.findByTestId('payload').should(
       'have.text',
@@ -928,6 +951,7 @@ describe('AnalyticalTable', () => {
       '{"0":true,"1":true,"2":true,"3":true,"4":true,"5":true,"6":true,"7":true,"8":true,"9":true,"10":true,"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":true,"18":true,"19":true,"20":true}',
     );
     cy.findByTestId('payloadAllRowsSelected').should('have.text', 'true');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'true');
     cy.get('@onRowSelectSpy').should('have.callCount', 19);
   });
 
@@ -1254,6 +1278,127 @@ describe('AnalyticalTable', () => {
     cy.get('[aria-rowindex="9"] > [aria-colindex="1"]').should('have.attr', 'aria-selected', 'false');
     cy.get('[aria-rowindex="4"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
     cy.get('[aria-rowindex="3"] > [aria-colindex="1"] [ui5-checkbox]').should('have.attr', 'indeterminate');
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should(
+      'have.attr',
+      'indeterminate',
+    );
+  });
+
+  it('useFilteredRowsSelection', () => {
+    const onRowSelectSpy = cy.spy().as('onRowSelectSpy');
+    const TestComp = () => {
+      const [globalFilterVal, setGlobalFilterVal] = useState('');
+      const [selectedRowIds, setSelectedRowIds] = useState<Record<string, boolean>>({});
+      const [allRowsSelected, setAllRowsSelected] = useState(false);
+      const [allVisibleRowsSelected, setAllVisibleRowsSelected] = useState(false);
+      return (
+        <>
+          <input
+            data-testid="globalFilter"
+            value={globalFilterVal}
+            onInput={(e) => setGlobalFilterVal((e.target as HTMLInputElement).value)}
+          />
+          <AnalyticalTable
+            columns={columns}
+            data={data}
+            filterable
+            globalFilterValue={globalFilterVal}
+            selectionMode={AnalyticalTableSelectionMode.Multiple}
+            tableHooks={[AnalyticalTableHooks.useFilteredRowsSelection()]}
+            onRowSelect={(e) => {
+              setSelectedRowIds(e.detail.selectedRowIds);
+              setAllRowsSelected(e.detail.allRowsSelected);
+              setAllVisibleRowsSelected(e.detail.allVisibleRowsSelected);
+              onRowSelectSpy(e);
+            }}
+          />
+          <div data-testid="selectedRowIds">{JSON.stringify(selectedRowIds)}</div>
+          <div data-testid="allRowsSelected">{`${allRowsSelected}`}</div>
+          <div data-testid="allVisibleRowsSelected">{`${allVisibleRowsSelected}`}</div>
+        </>
+      );
+    };
+    cy.mount(<TestComp />);
+
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"]').click();
+    cy.findByTestId('selectedRowIds').should('have.text', '{"0":true,"1":true,"2":true,"3":true}');
+    cy.findByTestId('allRowsSelected').should('have.text', 'true');
+    cy.findByTestId('allVisibleRowsSelected').should('have.text', 'true');
+
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"]').click();
+    cy.findByTestId('selectedRowIds').should('have.text', '{}');
+    cy.findByTestId('allRowsSelected').should('have.text', 'false');
+    cy.findByTestId('allVisibleRowsSelected').should('have.text', 'false');
+
+    cy.findByTestId('globalFilter').type('B');
+    cy.findByText('B').should('be.visible');
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"]').click();
+    cy.findByTestId('selectedRowIds').should('have.text', '{"1":true}');
+    cy.findByTestId('allRowsSelected').should('have.text', 'false');
+    cy.findByTestId('allVisibleRowsSelected').should('have.text', 'true');
+
+    cy.findByTestId('globalFilter').clear();
+    cy.findByTestId('selectedRowIds').should('have.text', '{"1":true}');
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should(
+      'have.attr',
+      'indeterminate',
+    );
+
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"]').click();
+    cy.findByTestId('selectedRowIds').should('have.text', '{"0":true,"1":true,"2":true,"3":true}');
+    cy.findByTestId('allRowsSelected').should('have.text', 'true');
+    cy.findByTestId('allVisibleRowsSelected').should('have.text', 'true');
+
+    cy.findByTestId('globalFilter').type('A');
+    cy.findByText('A').should('be.visible');
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"]').click();
+    cy.findByTestId('selectedRowIds').should('have.text', '{"1":true,"2":true,"3":true}');
+    cy.findByTestId('allRowsSelected').should('have.text', 'false');
+    cy.findByTestId('allVisibleRowsSelected').should('have.text', 'false');
+  });
+
+  it('useFilteredRowsSelection with selectSubRows', () => {
+    const TestComp = () => {
+      const [globalFilterVal, setGlobalFilterVal] = useState('');
+      const [selectedRowIds, setSelectedRowIds] = useState<Record<string, boolean>>({});
+      return (
+        <>
+          <input
+            data-testid="globalFilter"
+            value={globalFilterVal}
+            onInput={(e) => setGlobalFilterVal((e.target as HTMLInputElement).value)}
+          />
+          <AnalyticalTable
+            columns={columns}
+            data={dataTree}
+            filterable
+            isTreeTable
+            globalFilterValue={globalFilterVal}
+            selectionMode={AnalyticalTableSelectionMode.Multiple}
+            tableHooks={[AnalyticalTableHooks.useFilteredRowsSelection()]}
+            reactTableOptions={{ selectSubRows: true }}
+            onRowSelect={(e) => {
+              setSelectedRowIds(e.detail.selectedRowIds);
+            }}
+          />
+          <div data-testid="selectedRowIds">{JSON.stringify(Object.keys(selectedRowIds).length)}</div>
+        </>
+      );
+    };
+    cy.mount(<TestComp />);
+
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"]').click();
+    cy.findByTestId('selectedRowIds').should('have.text', '170');
+
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"]').click();
+    cy.findByTestId('selectedRowIds').should('have.text', '0');
+
+    cy.findByTestId('globalFilter').type('Katy Bradshaw');
+    cy.findByText('Katy Bradshaw').should('be.visible');
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"]').click();
+    cy.findByTestId('selectedRowIds').should('have.text', '85');
+
+    cy.findByTestId('globalFilter').clear();
     cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should(
       'have.attr',
       'indeterminate',
