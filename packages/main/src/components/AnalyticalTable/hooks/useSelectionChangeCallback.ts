@@ -4,6 +4,7 @@ import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSele
 import type { AnalyticalTablePropTypes, ReactTableHooks, TableInstance } from '../types/index.js';
 
 type OnRowSelectEvent = Parameters<NonNullable<AnalyticalTablePropTypes['onRowSelect']>>[0];
+type OnRowSelectDetail = OnRowSelectEvent['detail'];
 
 const useInstance = (instance: TableInstance) => {
   const { webComponentsReactProperties, rowsById, preFilteredRowsById, state } = instance;
@@ -26,7 +27,7 @@ const useInstance = (instance: TableInstance) => {
       const isFiltered = filters?.length > 0 || !!globalFilter;
       const _rowsById = isFiltered ? preFilteredRowsById : rowsById;
 
-      const payload: Record<string, unknown> = {
+      const payload: Partial<OnRowSelectDetail> = {
         row,
         rowsById: _rowsById,
         isSelected: row?.isSelected,
@@ -45,7 +46,7 @@ const useInstance = (instance: TableInstance) => {
       if (selectAll) {
         // For select-all click, don't include row-specific fields
         onRowSelect?.(
-          enrichEventWithDetails(e, {
+          enrichEventWithDetails(e as Event & { detail?: OnRowSelectDetail }, {
             rowsById: payload.rowsById,
             allRowsSelected: payload.allRowsSelected,
             allVisibleRowsSelected: payload.allVisibleRowsSelected,
@@ -53,7 +54,7 @@ const useInstance = (instance: TableInstance) => {
           }) as OnRowSelectEvent,
         );
       } else {
-        onRowSelect?.(enrichEventWithDetails(e, payload) as OnRowSelectEvent);
+        onRowSelect?.(enrichEventWithDetails(e as Event & { detail?: OnRowSelectDetail }, payload) as OnRowSelectEvent);
       }
     }
 
