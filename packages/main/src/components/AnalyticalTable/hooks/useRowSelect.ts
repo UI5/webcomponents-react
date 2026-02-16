@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from 'react';
 import { actions, makePropGetter, ensurePluginOrder, useGetLatest, useMountedLayoutEffect } from 'react-table';
-import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import type { ReactTableHooks, RowType, TableInstance } from '../types/index.js';
 
 const pluginName = 'useRowSelect';
@@ -237,8 +236,7 @@ function useInstance(instance: TableInstance) {
     webComponentsReactProperties,
   } = instance;
 
-  const { selectionMode, loading, showOverlay } = webComponentsReactProperties;
-  const isSelectionEnabled = selectionMode !== AnalyticalTableSelectionMode.None && !loading && !showOverlay;
+  const { isSelectionEnabled } = webComponentsReactProperties;
 
   ensurePluginOrder(plugins, ['useFilters', 'useGroupBy', 'useSortBy', 'useExpanded', 'usePagination'], 'useRowSelect');
 
@@ -340,8 +338,7 @@ function useInstance(instance: TableInstance) {
 }
 
 function prepareRow(row: RowType, { instance }: { instance: TableInstance }) {
-  const { selectionMode, loading, showOverlay } = instance.webComponentsReactProperties;
-  const isSelectionEnabled = selectionMode !== AnalyticalTableSelectionMode.None && !loading && !showOverlay;
+  const { isSelectionEnabled } = instance.webComponentsReactProperties;
 
   // UI5WCR: skip per-row setup when selection disabled
   if (!isSelectionEnabled) {

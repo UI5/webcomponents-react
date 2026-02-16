@@ -203,6 +203,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   const alwaysShowSubComponent =
     subComponentsBehavior === AnalyticalTableSubComponentsBehavior.Visible ||
     subComponentsBehavior === AnalyticalTableSubComponentsBehavior.IncludeHeight;
+  const isSelectionEnabled = selectionMode !== AnalyticalTableSelectionMode.None && !loading && !showOverlay;
 
   const uniqueId = useId();
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
@@ -287,6 +288,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         scaleWidthMode,
         selectionBehavior,
         selectionMode,
+        isSelectionEnabled,
         showOverlay,
         subRowsKey,
         tableRef,
