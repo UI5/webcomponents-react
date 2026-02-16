@@ -1899,16 +1899,35 @@ describe('AnalyticalTable', () => {
     );
     cy.mount(<AnalyticalTable data={data} columns={columns} loading loadingDelay={50000} />);
     cy.get('.ui5-busy-indicator-busy-area', { timeout: 2000 }).should('not.exist');
-    cy.mount(<AnalyticalTable data={[]} columns={columns} />);
+    cy.mount(<AnalyticalTable data={[]} columns={columns} selectionMode={AnalyticalTableSelectionMode.Multiple} />);
     cy.findByText('No data').should('be.visible');
-    cy.mount(<AnalyticalTable data={data} columns={columns} filterable globalFilterValue="test123" />);
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should('not.exist');
+    cy.mount(
+      <AnalyticalTable
+        data={data}
+        columns={columns}
+        filterable
+        globalFilterValue="test123"
+        selectionMode={AnalyticalTableSelectionMode.Multiple}
+      />,
+    );
     cy.findByText('No data found. Try adjusting the filter settings.').should('be.visible');
-    cy.mount(<AnalyticalTable data={data} columns={columns} filterable />);
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should('not.exist');
+    cy.mount(
+      <AnalyticalTable
+        data={data}
+        columns={columns}
+        filterable
+        selectionMode={AnalyticalTableSelectionMode.Multiple}
+      />,
+    );
     cy.findByText('Lorem').should('be.visible');
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should('exist');
     cy.findByText('Name').realClick();
     cy.get('[ui5-input]').typeIntoUi5Input('test123');
     cy.findByText('Lorem').should('not.exist');
     cy.findByText('No data found. Try adjusting the filter settings.').should('be.visible');
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should('not.exist');
   });
 
   it('NoDataComponent', () => {
