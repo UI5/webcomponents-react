@@ -245,7 +245,6 @@ export interface WCRPropertiesType {
   fontsReady: boolean;
   isFirefox: boolean;
   selectionMode: AnalyticalTablePropTypes['selectionMode'];
-  isSelectionEnabled: boolean;
   onRowSelect?: AnalyticalTablePropTypes['onRowSelect'];
   a11yElementIds: {
     cellSelectDescId: string;
