@@ -1,7 +1,9 @@
 import { enrichEventWithDetails } from '@ui5/webcomponents-react-base/internal/utils';
 import { useEffect, useRef } from 'react';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
-import type { ReactTableHooks, TableInstance } from '../types/index.js';
+import type { AnalyticalTablePropTypes, ReactTableHooks, TableInstance } from '../types/index.js';
+
+type OnRowSelectEvent = Parameters<NonNullable<AnalyticalTablePropTypes['onRowSelect']>>[0];
 
 const useInstance = (instance: TableInstance) => {
   const { webComponentsReactProperties, rowsById, preFilteredRowsById, state } = instance;
@@ -48,10 +50,10 @@ const useInstance = (instance: TableInstance) => {
             allRowsSelected: payload.allRowsSelected,
             allVisibleRowsSelected: payload.allVisibleRowsSelected,
             selectedRowIds: payload.selectedRowIds,
-          }),
+          }) as OnRowSelectEvent,
         );
       } else {
-        onRowSelect?.(enrichEventWithDetails(e, payload));
+        onRowSelect?.(enrichEventWithDetails(e, payload) as OnRowSelectEvent);
       }
     }
 
