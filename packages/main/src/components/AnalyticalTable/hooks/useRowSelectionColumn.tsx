@@ -10,10 +10,11 @@ import type { ReactTableHooks, TableInstance } from '../types/index.js';
 const Header = (instance: TableInstance) => {
   const {
     getToggleAllRowsSelectedProps,
+    rows,
     webComponentsReactProperties: { selectionMode, translatableTexts, classes },
   } = instance;
 
-  if (selectionMode === AnalyticalTableSelectionMode.Single) {
+  if (selectionMode === AnalyticalTableSelectionMode.Single || !rows.length) {
     return null;
   }
   const checkBoxProps = getToggleAllRowsSelectedProps();
