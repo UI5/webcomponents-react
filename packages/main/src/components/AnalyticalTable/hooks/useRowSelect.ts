@@ -20,7 +20,7 @@ const emptyArray: RowType[] = [];
  * Original source: https://github.com/TanStack/table/blob/v7/src/plugin-hooks/useRowSelect.js
  *
  * This is a fork of react-table's `useRowSelect` with performance optimizations:
- * - Early exit when `selectionMode` is 'None' or loading/showOverlay is `true`
+ * - Early exit when `selectionMode` is 'None'
  * - Skips `selectedFlatRows` computation, `isAllRowsSelected` checks, and `prepareRow` overhead when selection is disabled
  * - `isAllRowsSelected` computation is memoized
  * - Uses stable noop references when disabled
