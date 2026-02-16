@@ -25,6 +25,8 @@ const emptyArray: RowType[] = [];
  * - `isAllRowsSelected` computation is memoized
  * - Uses stable noop references when disabled
  * - Fixes select-all indeterminate state considering filtered-out rows (now only visible rows are considered)
+ *
+ * _Pagination specific implementation where adjusted as well, although they are currently not being used_
  */
 export const useRowSelect = (hooks: ReactTableHooks) => {
   hooks.getToggleRowSelectedProps = [defaultGetToggleRowSelectedProps];
@@ -42,6 +44,7 @@ const defaultGetToggleRowSelectedProps = (
   { instance, row }: { instance: TableInstance; row: RowType },
 ) => {
   const { manualRowSelectedKey = 'isSelected', webComponentsReactProperties } = instance;
+  // UI5WCR: use className instead of inline style
   const { classes } = webComponentsReactProperties;
   let checked = false;
 
@@ -57,6 +60,7 @@ const defaultGetToggleRowSelectedProps = (
       onChange: (e: { target: { checked: boolean } }) => {
         row.toggleRowSelected(e.target.checked);
       },
+      // UI5WCR: removed style/title, added className
       className: classes.checkBox,
       checked,
       indeterminate: row.isSomeSelected,
@@ -68,6 +72,7 @@ const defaultGetToggleAllRowsSelectedProps = (
   props: Record<string, unknown>,
   { instance }: { instance: TableInstance },
 ) => {
+  // UI5WCR: use className instead of inline style
   const { classes } = instance.webComponentsReactProperties;
   return [
     props,
@@ -75,8 +80,10 @@ const defaultGetToggleAllRowsSelectedProps = (
       onChange: (e: { target: { checked: boolean } }) => {
         instance.toggleAllRowsSelected?.(e.target.checked);
       },
+      // UI5WCR: removed style/title, added className
       className: classes.checkBox,
       checked: instance.isAllRowsSelected,
+      // UI5WCR: use selectedFlatRows (visible rows only) instead of selectedRowIds
       indeterminate: Boolean(!instance.isAllRowsSelected && instance.selectedFlatRows?.length),
     },
   ];
@@ -86,6 +93,7 @@ const defaultGetToggleAllPageRowsSelectedProps = (
   props: Record<string, unknown>,
   { instance }: { instance: TableInstance },
 ) => {
+  // UI5WCR: use className instead of inline style
   const { classes } = instance.webComponentsReactProperties;
   return [
     props,
@@ -93,6 +101,7 @@ const defaultGetToggleAllPageRowsSelectedProps = (
       onChange: (e: { target: { checked: boolean } }) => {
         instance.toggleAllPageRowsSelected?.(e.target.checked);
       },
+      // UI5WCR: removed style/title, added className
       className: classes.checkBox,
       checked: instance.isAllPageRowsSelected,
       indeterminate: Boolean(
@@ -228,11 +237,12 @@ function useInstance(instance: TableInstance) {
     webComponentsReactProperties,
   } = instance;
 
-  const { selectionMode, loading, showOverlay } = webComponentsReactProperties ?? {};
+  const { selectionMode, loading, showOverlay } = webComponentsReactProperties;
   const isSelectionEnabled = selectionMode !== AnalyticalTableSelectionMode.None && !loading && !showOverlay;
 
   ensurePluginOrder(plugins, ['useFilters', 'useGroupBy', 'useSortBy', 'useExpanded', 'usePagination'], 'useRowSelect');
 
+  // UI5WCR: early exit when selection disabled
   const selectedFlatRows = useMemo(() => {
     if (!isSelectionEnabled) {
       return emptyArray;
@@ -253,6 +263,7 @@ function useInstance(instance: TableInstance) {
     return result;
   }, [rows, selectSubRows, selectedRowIds, getSubRows, isSelectionEnabled]);
 
+  // UI5WCR: memoized
   const isAllRowsSelected = useMemo(() => {
     if (!isSelectionEnabled) {
       return false;
@@ -268,6 +279,7 @@ function useInstance(instance: TableInstance) {
     return !Object.keys(nonGroupedRowsById).some((id) => !selectedRowIds[id]);
   }, [nonGroupedRowsById, selectedRowIds, isSelectionEnabled]);
 
+  // UI5WCR: memoized
   const isAllPageRowsSelected = useMemo(() => {
     if (!isSelectionEnabled) {
       return false;
@@ -307,10 +319,10 @@ function useInstance(instance: TableInstance) {
 
   const getInstance = useGetLatest(instance);
 
+  // UI5WCR: use noop when selection disabled
   const getToggleAllRowsSelectedProps = isSelectionEnabled
     ? makePropGetter(getHooks().getToggleAllRowsSelectedProps, { instance: getInstance() })
     : noopGetProps;
-
   const getToggleAllPageRowsSelectedProps = isSelectionEnabled
     ? makePropGetter(getHooks().getToggleAllPageRowsSelectedProps, { instance: getInstance() })
     : noopGetProps;
@@ -328,9 +340,10 @@ function useInstance(instance: TableInstance) {
 }
 
 function prepareRow(row: RowType, { instance }: { instance: TableInstance }) {
-  const { selectionMode, loading, showOverlay } = instance.webComponentsReactProperties ?? {};
+  const { selectionMode, loading, showOverlay } = instance.webComponentsReactProperties;
   const isSelectionEnabled = selectionMode !== AnalyticalTableSelectionMode.None && !loading && !showOverlay;
 
+  // UI5WCR: skip per-row setup when selection disabled
   if (!isSelectionEnabled) {
     row.isSelected = false;
     row.isSomeSelected = false;
