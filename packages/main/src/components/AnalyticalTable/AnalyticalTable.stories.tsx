@@ -169,6 +169,7 @@ const meta = {
     chromatic: { disableSnapshot: true },
   },
   args: {
+    // reactTableOptions: { autoResetSelectedRows: true },
     data: dataLarge,
     columns: [
       {

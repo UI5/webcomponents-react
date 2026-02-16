@@ -109,6 +109,15 @@ export interface CellType {
 export interface TableInstance {
   allColumns: ColumnType[];
   allColumnsHidden?: boolean;
+  autoResetExpanded?: boolean;
+  autoResetFilters?: boolean;
+  autoResetGroupBy?: boolean;
+  autoResetHiddenColumns?: boolean;
+  autoResetPage?: boolean;
+  autoResetResize?: boolean;
+  autoResetRowState?: boolean;
+  autoResetSelectedRows?: boolean;
+  autoResetSortBy?: boolean;
   columns: ColumnType[];
   data: Record<string, any>[];
   defaultColumn: Record<string, any>;
@@ -153,10 +162,12 @@ export interface TableInstance {
   isAllPageRowsSelected?: boolean;
   isAllRowsExpanded?: boolean;
   isAllRowsSelected?: boolean;
+  manualRowSelectedKey?: string;
   nonGroupedFlatRows?: RowType[];
   nonGroupedRowsById?: Record<string, RowType>;
   onlyGroupedFlatRows?: RowType[];
   onlyGroupedRowsById?: Record<string, RowType>;
+  page?: RowType[];
   plugins: ((hooks: ReactTableHooks) => void)[];
   preExpandedRows?: RowType[];
   preFilteredFlatRows?: RowType[];
@@ -297,6 +308,7 @@ export interface RowType {
   id: string;
   index: number;
   isExpanded: boolean | undefined;
+  isGrouped?: boolean;
   isSelected: boolean;
   isSomeSelected: boolean;
   getRowProps: (props?: any) => any;
