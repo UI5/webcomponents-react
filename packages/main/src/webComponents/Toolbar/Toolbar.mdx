@@ -23,6 +23,8 @@ import * as ComponentStories from './Toolbar.stories';
 Since the `ToolbarButton` is an [abstract UI5 web component](?path=/docs/knowledge-base-faq--docs#what-are-abstract-ui5-web-components), the opener of the `Popover` needs the DOM reference of the actual element to position the popover correctly.
 Starting with v2.5.0 of `@ui5/webcomponents(-react)`, the `detail` property of the `ToolbarButton`'s click handler now includes a `targetRef` property, which can be used as the opener.
 
+**Note:** To prevent the overflow popover from closing when the opener `ToolbarButton` of the Popover is clicked, you can call `event.preventDefault()` in the `onClick` event handler.
+
 <Canvas of={ComponentStories.OpenPopover} />
 
 ### Example Code
@@ -37,6 +39,7 @@ function ToolbarWithPopover() {
         <ToolbarButton
           onClick={(e) => {
             const { targetRef } = e.detail;
+            e.preventDefault();
             if (popoverRef.current) {
               popoverRef.current.opener = targetRef;
               setPopoverOpen(true);

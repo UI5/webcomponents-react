@@ -57,6 +57,7 @@ export const OpenPopover: Story = {
         <Toolbar {...args}>
           <ToolbarButton
             onClick={(e) => {
+              e.preventDefault();
               const { targetRef } = e.detail;
               if (popoverRef.current) {
                 popoverRef.current.opener = targetRef;
