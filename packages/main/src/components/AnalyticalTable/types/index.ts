@@ -27,6 +27,17 @@ import type { classNames } from '../AnalyticalTable.module.css.js';
 
 export type ClassNames = typeof classNames;
 
+interface StateReducerAction {
+  type: string;
+  id?: string;
+  value?: boolean;
+  payload?: any;
+  columnId?: string;
+  filterValue?: string;
+  clientX?: number;
+  [key: string]: unknown;
+}
+
 export enum RenderColumnTypes {
   Filter = 'Filter',
   Grouped = 'Grouped',
@@ -205,7 +216,7 @@ export interface TableInstance {
   state: AnalyticalTableState & Record<string, any>;
   stateReducer?: (
     state: TableInstance['state'],
-    action: any,
+    action: StateReducerAction,
     _prevState: TableInstance['state'],
     instance: TableInstance,
   ) => TableInstance['state'];
@@ -1138,7 +1149,7 @@ interface ConfigParam {
 
 export interface ReactTableHooks {
   useOptions: any[];
-  stateReducers: any[];
+  stateReducers: NonNullable<TableInstance['stateReducer']>[];
   useControlledState: any[];
   columns: ((columns: ColumnType[], config: ConfigParam) => ColumnType[])[];
   columnsDeps: ((deps: DependencyList, config: ConfigParam) => DependencyList)[];

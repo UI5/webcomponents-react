@@ -1,7 +1,7 @@
 import { actions } from 'react-table';
 import type { TableInstance } from '../types/index.js';
 
-export const stateReducer = (state, action, _prevState, instance: TableInstance) => {
+export const stateReducer: TableInstance['stateReducer'] = (state, action, _prevState, instance) => {
   const { payload } = action;
   if (state.isRtl && action.type === actions.columnResizing) {
     const { clientX } = action;

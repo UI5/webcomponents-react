@@ -1224,19 +1224,11 @@ describe('AnalyticalTable', () => {
     cy.findByTestId('selectedRows').should('have.text', '{"1.0.0.0":true,"1.0.0.1":true,"1.0.0.2":true}');
     cy.findByText('Selma Kaufman').click();
 
-    if (reactVersion.startsWith('19')) {
-      // ToDo: the parent row isn't included in the `setSelectedRowIds` anymore - check if it's feasible to include it again, otherwise add a note to the hook
-      cy.findByTestId('selectedRows').should(
-        'have.text',
-        // '{"1.0.0.0":true,"1.0.0.1":true,"1.0.0.2":true,"1.0.0.3":true,"1.0.0":true}'
-        '{"1.0.0.0":true,"1.0.0.1":true,"1.0.0.2":true,"1.0.0.3":true}',
-      );
-    } else {
-      cy.findByTestId('selectedRows').should(
-        'have.text',
-        '{"1.0.0.0":true,"1.0.0.1":true,"1.0.0.2":true,"1.0.0.3":true,"1.0.0":true}',
-      );
-    }
+    // parent row "1.0.0" is automatically added when all children are selected
+    cy.findByTestId('selectedRows').should(
+      'have.text',
+      '{"1.0.0.0":true,"1.0.0.1":true,"1.0.0.2":true,"1.0.0.3":true,"1.0.0":true}',
+    );
   });
 
   it('useIndeterminateRowSelection', () => {

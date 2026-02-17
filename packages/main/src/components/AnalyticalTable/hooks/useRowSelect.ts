@@ -112,12 +112,7 @@ const defaultGetToggleAllPageRowsSelectedProps = (
   ];
 };
 
-function reducer(
-  state: TableInstance['state'],
-  action: { type: string; value?: boolean; id?: string },
-  _previousState: TableInstance['state'],
-  instance: TableInstance,
-) {
+const reducer: TableInstance['stateReducer'] = (state, action, _previousState, instance) => {
   if (action.type === actions.init) {
     return {
       selectedRowIds: {},
@@ -218,7 +213,7 @@ function reducer(
   }
 
   return state;
-}
+};
 
 function useInstance(instance: TableInstance) {
   const {
