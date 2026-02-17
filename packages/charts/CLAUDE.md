@@ -192,23 +192,25 @@ import { BarChartPlaceholder } from '@ui5/webcomponents-react-charts/BarChartPla
 
 ## Responsive Behavior
 
-Charts default to `width: 100%` and `height: 400px`.
+Charts default to `width: 100%` and `height: 400px`, so they render out of the box without container configuration.
 
-**Important:** Charts require a container with **fixed dimensions**. They won't render correctly in containers that derive size from their children (e.g., `height: auto`, flex without explicit height):
+**Important:** If you override chart dimensions with relative values (e.g., `height: '100%'`), the container must have fixed dimensions. Charts won't render correctly in containers that derive size from their children:
 
 ```tsx
-// ❌ Won't work - parent has no fixed height
+// ❌ Won't work - chart uses 100% height but parent has no fixed height
 <div style={{ display: 'flex' }}>
-  <BarChart {...props} />
+  <BarChart style={{ height: '100%' }} {...props} />
 </div>
 
-// ✅ Works - explicit dimensions on container or chart
+// ✅ Works - container has fixed height for percentage-based chart
 <div style={{ height: '400px' }}>
-  <BarChart {...props} />
+  <BarChart style={{ height: '100%' }} {...props} />
 </div>
 
-// ✅ Or override via style prop
-<BarChart style={{ height: '300px', width: '500px' }} {...props} />
+// ✅ Works - using default dimensions (no container height needed)
+<div>
+  <BarChart {...props} />
+</div>
 ```
 
 ## Limitations
@@ -226,7 +228,7 @@ Charts default to `width: 100%` and `height: 400px`.
 
 **Sizing:**
 
-- Charts require containers with **fixed dimensions** (won't render in `height: auto` containers)
+- When using relative dimensions (e.g., `height: '100%'`), containers must have fixed dimensions
 - Default: `width: 100%`, `height: 400px`
 
 **Styling:**
