@@ -844,8 +844,7 @@
     "dist",
     "wrappers",
     "CHANGELOG.md",
-    "LICENSE",
-    "NOTICE.txt",
+    "CLAUDE.md",
     "README.md"
   ]
 }

@@ -30,6 +30,7 @@
   },
   "files": [
     "dist",
+    "CLAUDE.md",
     "patches"
   ],
   "dependencies": {

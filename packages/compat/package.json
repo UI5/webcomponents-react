@@ -118,8 +118,6 @@
   "files": [
     "dist",
     "CHANGELOG.md",
-    "LICENSE",
-    "NOTICE.txt",
     "README.md"
   ]
 }
