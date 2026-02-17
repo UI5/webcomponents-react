@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { actions, makePropGetter, ensurePluginOrder, useGetLatest, useMountedLayoutEffect } from 'react-table';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import type { ReactTableHooks, RowType, TableInstance } from '../types/index.js';
@@ -135,14 +135,12 @@ const reducer: TableInstance['stateReducer'] = (state, action, _previousState, i
 
     const selectedRowIds = { ...state.selectedRowIds };
 
-    if (selectAll) {
-      Object.keys(nonGroupedRowsById).forEach((rowId) => {
+    for (const rowId in nonGroupedRowsById) {
+      if (selectAll) {
         selectedRowIds[rowId] = true;
-      });
-    } else {
-      Object.keys(nonGroupedRowsById).forEach((rowId) => {
+      } else {
         delete selectedRowIds[rowId];
-      });
+      }
     }
 
     return { ...state, selectedRowIds };
@@ -172,8 +170,13 @@ const reducer: TableInstance['stateReducer'] = (state, action, _previousState, i
           }
         }
 
-        if (selectSubRows && getSubRows(row)) {
-          getSubRows(row).forEach((r: RowType) => handleRowById(r.id));
+        if (selectSubRows) {
+          const subRows = getSubRows(row);
+          if (subRows) {
+            subRows.forEach((r: RowType) => {
+              handleRowById(r.id);
+            });
+          }
         }
       }
     };
@@ -202,12 +205,22 @@ const reducer: TableInstance['stateReducer'] = (state, action, _previousState, i
         }
       }
 
-      if (selectSubRows && getSubRows(row)) {
-        getSubRows(row).forEach((r: RowType) => handleRowById(r.id));
+      if (selectSubRows) {
+        const subRows = getSubRows(row);
+
+        if (subRows) {
+          subRows.forEach((r: RowType) => {
+            handleRowById(r.id);
+          });
+        }
       }
     };
 
-    page?.forEach((row: RowType) => handleRowById(row.id));
+    if (page) {
+      page.forEach((row: RowType) => {
+        handleRowById(row.id);
+      });
+    }
 
     return { ...state, selectedRowIds: newSelectedRowIds };
   }
@@ -238,56 +251,34 @@ function useInstance(instance: TableInstance) {
   ensurePluginOrder(plugins, ['useFilters', 'useGroupBy', 'useSortBy', 'useExpanded', 'usePagination'], 'useRowSelect');
 
   // UI5WCR: early exit when selection disabled
-  const selectedFlatRows = useMemo(() => {
-    if (!isSelectionEnabled) {
-      return emptyArray;
-    }
+  let selectedFlatRows: RowType[] = emptyArray;
+  let isAllRowsSelected = false;
+  let isAllPageRowsSelected = false;
 
-    const result: RowType[] = [];
-
+  if (isSelectionEnabled) {
+    selectedFlatRows = [];
     rows.forEach((row) => {
       const isSelected = selectSubRows ? getRowIsSelected(row, selectedRowIds, getSubRows) : !!selectedRowIds[row.id];
       row.isSelected = !!isSelected;
       row.isSomeSelected = isSelected === null;
 
       if (isSelected) {
-        result.push(row);
+        selectedFlatRows.push(row);
       }
     });
 
-    return result;
-  }, [rows, selectSubRows, selectedRowIds, getSubRows, isSelectionEnabled]);
-
-  // UI5WCR: memoized
-  const isAllRowsSelected = useMemo(() => {
-    if (!isSelectionEnabled) {
-      return false;
+    // isAllRowsSelected
+    const rowIds = Object.keys(nonGroupedRowsById);
+    const selectedIds = Object.keys(selectedRowIds);
+    if (rowIds.length && selectedIds.length) {
+      isAllRowsSelected = rowIds.every((id) => selectedRowIds[id]);
     }
 
-    const rowCount = Object.keys(nonGroupedRowsById).length;
-    const selectedCount = Object.keys(selectedRowIds).length;
-
-    if (!rowCount || !selectedCount) {
-      return false;
+    // isAllPageRowsSelected
+    if (page?.length) {
+      isAllPageRowsSelected = isAllRowsSelected || page.every((row) => selectedRowIds[row.id]);
     }
-
-    return !Object.keys(nonGroupedRowsById).some((id) => !selectedRowIds[id]);
-  }, [nonGroupedRowsById, selectedRowIds, isSelectionEnabled]);
-
-  // UI5WCR: memoized
-  const isAllPageRowsSelected = useMemo(() => {
-    if (!isSelectionEnabled) {
-      return false;
-    }
-    if (!page || !page.length) {
-      return false;
-    }
-    if (isAllRowsSelected) {
-      return true;
-    }
-
-    return !page.some(({ id }: { id: string }) => !selectedRowIds[id]);
-  }, [page, selectedRowIds, isAllRowsSelected, isSelectionEnabled]);
+  }
 
   const getAutoResetSelectedRows = useGetLatest(autoResetSelectedRows);
 
@@ -367,10 +358,10 @@ function getRowIsSelected(
     let allChildrenSelected = true;
     let someSelected = false;
 
-    subRows.forEach((subRow) => {
+    for (const subRow of subRows) {
       // Bail out early if we know both of these
       if (someSelected && !allChildrenSelected) {
-        return;
+        break;
       }
 
       if (getRowIsSelected(subRow, selectedRowIds, getSubRows)) {
@@ -378,7 +369,7 @@ function getRowIsSelected(
       } else {
         allChildrenSelected = false;
       }
-    });
+    }
     return allChildrenSelected ? true : someSelected ? null : false;
   }
 
