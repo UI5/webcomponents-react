@@ -26,6 +26,9 @@
       "path": "./tsconfig.spec.json"
     },
     {
+      "path": "./tsconfig.playwright.json"
+    },
+    {
       "path": "./.storybook/tsconfig.json"
     },
     {

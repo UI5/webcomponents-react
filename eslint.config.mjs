@@ -206,7 +206,7 @@ const config = tseslint.config(
     },
   },
   {
-    files: ['**/*.cy.ts', '**/*.cy.tsx'],
+    files: ['**/*.cy.ts', '**/*.cy.tsx', '**/*.spec.ts', '**/*.spec.tsx', 'playwright/**/*'],
 
     plugins: {
       'no-only-tests': noOnlyTests,
