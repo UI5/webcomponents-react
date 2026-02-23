@@ -33,7 +33,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright tests
-        run: yarn test:pw --project chromium playwright/test/
+        run: yarn test:pw playwright/test/ --project chromium
 
   cypress:
     name: Cypress
