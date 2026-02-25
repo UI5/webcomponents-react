@@ -5,5 +5,13 @@
       "path": "../base/tsconfig.build.json"
     }
   ],
-  "exclude": ["node_modules", "**/*.cy.ts", "**/*.cy.tsx", "**/*.stories.tsx"]
+  "exclude": [
+    "node_modules",
+    "**/*.cy.ts",
+    "**/*.cy.tsx",
+    "**/*.stories.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/test/"
+  ]
 }
