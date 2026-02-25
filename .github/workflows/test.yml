@@ -12,6 +12,10 @@ jobs:
   playwright:
     name: Playwright
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        react: ['18', '19']
+      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -24,16 +28,22 @@ jobs:
       - name: Install
         run: yarn install --immutable
 
+      - name: Install React 18
+        if: ${{ matrix.react == '18' }}
+        run: |
+          yarn add "@types/react@18" "@types/react-dom@18" --dev
+          yarn add react@18 react-dom@18
+
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
-          name: build-19
+          name: build-${{ matrix.react }}
           path: packages
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright tests
-        run: yarn test:pw playwright/test/ --project chromium
+        run: yarn test:pw playwright/test/ packages/main/src/components/SelectDialog/test/ --project chromium
 
   cypress:
     name: Cypress
