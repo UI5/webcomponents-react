@@ -200,22 +200,130 @@ yarn lint            # ESLint
 yarn prettier:all    # Format all files
 ```
 
-## Testing Patterns
+## Tests (Cypress Component Tests)
 
-### Data Attributes
+### File Structure
 
-Components use `data-*` attributes for functional purposes (not just testing). Use existing attributes for selectors:
+Tests are co-located with components: `ComponentName.cy.tsx` next to `index.tsx`.
 
-```tsx
-cy.get('[data-component-name="AnalyticalTableContainer"]');
-cy.get('[data-row-index="0"]');
+```
+src/components/ActionSheet/
+├── index.tsx
+├── ActionSheet.cy.tsx      # Component tests
+├── ActionSheet.stories.tsx # Storybook stories
+└── ActionSheet.mdx         # Docs page
 ```
 
-**Do not create data attributes solely for testing.**
+### Running Tests
 
-### Cypress Commands
+```bash
+yarn test                              # All tests
+yarn cypress run --spec <path>         # Single file
+yarn cypress open                      # Interactive mode
+```
 
-`packages/cypress-commands` provides commands for interacting with web components in tests (typing into inputs, selecting options, etc.).
+### Test Pattern
+
+```tsx
+import { ComponentName } from './index.js';
+
+describe('ComponentName', () => {
+  it('description', () => {
+    cy.mount(<ComponentName prop="value" />);
+    cy.get('[ui5-button]').should('be.visible');
+    cy.findByText('Click').click();
+  });
+});
+```
+
+### Key Patterns
+
+- **Shadow DOM enabled:** `includeShadowDom: true` in config - queries pierce shadow DOM automatically
+- **Use web component selectors:** `[ui5-button]`, `[ui5-dialog]`, `[ui5-responsive-popover]`
+- **Use existing data attributes:** `[data-component-name="..."]`, `[data-row-index="0"]` (don't create new ones just for tests)
+- **Spy on events:** `const onEvent = cy.spy().as('onEvent')`, then `cy.get('@onEvent').should('have.been.calledOnce')`
+- **Keyboard testing:** `cy.realPress('ArrowDown')`, `cy.realPress('Enter')`
+
+### Cypress Commands Package
+
+`@ui5/webcomponents-cypress-commands` provides helpers for web components:
+
+```tsx
+cy.get('[ui5-input]').typeIntoUi5Input('text');
+cy.get('[ui5-select]').ui5SelectOption('Option 1');
+```
+
+## Stories (Storybook)
+
+### File Structure
+
+Stories are co-located: `ComponentName.stories.tsx` next to component. MDX docs pages (`ComponentName.mdx`) provide additional documentation.
+
+### Running Storybook
+
+```bash
+yarn start    # Opens localhost:6006
+```
+
+### Story Pattern (CSF 3)
+
+```tsx
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { ComponentName } from './index.js';
+
+const meta = {
+  title: 'Category / ComponentName', // e.g., 'Inputs / Button'
+  component: ComponentName,
+  argTypes: {
+    children: { control: { disable: true } }, // Disable controls for complex props
+    slotProp: { control: { disable: true } },
+  },
+  args: {
+    // Default prop values
+    design: SomeEnum.Default,
+  },
+  tags: ['package:@ui5/webcomponents'], // Metadata tags
+} satisfies Meta<typeof ComponentName>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {}; // Uses args from meta
+
+export const WithCustomRender: Story = {
+  render(args) {
+    const [state, setState] = useState(false);
+    return <ComponentName {...args} open={state} />;
+  },
+};
+```
+
+### MDX Docs Pages
+
+```mdx
+import { ControlsWithNote, DocsHeader, Footer } from '@sb/components';
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as ComponentStories from './ComponentName.stories';
+
+<Meta of={ComponentStories} />
+<DocsHeader of={ComponentStories} subComponents={['ChildComponent']} />
+
+## Example
+
+<Canvas of={ComponentStories.Default} />
+
+## Properties
+
+<ControlsWithNote of={ComponentStories.Default} />
+
+<Footer />
+```
+
+### Story Tags
+
+- `package:@ui5/webcomponents` - Web component wrapper
+- `package:@ui5/webcomponents-react` - Custom component
+- `extends:@ui5/webcomponents` + `cem-module:ModuleName` - Extended web component
 
 ## TypeScript Patterns
 
@@ -237,7 +345,7 @@ interface ButtonPropTypes extends ButtonAttributes, Omit<CommonProps, keyof Butt
 ### Slot Type
 
 ```typescript
-badge?: UI5WCSlotsNode;  // ReactNode | ReactNode[]
+badge?: UI5WCSlotsNode;
 ```
 
 ## Internationalization

@@ -51,7 +51,7 @@ export default function AppOrRootLayout() {
 #### Icon and Feature Imports in Server Components
 
 Some UI5 Web Component features rely on the registration of a component during runtime on the client.
-The most common of these are icon imports (e.g. `import '@ui5/webcomponents-icons/dist/add.js';`), feature imports (e.g. `import '@ui5/webcomponents/dist/features/FormSupport.js';` and asset imports (e.g. `import '@ui5/webcomponents-react/dist/Assets.js';`).
+The most common of these are icon imports (e.g. `import '@ui5/webcomponents-icons/dist/add.js';`) and asset imports (e.g. `import '@ui5/webcomponents-react/dist/Assets.js';`).
 
 In order to fulfill their purpose in your application, you must ensure that these imports are only used in client components (the file or a parent component must contain the `'use client';` directive).
 If they are imported into server components, these imports will do nothing and you'll notice that some features or icons are not available in your application.

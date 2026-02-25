@@ -121,6 +121,32 @@ function MyComponent() {
 
 UI5 Web Components require certain side-effect imports to function. These register components/assets at runtime.
 
+### ⚠️ CRITICAL: Import Order
+
+**Feature and asset imports MUST come BEFORE any component imports.** They register functionality at module load time - importing them after components means the registration happens too late.
+
+```tsx
+// ✅ CORRECT - assets FIRST
+import '@ui5/webcomponents-react/dist/Assets.js';
+import { Button } from '@ui5/webcomponents-react/Button'; // components after
+
+// ❌ WRONG - components imported before assets
+import { Button } from '@ui5/webcomponents-react/Button';
+import '@ui5/webcomponents-react/dist/Assets.js'; // TOO LATE!
+```
+
+**For SSR/Next.js:** Use a separate file that is imported first:
+
+```tsx
+// ui5-config.ts - create this file
+import '@ui5/webcomponents-react/dist/Assets.js';
+
+// app entry point (index.tsx, main.tsx, layout.tsx)
+import './ui5-config'; // MUST be the first import!
+import { ThemeProvider } from '@ui5/webcomponents-react/ThemeProvider';
+// ... other imports
+```
+
 **SSR/Next.js Critical:** These imports must be in **client components** (`'use client'` directive). In server components, they do nothing.
 
 ### Icon Imports
@@ -142,9 +168,15 @@ import '@ui5/webcomponents-icons/dist/add.js';
 <Button icon="add">Add Item</Button>
 ```
 
-### Asset Imports (i18n/Theming)
+### Asset Imports (i18n, Theming, CLDR)
 
-Required for translations and theme switching:
+**⚠️ ESSENTIAL:** Assets MUST be imported if you need **any** of these features:
+
+- **Translations (i18n)** - Component UI texts in different languages
+- **Theme switching** - Changing themes at runtime (Horizon, Fiori 3, dark modes, high contrast)
+- **CLDR locale data** - Locale-specific date/time formatting, number formatting, calendar data
+
+Without asset imports, components display English text only, theme switching won't work, and date/time components won't format correctly for different locales.
 
 ```tsx
 // Standard installation (includes fiori package assets)
@@ -159,16 +191,13 @@ Test translations with URL param: `?sap-ui-language=de`
 
 ### Feature Imports
 
-Optional features that must be imported before use:
+Optional features are loaded dynamically on demand. Available features include:
 
-```tsx
-// Form support - required for native form submission
-import '@ui5/webcomponents/dist/features/FormSupport.js';
+- `InputSuggestions` - Input suggestions while typing
+- `ColorPaletteMoreColors` - "More colors" dialog in color palette
+- Calendar types: Buddhist, Islamic, Japanese, Persian
 
-// Must be imported BEFORE any other imports
-```
-
-See [UI5 Web Components Features](https://ui5.github.io/webcomponents/docs/advanced/using-features/) for all available features.
+See [UI5 Web Components Features](https://ui5.github.io/webcomponents/docs/advanced/using-features/) for details.
 
 ## Import Pattern
 
@@ -310,16 +339,70 @@ root.render(
 
 High-performance virtualized data table.
 
-**Critical: Memoize columns to prevent re-renders:**
+#### ⚠️ CRITICAL: Memoization Requirements
+
+The AnalyticalTable is highly sensitive to reference changes. **Non-memoized props cause full re-renders and destroy performance.** The following MUST be memoized:
+
+| Prop/Option             | Memoize With     | Impact if Not Memoized                     |
+| ----------------------- | ---------------- | ------------------------------------------ |
+| `columns`               | `useMemo`        | **Critical** - full table re-render        |
+| `data`                  | `useMemo`        | **Critical** - full table re-render        |
+| `tableHooks`            | `useMemo`        | Re-initializes all plugin hooks            |
+| `selectedRowIds`        | `useMemo`        | Resets selection state on every render     |
+| `markNavigatedRow`      | `useCallback`    | Re-renders navigation column               |
+| `onTableScroll`         | `useCallback`    | **Critical** - fires on EVERY scroll event |
+| `sortType` (in columns) | `useCallback`    | Re-sorts on every render                   |
+| `Cell` component        | `memo`/`useMemo` | Re-renders all cells                       |
+| `renderRowSubComponent` | `useCallback`    | Re-renders all subcomponents               |
 
 ```tsx
-// ❌ WRONG - causes re-renders
-<AnalyticalTable columns={[{ accessor: 'name' }]} />;
+// ❌ WRONG - causes constant re-renders
+<AnalyticalTable
+  columns={[{ accessor: 'name' }]}
+  data={fetchedData}
+  tableHooks={[useAnnounceEmptyCells]}
+  markNavigatedRow={(row) => row.original.id === selectedId}
+  onTableScroll={(e) => console.log(e)}
+/>;
 
-// ✅ CORRECT - memoize columns
-const columns = useMemo(() => [{ accessor: 'name' }], []);
-<AnalyticalTable columns={columns} />;
+// ✅ CORRECT - properly memoized
+const columns = useMemo(
+  () => [
+    {
+      accessor: 'name',
+      Header: 'Name',
+      Cell: memo(({ value }) => <span>{value}</span>), // memo for custom Cell
+      sortType: useCallback((a, b) => a.localeCompare(b), []), // memoize if function
+    },
+  ],
+  [],
+);
+
+const data = useMemo(() => fetchedData, [fetchedData]);
+
+const tableHooks = useMemo(() => [useAnnounceEmptyCells], []);
+
+const markNavigatedRow = useCallback((row) => row.original.id === selectedId, [selectedId]);
+
+const handleTableScroll = useCallback((e) => {
+  // Use throttle/debounce for expensive operations!
+  console.log(e.detail.rows);
+}, []);
+
+<AnalyticalTable
+  columns={columns}
+  data={data}
+  tableHooks={tableHooks}
+  markNavigatedRow={markNavigatedRow}
+  onTableScroll={handleTableScroll}
+/>;
 ```
+
+**Additional memoization tips:**
+
+- `renderRowSubComponent` - memoize with `useCallback`, and consider memoizing the returned component for tree tables
+- Custom `Filter` components in columns should be memoized
+- `Popover` component in columns should be memoized
 
 #### Features Without Design Specification / Limitations
 
