@@ -822,6 +822,8 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   withNavigationHighlight?: boolean;
   /**
    * Flag whether the table should add an extra column at the start of the rows for displaying row highlights, based on the `highlightField` prop.
+   *
+   * __Note:__ When enabled, the table automatically adds a column with `accessor="status"`. If you have a custom column using this accessor, change the `highlightField` prop to a different value to avoid conflicts.
    */
   withRowHighlight?: boolean;
   /**
