@@ -1,0 +1,40 @@
+import{j as e}from"./iframe-DAxVciiO.js";import{useMDXComponents as a}from"./index-h_8BIj8E.js";import{M as m,C as r}from"./blocks-V6tY60BP.js";import"./Tag-CfpPKB5J.js";import"./index-Cl51mnxs.js";import{C as h}from"./ControlsWithNote-DOHOEzX8.js";import{D as c}from"./DocsHeader-C9iUY6-3.js";import{F as p}from"./CommandsAndQueries-DAf-gTsq.js";import{M as d,a as l}from"./LegendConfig-LyUT8zml.js";import{M as x}from"./NormalizedStackedChart-C_AyvW1L.js";import{C as t,D as n,W as j,a as f,b as u,c as C,d as g,L as W,e as M,f as D,g as L,h as b}from"./ColumnChart.stories-CwkqHSzY.js";import"./preload-helper-PPVm8Dsz.js";import"./information-BJmehL1Z.js";import"./sys-enter-2-CCej0FVR.js";import"./alert-DT2E8uxg.js";import"./index-x-HMM4OA.js";import"./index-CXz3G2II.js";import"./Link-CPXkUhXc.js";import"./copy-CusNMk6v.js";import"./copy-DS8F9wTV.js";import"./GitHub-Mark-C48nxFEF.js";import"./TableOfContent-CS4QbVvc.js";import"./index-DQeQ_3Br.js";import"./index-BTWHfyOb.js";import"./index-DtbiWkK2.js";import"./index-C2J6ydOt.js";import"./index-45VXzBs0.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-CqjBRadn.js";import"./addCustomCSSWithScoping-B-5Zxa-U.js";import"./DemoProps-BqTJ_1WR.js";import"./ThemingParameters-pyhX3s39.js";import"./staticProps-dZS8ivEO.js";import"./ChartContainer-CS9h8pHp.js";import"./index-Bm6hAg8x.js";import"./useCancelAnimationFallback-CJ7AoG7K.js";import"./YAxisTicks-BuuRIdEK.js";import"./debounce-D7W5PopO.js";import"./useTooltipFormatter-B5IMW9Xy.js";import"./ChartDataLabel-D8B_9Nm5.js";import"./useLongestYAxisLabel-ClzXikmW.js";import"./useOnClickInternal-BnGAz-x1.js";import"./react-content-loader.es-Deqk05os.js";import"./useIsRTL-Ca2uhQ15.js";function s(i){const o={a:"a",code:"code",h2:"h2",h3:"h3",p:"p",pre:"pre",...a(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(m,{of:t}),`
+`,e.jsx(c,{of:t,isChart:!0}),`
+`,e.jsx(o.h2,{id:"example",children:"Example"}),`
+`,e.jsx(r,{of:n}),`
+`,e.jsx(o.h2,{id:"properties",children:"Properties"}),`
+`,e.jsx(h,{of:n}),`
+`,e.jsx("br",{}),`
+`,e.jsx(o.h2,{id:"more-examples",children:"More Examples"}),`
+`,e.jsx(o.h3,{id:"with-custom-color",children:"With custom color"}),`
+`,e.jsx(r,{of:j}),`
+`,e.jsx(o.h3,{id:"with-secondary-dimension",children:"With Secondary Dimension"}),`
+`,e.jsx(r,{of:f}),`
+`,e.jsx(o.h3,{id:"with-stacks",children:"With Stacks"}),`
+`,e.jsx(r,{of:u}),`
+`,e.jsx(x,{of:C}),`
+`,e.jsx(o.h3,{id:"with-formatter",children:"With Formatter"}),`
+`,e.jsx(r,{of:g}),`
+`,e.jsx(o.h3,{id:"loading-placeholder",children:"Loading Placeholder"}),`
+`,e.jsx(r,{of:W}),`
+`,e.jsx(o.h3,{id:"with-reference-line",children:"With Reference Line"}),`
+`,e.jsxs(o.p,{children:["You can set a reference line to any value by using the ",e.jsx(o.code,{children:"referenceLine"})," ",e.jsx(o.code,{children:"chartConfig"})," property. ",e.jsx(o.code,{children:"referenceLine"})," accepts all properties described ",e.jsx(o.a,{href:"https://recharts.org/en-US/api/ReferenceLine",rel:"nofollow",children:"here"}),", but it's recommended to only use ",e.jsx(o.code,{children:"label"}),",",e.jsx(o.code,{children:"value"})," and ",e.jsx(o.code,{children:"color"})," to preserve the intended design."]}),`
+`,e.jsx(o.pre,{children:e.jsx(o.code,{className:"language-jsx",children:`<ColumnChart
+  {...props}
+  chartConfig={{
+    referenceLine: {
+      color: 'red',
+      label: 'MAX',
+      value: 650
+    }
+  }}
+/>
+`})}),`
+`,e.jsx(r,{of:M}),`
+`,e.jsx(o.h2,{id:"with-highlighted-measures",children:"With Highlighted Measures"}),`
+`,e.jsx(r,{of:D}),`
+`,e.jsxs(o.p,{children:[e.jsx(d,{of:L}),";"]}),`
+`,e.jsx(l,{of:b}),`
+`,e.jsx("br",{}),`
+`,e.jsx("br",{}),`
+`,e.jsx(p,{})]})}function je(i={}){const{wrapper:o}={...a(),...i.components};return o?e.jsx(o,{...i,children:e.jsx(s,{...i})}):s(i)}export{je as default};
