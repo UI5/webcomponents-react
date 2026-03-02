@@ -5126,7 +5126,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui5/webcomponents-react-cli@workspace:packages/cli"
   dependencies:
-    dedent: "npm:1.7.1"
+    dedent: "npm:1.7.2"
     execa: "npm:9.6.1"
     patch-package: "npm:8.0.1"
   bin:
@@ -8415,6 +8415,18 @@ __metadata:
     babel-plugin-macros:
       optional: true
   checksum: 10c0/ae29ec1c5bd5216c698c9f23acaa5b720260fd4cef3c8b5af887eb5f8c9e6fdd5fed8668767437b4efea35e2991bd798987717633411a1734807c28255769b78
+  languageName: node
+  linkType: hard
+
+"dedent@npm:1.7.2":
+  version: 1.7.2
+  resolution: "dedent@npm:1.7.2"
+  peerDependencies:
+    babel-plugin-macros: ^3.1.0
+  peerDependenciesMeta:
+    babel-plugin-macros:
+      optional: true
+  checksum: 10c0/acaff07cac355b93f17b1b17ebbb84d3cc55af6ab4b7814c3f505e061903e168bc6bf9ddce331552d64dee1525f0b4c549c9ade46aebfac6f69caaed74e90751
   languageName: node
   linkType: hard
 
