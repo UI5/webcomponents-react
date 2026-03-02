@@ -56,6 +56,10 @@ addons.setConfig({
     showRoots: true,
     filters: {
       patterns: (item) => {
+        // todo: remove once "AnalyticalTable / Recipes" section is removed.
+        if (item.id?.includes('analyticaltable') && item.title.includes('Recipes')) {
+          return false;
+        }
         return !item.tags.includes('excludeFromSidebar');
       },
     },
