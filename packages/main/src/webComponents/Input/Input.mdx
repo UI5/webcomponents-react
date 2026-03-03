@@ -22,11 +22,30 @@ import { excludePropsForAbstract } from '@sb/utils';
 
 <br />
 
-# More Examples
+## More Examples
 
 <br />
 
-## Input with customizable SuggestionItem
+### Fully Controlled Input
+
+Different from the native `input` element, the `Input` (`ui5-input`) web component is uncontrolled even if the `value` prop is provided (see [React docs](https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable)).
+To make it fully controlled, call `event.preventDefault()` in the `onInput` handler.
+
+In the example below, only letters are allowed to be entered into the `Input` component.
+
+<Canvas of={ComponentStories.FullyControlled} />
+
+```ts
+const handleInput: InputPropTypes['onInput'] = (event) => {
+  event.preventDefault();
+  const { value } = event.target;
+  if (/^[a-zA-Z]*$/.test(value)) {
+    setValue(value);
+  }
+};
+```
+
+### Input with customizable SuggestionItem
 
 The `SuggestionItem` represents the suggestion item of the `Input`
 
