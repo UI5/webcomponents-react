@@ -6,7 +6,7 @@ export interface UI5WCFixtures {
 }
 
 export class UI5WCHelpers {
-  constructor(private page: Page) {}
+  constructor(protected page: Page) {}
 
   /**
    * Types a value into a UI5 input component.
@@ -109,104 +109,6 @@ export class UI5WCHelpers {
    */
   findTabPopoverButtonByText(tabContainer: Locator, text: string): Locator {
     return tabContainer.locator('[role="tab"]').filter({ hasText: text }).locator('[ui5-button]');
-  }
-
-  /**
-   * Asserts that an element never gains a specific attribute within an observation period.
-   * Useful for verifying that a button doesn't become disabled during an async operation.
-   *
-   * @example
-   * await ui5wc.shouldNeverHaveAttribute(submitButton, 'disabled', { observerTime: 1000 });
-   */
-  async shouldNeverHaveAttribute(
-    locator: Locator,
-    attributeName: string,
-    options: { observerTime?: number; delayed?: number } = {},
-  ): Promise<void> {
-    const { observerTime = 500, delayed = 0 } = options;
-
-    if (delayed > 0) {
-      await this.page.waitForTimeout(delayed);
-    }
-
-    const element = await locator.elementHandle();
-    if (!element) {
-      throw new Error('Element not found');
-    }
-
-    const attributeFound = await this.page.evaluate(
-      ({ el, attrName, timeout }) => {
-        return new Promise<boolean>((resolve) => {
-          if (el.hasAttribute(attrName)) {
-            resolve(true);
-            return;
-          }
-
-          const observer = new MutationObserver((mutations) => {
-            for (const mutation of mutations) {
-              if (mutation.attributeName === attrName && el.hasAttribute(attrName)) {
-                observer.disconnect();
-                resolve(true);
-                return;
-              }
-            }
-          });
-
-          observer.observe(el, { attributes: true });
-
-          setTimeout(() => {
-            observer.disconnect();
-            resolve(false);
-          }, timeout);
-        });
-      },
-      { el: element, attrName: attributeName, timeout: observerTime },
-    );
-
-    if (attributeFound) {
-      throw new Error(`Attribute "${attributeName}" was found on element, but it should never appear`);
-    }
-  }
-
-  // REDUNDANT
-
-  findShadowInput(locator: Locator): Locator {
-    return locator.locator('input');
-  }
-
-  async toggleCheckbox(locator: Locator): Promise<void> {
-    await locator.click();
-  }
-
-  async toggleSwitch(locator: Locator): Promise<void> {
-    await locator.click();
-  }
-
-  async clickRadioButton(locator: Locator): Promise<void> {
-    await locator.click();
-  }
-
-  async clickListItemByText(text: string, container?: Locator): Promise<void> {
-    const scope = container ?? this.page;
-    let listItem = scope.locator(`[text="${text}"]`);
-    const count = await listItem.count();
-
-    if (count === 0) {
-      listItem = scope.getByText(text, { exact: true });
-    }
-
-    await listItem.click();
-  }
-
-  findToolbarButtonByText(text: string, container?: Locator): Locator {
-    const scope = container ?? this.page;
-    return scope.locator(`[ui5-toolbar-button][text="${text}"]`);
-  }
-
-  async typeIntoInputWithDelay(locator: Locator, text: string, delay: number = 500): Promise<void> {
-    await this.page.waitForTimeout(delay);
-    const shadowInput = locator.locator('input');
-    await shadowInput.fill(text);
   }
 }
 

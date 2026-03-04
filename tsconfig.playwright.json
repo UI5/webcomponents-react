@@ -5,7 +5,8 @@
     "types": ["node"],
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
-    "composite": true
+    "composite": true,
+    "noEmit": true
   },
   "include": ["playwright", "**/*.spec.ts", "**/*.spec.tsx", "playwright-ct.config.ts"]
 }

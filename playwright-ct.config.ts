@@ -5,7 +5,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   testDir: '.',
-  testMatch: ['**/packages/main/src/components/**/test/*.spec.tsx', '**/playwright/test/*.spec.tsx'],
+  testMatch: ['**/packages/main/src/components/**/test/*.spec.tsx', '**/playwright/test/**/*.spec.tsx'],
   testIgnore: ['**/*.cy.tsx', '**/*.cy.ts', '**/*.stories.tsx', '**/*.mdx'],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
