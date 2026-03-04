@@ -43,7 +43,15 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright tests
-        run: yarn test:pw playwright/test/ packages/main/src/components/SelectDialog/test/ --project chromium
+        run: yarn test:pw:ci
+
+      - uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
+        if: ${{ inputs.reportCoverage && matrix.react == '19' }}
+        with:
+          file: temp/playwright-coverage/lcov.info
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel: true
+          flag-name: playwright
 
   cypress:
     name: Cypress
@@ -101,7 +109,7 @@ jobs:
 
   coveralls:
     if: ${{ always() && inputs.reportCoverage }}
-    needs: ['cypress']
+    needs: ['cypress', 'playwright']
     name: 'Combine Coverage'
     runs-on: ubuntu-latest
     steps:
@@ -110,4 +118,4 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
-          carryforward: 'base,charts,cypress-commands,main/src/components,main/src/internal'
+          carryforward: 'base,charts,cypress-commands,main/src/components,main/src/internal,playwright'
