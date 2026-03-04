@@ -1,9 +1,9 @@
 import { test as base, expect } from '@playwright/experimental-ct-react';
 import type { Locator } from '@playwright/test';
-import { UI5WCHelpers } from './ui5-fixtures.js';
+import { UI5WCHelpers } from './ui5-fixtures';
 
 export interface UI5WCInternalFixtures {
-  ui5wcInternal: UI5WCInternalHelpers;
+  ui5wc: UI5WCInternalHelpers;
 }
 
 export class UI5WCInternalHelpers extends UI5WCHelpers {
@@ -67,7 +67,7 @@ export class UI5WCInternalHelpers extends UI5WCHelpers {
 }
 
 export const test = base.extend<UI5WCInternalFixtures>({
-  ui5wcInternal: async ({ page }, use) => {
+  ui5wc: async ({ page }, use) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     await use(new UI5WCInternalHelpers(page));
   },

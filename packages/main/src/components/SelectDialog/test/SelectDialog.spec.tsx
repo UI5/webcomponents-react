@@ -1,5 +1,5 @@
 import { expect } from '@playwright/experimental-ct-react';
-import { test } from '../../../../../../playwright/ui5-fixtures-internal.js';
+import { test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import {
   SelectDialogBasicTestComp,
   SelectDialogHeaderTestComp,
@@ -20,26 +20,26 @@ test.describe('SelectDialog', () => {
     await expect(page.locator('[ui5-dialog]')).not.toBeVisible();
   });
 
-  test('with headerText', async ({ mount, page, ui5wcInternal }) => {
+  test('with headerText', async ({ mount, page, ui5wc }) => {
     await mount(<SelectDialogHeaderTestComp />);
     const header = page.getByText('Select Dialog');
     await expect(header).toHaveCSS('grid-column-start', 'titleStart');
     await expect(header).toHaveCSS('grid-column-end', 'titleCenter');
     await expect(header).toHaveAttribute('level', 'H1');
 
-    await ui5wcInternal.closePopupWithEsc();
+    await ui5wc.closePopupWithEsc();
     await page.getByTestId('toggle-center').click();
     await page.getByTestId('open-btn').click();
     await expect(header).toHaveCSS('grid-area', 'titleCenter');
     await expect(header).toHaveAttribute('level', 'H1');
 
-    await ui5wcInternal.closePopupWithEsc();
+    await ui5wc.closePopupWithEsc();
     await page.getByTestId('set-h2').click();
     await page.getByTestId('open-btn').click();
     await expect(header).toHaveAttribute('level', 'H2');
   });
 
-  test('selection', async ({ mount, page, ui5wcInternal }) => {
+  test('selection', async ({ mount, page, ui5wc }) => {
     await mount(<SelectDialogSelectionWithToggleTestComp />);
     const list = page.locator('[ui5-list]');
 
@@ -53,7 +53,7 @@ test.describe('SelectDialog', () => {
     for (let i = 0; i < 5; i++) {
       await expect(listItems.nth(i)).not.toHaveAttribute('selected');
     }
-    await ui5wcInternal.closePopupWithEsc();
+    await ui5wc.closePopupWithEsc();
 
     // Single mode - with rememberSelections
     await page.getByTestId('toggle-remember').click();
@@ -66,7 +66,7 @@ test.describe('SelectDialog', () => {
     for (const text of ['Product0', 'Product2', 'Product3', 'Product4']) {
       await expect(list.locator(`[ui5-li][text="${text}"]`)).not.toHaveAttribute('selected');
     }
-    await ui5wcInternal.closePopupWithEsc();
+    await ui5wc.closePopupWithEsc();
 
     await expect(page.getByTestId('close-count')).toHaveText('4');
     await expect(page.getByTestId('confirm-count')).toHaveText('2');
@@ -81,7 +81,7 @@ test.describe('SelectDialog', () => {
 
     await page.getByTestId('open-btn').click();
     await expect(page.locator('[ui5-dialog]')).toBeVisible();
-    await ui5wcInternal.closePopupWithEsc();
+    await ui5wc.closePopupWithEsc();
 
     await expect(page.getByTestId('close-count')).toHaveText('6');
     await expect(page.getByTestId('confirm-count')).toHaveText('2');
@@ -117,19 +117,19 @@ test.describe('SelectDialog', () => {
     for (const text of ['Product0', 'Product2', 'Product4']) {
       await expect(list.locator(`[ui5-li][text="${text}"]`)).not.toHaveAttribute('selected');
     }
-    await ui5wcInternal.closePopupWithEsc();
+    await ui5wc.closePopupWithEsc();
 
     await expect(page.getByTestId('close-count')).toHaveText('10');
     await expect(page.getByTestId('confirm-count')).toHaveText('4');
     await expect(page.getByTestId('change-count')).toHaveText('6');
   });
 
-  test('Search', async ({ mount, page, ui5wcInternal }) => {
+  test('Search', async ({ mount, page, ui5wc }) => {
     await mount(<SelectDialogSearchTestComp />);
     await expect(page.locator('[accessible-name="Reset"][ui5-icon]')).not.toBeVisible();
 
     const input = page.locator('[ui5-input]');
-    await ui5wcInternal.typeIntoInput(input, 'Test');
+    await ui5wc.typeIntoInput(input, 'Test');
     await expect(page.getByTestId('input-val')).toHaveText('input: Test');
     await expect(page.getByTestId('search-count')).toHaveText('0');
     await expect(page.getByTestId('input-count')).toHaveText('1');
@@ -167,7 +167,7 @@ test.describe('SelectDialog', () => {
     await expect(page.getByText('Selected: 1337')).toBeVisible();
   });
 
-  test('onCancel', async ({ mount, page, ui5wcInternal }) => {
+  test('onCancel', async ({ mount, page, ui5wc }) => {
     await mount(<SelectDialogCancelWithToggleTestComp />);
 
     // Single mode
@@ -177,7 +177,7 @@ test.describe('SelectDialog', () => {
 
     await page.getByTestId('open-btn').click();
     await expect(page.locator('[ui5-dialog]')).toBeVisible();
-    await ui5wcInternal.closePopupWithEsc();
+    await ui5wc.closePopupWithEsc();
     await expect(page.getByTestId('cancel-count')).toHaveText('2');
 
     // Multiple mode
@@ -188,7 +188,7 @@ test.describe('SelectDialog', () => {
 
     await page.getByTestId('open-btn').click();
     await expect(page.locator('[ui5-dialog]')).toBeVisible();
-    await ui5wcInternal.closePopupWithEsc();
+    await ui5wc.closePopupWithEsc();
     await expect(page.getByTestId('cancel-count')).toHaveText('4');
   });
 

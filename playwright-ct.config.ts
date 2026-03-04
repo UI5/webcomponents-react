@@ -11,7 +11,26 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? '100%' : undefined,
-  reporter: 'html',
+  reporter: process.env.CI
+    ? [
+        ['github'],
+        [
+          'monocart-reporter',
+          {
+            name: 'Playwright Coverage Report',
+            outputFile: 'temp/playwright-coverage/report.html',
+            coverage: {
+              sourceFilter: (sourcePath: string) =>
+                sourcePath.includes('packages/main/src/components/SelectDialog') &&
+                !sourcePath.includes('node_modules') &&
+                !sourcePath.includes('/test/'),
+              reports: ['lcovonly'],
+              outputDir: 'temp/playwright-coverage',
+            },
+          },
+        ],
+      ]
+    : 'html',
   timeout: 10_000,
   expect: { timeout: 4000 },
   use: {
