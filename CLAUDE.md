@@ -34,6 +34,10 @@ import { enrichEventWithDetails } from '@ui5/webcomponents-react-base/internal/u
 onLoadMore(enrichEventWithDetails(e, { rowCount, totalRowCount }));
 ```
 
+### Controlled Components (MUST KNOW)
+
+UI5 Web Components update internal state **before** firing events. For fully controlled components, call `e.preventDefault()` in the handler to prevent internal state updates (e.g., `Input.onInput`, `CheckBox.onChange`, `Select.onChange`, `Dialog.onBeforeClose`).
+
 ### Ref Handling (MUST KNOW)
 
 **Never use `useRef()` directly for forwarded refs** - use `useSyncRef()`:

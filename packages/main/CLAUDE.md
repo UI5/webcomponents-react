@@ -686,3 +686,11 @@ const [isOnDetailsPage, setIsOnDetailsPage] = useState(false);
 | `resetOnSizeChange`       | Reset when container size changes       |
 | `resetOnChildrenChange`   | Reset when children change              |
 | `resetOnCustomDepsChange` | Custom dependency list to trigger reset |
+
+---
+
+## Controlled Components (preventDefault)
+
+UI5 Web Components update internal state **before** firing events. For fully controlled components, call `e.preventDefault()` in the event handler.
+
+**Cancelable events:** `Input/TextArea.onInput`, `CheckBox.onChange`, `Select.onChange`, `DatePicker.onChange/onInput/onValueStateChange`, `DateRangePicker/DateTimePicker.onChange/onInput/onValueStateChange`, `Dialog/Popover/ResponsivePopover.onBeforeClose/onBeforeOpen`, `Button.onClick`, `Link.onClick`, `TabContainer.onTabSelect/onMoveOver`, `List.onItemClick/onMoveOver`, `Calendar.onSelectionChange`, `Breadcrumbs.onItemClick`, `DynamicDateRange.onChange`, `Tree.onItemToggle/onMove`

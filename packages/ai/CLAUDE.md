@@ -40,15 +40,6 @@ import { TextArea } from '@ui5/webcomponents-ai-react/TextArea';
 
 ## Event Handling
 
-Same pattern as other UI5 Web Components - event data is in `e.detail`:
+Event data is in `e.detail`. For fully controlled components, call `e.preventDefault()` in `onInput` to prevent internal state updates.
 
-```tsx
-<Input
-  onVersionChange={(e) => {
-    const goingBack = e.detail.backwards;
-  }}
-  onItemClick={(e) => {
-    const item = e.detail.item;
-  }}
-/>
-```
+**Cancelable events:** `Input.onInput`, `Input.onButtonClick`, `TextArea.onInput`
