@@ -11,6 +11,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? '100%' : undefined,
+  // https://github.com/microsoft/playwright/issues/14511#issuecomment-1552589959
   reporter: process.env.CI
     ? [
         ['github'],

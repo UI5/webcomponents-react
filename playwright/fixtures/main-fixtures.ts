@@ -1,18 +1,14 @@
-/**
- * Test fixture for component tests with V8 coverage collection.
- * Use this for testing actual UI5 Web Components React components.
- */
 import type { TestInfo } from '@playwright/test';
 import { addCoverageReport } from 'monocart-reporter';
-import { test as ctBase, expect } from './ui5-fixtures-internal';
 import { UI5WCHelpers } from './ui5-fixtures';
+import { test as base, expect } from './ui5-fixtures-internal';
 
 export interface UI5WCComponentTestFixtures {
   autoTestFixture: string;
   ui5wc: UI5WCHelpers;
 }
 
-export const test = ctBase.extend<UI5WCComponentTestFixtures>({
+export const test = base.extend<UI5WCComponentTestFixtures>({
   autoTestFixture: [
     async ({ page }, use: (arg: string) => Promise<void>, testInfo: TestInfo) => {
       const isChromium = testInfo.project.name === 'chromium';
