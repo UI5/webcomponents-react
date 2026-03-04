@@ -502,7 +502,7 @@ export interface AnalyticalTableColumnDefinition {
   /**
    * Defines the column width. If not set the table will distribute all columns without a width evenly.
    *
-   * __Note:__ Values lower than `minWidth` are not supported!
+   * __Note:__ The `width` cannot be less than `minWidth`. Since `minWidth` defaults to 60, set a lower `minWidth` to allow narrower columns.
    */
   width?: number;
   /**
@@ -852,6 +852,8 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   withNavigationHighlight?: boolean;
   /**
    * Flag whether the table should add an extra column at the start of the rows for displaying row highlights, based on the `highlightField` prop.
+   *
+   * __Note:__ When enabled, the table automatically adds a column with `accessor="status"`. If you have a custom column using this accessor, change the `highlightField` prop to a different value to avoid conflicts.
    */
   withRowHighlight?: boolean;
   /**
