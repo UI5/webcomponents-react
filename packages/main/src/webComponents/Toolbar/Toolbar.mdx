@@ -1,7 +1,7 @@
 import { ArgTypesWithNote, ControlsWithNote, DocsHeader, Footer } from '@sb/components';
 import SubcomponentsSection from '@sb/docs/SubcomponentsSection.md?raw';
 import { Canvas, Description, Markdown, Meta } from '@storybook/addon-docs/blocks';
-import { ToolbarButton, ToolbarSelect, ToolbarSelectOption, ToolbarSeparator, ToolbarSpacer } from '../index.ts';
+import { ToolbarButton, ToolbarItem, ToolbarSelect, ToolbarSelectOption, ToolbarSeparator, ToolbarSpacer } from '../index.ts';
 import * as ComponentStories from './Toolbar.stories';
 
 <Meta of={ComponentStories} />
@@ -17,6 +17,23 @@ import * as ComponentStories from './Toolbar.stories';
 ## Properties
 
 <ControlsWithNote of={ComponentStories.Default} />
+
+## ToolbarItem
+
+ToolbarItem wrapper used to add any component to Toolbar.
+
+**Note:** To display the radio buttons and checkboxes in a column in the overflow popover, the `toolbar-item-group` CSS class is used:
+
+```css
+/* Use :state(overflowed) to style items differently when in overflow popover */
+[ui5-toolbar-item]:state(overflowed) .toolbar-item-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+```
+
+<Canvas of={ComponentStories.WithToolbarItem} />
 
 ## Opening Popovers via ToolbarButton
 
@@ -63,6 +80,11 @@ function ToolbarWithPopover() {
 ```
 
 <Markdown>{SubcomponentsSection}</Markdown>
+
+## ToolbarItem
+
+<Description of={ToolbarItem} />"
+<ArgTypesWithNote metaOf={ComponentStories} of={ToolbarItem} />
 
 ## ToolbarButton
 

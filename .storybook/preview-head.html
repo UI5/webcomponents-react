@@ -184,6 +184,13 @@
     text-shadow: none;
   }
 
+  /*ToolbarItem overflow column display*/
+  ui5-toolbar-item:state(overflowed) .toolbar-item-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   /* TODO remove this workaround as soon as https://github.com/storybookjs/storybook/issues/20497 is fixed */
   .docs-story > div > div[scale] {
     min-height: 20px;
