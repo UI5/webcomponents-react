@@ -135,6 +135,7 @@ export * from './Token/index.js';
 export * from './Tokenizer/index.js';
 export * from './Toolbar/index.js';
 export * from './ToolbarButton/index.js';
+export * from './ToolbarItem/index.js';
 export * from './ToolbarSelect/index.js';
 export * from './ToolbarSelectOption/index.js';
 export * from './ToolbarSeparator/index.js';

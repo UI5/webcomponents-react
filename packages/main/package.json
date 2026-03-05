@@ -688,6 +688,10 @@
       "types": "./dist/webComponents/ToolbarButton/index.d.ts",
       "default": "./dist/webComponents/ToolbarButton/index.js"
     },
+    "./ToolbarItem": {
+      "types": "./dist/webComponents/ToolbarItem/index.d.ts",
+      "default": "./dist/webComponents/ToolbarItem/index.js"
+    },
     "./ToolbarSelect": {
       "types": "./dist/webComponents/ToolbarSelect/index.d.ts",
       "default": "./dist/webComponents/ToolbarSelect/index.js"
