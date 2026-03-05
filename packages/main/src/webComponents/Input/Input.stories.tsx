@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import InputType from '@ui5/webcomponents/dist/types/InputType.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import employeeIcon from '@ui5/webcomponents-icons/dist/employee.js';
+import { useState } from 'react';
 import { Icon } from '../Icon/index.js';
 import { SuggestionItem } from '../SuggestionItem/index.js';
 import { SuggestionItemGroup } from '../SuggestionItemGroup/index.js';
@@ -27,6 +28,27 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+export const FullyControlled: Story = {
+  render(args) {
+    const [value, setValue] = useState('');
+    return (
+      <>
+        <Input
+          {...args}
+          value={value}
+          onInput={(e) => {
+            e.preventDefault();
+            args.onInput(e);
+            if (/^[a-zA-Z]*$/.test(e.target.value)) {
+              setValue(e.target.value);
+            }
+          }}
+        />
+      </>
+    );
+  },
+};
 
 export const WithSuggestionItem: Story = {
   name: 'with SuggestionItem',
