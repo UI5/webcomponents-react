@@ -5,7 +5,7 @@ import { getTagNameWithoutScopingSuffix } from '../../../internal/utils.js';
 import type { ReactTableHooks, RowType, TableInstance } from '../types/index.js';
 
 const getRowProps = (rowProps, { row, instance }: { row: RowType; instance: TableInstance }) => {
-  const { webComponentsReactProperties, toggleRowSelected, selectedFlatRows, dispatch } = instance;
+  const { webComponentsReactProperties, toggleRowSelected, selectedFlatRows } = instance;
   const handleRowSelect = (e) => {
     const isSelectionCell = e.target.dataset.selectionCell === 'true';
     if (
@@ -47,12 +47,12 @@ const getRowProps = (rowProps, { row, instance }: { row: RowType; instance: Tabl
       }
     }
 
-    toggleRowSelected(row.id);
-
     if (typeof onRowSelect === 'function') {
-      // update state to return instance values after update (see useSelectionChangeCallback hook)
-      dispatch({ type: 'SELECT_ROW_CB', payload: { event: e, row, fired: true } });
+      // Store pending event on table instance
+      instance.pendingSelectEvent = { event: e, row };
     }
+
+    toggleRowSelected(row.id);
   };
 
   const handleKeyDown = (e) => {

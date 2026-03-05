@@ -1,7 +1,7 @@
 import { actions } from 'react-table';
 import type { TableInstance } from '../types/index.js';
 
-export const stateReducer = (state, action, _prevState, instance: TableInstance) => {
+export const stateReducer: TableInstance['stateReducer'] = (state, action, _prevState, instance) => {
   const { payload } = action;
   if (state.isRtl && action.type === actions.columnResizing) {
     const { clientX } = action;
@@ -67,8 +67,6 @@ export const stateReducer = (state, action, _prevState, instance: TableInstance)
       return { ...state, subComponentsHeight: payload };
     case 'TABLE_COL_RESIZED':
       return { ...state, tableColResized: payload };
-    case 'SELECT_ROW_CB':
-      return { ...state, selectedRowPayload: payload };
     case 'ROW_COLLAPSED_FLAG':
       return { ...state, rowCollapsed: payload };
     case 'COLUMN_DND_START':

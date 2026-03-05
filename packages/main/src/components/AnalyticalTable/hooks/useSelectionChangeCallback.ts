@@ -1,56 +1,69 @@
-import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
-import { useEffect } from 'react';
+import { enrichEventWithDetails } from '@ui5/webcomponents-react-base/internal/utils';
+import { useEffect, useRef } from 'react';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
-import type { ReactTableHooks, TableInstance } from '../types/index.js';
+import type { AnalyticalTablePropTypes, ReactTableHooks, TableInstance } from '../types/index.js';
 
-export const useSelectionChangeCallback = (hooks: ReactTableHooks) => {
-  hooks.useControlledState.push((state, { instance }: { instance: TableInstance }) => {
-    const { selectedRowPayload, selectedRowIds, filters, globalFilter } = state;
-    const { rowsById, preFilteredRowsById, webComponentsReactProperties, dispatch } = instance;
-    const isFiltered = filters?.length > 0 || !!globalFilter;
+type OnRowSelectEvent = Parameters<NonNullable<AnalyticalTablePropTypes['onRowSelect']>>[0];
+type OnRowSelectDetail = OnRowSelectEvent['detail'];
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (selectedRowPayload?.fired) {
-        const { event: e, row: selRow, selectAll } = selectedRowPayload;
-        const row = rowsById[selRow?.id];
-        // when selecting a row on a filtered table, `preFilteredRowsById` has to be used, otherwise filtered out rows are undefined
-        const _rowsById = isFiltered ? preFilteredRowsById : rowsById;
+const useInstance = (instance: TableInstance) => {
+  const { webComponentsReactProperties, rowsById, preFilteredRowsById, state } = instance;
+  const { selectedRowIds, filters, globalFilter } = state;
+  const { onRowSelect, selectionMode } = webComponentsReactProperties;
 
-        if (row || selectAll) {
-          const payload = {
-            row: row,
-            rowsById: _rowsById,
-            isSelected: row?.isSelected,
-            allRowsSelected: false,
-            selectedRowIds,
-          };
+  const prevSelectedRowIdsRef = useRef(selectedRowIds);
 
-          if (webComponentsReactProperties.selectionMode === AnalyticalTableSelectionMode.Multiple) {
-            if (Object.keys(selectedRowIds).length === Object.keys(_rowsById).length) {
-              payload.allRowsSelected = true;
-            }
+  useEffect(() => {
+    const pendingEvent = instance.pendingSelectEvent;
 
-            if (selectAll) {
-              dispatch({ type: 'SELECT_ROW_CB', payload: { event: e, row, selectAll: false, fired: false } });
-              webComponentsReactProperties?.onRowSelect(
-                enrichEventWithDetails(e, {
-                  rowsById: payload.rowsById,
-                  allRowsSelected: payload.allRowsSelected,
-                  selectedRowIds: payload.selectedRowIds,
-                }),
-              );
-              return;
-            }
-          }
-          dispatch({ type: 'SELECT_ROW_CB', payload: { event: e, row, fired: false } });
-          webComponentsReactProperties?.onRowSelect(enrichEventWithDetails(e, payload));
+    // Only fire callback if there's a pending event and selection changed
+    if (pendingEvent && prevSelectedRowIdsRef.current !== selectedRowIds) {
+      // Clear pending event - instance is mutable
+      // eslint-disable-next-line react-hooks/immutability
+      instance.pendingSelectEvent = undefined;
+
+      const { event: e, row: eventRow, selectAll } = pendingEvent;
+      const row = eventRow ? rowsById[eventRow.id] : undefined;
+      const isFiltered = filters?.length > 0 || !!globalFilter;
+      const _rowsById = isFiltered ? preFilteredRowsById : rowsById;
+
+      const payload: Partial<OnRowSelectDetail> = {
+        row,
+        rowsById: _rowsById,
+        isSelected: row?.isSelected,
+        allRowsSelected: false,
+        allVisibleRowsSelected: !!instance.isAllRowsSelected,
+        selectedRowIds,
+      };
+
+      if (selectionMode === AnalyticalTableSelectionMode.Multiple) {
+        // Check if all rows (including filtered) are selected
+        if (Object.keys(selectedRowIds).length === Object.keys(_rowsById).length) {
+          payload.allRowsSelected = true;
         }
       }
-    }, [selectedRowPayload?.fired, rowsById, webComponentsReactProperties.selectionMode, selectedRowIds, isFiltered]);
 
-    return state;
-  });
+      if (selectAll) {
+        // For select-all click, don't include row-specific fields
+        onRowSelect?.(
+          enrichEventWithDetails(e as Event & { detail?: OnRowSelectDetail }, {
+            rowsById: payload.rowsById,
+            allRowsSelected: payload.allRowsSelected,
+            allVisibleRowsSelected: payload.allVisibleRowsSelected,
+            selectedRowIds: payload.selectedRowIds,
+          }) as OnRowSelectEvent,
+        );
+      } else {
+        onRowSelect?.(enrichEventWithDetails(e as Event & { detail?: OnRowSelectDetail }, payload) as OnRowSelectEvent);
+      }
+    }
+
+    prevSelectedRowIdsRef.current = selectedRowIds;
+  }, [selectedRowIds, rowsById, preFilteredRowsById, filters, globalFilter, selectionMode, instance, onRowSelect]);
+};
+
+export const useSelectionChangeCallback = (hooks: ReactTableHooks) => {
+  hooks.useInstance.push(useInstance);
 };
 
 useSelectionChangeCallback.pluginName = 'useSelectionChangeCallback';

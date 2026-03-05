@@ -38,3 +38,9 @@ path = "packages/main/src/internal/safeGetChildrenArray.ts"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2022 Adobe Inc."
 SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "packages/main/src/components/AnalyticalTable/hooks/useRowSelect.ts"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2019-2021 Tanner Linsley"
+SPDX-License-Identifier = "MIT"

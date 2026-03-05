@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import type { ReactTableHooks, TableInstance } from '../types/index.js';
 
 /**
@@ -12,18 +13,26 @@ export const useManualRowSelect = (manualRowSelectedKey = 'isSelected') => {
   const instanceAfterData = ({
     flatRows,
     toggleRowSelected,
+    webComponentsReactProperties,
   }: {
     flatRows: TableInstance['flatRows'];
     toggleRowSelected: TableInstance['toggleRowSelected'];
+    webComponentsReactProperties: TableInstance['webComponentsReactProperties'];
   }) => {
+    const { selectionMode } = webComponentsReactProperties;
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
+      if (selectionMode === AnalyticalTableSelectionMode.None) {
+        return;
+      }
+
       flatRows.forEach(({ id, original }) => {
         if (manualRowSelectedKey in original) {
           toggleRowSelected(id, original.isSelected);
         }
       });
-    }, [flatRows, toggleRowSelected]);
+    }, [flatRows, toggleRowSelected, selectionMode]);
   };
 
   const manualRowSelect = (hooks: ReactTableHooks) => {

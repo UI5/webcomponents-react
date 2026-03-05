@@ -94,6 +94,9 @@ export const useRowDisableSelection = (disableRowSelection: DisableRowSelectionT
 
   const getRowProps = (rowProps, { row, instance }: { row: RowType; instance: TableInstance }) => {
     const { webComponentsReactProperties } = instance;
+    if (webComponentsReactProperties.selectionMode === AnalyticalTableSelectionMode.None) {
+      return rowProps;
+    }
     if (disableRowAccessor(row) === true) {
       row.disableSelect = true;
       const handleClick = (e) => {
@@ -155,7 +158,10 @@ export const useRowDisableSelection = (disableRowSelection: DisableRowSelectionT
     return cellProps;
   };
 
-  const toggleRowSelectedProps = (rowProps, { row }: { row: RowType }) => {
+  const toggleRowSelectedProps = (rowProps, { row, instance }: { row: RowType; instance: TableInstance }) => {
+    if (instance.webComponentsReactProperties.selectionMode === AnalyticalTableSelectionMode.None) {
+      return rowProps;
+    }
     if (disableRowAccessor(row) === true) {
       const { title: _0, ...updatedRowProps } = rowProps;
       return updatedRowProps;

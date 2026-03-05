@@ -27,6 +27,17 @@ import type { classNames } from '../AnalyticalTable.module.css.js';
 
 export type ClassNames = typeof classNames;
 
+interface StateReducerAction {
+  type: string;
+  id?: string;
+  value?: boolean;
+  payload?: any;
+  columnId?: string;
+  filterValue?: string;
+  clientX?: number;
+  [key: string]: unknown;
+}
+
 export enum RenderColumnTypes {
   Filter = 'Filter',
   Grouped = 'Grouped',
@@ -109,6 +120,15 @@ export interface CellType {
 export interface TableInstance {
   allColumns: ColumnType[];
   allColumnsHidden?: boolean;
+  autoResetExpanded?: boolean;
+  autoResetFilters?: boolean;
+  autoResetGroupBy?: boolean;
+  autoResetHiddenColumns?: boolean;
+  autoResetPage?: boolean;
+  autoResetResize?: boolean;
+  autoResetRowState?: boolean;
+  autoResetSelectedRows?: boolean;
+  autoResetSortBy?: boolean;
   columns: ColumnType[];
   data: Record<string, any>[];
   defaultColumn: Record<string, any>;
@@ -120,6 +140,8 @@ export interface TableInstance {
     type: string;
     payload?: Record<string, unknown> | AnalyticalTableState['popInColumns'] | boolean | string | number;
     clientX?: number;
+    value?: boolean;
+    id?: string;
   }) => void;
   expandedDepth?: number;
   expandedRows?: RowType[];
@@ -151,10 +173,12 @@ export interface TableInstance {
   isAllPageRowsSelected?: boolean;
   isAllRowsExpanded?: boolean;
   isAllRowsSelected?: boolean;
+  manualRowSelectedKey?: string;
   nonGroupedFlatRows?: RowType[];
   nonGroupedRowsById?: Record<string, RowType>;
   onlyGroupedFlatRows?: RowType[];
   onlyGroupedRowsById?: Record<string, RowType>;
+  page?: RowType[];
   plugins: ((hooks: ReactTableHooks) => void)[];
   preExpandedRows?: RowType[];
   preFilteredFlatRows?: RowType[];
@@ -192,7 +216,7 @@ export interface TableInstance {
   state: AnalyticalTableState & Record<string, any>;
   stateReducer?: (
     state: TableInstance['state'],
-    action: any,
+    action: StateReducerAction,
     _prevState: TableInstance['state'],
     instance: TableInstance,
   ) => TableInstance['state'];
@@ -219,6 +243,11 @@ export interface TableInstance {
   visibleColumns: ColumnType[];
   visibleColumnsWidth?: number[];
   webComponentsReactProperties: WCRPropertiesType;
+  pendingSelectEvent?: {
+    event: Event;
+    row?: RowType;
+    selectAll?: boolean;
+  };
   [key: string]: any;
 }
 
@@ -289,6 +318,7 @@ export interface RowType {
   id: string;
   index: number;
   isExpanded: boolean | undefined;
+  isGrouped?: boolean;
   isSelected: boolean;
   isSomeSelected: boolean;
   getRowProps: (props?: any) => any;
@@ -1035,7 +1065,16 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
        * __Note:__ If the event invoked by select-all press, this property is not available.
        */
       isSelected?: boolean;
+      /**
+       * Indicates if all rows (including filtered out rows) are selected.
+       */
       allRowsSelected: boolean;
+      /**
+       * Indicates if all currently visible rows are selected.
+       *
+       * __Note:__ When the table is filtered, this reflects only the non-filtered (visible) rows.
+       */
+      allVisibleRowsSelected: boolean;
       rowsById: Record<string, RowType>;
       selectedRowIds: Record<string, boolean>;
       nativeDetail: number;
@@ -1122,7 +1161,7 @@ interface ConfigParam {
 
 export interface ReactTableHooks {
   useOptions: any[];
-  stateReducers: any[];
+  stateReducers: NonNullable<TableInstance['stateReducer']>[];
   useControlledState: any[];
   columns: ((columns: ColumnType[], config: ConfigParam) => ColumnType[])[];
   columnsDeps: ((deps: DependencyList, config: ConfigParam) => DependencyList)[];

@@ -627,7 +627,7 @@ describe('AnalyticalTable', () => {
             filterable
             columns={columns}
             onRowSelect={(e) => {
-              const { allRowsSelected, isSelected, row, rowsById, selectedRowIds } = e.detail;
+              const { allRowsSelected, allVisibleRowsSelected, isSelected, row, rowsById, selectedRowIds } = e.detail;
               const selectedRowIdsArrayMapped = Object.keys(selectedRowIds).reduce((acc, key) => {
                 if (selectedRowIds[key]) {
                   acc.push(rowsById[key]);
@@ -636,6 +636,7 @@ describe('AnalyticalTable', () => {
               }, []);
               setRelevantPayload({
                 allRowsSelected,
+                allVisibleRowsSelected,
                 isSelected,
                 row: row.id,
                 selectedFlatRows: selectedRowIdsArrayMapped.map((item) => ({
@@ -654,6 +655,8 @@ describe('AnalyticalTable', () => {
             {JSON.stringify(relevantPayload?.selectedFlatRows?.filter(Boolean).length)}
             {JSON.stringify(relevantPayload?.selectedRowIds)}
           </div>
+          <div data-testid="payloadAllRowsSelected">{`${relevantPayload?.allRowsSelected ?? false}`}</div>
+          <div data-testid="payloadAllVisibleRowsSelected">{`${relevantPayload?.allVisibleRowsSelected ?? false}`}</div>
         </>
       );
     };
@@ -716,6 +719,16 @@ describe('AnalyticalTable', () => {
     });
     cy.get('@onRowSelectSpy').should('have.callCount', 4);
     cy.findByTestId('payloadHelper').should('have.text', '4{"0":true,"1":true,"0.2":true,"0.2.0":true}');
+
+    cy.findByTestId('payloadAllRowsSelected').should('have.text', 'false');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'true');
+
+    cy.findByText('Name').click();
+    cy.get(`[ui5-input][show-clear-icon]`).typeIntoUi5Input('{selectall}{backspace}{enter}', { force: true });
+
+    cy.findByText('Flowers Mcfarland').click();
+    cy.findByTestId('payloadAllRowsSelected').should('have.text', 'false');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'false');
   });
 
   it('programmatic and user selection + filtering', () => {
@@ -737,6 +750,7 @@ describe('AnalyticalTable', () => {
       const [selectedFlatRows, setSelectedFlatRows] = useState([]);
       const [selectedRowIdsCb, setSelectedRowIdsCb] = useState({});
       const [allRowsSelected, setAllRowsSelected] = useState(false);
+      const [allVisibleRowsSelected, setAllVisibleRowsSelected] = useState(false);
       const [globalFilterVal, setGlobalFilterVal] = useState('');
       return (
         <>
@@ -764,6 +778,7 @@ describe('AnalyticalTable', () => {
               setSelectedFlatRows(selectedRowIdsArrayMapped.map((item) => item.id));
               setSelectedRowIdsCb(e.detail.selectedRowIds);
               setAllRowsSelected(e.detail.allRowsSelected);
+              setAllVisibleRowsSelected(e.detail.allVisibleRowsSelected);
               onRowSelect(e);
             }}
             onFilter={filterSpy}
@@ -780,6 +795,10 @@ describe('AnalyticalTable', () => {
           <p>
             "e.detail.allRowsSelected:"
             <span data-testid="payloadAllRowsSelected">{`${allRowsSelected}`}</span>
+          </p>
+          <p>
+            "e.detail.allVisibleRowsSelected:"
+            <span data-testid="payloadAllVisibleRowsSelected">{`${allVisibleRowsSelected}`}</span>
           </p>
         </>
       );
@@ -868,6 +887,7 @@ describe('AnalyticalTable', () => {
     cy.findByTestId('payload').should('have.text', '["0","1","5","7","17","20"]');
     cy.findByTestId('payloadRowsById').should('have.text', '{"0":true,"1":true,"5":true,"7":true,"17":true,"20":true}');
     cy.findByTestId('payloadAllRowsSelected').should('have.text', 'false');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'true');
 
     cy.findByText('Name').click();
     cy.get('[ui5-li-custom]').shadow().get('[ui5-input]').typeIntoUi5Input('{selectall}{backspace}{enter}');
@@ -892,6 +912,7 @@ describe('AnalyticalTable', () => {
       '{"0":true,"1":true,"2":true,"3":true,"4":true,"5":true,"6":true,"7":true,"8":true,"9":true,"10":true,"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"18":true,"19":true,"20":true}',
     );
     cy.findByTestId('payloadAllRowsSelected').should('have.text', 'false');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'false');
     cy.findByText('Name-17').click();
     cy.findByTestId('payload').should(
       'have.text',
@@ -902,6 +923,7 @@ describe('AnalyticalTable', () => {
       '{"0":true,"1":true,"2":true,"3":true,"4":true,"5":true,"6":true,"7":true,"8":true,"9":true,"10":true,"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":true,"18":true,"19":true,"20":true}',
     );
     cy.findByTestId('payloadAllRowsSelected').should('have.text', 'true');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'true');
 
     cy.findByText('Name').click();
     cy.get('[ui5-li-custom]').shadow().get('[ui5-input]').typeIntoUi5Input('{selectall}{backspace}{enter}');
@@ -918,6 +940,7 @@ describe('AnalyticalTable', () => {
       '{"0":true,"1":true,"2":true,"3":true,"4":true,"5":true,"6":true,"7":true,"8":true,"9":true,"10":true,"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"18":true,"19":true,"20":true}',
     );
     cy.findByTestId('payloadAllRowsSelected').should('have.text', 'false');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'false');
     cy.findByText('Name-17').click();
     cy.findByTestId('payload').should(
       'have.text',
@@ -928,6 +951,7 @@ describe('AnalyticalTable', () => {
       '{"0":true,"1":true,"2":true,"3":true,"4":true,"5":true,"6":true,"7":true,"8":true,"9":true,"10":true,"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":true,"18":true,"19":true,"20":true}',
     );
     cy.findByTestId('payloadAllRowsSelected').should('have.text', 'true');
+    cy.findByTestId('payloadAllVisibleRowsSelected').should('have.text', 'true');
     cy.get('@onRowSelectSpy').should('have.callCount', 19);
   });
 
@@ -1005,7 +1029,7 @@ describe('AnalyticalTable', () => {
             columns={columns}
             tableInstance={tableInstance}
             onRowSelect={(e) => {
-              const { allRowsSelected, isSelected, row, rowsById, selectedRowIds } = e.detail;
+              const { allRowsSelected, allVisibleRowsSelected, isSelected, row, rowsById, selectedRowIds } = e.detail;
               const selectedRowIdsArrayMapped = Object.keys(selectedRowIds).reduce((acc, key) => {
                 if (selectedRowIds[key]) {
                   acc.push(rowsById[key]);
@@ -1014,8 +1038,9 @@ describe('AnalyticalTable', () => {
               }, []);
               setRelevantPayload({
                 allRowsSelected,
+                allVisibleRowsSelected,
                 isSelected,
-                row: row.id,
+                row: row?.id,
                 selectedFlatRows: selectedRowIdsArrayMapped.map((item) => ({
                   id: item?.id,
                 })),
@@ -1032,17 +1057,25 @@ describe('AnalyticalTable', () => {
           </div>
           <div data-testid="selectedRowIds">{JSON.stringify(relevantPayload?.selectedRowIds)}</div>
           <div data-testid="isSelected">{`${relevantPayload.isSelected}`}</div>
+          <div data-testid="allRowsSelected">{`${relevantPayload.allRowsSelected}`}</div>
+          <div data-testid="allVisibleRowsSelected">{`${relevantPayload.allVisibleRowsSelected}`}</div>
         </>
       );
     };
     const select = cy.spy().as('onRowSelectSpy');
     cy.mount(<GroupBySelectTable onRowSelect={select} />);
 
+    const selectAllCheckbox = '[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]';
+    const selectAllCell = '[data-column-id="__ui5wcr__internal_selection_column"]';
+
     cy.findByText('QWE').click();
     cy.get('@onRowSelectSpy').should('have.callCount', 1);
     cy.findByTestId('selectedFlatRowsLength').should('have.text', '1');
     cy.findByTestId('selectedRowIds').should('have.text', '{"2":true}');
     cy.findByTestId('isSelected').should('have.text', 'true');
+    cy.findByTestId('allRowsSelected').should('have.text', 'false');
+    cy.findByTestId('allVisibleRowsSelected').should('have.text', 'false');
+    cy.get(selectAllCheckbox).should('have.attr', 'indeterminate');
 
     cy.findByText('Friend Name').click();
     cy.get('[ui5-list]').clickUi5ListItemByText('Group');
@@ -1058,12 +1091,28 @@ describe('AnalyticalTable', () => {
     cy.findByTestId('selectedFlatRowsLength').should('have.text', '2');
     cy.findByTestId('selectedRowIds').should('have.text', '{"2":true,"4":true}');
     cy.findByTestId('isSelected').should('have.text', 'true');
+    cy.findByTestId('allRowsSelected').should('have.text', 'false');
+    cy.findByTestId('allVisibleRowsSelected').should('have.text', 'false');
 
     cy.findByText('25').click();
     cy.get('@onRowSelectSpy').should('have.callCount', 3);
     cy.findByTestId('selectedFlatRowsLength').should('have.text', '1');
     cy.findByTestId('selectedRowIds').should('have.text', '{"2":true}');
     cy.findByTestId('isSelected').should('have.text', 'false');
+    cy.findByTestId('allRowsSelected').should('have.text', 'false');
+    cy.findByTestId('allVisibleRowsSelected').should('have.text', 'false');
+
+    cy.get(selectAllCell).click();
+    cy.get('@onRowSelectSpy').should('have.callCount', 4);
+    cy.findByTestId('allVisibleRowsSelected').should('have.text', 'true');
+    cy.get(selectAllCheckbox).should('not.have.attr', 'indeterminate');
+    cy.get(selectAllCheckbox).should('have.attr', 'checked');
+
+    cy.get(selectAllCell).click();
+    cy.get('@onRowSelectSpy').should('have.callCount', 5);
+    cy.findByTestId('allVisibleRowsSelected').should('have.text', 'false');
+    cy.get(selectAllCheckbox).should('not.have.attr', 'indeterminate');
+    cy.get(selectAllCheckbox).should('not.have.attr', 'checked');
 
     cy.findByText('Friend Name').click();
     cy.get('[ui5-list]').clickUi5ListItemByText('Ungroup');
@@ -1175,19 +1224,11 @@ describe('AnalyticalTable', () => {
     cy.findByTestId('selectedRows').should('have.text', '{"1.0.0.0":true,"1.0.0.1":true,"1.0.0.2":true}');
     cy.findByText('Selma Kaufman').click();
 
-    if (reactVersion.startsWith('19')) {
-      // ToDo: the parent row isn't included in the `setSelectedRowIds` anymore - check if it's feasible to include it again, otherwise add a note to the hook
-      cy.findByTestId('selectedRows').should(
-        'have.text',
-        // '{"1.0.0.0":true,"1.0.0.1":true,"1.0.0.2":true,"1.0.0.3":true,"1.0.0":true}'
-        '{"1.0.0.0":true,"1.0.0.1":true,"1.0.0.2":true,"1.0.0.3":true}',
-      );
-    } else {
-      cy.findByTestId('selectedRows').should(
-        'have.text',
-        '{"1.0.0.0":true,"1.0.0.1":true,"1.0.0.2":true,"1.0.0.3":true,"1.0.0":true}',
-      );
-    }
+    // parent row "1.0.0" is automatically added when all children are selected
+    cy.findByTestId('selectedRows').should(
+      'have.text',
+      '{"1.0.0.0":true,"1.0.0.1":true,"1.0.0.2":true,"1.0.0.3":true,"1.0.0":true}',
+    );
   });
 
   it('useIndeterminateRowSelection', () => {
@@ -1850,16 +1891,35 @@ describe('AnalyticalTable', () => {
     );
     cy.mount(<AnalyticalTable data={data} columns={columns} loading loadingDelay={50000} />);
     cy.get('.ui5-busy-indicator-busy-area', { timeout: 2000 }).should('not.exist');
-    cy.mount(<AnalyticalTable data={[]} columns={columns} />);
+    cy.mount(<AnalyticalTable data={[]} columns={columns} selectionMode={AnalyticalTableSelectionMode.Multiple} />);
     cy.findByText('No data').should('be.visible');
-    cy.mount(<AnalyticalTable data={data} columns={columns} filterable globalFilterValue="test123" />);
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should('not.exist');
+    cy.mount(
+      <AnalyticalTable
+        data={data}
+        columns={columns}
+        filterable
+        globalFilterValue="test123"
+        selectionMode={AnalyticalTableSelectionMode.Multiple}
+      />,
+    );
     cy.findByText('No data found. Try adjusting the filter settings.').should('be.visible');
-    cy.mount(<AnalyticalTable data={data} columns={columns} filterable />);
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should('not.exist');
+    cy.mount(
+      <AnalyticalTable
+        data={data}
+        columns={columns}
+        filterable
+        selectionMode={AnalyticalTableSelectionMode.Multiple}
+      />,
+    );
     cy.findByText('Lorem').should('be.visible');
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should('exist');
     cy.findByText('Name').realClick();
     cy.get('[ui5-input]').typeIntoUi5Input('test123');
     cy.findByText('Lorem').should('not.exist');
     cy.findByText('No data found. Try adjusting the filter settings.').should('be.visible');
+    cy.get('[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]').should('not.exist');
   });
 
   it('NoDataComponent', () => {
@@ -3132,7 +3192,7 @@ describe('AnalyticalTable', () => {
     const TestComp = () => {
       const [stringifiedPl, setStringifiedPl] = useState('');
       const handleSelect = (e) => {
-        const { allRowsSelected, rowsById, selectedRowIds } = e.detail;
+        const { allRowsSelected, allVisibleRowsSelected, rowsById, selectedRowIds } = e.detail;
 
         const selectedRowIdsArrayMapped = Object.keys(selectedRowIds).reduce((acc, key) => {
           if (selectedRowIds[key]) {
@@ -3148,6 +3208,7 @@ describe('AnalyticalTable', () => {
               id: item?.id,
             })),
             allRowsSelected,
+            allVisibleRowsSelected,
           }),
         );
         select(e);
@@ -3179,26 +3240,170 @@ describe('AnalyticalTable', () => {
     cy.get('@selAll').should('have.attr', 'title', 'Deselect All');
     cy.findByTestId('payload').should(
       'have.text',
-      '{"selectedRowIds":{"0":true,"1":true,"2":true,"3":true},"selectedFlatRows":[{"id":"0"},{"id":"1"},{"id":"2"},{"id":"3"}],"allRowsSelected":true}',
+      '{"selectedRowIds":{"0":true,"1":true,"2":true,"3":true},"selectedFlatRows":[{"id":"0"},{"id":"1"},{"id":"2"},{"id":"3"}],"allRowsSelected":true,"allVisibleRowsSelected":true}',
     );
     cy.findByText('X').click();
     cy.get('@selectSpy').should('have.been.calledTwice');
     cy.findByTestId('payload').should(
       'have.text',
-      '{"selectedRowIds":{"0":true,"1":true,"3":true},"selectedFlatRows":[{"id":"0"},{"id":"1"},{"id":"3"}],"allRowsSelected":false}',
+      '{"selectedRowIds":{"0":true,"1":true,"3":true},"selectedFlatRows":[{"id":"0"},{"id":"1"},{"id":"3"}],"allRowsSelected":false,"allVisibleRowsSelected":false}',
     );
     cy.get('@selAll').should('have.attr', 'title', 'Select All').click();
     cy.get('@selectSpy').should('have.been.calledThrice');
     cy.findByTestId('payload').should(
       'have.text',
-      '{"selectedRowIds":{"0":true,"1":true,"2":true,"3":true},"selectedFlatRows":[{"id":"0"},{"id":"1"},{"id":"2"},{"id":"3"}],"allRowsSelected":true}',
+      '{"selectedRowIds":{"0":true,"1":true,"2":true,"3":true},"selectedFlatRows":[{"id":"0"},{"id":"1"},{"id":"2"},{"id":"3"}],"allRowsSelected":true,"allVisibleRowsSelected":true}',
     );
     cy.get('@selAll').click();
     cy.get('@selectSpy').should('have.callCount', 4);
     cy.findByTestId('payload').should(
       'have.text',
-      '{"selectedRowIds":{},"selectedFlatRows":[],"allRowsSelected":false}',
+      '{"selectedRowIds":{},"selectedFlatRows":[],"allRowsSelected":false,"allVisibleRowsSelected":false}',
     );
+  });
+
+  it('select-all with filtered rows', () => {
+    const select = cy.spy().as('selectSpy');
+    // John, Jane, Bob, Alice - filtering 'J' gives John, Jane (excludes Bob, Alice)
+    const filterData = mockNames.slice(0, 4).map((name) => ({ name }));
+    const filterColumns: AnalyticalTableColumnDefinition[] = [{ Header: 'Name', accessor: 'name' }];
+    const TestComp = () => {
+      const [filter, setFilter] = useState('');
+      const [payload, setPayload] = useState<{
+        allRowsSelected?: boolean;
+        allVisibleRowsSelected?: boolean;
+        selectedRowIds?: Record<string, boolean>;
+      }>({});
+
+      const handleRowSelect: AnalyticalTablePropTypes['onRowSelect'] = (e) => {
+        const { allRowsSelected, allVisibleRowsSelected, selectedRowIds } = e.detail;
+        setPayload({ allRowsSelected, allVisibleRowsSelected, selectedRowIds });
+        select(e);
+      };
+      return (
+        <>
+          <Input data-testid="filterInput" onInput={(e) => setFilter(e.target.value)} />
+          <AnalyticalTable
+            columns={filterColumns}
+            data={filterData}
+            selectionMode={AnalyticalTableSelectionMode.Multiple}
+            globalFilterValue={filter}
+            onRowSelect={handleRowSelect}
+          />
+          <div data-testid="allRowsSelected">{`${payload.allRowsSelected}`}</div>
+          <div data-testid="allVisibleRowsSelected">{`${payload.allVisibleRowsSelected}`}</div>
+          <div data-testid="selectedRowIds">{JSON.stringify(payload.selectedRowIds)}</div>
+        </>
+      );
+    };
+    cy.mount(<TestComp />);
+
+    const selectAllCheckbox = '[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]';
+    const selectAllCell = '[data-column-id="__ui5wcr__internal_selection_column"]';
+
+    cy.get(selectAllCheckbox).should('not.have.attr', 'indeterminate');
+    cy.get(selectAllCheckbox).should('not.have.attr', 'checked');
+
+    // filtered 0/2 (0/4)
+    cy.findByTestId('filterInput').typeIntoUi5Input('J');
+    cy.findByText('Bob').should('not.exist');
+    cy.findByText('Alice').should('not.exist');
+
+    // filtered 1/2 (1/4)
+    cy.findByText('John').click();
+    cy.get(selectAllCheckbox).should('have.attr', 'indeterminate');
+    cy.findByTestId('allRowsSelected').should('have.text', 'false');
+    cy.findByTestId('allVisibleRowsSelected').should('have.text', 'false');
+
+    // filtered 2/2 (2/4)
+    cy.findByText('Jane').click();
+    cy.get(selectAllCheckbox).should('not.have.attr', 'indeterminate');
+    cy.get(selectAllCheckbox).should('have.attr', 'checked');
+    cy.findByTestId('allRowsSelected').should('have.text', 'false');
+    cy.findByTestId('allVisibleRowsSelected').should('have.text', 'true');
+
+    // 2/4
+    cy.findByTestId('filterInput').typeIntoUi5Input('{selectall}{backspace}');
+    cy.get(selectAllCheckbox).should('have.attr', 'indeterminate');
+
+    // 3/4
+    cy.findByText('Bob').click();
+    cy.get(selectAllCheckbox).should('have.attr', 'indeterminate');
+
+    // filtered 2/2 (3/4)
+    cy.findByTestId('filterInput').typeIntoUi5Input('J');
+    cy.get(selectAllCheckbox).should('have.attr', 'checked');
+    cy.get(selectAllCheckbox).should('not.have.attr', 'indeterminate');
+
+    // filtered 1/2 (2/4)
+    cy.findByText('John').click();
+    cy.get(selectAllCheckbox).should('have.attr', 'indeterminate');
+
+    // filtered 0/2 (1/4)
+    cy.findByText('Jane').click();
+    cy.get(selectAllCheckbox).should('not.have.attr', 'indeterminate');
+    cy.get(selectAllCheckbox).should('not.have.attr', 'checked');
+
+    // filtered 2/2 (3/4)
+    cy.get(selectAllCell).click();
+    cy.get(selectAllCheckbox).should('have.attr', 'checked');
+
+    // 3/4
+    cy.findByTestId('filterInput').typeIntoUi5Input('{selectall}{backspace}');
+    cy.get(selectAllCheckbox).should('have.attr', 'indeterminate');
+  });
+
+  it('selection state preserved during loading/overlay', () => {
+    const TestComp = () => {
+      const [loading, setLoading] = useState(false);
+      const [showOverlay, setShowOverlay] = useState(false);
+      return (
+        <>
+          <Button data-testid="toggleLoading" onClick={() => setLoading((prev) => !prev)}>
+            Toggle Loading
+          </Button>
+          <Button data-testid="toggleOverlay" onClick={() => setShowOverlay((prev) => !prev)}>
+            Toggle Overlay
+          </Button>
+          <AnalyticalTable
+            columns={columns}
+            data={data}
+            selectionMode={AnalyticalTableSelectionMode.Multiple}
+            loading={loading}
+            showOverlay={showOverlay}
+          />
+        </>
+      );
+    };
+    cy.mount(<TestComp />);
+
+    const selectAllCheckbox = '[data-column-id="__ui5wcr__internal_selection_column"] [ui5-checkbox]';
+
+    cy.findByText('A').click();
+    cy.findByText('B').click();
+    cy.get('[aria-rowindex="2"]').should('have.attr', 'data-is-selected');
+    cy.get('[aria-rowindex="3"]').should('have.attr', 'data-is-selected');
+    cy.get(selectAllCheckbox).should('have.attr', 'indeterminate');
+
+    cy.findByTestId('toggleLoading').click();
+    cy.get('[aria-rowindex="2"]').should('have.attr', 'data-is-selected');
+    cy.get('[aria-rowindex="3"]').should('have.attr', 'data-is-selected');
+    cy.get(selectAllCheckbox).should('have.attr', 'indeterminate');
+
+    cy.findByTestId('toggleLoading').click();
+    cy.get('[aria-rowindex="2"]').should('have.attr', 'data-is-selected');
+    cy.get('[aria-rowindex="3"]').should('have.attr', 'data-is-selected');
+    cy.get(selectAllCheckbox).should('have.attr', 'indeterminate');
+
+    cy.findByTestId('toggleOverlay').click();
+    cy.get('[aria-rowindex="2"]').should('have.attr', 'data-is-selected');
+    cy.get('[aria-rowindex="3"]').should('have.attr', 'data-is-selected');
+    cy.get(selectAllCheckbox).should('have.attr', 'indeterminate');
+
+    cy.findByTestId('toggleOverlay').click();
+    cy.get('[aria-rowindex="2"]').should('have.attr', 'data-is-selected');
+    cy.get('[aria-rowindex="3"]').should('have.attr', 'data-is-selected');
+    cy.get(selectAllCheckbox).should('have.attr', 'indeterminate');
   });
 
   it('manualGroupBy - backend grouping', () => {
