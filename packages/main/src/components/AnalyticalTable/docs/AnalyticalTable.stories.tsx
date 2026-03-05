@@ -17,25 +17,25 @@ import {
   FlexBoxDirection,
   FlexBoxJustifyContent,
   TextAlign,
-} from '../../enums/index.js';
-import { Button } from '../../webComponents/Button/index.js';
-import { IllustratedMessage } from '../../webComponents/IllustratedMessage/index.js';
-import { Label } from '../../webComponents/Label/index.js';
-import { MultiComboBox } from '../../webComponents/MultiComboBox/index.js';
-import { MultiComboBoxItem } from '../../webComponents/MultiComboBoxItem/index.js';
-import { Option } from '../../webComponents/Option/index.js';
-import type { SegmentedButtonPropTypes } from '../../webComponents/SegmentedButton/index.js';
-import { SegmentedButton } from '../../webComponents/SegmentedButton/index.js';
-import { SegmentedButtonItem } from '../../webComponents/SegmentedButtonItem/index.js';
-import { Select } from '../../webComponents/Select/index.js';
-import { Tag } from '../../webComponents/Tag/index.js';
-import { Text } from '../../webComponents/Text/index.js';
-import type { ToggleButtonPropTypes } from '../../webComponents/ToggleButton/index.js';
-import { ToggleButton } from '../../webComponents/ToggleButton/index.js';
-import { FlexBox } from '../FlexBox/index.js';
-import { ObjectStatus } from '../ObjectStatus/index.js';
-import type { AnalyticalTableColumnDefinition, AnalyticalTablePropTypes } from './index.js';
-import { AnalyticalTable } from './index.js';
+} from '../../../enums/index.js';
+import { Button } from '../../../webComponents/Button/index.js';
+import { IllustratedMessage } from '../../../webComponents/IllustratedMessage/index.js';
+import { Label } from '../../../webComponents/Label/index.js';
+import { MultiComboBox } from '../../../webComponents/MultiComboBox/index.js';
+import { MultiComboBoxItem } from '../../../webComponents/MultiComboBoxItem/index.js';
+import { Option } from '../../../webComponents/Option/index.js';
+import type { SegmentedButtonPropTypes } from '../../../webComponents/SegmentedButton/index.js';
+import { SegmentedButton } from '../../../webComponents/SegmentedButton/index.js';
+import { SegmentedButtonItem } from '../../../webComponents/SegmentedButtonItem/index.js';
+import { Select } from '../../../webComponents/Select/index.js';
+import { Tag } from '../../../webComponents/Tag/index.js';
+import { Text } from '../../../webComponents/Text/index.js';
+import type { ToggleButtonPropTypes } from '../../../webComponents/ToggleButton/index.js';
+import { ToggleButton } from '../../../webComponents/ToggleButton/index.js';
+import { FlexBox } from '../../FlexBox/index.js';
+import { ObjectStatus } from '../../ObjectStatus/index.js';
+import type { AnalyticalTableColumnDefinition, AnalyticalTablePropTypes } from '../index.js';
+import { AnalyticalTable } from '../index.js';
 
 const kitchenSinkArgs: AnalyticalTablePropTypes = {
   data: dataLarge,

@@ -8,3 +8,4 @@ export * from './TableOfContent.js';
 export * from './LabelWithWrapping.js';
 export * from './CommandsAndQueries.js';
 export * from './FilterBarExample.js';
+export * from './Redirect.js';
