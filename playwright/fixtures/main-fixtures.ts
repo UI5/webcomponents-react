@@ -1,11 +1,10 @@
 import type { TestInfo } from '@playwright/test';
 import { addCoverageReport } from 'monocart-reporter';
-import { UI5WCHelpers } from './ui5-fixtures';
-import { test as base, expect } from './ui5-fixtures-internal';
+import { test as base, expect, UI5WCInternalHelpers } from './ui5-fixtures-internal';
 
 export interface UI5WCComponentTestFixtures {
   autoTestFixture: string;
-  ui5wc: UI5WCHelpers;
+  ui5wc: UI5WCInternalHelpers;
 }
 
 export const test = base.extend<UI5WCComponentTestFixtures>({
@@ -28,7 +27,7 @@ export const test = base.extend<UI5WCComponentTestFixtures>({
   ],
   ui5wc: async ({ page }, use) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    await use(new UI5WCHelpers(page));
+    await use(new UI5WCInternalHelpers(page));
   },
 });
 
