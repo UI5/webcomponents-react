@@ -3,6 +3,7 @@
 import '@ui5/webcomponents/dist/Avatar.js';
 import type { AvatarAccessibilityAttributes } from '@ui5/webcomponents/dist/Avatar.js';
 import type AvatarColorScheme from '@ui5/webcomponents/dist/types/AvatarColorScheme.js';
+import type AvatarMode from '@ui5/webcomponents/dist/types/AvatarMode.js';
 import type AvatarShape from '@ui5/webcomponents/dist/types/AvatarShape.js';
 import type AvatarSize from '@ui5/webcomponents/dist/types/AvatarSize.js';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
@@ -93,11 +94,31 @@ interface AvatarAttributes {
   /**
    * Defines if the avatar is interactive (focusable and pressable).
    *
+   * **Note:** When set to `true`, this property takes precedence over the `mode` property,
+   * and the avatar will be rendered as interactive (role="button", focusable) regardless of the `mode` value.
+   *
    * **Note:** This property won't have effect if the `disabled`
    * property is set to `true`.
    * @default false
+   * @deprecated Set `mode="Interactive"` instead for the same functionality with proper accessibility.
    */
   interactive?: boolean;
+
+  /**
+   * Defines the mode of the component.
+   *
+   * **Note:**
+   * - `Image` (default) - renders with role="img"
+   * - `Decorative` - renders with role="presentation" and aria-hidden="true", making it purely decorative
+   * - `Interactive` - renders with role="button", focusable (tabindex="0"), and supports keyboard interaction
+   *
+   * **Note:** This property is ignored when the `interactive` property is set to `true`.
+   * In that case, the avatar will always be rendered as interactive.
+   *
+   * **Note:** Available since [v2.20](https://github.com/UI5/webcomponents/releases/tag/v2.20) of **@ui5/webcomponents**.
+   * @default "Image"
+   */
+  mode?: AvatarMode | keyof typeof AvatarMode;
 
   /**
    * Defines the shape of the component.
@@ -118,6 +139,10 @@ interface AvatarPropTypes
   extends AvatarAttributes, Omit<CommonProps, keyof AvatarAttributes | 'badge' | 'children' | 'onClick'> {
   /**
    * Defines the optional badge that will be used for visual affordance.
+   *
+   * **Recommendation:** While badges are supported on all avatars, it is recommended
+   * to use them with interactive avatars (via `mode="Interactive"` or `interactive` attribute)
+   * to provide better user experience and accessibility.
    *
    * **Note:** While the slot allows for custom badges, to achieve
    * the Fiori design, use the `AvatarBadge` component.
@@ -169,7 +194,7 @@ interface AvatarPropTypes
  *
  * ### Keyboard Handling
  *
- * - [Space] / [Enter] or [Return] - Fires the `click` event if the `interactive` property is set to true.
+ * - [Space] / [Enter] or [Return] - Fires the `click` event if the `mode` is set to `Interactive` or the deprecated `interactive` property is set to true.
  * - [Shift] - If [Space] is pressed, pressing [Shift] releases the component without triggering the click event.
  *
  *
@@ -178,7 +203,17 @@ interface AvatarPropTypes
  */
 const Avatar = withWebComponent<AvatarPropTypes, AvatarDomRef>(
   'ui5-avatar',
-  ['accessibilityAttributes', 'accessibleName', 'colorScheme', 'fallbackIcon', 'icon', 'initials', 'shape', 'size'],
+  [
+    'accessibilityAttributes',
+    'accessibleName',
+    'colorScheme',
+    'fallbackIcon',
+    'icon',
+    'initials',
+    'mode',
+    'shape',
+    'size',
+  ],
   ['disabled', 'interactive'],
   ['badge'],
   ['click'],

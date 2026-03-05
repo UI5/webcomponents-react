@@ -49,6 +49,36 @@
           "members": [
             {
               "kind": "field",
+              "name": "accessibilityAttributes",
+              "type": {
+                "text": "AIButtonAccessibilityAttributes",
+                "references": [
+                  {
+                    "name": "AIButtonAccessibilityAttributes",
+                    "package": "@ui5/webcomponents-ai",
+                    "module": "dist/Button.js"
+                  }
+                ]
+              },
+              "default": "{}",
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\n\nThis property allows for fine-tuned control of ARIA attributes for screen reader support.\nIt accepts an object with the following optional fields:\n\n- **root**: Accessibility attributes that will be applied to the root element.\n - **hasPopup**: Indicates the availability and type of interactive popup element (such as a menu or dialog).\n   Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n - **roleDescription**: Defines a human-readable description for the button's role.\n   Accepts any string value.\n - **title**: Specifies a tooltip or description for screen readers.\n   Accepts any string value.\n- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or focus the button.\n\n- **arrowButton**: Accessibility attributes that will be applied to the arrow (split) button element.\n - **hasPopup**: Indicates the type of popup triggered by the arrow button.\n   Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n - **expanded**: Indicates whether the popup controlled by the arrow button is currently expanded.\n   Accepts boolean values: `true` or `false`.",
+              "privacy": "public",
+              "_ui5since": "2.6.0"
+            },
+            {
+              "kind": "field",
+              "name": "arrowButtonPressed",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines the active state of the arrow button in split mode.\nSet to true when the button is in split mode and a menu with additional options\nis opened by the arrow button. Set back to false when the menu is closed.",
+              "privacy": "public",
+              "_ui5since": "2.6.0",
+              "_ui5noAttribute": true
+            },
+            {
+              "kind": "field",
               "name": "design",
               "type": {
                 "text": "ButtonDesign | undefined",
@@ -83,50 +113,9 @@
               "description": "Defines the current state of the component.",
               "default": "undefined",
               "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "arrowButtonPressed",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Defines the active state of the arrow button in split mode.\nSet to true when the button is in split mode and a menu with additional options\nis opened by the arrow button. Set back to false when the menu is closed.",
-              "privacy": "public",
-              "_ui5since": "2.6.0",
-              "_ui5noAttribute": true
-            },
-            {
-              "kind": "field",
-              "name": "accessibilityAttributes",
-              "type": {
-                "text": "AIButtonAccessibilityAttributes",
-                "references": [
-                  {
-                    "name": "AIButtonAccessibilityAttributes",
-                    "package": "@ui5/webcomponents-ai",
-                    "module": "dist/Button.js"
-                  }
-                ]
-              },
-              "default": "{}",
-              "description": "Defines the additional accessibility attributes that will be applied to the component.\n\nThis property allows for fine-tuned control of ARIA attributes for screen reader support.\nIt accepts an object with the following optional fields:\n\n- **root**: Accessibility attributes that will be applied to the root element.\n - **hasPopup**: Indicates the availability and type of interactive popup element (such as a menu or dialog).\n   Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n - **roleDescription**: Defines a human-readable description for the button's role.\n   Accepts any string value.\n - **title**: Specifies a tooltip or description for screen readers.\n   Accepts any string value.\n- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or focus the button.\n\n- **arrowButton**: Accessibility attributes that will be applied to the arrow (split) button element.\n - **hasPopup**: Indicates the type of popup triggered by the arrow button.\n   Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n - **expanded**: Indicates whether the popup controlled by the arrow button is currently expanded.\n   Accepts boolean values: `true` or `false`.",
-              "privacy": "public",
-              "_ui5since": "2.6.0"
             }
           ],
           "events": [
-            {
-              "name": "click",
-              "_ui5privacy": "public",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the component is activated either with a\nmouse/tap or by using the Enter or Space key.",
-              "_ui5Cancelable": false,
-              "_ui5allowPreventDefault": false,
-              "_ui5Bubbles": true
-            },
             {
               "name": "arrow-button-click",
               "_ui5privacy": "public",
@@ -137,9 +126,38 @@
               "_ui5Cancelable": false,
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": true
+            },
+            {
+              "name": "click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the component is activated either with a\nmouse/tap or by using the Enter or Space key.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true
             }
           ],
           "attributes": [
+            {
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\n\nThis property allows for fine-tuned control of ARIA attributes for screen reader support.\nIt accepts an object with the following optional fields:\n\n- **root**: Accessibility attributes that will be applied to the root element.\n - **hasPopup**: Indicates the availability and type of interactive popup element (such as a menu or dialog).\n   Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n - **roleDescription**: Defines a human-readable description for the button's role.\n   Accepts any string value.\n - **title**: Specifies a tooltip or description for screen readers.\n   Accepts any string value.\n- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or focus the button.\n\n- **arrowButton**: Accessibility attributes that will be applied to the arrow (split) button element.\n - **hasPopup**: Indicates the type of popup triggered by the arrow button.\n   Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n - **expanded**: Indicates whether the popup controlled by the arrow button is currently expanded.\n   Accepts boolean values: `true` or `false`.",
+              "name": "accessibility-attributes",
+              "default": "{}",
+              "fieldName": "accessibilityAttributes",
+              "type": {
+                "text": "AIButtonAccessibilityAttributes"
+              }
+            },
+            {
+              "description": "Defines the active state of the arrow button in split mode.\nSet to true when the button is in split mode and a menu with additional options\nis opened by the arrow button. Set back to false when the menu is closed.",
+              "name": "arrow-button-pressed",
+              "default": "false",
+              "fieldName": "arrowButtonPressed",
+              "type": {
+                "text": "boolean"
+              }
+            },
             {
               "description": "Defines the component design.",
               "name": "design",
@@ -165,24 +183,6 @@
               "fieldName": "state",
               "type": {
                 "text": "string | undefined"
-              }
-            },
-            {
-              "description": "Defines the active state of the arrow button in split mode.\nSet to true when the button is in split mode and a menu with additional options\nis opened by the arrow button. Set back to false when the menu is closed.",
-              "name": "arrow-button-pressed",
-              "default": "false",
-              "fieldName": "arrowButtonPressed",
-              "type": {
-                "text": "boolean"
-              }
-            },
-            {
-              "description": "Defines the additional accessibility attributes that will be applied to the component.\n\nThis property allows for fine-tuned control of ARIA attributes for screen reader support.\nIt accepts an object with the following optional fields:\n\n- **root**: Accessibility attributes that will be applied to the root element.\n - **hasPopup**: Indicates the availability and type of interactive popup element (such as a menu or dialog).\n   Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n - **roleDescription**: Defines a human-readable description for the button's role.\n   Accepts any string value.\n - **title**: Specifies a tooltip or description for screen readers.\n   Accepts any string value.\n- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or focus the button.\n\n- **arrowButton**: Accessibility attributes that will be applied to the arrow (split) button element.\n - **hasPopup**: Indicates the type of popup triggered by the arrow button.\n   Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n - **expanded**: Indicates whether the popup controlled by the arrow button is currently expanded.\n   Accepts boolean values: `true` or `false`.",
-              "name": "accessibility-attributes",
-              "default": "{}",
-              "fieldName": "accessibilityAttributes",
-              "type": {
-                "text": "AIButtonAccessibilityAttributes"
               }
             }
           ],
@@ -228,21 +228,11 @@
           "members": [
             {
               "kind": "field",
-              "name": "name",
+              "name": "endIcon",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the name of the button state.",
-              "default": "undefined",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "text",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Defines the text of the button in this state.",
+              "description": "Defines the icon to be displayed as graphical element within the component after the text.\nThe SAP-icons font provides numerous options.\n\n**Example:**\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
               "default": "undefined",
               "privacy": "public"
             },
@@ -258,11 +248,11 @@
             },
             {
               "kind": "field",
-              "name": "endIcon",
+              "name": "name",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the icon to be displayed as graphical element within the component after the text.\nThe SAP-icons font provides numerous options.\n\n**Example:**\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
+              "description": "Defines the name of the button state.",
               "default": "undefined",
               "privacy": "public"
             },
@@ -276,23 +266,24 @@
               "description": "Defines if the component is in split button mode.",
               "privacy": "public",
               "_ui5since": "2.6.0"
+            },
+            {
+              "kind": "field",
+              "name": "text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the text of the button in this state.",
+              "default": "undefined",
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
-              "description": "Defines the name of the button state.",
-              "name": "name",
+              "description": "Defines the icon to be displayed as graphical element within the component after the text.\nThe SAP-icons font provides numerous options.\n\n**Example:**\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
+              "name": "end-icon",
               "default": "undefined",
-              "fieldName": "name",
-              "type": {
-                "text": "string | undefined"
-              }
-            },
-            {
-              "description": "Defines the text of the button in this state.",
-              "name": "text",
-              "default": "undefined",
-              "fieldName": "text",
+              "fieldName": "endIcon",
               "type": {
                 "text": "string | undefined"
               }
@@ -307,10 +298,10 @@
               }
             },
             {
-              "description": "Defines the icon to be displayed as graphical element within the component after the text.\nThe SAP-icons font provides numerous options.\n\n**Example:**\n\nSee all the available icons in the [Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
-              "name": "end-icon",
+              "description": "Defines the name of the button state.",
+              "name": "name",
               "default": "undefined",
-              "fieldName": "endIcon",
+              "fieldName": "name",
               "type": {
                 "text": "string | undefined"
               }
@@ -322,6 +313,15 @@
               "fieldName": "showArrowButton",
               "type": {
                 "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the text of the button in this state.",
+              "name": "text",
+              "default": "undefined",
+              "fieldName": "text",
+              "type": {
+                "text": "string | undefined"
               }
             }
           ],
@@ -428,16 +428,6 @@
             },
             {
               "kind": "field",
-              "name": "totalVersions",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "description": "Indicates the total number of result versions available.\n\nWhen not set or set to 0, the versioning will be hidden.",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
               "name": "loading",
               "type": {
                 "text": "boolean"
@@ -448,6 +438,60 @@
             },
             {
               "kind": "field",
+              "name": "totalVersions",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Indicates the total number of result versions available.\n\nWhen not set or set to 0, the versioning will be hidden.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "accessibleDescription",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible description of the component.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.9.0"
+            },
+            {
+              "kind": "field",
+              "name": "accessibleDescriptionRef",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Receives id(or many ids) of the elements that describe the input.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.9.0"
+            },
+            {
+              "kind": "field",
+              "name": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible ARIA name of the component.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "1.0.0-rc.15"
+            },
+            {
+              "kind": "field",
+              "name": "accessibleNameRef",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Receives id(or many ids) of the elements that label the input.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "1.0.0-rc.15"
+            },
+            {
+              "kind": "field",
               "name": "disabled",
               "type": {
                 "text": "boolean"
@@ -455,6 +499,67 @@
               "default": "false",
               "description": "Defines whether the component is in disabled state.\n\n**Note:** A disabled component is completely noninteractive.",
               "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "InputSuggestionsFilter",
+                "references": [
+                  {
+                    "name": "InputSuggestionsFilter",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/InputSuggestionsFilter.js"
+                  }
+                ]
+              },
+              "description": "Defines the filter type of the component.",
+              "default": "\"None\"",
+              "privacy": "public",
+              "_ui5since": "2.19.0"
+            },
+            {
+              "kind": "field",
+              "name": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Sets the maximum number of characters available in the input field.\n\n**Note:** This property is not compatible with the ui5-input type InputType.Number. If the ui5-input type is set to Number, the maxlength value is ignored.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "1.0.0-rc.5"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.",
+              "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "noTypeahead",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the value will be autcompleted to match an item",
+              "privacy": "public",
+              "_ui5since": "1.4.0"
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the suggestions picker is open.\nThe picker will not open if the `showSuggestions` property is set to `false`, the input is disabled or the input is readonly.\nThe picker will close automatically and `close` event will be fired if the input is not in the viewport.",
+              "privacy": "public",
+              "_ui5since": "2.0.0"
             },
             {
               "kind": "field",
@@ -489,14 +594,24 @@
             },
             {
               "kind": "field",
-              "name": "noTypeahead",
+              "name": "showClearIcon",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Defines whether the value will be autcompleted to match an item",
+              "description": "Defines whether the clear icon of the input will be shown.",
               "privacy": "public",
-              "_ui5since": "1.4.0"
+              "_ui5since": "1.2.0"
+            },
+            {
+              "kind": "field",
+              "name": "showSuggestions",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the component should show suggestions, if such are present.",
+              "privacy": "public"
             },
             {
               "kind": "field",
@@ -543,121 +658,6 @@
               "default": "\"None\"",
               "description": "Defines the value state of the component.",
               "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.",
-              "default": "undefined",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "showSuggestions",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Defines whether the component should show suggestions, if such are present.",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "maxlength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Sets the maximum number of characters available in the input field.\n\n**Note:** This property is not compatible with the ui5-input type InputType.Number. If the ui5-input type is set to Number, the maxlength value is ignored.",
-              "default": "undefined",
-              "privacy": "public",
-              "_ui5since": "1.0.0-rc.5"
-            },
-            {
-              "kind": "field",
-              "name": "accessibleName",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Defines the accessible ARIA name of the component.",
-              "default": "undefined",
-              "privacy": "public",
-              "_ui5since": "1.0.0-rc.15"
-            },
-            {
-              "kind": "field",
-              "name": "accessibleNameRef",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Receives id(or many ids) of the elements that label the input.",
-              "default": "undefined",
-              "privacy": "public",
-              "_ui5since": "1.0.0-rc.15"
-            },
-            {
-              "kind": "field",
-              "name": "accessibleDescription",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Defines the accessible description of the component.",
-              "default": "undefined",
-              "privacy": "public",
-              "_ui5since": "2.9.0"
-            },
-            {
-              "kind": "field",
-              "name": "accessibleDescriptionRef",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Receives id(or many ids) of the elements that describe the input.",
-              "default": "undefined",
-              "privacy": "public",
-              "_ui5since": "2.9.0"
-            },
-            {
-              "kind": "field",
-              "name": "showClearIcon",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Defines whether the clear icon of the input will be shown.",
-              "privacy": "public",
-              "_ui5since": "1.2.0"
-            },
-            {
-              "kind": "field",
-              "name": "open",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Defines whether the suggestions picker is open.\nThe picker will not open if the `showSuggestions` property is set to `false`, the input is disabled or the input is readonly.\nThe picker will close automatically and `close` event will be fired if the input is not in the viewport.",
-              "privacy": "public",
-              "_ui5since": "2.0.0"
-            },
-            {
-              "kind": "field",
-              "name": "filter",
-              "type": {
-                "text": "InputSuggestionsFilter",
-                "references": [
-                  {
-                    "name": "InputSuggestionsFilter",
-                    "package": "@ui5/webcomponents",
-                    "module": "dist/types/InputSuggestionsFilter.js"
-                  }
-                ]
-              },
-              "description": "Defines the filter type of the component.",
-              "default": "\"None\"",
-              "privacy": "public",
-              "_ui5since": "2.19.0"
             }
           ],
           "events": [
@@ -743,7 +743,7 @@
                   },
                   "name": "backwards",
                   "_ui5privacy": "public",
-                  "description": "Indicates if navigation is backwards (true) or forwards (false, default)"
+                  "description": "The text of the currently clicked menu item."
                 }
               ]
             },
@@ -759,6 +759,18 @@
               "_ui5Bubbles": true
             },
             {
+              "name": "close",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the suggestions picker is closed.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false,
+              "_ui5since": "2.0.0"
+            },
+            {
               "name": "input",
               "_ui5privacy": "public",
               "type": {
@@ -768,6 +780,18 @@
               "_ui5Cancelable": true,
               "_ui5allowPreventDefault": true,
               "_ui5Bubbles": true
+            },
+            {
+              "name": "open",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the suggestions picker is open.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.0.0"
             },
             {
               "name": "select",
@@ -809,30 +833,6 @@
                   "description": "The previewed suggestion item."
                 }
               ]
-            },
-            {
-              "name": "open",
-              "_ui5privacy": "public",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the suggestions picker is open.",
-              "_ui5Cancelable": false,
-              "_ui5allowPreventDefault": false,
-              "_ui5Bubbles": true,
-              "_ui5since": "2.0.0"
-            },
-            {
-              "name": "close",
-              "_ui5privacy": "public",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the suggestions picker is closed.",
-              "_ui5Cancelable": false,
-              "_ui5allowPreventDefault": false,
-              "_ui5Bubbles": false,
-              "_ui5since": "2.0.0"
             }
           ],
           "attributes": [
@@ -846,6 +846,15 @@
               }
             },
             {
+              "description": "Defines whether the AI Writing Assistant is currently loading.\n\nWhen `true`, indicates that an AI action is in progress.",
+              "name": "loading",
+              "default": "false",
+              "fieldName": "loading",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
               "description": "Indicates the total number of result versions available.\n\nWhen not set or set to 0, the versioning will be hidden.",
               "name": "total-versions",
               "default": "0",
@@ -855,12 +864,165 @@
               }
             },
             {
-              "description": "Defines whether the AI Writing Assistant is currently loading.\n\nWhen `true`, indicates that an AI action is in progress.",
-              "name": "loading",
+              "description": "Defines the accessible description of the component.",
+              "name": "accessible-description",
+              "default": "undefined",
+              "fieldName": "accessibleDescription",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Receives id(or many ids) of the elements that describe the input.",
+              "name": "accessible-description-ref",
+              "default": "undefined",
+              "fieldName": "accessibleDescriptionRef",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines the accessible ARIA name of the component.",
+              "name": "accessible-name",
+              "default": "undefined",
+              "fieldName": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Receives id(or many ids) of the elements that label the input.",
+              "name": "accessible-name-ref",
+              "default": "undefined",
+              "fieldName": "accessibleNameRef",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines whether the component is in disabled state.\n\n**Note:** A disabled component is completely noninteractive.",
+              "name": "disabled",
               "default": "false",
-              "fieldName": "loading",
+              "fieldName": "disabled",
               "type": {
                 "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the filter type of the component.",
+              "name": "filter",
+              "default": "\"None\"",
+              "fieldName": "filter",
+              "type": {
+                "text": "\"None\" | \"StartsWithPerTerm\" | \"StartsWith\" | \"Contains\""
+              }
+            },
+            {
+              "description": "Sets the maximum number of characters available in the input field.\n\n**Note:** This property is not compatible with the ui5-input type InputType.Number. If the ui5-input type is set to Number, the maxlength value is ignored.",
+              "name": "maxlength",
+              "default": "undefined",
+              "fieldName": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              }
+            },
+            {
+              "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.",
+              "name": "name",
+              "default": "undefined",
+              "fieldName": "name",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines whether the value will be autcompleted to match an item",
+              "name": "no-typeahead",
+              "default": "false",
+              "fieldName": "noTypeahead",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines whether the suggestions picker is open.\nThe picker will not open if the `showSuggestions` property is set to `false`, the input is disabled or the input is readonly.\nThe picker will close automatically and `close` event will be fired if the input is not in the viewport.",
+              "name": "open",
+              "default": "false",
+              "fieldName": "open",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.",
+              "name": "placeholder",
+              "default": "undefined",
+              "fieldName": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines whether the component is read-only.\n\n**Note:** A read-only component is not editable,\nbut still provides visual feedback upon user interaction.",
+              "name": "readonly",
+              "default": "false",
+              "fieldName": "readonly",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines whether the component is required.",
+              "name": "required",
+              "default": "false",
+              "fieldName": "required",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines whether the clear icon of the input will be shown.",
+              "name": "show-clear-icon",
+              "default": "false",
+              "fieldName": "showClearIcon",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines whether the component should show suggestions, if such are present.",
+              "name": "show-suggestions",
+              "default": "false",
+              "fieldName": "showSuggestions",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the HTML type of the component.\n\n**Notes:**\n\n- The particular effect of this property differs depending on the browser\nand the current language settings, especially for type `Number`.\n- The property is mostly intended to be used with touch devices\nthat use different soft keyboard layouts depending on the given input type.",
+              "name": "type",
+              "default": "\"Text\"",
+              "fieldName": "type",
+              "type": {
+                "text": "\"Text\" | \"Email\" | \"Number\" | \"Password\" | \"Tel\" | \"URL\" | \"Search\""
+              }
+            },
+            {
+              "description": "Defines the value of the component.\n\n**Note:** The property is updated upon typing.",
+              "name": "value",
+              "default": "\"\"",
+              "fieldName": "value",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Defines the value state of the component.",
+              "name": "value-state",
+              "default": "\"None\"",
+              "fieldName": "valueState",
+              "type": {
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             }
           ],
@@ -876,16 +1038,16 @@
           "_ui5privacy": "public",
           "cssParts": [
             {
-              "description": "Used to style the root DOM element of the Input component",
-              "name": "root"
+              "description": "Used to style the clear icon, which can be pressed to clear user input text",
+              "name": "clear-icon"
             },
             {
               "description": "Used to style the native input element",
               "name": "input"
             },
             {
-              "description": "Used to style the clear icon, which can be pressed to clear user input text",
-              "name": "clear-icon"
+              "description": "Used to style the root DOM element of the Input component",
+              "name": "root"
             }
           ]
         }
@@ -947,12 +1109,34 @@
           "members": [
             {
               "kind": "field",
-              "name": "value",
+              "name": "disabled",
               "type": {
-                "text": "string"
+                "text": "boolean"
               },
-              "default": "\"\"",
-              "description": "Defines the value of the component.",
+              "default": "false",
+              "description": "Defines whether the component is in disabled state.\n\n**Note:** A disabled component is completely noninteractive.",
+              "privacy": "public",
+              "_ui5since": "2.0.0"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the label of the input field.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.0.0"
+            },
+            {
+              "kind": "field",
+              "name": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Sets the maximum number of characters available in the input field.",
+              "default": "undefined",
               "privacy": "public",
               "_ui5since": "2.0.0"
             },
@@ -969,12 +1153,12 @@
             },
             {
               "kind": "field",
-              "name": "label",
+              "name": "readonly",
               "type": {
-                "text": "string | undefined"
+                "text": "boolean"
               },
-              "description": "Defines the label of the input field.",
-              "default": "undefined",
+              "default": "false",
+              "description": "Defines whether the component is read-only.\n\n**Note:** A read-only component is not editable,\nbut still provides visual feedback upon user interaction.",
               "privacy": "public",
               "_ui5since": "2.0.0"
             },
@@ -1002,34 +1186,22 @@
             },
             {
               "kind": "field",
-              "name": "disabled",
+              "name": "showSuggestions",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Defines whether the component is in disabled state.\n\n**Note:** A disabled component is completely noninteractive.",
-              "privacy": "public",
-              "_ui5since": "2.0.0"
+              "description": "Defines whether the component should show suggestions, if such are present.",
+              "privacy": "public"
             },
             {
               "kind": "field",
-              "name": "readonly",
+              "name": "value",
               "type": {
-                "text": "boolean"
+                "text": "string"
               },
-              "default": "false",
-              "description": "Defines whether the component is read-only.\n\n**Note:** A read-only component is not editable,\nbut still provides visual feedback upon user interaction.",
-              "privacy": "public",
-              "_ui5since": "2.0.0"
-            },
-            {
-              "kind": "field",
-              "name": "maxlength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Sets the maximum number of characters available in the input field.",
-              "default": "undefined",
+              "default": "\"\"",
+              "description": "Defines the value of the component.",
               "privacy": "public",
               "_ui5since": "2.0.0"
             },
@@ -1050,26 +1222,16 @@
               "description": "Defines the value state of the component.",
               "privacy": "public",
               "_ui5since": "2.0.0"
-            },
-            {
-              "kind": "field",
-              "name": "showSuggestions",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Defines whether the component should show suggestions, if such are present.",
-              "privacy": "public"
             }
           ],
           "events": [
             {
-              "name": "submit",
+              "name": "change",
               "_ui5privacy": "public",
               "type": {
                 "text": "CustomEvent"
               },
-              "description": "Fired when the input operation has finished by pressing Enter\nor AI button is clicked.",
+              "description": "Fired when the input operation has finished by pressing Enter\nor on focusout.",
               "_ui5Cancelable": false,
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": true,
@@ -1088,12 +1250,12 @@
               "_ui5since": "2.0.0"
             },
             {
-              "name": "change",
+              "name": "submit",
               "_ui5privacy": "public",
               "type": {
                 "text": "CustomEvent"
               },
-              "description": "Fired when the input operation has finished by pressing Enter\nor on focusout.",
+              "description": "Fired when the input operation has finished by pressing Enter\nor AI button is clicked.",
               "_ui5Cancelable": false,
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": true,
@@ -1102,12 +1264,30 @@
           ],
           "attributes": [
             {
-              "description": "Defines the value of the component.",
-              "name": "value",
-              "default": "\"\"",
-              "fieldName": "value",
+              "description": "Defines whether the component is in disabled state.\n\n**Note:** A disabled component is completely noninteractive.",
+              "name": "disabled",
+              "default": "false",
+              "fieldName": "disabled",
               "type": {
-                "text": "string"
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the label of the input field.",
+              "name": "label",
+              "default": "undefined",
+              "fieldName": "label",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Sets the maximum number of characters available in the input field.",
+              "name": "maxlength",
+              "default": "undefined",
+              "fieldName": "maxlength",
+              "type": {
+                "text": "number | undefined"
               }
             },
             {
@@ -1120,12 +1300,12 @@
               }
             },
             {
-              "description": "Defines the label of the input field.",
-              "name": "label",
-              "default": "undefined",
-              "fieldName": "label",
+              "description": "Defines whether the component is read-only.\n\n**Note:** A read-only component is not editable,\nbut still provides visual feedback upon user interaction.",
+              "name": "readonly",
+              "default": "false",
+              "fieldName": "readonly",
               "type": {
-                "text": "string | undefined"
+                "text": "boolean"
               }
             },
             {
@@ -1147,30 +1327,21 @@
               }
             },
             {
-              "description": "Defines whether the component is in disabled state.\n\n**Note:** A disabled component is completely noninteractive.",
-              "name": "disabled",
+              "description": "Defines whether the component should show suggestions, if such are present.",
+              "name": "show-suggestions",
               "default": "false",
-              "fieldName": "disabled",
+              "fieldName": "showSuggestions",
               "type": {
                 "text": "boolean"
               }
             },
             {
-              "description": "Defines whether the component is read-only.\n\n**Note:** A read-only component is not editable,\nbut still provides visual feedback upon user interaction.",
-              "name": "readonly",
-              "default": "false",
-              "fieldName": "readonly",
+              "description": "Defines the value of the component.",
+              "name": "value",
+              "default": "\"\"",
+              "fieldName": "value",
               "type": {
-                "text": "boolean"
-              }
-            },
-            {
-              "description": "Sets the maximum number of characters available in the input field.",
-              "name": "maxlength",
-              "default": "undefined",
-              "fieldName": "maxlength",
-              "type": {
-                "text": "number | undefined"
+                "text": "string"
               }
             },
             {
@@ -1180,15 +1351,6 @@
               "fieldName": "valueState",
               "type": {
                 "text": "\"Positive\" | \"Negative\" | \"None\" | \"Critical\" | \"Information\""
-              }
-            },
-            {
-              "description": "Defines whether the component should show suggestions, if such are present.",
-              "name": "show-suggestions",
-              "default": "false",
-              "fieldName": "showSuggestions",
-              "type": {
-                "text": "boolean"
               }
             }
           ],
@@ -1252,6 +1414,16 @@
           "members": [
             {
               "kind": "field",
+              "name": "currentVersion",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Indicates the index of the currently displayed version.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
               "name": "loading",
               "type": {
                 "text": "boolean"
@@ -1272,16 +1444,6 @@
             },
             {
               "kind": "field",
-              "name": "currentVersion",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "description": "Indicates the index of the currently displayed version.",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
               "name": "totalVersions",
               "type": {
                 "text": "number"
@@ -1292,134 +1454,25 @@
             },
             {
               "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "Defines the value of the component.",
-              "privacy": "public",
-              "_ui5formProperty": true,
-              "_ui5formEvents": "change,input"
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Indicates whether the user can interact with the component or not.\n\n**Note:** A disabled component is completely noninteractive.",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "readonly",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Defines whether the component is read-only.\n\n**Note:** A read-only component is not editable,\nbut still provides visual feedback upon user interaction.",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Defines whether the component is required.",
-              "privacy": "public",
-              "_ui5since": "1.0.0-rc.3"
-            },
-            {
-              "kind": "field",
-              "name": "placeholder",
+              "name": "accessibleDescription",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines a short hint intended to aid the user with data entry when the component has no value.",
+              "description": "Defines the accessible description of the component.",
               "default": "undefined",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "valueState",
-              "type": {
-                "text": "ValueState",
-                "references": [
-                  {
-                    "name": "ValueState",
-                    "package": "@ui5/webcomponents-base",
-                    "module": "dist/types/ValueState.js"
-                  }
-                ]
-              },
-              "default": "\"None\"",
-              "description": "Defines the value state of the component.\n\n**Note:** If `maxlength` property is set,\nthe component turns into \"Critical\" state once the characters exceeds the limit.\nIn this case, only the \"Negative\" state is considered and can be applied.",
               "privacy": "public",
-              "_ui5since": "1.0.0-rc.7"
+              "_ui5since": "2.16.0"
             },
             {
               "kind": "field",
-              "name": "rows",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "description": "Defines the number of visible text rows for the component.\n\n**Notes:**\n\n- If the `growing` property is enabled, this property defines the minimum rows to be displayed\nin the textarea.\n- The CSS `height` property wins over the `rows` property, if both are set.",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "maxlength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Defines the maximum number of characters that the `value` can have.",
-              "default": "undefined",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "showExceededText",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Determines whether the characters exceeding the maximum allowed character count are visible\nin the component.\n\nIf set to `false`, the user is not allowed to enter more characters than what is set in the\n`maxlength` property.\nIf set to `true` the characters exceeding the `maxlength` value are selected on\npaste and the counter below the component displays their number.",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "growing",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Enables the component to automatically grow and shrink dynamically with its content.",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "growingMaxRows",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "description": "Defines the maximum number of rows that the component can grow.",
-              "privacy": "public"
-            },
-            {
-              "kind": "field",
-              "name": "name",
+              "name": "accessibleDescriptionRef",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.",
+              "description": "Receives id(or many ids) of the elements that describe the textarea.",
               "default": "undefined",
-              "privacy": "public"
+              "privacy": "public",
+              "_ui5since": "2.16.0"
             },
             {
               "kind": "field",
@@ -1445,28 +1498,148 @@
             },
             {
               "kind": "field",
-              "name": "accessibleDescription",
+              "name": "disabled",
               "type": {
-                "text": "string | undefined"
+                "text": "boolean"
               },
-              "description": "Defines the accessible description of the component.",
-              "default": "undefined",
-              "privacy": "public",
-              "_ui5since": "2.16.0"
+              "default": "false",
+              "description": "Indicates whether the user can interact with the component or not.\n\n**Note:** A disabled component is completely noninteractive.",
+              "privacy": "public"
             },
             {
               "kind": "field",
-              "name": "accessibleDescriptionRef",
+              "name": "growing",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Enables the component to automatically grow and shrink dynamically with its content.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "growingMaxRows",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Defines the maximum number of rows that the component can grow.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Defines the maximum number of characters that the `value` can have.",
+              "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "name",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Receives id(or many ids) of the elements that describe the textarea.",
+              "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.",
               "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines a short hint intended to aid the user with data entry when the component has no value.",
+              "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the component is read-only.\n\n**Note:** A read-only component is not editable,\nbut still provides visual feedback upon user interaction.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the component is required.",
               "privacy": "public",
-              "_ui5since": "2.16.0"
+              "_ui5since": "1.0.0-rc.3"
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Defines the number of visible text rows for the component.\n\n**Notes:**\n\n- If the `growing` property is enabled, this property defines the minimum rows to be displayed\nin the textarea.\n- The CSS `height` property wins over the `rows` property, if both are set.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "showExceededText",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Determines whether the characters exceeding the maximum allowed character count are visible\nin the component.\n\nIf set to `false`, the user is not allowed to enter more characters than what is set in the\n`maxlength` property.\nIf set to `true` the characters exceeding the `maxlength` value are selected on\npaste and the counter below the component displays their number.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Defines the value of the component.",
+              "privacy": "public",
+              "_ui5formProperty": true,
+              "_ui5formEvents": "change,input"
+            },
+            {
+              "kind": "field",
+              "name": "valueState",
+              "type": {
+                "text": "ValueState",
+                "references": [
+                  {
+                    "name": "ValueState",
+                    "package": "@ui5/webcomponents-base",
+                    "module": "dist/types/ValueState.js"
+                  }
+                ]
+              },
+              "default": "\"None\"",
+              "description": "Defines the value state of the component.\n\n**Note:** If `maxlength` property is set,\nthe component turns into \"Critical\" state once the characters exceeds the limit.\nIn this case, only the \"Negative\" state is considered and can be applied.",
+              "privacy": "public",
+              "_ui5since": "1.0.0-rc.7"
             }
           ],
           "events": [
+            {
+              "name": "stop-generation",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the user requests to stop AI text generation.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false
+            },
             {
               "name": "version-change",
               "_ui5privacy": "public",
@@ -1494,17 +1667,6 @@
                   "description": "Indicates if navigation is backwards (true) or forwards (false, default)."
                 }
               ]
-            },
-            {
-              "name": "stop-generation",
-              "_ui5privacy": "public",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the user requests to stop AI text generation.",
-              "_ui5Cancelable": false,
-              "_ui5allowPreventDefault": false,
-              "_ui5Bubbles": false
             },
             {
               "name": "change",
@@ -1547,18 +1709,6 @@
               ]
             },
             {
-              "name": "select",
-              "_ui5privacy": "public",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when some text has been selected.",
-              "_ui5Cancelable": false,
-              "_ui5allowPreventDefault": false,
-              "_ui5Bubbles": true,
-              "_ui5since": "1.23.0"
-            },
-            {
               "name": "scroll",
               "_ui5privacy": "public",
               "type": {
@@ -1569,9 +1719,30 @@
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": true,
               "_ui5since": "1.23.0"
+            },
+            {
+              "name": "select",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when some text has been selected.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "1.23.0"
             }
           ],
           "attributes": [
+            {
+              "description": "Indicates the index of the currently displayed version.",
+              "name": "current-version",
+              "default": "0",
+              "fieldName": "currentVersion",
+              "type": {
+                "text": "number"
+              }
+            },
             {
               "description": "Defines whether the `ui5-ai-textarea` is currently in a loading(processing) state.",
               "name": "loading",
@@ -1591,21 +1762,156 @@
               }
             },
             {
-              "description": "Indicates the index of the currently displayed version.",
-              "name": "current-version",
-              "default": "0",
-              "fieldName": "currentVersion",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
               "description": "Indicates the total number of result versions available.\n\nNotes:\nVersioning is hidden if the value is `0`",
               "name": "total-versions",
               "default": "0",
               "fieldName": "totalVersions",
               "type": {
                 "text": "number"
+              }
+            },
+            {
+              "description": "Defines the accessible description of the component.",
+              "name": "accessible-description",
+              "default": "undefined",
+              "fieldName": "accessibleDescription",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Receives id(or many ids) of the elements that describe the textarea.",
+              "name": "accessible-description-ref",
+              "default": "undefined",
+              "fieldName": "accessibleDescriptionRef",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines the accessible ARIA name of the component.",
+              "name": "accessible-name",
+              "default": "undefined",
+              "fieldName": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Receives id(or many ids) of the elements that label the textarea.",
+              "name": "accessible-name-ref",
+              "default": "undefined",
+              "fieldName": "accessibleNameRef",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Indicates whether the user can interact with the component or not.\n\n**Note:** A disabled component is completely noninteractive.",
+              "name": "disabled",
+              "default": "false",
+              "fieldName": "disabled",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Enables the component to automatically grow and shrink dynamically with its content.",
+              "name": "growing",
+              "default": "false",
+              "fieldName": "growing",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the maximum number of rows that the component can grow.",
+              "name": "growing-max-rows",
+              "default": "0",
+              "fieldName": "growingMaxRows",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "description": "Defines the maximum number of characters that the `value` can have.",
+              "name": "maxlength",
+              "default": "undefined",
+              "fieldName": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              }
+            },
+            {
+              "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.",
+              "name": "name",
+              "default": "undefined",
+              "fieldName": "name",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines a short hint intended to aid the user with data entry when the component has no value.",
+              "name": "placeholder",
+              "default": "undefined",
+              "fieldName": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines whether the component is read-only.\n\n**Note:** A read-only component is not editable,\nbut still provides visual feedback upon user interaction.",
+              "name": "readonly",
+              "default": "false",
+              "fieldName": "readonly",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines whether the component is required.",
+              "name": "required",
+              "default": "false",
+              "fieldName": "required",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the number of visible text rows for the component.\n\n**Notes:**\n\n- If the `growing` property is enabled, this property defines the minimum rows to be displayed\nin the textarea.\n- The CSS `height` property wins over the `rows` property, if both are set.",
+              "name": "rows",
+              "default": "0",
+              "fieldName": "rows",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "description": "Determines whether the characters exceeding the maximum allowed character count are visible\nin the component.\n\nIf set to `false`, the user is not allowed to enter more characters than what is set in the\n`maxlength` property.\nIf set to `true` the characters exceeding the `maxlength` value are selected on\npaste and the counter below the component displays their number.",
+              "name": "show-exceeded-text",
+              "default": "false",
+              "fieldName": "showExceededText",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the value of the component.",
+              "name": "value",
+              "default": "\"\"",
+              "fieldName": "value",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Defines the value state of the component.\n\n**Note:** If `maxlength` property is set,\nthe component turns into \"Critical\" state once the characters exceeds the limit.\nIn this case, only the \"Negative\" state is considered and can be applied.",
+              "name": "value-state",
+              "default": "\"None\"",
+              "fieldName": "valueState",
+              "type": {
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
               }
             }
           ],
@@ -1649,11 +1955,121 @@
     {
       "kind": "javascript-module",
       "path": "dist/ToolbarLabel.js",
-      "declarations": [],
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\nThe `ui5-ai-toolbar-label` represents a text label,\nused in the `ui5-toolbar`.\n\n### ES6 Module Import\n`import \"@ui5/webcomponents-ai/dist/ToolbarLabel.js\";`",
+          "name": "ToolbarLabel",
+          "members": [
+            {
+              "kind": "field",
+              "name": "text",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Defines the text of the label.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "overflowPriority",
+              "type": {
+                "text": "ToolbarItemOverflowBehavior",
+                "references": [
+                  {
+                    "name": "ToolbarItemOverflowBehavior",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/ToolbarItemOverflowBehavior.js"
+                  }
+                ]
+              },
+              "default": "\"Default\"",
+              "description": "Property used to define the access of the item to the overflow Popover. If \"NeverOverflow\" option is set,\nthe item never goes in the Popover, if \"AlwaysOverflow\" - it never comes out of it.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "preventOverflowClosing",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines if the toolbar overflow popup should close upon interaction with the item.\nIt will close by default.",
+              "privacy": "public"
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines the text of the label.",
+              "name": "text",
+              "default": "\"\"",
+              "fieldName": "text",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Property used to define the access of the item to the overflow Popover. If \"NeverOverflow\" option is set,\nthe item never goes in the Popover, if \"AlwaysOverflow\" - it never comes out of it.",
+              "name": "overflow-priority",
+              "default": "\"Default\"",
+              "fieldName": "overflowPriority",
+              "type": {
+                "text": "\"Default\" | \"NeverOverflow\" | \"AlwaysOverflow\""
+              }
+            },
+            {
+              "description": "Defines if the toolbar overflow popup should close upon interaction with the item.\nIt will close by default.",
+              "name": "prevent-overflow-closing",
+              "default": "false",
+              "fieldName": "preventOverflowClosing",
+              "type": {
+                "text": "boolean"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "ToolbarItem",
+            "package": "@ui5/webcomponents",
+            "module": "dist/ToolbarItem.js"
+          },
+          "tagName": "ui5-ai-toolbar-label",
+          "customElement": true,
+          "_ui5since": "1.0.0-rc.1",
+          "_ui5privacy": "private",
+          "slots": [
+            {
+              "name": "default",
+              "description": "Wrapped component slot.",
+              "_ui5since": "2.20.0",
+              "_ui5propertyName": "item",
+              "_ui5type": {
+                "text": "Array<IToolbarItemContent>",
+                "references": [
+                  {
+                    "name": "IToolbarItemContent",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ToolbarItem.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
+            }
+          ]
+        }
+      ],
       "exports": [
         {
           "kind": "js",
           "name": "default",
+          "declaration": {
+            "name": "ToolbarLabel",
+            "module": "dist/ToolbarLabel.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-ai-toolbar-label",
           "declaration": {
             "name": "ToolbarLabel",
             "module": "dist/ToolbarLabel.js"
@@ -1664,11 +2080,153 @@
     {
       "kind": "javascript-module",
       "path": "dist/Versioning.js",
-      "declarations": [],
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-ai-versioning` component provides navigation controls for AI-generated content versions.\nIt displays the current version index and total versions, with previous/next navigation buttons.\nThis component extends ToolbarItem to participate in toolbar overflow behavior as a single unit.\n\n### Structure\nThe `ui5-ai-versioning` consists of the following elements:\n- Previous Button: Navigates to the previous version (disabled when at first version)\n- Version Counter: Shows current version / total versions (e.g., \"2 / 5\")\n- Next Button: Navigates to the nex\nt version (disabled when at last version)\n\n### Focus Management\nThe component automatically manages focus when users reach version boundaries,\nmoving focus to the available navigation button when one becomes disabled.\n\n### Responsive Behavior\nWhen used in a toolbar, the entire versioning component (buttons + label) will overflow\ntogether as a single unit when there is insufficient space.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-ai/dist/Versioning.js\";`",
+          "name": "Versioning",
+          "members": [
+            {
+              "kind": "field",
+              "name": "currentStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Indicates the index of the currently displayed result version.\n\nThis property represents the current position in the version history.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "totalSteps",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "The total number of available result versions.\n\nNote: Versioning is hidden if the value is `0`.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "overflowPriority",
+              "type": {
+                "text": "ToolbarItemOverflowBehavior",
+                "references": [
+                  {
+                    "name": "ToolbarItemOverflowBehavior",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/ToolbarItemOverflowBehavior.js"
+                  }
+                ]
+              },
+              "default": "\"Default\"",
+              "description": "Property used to define the access of the item to the overflow Popover. If \"NeverOverflow\" option is set,\nthe item never goes in the Popover, if \"AlwaysOverflow\" - it never comes out of it.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "preventOverflowClosing",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines if the toolbar overflow popup should close upon interaction with the item.\nIt will close by default.",
+              "privacy": "public"
+            }
+          ],
+          "events": [
+            {
+              "name": "version-change",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the user clicks on version navigation buttons.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Indicates the index of the currently displayed result version.\n\nThis property represents the current position in the version history.",
+              "name": "current-step",
+              "default": "0",
+              "fieldName": "currentStep",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "description": "The total number of available result versions.\n\nNote: Versioning is hidden if the value is `0`.",
+              "name": "total-steps",
+              "default": "0",
+              "fieldName": "totalSteps",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "description": "Property used to define the access of the item to the overflow Popover. If \"NeverOverflow\" option is set,\nthe item never goes in the Popover, if \"AlwaysOverflow\" - it never comes out of it.",
+              "name": "overflow-priority",
+              "default": "\"Default\"",
+              "fieldName": "overflowPriority",
+              "type": {
+                "text": "\"Default\" | \"NeverOverflow\" | \"AlwaysOverflow\""
+              }
+            },
+            {
+              "description": "Defines if the toolbar overflow popup should close upon interaction with the item.\nIt will close by default.",
+              "name": "prevent-overflow-closing",
+              "default": "false",
+              "fieldName": "preventOverflowClosing",
+              "type": {
+                "text": "boolean"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "ToolbarItem",
+            "package": "@ui5/webcomponents",
+            "module": "dist/ToolbarItem.js"
+          },
+          "tagName": "ui5-ai-versioning",
+          "customElement": true,
+          "_ui5since": "2.16.0",
+          "_ui5privacy": "private",
+          "slots": [
+            {
+              "name": "default",
+              "description": "Wrapped component slot.",
+              "_ui5since": "2.20.0",
+              "_ui5propertyName": "item",
+              "_ui5type": {
+                "text": "Array<IToolbarItemContent>",
+                "references": [
+                  {
+                    "name": "IToolbarItemContent",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ToolbarItem.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
+            }
+          ]
+        }
+      ],
       "exports": [
         {
           "kind": "js",
           "name": "default",
+          "declaration": {
+            "name": "Versioning",
+            "module": "dist/Versioning.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-ai-versioning",
           "declaration": {
             "name": "Versioning",
             "module": "dist/Versioning.js"
@@ -1679,11 +2237,142 @@
     {
       "kind": "javascript-module",
       "path": "dist/WritingAssistant.js",
-      "declarations": [],
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-ai-textarea-toolbar` component provides a specialized toolbar for AI TextArea functionality.\nIt manages different states of the AI assistant and provides version navigation capabilities.\n\n### Structure\nThe `ui5-ai-textarea-toolbar` consists of the following elements:\n- AI Generate Button: Triggers AI text generation or stops ongoing generation\n- Version Navigation: Allows navigation between multiple AI-generated results\n- Action Label: Displays the current AI action being performed\n\n### ES6 Module Import\n\n`import \"@sap-webcomponents/ai/dist/WritingAssistant.js\";`",
+          "name": "WritingAssistant",
+          "members": [
+            {
+              "kind": "field",
+              "name": "currentVersion",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Indicates the index of the currently displayed result version.\n\nThe index is **0-based** (i.e. `0` represents the first result).\nThis property is synchronized with the parent AI TextArea component.",
+              "privacy": "public",
+              "_ui5since": "2.16.0"
+            },
+            {
+              "kind": "method",
+              "name": "handleButtonClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Handles the click event for the AI generate button.\nToggles between generate and stop states based on current button state.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "promptDescription",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Defines the prompt description of the Writing Assistant.\n\nThis text is displayed in the toolbar to indicate the current or last\nperformed AI action (e.g., \"Generated text\", \"Simplified text\").",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "totalVersions",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Indicates the total number of result versions available.\n\nThis property determines whether version navigation controls are displayed.\nWhen totalVersions > 0, previous/next buttons become available.",
+              "privacy": "public"
+            }
+          ],
+          "events": [
+            {
+              "name": "button-click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the user clicks on the AI button.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false
+            },
+            {
+              "name": "stop-generation",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the user clicks on the \"Stop\" button to stop ongoing AI text generation.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false
+            },
+            {
+              "name": "version-change",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the user clicks on version navigation buttons.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Indicates the index of the currently displayed result version.\n\nThe index is **0-based** (i.e. `0` represents the first result).\nThis property is synchronized with the parent AI TextArea component.",
+              "name": "current-version",
+              "default": "0",
+              "fieldName": "currentVersion",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "description": "Defines the prompt description of the Writing Assistant.\n\nThis text is displayed in the toolbar to indicate the current or last\nperformed AI action (e.g., \"Generated text\", \"Simplified text\").",
+              "name": "prompt-description",
+              "default": "\"\"",
+              "fieldName": "promptDescription",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Indicates the total number of result versions available.\n\nThis property determines whether version navigation controls are displayed.\nWhen totalVersions > 0, previous/next buttons become available.",
+              "name": "total-versions",
+              "default": "0",
+              "fieldName": "totalVersions",
+              "type": {
+                "text": "number"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "UI5Element",
+            "package": "@ui5/webcomponents-base",
+            "module": "dist/UI5Element.js"
+          },
+          "tagName": "ui5-ai-writing-assistant",
+          "customElement": true,
+          "_ui5since": "2.16.0",
+          "_ui5privacy": "private"
+        }
+      ],
       "exports": [
         {
           "kind": "js",
           "name": "default",
+          "declaration": {
+            "name": "WritingAssistant",
+            "module": "dist/WritingAssistant.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-ai-writing-assistant",
           "declaration": {
             "name": "WritingAssistant",
             "module": "dist/WritingAssistant.js"

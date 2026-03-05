@@ -82,7 +82,7 @@ interface ToolbarButtonAttributes {
   overflowPriority?: ToolbarItemOverflowBehavior | keyof typeof ToolbarItemOverflowBehavior;
 
   /**
-   * Defines if the toolbar overflow popup should close upon intereaction with the item.
+   * Defines if the toolbar overflow popup should close upon interaction with the item.
    * It will close by default.
    * @default false
    */

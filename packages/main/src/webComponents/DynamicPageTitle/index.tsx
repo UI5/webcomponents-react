@@ -168,7 +168,7 @@ interface DynamicPageTitlePropTypes
  * The user can switch between the expanded/collapsed states of the
  * `DynamicPage` by clicking on the `DynamicPageTitle`
  * or by using the expand/collapse visual indicators, positioned at the bottom of the
- * `DynamicPageTitle` and the `DynamicPageHeader` inside `ui5-dynamic-page-header-actions`.
+ * `DynamicPageTitle` and the `DynamicPageHeader` inside `DynamicPageHeaderActions`.
  *
  * ### Responsive Behavior
  *

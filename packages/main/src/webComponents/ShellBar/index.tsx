@@ -1,8 +1,8 @@
 'use client';
 
 import '@ui5/webcomponents-fiori/dist/ShellBar.js';
+import type { ShellBarAccessibilityAttributes } from '@ui5/webcomponents-fiori/dist/shellbar/ShellBarAccessibility.js';
 import type {
-  ShellBarAccessibilityAttributes,
   ShellBarContentItemVisibilityChangeEventDetail,
   ShellBarLogoClickEventDetail,
   ShellBarMenuItemClickEventDetail,
@@ -115,17 +115,14 @@ interface ShellBarAttributes {
 
 interface ShellBarDomRef extends Required<ShellBarAttributes>, Ui5DomRef {
   /**
-   * Closes the overflow area.
-   * Useful to manually close the overflow after having suppressed automatic closing with preventDefault() of ShellbarItem's press event
+   * Closes the overflow popover.
    * @returns {void}
    */
   closeOverflow: () => void;
 
   /**
-   * Returns the `search` icon DOM ref.
-   *
-   * **Note:** Available since [v2.10.0](https://github.com/UI5/webcomponents/releases/tag/v2.10.0) of **@ui5/webcomponents-fiori**.
-   * @returns {Promise<HTMLElement | null>} - The search icon DOM ref
+   * Returns the search button DOM reference.
+   * @returns {Promise<HTMLElement | null>}
    */
   getSearchButtonDomRef: () => Promise<HTMLElement | null>;
 

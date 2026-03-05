@@ -44,7 +44,6 @@ interface UserSettingsViewPropTypes
  * __Note:__ This is a UI5 Web Component! [UserSettingsView UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/UserSettingsView) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.8.0](https://github.com/UI5/webcomponents/releases/tag/v2.8.0) of __@ui5/webcomponents-fiori__.
- * @experimental
  */
 const UserSettingsView = withWebComponent<UserSettingsViewPropTypes, UserSettingsViewDomRef>(
   'ui5-user-settings-view',

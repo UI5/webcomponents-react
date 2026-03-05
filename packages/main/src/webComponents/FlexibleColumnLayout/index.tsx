@@ -172,6 +172,8 @@ interface FlexibleColumnLayoutPropTypes
   /**
    * Fired when the `layoutsConfiguration` changes via user interaction by dragging the separators.
    *
+   * **Note:** The `layout-configuration-change` event is in an experimental state and is a subject to change.
+   *
    * **Note:** Available since [v2.16.0](https://github.com/UI5/webcomponents/releases/tag/v2.16.0) of **@ui5/webcomponents-fiori**.
    *
    * | cancelable | bubbles |

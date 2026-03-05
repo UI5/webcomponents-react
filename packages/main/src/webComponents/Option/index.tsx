@@ -25,6 +25,7 @@ interface OptionAttributes {
   /**
    * Defines the selected state of the component.
    * @default false
+   * @deprecated since 2.20.0, please use the parent Select's `value` property instead.
    */
   selected?: boolean;
 

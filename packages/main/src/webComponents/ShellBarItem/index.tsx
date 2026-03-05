@@ -31,13 +31,13 @@ interface ShellBarItemAttributes {
   accessibilityAttributes?: ShellBarItemAccessibilityAttributes;
 
   /**
-   * Defines the count displayed in the top-right corner.
+   * Defines the count displayed in badge.
    * @default undefined
    */
   count?: string | undefined;
 
   /**
-   * Defines the name of the item's icon.
+   * Defines the item's icon.
    * @default undefined
    */
   icon?: string | undefined;
@@ -56,7 +56,7 @@ interface ShellBarItemDomRef extends Required<ShellBarItemAttributes>, Ui5DomRef
 interface ShellBarItemPropTypes
   extends ShellBarItemAttributes, Omit<CommonProps, keyof ShellBarItemAttributes | 'onClick'> {
   /**
-   * Fired, when the item is pressed.
+   * Fired when the item is clicked.
    *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
    *
@@ -68,13 +68,11 @@ interface ShellBarItemPropTypes
 }
 
 /**
- * The `ShellBarItem` represents a custom item, that
- * might be added to the `ShellBar`.
+ * The `ShellBarItem` represents a custom item for `ShellBar`.
  *
  *
  *
  * __Note:__ This is a UI5 Web Component! [ShellBarItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/ShellBarItem) | [Repository](https://github.com/UI5/webcomponents)
- * @abstract
  */
 const ShellBarItem = withWebComponent<ShellBarItemPropTypes, ShellBarItemDomRef>(
   'ui5-shellbar-item',

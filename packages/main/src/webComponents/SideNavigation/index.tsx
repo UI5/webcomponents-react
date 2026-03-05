@@ -1,7 +1,10 @@
 'use client';
 
 import '@ui5/webcomponents-fiori/dist/SideNavigation.js';
-import type { SideNavigationSelectionChangeEventDetail } from '@ui5/webcomponents-fiori/dist/SideNavigation.js';
+import type {
+  SideNavigationItemClickEventDetail,
+  SideNavigationSelectionChangeEventDetail,
+} from '@ui5/webcomponents-fiori/dist/SideNavigation.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
@@ -34,7 +37,10 @@ interface SideNavigationDomRef extends Required<SideNavigationAttributes>, Ui5Do
 interface SideNavigationPropTypes
   extends
     SideNavigationAttributes,
-    Omit<CommonProps, keyof SideNavigationAttributes | 'children' | 'fixedItems' | 'header' | 'onSelectionChange'> {
+    Omit<
+      CommonProps,
+      keyof SideNavigationAttributes | 'children' | 'fixedItems' | 'header' | 'onItemClick' | 'onSelectionChange'
+    > {
   /**
    * Defines the main items of the component.
    *
@@ -72,7 +78,20 @@ interface SideNavigationPropTypes
    */
   header?: UI5WCSlotsNode;
   /**
-   * Fired when the selection has changed via user interaction
+   * Fired when an item is clicked.
+   *
+   * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
+   *
+   * **Note:** Available since [v2.20.0](https://github.com/UI5/webcomponents/releases/tag/v2.20.0) of **@ui5/webcomponents-fiori**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ✅|✅|
+   */
+  onItemClick?: (event: Ui5CustomEvent<SideNavigationDomRef, SideNavigationItemClickEventDetail>) => void;
+
+  /**
+   * Fired when the selection has changed via user interaction.
    *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
    *
@@ -88,7 +107,7 @@ interface SideNavigationPropTypes
  * It consists of three containers: header (top-aligned), main navigation section (top-aligned) and the secondary section (bottom-aligned).
  *
  *  - The header is meant for displaying user related information - profile data, avatar, etc.
- *  - The main navigation section is related to the user’s current work context
+ *  - The main navigation section is related to the user's current work context.
  *  - The secondary section is mostly used to link additional information that may be of interest (legal information, developer communities, external help, contact information and so on).
  *
  * ### Usage
@@ -127,7 +146,7 @@ const SideNavigation = withWebComponent<SideNavigationPropTypes, SideNavigationD
   ['accessibleName'],
   ['collapsed'],
   ['fixedItems', 'header'],
-  ['selection-change'],
+  ['item-click', 'selection-change'],
 );
 
 SideNavigation.displayName = 'SideNavigation';

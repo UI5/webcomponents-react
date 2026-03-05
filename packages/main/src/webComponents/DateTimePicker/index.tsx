@@ -147,6 +147,14 @@ interface DateTimePickerAttributes {
   secondaryCalendarType?: CalendarType | undefined | keyof typeof CalendarType;
 
   /**
+   * Defines whether the clear icon of the input will be shown.
+   *
+   * **Note:** Available since [v2.20.0](https://github.com/UI5/webcomponents/releases/tag/v2.20.0) of **@ui5/webcomponents**.
+   * @default false
+   */
+  showClearIcon?: boolean;
+
+  /**
    * Defines a formatted date value.
    */
   value?: string;
@@ -382,7 +390,7 @@ const DateTimePicker = withWebComponent<DateTimePickerPropTypes, DateTimePickerD
     'valueFormat',
     'valueState',
   ],
-  ['disabled', 'hideWeekNumbers', 'open', 'readonly', 'required'],
+  ['disabled', 'hideWeekNumbers', 'open', 'readonly', 'required', 'showClearIcon'],
   ['valueStateMessage'],
   ['change', 'close', 'input', 'open', 'value-state-change'],
 );

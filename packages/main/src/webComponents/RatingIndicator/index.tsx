@@ -35,6 +35,14 @@ interface RatingIndicatorAttributes {
   max?: number;
 
   /**
+   * Defines the icon to be displayed for the selected (filled) rating symbol.
+   *
+   * **Note:** Available since [v2.20](https://github.com/UI5/webcomponents/releases/tag/v2.20) of **@ui5/webcomponents**.
+   * @default "favorite"
+   */
+  ratedIcon?: string;
+
+  /**
    * Defines whether the component is read-only.
    *
    * **Note:** A read-only component is not editable,
@@ -66,6 +74,14 @@ interface RatingIndicatorAttributes {
    * @default undefined
    */
   tooltip?: string | undefined;
+
+  /**
+   * Defines the icon to be displayed for the unselected (empty) rating symbol.
+   *
+   * **Note:** Available since [v2.20](https://github.com/UI5/webcomponents/releases/tag/v2.20) of **@ui5/webcomponents**.
+   * @default "unfavorite"
+   */
+  unratedIcon?: string;
 
   /**
    * The indicated value of the rating.
@@ -123,7 +139,7 @@ interface RatingIndicatorPropTypes
  */
 const RatingIndicator = withWebComponent<RatingIndicatorPropTypes, RatingIndicatorDomRef>(
   'ui5-rating-indicator',
-  ['accessibleName', 'accessibleNameRef', 'max', 'size', 'tooltip', 'value'],
+  ['accessibleName', 'accessibleNameRef', 'max', 'ratedIcon', 'size', 'tooltip', 'unratedIcon', 'value'],
   ['disabled', 'readonly', 'required'],
   [],
   ['change'],

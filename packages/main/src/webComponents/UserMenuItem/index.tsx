@@ -302,7 +302,6 @@ interface UserMenuItemPropTypes
  * __Note:__ This is a UI5 Web Component! [UserMenuItem UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/UserMenuItem) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.5.0](https://github.com/UI5/webcomponents/releases/tag/v2.5.0) of __@ui5/webcomponents-fiori__.
- * @experimental
  */
 const UserMenuItem = withWebComponent<UserMenuItemPropTypes, UserMenuItemDomRef>(
   'ui5-user-menu-item',

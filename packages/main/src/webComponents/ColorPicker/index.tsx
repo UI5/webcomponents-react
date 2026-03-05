@@ -6,6 +6,22 @@ import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-
 
 interface ColorPickerAttributes {
   /**
+   * Defines the accessible name of the component.
+   *
+   * **Note:** Available since [v2.20.0](https://github.com/UI5/webcomponents/releases/tag/v2.20.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleName?: string | undefined;
+
+  /**
+   * Receives id(or many ids) of the elements that label the component.
+   *
+   * **Note:** Available since [v2.20.0](https://github.com/UI5/webcomponents/releases/tag/v2.20.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleNameRef?: string | undefined;
+
+  /**
    * Determines the name by which the component will be identified upon submission in an HTML form.
    *
    * **Note:** This property is only applicable within the context of an HTML Form element.
@@ -66,7 +82,7 @@ interface ColorPickerPropTypes
  */
 const ColorPicker = withWebComponent<ColorPickerPropTypes, ColorPickerDomRef>(
   'ui5-color-picker',
-  ['name', 'value'],
+  ['accessibleName', 'accessibleNameRef', 'name', 'value'],
   ['simplified'],
   [],
   ['change'],

@@ -90,6 +90,26 @@ interface ComboBoxAttributes {
   required?: boolean;
 
   /**
+   * Defines the value of the selected item (references the `value` property of `ComboBoxItem`).
+   *
+   * Use this property to work with unique identifiers (IDs, codes) instead of display text.
+   * When set, the ComboBox finds and selects the item whose `value` property matches this property.
+   *
+   * **Benefits:**
+   * - Select items programmatically by their unique identifier
+   * - Handle items with identical display text but different underlying values
+   * - Submit machine-readable values in forms (the item's `value` is submitted instead of the display text)
+   *
+   * **When to use `selectedValue` vs `value`:**
+   * - **Recommended:** Use `selectedValue` + item `value` when you need unique identifiers separate from display text (e.g., country codes "DE", "FR" with display names "Germany", "France")
+   * - Use only the ComboBox `value` property when the display text itself is sufficient for your use case
+   *
+   * **Note:** Available since [v2.20.0](https://github.com/UI5/webcomponents/releases/tag/v2.20.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  selectedValue?: string | undefined;
+
+  /**
    * Defines whether the clear icon of the combobox will be shown.
    *
    * **Note:** Available since [v1.20.1](https://github.com/UI5/webcomponents/releases/tag/v1.20.1) of **@ui5/webcomponents**.
@@ -228,6 +248,32 @@ interface ComboBoxPropTypes
  * -  Drop-down arrow - expands\collapses the option list.
  * -  Option list - the list of available options.
  *
+ * ### Working with Values
+ *
+ * The ComboBox offers two ways to work with item selection:
+ *
+ * **1. Display Text Only (using `value`):**
+ * ```html
+ * <ComboBox value="Germany">
+ *   <ComboBoxItem text="Germany"></ComboBoxItem>
+ *   <ComboBoxItem text="France"></ComboBoxItem>
+ * </ComboBox>
+ * ```
+ * Use this approach when the displayed text is sufficient for your needs.
+ *
+ * **2. Unique Identifiers - Recommended (using `selectedValue` and item `value`):**
+ * ```html
+ * <ComboBox value="Germany" selected-value="DE">
+ *   <ComboBoxItem text="Germany" value="DE"></ComboBoxItem>
+ *   <ComboBoxItem text="France" value="FR"></ComboBoxItem>
+ * </ComboBox>
+ * ```
+ * This is the recommended approach when you need to work with unique identifiers (IDs, codes) separate from display text.
+ * The `selectedValue` property references the `value` property of the selected item.
+ * In forms, the item's `value` (e.g., "DE") will be submitted instead of the display text.
+ *
+ * **Important:** Do not mix the `selectedValue` approach with the deprecated `selected` property on items.
+ *
  * ### Keyboard Handling
  *
  * The `ComboBox` provides advanced keyboard handling.
@@ -249,7 +295,7 @@ interface ComboBoxPropTypes
  */
 const ComboBox = withWebComponent<ComboBoxPropTypes, ComboBoxDomRef>(
   'ui5-combobox',
-  ['accessibleName', 'accessibleNameRef', 'filter', 'name', 'placeholder', 'value', 'valueState'],
+  ['accessibleName', 'accessibleNameRef', 'filter', 'name', 'placeholder', 'selectedValue', 'value', 'valueState'],
   ['disabled', 'loading', 'noTypeahead', 'open', 'readonly', 'required', 'showClearIcon'],
   ['icon', 'valueStateMessage'],
   ['change', 'close', 'input', 'open', 'selection-change'],

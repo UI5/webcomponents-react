@@ -78,7 +78,7 @@ interface SliderAttributes {
   /**
    * Defines the size of the slider's selection intervals (e.g. min = 0, max = 10, step = 5 would result in possible selection of the values 0, 5, 10).
    *
-   * **Note:** If set to 0 the slider handle movement is disabled. When negative number or value other than a number, the component fallbacks to its default value.
+   * **Note:** If set to 0 the slider handle movement is disabled.
    * @default 1
    */
   step?: number;

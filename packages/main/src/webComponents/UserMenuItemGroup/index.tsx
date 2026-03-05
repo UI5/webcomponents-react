@@ -49,7 +49,6 @@ interface UserMenuItemGroupPropTypes
  * __Note:__ This is a UI5 Web Component! [UserMenuItemGroup UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/UserMenuItemGroup) | [Repository](https://github.com/UI5/webcomponents)
  *
  * @since [2.12.0](https://github.com/UI5/webcomponents/releases/tag/v2.12.0) of __@ui5/webcomponents-fiori__.
- * @experimental
  */
 const UserMenuItemGroup = withWebComponent<UserMenuItemGroupPropTypes, UserMenuItemGroupDomRef>(
   'ui5-user-menu-item-group',

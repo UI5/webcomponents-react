@@ -105,6 +105,23 @@ interface MultiComboBoxAttributes {
   required?: boolean;
 
   /**
+   * Defines the values of the selected items.
+   *
+   * Use this property to programmatically select items by their `value` property.
+   * Each string in the array should match the `value` attribute of a `MultiComboBoxItem`.
+   *
+   * **Note:** If an item doesn't have a `value` attribute set, it cannot be selected via this property.
+   *
+   * **Note:** The recommended approach is to set the `value` property on each `MultiComboBoxItem`
+   * and use `selectedValues` for programmatic selection. The `selected` property on items is
+   * deprecated and should not be used together with `selectedValues`.
+   *
+   * **Note:** Available since [v2.20.0](https://github.com/UI5/webcomponents/releases/tag/v2.20.0) of **@ui5/webcomponents**.
+   * @default []
+   */
+  selectedValues?: Array<string>;
+
+  /**
    * Defines whether the clear icon of the multi-combobox will be shown.
    *
    * **Note:** Available since [v1.20.1](https://github.com/UI5/webcomponents/releases/tag/v1.20.1) of **@ui5/webcomponents**.
@@ -291,7 +308,7 @@ interface MultiComboBoxPropTypes
  */
 const MultiComboBox = withWebComponent<MultiComboBoxPropTypes, MultiComboBoxDomRef>(
   'ui5-multi-combobox',
-  ['accessibleName', 'accessibleNameRef', 'filter', 'name', 'placeholder', 'value', 'valueState'],
+  ['accessibleName', 'accessibleNameRef', 'filter', 'name', 'placeholder', 'selectedValues', 'value', 'valueState'],
   [
     'disabled',
     'loading',

@@ -147,6 +147,14 @@ interface DatePickerAttributes {
   secondaryCalendarType?: CalendarType | undefined | keyof typeof CalendarType;
 
   /**
+   * Defines whether the clear icon of the input will be shown.
+   *
+   * **Note:** Available since [v2.20.0](https://github.com/UI5/webcomponents/releases/tag/v2.20.0) of **@ui5/webcomponents**.
+   * @default false
+   */
+  showClearIcon?: boolean;
+
+  /**
    * Defines a formatted date value.
    */
   value?: string;
@@ -331,8 +339,8 @@ interface DatePickerPropTypes
  * Supported format options are pattern-based on Unicode LDML Date Format notation.
  * For more information, see [UTS #35: Unicode Locale Data Markup Language](https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table).
  *
- * For example, if the `format-pattern` is "yyyy-MM-dd",
- * a valid value string is "2015-07-30" and the same is displayed in the input.
+ * For example, if the valueFormat is "yyyy-MM-dd", the displayFormat is "MMM d, y", and the used locale is English, a valid value string is "2015-07-30", which leads to an output of "Jul 30, 2015".
+ * If no placeholder is set to the DatePicker, the used displayFormat is displayed as a placeholder. If another placeholder is needed, it must be set.
  *
  * ### Keyboard Handling
  * The `DatePicker` provides advanced keyboard handling.
@@ -400,7 +408,7 @@ const DatePicker = withWebComponent<DatePickerPropTypes, DatePickerDomRef>(
     'valueFormat',
     'valueState',
   ],
-  ['disabled', 'hideWeekNumbers', 'open', 'readonly', 'required'],
+  ['disabled', 'hideWeekNumbers', 'open', 'readonly', 'required', 'showClearIcon'],
   ['valueStateMessage'],
   ['change', 'close', 'input', 'open', 'value-state-change'],
 );

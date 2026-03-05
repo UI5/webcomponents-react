@@ -9,6 +9,22 @@ import type { ReactNode } from 'react';
 
 interface ColorPalettePopoverAttributes {
   /**
+   * Defines the accessible name of the component.
+   *
+   * **Note:** Available since [v2.20.0](https://github.com/UI5/webcomponents/releases/tag/v2.20.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleName?: string | undefined;
+
+  /**
+   * Receives id(or many ids) of the elements that label the component.
+   *
+   * **Note:** Available since [v2.20.0](https://github.com/UI5/webcomponents/releases/tag/v2.20.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleNameRef?: string | undefined;
+
+  /**
    * Defines the default color of the component.
    *
    * **Note:** The default color should be a part of the ColorPalette colors`
@@ -114,7 +130,7 @@ interface ColorPalettePopoverPropTypes
  */
 const ColorPalettePopover = withWebComponent<ColorPalettePopoverPropTypes, ColorPalettePopoverDomRef>(
   'ui5-color-palette-popover',
-  ['defaultColor', 'opener', 'placement'],
+  ['accessibleName', 'accessibleNameRef', 'defaultColor', 'opener', 'placement'],
   ['open', 'showDefaultColor', 'showMoreColors', 'showRecentColors'],
   [],
   ['close', 'item-click'],
