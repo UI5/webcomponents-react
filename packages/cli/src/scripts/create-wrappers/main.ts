@@ -47,6 +47,11 @@ export default async function createWrappers(packageName: string, outDir: string
       continue;
     }
 
+    // Skip non-public declarations
+    if (declaration._ui5privacy && declaration._ui5privacy !== 'public') {
+      continue;
+    }
+
     const wrapper = new WebComponentWrapper(declaration.tagName, declaration.name, webComponentImport, packageName);
     const attributes = declaration.members?.filter(filterAttributes) ?? [];
 
