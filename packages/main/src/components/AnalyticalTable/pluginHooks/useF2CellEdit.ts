@@ -146,7 +146,13 @@ useF2CellEdit.useCallbackRef = <T extends HTMLElement = HTMLElement>(props: Cell
           if (typeof (el as Ui5DomRef).getFocusDomRefAsync === 'function') {
             void (el as Ui5DomRef)
               .getFocusDomRefAsync()
-              .then((resolved) => setTabIndex(resolved))
+              .then((resolved) => {
+                if (resolved && resolved !== el) {
+                  setTabIndex(resolved);
+                } else {
+                  el.setAttribute('tabindex', cellContentTabIndex);
+                }
+              })
               .catch(() => {
                 // fail silently
               });
