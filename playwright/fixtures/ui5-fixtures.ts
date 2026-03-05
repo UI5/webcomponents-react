@@ -45,7 +45,7 @@ export class UI5WCHelpers {
   }
 
   /**
-   * Closes an open popup by pressing Escape.
+   * Closes an open ui5 popup by pressing Escape.
    *
    * @example
    * await ui5wc.closePopupWithEsc();

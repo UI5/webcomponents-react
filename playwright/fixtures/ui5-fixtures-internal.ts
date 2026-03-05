@@ -1,6 +1,5 @@
-import { test as base, expect } from '@playwright/experimental-ct-react';
 import type { Locator } from '@playwright/test';
-import { UI5WCHelpers } from './ui5-fixtures';
+import { test as base, expect, UI5WCHelpers } from './ui5-fixtures.js';
 
 export interface UI5WCInternalFixtures {
   ui5wc: UI5WCInternalHelpers;
