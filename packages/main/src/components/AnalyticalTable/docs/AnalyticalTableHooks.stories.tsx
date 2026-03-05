@@ -6,22 +6,22 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import InputType from '@ui5/webcomponents/dist/types/InputType.js';
 import paperPlaneIcon from '@ui5/webcomponents-icons/dist/paper-plane';
 import { useCallback, useMemo, useReducer, useState } from 'react';
-import { AnalyticalTableSelectionMode, FlexBoxAlignItems, FlexBoxDirection } from '../../enums';
-import { Button } from '../../webComponents/Button/index.js';
-import { CheckBox } from '../../webComponents/CheckBox/index.js';
-import type { InputDomRef } from '../../webComponents/Input/index.js';
-import { Input } from '../../webComponents/Input/index.js';
-import { Label } from '../../webComponents/Label/index.js';
-import { Switch } from '../../webComponents/Switch/index.js';
-import { Tag } from '../../webComponents/Tag/index.js';
-import { Text } from '../../webComponents/Text/index.js';
-import { ToggleButton } from '../../webComponents/ToggleButton/index.js';
-import { FlexBox } from '../FlexBox';
-import meta from './AnalyticalTable.stories';
-import * as AnalyticalTableHooks from './pluginHooks/AnalyticalTableHooks';
-import { useF2CellEdit } from './pluginHooks/AnalyticalTableHooks';
-import { AnalyticalTable } from './index';
-import type { AnalyticalTableCellInstance, AnalyticalTableColumnDefinition } from './index';
+import { AnalyticalTableSelectionMode, FlexBoxAlignItems, FlexBoxDirection } from '../../../enums/index.js';
+import { Button } from '../../../webComponents/Button/index.js';
+import { CheckBox } from '../../../webComponents/CheckBox/index.js';
+import type { InputDomRef } from '../../../webComponents/Input/index.js';
+import { Input } from '../../../webComponents/Input/index.js';
+import { Label } from '../../../webComponents/Label/index.js';
+import { Switch } from '../../../webComponents/Switch/index.js';
+import { Tag } from '../../../webComponents/Tag/index.js';
+import { Text } from '../../../webComponents/Text/index.js';
+import { ToggleButton } from '../../../webComponents/ToggleButton/index.js';
+import { FlexBox } from '../../FlexBox/index.js';
+import { AnalyticalTable } from '../index.js';
+import type { AnalyticalTableCellInstance, AnalyticalTableColumnDefinition } from '../index.js';
+import * as AnalyticalTableHooks from '../pluginHooks/AnalyticalTableHooks.js';
+import { useF2CellEdit } from '../pluginHooks/AnalyticalTableHooks.js';
+import meta from './AnalyticalTable.stories.js';
 
 const pluginsMeta = {
   ...meta,

@@ -832,7 +832,9 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    * The value of this prop can either be a `string` pointing to a `ValueState` or an `IndicationColor` in your dataset
    * or an accessor function which should return a `ValueState` or an `IndicationColor`.
    *
-   * __Note:__ `IndicationColor`s are available since `v1.26.0`.
+   * __Note:__ If a function is used, it __must be memoized!__
+   *
+   * @since 1.26.0
    *
    * @default "status"
    */
@@ -859,6 +861,8 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   groupable?: boolean;
   /**
    * Group table rows by adding the column's `accessor` or `id` to the array.
+   *
+   * __Must be memoized!__
    *
    * __Note:__ This prop has no effect when `isTreeTable` is true or `renderRowSubComponent` is set.
    */
@@ -906,6 +910,8 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   scaleXFactor?: number;
   /**
    * Defines the columns order by their `accessor` or `id`.
+   *
+   * __Must be memoized!__
    */
   columnOrder?: string[];
   /**
@@ -932,12 +938,14 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   globalFilterValue?: string;
   /**
    * Additional options which will be passed to [v7 react-table´s useTable hook](https://github.com/TanStack/table/blob/v7/docs/src/pages/docs/api/useTable.md#table-options)
+   *
+   * __Must be memoized!__
    */
   reactTableOptions?: Record<string, unknown>;
   /**
    * You can use this prop to add custom hooks to the table.
    *
-   * __Note:__ Should be memoized!
+   * __Must be memoized!__
    *
    * @default []
    */
@@ -972,6 +980,8 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   overscanCount?: number;
   /**
    * Defines the subcomponent that should be displayed below each row.
+   *
+   * __Must be memoized!__
    *
    * __Note:__
    * - __There is no design concept regarding this functionality!__
