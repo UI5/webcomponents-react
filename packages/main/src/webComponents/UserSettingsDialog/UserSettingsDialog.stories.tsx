@@ -35,7 +35,7 @@ const meta = {
     fixedItems: { control: { disable: true } },
   },
   args: {},
-  tags: ['package:@ui5/webcomponents', 'experimental'],
+  tags: ['package:@ui5/webcomponents'],
 } satisfies Meta<typeof UserSettingsDialog>;
 type Story = StoryObj<typeof meta>;
 export default meta;
