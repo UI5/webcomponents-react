@@ -1,5 +1,9 @@
+import { test as base, expect } from '@playwright/experimental-ct-react';
 import type { Page, Locator } from '@playwright/test';
-import { expect } from '@playwright/experimental-ct-react';
+
+export interface UI5WCFixtures {
+  ui5wc: UI5WCHelpers;
+}
 
 export class UI5WCHelpers {
   constructor(protected page: Page) {}
@@ -107,3 +111,12 @@ export class UI5WCHelpers {
     return tabContainer.locator('[role="tab"]').filter({ hasText: text }).locator('[ui5-button]');
   }
 }
+
+export const test = base.extend<UI5WCFixtures>({
+  ui5wc: async ({ page }, use) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    await use(new UI5WCHelpers(page));
+  },
+});
+
+export { expect };

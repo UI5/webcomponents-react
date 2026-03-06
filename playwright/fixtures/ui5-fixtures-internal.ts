@@ -1,5 +1,5 @@
 import type { Locator } from '@playwright/test';
-import { test as base, expect, UI5WCHelpers } from './ui5-fixtures/ui5-fixtures.js';
+import { test as base, expect, UI5WCHelpers } from './ui5-fixtures.js';
 
 export interface UI5WCInternalFixtures {
   ui5wc: UI5WCInternalHelpers;
