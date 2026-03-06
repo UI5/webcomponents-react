@@ -1,0 +1,12 @@
+import{j as o,E as s}from"./iframe-BsLeblbZ.js";import{useMDXComponents as n}from"./index-SmDsT-ZV.js";import{A as a}from"./ArgTypesWithNote-sxb38S7n.js";import{C as c}from"./ControlsWithNote-D-FuG2tP.js";import{D as x}from"./DocsHeader-op1-hUGh.js";import{F as f}from"./Footer-Bbw4uFwB.js";import"./CommandsAndQueries-BIrmUykn.js";import"./PageNotFound-DD-eOCZR.js";import{S as l}from"./SubcomponentsSection-BVy4lpQe.js";import{M as j,C as d,a as h,D as u}from"./blocks-MuC3nZ17.js";import{C as m}from"./index-Du2HGHYo.js";import{C as i,D as e}from"./ColorPalette.stories-Bt8V2fmf.js";import"./preload-helper-PPVm8Dsz.js";import"./index-RHsqj3O6.js";import"./information-CyWeW3Ip.js";import"./sys-enter-2-0MhMJNjS.js";import"./alert-CqXBa80-.js";import"./Tag-YXcZfnM7.js";import"./index-B-umVgsK.js";import"./index-Xah-ddNA.js";import"./Link-CBQ0neVT.js";import"./copy-C_968UhI.js";import"./copy-D-f_NdBO.js";import"./GitHub-Mark-CQCKzyKN.js";import"./TableOfContent-B8KE4qVO.js";import"./index-DOfJ-lzX.js";import"./index-BxpRwQAU.js";import"./index-B-MH-ZOH.js";import"./index-B9PkCo2j.js";import"./index-Hl67y25M.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-DtKzQDtt.js";import"./addCustomCSSWithScoping-BnenMixx.js";import"./Illustrations-BpmOpW1L.js";import"./i18n-defaults-CFWtSmu6.js";import"./query-CzSBusdE.js";import"./ColorPaletteMoreColorsTemplate-Dxknpz4j.js";import"./ColorPicker-BsN9LWyN.js";import"./Slider-DAyOERAC.js";import"./direction-arrows-CxZi8SXP.js";import"./Input-DlcD5Uyx.js";import"./ResponsivePopoverCommon.css-BnR9PF5c.js";import"./ValueStateMessage.css-DaaMCoGD.js";import"./Suggestions.css-B26HkXef.js";import"./slot-_4yKMUwC.js";import"./InvisibleMessage-BLe6-QWs.js";function p(t){const r={h2:"h2",...n(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(j,{of:i}),`
+`,o.jsx(x,{of:i,since:"0.14.0"}),`
+`,o.jsx("br",{}),`
+`,o.jsx(r.h2,{id:"example",children:"Example"}),`
+`,o.jsx(d,{of:e}),`
+`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
+`,o.jsx(c,{of:e}),`
+`,o.jsx(h,{children:l}),`
+`,o.jsx(r.h2,{id:"colorpaletteitem",children:"ColorPaletteItem"}),`
+`,o.jsx(u,{of:m}),`
+`,o.jsx(a,{metaOf:i,hideHTMLPropsNote:!0,exclude:s,of:m}),`
+`,o.jsx(f,{})]})}function co(t={}){const{wrapper:r}={...n(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(p,{...t})}):p(t)}export{co as default};
