@@ -2034,6 +2034,7 @@ describe('AnalyticalTable', () => {
       });
     });
   });
+
   it('columns drag & drop', () => {
     const localCols = [...columns];
     localCols.pop();
@@ -2056,6 +2057,78 @@ describe('AnalyticalTable', () => {
       });
     });
     cy.get('@reorder').should('have.been.calledTwice');
+  });
+
+  it('columns drag & drop: reorder then add/remove column', () => {
+    const baseCols = [
+      { accessor: 'name', Header: 'Name' },
+      { accessor: 'age', Header: 'Age' },
+      { accessor: 'friend.name', Header: 'Friend Name' },
+    ];
+    const extraCol = { accessor: 'friend.age', Header: 'Friend Age' };
+    const reorder = cy.spy().as('reorder');
+
+    const TestComp = () => {
+      const [cols, setCols] = useState(baseCols);
+      return (
+        <>
+          <Button
+            onClick={() => {
+              setCols((prev) => (prev.length === 3 ? [...prev, extraCol] : prev.slice(0, 3)));
+            }}
+          >
+            Toggle Column
+          </Button>
+          <AnalyticalTable data={data} columns={cols} onColumnsReorder={reorder} />
+        </>
+      );
+    };
+
+    const dataTransferById = (colId) => ({
+      getData: () => colId,
+    });
+
+    cy.mount(<TestComp />);
+    // name -> age => [age, name, friend.name]
+    cy.get('[data-column-id="name"]')
+      .trigger('dragstart')
+      .trigger('drop', { dataTransfer: dataTransferById('age') });
+    cy.get('[data-column-id]').each(($col, index) => {
+      cy.wrap($col).should('have.text', ['Age', 'Name', 'Friend Name'][index]);
+    });
+
+    // add friend.age => [age, name, friend.name, friend.age]
+    cy.findByText('Toggle Column').click();
+    cy.get('[data-column-id]').should('have.length', 4);
+    cy.get('[data-column-id]').each(($col, index) => {
+      cy.wrap($col).should('have.text', ['Age', 'Name', 'Friend Name', 'Friend Age'][index]);
+    });
+    cy.get('[role="separator"]').eq(0).click();
+
+    // friend.age -> age => [friend.age, age, name, friend.name]
+    cy.get('[data-column-id="age"]')
+      .trigger('dragstart')
+      .trigger('drop', { dataTransfer: dataTransferById('friend.age') });
+    cy.get('[data-column-id]').each(($col, index) => {
+      cy.wrap($col).should('have.text', ['Friend Age', 'Age', 'Name', 'Friend Name'][index]);
+    });
+
+    // remove friend.age => [age, name, friend.name]
+    cy.findByText('Toggle Column').click();
+    cy.get('[data-column-id]').should('have.length', 3);
+    cy.get('[data-column-id]').each(($col, index) => {
+      cy.wrap($col).should('have.text', ['Age', 'Name', 'Friend Name'][index]);
+    });
+
+    // friend.name -> age => [friend.name, age, name]
+    cy.get('[data-column-id="age"]')
+      .trigger('dragstart')
+      .trigger('drop', { dataTransfer: dataTransferById('friend.name') });
+    cy.get('[data-column-id]').each(($col, index) => {
+      cy.wrap($col).should('have.text', ['Friend Name', 'Age', 'Name'][index]);
+    });
+
+    cy.get('@reorder').should('have.callCount', 3);
   });
 
   it('w/o selection column', () => {
