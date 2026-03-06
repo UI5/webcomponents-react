@@ -51,7 +51,7 @@ export enum RenderColumnTypes {
 }
 
 export interface ColumnType extends Omit<AnalyticalTableColumnDefinition, 'id'> {
-  id: string;
+  id?: string;
   Expandable?: any;
   Grouped?: any;
   RepeatedValue?: any;
