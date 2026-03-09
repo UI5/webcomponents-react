@@ -37,6 +37,8 @@ describe('useLabelFormatter', () => {
           reactKey: 'b',
         },
       ],
+      stackGroups: {},
+      lastInStack: new Set(),
     });
   });
 
@@ -65,6 +67,8 @@ describe('useLabelFormatter', () => {
           reactKey: 'b',
         },
       ],
+      stackGroups: {},
+      lastInStack: new Set(),
     });
   });
 
@@ -96,6 +100,8 @@ describe('useLabelFormatter', () => {
           reactKey: 'b',
         },
       ],
+      stackGroups: {},
+      lastInStack: new Set(),
     });
   });
 });
