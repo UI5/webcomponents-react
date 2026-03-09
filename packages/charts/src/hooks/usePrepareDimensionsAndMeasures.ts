@@ -8,11 +8,15 @@ function getAccessorReactKey(accessorObj: Record<string, any>) {
   return reactKey;
 }
 
+const emptyStackGroups: Record<string, string[]> = {};
+const emptyLastInStack = new Set<string>();
+
 export const usePrepareDimensionsAndMeasures = <DimensionConfig = any, MeasureConfig = any>(
   rawDimensions,
   rawMeasures,
   dimensionDefaults = {},
   measureDefaults = {},
+  showStackAggregateTotals = false,
 ) => {
   const dimensions: DimensionConfig = useMemo(
     () =>
@@ -26,17 +30,38 @@ export const usePrepareDimensionsAndMeasures = <DimensionConfig = any, MeasureCo
     [rawDimensions, dimensionDefaults],
   );
 
-  const measures: MeasureConfig = useMemo(
-    () =>
-      rawMeasures.map((measure) => {
-        return {
-          ...measureDefaults,
-          ...measure,
-          reactKey: getAccessorReactKey(measure),
-        };
-      }),
-    [rawMeasures, measureDefaults],
-  );
+  const { measures, stackGroups, lastInStack } = useMemo(() => {
+    const groups: Record<string, string[]> = {};
+    const preparedMeasures = rawMeasures.map((measure) => {
+      const prepared = {
+        ...measureDefaults,
+        ...measure,
+        reactKey: getAccessorReactKey(measure),
+      };
+      if (showStackAggregateTotals && prepared.stackId && typeof prepared.accessor === 'string') {
+        if (!groups[prepared.stackId]) {
+          groups[prepared.stackId] = [];
+        }
+        groups[prepared.stackId].push(prepared.accessor);
+      }
+      return prepared;
+    });
 
-  return { dimensions, measures };
+    if (!showStackAggregateTotals) {
+      return {
+        measures: preparedMeasures as MeasureConfig,
+        stackGroups: emptyStackGroups,
+        lastInStack: emptyLastInStack,
+      };
+    }
+
+    const last = new Set<string>();
+    Object.values(groups).forEach((accessors) => {
+      last.add(accessors[accessors.length - 1]);
+    });
+
+    return { measures: preparedMeasures as MeasureConfig, stackGroups: groups, lastInStack: last };
+  }, [rawMeasures, measureDefaults, showStackAggregateTotals]);
+
+  return { dimensions, measures, stackGroups, lastInStack };
 };

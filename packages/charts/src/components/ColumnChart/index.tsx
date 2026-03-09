@@ -33,6 +33,8 @@ import type { IChartMeasure } from '../../interfaces/IChartMeasure.js';
 import { ChartContainer } from '../../internal/ChartContainer.js';
 import { ChartDataLabel } from '../../internal/ChartDataLabel.js';
 import { defaultFormatter } from '../../internal/defaults.js';
+import { StackAggregateLabel } from '../../internal/StackAggregateLabel.js';
+import { StackedTooltipContent } from '../../internal/StackedTooltipContent.js';
 import { brushProps, tickLineConfig, tooltipContentStyle, tooltipFillOpacity } from '../../internal/staticProps.js';
 import { getCellColors, resolvePrimaryAndSecondaryMeasures } from '../../internal/Utils.js';
 import { XAxisTicks } from '../../internal/XAxisTicks.js';
@@ -165,11 +167,12 @@ const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>((props, ref) =>
   };
   const { referenceLine } = chartConfig;
 
-  const { dimensions, measures } = usePrepareDimensionsAndMeasures(
+  const { dimensions, measures, stackGroups, lastInStack } = usePrepareDimensionsAndMeasures(
     props.dimensions,
     props.measures,
     dimensionDefaults,
     measureDefaults,
+    chartConfig.showStackAggregateTotals,
   );
 
   const tooltipValueFormatter = useTooltipFormatter(measures);
@@ -224,6 +227,10 @@ const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>((props, ref) =>
   const { chartConfig: _0, dimensions: _1, measures: _2, ...propsWithoutOmitted } = rest;
 
   const { isMounted, handleBarAnimationStart, handleBarAnimationEnd } = useCancelAnimationFallback(noAnimation);
+
+  const stackGroupKeys = Object.keys(stackGroups);
+  const showStackTotalInTooltip =
+    chartConfig.showStackAggregateTotals && stackGroupKeys.length === 1 && measures.every((m) => m.stackId != null);
 
   return (
     <ChartContainer
@@ -332,6 +339,17 @@ const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>((props, ref) =>
                   valueAccessor={valueAccessor(element.accessor)}
                   content={<ChartDataLabel config={element} chartType="column" position={'insideTop'} />}
                 />
+                {chartConfig.showStackAggregateTotals &&
+                  element.stackId &&
+                  typeof element.accessor === 'string' &&
+                  lastInStack.has(element.accessor) && (
+                    <LabelList
+                      data={dataset}
+                      valueAccessor={valueAccessor(element.accessor)}
+                      position="top"
+                      content={<StackAggregateLabel stackAccessors={stackGroups[element.stackId]} dataset={dataset} />}
+                    />
+                  )}
                 {dataset.map((data, i) => {
                   return (
                     <Cell
@@ -369,6 +387,14 @@ const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>((props, ref) =>
             contentStyle={tooltipContentStyle}
             labelFormatter={tooltipLabelFormatter}
             {...tooltipConfig}
+            {...(showStackTotalInTooltip && {
+              content: (
+                <StackedTooltipContent
+                  stackAccessors={stackGroups[stackGroupKeys[0]]}
+                  totalFormatter={chartConfig.stackAggregateTotalFormatter}
+                />
+              ),
+            })}
           />
         )}
         {!!chartConfig.zoomingTool && (
