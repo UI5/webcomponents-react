@@ -166,6 +166,9 @@ export interface TableInstance {
   groupedFlatRows?: RowType[];
   groupedRows?: RowType[];
   groupedRowsById?: Record<string, RowType>;
+  /**
+   * Nested column headers are not supported. This array must only contain a single header group.
+   */
   headerGroups: Record<string, any>[];
   headers: ColumnType[];
   initialRows: RowType[];
