@@ -21,6 +21,8 @@ To **ensure the hook works correctly**, make sure that:
 The hook manages focus, keyboard navigation, and `tabindex` for cells with interactive content:
 
 - Pressing `F2` moves focus between the cell container and its first interactive element.
+- Pressing `Tab` on a focused header cell moves focus to the body cell in the same column at the last focused body row (or the first row if none was focused).
+- Pressing `Shift+Tab` on a focused body cell moves focus back to the header cell of the same column.
 - Updates the cell's `aria-label` with the interactive element's name for accessibility.
 - Prevents standard navigation keys from interfering when editing a cell.
 
