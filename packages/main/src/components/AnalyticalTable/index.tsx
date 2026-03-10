@@ -89,7 +89,7 @@ import {
   getCombinedElementsHeight,
   getRowHeight,
   getSubRowsByString,
-  tagNamesWhichShouldNotSelectARow,
+  tagNamesWhichShouldNotSelectARow
 } from './util/index.js';
 import { VerticalResizer } from './VerticalResizer.js';
 
