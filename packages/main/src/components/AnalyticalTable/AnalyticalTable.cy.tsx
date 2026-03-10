@@ -4658,6 +4658,9 @@ describe('AnalyticalTable', () => {
     cy.focused().should('have.attr', 'data-row-index', '0');
     cy.focused().should('have.attr', 'data-column-index', '0');
     cy.realPress('Tab');
+    cy.focused().should('have.attr', 'data-row-index', '1');
+    cy.focused().should('have.attr', 'data-column-index', '0');
+    cy.realPress('Tab');
     cy.focused().should('have.text', 'After');
     cy.realPress(['Shift', 'Tab']);
     cy.realPress('ArrowDown');
