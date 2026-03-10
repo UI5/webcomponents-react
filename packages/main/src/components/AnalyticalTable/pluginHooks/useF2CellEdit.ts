@@ -1,9 +1,9 @@
 import { useI18nBundle } from '@ui5/webcomponents-react-base';
 import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 import type { FocusEventHandler, KeyboardEventHandler } from 'react';
-import { useCallback, useEffect } from 'react';
-import { INCLUDES_X } from '../../../i18n/i18n-defaults.js';
-import type { CellInstance, CellType, ReactTableHooks, TableInstance } from '../types/index.js';
+import { useCallback, useEffect, useRef } from 'react';
+import { INCLUDES_X, MOVE_TO_CONTENT_F2 } from '../../../i18n/i18n-defaults.js';
+import type { CellInstance, CellType, ColumnType, ReactTableHooks, TableInstance } from '../types/index.js';
 import { NAVIGATION_KEYS } from '../util/index.js';
 
 const NON_STANDARD_INTERACTIVE_ELEMENTS = [
@@ -28,6 +28,8 @@ const NON_STANDARD_INTERACTIVE_ELEMENTS = [
  *
  * It manages focus, keyboard navigation, and `tabindex` for cells with interactive content:
  * - Pressing `F2` moves focus between the cell container and its first interactive element.
+ * - Pressing `Tab` on a focused header cell moves focus to the body cell in the same column at the last focused body row (or the first row if none was focused).
+ * - Pressing `Shift+Tab` on a focused body cell moves focus back to the header cell of the same column.
  * - Updates the cell's `aria-label` with the interactive element's name for accessibility.
  * - Prevents standard navigation keys from interfering when editing a cell.
  *
@@ -64,10 +66,12 @@ const NON_STANDARD_INTERACTIVE_ELEMENTS = [
  */
 export const useF2CellEdit = (hooks: ReactTableHooks) => {
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
+  const lastFocusedBodyRowRef = useRef<number | null>(null);
 
   const setCellProps = useCallback(
     (props, { cell, instance }: { cell: CellType; instance: TableInstance }) => {
-      const { dispatch, state } = instance;
+      const { dispatch, state, webComponentsReactProperties } = instance;
+      const { tableRef } = webComponentsReactProperties;
       const { interactiveElementName } = cell.column;
       const inputName =
         typeof interactiveElementName === 'function' ? interactiveElementName(cell) : interactiveElementName;
@@ -96,6 +100,25 @@ export const useF2CellEdit = (hooks: ReactTableHooks) => {
             e.currentTarget.focus();
           }
         }
+
+        // Shift+Tab on body cell -> focus same column header cell
+        if (e.key === 'Tab' && e.shiftKey && e.currentTarget === e.target) {
+          const rowIndex = parseInt(e.currentTarget.dataset.rowIndex, 10);
+          const columnIndex = parseInt(e.currentTarget.dataset.columnIndex, 10);
+
+          if (rowIndex > 0) {
+            lastFocusedBodyRowRef.current = rowIndex;
+            const headerCell: HTMLElement | null = tableRef.current.querySelector(
+              `div[data-column-index="${columnIndex}"][data-row-index="0"]`,
+            );
+            if (headerCell) {
+              e.preventDefault();
+              e.currentTarget.tabIndex = -1;
+              headerCell.tabIndex = 0;
+              headerCell.focus();
+            }
+          }
+        }
       };
 
       const handleFocus: FocusEventHandler<HTMLDivElement> = (e) => {
@@ -108,6 +131,11 @@ export const useF2CellEdit = (hooks: ReactTableHooks) => {
         } else {
           dispatch({ type: 'CELL_CONTENT_TAB_INDEX', payload: -1 });
         }
+
+        const rowIndex = parseInt(e.currentTarget.dataset.rowIndex, 10);
+        if (rowIndex > 0) {
+          lastFocusedBodyRowRef.current = rowIndex;
+        }
       };
 
       return [props, { onKeyDown: handleKeyDown, onFocus: handleFocus, 'aria-label': ariaLabel }];
@@ -115,7 +143,54 @@ export const useF2CellEdit = (hooks: ReactTableHooks) => {
     [i18nBundle],
   );
 
+  const setHeaderProps = useCallback((headerProps, { instance }: { instance: TableInstance; column: ColumnType }) => {
+    const { webComponentsReactProperties } = instance;
+    const { tableRef } = webComponentsReactProperties;
+
+    // Tab on header cell -> focus same column body cell
+    const handleKeyDown: KeyboardEventHandler<HTMLElement> = (e) => {
+      if (typeof headerProps.onKeyDown === 'function') {
+        headerProps.onKeyDown(e);
+      }
+
+      if (e.key === 'Tab' && !e.shiftKey && e.currentTarget === e.target) {
+        const columnIndex = parseInt(e.currentTarget.dataset.columnIndex, 10);
+        const targetRowIndex = lastFocusedBodyRowRef.current ?? 1;
+        let targetCell: HTMLElement | null = tableRef.current.querySelector(
+          `div[data-column-index="${columnIndex}"][data-row-index="${targetRowIndex}"]`,
+        );
+        if (!targetCell) {
+          targetCell = tableRef.current.querySelector(
+            `div[data-column-index="${columnIndex}"][data-visible-row-index="1"]`,
+          );
+        }
+        if (targetCell) {
+          e.preventDefault();
+          e.currentTarget.tabIndex = -1;
+          targetCell.tabIndex = 0;
+          targetCell.focus();
+          targetCell.scrollIntoView({ block: 'nearest' });
+        }
+      }
+    };
+
+    return [headerProps, { onKeyDown: handleKeyDown }];
+  }, []);
+
+  const setTableProps = useCallback(
+    (tableProps) => {
+      const f2Description = i18nBundle.getText(MOVE_TO_CONTENT_F2);
+      const existingDescription = tableProps['aria-description'];
+      const ariaDescription = existingDescription ? `${existingDescription} ${f2Description}` : f2Description;
+
+      return [tableProps, { 'aria-description': ariaDescription }];
+    },
+    [i18nBundle],
+  );
+
+  hooks.getTableProps.push(setTableProps);
   hooks.getCellProps.push(setCellProps);
+  hooks.getHeaderProps.push(setHeaderProps);
   hooks.stateReducers.push(stateReducer);
   hooks.useInstanceBeforeDimensions.push(useInstanceBeforeDimensions);
 };

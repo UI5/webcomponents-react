@@ -4517,26 +4517,71 @@ describe('AnalyticalTable', () => {
     cy.focused().should('have.attr', 'data-column-index', '0');
 
     cy.realPress('Tab');
-    cy.focused().should('have.text', 'After');
+    cy.log('Cell 1-0');
+    cy.focused().should('have.attr', 'data-row-index', '1');
+    cy.focused().should('have.attr', 'data-column-index', '0');
 
     cy.realPress(['Shift', 'Tab']);
-    cy.log('Cell 0-0');
+    cy.log('Header 0-0');
     cy.focused().should('have.attr', 'data-row-index', '0');
     cy.focused().should('have.attr', 'data-column-index', '0');
 
+    cy.realPress('Tab');
     cy.log('Cell 1-0');
-    cy.realPress('ArrowDown');
     cy.focused().should('have.attr', 'data-row-index', '1');
     cy.focused().should('have.attr', 'data-column-index', '0');
+
+    cy.realPress('ArrowDown');
+    cy.realPress('ArrowDown');
+    cy.realPress('ArrowRight');
+    cy.realPress('ArrowRight');
+    cy.log('Cell 3-2');
+    cy.focused().should('have.attr', 'data-row-index', '3');
+    cy.focused().should('have.attr', 'data-column-index', '2');
+
+    cy.realPress(['Shift', 'Tab']);
+    cy.log('Header 0-2');
+    cy.focused().should('have.attr', 'data-row-index', '0');
+    cy.focused().should('have.attr', 'data-column-index', '2');
+
+    cy.realPress('Tab');
+    cy.log('Cell 3-2');
+    cy.focused().should('have.attr', 'data-row-index', '3');
+    cy.focused().should('have.attr', 'data-column-index', '2');
+
+    cy.realPress('Home');
+    cy.log('Cell 3-0');
+    cy.focused().should('have.attr', 'data-row-index', '3');
+    cy.focused().should('have.attr', 'data-column-index', '0');
+
+    cy.realPress(['Shift', 'Tab']);
+    cy.log('Header 0-0');
+    cy.focused().should('have.attr', 'data-row-index', '0');
+    cy.focused().should('have.attr', 'data-column-index', '0');
+
+    cy.realPress('ArrowRight');
+    cy.realPress('ArrowRight');
+    cy.realPress('ArrowRight');
+    cy.log('Header 0-3');
+    cy.focused().should('have.attr', 'data-row-index', '0');
+    cy.focused().should('have.attr', 'data-column-index', '3');
+
+    cy.realPress('Tab');
+    cy.log('Cell 3-3');
+    cy.focused().should('have.attr', 'data-row-index', '3');
+    cy.focused().should('have.attr', 'data-column-index', '3');
 
     cy.realPress('Tab');
     cy.focused().should('have.text', 'After');
 
     cy.realPress(['Shift', 'Tab']);
-    cy.log('Cell 1-0');
-    cy.focused().should('have.attr', 'data-row-index', '1');
-    cy.focused().should('have.attr', 'data-column-index', '0');
+    cy.log('Cell 3-3');
+    cy.focused().should('have.attr', 'data-row-index', '3');
+    cy.focused().should('have.attr', 'data-column-index', '3');
 
+    cy.realPress('Home');
+    cy.realPress('PageUp');
+    cy.log('Cell 1-0');
     cy.realPress('F2');
     cy.log('Input 1-0');
     cy.focused().should('have.attr', 'type', 'text');
