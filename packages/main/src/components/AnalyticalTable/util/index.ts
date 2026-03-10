@@ -186,6 +186,7 @@ export const getCombinedElementsHeight = (
   }
   // Math.abs is required, because of subpixel rounding errors
   const updatedHeight = Math.abs(prevHeight - height) > 1 ? height : prevHeight;
+  //@ts-expect-error: downport from v2
   prevHeightRef.current = updatedHeight;
 
   return updatedHeight;
