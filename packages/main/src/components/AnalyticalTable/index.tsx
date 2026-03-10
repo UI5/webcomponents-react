@@ -118,19 +118,20 @@ const measureElement = (el: HTMLElement) => {
  * The `AnalyticalTable` provides a set of convenient functions for responsive table design, including virtualization of rows and columns, infinite scrolling and customizable columns that will, unless otherwise defined, distribute the available space equally among themselves.
  * It also provides several possibilities for working with the data, including sorting, filtering, grouping and aggregation.
  *
- * __Note:__ The `AnalyticalTable` has some limitations and includes features that do not have a defined design specification.
- * To follow UXC guidelines, please refer to the table below:
+ * __Note:__ Some features listed below have technical limitations, lack a defined design specification, or should be enabled by default to align with UXC guidelines:
  *
  *| Function / Feature                    | Reason                                                                                                                                                                                                                                                   |
  *|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
- *| No sticky columns/rows                | Not supported due to technical limitations.                                                                                                                                                                                                              |
+ *| `useF2CellEdit` plugin hook           | To mimic the `sap.ui.table` edit-mode and tabbing behavior, use the `useF2CellEdit` plugin hook.                                                                                                                                                         |
+ *| No sticky columns/rows                 | Not supported due to technical limitations.                                                                                                                                                                                                             |
  *| Pop-in behavior                       | The `sap.ui.table` doesn’t support pop-in behavior (unlike `sap.m.Table`); it’s unclear whether this should be part of the design.                                                                                                                       |
  *| `visibleRowCountMode: "Auto"`         | `"AutoWithEmptyRows"` is preferred. `"Auto"` mode can lead to inconsistent table heights depending on the container.                                                                                                                                     |
  *| `alwaysShowBusyIndicator`             | Should generally be `true`, only if loading times are over 1 second, the default skeleton loading indicator is sufficient: [Fiori Skeleton Loading](https://www.sap.com/design-system/fiori-design-ios/ui-elements/patterns/skeleton-loading/?external). |
  *| `scaleWidthMode`                      | Only the default mode is available out of the box for the `sap.m.Table`; similar behavior to the `"Grow"` mode can be achieved in `sap.ui.table` using `autoResizeColumn`.                                                                               |
- *| `renderRowSubComponent`               | There is no design/UX concept for this functionality.                                                                                                                                                                                                 |
- *| `useIndeterminateRowSelection`        | There is no design/UX concept for this functionality.                                                                                                                                                                                                 |
+ *| `renderRowSubComponent`               | There is no design/UX concept for this functionality.                                                                                                                                                                                                    |
+ *| `useIndeterminateRowSelection`        | There is no design/UX concept for this functionality.                                                                                                                                                                                                    |
  *| `useRowDisableSelection` (deprecated) | Table rows should not be disabled.                                                                                                                                                                                                                       |
+ *
  */
 const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTypes>((props, ref) => {
   const {
