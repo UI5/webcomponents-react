@@ -26,6 +26,7 @@ export interface WithWebComponentPropTypes {
 }
 
 const definedWebComponents = new Set<ComponentType>([]);
+
 /**
  * ⚠️ __INTERNAL__ use only! This function is not part of the public API.
  */
@@ -37,35 +38,42 @@ export const withWebComponent = <Props extends Record<string, any>, RefType = Ui
   eventProperties: string[],
 ) => {
   const webComponentsSupported = parseSemVer(version).major >= 19;
+  const regularKebabNames = regularProperties.map(camelToKebabCase);
+  const booleanKebabNames = booleanProperties.map(camelToKebabCase);
+  const eventPropNames = eventProperties.map(createEventPropName);
+  const knownKeys = new Set<string>([...regularProperties, ...slotProperties, ...booleanProperties, ...eventPropNames]);
+  const tagNameSuffix: string = getEffectiveScopingSuffixForTag(tagName);
+  const Component = (tagNameSuffix ? `${tagName}-${tagNameSuffix}` : tagName) as unknown as ComponentType<
+    CommonProps & { class?: string; ref?: Ref<RefType> }
+  >;
+
   // displayName will be assigned in the individual files
   // eslint-disable-next-line react/display-name
   return forwardRef<RefType, Props & WithWebComponentPropTypes>((props, wcRef) => {
     const { className, children, waitForDefine, ...rest } = props;
     const [componentRef, ref] = useSyncRef<RefType>(wcRef);
-    const tagNameSuffix: string = getEffectiveScopingSuffixForTag(tagName);
-    const Component = (tagNameSuffix ? `${tagName}-${tagNameSuffix}` : tagName) as unknown as ComponentType<
-      CommonProps & { class?: string; ref?: Ref<RefType> }
-    >;
     const [isDefined, setIsDefined] = useState(definedWebComponents.has(Component));
     // regular props (no booleans, no slots and no events)
-    const regularProps = regularProperties.reduce((acc, name) => {
+    const regularProps: Record<string, unknown> = {};
+    for (let i = 0; i < regularProperties.length; i++) {
+      const name = regularProperties[i];
       if (Object.prototype.hasOwnProperty.call(rest, name) && isPrimitiveAttribute(rest[name])) {
-        return { ...acc, [camelToKebabCase(name)]: rest[name] };
+        regularProps[regularKebabNames[i]] = rest[name];
       }
-      return acc;
-    }, {});
+    }
 
     // boolean properties - only attach if they are truthy
-    const booleanProps = booleanProperties.reduce((acc, name) => {
+    const booleanProps: Record<string, unknown> = {};
+    for (let i = 0; i < booleanProperties.length; i++) {
+      const name = booleanProperties[i];
       if (webComponentsSupported) {
-        return { ...acc, [camelToKebabCase(name)]: rest[name] };
+        booleanProps[booleanKebabNames[i]] = rest[name];
       } else {
         if (rest[name] === true || rest[name] === 'true') {
-          return { ...acc, [camelToKebabCase(name)]: true };
+          booleanProps[booleanKebabNames[i]] = true;
         }
-        return acc;
       }
-    }, {});
+    }
 
     const slots = slotProperties.reduce((acc, name) => {
       const slotValue = rest[name] as ReactElement;
@@ -117,58 +125,57 @@ export const withWebComponent = <Props extends Record<string, any>, RefType = Ui
       return [...acc, ...slottedChildren];
     }, []);
 
-    // event binding
-    useIsomorphicLayoutEffect(() => {
-      if (webComponentsSupported) {
-        return () => {
-          // React can handle events
-        };
-      }
-      const localRef = ref.current;
-      const eventRegistry: Record<string, EventHandler> = {};
-      if (!waitForDefine || isDefined) {
-        eventProperties.forEach((eventName) => {
-          const eventHandler = rest[createEventPropName(eventName)] as EventHandler;
-          if (typeof eventHandler === 'function') {
-            eventRegistry[eventName] = eventHandler;
-            // @ts-expect-error: all custom events can be passed here, so `keyof HTMLElementEventMap` isn't sufficient
-            localRef?.addEventListener(eventName, eventRegistry[eventName]);
-          }
-        });
+    // event binding - React 19 supports this natively
+    if (!webComponentsSupported) {
+      // React version never changes between renders
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useIsomorphicLayoutEffect(() => {
+        const localRef = ref.current;
+        const eventRegistry: Record<string, EventHandler> = {};
+        if (!waitForDefine || isDefined) {
+          eventProperties.forEach((eventName, i) => {
+            const eventHandler = rest[eventPropNames[i]] as EventHandler;
+            if (typeof eventHandler === 'function') {
+              eventRegistry[eventName] = eventHandler;
+              // @ts-expect-error: all custom events can be passed here, so `keyof HTMLElementEventMap` isn't sufficient
+              localRef?.addEventListener(eventName, eventRegistry[eventName]);
+            }
+          });
 
-        return () => {
-          for (const eventName in eventRegistry) {
-            // @ts-expect-error: all custom events can be passed here, so `keyof HTMLElementEventMap` isn't sufficient
-            localRef?.removeEventListener(eventName, eventRegistry[eventName]);
-          }
-        };
-      }
-    }, [...eventProperties.map((eventName) => rest[createEventPropName(eventName)]), isDefined, waitForDefine]);
+          return () => {
+            for (const eventName in eventRegistry) {
+              // @ts-expect-error: all custom events can be passed here, so `keyof HTMLElementEventMap` isn't sufficient
+              localRef?.removeEventListener(eventName, eventRegistry[eventName]);
+            }
+          };
+        }
+      }, [...eventPropNames.map((propName) => rest[propName]), isDefined, waitForDefine]);
+    }
 
-    const eventHandlers = eventProperties.reduce((events, eventName) => {
-      const eventHandlerProp = rest[createEventPropName(eventName)];
-      if (webComponentsSupported && eventHandlerProp) {
-        events[`on${eventName}`] = eventHandlerProp;
+    const eventHandlers: Record<string, unknown> = {};
+    if (webComponentsSupported) {
+      for (let i = 0; i < eventProperties.length; i++) {
+        const eventHandlerProp = rest[eventPropNames[i]];
+        if (eventHandlerProp) {
+          eventHandlers[`on${eventProperties[i]}`] = eventHandlerProp;
+        }
       }
-      return events;
-    }, {});
+    }
 
     // In React 19 events aren't correctly attached after hydration
     const [attachEvents, setAttachEvents] = useState(!webComponentsSupported || !Object.keys(eventHandlers).length); // apply workaround only for React19 and if event props are defined
 
     // non web component related props, just pass them
-    const nonWebComponentRelatedProps = Object.entries(rest)
-      .filter(([key]) => !regularProperties.includes(key))
-      .filter(([key]) => !slotProperties.includes(key))
-      .filter(([key]) => !booleanProperties.includes(key))
-      .filter(([key]) => !eventProperties.map((eventName) => createEventPropName(eventName)).includes(key))
-      .reduce((acc, [key, val]) => {
+    const nonWebComponentRelatedProps: Record<string, unknown> = {};
+    for (const key in rest) {
+      if (Object.prototype.hasOwnProperty.call(rest, key) && !knownKeys.has(key)) {
+        const val = rest[key];
         if (!key.startsWith('aria-') && !key.startsWith('data-') && val === false) {
-          return acc;
+          continue;
         }
-        acc[key] = val;
-        return acc;
-      }, {});
+        nonWebComponentRelatedProps[key] = val;
+      }
+    }
 
     useEffect(() => {
       if (waitForDefine && !isDefined) {
@@ -177,20 +184,22 @@ export const withWebComponent = <Props extends Record<string, any>, RefType = Ui
           definedWebComponents.add(Component);
         });
       }
-    }, [Component, waitForDefine, isDefined]);
+    }, [waitForDefine, isDefined]);
 
-    const propsToApply = regularProperties.map((prop) => ({ name: prop, value: props[prop] }));
+    const regularPropValues = regularProperties.map((prop) => props[prop]);
     useEffect(() => {
       void customElements.whenDefined(Component as unknown as string).then(() => {
-        for (const prop of propsToApply) {
-          if (prop.value != null && !isPrimitiveAttribute(prop.value)) {
+        for (let i = 0; i < regularProperties.length; i++) {
+          const value = regularPropValues[i];
+          if (value != null && !isPrimitiveAttribute(value)) {
             if (ref.current) {
-              ref.current[prop.name] = prop.value;
+              ref.current[regularProperties[i]] = value;
             }
           }
         }
       });
-    }, [Component, ...propsToApply]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [Component, ...regularPropValues]);
 
     useIsomorphicLayoutEffect(() => {
       setAttachEvents(true);
@@ -203,7 +212,6 @@ export const withWebComponent = <Props extends Record<string, any>, RefType = Ui
     // compatibility wrapper for ExpandableText - remove in v3
     if (tagName === 'ui5-expandable-text') {
       const renderWhiteSpace = nonWebComponentRelatedProps['renderWhitespace'] ? true : undefined;
-      // @ts-expect-error: overflowMode is available
       const { ['overflow-mode']: overflowMode, text, ...restRegularProps } = regularProps;
       const showOverflowInPopover = nonWebComponentRelatedProps['showOverflowInPopover'];
       return (
