@@ -1,7 +1,9 @@
 import IconMode from '@ui5/webcomponents/dist/types/IconMode.js';
+import ListAccessibleRole from '@ui5/webcomponents/dist/types/ListAccessibleRole.js';
 import ListItemType from '@ui5/webcomponents/dist/types/ListItemType.js';
 import PopoverHorizontalAlign from '@ui5/webcomponents/dist/types/PopoverHorizontalAlign.js';
 import PopoverPlacement from '@ui5/webcomponents/dist/types/PopoverPlacement.js';
+import PopupAccessibleRole from '@ui5/webcomponents/dist/types/PopupAccessibleRole.js';
 import iconDecline from '@ui5/webcomponents-icons/dist/decline.js';
 import iconFilter from '@ui5/webcomponents-icons/dist/filter.js';
 import iconGroup from '@ui5/webcomponents-icons/dist/group-2.js';
@@ -22,7 +24,9 @@ import {
 import { stopPropagation } from '../../../../internal/stopPropagation.js';
 import { getUi5TagWithSuffix } from '../../../../internal/utils.js';
 import { Icon } from '../../../../webComponents/Icon/index.js';
+import type { ListDomRef } from '../../../../webComponents/List/index.js';
 import { List } from '../../../../webComponents/List/index.js';
+import type { ListItemCustomPropTypes } from '../../../../webComponents/ListItemCustom/index.js';
 import { ListItemCustom } from '../../../../webComponents/ListItemCustom/index.js';
 import { ListItemStandard } from '../../../../webComponents/ListItemStandard/index.js';
 import type { PopoverDomRef, PopoverPropTypes } from '../../../../webComponents/Popover/index.js';
@@ -44,7 +48,7 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
   const showSort = column.canSort;
 
   const ref = useRef<PopoverDomRef>(null);
-  const listRef = useRef(null);
+  const listRef = useRef<ListDomRef>(null);
 
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
 
@@ -145,7 +149,7 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
     }
   })();
 
-  const handleCustomLiKeyDown = (e) => {
+  const handleCustomLiKeyDown: ListItemCustomPropTypes['onKeyDown'] = (e) => {
     if (e.key === 'Enter') {
       setOpen(false);
     }
@@ -181,16 +185,24 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
       onClick={stopPropagation}
       onClose={onAfterClose}
       onOpen={onAfterOpen}
+      accessibleRole={PopupAccessibleRole.None}
       data-component-name="ATHeaderPopover"
     >
       <List
         onItemClick={handleSort}
         ref={listRef}
         onKeyDown={handleListKeyDown}
+        accessibleRole={ListAccessibleRole.Menu}
         data-component-name="ATHeaderPopoverList"
       >
         {isSortedAscending && (
-          <ListItemStandard type={ListItemType.Active} icon={iconDecline} data-sort="clear" text={clearSortingText} />
+          <ListItemStandard
+            type={ListItemType.Active}
+            icon={iconDecline}
+            data-sort="clear"
+            text={clearSortingText}
+            accessible-role="MenuItem"
+          />
         )}
         {showSort && !isSortedAscending && (
           <ListItemStandard
@@ -198,6 +210,7 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
             icon={iconSortAscending}
             data-sort="asc"
             text={sortAscendingText}
+            accessible-role="MenuItem"
           />
         )}
         {showSort && !isSortedDescending && (
@@ -206,13 +219,25 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
             icon={iconSortDescending}
             data-sort="desc"
             text={sortDescendingText}
+            accessible-role="MenuItem"
           />
         )}
         {isSortedDescending && (
-          <ListItemStandard type={ListItemType.Active} icon={iconDecline} data-sort="clear" text={clearSortingText} />
+          <ListItemStandard
+            type={ListItemType.Active}
+            icon={iconDecline}
+            data-sort="clear"
+            text={clearSortingText}
+            accessible-role="MenuItem"
+          />
         )}
         {showFilter && (
-          <ListItemCustom type={ListItemType.Inactive} onKeyDown={handleCustomLiKeyDown} accessibleName={filterText}>
+          <ListItemCustom
+            type={ListItemType.Active}
+            onKeyDown={handleCustomLiKeyDown}
+            accessibleName={filterText}
+            accessible-role="MenuItem"
+          >
             <FlexBox alignItems={FlexBoxAlignItems.Center}>
               <Icon name={iconFilter} className={classNames.filterIcon} mode={IconMode.Decorative} />
               <Text maxLines={1} className={classNames.filterText} id={`${uniqueId}-filter-text`}>
@@ -231,6 +256,7 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
             icon={iconGroup}
             data-sort={'group'}
             text={column.isGrouped ? ungroupText : groupText}
+            accessible-role="MenuItem"
           />
         )}
       </List>
