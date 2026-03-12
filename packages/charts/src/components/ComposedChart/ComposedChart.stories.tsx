@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { ThemingParameters } from '@ui5/webcomponents-react-base';
+import { DefaultTooltipContent } from 'recharts';
 import { bigDataSet, complexDataSet, legendConfig, simpleDataSet, tooltipConfig } from '../../resources/DemoProps.js';
 import { ComposedChart } from './index.js';
 
@@ -202,6 +204,90 @@ export const WithFormattedSecondaryAxis: Story = {
 export const LoadingPlaceholder: Story = {
   args: {
     dataset: [],
+  },
+};
+
+export const WithStackAggregateTotals: Story = {
+  args: {
+    dataset: complexDataSet.slice(0, 7),
+    dimensions: [{ accessor: 'name' }],
+    measures: [
+      {
+        accessor: 'users',
+        stackId: 'A',
+        label: 'Users',
+        type: 'bar',
+      },
+      {
+        accessor: 'sessions',
+        stackId: 'A',
+        label: 'Active Sessions',
+        type: 'bar',
+      },
+      {
+        accessor: 'volume',
+        label: 'Vol.',
+        type: 'line',
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+  },
+};
+
+const stackedAccessors = new Set(['users', 'sessions']);
+
+const CustomTooltipContent = (props) => {
+  const { payload, ...rest } = props;
+  if (!payload?.length) {
+    return <DefaultTooltipContent {...rest} payload={payload} />;
+  }
+  const stackedEntries = payload.filter((entry) => stackedAccessors.has(entry.dataKey));
+  if (!stackedEntries.length) {
+    return <DefaultTooltipContent {...rest} payload={payload} />;
+  }
+  const total = stackedEntries.reduce((sum, entry) => sum + (Number(entry.value) || 0), 0);
+  const augmentedPayload = [
+    ...payload,
+    {
+      name: `Total (${stackedEntries.map((entry) => entry.name).join(' + ')})`,
+      value: total,
+      color: ThemingParameters.sapTextColor,
+    },
+  ];
+  return <DefaultTooltipContent {...rest} payload={augmentedPayload} />;
+};
+
+export const WithCustomTooltipTotal: Story = {
+  args: {
+    dataset: complexDataSet.slice(0, 7),
+    dimensions: [{ accessor: 'name' }],
+    measures: [
+      {
+        accessor: 'users',
+        stackId: 'A',
+        label: 'Users',
+        type: 'bar',
+      },
+      {
+        accessor: 'sessions',
+        stackId: 'A',
+        label: 'Active Sessions',
+        type: 'bar',
+      },
+      {
+        accessor: 'volume',
+        label: 'Vol.',
+        type: 'line',
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+    tooltipConfig: {
+      content: <CustomTooltipContent />,
+    },
   },
 };
 

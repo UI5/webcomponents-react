@@ -80,4 +80,15 @@ export interface ICartesianChartConfig {
    * __Note:__ It is possible to overwrite internally used props. Please use with caution!
    */
   secondXAxisConfig?: Omit<XAxisProps, 'mirror'>;
+  /**
+   * Defines whether an aggregate total label should be displayed at the end of each stacked bar/column group.
+   *
+   * Only applies when measures use `stackId`. Non-stacked measures are not affected.
+   */
+  showStackAggregateTotals?: boolean;
+  /**
+   * Defines a custom formatter for the stack aggregate total label.
+   * If not set, the raw numeric total is displayed.
+   */
+  stackAggregateTotalFormatter?: (value: any) => string | number;
 }
