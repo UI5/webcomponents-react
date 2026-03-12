@@ -5,6 +5,7 @@ import {
 import type { ButtonDomRef } from '@ui5/webcomponents-react';
 import { Bar, Button, Popover, Switch } from '@ui5/webcomponents-react';
 import { useReducer, useRef, useState } from 'react';
+import { withWebComponent } from './withWebComponent.js';
 
 describe('withWebComponent', () => {
   // reset scoping
@@ -164,24 +165,19 @@ describe('withWebComponent', () => {
     cy.findByText('Btn').should('not.have.attr', 'disabled');
   });
 
+  // the underlying custom-element will not be updated, as the scoping suffix has to be set before any ui5wc import
   it('scoping', () => {
-    const TestComp = () => {
-      setCustomElementsScopingSuffix('ui5-wcr');
-      return <Button>Test</Button>;
-    };
+    setCustomElementsScopingSuffix('ui5-wcr');
+    const ScopedButton = withWebComponent('ui5-button', [], [], [], []);
 
-    const TestComp2 = () => {
-      setCustomElementsScopingSuffix('ui5-wcr');
-      setCustomElementsScopingRules({ include: [/^ui5-/], exclude: [/^ui5-button/] });
-      return <Button>Test</Button>;
-    };
-
-    cy.mount(<TestComp />);
+    cy.mount(<ScopedButton>Test</ScopedButton>);
     cy.get('ui5-button-ui5-wcr').should('be.visible');
     cy.get('ui5-button').should('not.exist');
-
     // now exclude the button
-    cy.mount(<TestComp2 />);
+    setCustomElementsScopingRules({ include: [/^ui5-/], exclude: [/^ui5-button/] });
+    const UnscopedButton = withWebComponent('ui5-button', [], [], [], []);
+
+    cy.mount(<UnscopedButton>Test</UnscopedButton>);
     cy.get('ui5-button').should('be.visible');
     cy.get('ui5-button-ui5-wcr').should('not.exist');
   });
