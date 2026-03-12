@@ -10,6 +10,7 @@ import iconGroup from '@ui5/webcomponents-icons/dist/group-2.js';
 import iconSortAscending from '@ui5/webcomponents-icons/dist/sort-ascending.js';
 import iconSortDescending from '@ui5/webcomponents-icons/dist/sort-descending.js';
 import { enrichEventWithDetails, useI18nBundle } from '@ui5/webcomponents-react-base';
+import type { Ui5DomRef } from '@ui5/webcomponents-react-base/types';
 import { useEffect, useId, useRef } from 'react';
 import { FlexBoxAlignItems } from '../../../../enums/FlexBoxAlignItems.js';
 import { TextAlign } from '../../../../enums/TextAlign.js';
@@ -129,7 +130,7 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
   };
 
   const onAfterOpen = () => {
-    listRef.current?.children?.[0]?.focus();
+    void (listRef.current?.children?.[0] as Ui5DomRef)?.focus();
   };
 
   const horizontalAlign = (() => {
