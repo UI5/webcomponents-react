@@ -346,6 +346,14 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     setGlobalFilter,
   } = tableInstanceRef.current;
 
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development' && headerGroups.length > 1) {
+      console.error(
+        '[AnalyticalTable] Nested column headers are not supported. Please flatten your column definitions.',
+      );
+    }
+  }, [headerGroups.length]);
+
   const tableState: AnalyticalTableState = tableInstanceRef.current.state;
   const { popInColumns, triggerScroll } = tableState;
   const isGrouped = !!tableState.groupBy.length;
