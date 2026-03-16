@@ -1,0 +1,8 @@
+import{j as o}from"./iframe--9dKe8DB.js";import{useMDXComponents as n}from"./index-KI9hm8HB.js";import{M as e,C as s}from"./blocks-sz1V1YD1.js";import"./Tag-Dx2xRUom.js";import"./index-CPDFIZvY.js";import{C as a}from"./ControlsWithNote-L_Ce3WAS.js";import{D as x}from"./DocsHeader-DmUEuAmh.js";import{F as f}from"./Footer-Q0CQ_qDk.js";import"./CommandsAndQueries-DmMMilME.js";import"./PageNotFound-CuY3r4La.js";import{C as m,D as i}from"./Page.stories-DmMOHx-3.js";import"./preload-helper-PPVm8Dsz.js";import"./information-nAlSmLiB.js";import"./sys-enter-2-w7b_cFRw.js";import"./alert-QMDkEN5b.js";import"./index-FyOsxtAw.js";import"./index-BYfUGIr5.js";import"./Link-BglFcPBB.js";import"./copy-36Frb_So.js";import"./copy-DDHnU-KJ.js";import"./GitHub-Mark-Cn6yJd_r.js";import"./TableOfContent-BY9idK35.js";import"./index-rkrari7y.js";import"./index-W9KwanBR.js";import"./index-CZTUC9tr.js";import"./index-mjSuc6PB.js";import"./index-TfvKDlH8.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-CZXl1Qbt.js";import"./addCustomCSSWithScoping-OfWYI4vx.js";import"./Illustrations-CYV_ZGoP.js";import"./i18n-defaults-CFWtSmu6.js";import"./BarDesign-0UK-o0dt.js";import"./AnimationMode-ONSyT7jG.js";import"./parameters-bundle.css-DMPIvP1N.js";import"./index-4vbNTV1B.js";import"./Bar-CeQPZi08.js";function p(t){const r={h2:"h2",...n(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(e,{of:m}),`
+`,o.jsx(x,{of:m,since:"0.14.0"}),`
+`,o.jsx("br",{}),`
+`,o.jsx(r.h2,{id:"example",children:"Example"}),`
+`,o.jsx(s,{of:i}),`
+`,o.jsx(r.h2,{id:"properties",children:"Properties"}),`
+`,o.jsx(a,{of:i}),`
+`,o.jsx(f,{})]})}function U(t={}){const{wrapper:r}={...n(),...t.components};return r?o.jsx(r,{...t,children:o.jsx(p,{...t})}):p(t)}export{U as default};
