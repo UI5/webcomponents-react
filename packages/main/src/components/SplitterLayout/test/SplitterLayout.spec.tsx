@@ -168,10 +168,12 @@ test.describe('SplitterLayout', () => {
       const sep2 = page.locator('[role="separator"]').nth(2);
       await sep2.click();
       await page.keyboard.press('ArrowDown');
+      await expect(page.getByTestId('resize-count')).toHaveText('3');
       await page.keyboard.press('ArrowDown');
+      await expect(page.getByTestId('resize-count')).toHaveText('4');
       await page.keyboard.press('ArrowDown');
 
-      await expect(page.getByTestId('resize-count')).toHaveText('3');
+      await expect(page.getByTestId('resize-count')).toHaveText('5');
 
       await expect(page.getByTestId('0')).toHaveText('384px');
       await expect(page.getByTestId('1')).toHaveText('16');
