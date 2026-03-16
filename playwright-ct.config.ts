@@ -22,7 +22,8 @@ export default defineConfig({
             outputFile: 'temp/playwright-coverage/report.html',
             coverage: {
               sourceFilter: (sourcePath: string) =>
-                sourcePath.includes('packages/main/src/components/SelectDialog') &&
+                (sourcePath.includes('packages/main/src/components/SelectDialog') ||
+                  sourcePath.includes('packages/main/src/components/SplitterLayout')) &&
                 !sourcePath.includes('node_modules') &&
                 !sourcePath.includes('/test/'),
               reports: ['lcovonly'],
