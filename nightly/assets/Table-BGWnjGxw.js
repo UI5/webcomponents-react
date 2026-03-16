@@ -1,0 +1,79 @@
+import{c as b,f as v,d as S,s as p,bk as G,e as L,aw as M,aA as D,d0 as N,aB as I,w as A,d1 as B,j as e,T as F}from"./iframe-B9oS8Tdw.js";import{useMDXComponents as R}from"./index-DBcwplNT.js";import{M as E,C as w,a as k,D as u,A as m}from"./blocks-n99WgqUD.js";import"./Tag-C4hdjWJC.js";import{M as O}from"./index-Bpds4hIG.js";import{C as P}from"./ControlsWithNote-CU7GlRfQ.js";import{D as U}from"./DocsHeader-D3xSEYm1.js";import{F as $}from"./Footer-B2MFyv0P.js";import"./CommandsAndQueries-NcZGCQIw.js";import"./PageNotFound-CdK5m3jv.js";import{S as H}from"./SubcomponentsSection-BVy4lpQe.js";import{d as W,T as q,a as z,C as x,D as g,G as V,b as _,c as T,e as y}from"./Table.stories-DS_Ldnxx.js";import"./preload-helper-PPVm8Dsz.js";import"./information-BlcYwQMc.js";import"./sys-enter-2-DdkiI-3L.js";import"./alert-D212h0_R.js";import"./index-BYYicg2U.js";import"./index-0NZf9e3S.js";import"./Link-BttQiJAm.js";import"./copy-C9Ot4HgH.js";import"./copy-Bqdwh9J4.js";import"./GitHub-Mark-B_hr1EaH.js";import"./TableOfContent-D0gNO-3P.js";import"./index-C2K37CCg.js";import"./index-DzuQRrNG.js";import"./index-MP9MDZQa.js";import"./index-CIPzfYgd.js";import"./index-XdY2VQGh.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-CKo2xI1N.js";import"./addCustomCSSWithScoping-BjXuQDKZ.js";import"./Illustrations-Hb5RsbMM.js";import"./i18n-defaults-CFWtSmu6.js";function X(){return b("tr",{part:"group-row",class:"ui5-table-group-row-root","aria-label":this.ariaLabelText,tabindex:this.forcedTabIndex?parseInt(this.forcedTabIndex):void 0,onFocusIn:this._onfocusin,children:b("td",{colspan:this.colSpan,children:b("slot",{})})})}v("@ui5/webcomponents-theming","sap_horizon",async()=>S);v("@ui5/webcomponents-compat","sap_horizon",async()=>W,"host");const J=`:host{display:contents}:host([_busy]) .ui5-table-group-row-root{opacity:.72;pointer-events:none}.ui5-table-group-row-root{height:var(--ui5_table_group_row_height);border-style:solid;border-color:var(--sapList_TableGroupHeaderBorderColor);border-width:var(--ui5_table_border_width);background-color:var(--sapList_TableGroupHeaderBackground);color:var(--sapList_TableGroupHeaderTextColor);font-family:var(--sapFontFamily);font-size:var(--sapFontSize);font-weight:var(--ui5_table_group_row_font-weight)}.ui5-table-group-row-root:focus{outline:var(--ui5_table_row_outline_width) var(--sapContent_FocusStyle) var(--sapContent_FocusColor);outline-offset:calc(-1 * var(--ui5_table_focus_outline_offset))}td{word-break:break-word;vertical-align:middle;padding:.5rem .25rem .5rem 1rem;text-align:start}
+`;var s=function(t,o,r,i){var c=arguments.length,a=c<3?o:i===null?i=Object.getOwnPropertyDescriptor(o,r):i,d;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")a=Reflect.decorate(t,o,r,i);else for(var h=t.length-1;h>=0;h--)(d=t[h])&&(a=(c<3?d(a):c>3?d(o,r,a):d(o,r))||a);return c>3&&a&&Object.defineProperty(o,r,a),a},f;let n=f=class extends I{constructor(){super(...arguments),this.mode="None",this.forcedBusy=!1,this.selected=!1,this.tabbableElements=[],this._columnsInfoString=""}get colSpan(){return this._colSpan}get ariaLabelText(){return`${f.i18nBundle.getText(q)} ${this.textContent}. ${this.forcedAriaPosition}`}visibleColCount(){let o=this._columnsInfo?.reduce((r,i)=>i.visible?++r:r,0)||0;return this.mode===z.MultiSelect&&o++,o}onBeforeRendering(){!this._columnsInfo||this._columnsInfo.length===0||(this._colSpan=this.visibleColCount())}_onfocusin(o){this.fireDecoratorEvent("_focused",o)}};s([p()],n.prototype,"mode",void 0);s([p({type:Array,noAttribute:!0})],n.prototype,"_columnsInfo",void 0);s([p()],n.prototype,"forcedTabIndex",void 0);s([p({type:Boolean})],n.prototype,"forcedBusy",void 0);s([p()],n.prototype,"forcedAriaPosition",void 0);s([G("@ui5/webcomponents")],n,"i18nBundle",void 0);n=f=s([L({tag:"ui5-table-group-row",styles:J,renderer:M,template:X}),D("_focused",{bubbles:!0})],n);N(n);n.define();const j=B(),K=j?`-${j}`:"",l=A(`ui5-table-group-row${K}`,[],[],[],[]);l.displayName="TableGroupRow";try{l.displayName="TableGroupRow",l.__docgenInfo={description:"The `TableGroupRow` component represents a group row in the `Table`.\n\n__Note:__ This is a UI5 Web Component! [TableGroupRow UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/compat/TableGroupRow) | [Repository](https://github.com/UI5/webcomponents)",displayName:"TableGroupRow",props:{children:{defaultValue:null,description:`Defines the text of the component.
+
+**Note:** Although this slot accepts HTML Elements, it is strongly recommended that you only use text in order to preserve the intended design.
+
+__Supported Node Type/s:__ \`Array<Node>\``,name:"children",required:!1,type:{name:"ReactNode | ReactNode[]"}},className:{defaultValue:null,description:`CSS Class Name which will be appended to the most outer element of a component.
+Use this prop carefully, overwriting CSS rules might break the component.`,name:"className",required:!1,type:{name:"string"}},style:{defaultValue:null,description:`Element style which will be appended to the most outer element of a component.
+Use this prop carefully, some css properties might break the component.`,name:"style",required:!1,type:{name:"CSSProperties"}},waitForDefine:{defaultValue:null,description:`Defines whether the component should wait for the underlying custom element of the web component to be defined. This can be useful, for example, for using instance methods when mounting the component.
+
+__Note:__ This adds a rendering cycle to your component.`,name:"waitForDefine",required:!1,type:{name:"boolean"}}}}}catch{}function C(t){const o={code:"code",h1:"h1",h2:"h2",h3:"h3",p:"p",pre:"pre",...R(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsx(E,{of:x}),`
+`,e.jsx(U,{of:x}),`
+`,e.jsx(O,{children:e.jsxs(F,{children:["Using the Table from the ",e.jsx(o.code,{children:"compat"})," package and the ",e.jsx(o.code,{children:"main"})," package in the same application is not supported without scoping the compat package."]}),design:"Critical",hideCloseButton:!0}),`
+`,e.jsx("br",{}),`
+`,e.jsx("br",{}),`
+`,e.jsx(o.h2,{id:"example",children:"Example"}),`
+`,e.jsx(w,{of:g}),`
+`,e.jsx(o.h2,{id:"properties",children:"Properties"}),`
+`,e.jsx(P,{of:g}),`
+`,e.jsx("br",{}),`
+`,e.jsx(o.h1,{id:"more-examples",children:"More Examples"}),`
+`,e.jsx("br",{}),`
+`,e.jsx(o.h2,{id:"growing-table",children:"Growing Table"}),`
+`,e.jsxs(o.p,{children:[e.jsx(o.code,{children:"Table"})," with ",e.jsx(o.code,{children:"growing={TableGrowingMode.Scroll}"}),"."]}),`
+`,e.jsx(w,{of:V}),`
+`,e.jsx(o.h3,{id:"code",children:"Code"}),`
+`,e.jsx(o.pre,{children:e.jsx(o.code,{className:"language-jsx",children:`const createRows = (indexOffset) => {
+  return new Array(25).fill('').map((_, index) => (
+    <TableRow key={\`\${index + indexOffset} - row\`}>
+      <TableCell>
+        <Label>{index + indexOffset}</Label>
+      </TableCell>
+      <TableCell>
+        <Label>Placeholder</Label>
+      </TableCell>
+    </TableRow>
+  ));
+};
+
+const GrowingTable = () => {
+  const [rows, setRows] = useState(createRows(1));
+  const onLoadMore = () => {
+    setRows((prev) => [...prev, ...createRows(prev.length + 1)]);
+  };
+  return (
+    <div style={{ height: '250px', overflow: 'auto' }}>
+      <Table
+        onLoadMore={onLoadMore}
+        growing={TableGrowingMode.Scroll}
+        columns={
+          <>
+            <TableColumn>
+              <Label>Column 1</Label>
+            </TableColumn>
+            <TableColumn>
+              <Label>Column 2</Label>
+            </TableColumn>
+          </>
+        }
+      >
+        {rows}
+      </Table>
+    </div>
+  );
+};
+`})}),`
+`,e.jsx(k,{children:H}),`
+`,e.jsx(o.h2,{id:"tablecolumn",children:"TableColumn"}),`
+`,e.jsx(u,{of:_}),`
+`,e.jsx(m,{of:_}),`
+`,e.jsx(o.h2,{id:"tablerow",children:"TableRow"}),`
+`,e.jsx(u,{of:T}),`
+`,e.jsx(m,{of:T}),`
+`,e.jsx(o.h2,{id:"tablegrouprow",children:"TableGroupRow"}),`
+`,e.jsx(u,{of:l}),`
+`,e.jsx(m,{of:l}),`
+`,e.jsx(o.h2,{id:"tablecell",children:"TableCell"}),`
+`,e.jsx(u,{of:y}),`
+`,e.jsx(m,{of:y}),`
+`,e.jsx($,{})]})}function De(t={}){const{wrapper:o}={...R(),...t.components};return o?e.jsx(o,{...t,children:e.jsx(C,{...t})}):C(t)}export{De as default};
