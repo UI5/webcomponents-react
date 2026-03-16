@@ -24,7 +24,7 @@ export default defineConfig({
             coverage: {
               sourceFilter: (sourcePath: string) =>
                 (sourcePath.includes('packages/main/src/components/SelectDialog') ||
-                  sourcePath.includes('packages/main/src/components/SplitterLayout')) &&
+                  sourcePath.includes('packages/main/src/components/Splitter')) &&
                 !sourcePath.includes('node_modules') &&
                 !sourcePath.includes('/test/'),
               reports: ['lcovonly'],
