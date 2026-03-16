@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/experimental-ct-react';
+import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import type { Page } from '@playwright/test';
 import {
   SplitterMoveResetTestComp,
