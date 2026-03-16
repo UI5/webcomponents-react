@@ -1,0 +1,34 @@
+import{j as o}from"./iframe-BIP38Qmu.js";import{useMDXComponents as i}from"./index-CCzfQ4AK.js";import{M as s,C as m}from"./blocks-69-jnurL.js";import"./Tag-D0zcjL-3.js";import"./index-C_7tcSj3.js";import{C as c}from"./ControlsWithNote-DlY6D4bI.js";import{D as a}from"./DocsHeader-D4aiXO6T.js";import{F as d}from"./Footer-DAbghHc6.js";import"./CommandsAndQueries-BAg-w2Ve.js";import"./PageNotFound-z2fC1f6d.js";import{C as r,D as t}from"./Popover.stories-wr7HchGF.js";import"./preload-helper-PPVm8Dsz.js";import"./information-Cf_JR6Aw.js";import"./sys-enter-2-D5AeNUHf.js";import"./alert-CMm7pEpj.js";import"./index-BEp_fWNn.js";import"./index-BlYNx0T3.js";import"./Link-B13MM4G6.js";import"./copy-q2hIMu45.js";import"./copy-nvOf1vVL.js";import"./GitHub-Mark-vHfAubj_.js";import"./TableOfContent-CAcSs8TN.js";import"./index-pu7JlX44.js";import"./index-C0fOqYC4.js";import"./index-Du9D3QZW.js";import"./index-DXmoRv88.js";import"./index-ZEQXSIQn.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-BrBZ3oM5.js";import"./addCustomCSSWithScoping-3IpFFLGa.js";import"./Illustrations-BEksg9v0.js";import"./i18n-defaults-CFWtSmu6.js";import"./settings-De85Y9Vl.js";import"./index-CF1gGx4H.js";import"./index-BIvl_-WU.js";import"./ListItemStandard-BzHjrys2.js";function p(e){const n={code:"code",h2:"h2",p:"p",pre:"pre",...i(),...e.components};return o.jsxs(o.Fragment,{children:[o.jsx(s,{of:r}),`
+`,o.jsx(a,{of:r,since:"0.9.0"}),`
+`,o.jsx("br",{}),`
+`,o.jsx(n.h2,{id:"example",children:"Example"}),`
+`,o.jsx(m,{of:t}),`
+`,o.jsx(n.h2,{id:"properties",children:"Properties"}),`
+`,o.jsx(c,{of:t}),`
+`,o.jsx(n.h2,{id:"opening-popovers",children:"Opening Popovers"}),`
+`,o.jsxs(n.p,{children:["You can open and close the ",o.jsx(n.code,{children:"Popover"})," component in a declarative way using the ",o.jsx(n.code,{children:"open"})," and ",o.jsx(n.code,{children:"opener"})," prop."]}),`
+`,o.jsx(n.pre,{children:o.jsx(n.code,{className:"language-jsx",children:`const MyComponentWithPopover = () => {
+  const btnRef = useRef(null);
+  const [popoverIsOpen, setPopoverIsOpen] = useState(false);
+  return (
+    <>
+      <Button
+        ref={btnRef}
+        onClick={() => {
+          setPopoverIsOpen(true);
+        }}
+      >
+        Open Popover
+      </Button>
+      <Popover
+        opener={btnRef.current}
+        open={popoverIsOpen}
+        onClose={() => {
+          setPopoverIsOpen(false);
+        }}
+      />
+    </>
+  );
+};
+`})}),`
+`,o.jsx(d,{})]})}function Q(e={}){const{wrapper:n}={...i(),...e.components};return n?o.jsx(n,{...e,children:o.jsx(p,{...e})}):p(e)}export{Q as default};
