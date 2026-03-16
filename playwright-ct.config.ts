@@ -14,6 +14,7 @@ export default defineConfig({
   // https://github.com/microsoft/playwright/issues/14511#issuecomment-1552589959
   reporter: process.env.CI
     ? [
+        ['list'],
         ['github'],
         [
           'monocart-reporter',
