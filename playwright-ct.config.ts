@@ -14,6 +14,7 @@ export default defineConfig({
   // https://github.com/microsoft/playwright/issues/14511#issuecomment-1552589959
   reporter: process.env.CI
     ? [
+        ['list'],
         ['github'],
         [
           'monocart-reporter',
@@ -22,7 +23,8 @@ export default defineConfig({
             outputFile: 'temp/playwright-coverage/report.html',
             coverage: {
               sourceFilter: (sourcePath: string) =>
-                sourcePath.includes('packages/main/src/components/SelectDialog') &&
+                (sourcePath.includes('packages/main/src/components/SelectDialog') ||
+                  sourcePath.includes('packages/main/src/components/Splitter')) &&
                 !sourcePath.includes('node_modules') &&
                 !sourcePath.includes('/test/'),
               reports: ['lcovonly'],
