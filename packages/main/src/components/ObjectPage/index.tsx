@@ -118,18 +118,15 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
   const [headerCollapsedInternal, setHeaderCollapsedInternal] = useState<undefined | boolean>(undefined);
   const [scrolledHeaderExpanded, setScrolledHeaderExpanded] = useState(false);
   const [sectionSpacer, setSectionSpacer] = useState(0);
-  const [currentTabModeSection, setCurrentTabModeSection] = useState(null);
+  const currentTabModeSection = useMemo(
+    () => (mode === ObjectPageMode.IconTabBar ? getSectionById(children, internalSelectedSectionId) : null),
+    [mode, children, internalSelectedSectionId],
+  );
   const [toggledCollapsedHeaderWasVisible, setToggledCollapsedHeaderWasVisible] = useState(false);
   const sections = mode === ObjectPageMode.IconTabBar ? currentTabModeSection : children;
   const scrollEndHandler = useOnScrollEnd({ objectPageRef, setTabSelectId });
   // only required for IconTabBar mode
   const [wasUserSectionChange, setWasUserSectionChange] = useState(false);
-
-  useEffect(() => {
-    const currentSection =
-      mode === ObjectPageMode.IconTabBar ? getSectionById(children, internalSelectedSectionId) : null;
-    setCurrentTabModeSection(currentSection);
-  }, [mode, children, internalSelectedSectionId]);
 
   const onSelectedSectionChangeRef = useRef(onSelectedSectionChange);
   const onToggleHeaderAreaRef = useRef(onToggleHeaderArea);
