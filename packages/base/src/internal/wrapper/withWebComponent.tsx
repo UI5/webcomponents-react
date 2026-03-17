@@ -199,7 +199,7 @@ export const withWebComponent = <Props extends Record<string, any>, RefType = Ui
         }
       });
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [...regularPropValues]);
+    }, regularPropValues);
 
     useIsomorphicLayoutEffect(() => {
       setAttachEvents(true);
