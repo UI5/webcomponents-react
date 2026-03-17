@@ -18,7 +18,7 @@
     "test": "yarn test:prepare && cypress run --component --browser chrome --spec packages",
     "test:pw": "playwright test -c playwright-ct.config.ts",
     "test:pw:open": "playwright test -c playwright-ct.config.ts --ui",
-    "test:pw:ci": "playwright test -c playwright-ct.config.ts playwright/test/ packages/main/src/components/SelectDialog/test/ packages/main/src/components/SplitterLayout/test/ --project chromium",
+    "test:pw:ci": "playwright test -c playwright-ct.config.ts --project chromium",
     "clean": "tsc --build --clean && tsc --build tsconfig.build.json --clean && rimraf temp .out test-results playwright-report playwright-ct && lerna run clean",
     "clean:remove-modules": "yarn clean && rimraf node_modules",
     "prettier:all": "prettier --write --config ./prettier.config.js \"**/*\"",
