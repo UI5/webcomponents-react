@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import { ValueState } from '../../enums/index.js';
+import { Link } from '../../webComponents/Link/index.js';
 import { MessageItem } from './MessageItem';
 import { MessageView } from './index.js';
-import { Link } from '../../webComponents/Link/index.js';
 
 describe('MessageView', () => {
   it('default & grouped', () => {
