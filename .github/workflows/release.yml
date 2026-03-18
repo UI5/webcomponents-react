@@ -53,8 +53,9 @@ jobs:
           git config user.email ${{ secrets.BOT_GIT_EMAIL }}
           git config user.name ${{ secrets.BOT_GIT_USERNAME }}
 
-          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-git ${{ github.event.inputs.release_type }} \
-            ${{ (github.event.inputs.prerelease == 'true' && '--conventional-prerelease') || '--conventional-graduate' }}
+          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish ${{ github.event.inputs.release_type }} \
+            ${{ (github.event.inputs.prerelease == 'true' && '--conventional-prerelease') || '--conventional-graduate' }} \
+            --create-release github
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
