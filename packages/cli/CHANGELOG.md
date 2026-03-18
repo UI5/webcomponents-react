@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.29.24](https://github.com/UI5/webcomponents-react/compare/v1.29.23...v1.29.24) (2026-03-18)
+
+### Bug Fixes
+
+- update `repository.url` ([c060c18](https://github.com/UI5/webcomponents-react/commit/c060c181c00a5992b5d049096a9b7d289cf9042b))
+
 ## [1.29.10](https://github.com/SAP/ui5-webcomponents-react/compare/v1.29.9...v1.29.10) (2024-09-05)
 
 **Note:** Version bump only for package @ui5/webcomponents-react-cli
