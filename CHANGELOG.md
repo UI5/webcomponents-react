@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.29.22](https://github.com/UI5/webcomponents-react/compare/v1.29.21...v1.29.22) (2026-03-18)
+
+### Bug Fixes
+
+- bump to v1.29.22 ([2ee46fe](https://github.com/UI5/webcomponents-react/commit/2ee46fe49a4e72ad015db57c1cc69bf4c7da1d7a))
+- bump to v1.29.22 ([d9fe1aa](https://github.com/UI5/webcomponents-react/commit/d9fe1aa323ee549732d705a0535ee2bc6da36a4c))
+
 ## [1.29.21](https://github.com/UI5/webcomponents-react/compare/v1.29.20...v1.29.21) (2026-03-18)
 
 ### Bug Fixes
