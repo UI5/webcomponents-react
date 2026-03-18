@@ -81,7 +81,7 @@
     "eslint-plugin-storybook": "^0.8.0",
     "glob": "^11.0.0",
     "husky": "^9.0.6",
-    "lerna": "^8.0.0",
+    "lerna": "^9.0.7",
     "lint-staged": "^15.0.0",
     "npm-run-all2": "^6.0.0",
     "postcss": "^8.4.25",
