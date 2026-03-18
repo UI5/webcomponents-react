@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.29.21](https://github.com/UI5/webcomponents-react/compare/v1.29.20...v1.29.21) (2026-03-18)
+
+### Bug Fixes
+
+- **AnalyticalTable:** safeguard extension, header & title height calc ([#8308](https://github.com/UI5/webcomponents-react/issues/8308)) ([d62a0fd](https://github.com/UI5/webcomponents-react/commit/d62a0fd42c378cea59fae88149eadde1def09b3e)), closes [#7681](https://github.com/UI5/webcomponents-react/issues/7681)
+
 ## [1.29.20](https://github.com/SAP/ui5-webcomponents-react/compare/v1.29.19...v1.29.20) (2025-07-07)
 
 ### Bug Fixes
