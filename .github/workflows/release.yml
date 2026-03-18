@@ -50,17 +50,13 @@ jobs:
 
       - name: publish
         run: |
-          npm config set //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}
-
           git config user.email ${{ secrets.BOT_GIT_EMAIL }}
           git config user.name ${{ secrets.BOT_GIT_USERNAME }}
 
-          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish ${{ github.event.inputs.release_type }} \
-            ${{ (github.event.inputs.prerelease == 'true' && '--conventional-prerelease') || '--conventional-graduate' }} \
-            --create-release github
+          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-git ${{ github.event.inputs.release_type }} \
+            ${{ (github.event.inputs.prerelease == 'true' && '--conventional-prerelease') || '--conventional-graduate' }}
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
       ### Semantic Release Bot comments for issues and PRs ###
@@ -74,4 +70,3 @@ jobs:
             const { default: addIssueComments } = await import('${{ github.workspace }}/.github/createIssueCommentsForRelease.mjs');
 
             await addIssueComments({ github, context })
-
