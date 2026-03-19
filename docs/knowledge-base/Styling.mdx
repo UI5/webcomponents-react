@@ -19,9 +19,9 @@ You can apply CSS variables, use the `::part` pseudo-element selectors, or apply
 Components currently only available in the `ui5/webcomponents-react` repo, are not necessarily web components. For these kind of components you can follow the standard styling approach of React.
 
 <MessageStrip
-    design={MessageStripDesign.Critical}
-    hideCloseButton
-    children="While it's easily possible targeting DOM elements and CSS classes of components without a shadow root, modifying internal structures or styles is not officially supported and may break with future updates. Use such changes carefully."
+  design={MessageStripDesign.Critical}
+  hideCloseButton
+  children="While it's easily possible targeting DOM elements and CSS classes of components without a shadow root, modifying internal structures or styles is not officially supported and may break with future updates. Use such changes carefully."
 />
 
 ## Scrollbars
@@ -29,26 +29,34 @@ Components currently only available in the `ui5/webcomponents-react` repo, are n
 `@ui5/webcomponents` components come with globally applied scrollbar styles.
 If you want to opt-out of this behavior, you can add the `.ui5-content-native-scrollbars` class to the `body` of the page. You can find out more about this in the [ui5/webcomponents documentation](https://ui5.github.io/webcomponents/docs/advanced/scrollbars-customization/).
 
+## Changing CSS Variables
+
+You can override SAP theming CSS variables on specific web component selectors to customize their appearance:
+
+```css
+[ui5-button] {
+  --sapButton_TextColor: purple;
+}
+```
+
+<MessageStrip
+  design={MessageStripDesign.Information}
+  hideCloseButton
+  children="Whenever possible, override CSS variables through the SAP UI Theme Designer for consistent updates across all components."
+/>
+
 ## Style your own components
 
-It's quite likely you have to create some custom components when you are building an app.
-In order to reuse our central styling approach, you can import the `ThemingParameters` that contain the various CSS variables used in our theming, or use the CSS variables directly.
-
-A full list of all supported CSS Variables can be found [here](https://github.com/UI5/webcomponents-react/blob/main/packages/base/src/styling/ThemingParameters.ts)
-or in the [theming-base-content](https://github.com/SAP/theming-base-content/tree/master/content/Base/baseLib) repo.
-
-You can then create a custom component by following this recipe:
+When building custom components, use SAP CSS variables directly to stay consistent with the Fiori design system.
+A full list of all supported CSS variables can be found in the [theming-base-content](https://github.com/SAP/theming-base-content/tree/master/content/Base/baseLib) repo.
 
 ```tsx
-import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import './MyCustomElement.css';
 
 export const MyCustomElement = () => {
   return (
     <div className="containerCustomElement">
-      <span style={{ color: ThemingParameters.sapNegativeColor, fontSize: ThemingParameters.sapFontLargeSize }}>
-        My Text
-      </span>
+      <span style={{ color: 'var(--sapNegativeColor)', fontSize: 'var(--sapFontLargeSize)' }}>My Text</span>
     </div>
   );
 };
@@ -65,6 +73,12 @@ export const MyCustomElement = () => {
 }
 ```
 
+If you need to access CSS variable values in JavaScript, you can use [ThemingParameters](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-public-utils--docs#theming-parameters) as well:
+
+```tsx
+<span style={{ color: ThemingParameters.sapNegativeColor, fontSize: ThemingParameters.sapFontLargeSize }}>My Text</span>
+```
+
 This would then be the result:
 
 <ThemeProvider>
@@ -76,7 +90,7 @@ This would then be the result:
 Almost all components allow setting `className` or `style` for custom styling. For standard elements like `div`, `span`, etc., you can easily override internal CSS properties and values, as our styles are encapsulated in a [CSS layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer).
 For web components, this does **not** mean that styles are inherited by shadow root elements per default.
 Only [inherited CSS properties](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance#inherited_properties) that are not set inside the shadow root or internally passed properties will change the styles of the internal elements.
-Another special case are abstract components like the `SuggestionItem`. The `ui5-suggestion-item` element is mainly there to pass props to the actual component inside the shadow root and is therefore not stylable.
+Another special case are [abstract](http://localhost:6007/?path=/docs/knowledge-base-faq--docs#what-are-abstract-ui5-web-components) components like the `SuggestionItem`. The `ui5-suggestion-item` element is mainly there to pass props to the actual component inside the shadow root and is therefore not stylable.
 
 ## Explicitly import CSS bundles
 
@@ -141,6 +155,16 @@ function MyComponent() {
 ```
 
 </details>
+
+## CSS Custom States
+
+Some components expose custom states that you can target with the `:state()` pseudo-class for conditional styling:
+
+```css
+[ui5-toolbar-item]:state(overflowed) {
+  flex-direction: column;
+}
+```
 
 ## Common CSS
 
