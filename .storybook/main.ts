@@ -1,5 +1,4 @@
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, URL } from 'node:url';
 import type { StorybookConfig } from '@storybook/react-vite';
 import remarkGfm from 'remark-gfm';
 import type { StoriesEntry } from 'storybook/internal/types';
@@ -77,7 +76,7 @@ const config: StorybookConfig = {
   typescript: {
     reactDocgen: 'react-docgen-typescript',
     reactDocgenTypescriptOptions: {
-      tsconfigPath: resolve(dirname(fileURLToPath(import.meta.url)), '..', 'tsconfig.json'),
+      tsconfigPath: fileURLToPath(new URL('../tsconfig.json', import.meta.url)),
     },
   },
   staticDirs: isDevMode ? ['images-dev'] : ['images'],
