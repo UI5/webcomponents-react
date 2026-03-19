@@ -92,7 +92,7 @@ jobs:
           path: packages
 
       - name: Cypress run
-        uses: cypress-io/github-action@82482149c343a5dee155d22104111b9319f9dd45 # v7.1.6
+        uses: cypress-io/github-action@ed2d88ccbbf936c5aac087dd43e10425abc3534f # v7.1.7
         with:
           browser: chrome
           component: true
