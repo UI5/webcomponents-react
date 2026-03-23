@@ -1,7 +1,7 @@
 import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { MutableRefObject } from 'react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { AnalyticalTablePropTypes, TableInstance } from '../types/index.js';
 
 interface VirtualTableBodyContainerProps {
@@ -46,9 +46,9 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
   } = props;
   const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (parentRef.current) {
-      // Trigger one-time re-render after first render -> safe to set state here
+      // Trigger one-time synchronous re-render before paint -> safe to set state here
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsMounted(true);
     }
