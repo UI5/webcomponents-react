@@ -12,6 +12,8 @@ export type ToolbarSeparatorPropTypes = CommonProps;
  * Creates a visual separator between the preceding and succeeding `Toolbar` item.
  *
  * __Note:__ This component is only compatible with the `Toolbar` component from the `@ui5/webcomponents-react-compat` package.
+ *
+ * @deprecated Please use the `Toolbar` component from the main package instead.
  */
 const ToolbarSeparator = forwardRef<HTMLDivElement, ToolbarSeparatorPropTypes>((props, ref) => {
   const { style, className, ...rest } = props;
