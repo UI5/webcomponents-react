@@ -13,7 +13,7 @@ export type ToolbarSeparatorPropTypes = CommonProps;
  *
  * __Note:__ This component is only compatible with the `Toolbar` component from the `@ui5/webcomponents-react-compat` package.
  *
- * @deprecated Please use the `Toolbar` component from the main package instead.
+ * @deprecated Please use the `Toolbar` component from `@ui5/webcomponents-react` instead.
  */
 const ToolbarSeparator = forwardRef<HTMLDivElement, ToolbarSeparatorPropTypes>((props, ref) => {
   const { style, className, ...rest } = props;

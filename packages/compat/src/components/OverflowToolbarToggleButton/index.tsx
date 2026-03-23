@@ -29,7 +29,7 @@ export interface OverflowToolbarToggleButtonPropTypes extends Omit<ToggleButtonP
  *
  * __Note:__ This component is only compatible with the `Toolbar` component from the `@ui5/webcomponents-react-compat` package.
  *
- * @deprecated Please use the `Toolbar` component from the main package instead. You can achieve the same behavior via `ToolbarItem` and the `:state(overflowed)` CSS pseudo class.
+ * @deprecated Please use the `Toolbar` component from `@ui5/webcomponents-react` instead. You can achieve the same behavior via `ToolbarItem` and the `:state(overflowed)` CSS pseudo class.
  */
 const OverflowToolbarToggleButton = forwardRef<ToggleButtonDomRef, OverflowToolbarToggleButtonPropTypes>(
   (props, ref) => {

@@ -144,7 +144,7 @@ const OVERFLOW_BUTTON_WIDTH = 36 + 8 + 8; // width + padding end + spacing start
  *
  * __Note:__ When using React 19 with `StrictMode` enabled, overflow behavior may not work reliably. This only affects development mode, as `StrictMode` is not applied in production.
  *
- * @deprecated Please use the `Toolbar` component from the main package instead.
+ * @deprecated Please use the `Toolbar` component from `@ui5/webcomponents-react` instead.
  */
 const Toolbar = forwardRef<HTMLDivElement, ToolbarPropTypes>((props, ref) => {
   const {
