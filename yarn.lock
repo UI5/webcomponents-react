@@ -7302,9 +7302,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromatic@npm:15.2.0":
-  version: 15.2.0
-  resolution: "chromatic@npm:15.2.0"
+"chromatic@npm:15.3.0":
+  version: 15.3.0
+  resolution: "chromatic@npm:15.3.0"
   peerDependencies:
     "@chromatic-com/cypress": ^0.*.* || ^1.0.0
     "@chromatic-com/playwright": ^0.*.* || ^1.0.0
@@ -7317,7 +7317,7 @@ __metadata:
     chroma: dist/bin.js
     chromatic: dist/bin.js
     chromatic-cli: dist/bin.js
-  checksum: 10c0/b46c9e288236c76128935373ca90eda0127eb604a0431ba25c4600e952fc2bba414dbc3268513be7cc35b9d0ffff8566ca95e838bc9d4341940a99ef33a5808b
+  checksum: 10c0/0145783d5a38c10e60a8d9d630dd971f5544353cd359b7b74b01904003a20720acabf0b370ff821dcf976ee5b077687430d810e2658b0fb01ae209edf50e9c29
   languageName: node
   linkType: hard
 
@@ -9863,15 +9863,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-storybook@npm:10.2.19":
-  version: 10.2.19
-  resolution: "eslint-plugin-storybook@npm:10.2.19"
+"eslint-plugin-storybook@npm:10.3.1":
+  version: 10.3.1
+  resolution: "eslint-plugin-storybook@npm:10.3.1"
   dependencies:
     "@typescript-eslint/utils": "npm:^8.48.0"
   peerDependencies:
     eslint: ">=8"
-    storybook: ^10.2.19
-  checksum: 10c0/6b0c6c26c293d7af92303b7a7328a400d9e9a849f77d8fcb9865769603cd6c459c11568b847b1254535a06bd0f4ec0928785e1971f2866645c1f5500a63b76a5
+    storybook: ^10.3.1
+  checksum: 10c0/b33a6bad0fc2bad3640c951021d0597c39b434e3d1d98c394556eab02bef4872d997e4c5b00ca3500f79b5b7418378087f830d114f6a851a54d24b97f04a1e48
   languageName: node
   linkType: hard
 
@@ -20410,7 +20410,7 @@ __metadata:
     "@ui5/webcomponents-icons": "npm:2.20.1"
     "@ui5/webcomponents-tools": "npm:2.20.1"
     "@vitejs/plugin-react": "npm:5.2.0"
-    chromatic: "npm:15.2.0"
+    chromatic: "npm:15.3.0"
     cssnano: "npm:7.1.3"
     cypress: "npm:15.12.0"
     cypress-real-events: "npm:1.15.0"
@@ -20424,7 +20424,7 @@ __metadata:
     eslint-plugin-prettier: "npm:5.5.5"
     eslint-plugin-react: "npm:7.37.5"
     eslint-plugin-react-hooks: "npm:7.0.1"
-    eslint-plugin-storybook: "npm:10.2.19"
+    eslint-plugin-storybook: "npm:10.3.1"
     glob: "npm:13.0.6"
     globals: "npm:17.4.0"
     husky: "npm:9.1.7"
