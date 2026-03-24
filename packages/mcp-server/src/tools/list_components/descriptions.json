@@ -1,0 +1,834 @@
+{
+  "components": {
+    "ActionSheet": {
+      "description": "The `ActionSheet` holds a list of buttons from which the user can select to complete an action.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "AnalyticalCardHeader": {
+      "description": "The `AnalyticalCardHeader` is a KPI header, enabling the AnalyticalCard representation.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "AnalyticalTable": {
+      "description": "The `AnalyticalTable` provides a set of convenient functions for responsive table design, including virtualization of rows and columns, infinite scrolling and customizable columns that will, unless otherwise defined, distribute the available space equally among themselves.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "FilterBar": {
+      "description": "The `FilterBar` displays filters in a user-friendly manner to populate values for a query.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "FilterGroupItem": {
+      "description": "Represents a filter belonging to the `FilterBar`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "FlexBox": {
+      "description": "The `FlexBox` builds the container for a flexible box layout by leveraging the CSS flexbox layout.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Grid": {
+      "description": "A layout container component used for aligning items with various sizes in a simple grid.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MessageBox": {
+      "description": "The `MessageBox` component provides easier methods to create a `Dialog`, such as standard alerts, confirmation dialogs, or arbitrary message dialogs.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MessageItem": {
+      "description": "A component used to hold different types of system messages inside the `MessageView` component.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MessageViewButton": {
+      "description": "The `MessageViewButton` can be used for opening a `Popover` containing the `MessageView` component.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Modals": {
+      "description": "Utility class for opening modals in an imperative way.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "NumericSideIndicator": {
+      "description": "Holds a set of side indicator attributes used in the AnalyticalCardHeader component.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ObjectPage": {
+      "description": "A component that allows apps to easily display information related to a business object.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ObjectPageAnchorBar": {
+      "description": "The `ObjectPageAnchorBar` bar contains the expand/collapse (expands or collapses the header content) and pin button (pins the content header).",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ObjectPageHeader": {
+      "description": "The `ObjectPageHeader` component is used to serve as header section of the `ObjectPage`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ObjectPageSection": {
+      "description": "Top-level information container of an `ObjectPage`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ObjectPageSubSection": {
+      "description": "Second-level information container of an `ObjectPage`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ObjectPageTitle": {
+      "description": "The `ObjectPageTitle` component is used to serve as title of the `ObjectPage`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ObjectStatus": {
+      "description": "Status information that can be either text with a value state, or an icon.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ResponsiveGridLayout": {
+      "description": "The Responsive Grid Layout positions UI elements in a multi-column flow layout.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SelectDialog": {
+      "description": "The SelectDialog enables users to filter a comprehensive list via a search field and to select one or more items.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SplitterElement": {
+      "description": "The `SplitterElement` holds the component of the content area.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SplitterLayout": {
+      "description": "A layout that contains several content areas.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ThemeProvider": {
+      "description": "In order to use `@ui5/webcomponents-react` you have to wrap your application's root component into the ThemeProvider.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "VariantItem": {
+      "description": "The `VariantItem` describes a variant/view of the `VariantManagement` component.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "VariantManagement": {
+      "description": "The VariantManagement can be used to manage variants (views).",
+      "package": "@ui5/webcomponents-react"
+    }
+  },
+  "webComponents": {
+    "Avatar": {
+      "description": "An image-like component that has different display options for representing images and icons in different shapes and sizes, depending on the use case....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "AvatarBadge": {
+      "description": "The `AvatarBadge` component is used to display a badge on top of `Avatar` component.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "AvatarGroup": {
+      "description": "Displays a group of avatars arranged horizontally.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Bar": {
+      "description": "The Bar is a container which is primarily used to hold titles, buttons and input elements and its design and functionality is the basis for page headers and footers.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "BarcodeScannerDialog": {
+      "description": "The `BarcodeScannerDialog` component provides barcode scanning functionality for all devices that support the `MediaDevices.getUserMedia()` native API.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Breadcrumbs": {
+      "description": "Enables users to navigate between items by providing a list of links to previous steps in the user's navigation path.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "BreadcrumbsItem": {
+      "description": "The `BreadcrumbsItem` component defines the content of an item in `Breadcrumbs`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "BusyIndicator": {
+      "description": "The `BusyIndicator` signals that some operation is going on and that the user must wait.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Button": {
+      "description": "The `Button` component represents a simple push button.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ButtonBadge": {
+      "description": "The `ButtonBadge` component defines a badge that appears in the `Button`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Calendar": {
+      "description": "The `Calendar` component allows users to select one or more dates....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "CalendarDate": {
+      "description": "The `Date` component defines a calendar date to be used inside `Calendar`...",
+      "package": "@ui5/webcomponents-react"
+    },
+    "CalendarDateRange": {
+      "description": "The `DateRange` component defines a range of dates to be used inside `Calendar`...",
+      "package": "@ui5/webcomponents-react"
+    },
+    "CalendarLegend": {
+      "description": "The `CalendarLegend` component is designed for use within the `Calendar` to display a legend.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "CalendarLegendItem": {
+      "description": "Each `CalendarLegendItem` represents a legend item, displaying a color with a label.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Card": {
+      "description": "The `Card` is a component that represents information in the form of a tile with separate header and content areas.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "CardHeader": {
+      "description": "The `CardHeader` is a component, meant to be used as a header of the `Card` component.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Carousel": {
+      "description": "The Carousel allows the user to browse through a set of items.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "CheckBox": {
+      "description": "Allows the user to set a binary value, such as true/false or yes/no for an item....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ColorPalette": {
+      "description": "The `ColorPalette` provides the users with a range of predefined colors.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ColorPaletteItem": {
+      "description": "The `ColorPaletteItem` component represents a color in the the `ColorPalette`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ColorPalettePopover": {
+      "description": "Represents a predefined range of colors for easier selection....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ColorPicker": {
+      "description": "The `ColorPicker` allows users to choose any color and provides different input options for selecting colors....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ComboBox": {
+      "description": "The `Combobox` component represents a drop-down menu with a list of the available options and a text input field to narrow down the options....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ComboBoxItem": {
+      "description": "The `CbItem` represents the item for a `Combobox`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ComboBoxItemGroup": {
+      "description": "The `CbGroupItem` is type of suggestion item, that can be used to split the `Combobox` suggestions into groups....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "DatePicker": {
+      "description": "The `DatePicker` component provides an input field with assigned calendar which opens on user action.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "DateRangePicker": {
+      "description": "The DateRangePicker enables the users to enter a localized date range using touch, mouse, keyboard input, or by selecting a date range in the calendar....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "DateTimePicker": {
+      "description": "The `DateTimePicker` component alows users to select both date (day, month and year) and time (hours, minutes and seconds) and for the purpose it consists of input field and Date/Time picker....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Dialog": {
+      "description": "The `Dialog` component is used to temporarily display some information in a size-limited window in front of the regular app screen.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "DynamicDateRange": {
+      "description": "The `DynamicDateRange` component provides a flexible interface to define date ranges using a combination of absolute dates, relative intervals, and preset ranges (e.g., \"Today\", \"Yesterday\", etc.).",
+      "package": "@ui5/webcomponents-react"
+    },
+    "DynamicPage": {
+      "description": "A layout component, representing a web page, consisting of a title, header with dynamic behavior, a content area, and an optional floating footer....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "DynamicPageHeader": {
+      "description": "Header of the DynamicPage....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "DynamicPageTitle": {
+      "description": "Title of the `DynamicPage`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "DynamicSideContent": {
+      "description": "The DynamicSideContent (`DynamicSideContent`) is a layout component that allows additional content to be displayed in a way that flexibly adapts to different screen sizes.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ExpandableText": {
+      "description": "The `ExpandableText` component allows displaying a large body of text in a small space.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "FileUploader": {
+      "description": "The `FileUploader` opens a file explorer dialog and enables users to upload files.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "FilterItem": {
+      "description": "The `FilterItem` component defines the filtering criteria for data in `ViewSettingsDialog`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "FilterItemOption": {
+      "description": "The `FilterItemOption` component defines individual filter values within a `FilterItem`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "FlexibleColumnLayout": {
+      "description": "The `FlexibleColumnLayout` implements the list-detail-detail paradigm by displaying up to three pages in separate columns.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Form": {
+      "description": "The Form is a layout component that arranges labels and form fields (like input fields) pairs into a specific number of columns....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "FormGroup": {
+      "description": "The FormGroup (FormGroup) represents a group inside the Form (Form) component and it consists of FormItem (FormItem) components....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "FormItem": {
+      "description": "The FormItem (FormItem) represents pair of a label and one or more components (text or text fields), associated to it....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "GroupItem": {
+      "description": "The `GroupItem` component defines the grouping criteria for data in `ViewSettingsDialog`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Icon": {
+      "description": "The `Icon` component represents an SVG icon.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "IllustratedMessage": {
+      "description": "An IllustratedMessage is a recommended combination of a solution-oriented message, an engaging illustration, and conversational tone to better communicate an empty or a success state than just show a ...",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Input": {
+      "description": "The `Input` component allows the user to enter and edit text or numeric values in one line....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Label": {
+      "description": "The `Label` is a component used to represent a label for elements like input, textarea, select.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Link": {
+      "description": "The `Link` is a hyperlink component that is used to navigate to other apps and web pages, or to trigger actions.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "List": {
+      "description": "The `List` component allows displaying a list of items, advanced keyboard handling support for navigating between items, and predefined modes to improve the development efficiency....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ListItemCustom": {
+      "description": "A component to be used as custom list item within the `List` the same way as the standard `Li`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ListItemGroup": {
+      "description": "The `LiGroup` is a special list item, used only to create groups of list items....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ListItemStandard": {
+      "description": "The `Li` represents the simplest type of item for a `List`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MediaGallery": {
+      "description": "The `MediaGallery` component allows the user to browse through multimedia items.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MediaGalleryItem": {
+      "description": "The `MediaGalleryItem` web component represents the items displayed in the `MediaGallery` web component....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Menu": {
+      "description": "`Menu` component represents a hierarchical menu structure....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MenuItem": {
+      "description": "`MenuItem` is the item to use inside a `Menu`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MenuItemGroup": {
+      "description": "The `MenuItemGroup` component represents a group of items designed for use inside a `Menu`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MenuSeparator": {
+      "description": "The `MenuSeparator` represents a horizontal line to separate menu items inside a `Menu`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MessageStrip": {
+      "description": "The MessageStrip component allows for the embedding of application-related messages.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MultiComboBox": {
+      "description": "The `MultiCombobox` component consists of a list box with items and a text field allowing the user to either type a value directly into the text field, or choose from the list of existing items....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MultiComboBoxItem": {
+      "description": "The `McbItem` represents the item for a `MultiCombobox`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MultiComboBoxItemGroup": {
+      "description": "The `McbItemGroup` is type of suggestion item, that can be used to split the `MultiCombobox` suggestions into groups....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "MultiInput": {
+      "description": "A `MultiInput` field allows the user to enter multiple values, which are displayed as `Token`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "NavigationLayout": {
+      "description": "The `NavigationLayout` is a container component that can be used to create a layout with a header, a side navigation and a content area....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "NotificationList": {
+      "description": "The `NotificationList` web component represents a container for `LiNotificationGroup` and `LiNotification`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "NotificationListGroupItem": {
+      "description": "The `LiNotificationGroup` is a special type of list item, that unlike others can group items within self, usually `LiNotification` items....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "NotificationListItem": {
+      "description": "The `LiNotification` is a type of list item, meant to display notifications....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Option": {
+      "description": "The `Option` component defines the content of an option in the `Select`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "OptionCustom": {
+      "description": "The `OptionCustom` component defines a custom content of an option in the `Select`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Page": {
+      "description": "The `Page` is a container component that holds one whole screen of an application.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Panel": {
+      "description": "The `Panel` component is a container which has a header and a content area and is used for grouping and displaying information.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Popover": {
+      "description": "The `Popover` component displays additional information for an object in a compact way and without leaving the page.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ProductSwitch": {
+      "description": "The `ProductSwitch` is an SAP Fiori specific web component that is used in `Shellbar` and allows the user to easily switch between products....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ProductSwitchItem": {
+      "description": "The `ProductSwitchItem` web component represents the items displayed in the `ProductSwitch` web component....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ProgressIndicator": {
+      "description": "Shows the progress of a process in a graphical way.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "RadioButton": {
+      "description": "The `RadioButton` component enables users to select a single option from a set of options.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "RangeSlider": {
+      "description": "Represents a numerical interval and two handles (grips) to select a sub-range within it.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "RatingIndicator": {
+      "description": "The Rating Indicator is used to display a specific number of icons that are used to rate an item.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ResponsivePopover": {
+      "description": "The `ResponsivePopover` acts as a Popover on desktop and tablet, while on phone it acts as a Dialog.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Search": {
+      "description": "A `Search` is an input with suggestions, used for user search....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SearchItem": {
+      "description": "A `SearchItem` is a list item, used for displaying search suggestions...",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SearchItemGroup": {
+      "description": "The `SearchItemGroup` is type of suggestion item, that can be used to split the `SearchItem` suggestions into groups....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SearchItemShowMore": {
+      "description": "A `SearchItemShowMore` is a special type of Li that acts as a button to progressively reveal additional (overflow) items within a group....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SearchMessageArea": {
+      "description": "`import \"@ui5/webcomponents-fiori/dist/SearchMessageArea.js\";`...",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SearchScope": {
+      "description": "The `SearchScope` represents the options for the scope in `Search`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SegmentedButton": {
+      "description": "The `SegmentedButton` shows a group of items.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SegmentedButtonItem": {
+      "description": "Users can use the `SegmentedButtonItem` as part of a `SegmentedButton`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Select": {
+      "description": "The `Select` component is used to create a drop-down list....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ShellBar": {
+      "description": "The `Shellbar` is meant to serve as an application header and includes numerous built-in features, such as: logo, profile image/icon, title, search field, notifications and so on....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ShellBarBranding": {
+      "description": "The `ShellbarBranding` component is intended to be placed inside the branding slot of the `Shellbar` component.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ShellBarItem": {
+      "description": "The `ShellbarItem` represents a custom item for `Shellbar`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ShellBarSearch": {
+      "description": "Search field for the ShellBar component....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ShellBarSpacer": {
+      "description": "The `ShellbarSpacer` is an element, used for visual separation between the two content parts of the `Shellbar`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SideNavigation": {
+      "description": "The `SideNavigation` is used as a standard menu in applications.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SideNavigationGroup": {
+      "description": "Represents a group of navigation actions within `SideNavigation`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SideNavigationItem": {
+      "description": "Represents a navigation action.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SideNavigationSubItem": {
+      "description": "Represents a single navigation action within `SideNavigationItem`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Slider": {
+      "description": "The Slider component represents a numerical range and a handle (grip).",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SortItem": {
+      "description": "The `SortItem` component defines the sorting criteria for data in `ViewSettingsDialog`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SpecialCalendarDate": {
+      "description": "The `SpecialDate` component defines a special calendar date to be used inside `Calendar`, which is visually distinguished from the rest of the dates....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SplitButton": {
+      "description": "`SplitButton` enables users to trigger actions.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "StepInput": {
+      "description": "The `StepInput` consists of an input field and buttons with icons to increase/decrease the value with the predefined step....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SuggestionItem": {
+      "description": "The `SuggestionItem` represents the suggestion item of the `Input`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SuggestionItemCustom": {
+      "description": "The `SuggestionItemCustom` is type of suggestion item, that can be used to place suggestion items with custom content in the input.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "SuggestionItemGroup": {
+      "description": "The `SuggestionItemGroup` is type of suggestion item, that can be used to split the `Input` suggestions into groups....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Switch": {
+      "description": "The `Switch` component is used for changing between binary states....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Tab": {
+      "description": "The `Tab` represents a selectable item inside a `Tabcontainer`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TabContainer": {
+      "description": "The `Tabcontainer` represents a collection of tabs with associated content.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TabSeparator": {
+      "description": "The `TabSeparator` represents a vertical line to separate tabs inside a `Tabcontainer`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Table": {
+      "description": "The `Table` component provides a set of sophisticated features for displaying and dealing with vast amounts of data in a responsive manner.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TableCell": {
+      "description": "The `TableCell` represents a cell inside of a `Table`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TableGrowing": {
+      "description": "The `TableGrowing` component is used inside the `Table` to add a growing/data loading functionalities to the table....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TableHeaderCell": {
+      "description": "The `TableHeaderCell` component represents a column in the `Table`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TableHeaderCellActionAI": {
+      "description": "The `TableHeaderCellActionAi` component defines a dedicated AI action for the table column....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TableHeaderRow": {
+      "description": "The `TableHeaderRow` component represents the table headers of a `Table`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TableRow": {
+      "description": "The `TableRow` component represents a row in the `Table`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TableRowAction": {
+      "description": "The `TableRowAction` component defines an action for table rows....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TableRowActionNavigation": {
+      "description": "The `TableRowActionNavigation` component defines a navigation action for table rows....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TableSelection": {
+      "description": "The `TableSelection` component is used inside the `Table` to add key-based selection capabilities to the `Table`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TableSelectionMulti": {
+      "description": "The `TableSelectionMulti` component is used inside the `Table` to add multi-selection capabilities to the `Table`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TableSelectionSingle": {
+      "description": "The `TableSelectionSingle` component is used inside the `Table` to add single selection capabilities to the `Table`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TableVirtualizer": {
+      "description": "The `TableVirtualizer` component is used inside the `Table` to virtualize the table rows, if the `overflowMode` property of the table is set to 'Scroll'.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Tag": {
+      "description": "The `Tag` is a component which serves the purpose to attract the user attention to some piece of information (state, quantity, condition, etc.).",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Text": {
+      "description": "The `Text` component displays text that can be used in any content area of an application....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TextArea": {
+      "description": "The `Textarea` component is used to enter multiple rows of text....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TimePicker": {
+      "description": "The `TimePicker` component provides an input field with assigned clocks which are opened on user action.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Timeline": {
+      "description": "The `Timeline` component shows entries (such as objects, events, or posts) in chronological order.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TimelineGroupItem": {
+      "description": "An entry posted on the timeline.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TimelineItem": {
+      "description": "An entry posted on the timeline....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Title": {
+      "description": "The `Title` component is used to display titles inside a page.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Toast": {
+      "description": "The `Toast` is a small, non-disruptive popup for success or information messages that disappears automatically after a few seconds....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ToggleButton": {
+      "description": "The `ToggleButton` component is an enhanced `Button` that can be toggled between pressed and normal states.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Token": {
+      "description": "Tokens are small items of information (similar to tags) that mainly serve to visualize previously selected items....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Tokenizer": {
+      "description": "A `Tokenizer` is an invisible container for `Token`s that supports keyboard navigation and token selection....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Toolbar": {
+      "description": "The `Toolbar` component is used to create a horizontal layout with items.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ToolbarButton": {
+      "description": "The `ToolbarButton` represents an abstract action, used in the `Toolbar`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ToolbarItem": {
+      "description": "The `ToolbarItem` is a wrapper component used to integrate UI5 Web Components into the `Toolbar`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ToolbarSelect": {
+      "description": "The `ToolbarSelect` component is used to create a toolbar drop-down list.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ToolbarSelectOption": {
+      "description": "The `ToolbarSelectOption` component defines the content of an option in the `ToolbarSelect`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ToolbarSeparator": {
+      "description": "The `ToolbarSeparator` is an element, used for visual separation between two elements.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ToolbarSpacer": {
+      "description": "The `ToolbarSpacer` is an element, used for taking needed space for toolbar items to take 100% width.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Tree": {
+      "description": "The `Tree` component provides a tree structure for displaying data in a hierarchy....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TreeItem": {
+      "description": "The `TreeItem` represents a node in a tree structure, shown as a `List`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "TreeItemCustom": {
+      "description": "The `TreeItemCustom` represents a node in a tree structure, shown as a `List`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UploadCollection": {
+      "description": "This component allows you to represent files before uploading them to a server, with the help of `UploadCollectionItem`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UploadCollectionItem": {
+      "description": "A component to be used within the `UploadCollection`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UserMenu": {
+      "description": "The `UserMenu` is an SAP Fiori specific web component that is used in `Shellbar` and allows the user to easily see information and settings for the current user and all other logged in accounts....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UserMenuAccount": {
+      "description": "The `UserMenuAccount` represents an account in the `UserMenu`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UserMenuItem": {
+      "description": "`UserMenuItem` is the item to use inside a `UserMenu`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UserMenuItemGroup": {
+      "description": "The `UserMenuItemGroup` component represents a group of items designed for use inside a `UserMenu`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UserSettingsAccountView": {
+      "description": "The `UserSettingsAccountView` represents a view displayed in the `UserSettingsItem`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UserSettingsAppearanceView": {
+      "description": "The `UserSettingsAppearanceView` represents a view displayed in the `UserSettingsItem`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UserSettingsAppearanceViewGroup": {
+      "description": "The `UserSettingsAppearanceViewGroup` is a special list item group used to group appearance view items....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UserSettingsAppearanceViewItem": {
+      "description": "The `UserSettingsAppearanceViewItem` represents a theme/appearance option item within the `UserSettingsAppearanceView`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UserSettingsDialog": {
+      "description": "The `UserSettingsDialog` is an SAP Fiori-specific web component used in the `UserMenu`.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UserSettingsItem": {
+      "description": "The `UserSettingsItem` represents an item in the `UserSettingsDialog`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "UserSettingsView": {
+      "description": "The `UserSettingsView` represents a view displayed in the `UserSettingsItem`....",
+      "package": "@ui5/webcomponents-react"
+    },
+    "ViewSettingsDialog": {
+      "description": "The `ViewSettingsDialog` component helps the user to sort data within a list or a table.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "Wizard": {
+      "description": "The `Wizard` helps users to complete a complex task by dividing it into sections and guiding them through it.",
+      "package": "@ui5/webcomponents-react"
+    },
+    "WizardStep": {
+      "description": "A component that represents a logical step as part of the `Wizard`.",
+      "package": "@ui5/webcomponents-react"
+    }
+  },
+  "charts": {
+    "BarChart": {
+      "description": "A `BarChart` is a data visualization where each category is represented by a rectangle, with the width of the rectangle being proportional to the values being plotted.",
+      "package": "@ui5/webcomponents-react-charts"
+    },
+    "BulletChart": {
+      "description": "The `BulletChart` is used to compare primary and secondary (comparison) values.",
+      "package": "@ui5/webcomponents-react-charts"
+    },
+    "ColumnChart": {
+      "description": "A `ColumnChart` is a data visualization where each category is represented by a rectangle, with the height of the rectangle being proportional to the values being plotted.",
+      "package": "@ui5/webcomponents-react-charts"
+    },
+    "ColumnChartWithTrend": {
+      "description": "A `ColumnChartWithTrend` is a data visualization where each category is represented by a rectangle, with the height of the rectangle being proportional to the values being plotted amd a trend line...",
+      "package": "@ui5/webcomponents-react-charts"
+    },
+    "ComposedChart": {
+      "description": "The `ComposedChart` enables you to combine different chart types in one chart, e.g.",
+      "package": "@ui5/webcomponents-react-charts"
+    },
+    "DonutChart": {
+      "description": "A `DonutChart` is a type of graph that displays data in a circular graph with a cut-out hole in the middle.",
+      "package": "@ui5/webcomponents-react-charts"
+    },
+    "LineChart": {
+      "description": "A `LineChart` is a type of chart used to show information that changes over time - it connects multiple dots.",
+      "package": "@ui5/webcomponents-react-charts"
+    },
+    "PieChart": {
+      "description": "A Pie Chart is a type of graph that displays data in a circular graph.",
+      "package": "@ui5/webcomponents-react-charts"
+    },
+    "RadarChart": {
+      "description": "A radar or spider or web chart is a two-dimensional chart type designed to plot one or more series of values over multiple quantitative variables.",
+      "package": "@ui5/webcomponents-react-charts"
+    },
+    "RadialChart": {
+      "description": "Displays a ring chart highlighting a current status.",
+      "package": "@ui5/webcomponents-react-charts"
+    },
+    "ScatterChart": {
+      "description": "A `ScatterChart` is a data visualization that displays multiple circles (bubbles) in a two-dimensional plot.",
+      "package": "@ui5/webcomponents-react-charts"
+    },
+    "TimelineChart": {
+      "description": "> __Experimental Component!__ <br /> A `TimelineChart` is a data visualization chart that can be used to represent Gantt charts or any other timeline-based visualizations.",
+      "package": "@ui5/webcomponents-react-charts"
+    }
+  },
+  "ai": {
+    "Button": {
+      "description": "The `Button` component serves as a button for AI-related scenarios.",
+      "package": "@ui5/webcomponents-ai-react"
+    },
+    "ButtonState": {
+      "description": "`ButtonState` is the item to use for defining states of `Button` components....",
+      "package": "@ui5/webcomponents-ai-react"
+    },
+    "Input": {
+      "description": "The `Input` component extends the standard `Input` with **AI Writing Assistant** capabilities....",
+      "package": "@ui5/webcomponents-ai-react"
+    },
+    "PromptInput": {
+      "description": "The `PromptInput` component allows the user to write custom instructions in natural language, so that AI is guided to generate content tailored to user needs....",
+      "package": "@ui5/webcomponents-ai-react"
+    },
+    "TextArea": {
+      "description": "The `Textarea` component extends the standard TextArea with Writing Assistant capabilities.",
+      "package": "@ui5/webcomponents-ai-react"
+    }
+  },
+  "metadata": {
+    "version": "2.20.1",
+    "extractedAt": "2026-03-20T09:28:13.408Z",
+    "componentsCount": 26,
+    "webComponentsCount": 161,
+    "chartsCount": 12,
+    "aiCount": 5
+  }
+}

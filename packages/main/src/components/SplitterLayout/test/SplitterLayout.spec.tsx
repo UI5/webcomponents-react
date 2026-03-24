@@ -1,5 +1,5 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import type { Page } from '@playwright/test';
+import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import {
   SplitterMoveResetTestComp,
   SplitterMultipleElementsTestComp,

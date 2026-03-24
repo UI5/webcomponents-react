@@ -20,6 +20,8 @@ const ignorePatterns = {
     'packages/compat/dist',
     'packages/main/dist',
     'packages/main/wrappers',
+    'packages/mcp-server/dist',
+    'packages/mcp-server/scripts',
     'packages/main/src/i18n/i18n-defaults.ts',
     'packages/main/src/generated',
     'packages/cypress-commands/dist',
@@ -253,7 +255,7 @@ const config = tseslint.config(
   },
 
   {
-    files: ['packages/cli/**/*', 'scripts/**/*', '.github/**/*', 'config/**/*'],
+    files: ['packages/cli/**/*', 'packages/mcp-server/**/*', 'scripts/**/*', '.github/**/*', 'config/**/*'],
     languageOptions: {
       globals: {
         ...globals.node,

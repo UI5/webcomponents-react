@@ -1,0 +1,272 @@
+{
+  "sections": [
+    {
+      "name": "Getting Started",
+      "description": "Entry point for developers new to UI5 Web Components for React. Covers installation, configuration, and core concepts needed to set up a project.",
+      "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/getting-started--docs",
+      "sourcePath": "docs/Welcome.mdx",
+      "content": [
+        "Library installation",
+        "Peer dependencies setup (@ui5/webcomponents, @ui5/webcomponents-fiori)",
+        "ThemeProvider configuration",
+        "React 18+ requirement",
+        "Node.js LTS",
+        "TypeScript 4.7+ support",
+        "Wrapper components concept",
+        "Custom element prop handling"
+      ],
+      "tags": ["onboarding", "setup", "installation", "initialization", "dependencies", "requirements"],
+      "localPath": "docs--Welcome.mdx"
+    },
+    {
+      "name": "Project Templates & Examples",
+      "description": "Ready-to-use project templates and code examples for rapid development. Includes Vite, Next.js, and React Router examples with pre-configured setups.",
+      "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/project-templates-examples--docs",
+      "dataSource": "docs/project-templates.json",
+      "content": [
+        "Vite-TS template",
+        "Create React App template",
+        "Next.js (App Router & Pages Router) examples",
+        "CodeSandbox examples",
+        "Pre-configured dependencies",
+        "Import structures",
+        "ThemeProvider wrapping",
+        "Styling setup"
+      ],
+      "tags": ["boilerplate", "starter-projects", "examples", "vite", "next.js", "templates", "quickstart"],
+      "localPath": "docs--project-templates.md"
+    },
+    {
+      "name": "Knowledge Base",
+      "description": "Collection of detailed guides covering advanced topics, best practices, and solutions for common development scenarios.",
+      "subsections": [
+        {
+          "name": "Bring Your Own Web Components",
+          "description": "Guide for wrapping and integrating custom web components into the React framework using CLI tools and code-mods.",
+          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-bring-your-own-web-components--docs",
+          "sourcePath": "docs/knowledge-base/BringYourOwnWebComponents.mdx",
+          "content": [
+            "Wrapping custom web components",
+            "Custom element integration",
+            "Wrapper component generation",
+            "CLI tools",
+            "Code-mods",
+            "Third-party component support",
+            "React event handling",
+            "Boolean attributes",
+            "Slot composition"
+          ],
+          "tags": [
+            "custom-components",
+            "web-components",
+            "wrapper-generation",
+            "extensibility",
+            "cli-tools",
+            "integration"
+          ],
+          "localPath": "docs--knowledge-base--BringYourOwnWebComponents.mdx"
+        },
+        {
+          "name": "Common CSS",
+          "description": "Reference for styling approaches including CSS Modules, design tokens, theming parameters, and design system integration.",
+          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-common-css--docs",
+          "sourcePath": "docs/knowledge-base/CommonCSS.mdx",
+          "content": [
+            "CSS Modules usage",
+            "CSS-in-JS libraries",
+            "JSS to CSS Modules transition",
+            "Semantic design tokens",
+            "CSS variables",
+            "Theming parameters",
+            "Customization scopes (global/component/element)",
+            "Design system consistency"
+          ],
+          "tags": ["styling", "css-modules", "css-variables", "theming", "design-tokens", "customization"],
+          "localPath": "docs--knowledge-base--CommonCSS.mdx"
+        },
+        {
+          "name": "FAQ",
+          "description": "Frequently asked questions addressing common developer concerns, troubleshooting issues, and best practices.",
+          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-faq--docs",
+          "sourcePath": "docs/knowledge-base/FAQ.mdx",
+          "content": ["Common developer concerns", "Troubleshooting solutions", "Recurring problems", "Best practices"],
+          "tags": ["troubleshooting", "best-practices", "common-issues", "faq"],
+          "localPath": "docs--knowledge-base--FAQ.mdx"
+        },
+        {
+          "name": "Handling Slots",
+          "description": "Documentation on Web Components slots mechanism for component composition and content projection.",
+          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs",
+          "sourcePath": "docs/knowledge-base/CustomComponentsSlots.mdx",
+          "content": [
+            "Web Components slot mechanism",
+            "Named slots",
+            "Default slots",
+            "Children injection",
+            "ReactNode support",
+            "Slot documentation per component",
+            "Content projection"
+          ],
+          "tags": ["slots", "composition", "web-components", "children-injection", "component-design"],
+          "localPath": "docs--knowledge-base--CustomComponentsSlots.mdx"
+        },
+        {
+          "name": "IDs via dataset",
+          "description": "Guide for using HTML data-* attributes and dataset API for DOM element identification in testing and component logic.",
+          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-ids-via-dataset--docs",
+          "sourcePath": "docs/knowledge-base/ChangeEvents.mdx",
+          "content": [
+            "HTML data-* attributes",
+            "Dataset API",
+            "DOM element identification",
+            "Test element selection",
+            "Data attribute usage",
+            "Cypress integration"
+          ],
+          "tags": ["testing", "dom-queries", "data-attributes", "selectors", "identification", "test-utilities"],
+          "localPath": "docs--knowledge-base--ChangeEvents.mdx"
+        },
+        {
+          "name": "Internationalization",
+          "description": "Comprehensive guide for multi-language support including locale configuration, RTL support, and formatting for different regions.",
+          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-internationalization--docs",
+          "sourcePath": "docs/knowledge-base/Internationalization.mdx",
+          "content": [
+            "Multi-language support",
+            "Locale detection",
+            "supportedLocales configuration",
+            "fallbackLocale handling",
+            "RTL language support",
+            "Locale resolution",
+            "Number/date/currency formatting"
+          ],
+          "tags": ["i18n", "localization", "multi-language", "rtl", "locale-configuration", "l10n"],
+          "localPath": "docs--knowledge-base--Internationalization.mdx"
+        },
+        {
+          "name": "Public Utils",
+          "description": "Reference documentation for utility functions and helpers from the @ui5/webcomponents-react-base package.",
+          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-public-utils--docs",
+          "sourcePath": "docs/knowledge-base/Public-Utils.mdx",
+          "content": [
+            "Utility functions from @ui5/webcomponents-react-base",
+            "ThemingParameters object",
+            "Design token access",
+            "Helper methods",
+            "API functions"
+          ],
+          "tags": ["utilities", "helpers", "base-package", "theming-api", "api-functions"],
+          "localPath": "docs--knowledge-base--Public-Utils.mdx"
+        },
+        {
+          "name": "Server Side Rendering",
+          "description": "Implementation guide for using Web Components with SSR frameworks like Next.js, addressing hydration and component loading strategies.",
+          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-server-side-rendering--docs",
+          "sourcePath": "docs/knowledge-base/ServerSideRendering.mdx",
+          "content": [
+            "SSR with Next.js (Pages & App Router)",
+            "Shadow DOM challenges",
+            "useEffect hooks for client-side rendering",
+            "Transpile module settings",
+            "Static site generation (SSG)",
+            "Hydration strategies"
+          ],
+          "tags": ["ssr", "next.js", "ssg", "hydration", "static-generation", "performance", "server-side-rendering"],
+          "localPath": "docs--knowledge-base--ServerSideRendering.mdx"
+        },
+        {
+          "name": "Styling",
+          "description": "Comprehensive guide covering CSS Modules, theming parameters, design tokens, and multiple styling approaches for components.",
+          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-styling--docs",
+          "sourcePath": "docs/knowledge-base/Styling.mdx",
+          "content": [
+            "Changing CSS variables on web component selectors",
+            "CSS Shadow Parts (::part pseudo-element)",
+            "CSS Custom States (:state pseudo-class)",
+            "Styling custom components with SAP CSS variables",
+            "ThemingParameters for JavaScript access",
+            "Applying className and style props",
+            "Explicitly importing CSS bundles",
+            "Scrollbar customization",
+            "Common CSS (@sap-ui/common-css)"
+          ],
+          "tags": [
+            "styling",
+            "css",
+            "theming",
+            "design-system",
+            "customization",
+            "css-variables",
+            "shadow-parts",
+            "custom-states",
+            "css-layer"
+          ],
+          "localPath": "docs--knowledge-base--Styling.mdx"
+        },
+        {
+          "name": "Accessibility",
+          "description": "How to make UI5 Web Components applications accessible. Covers accessibility APIs (accessibleName, accessibleNameRef, accessibleDescription, accessibleRole, accessibilityAttributes), label-input relationships, invisible messaging, keyboard handling, and high contrast themes.",
+          "link": "https://ui5.github.io/webcomponents/docs/advanced/accessibility/",
+          "localPath": "upstream--accessibility.mdx",
+          "content": [
+            "Accessibility proxy attributes (accessibleName, accessibleNameRef, accessibleRole)",
+            "Label-input relationships (<Label for=...>)",
+            "Icon accessibility modes (Image, Interactive, Decorative)",
+            "Invisible messaging for screen reader announcements",
+            "High contrast theme detection and application",
+            "Heading semantic levels",
+            "Tooltip usage"
+          ],
+          "tags": [
+            "accessibility",
+            "a11y",
+            "aria",
+            "screen-reader",
+            "keyboard-navigation",
+            "high-contrast",
+            "accessible-name",
+            "accessible-role"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Patterns",
+      "description": "Architecture patterns, best practices, and experimental features for common use cases and advanced component interactions.",
+      "subsections": [
+        {
+          "name": "Docs",
+          "description": "Architectural examples and design patterns demonstrating common use cases, component interactions, and composition strategies.",
+          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/patterns-docs--docs",
+          "sourcePath": "docs/Patterns.mdx",
+          "content": [
+            "Architectural examples",
+            "Common use cases",
+            "Component interactions",
+            "Master-detail views",
+            "Form handling",
+            "Data management strategies",
+            "Composition patterns"
+          ],
+          "tags": ["patterns", "architecture", "best-practices", "examples", "use-cases", "component-patterns"],
+          "localPath": "docs--Patterns.mdx"
+        },
+        {
+          "name": "SelectionAssistant (Exp)",
+          "description": "Experimental pattern for advanced multi-selection scenarios with filtering and search capabilities.",
+          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/patterns-selectionassistant-experimental--docs",
+          "sourcePath": "patterns/selection-assistant/SelectionAssistant.mdx",
+          "content": [
+            "Experimental multi-selection pattern",
+            "Advanced filtering",
+            "Search capabilities",
+            "Selection handling",
+            "Component state management"
+          ],
+          "tags": ["patterns", "experimental", "selection", "multi-select", "advanced-features", "component-patterns"],
+          "localPath": "patterns--selection-assistant--SelectionAssistant.mdx"
+        }
+      ]
+    }
+  ]
+}

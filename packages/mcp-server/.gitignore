@@ -1,0 +1,9 @@
+# Build output
+dist/
+
+# Bundled documentation (copied from monorepo at build time)
+docs/
+
+# TypeScript build info
+tsconfig.tsbuildinfo
+tsconfig.build.tsbuildinfo

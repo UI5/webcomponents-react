@@ -1,0 +1,61 @@
+# UI5 Web Components for React
+
+> React component library wrapping SAP's UI5 Web Components for building enterprise-grade, Fiori-compliant applications.
+
+This MCP server provides documentation and API assistance for consumers of UI5 Web Components for React packages.
+
+## Scope
+
+This server covers these public packages:
+- `@ui5/webcomponents-react` — React wrappers for UI5 Web Components + custom React components
+- `@ui5/webcomponents-react-charts` — Chart components built on recharts
+- `@ui5/webcomponents-ai-react` — AI-enhanced component wrappers
+- `@ui5/webcomponents-react-base` — Public utilities: Device API, ThemingParameters, hooks
+
+This server does NOT cover:
+- Build tooling, bundler configuration, or deployment
+- `@ui5/webcomponents-react-compat` (deprecated/legacy components)
+- `@ui5/webcomponents-react-cli` (internal tooling)
+- Internal/private APIs of `@ui5/webcomponents-react-base`
+- The UI5 Web Components themselves (only their React wrappers)
+
+## Available MCP Tools
+
+- `list_components`: Browse all 203 available components by category or package. Use this first to discover component names.
+- `get_component_api`: Get detailed props, methods, and type information for any component. Use after list_components.
+- `get_documentation`: Read documentation guides, search across topics, and retrieve full content with line-range support.
+- `get_public_utils`: Get documentation for Device API, ThemingParameters, useI18nBundle, useViewportRange, and withWebComponent from @ui5/webcomponents-react-base.
+
+## Documentation
+
+- [Getting Started](docs--Welcome.mdx): Installation, peer dependencies, ThemeProvider configuration, React 18+ setup, wrapper components concept
+- [Project Templates & Examples](docs--ProjectTemplates.mdx): Vite, CRA, Next.js, and CodeSandbox project templates with pre-configured setups
+
+### Knowledge Base
+
+- [Bring Your Own Web Components](docs--knowledge-base--BringYourOwnWebComponents.mdx): Wrapping custom web components with CLI tools and code-mods
+- [Common CSS](docs--knowledge-base--CommonCSS.mdx): CSS Modules, design tokens, theming parameters, CSS variables
+- [FAQ](docs--knowledge-base--FAQ.mdx): Frequently asked questions, troubleshooting, best practices
+- [Handling Slots](docs--knowledge-base--CustomComponentsSlots.mdx): Web Components slot mechanism, named slots, content projection
+- [IDs via Dataset](docs--knowledge-base--ChangeEvents.mdx): HTML data-* attributes, dataset API, DOM element identification
+- [Internationalization](docs--knowledge-base--Internationalization.mdx): Multi-language support, locale configuration, RTL, number/date formatting
+- [Public Utils](docs--knowledge-base--Public-Utils.mdx): Utility functions from @ui5/webcomponents-react-base, ThemingParameters
+- [Server Side Rendering](docs--knowledge-base--ServerSideRendering.mdx): SSR with Next.js, shadow DOM challenges, hydration strategies
+- [Styling](docs--knowledge-base--Styling.mdx): CSS variables, shadow parts (::part), custom states (:state), ThemingParameters, CSS bundles
+- [Accessibility](upstream--accessibility.mdx): Accessibility APIs, proxy attributes, label-input relationships, screen reader support
+
+### Patterns
+
+- [Architecture Patterns](docs--Patterns.mdx): Common use cases, component interactions, composition strategies
+- [SelectionAssistant (Experimental)](patterns--selection-assistant--SelectionAssistant.mdx): Advanced multi-selection with filtering and search
+
+## Key Concepts
+
+- Web components emit CustomEvents with data in `e.detail` (not `e.value`)
+- For controlled components, call `e.preventDefault()` to prevent internal state updates
+- Slot props require forwarding the `slot` prop to the root element
+- Shadow DOM styling uses `::part()` pseudo-element and CSS variables (`--sapBackgroundColor`, etc.)
+- Components support both React 18 and React 19+
+- Use subpath imports for @ui5/webcomponents-react-base (e.g., `@ui5/webcomponents-react-base/hooks`)
+- Web components use proxy attributes (`accessibleName`, `accessibleNameRef`) instead of standard `aria-*` for shadow DOM compatibility
+- When creating a new application, prefer official project templates (Next.js, Vite) over scaffolding from scratch. Use get_documentation({ section: "Project Templates & Examples", fetchContent: true }) to find available templates. Only fall back to generic framework setup if no template matches the user's framework.
