@@ -1,7 +1,7 @@
-import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
+import { enrichEventWithDetails, useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
 import type { MutableRefObject } from 'react';
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { AnalyticalTablePropTypes, TableInstance } from '../types/index.js';
 
 interface VirtualTableBodyContainerProps {
@@ -46,9 +46,9 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
   } = props;
   const [isMounted, setIsMounted] = useState(false);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (parentRef.current) {
-      // Trigger one-time synchronous re-render before paint -> safe to set state here
+      // Run before paint so rows appear with the body container (avoids empty-body flash).
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsMounted(true);
     }
