@@ -40,7 +40,7 @@ export function getProjectedWidth(rawDeltaX: number, originalWidth: number, isRt
  * - Split mouse/touch into separate branches (touch needs `{ passive: false }` for `preventDefault()`)
  * - Added 3px dead zone and `data-active-resizer` attribute for double-click compatibility
  * - Removed `cursor: col-resize` style (AnalyticalTable provides its own resizer styling)
- * - Clamped resize width to `minWidth` in both the visual drag and the reducer (original clamps to 0)
+ * - Clamped resize width to `minWidth`/`maxWidth` in both the visual drag and the reducer (original clamps to 0)
  * - Fixed falsy `0` bug: replaced `||` with `??` in `useInstanceBeforeDimensions` width assignment
  */
 export const useColumnResizing = (hooks: ReactTableHooks) => {
@@ -59,9 +59,10 @@ const deferredGetResizerProps: ReactTableHooks['getResizerProps'][0] = (props, {
 
   const startResize = (resizerElement: HTMLDivElement, startClientX: number, isTouchEvent: boolean) => {
     // UI5WCR: use header directly instead of getLeafHeaders (no grouped columns)
-    const headerIdWidths = [[header.id, header.totalWidth, header.minWidth]];
+    const headerIdWidths = [[header.id, header.totalWidth, header.minWidth, header.maxWidth]];
     const columnWidth = header.totalWidth;
     const minWidth = header.minWidth;
+    const maxWidth = header.maxWidth;
     const columnId = header.id;
     const isRtl = instance.state.isRtl;
 
@@ -96,11 +97,13 @@ const deferredGetResizerProps: ReactTableHooks['getResizerProps'][0] = (props, {
     // UI5WCR: 3px dead zone prevents transform shifts during double-click sequences
     const applyDrag = (clientX: number) => {
       deltaX = clientX - startClientX;
-      // UI5WCR: clamp so resizer can't be dragged past minWidth boundary
+      // UI5WCR: clamp so resizer can't be dragged past minWidth/maxWidth boundary
       if (isRtl) {
+        deltaX = Math.max(deltaX, columnWidth - maxWidth);
         deltaX = Math.min(deltaX, columnWidth - minWidth);
       } else {
         deltaX = Math.max(deltaX, minWidth - columnWidth);
+        deltaX = Math.min(deltaX, maxWidth - columnWidth);
       }
       if (!isDragging && Math.abs(deltaX) < 3) {
         return;
@@ -207,11 +210,13 @@ const reducer: TableInstance['stateReducer'] = (state, action) => {
 
     const newColumnWidths: Record<string, number> = {};
 
-    headerIdWidths.forEach(([headerId, headerWidth, headerMinWidth]: [string, number, number]) => {
-      // UI5WCR: clamp to minWidth (original only clamps to 0)
-      const projected = getProjectedWidth(rawDeltaX, headerWidth, state.isRtl);
-      newColumnWidths[headerId] = Math.max(projected, headerMinWidth);
-    });
+    headerIdWidths.forEach(
+      ([headerId, headerWidth, headerMinWidth, headerMaxWidth]: [string, number, number, number]) => {
+        // UI5WCR: clamp to minWidth/maxWidth (original only clamps to 0)
+        const projected = getProjectedWidth(rawDeltaX, headerWidth, state.isRtl);
+        newColumnWidths[headerId] = Math.min(Math.max(projected, headerMinWidth), headerMaxWidth);
+      },
+    );
 
     return {
       ...state,
