@@ -106,6 +106,7 @@
 .th {
   composes: baseCellFocus;
 
+  position: relative;
   height: var(--_ui5wcr-AnalyticalTableHeaderRowHeight);
   color: var(--sapList_HeaderTextColor);
   background-color: var(--sapList_HeaderBackground);
@@ -478,7 +479,8 @@
     opacity: 0.5;
   }
 
-  &:active {
+  &:active,
+  &[data-active-resizer] {
     background-color: var(--sapContent_DragAndDropActiveColor);
     opacity: 1;
   }

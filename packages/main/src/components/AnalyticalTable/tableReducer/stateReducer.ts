@@ -1,32 +1,8 @@
-import { actions } from 'react-table';
 import type { TableInstance } from '../types/index.js';
 
 export const stateReducer: TableInstance['stateReducer'] = (state, action, _prevState, instance) => {
   const { payload } = action;
-  if (state.isRtl && action.type === actions.columnResizing) {
-    const { clientX } = action;
-    const { startX, columnWidth, headerIdWidths } = state.columnResizing;
 
-    const deltaX = startX - clientX;
-    const percentageDeltaX = deltaX / columnWidth;
-
-    const newColumnWidths = {};
-
-    headerIdWidths.forEach(([headerId, headerWidth]) => {
-      newColumnWidths[headerId] = Math.max(headerWidth + headerWidth * percentageDeltaX, 0);
-    });
-
-    return {
-      ...state,
-      columnResizing: {
-        ...state.columnResizing,
-        columnWidths: {
-          ...state.columnResizing.columnWidths,
-          ...newColumnWidths,
-        },
-      },
-    };
-  }
   switch (action.type) {
     case 'setFilter': {
       const { onFilter } = instance.webComponentsReactProperties;
