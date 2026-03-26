@@ -29,7 +29,15 @@ export const stateReducer: TableInstance['stateReducer'] = (state, action, _prev
       if (nextWidth === state.tableClientWidth) {
         return state;
       }
-      // tableClientWidth is misleading, as only when scaled the `clientWidth` is used. In all other cases `getBoundingClientRect` is measuring the width.
+      // `tableClientWidth` is misleading, as only when scaled the `clientWidth` is used. In all other cases `getBoundingClientRect` is measuring the width.
+      // Without `retainColumnWidth` (!state.tableColResized), clear user-resized widths on container resize so `adjustColumnWidths` recalculates.
+      if (!state.tableColResized && Object.keys(state.columnResizing?.columnWidths ?? {}).length > 0) {
+        return {
+          ...state,
+          tableClientWidth: nextWidth,
+          columnResizing: { ...state.columnResizing, columnWidths: {} },
+        };
+      }
       return { ...state, tableClientWidth: nextWidth };
     }
     case 'VISIBLE_ROWS':

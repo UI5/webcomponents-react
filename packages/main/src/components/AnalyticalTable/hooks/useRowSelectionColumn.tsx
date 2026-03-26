@@ -1,8 +1,8 @@
-import { CssSizeVariablesNames } from '@ui5/webcomponents-react-base/CssSizeVariables';
 import { AnalyticalTableSelectionBehavior } from '../../../enums/AnalyticalTableSelectionBehavior.js';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import { CheckBox } from '../../../webComponents/CheckBox/index.js';
 import type { ReactTableHooks, TableInstance } from '../types/index.js';
+import { getSelectionColumnWidth } from '../util/index.js';
 /*
  * COMPONENTS
  */
@@ -123,15 +123,7 @@ const columns = (currentColumns, { instance }: { instance: TableInstance }) => {
   ) {
     return currentColumns;
   }
-  const tableSelectionColumnWidth =
-    tableRef.current &&
-    parseInt(
-      getComputedStyle(tableRef.current).getPropertyValue(
-        CssSizeVariablesNames.ui5WcrAnalyticalTableSelectionColumnWidth,
-      ),
-      10,
-    );
-  const selectionColumnWidth = !isNaN(tableSelectionColumnWidth) ? tableSelectionColumnWidth : 47;
+  const selectionColumnWidth = getSelectionColumnWidth(tableRef);
 
   return [
     {

@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { AnalyticalTableScaleWidthMode } from '../../../enums/AnalyticalTableScaleWidthMode.js';
 import type {
   AnalyticalTableColumnDefinition,
@@ -7,6 +6,7 @@ import type {
   TableInstance,
   RowType,
 } from '../types/index.js';
+import { getSelectionColumnWidth } from '../util/index.js';
 
 interface IColumnMeta {
   contentPxAvg: number;
@@ -21,6 +21,12 @@ interface ComputedCSSValues {
   bodyFontSize: string;
   headerFontFamily: string;
   rootFontSize: number;
+}
+
+interface RawColumnSizing {
+  width: number | undefined;
+  minWidth: number | undefined;
+  maxWidth: number | undefined;
 }
 
 const FALLBACK_FONT_SIZE = 14;
@@ -448,108 +454,154 @@ const calculateSmartAndGrowColumns = (
   return visibleColumnsAdaptedPrio2;
 };
 
-const useColumnsDeps = (
-  deps,
-  { instance: { state, webComponentsReactProperties, visibleColumns, data, rows, columns } },
-) => {
-  const isLoadingPlaceholder = !data?.length && webComponentsReactProperties.loading;
-  const hasRows = rows?.length > 0;
-
-  const colsEqual = useMemo(() => {
-    return visibleColumns
-      ?.filter(
-        (col) =>
-          col.id !== '__ui5wcr__internal_selection_column' &&
-          col.id !== '__ui5wcr__internal_highlight_column' &&
-          col.id !== '__ui5wcr__internal_navigation_column',
-      )
-      .every((visCol) => {
-        const id = visCol.id ?? visCol.accessor;
-        return columns.some((item) => {
-          return item.accessor === id || item.id === id;
-        });
+/**
+ * `hooks.columns` handler that captures original (pre-decorateColumn) column sizing.
+ *
+ * react-table mutates column objects in place, setting i.a. width properties with `defaultColumn` values.
+ * This function runs before decoration, saving the original values on the instance, so adjustColumnWidths can use them.
+ */
+function captureRawColumnWidths(columns: AnalyticalTableColumnDefinition[], { instance }: { instance: TableInstance }) {
+  const rawSizing = new Map<string, RawColumnSizing>();
+  for (const col of columns) {
+    const key = col.id ?? (col.accessor as string);
+    if (key) {
+      rawSizing.set(key, {
+        // normalize null to undefined in case tableRef isn't ready yet
+        width: col.width ?? undefined,
+        minWidth: col.minWidth ?? undefined,
+        maxWidth: col.maxWidth ?? undefined,
       });
-  }, [visibleColumns, columns]);
+    }
+  }
+  instance.rawColumnSizing = rawSizing;
+  return columns;
+}
 
-  return [
-    ...deps,
-    hasRows,
-    colsEqual,
-    visibleColumns?.length,
-    !state.tableColResized && state.tableClientWidth,
-    state.hiddenColumns.length,
-    webComponentsReactProperties.scaleWidthMode,
-    isLoadingPlaceholder,
-    webComponentsReactProperties.fontsReady,
-  ];
-};
+/**
+ * `useInstanceBeforeDimensions` hook that mutates header widths in-place.
+ *
+ * This function follows `react-table`'s own `useResizeColumns` pattern: mutate `header.width` directly, to prevent cascading updates and rerenders.
+ */
+const adjustColumnWidths = (instance: TableInstance) => {
+  const { flatHeaders, state, rows, data, webComponentsReactProperties } = instance;
+  const { scaleWidthMode, loading, fontsReady } = webComponentsReactProperties;
+  const { hiddenColumns, tableClientWidth: totalWidth, tableColResized, columnResizing } = state;
 
-const columns = (columns: TableInstance['columns'], { instance }: { instance: TableInstance }) => {
-  const { scaleWidthMode, loading, fontsReady } = instance.webComponentsReactProperties;
-  const { state } = instance;
-  const { hiddenColumns, tableClientWidth: totalWidth } = state;
   if (
-    !instance.state ||
-    !instance.rows ||
-    columns.length === 0 ||
+    !state ||
+    !rows ||
+    flatHeaders.length === 0 ||
     !totalWidth ||
     !AnalyticalTableScaleWidthMode[scaleWidthMode] ||
-    !fontsReady
+    !fontsReady ||
+    tableColResized ||
+    columnResizing?.isResizingColumn ||
+    // After user resize, `columnResizing.columnWidths` stores the resized column widths. To preserve the user's resize skip recalculation.
+    // The values are cleared by `TABLE_RESIZE` action (`retainColumnWidth` is `false` or `undefined`), or when columns change (`resetResize` action)
+    Object.keys(columnResizing?.columnWidths ?? {}).length > 0
   ) {
-    return columns;
+    return;
   }
 
-  // map columns to visibleColumns
-  const visibleColumns = instance.visibleColumns
-    .map((visCol) => {
-      const column = columns.find((col) => {
-        return (
-          col.id === visCol.id || (col.accessor !== undefined && visCol.id !== undefined && col.accessor === visCol.id)
-        );
-      });
-      if (column) {
-        return column;
-      }
-      return column ?? false;
-    })
-    .filter(Boolean) as TableInstance['columns'];
+  // raw column sizes - default or defined in column definitions
+  const rawSizing = instance.rawColumnSizing;
 
-  const hasData = instance.data.length > 0;
+  const { tableRef } = webComponentsReactProperties;
+  const selectionColumnWidth =
+    rawSizing?.get('__ui5wcr__internal_selection_column')?.width === undefined
+      ? getSelectionColumnWidth(tableRef)
+      : undefined;
+
+  // Restore original width properties from rawSizing (dynamic - no defined width, fixed - defined width in column definitions),
+  // since `decorateColumn` has overwritten them
+  const visibleColDefs = flatHeaders.map((header) => {
+    const raw = rawSizing?.get(header.id);
+    let width = raw?.width;
+    let minWidth = raw?.minWidth;
+    let maxWidth = raw?.maxWidth;
+
+    // `rawSizing` captured undefined for the selection column (tableRef wasn't ready). Resolve from CSS variable.
+    if (header.id === '__ui5wcr__internal_selection_column' && width === undefined && selectionColumnWidth) {
+      width = selectionColumnWidth;
+      minWidth = selectionColumnWidth;
+      maxWidth = selectionColumnWidth;
+    }
+    return {
+      ...header,
+      width,
+      minWidth,
+      maxWidth,
+    } as AnalyticalTableColumnDefinition;
+  });
+
+  const hasData = data.length > 0;
 
   if (scaleWidthMode === AnalyticalTableScaleWidthMode.Default || (!hasData && loading)) {
-    const calculatedWidths = calculateDefaultColumnWidths(totalWidth, visibleColumns);
-    return columns.map((column) => {
-      const calculatedWidth = calculatedWidths[column.id] || calculatedWidths[column.accessor];
+    const calculatedWidths = calculateDefaultColumnWidths(totalWidth, visibleColDefs);
+    for (const header of flatHeaders) {
+      const calculatedWidth = calculatedWidths[header.id];
       if (typeof calculatedWidth !== 'number') {
-        if (visibleColumns.length === columns.length) {
+        if (visibleColDefs.length === flatHeaders.length) {
           console.warn('Could not determine column width!');
         }
-        return column;
+        continue;
       }
-      return { ...column, width: calculatedWidth };
-    });
-  }
+      header.width = calculatedWidth;
+      // `useColumnResizing` falls back to `originalWidth` — keep it in sync to prevent reverting to 150.
+      header.originalWidth = calculatedWidth;
+      // patch columns whose raw minWidth/maxWidth was null
+      const raw = rawSizing?.get(header.id);
+      if (raw && raw.minWidth === undefined && header.minWidth == null) {
+        header.minWidth = calculatedWidth;
+      }
+      if (raw && raw.maxWidth === undefined && header.maxWidth == null) {
+        header.maxWidth = calculatedWidth;
+      }
+    }
+  } else if (
+    scaleWidthMode === AnalyticalTableScaleWidthMode.Smart ||
+    scaleWidthMode === AnalyticalTableScaleWidthMode.Grow
+  ) {
+    const computedCSSValues = {
+      bodyFontFamily: getComputedCSSVarValue('--sapFontFamily', 'Arial, Helvetica, sans-serif'),
+      bodyFontSize: getComputedCSSVarValue('--sapFontSize', '0.875rem'),
+      headerFontFamily: getComputedCSSVarValue(
+        '--_ui5wcr-AnalyticalTable-HeaderFontFamily',
+        getComputedCSSVarValue('--sapFontFamily', 'Arial, Helvetica, sans-serif'),
+      ),
+      rootFontSize: parseFloat(getComputedStyle(document.documentElement).fontSize) || FALLBACK_FONT_SIZE,
+    };
 
-  const computedCSSValues = {
-    bodyFontFamily: getComputedCSSVarValue('--sapFontFamily', 'Arial, Helvetica, sans-serif'),
-    bodyFontSize: getComputedCSSVarValue('--sapFontSize', '0.875rem'),
-    headerFontFamily: getComputedCSSVarValue(
-      '--_ui5wcr-AnalyticalTable-HeaderFontFamily',
-      getComputedCSSVarValue('--sapFontFamily', 'Arial, Helvetica, sans-serif'),
-    ),
-    rootFontSize: parseFloat(getComputedStyle(document.documentElement).fontSize) || FALLBACK_FONT_SIZE,
-  };
+    const isGrow = scaleWidthMode === AnalyticalTableScaleWidthMode.Grow;
+    const result = calculateSmartAndGrowColumns(visibleColDefs, instance, hiddenColumns, computedCSSValues, isGrow);
 
-  if (scaleWidthMode === AnalyticalTableScaleWidthMode.Smart) {
-    return calculateSmartAndGrowColumns(columns, instance, hiddenColumns, computedCSSValues);
-  }
-
-  if (scaleWidthMode === AnalyticalTableScaleWidthMode.Grow) {
-    return calculateSmartAndGrowColumns(columns, instance, hiddenColumns, computedCSSValues, true);
+    // apply calculated widths to headers by mutation
+    for (const calculated of result) {
+      const id = (calculated.id ?? calculated.accessor) as string;
+      const header = flatHeaders.find((h) => h.id === id);
+      if (!header) {
+        console.warn('Could not determine column width!');
+        continue;
+      }
+      if (typeof calculated.width === 'number') {
+        header.width = calculated.width;
+        header.originalWidth = calculated.width;
+      }
+      if (isGrow && typeof calculated.maxWidth === 'number') {
+        header.maxWidth = calculated.maxWidth;
+      }
+      const raw = rawSizing?.get(id);
+      if (raw && raw.minWidth === undefined && header.minWidth == null) {
+        header.minWidth = calculated.width ?? 0;
+      }
+      if (raw && raw.maxWidth === undefined && header.maxWidth == null) {
+        header.maxWidth = calculated.maxWidth ?? calculated.width ?? Number.MAX_SAFE_INTEGER;
+      }
+    }
   }
 };
 
 export const useDynamicColumnWidths = (hooks: ReactTableHooks) => {
-  hooks.columns.push(columns);
-  hooks.columnsDeps.push(useColumnsDeps);
+  hooks.columns.push(captureRawColumnWidths);
+  hooks.useInstanceBeforeDimensions.push(adjustColumnWidths);
 };
