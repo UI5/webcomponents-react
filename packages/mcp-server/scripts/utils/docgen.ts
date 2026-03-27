@@ -3,8 +3,8 @@
  * Parses component files for props, methods, and type information.
  */
 
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import * as docgen from 'react-docgen-typescript';
 import type { PropItem } from 'react-docgen-typescript';
 import type { TypeInfo, CleanedProp, MethodInfo, MethodParam, ComponentApiData } from '../../src/types/index.js';

@@ -8,8 +8,8 @@
  * reusing getCEM() and snakeCaseToCamelCase() from there instead.
  */
 
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import type { CemManifest, CemDeclaration, ComponentApiData } from '../../src/types/index.js';
 import { toPascalCase } from './text.js';
 

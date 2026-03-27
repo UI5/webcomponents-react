@@ -1,11 +1,9 @@
-#!/usr/bin/env tsx
-
 /**
  * Bundle documentation files from the monorepo into the MCP server package.
  * Copies MDX/MD/TS files referenced in documentation_sections.json to docs/.
  *
- * For entries with a companion `data_source` (JSON), generates LLM-friendly
- * markdown instead of copying raw MDX (which may contain JSX components).
+ * For entries with a `dataSource` (JSON), generates LLM-friendly markdown
+ * instead of copying raw MDX (which may contain JSX components).
  *
  * Usage:
  *   npm run bundle:docs
@@ -17,9 +15,9 @@
 
 import type { DocumentationData } from '../src/types/index.js';
 
-import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -104,67 +102,72 @@ function generateTemplateMarkdown(dataSourcePath: string): string {
   return md;
 }
 
+interface ProcessResult {
+  copied: number;
+  generated: number;
+  skipped: number;
+}
+
+function processEntry(
+  entry: { sourcePath?: string; dataSource?: string; localPath?: string },
+  result: ProcessResult,
+): void {
+  if (entry.dataSource) {
+    const localFilename = toLocalFilename(entry.dataSource).replace(/\.json$/, '.md');
+    const destPath = join(DOCS_DIR, localFilename);
+    const content = generateTemplateMarkdown(entry.dataSource);
+    if (content) {
+      writeFileSync(destPath, content);
+      entry.localPath = localFilename;
+      result.generated++;
+      console.log(`  ${entry.dataSource} -> docs/${localFilename} (generated)`);
+    }
+    return;
+  }
+
+  if (!entry.sourcePath) return;
+
+  const sourcePath = join(MONOREPO_ROOT, entry.sourcePath);
+  const localFilename = toLocalFilename(entry.sourcePath);
+  const destPath = join(DOCS_DIR, localFilename);
+
+  try {
+    cpSync(sourcePath, destPath);
+    entry.localPath = localFilename;
+    result.copied++;
+    console.log(`  ${entry.sourcePath} -> docs/${localFilename}`);
+  } catch (error) {
+    console.warn(`  Failed to copy ${entry.sourcePath}: ${(error as Error).message}`);
+    result.skipped++;
+  }
+}
+
 function main() {
   console.log('Bundling documentation files...\n');
 
   mkdirSync(DOCS_DIR, { recursive: true });
 
   const docsData: DocumentationData = JSON.parse(readFileSync(SECTIONS_PATH, 'utf-8'));
-
-  let copied = 0;
-  let generated = 0;
-  let skipped = 0;
-
-  function processEntry(entry: { sourcePath?: string; dataSource?: string; localPath?: string }) {
-    // If a dataSource is provided, generate LLM-friendly markdown from it
-    if (entry.dataSource) {
-      const localFilename = toLocalFilename(entry.dataSource).replace(/\.json$/, '.md');
-      const destPath = join(DOCS_DIR, localFilename);
-      const content = generateTemplateMarkdown(entry.dataSource);
-      if (content) {
-        writeFileSync(destPath, content);
-        entry.localPath = localFilename;
-        generated++;
-        console.log(`  ${entry.dataSource} -> docs/${localFilename} (generated)`);
-      }
-      return;
-    }
-
-    if (!entry.sourcePath) return;
-
-    const sourcePath = join(MONOREPO_ROOT, entry.sourcePath);
-    const localFilename = toLocalFilename(entry.sourcePath);
-    const destPath = join(DOCS_DIR, localFilename);
-
-    try {
-      cpSync(sourcePath, destPath);
-      entry.localPath = localFilename;
-      copied++;
-      console.log(`  ${entry.sourcePath} -> docs/${localFilename}`);
-    } catch (error) {
-      console.warn(`  Failed to copy ${entry.sourcePath}: ${(error as Error).message}`);
-      skipped++;
-    }
-  }
+  const result: ProcessResult = { copied: 0, generated: 0, skipped: 0 };
 
   for (const section of docsData.sections) {
-    processEntry(section);
+    processEntry(section, result);
 
     if (section.subsections) {
       for (const subsection of section.subsections) {
-        processEntry(subsection);
+        processEntry(subsection, result);
       }
     }
   }
 
   writeFileSync(SECTIONS_PATH, JSON.stringify(docsData, null, 2) + '\n');
 
-  console.log(`\nBundled ${copied} documentation files to docs/`);
-  if (generated > 0) {
-    console.log(`Generated ${generated} files from data sources`);
+  console.log(`\nBundled ${result.copied} documentation files to docs/`);
+  if (result.generated > 0) {
+    console.log(`Generated ${result.generated} files from data sources`);
   }
-  if (skipped > 0) {
-    console.log(`Skipped ${skipped} files`);
+  if (result.skipped > 0) {
+    console.log(`Skipped ${result.skipped} files`);
   }
   console.log(`Updated ${SECTIONS_PATH}`);
 }

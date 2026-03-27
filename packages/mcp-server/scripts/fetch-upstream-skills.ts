@@ -1,5 +1,3 @@
-#!/usr/bin/env tsx
-
 /**
  * Fetch upstream skill documents from the UI5 Web Components repo.
  * Strips YAML frontmatter and adds a header note for React context.
@@ -11,9 +9,9 @@
  *   npm run fetch:skills
  */
 
-import { writeFileSync, mkdirSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { writeFileSync, mkdirSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,7 +25,7 @@ interface UpstreamSkill {
 
 const SKILLS: UpstreamSkill[] = [
   {
-    url: 'https://raw.githubusercontent.com/SAP/ui5-webcomponents/main/skills/accessibility/SKILL.md',
+    url: 'https://raw.githubusercontent.com/UI5/webcomponents/main/skills/accessibility/SKILL.md',
     outputFile: 'upstream--accessibility.mdx',
   },
 ];
@@ -38,7 +36,7 @@ function stripFrontmatter(content: string): string {
   return match ? content.slice(match[0].length) : content;
 }
 
-const HEADER = `> This document is adapted from the [UI5 Web Components Accessibility Skill](https://github.com/SAP/ui5-webcomponents/blob/main/skills/accessibility/SKILL.md).
+const HEADER = `> This document is adapted from the [UI5 Web Components Accessibility Skill](https://github.com/UI5/webcomponents/blob/main/skills/accessibility/SKILL.md).
 > Code examples use HTML web component syntax (\`<ui5-button>\`, \`accessible-name\`).
 > Use \`get_component_api\` to look up the corresponding React component names and camelCase props.
 
@@ -49,7 +47,7 @@ async function fetchAndAdapt(skill: UpstreamSkill): Promise<void> {
 
   const response = await fetch(skill.url);
   if (!response.ok) {
-    throw new Error(`ERROR: Failed to fetch upstream skill from ${skill.url}. HTTP status: ${response.status}`);
+    throw new Error(`Failed to fetch upstream skill from ${skill.url}. HTTP status: ${response.status}`);
   }
 
   let content = await response.text();
@@ -73,7 +71,7 @@ async function main() {
   console.log('\nDone.');
 }
 
-main().catch((err) => {
+main().catch((err: Error) => {
   console.error(err.message || err);
   process.exit(1);
 });

@@ -1,5 +1,3 @@
-#!/usr/bin/env tsx
-
 /**
  * Extract component descriptions and API data from the monorepo.
  * Reads component source files, parses JSDoc/props via react-docgen-typescript,
@@ -13,11 +11,11 @@
  *   npm run extract:descriptions
  */
 
-import { readFileSync, writeFileSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { glob } from 'glob';
-import type { DescriptionsStore, ApiDataStore, ComponentDescription, ComponentApiData } from '../src/types/index.js';
+import type { DescriptionsStore, ApiDataStore } from '../src/types/index.js';
 import {
   REACT_COMPONENT_CATEGORIES,
   WEB_COMPONENT_CATEGORIES,
@@ -40,11 +38,15 @@ async function main() {
   const componentApis: ApiDataStore = { components: {}, webComponents: {}, charts: {}, ai: {} };
   const missingComponents: string[] = [];
 
-  // --- React components ---
-  const componentFiles = (
-    await glob('packages/main/src/components/*/index.{ts,tsx}', { cwd: UI5_WCR_PATH, absolute: true })
-  ).sort();
+  // Glob all component directories in parallel
+  const [componentFiles, wcFiles, chartFiles, aiFiles] = await Promise.all([
+    glob('packages/main/src/components/*/index.{ts,tsx}', { cwd: UI5_WCR_PATH, absolute: true }).then((f) => f.sort()),
+    glob('packages/main/src/webComponents/*/index.tsx', { cwd: UI5_WCR_PATH, absolute: true }).then((f) => f.sort()),
+    glob('packages/charts/src/components/*/index.tsx', { cwd: UI5_WCR_PATH, absolute: true }).then((f) => f.sort()),
+    glob('packages/ai/src/components/*/index.tsx', { cwd: UI5_WCR_PATH, absolute: true }).then((f) => f.sort()),
+  ]);
 
+  // --- React components ---
   console.log(`Found ${componentFiles.length} React components`);
   for (const file of componentFiles) {
     const name = file.split('/').slice(-2, -1)[0];
@@ -65,10 +67,6 @@ async function main() {
   console.log('Loading custom-elements manifests...');
   const { lookup: cemLookup, wcDescriptions, aiDescriptions } = loadCemData(UI5_WCR_PATH);
 
-  const wcFiles = (
-    await glob('packages/main/src/webComponents/*/index.tsx', { cwd: UI5_WCR_PATH, absolute: true })
-  ).sort();
-
   console.log(`Found ${wcFiles.length} Web Components`);
   for (const file of wcFiles) {
     const name = file.split('/').slice(-2, -1)[0];
@@ -88,10 +86,6 @@ async function main() {
   }
 
   // --- Charts ---
-  const chartFiles = (
-    await glob('packages/charts/src/components/*/index.tsx', { cwd: UI5_WCR_PATH, absolute: true })
-  ).sort();
-
   console.log(`Found ${chartFiles.length} Chart components`);
   for (const file of chartFiles) {
     const name = file.split('/').slice(-2, -1)[0];
@@ -109,8 +103,6 @@ async function main() {
   }
 
   // --- AI components ---
-  const aiFiles = (await glob('packages/ai/src/components/*/index.tsx', { cwd: UI5_WCR_PATH, absolute: true })).sort();
-
   console.log(`Found ${aiFiles.length} AI components`);
   for (const file of aiFiles) {
     const name = file.split('/').slice(-2, -1)[0];

@@ -28,13 +28,13 @@
     "directory": "packages/mcp-server"
   },
   "scripts": {
-    "extract:descriptions": "tsx scripts/extract_component_descriptions.ts",
-    "bundle:docs": "tsx scripts/bundle_docs.ts",
-    "build": "tsc --build tsconfig.build.json && cp src/tools/list_components/descriptions.json dist/tools/list_components/descriptions.json && cp src/tools/get_component_api/component-apis.json dist/tools/get_component_api/component-apis.json && cp src/tools/get_documentation/documentation_sections.json dist/tools/get_documentation/documentation_sections.json && node -e \"require('fs').chmodSync('dist/index.js', '755')\"",
-    "fetch:skills": "tsx scripts/fetch_upstream_skills.ts",
+    "extract:descriptions": "tsx scripts/extract-component-descriptions.ts",
+    "bundle:docs": "tsx scripts/bundle-docs.ts",
+    "build": "tsc --build tsconfig.build.json && tsx scripts/post-build.ts",
+    "fetch:skills": "tsx scripts/fetch-upstream-skills.ts",
     "update": "npm run fetch:skills && npm run extract:descriptions && npm run bundle:docs && npm run build",
     "clean": "rimraf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo",
-    "dev": "npm run build && ./dist/index.js",
+    "dev": "npm run build && node dist/index.js",
     "inspector": "npx @modelcontextprotocol/inspector node ./dist/index.js",
     "type-check": "tsc --noEmit",
     "test": "npm run build && ava",
