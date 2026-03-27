@@ -1,0 +1,10 @@
+import{j as t}from"./iframe-18_5pfj2.js";import{useMDXComponents as e}from"./index-CIhtdkHx.js";import{M as r}from"./blocks-Cj6CgQUG.js";import"./Tag-s2oCmO6-.js";import"./index-BIj2K6s5.js";import"./CommandsAndQueries-BGW2wCD6.js";import"./copy-BQYJB7Nu.js";import{F as s}from"./Footer-BvGdDwIL.js";import"./PageNotFound-BO4FGO9U.js";import"./preload-helper-PPVm8Dsz.js";import"./information-CdIjwcxP.js";import"./sys-enter-2-LNLtosyG.js";import"./alert-DegEg84v.js";import"./Link-C9Gq01-B.js";import"./index-DflRRV76.js";import"./index-Dhqddszu.js";import"./index-DiTpBrDm.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-DVbD4jAU.js";import"./addCustomCSSWithScoping-CAI73UoR.js";import"./index-BlCfzNdo.js";import"./index-Bj-OwMs_.js";import"./index-B3MOIvF5.js";import"./index-CRBj8Lig.js";import"./Illustrations-CxofZbv6.js";import"./i18n-defaults-CFWtSmu6.js";function i(o){const n={a:"a",h1:"h1",h2:"h2",li:"li",p:"p",ul:"ul",...e(),...o.components};return t.jsxs(t.Fragment,{children:[t.jsx(r,{title:"Docs"}),`
+`,t.jsx(n.h1,{id:"patterns",children:"Patterns"}),`
+`,t.jsx(n.p,{children:"This section describes (design) patterns you can use in your application."}),`
+`,t.jsxs(n.ul,{children:[`
+`,t.jsx(n.li,{children:t.jsx(n.a,{href:"/docs/patterns-uxc-integration--docs",children:"UXC Integration: Navigation Layout pattern"})}),`
+`,t.jsx(n.li,{children:t.jsx(n.a,{href:"/patterns-selectionassistant-experimental--docs",children:"Selection Assistant"})}),`
+`]}),`
+`,t.jsx(n.h2,{id:"ui5-web-components-patterns",children:"UI5 Web Components Patterns"}),`
+`,t.jsxs(n.p,{children:["Discover additional patterns built with standard UI5 Web Components: ",t.jsx(n.a,{href:"https://ui5.github.io/webcomponents/components/patterns/",rel:"nofollow",children:"https://ui5.github.io/webcomponents/components/patterns/"})]}),`
+`,t.jsx(s,{})]})}function _(o={}){const{wrapper:n}={...e(),...o.components};return n?t.jsx(n,{...o,children:t.jsx(i,{...o})}):i(o)}export{_ as default};
