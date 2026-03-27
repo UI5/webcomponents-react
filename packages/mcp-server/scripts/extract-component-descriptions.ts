@@ -23,7 +23,7 @@ import {
   AI_CATEGORIES,
 } from '../src/utils/categories.js';
 import { findComponentCategory } from './utils/text.js';
-import { extractDescription, extractFullComponentApi } from './utils/docgen.js';
+import { extractFullComponentApi } from './utils/docgen.js';
 import { loadCemData, enrichWithCem } from './utils/cem.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -53,13 +53,12 @@ async function main() {
     if (!findComponentCategory(name, REACT_COMPONENT_CATEGORIES)) {
       missingComponents.push(name);
     }
-    const desc = extractDescription(file);
-    if (desc) {
-      descriptions.components[name] = { description: desc, package: '@ui5/webcomponents-react' };
-    }
-    const api = extractFullComponentApi(file, '@ui5/webcomponents-react', name, __dirname);
-    if (api) {
-      componentApis.components[name] = api;
+    const result = extractFullComponentApi(file, '@ui5/webcomponents-react', name, __dirname);
+    if (result) {
+      if (result.description) {
+        descriptions.components[name] = { description: result.description, package: '@ui5/webcomponents-react' };
+      }
+      componentApis.components[name] = result.api;
     }
   }
 
@@ -77,11 +76,11 @@ async function main() {
       description: wcDescriptions[name] || 'UI5 Web Component wrapper',
       package: '@ui5/webcomponents-react',
     };
-    const api = extractFullComponentApi(file, '@ui5/webcomponents-react', name, __dirname);
-    if (api) {
+    const result = extractFullComponentApi(file, '@ui5/webcomponents-react', name, __dirname);
+    if (result) {
       const cemEntry = cemLookup.get(name);
-      if (cemEntry) enrichWithCem(api, cemEntry.decl);
-      componentApis.webComponents[name] = api;
+      if (cemEntry) enrichWithCem(result.api, cemEntry.decl);
+      componentApis.webComponents[name] = result.api;
     }
   }
 
@@ -92,13 +91,12 @@ async function main() {
     if (!findComponentCategory(name, CHART_CATEGORIES)) {
       missingComponents.push(name);
     }
-    const desc = extractDescription(file);
-    if (desc) {
-      descriptions.charts[name] = { description: desc, package: '@ui5/webcomponents-react-charts' };
-    }
-    const api = extractFullComponentApi(file, '@ui5/webcomponents-react-charts', name, __dirname);
-    if (api) {
-      componentApis.charts[name] = api;
+    const result = extractFullComponentApi(file, '@ui5/webcomponents-react-charts', name, __dirname);
+    if (result) {
+      if (result.description) {
+        descriptions.charts[name] = { description: result.description, package: '@ui5/webcomponents-react-charts' };
+      }
+      componentApis.charts[name] = result.api;
     }
   }
 
@@ -109,15 +107,15 @@ async function main() {
     if (!findComponentCategory(name, AI_CATEGORIES)) {
       missingComponents.push(name);
     }
+    const result = extractFullComponentApi(file, '@ui5/webcomponents-ai-react', name, __dirname);
     descriptions.ai[name] = {
-      description: aiDescriptions[name] || extractDescription(file) || 'AI-enhanced component',
+      description: aiDescriptions[name] || result?.description || 'AI-enhanced component',
       package: '@ui5/webcomponents-ai-react',
     };
-    const api = extractFullComponentApi(file, '@ui5/webcomponents-ai-react', name, __dirname);
-    if (api) {
+    if (result) {
       const cemEntry = cemLookup.get(name);
-      if (cemEntry) enrichWithCem(api, cemEntry.decl);
-      componentApis.ai[name] = api;
+      if (cemEntry) enrichWithCem(result.api, cemEntry.decl);
+      componentApis.ai[name] = result.api;
     }
   }
 

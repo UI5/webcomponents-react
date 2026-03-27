@@ -190,35 +190,22 @@ export function extractDomRefMethods(componentName: string, packagePath: string,
 }
 
 /**
- * Extract JSDoc description from a component file using react-docgen-typescript.
- */
-export function extractDescription(filePath: string): string | null {
-  try {
-    const componentDocs = parser.parse(filePath);
-    if (componentDocs.length > 0 && componentDocs[0].description) {
-      return cleanJSDocDescription(componentDocs[0].description);
-    }
-    return null;
-  } catch {
-    return null;
-  }
-}
-
-/**
  * Extract full component API data using react-docgen-typescript.
  * Returns complete props, methods, types, and JSDoc metadata.
+ * Also returns the cleaned JSDoc description separately to avoid a second parse.
  */
 export function extractFullComponentApi(
   filePath: string,
   packageName: string,
   componentName: string,
   scriptDir: string,
-): ComponentApiData | null {
+): { api: ComponentApiData; description: string | null } | null {
   try {
     const componentDocs = parser.parse(filePath);
     if (componentDocs.length === 0) return null;
 
     const doc = componentDocs[0];
+    const description = doc.description ? cleanJSDocDescription(doc.description) : null;
 
     const cleanedProps: Record<string, CleanedProp> = {};
     if (doc.props) {
@@ -264,10 +251,13 @@ export function extractFullComponentApi(
       '\n\n**Note:** This component also accepts all standard HTML attributes (className, style, id, data-*, aria-*, event handlers like onClick, onMouseEnter, etc.) via `CommonProps`.';
 
     return {
-      package: packageName,
-      description: descriptionWithNote,
-      props: cleanedProps,
-      methods: cleanedMethods,
+      api: {
+        package: packageName,
+        description: descriptionWithNote,
+        props: cleanedProps,
+        methods: cleanedMethods,
+      },
+      description,
     };
   } catch {
     return null;
