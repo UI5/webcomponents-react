@@ -11,6 +11,12 @@
  * TODO: Re-evaluate adding "UXC Integration" to documentation_sections.json
  * once the UXC docs page has bundleable content (currently metadata-only,
  * removed because fetchContent would return "not available locally").
+ *
+ * TODO: Re-add "Patterns > Docs" (docs/Patterns.mdx) and
+ * "Patterns > SelectionAssistant" (patterns/selection-assistant/SelectionAssistant.mdx)
+ * once their MDX content is converted to LLM-friendly markdown. Currently both
+ * files render all meaningful content via imported React components (<UXCIntegration/>,
+ * <InputSelectionAssistant/>, etc.) which are opaque to an LLM consumer.
  */
 
 import type { DocumentationData } from '../src/types/index.js';

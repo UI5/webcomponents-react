@@ -368,8 +368,6 @@ export const getDocumentationTool = {
         'Knowledge Base > Server Side Rendering',
         'Knowledge Base > Styling',
         'Knowledge Base > Accessibility',
-        'Patterns > Docs',
-        'Patterns > SelectionAssistant (Exp)',
       ])
       .optional()
       .describe(

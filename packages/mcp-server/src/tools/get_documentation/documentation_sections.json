@@ -229,44 +229,6 @@
           ]
         }
       ]
-    },
-    {
-      "name": "Patterns",
-      "description": "Architecture patterns, best practices, and experimental features for common use cases and advanced component interactions.",
-      "subsections": [
-        {
-          "name": "Docs",
-          "description": "Architectural examples and design patterns demonstrating common use cases, component interactions, and composition strategies.",
-          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/patterns-docs--docs",
-          "sourcePath": "docs/Patterns.mdx",
-          "content": [
-            "Architectural examples",
-            "Common use cases",
-            "Component interactions",
-            "Master-detail views",
-            "Form handling",
-            "Data management strategies",
-            "Composition patterns"
-          ],
-          "tags": ["patterns", "architecture", "best-practices", "examples", "use-cases", "component-patterns"],
-          "localPath": "docs--Patterns.mdx"
-        },
-        {
-          "name": "SelectionAssistant (Exp)",
-          "description": "Experimental pattern for advanced multi-selection scenarios with filtering and search capabilities.",
-          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/patterns-selectionassistant-experimental--docs",
-          "sourcePath": "patterns/selection-assistant/SelectionAssistant.mdx",
-          "content": [
-            "Experimental multi-selection pattern",
-            "Advanced filtering",
-            "Search capabilities",
-            "Selection handling",
-            "Component state management"
-          ],
-          "tags": ["patterns", "experimental", "selection", "multi-select", "advanced-features", "component-patterns"],
-          "localPath": "patterns--selection-assistant--SelectionAssistant.mdx"
-        }
-      ]
     }
   ]
 }
