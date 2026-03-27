@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { logger } from './logger.js';
+import { createAppPrompt } from './prompts/create-app.js';
 import * as tools from './tools/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -64,6 +65,10 @@ server.registerResource(
   }),
 );
 logger.info('Registered llms.txt resource');
+
+// Register prompts
+server.registerPrompt(createAppPrompt.name, createAppPrompt.config, createAppPrompt.callback);
+logger.info('Registered create-app prompt');
 
 async function main() {
   const transport = new StdioServerTransport();

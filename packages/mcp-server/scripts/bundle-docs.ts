@@ -168,6 +168,16 @@ function main() {
 
   writeFileSync(SECTIONS_PATH, JSON.stringify(docsData, null, 2) + '\n');
 
+  // Copy raw project-templates.json for the create-app prompt to read at runtime
+  const templatesJsonSrc = join(MONOREPO_ROOT, 'docs/project-templates.json');
+  const templatesJsonDest = join(DOCS_DIR, 'project-templates.json');
+  try {
+    cpSync(templatesJsonSrc, templatesJsonDest);
+    console.log(`  docs/project-templates.json -> docs/project-templates.json (raw copy)`);
+  } catch (error) {
+    console.warn(`  Failed to copy project-templates.json: ${(error as Error).message}`);
+  }
+
   console.log(`\nBundled ${result.copied} documentation files to docs/`);
   if (result.generated > 0) {
     console.log(`Generated ${result.generated} files from data sources`);
