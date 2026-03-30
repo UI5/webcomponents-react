@@ -18,10 +18,6 @@
   "bin": {
     "ui5-wcr-mcp": "./dist/index.js"
   },
-  "engines": {
-    "node": "^20.17.0 || >=22.9.0",
-    "npm": ">= 8"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/UI5/webcomponents-react",
@@ -47,14 +43,6 @@
     "resources",
     "CHANGELOG.md",
     "README.md"
-  ],
-  "keywords": [
-    "ui5",
-    "webcomponents",
-    "react",
-    "mcp",
-    "sap",
-    "fiori"
   ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.28.0",
