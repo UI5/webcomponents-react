@@ -13,9 +13,9 @@
   "dependencies": {
     "@react-router/node": "7.13.1",
     "@react-router/serve": "7.13.1",
-    "@ui5/webcomponents": "2.20.1",
-    "@ui5/webcomponents-base": "2.20.1",
-    "@ui5/webcomponents-fiori": "2.20.1",
+    "@ui5/webcomponents": "2.20.2",
+    "@ui5/webcomponents-base": "2.20.2",
+    "@ui5/webcomponents-fiori": "2.20.2",
     "@ui5/webcomponents-react": "2.20.1",
     "cross-env": "10.1.0",
     "isbot": "5.1.36",
@@ -34,8 +34,8 @@
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.1",
     "globals": "17.4.0",
-    "typescript": "5.8.3",
-    "typescript-eslint": "8.57.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.57.1",
     "vite": "7.3.1",
     "vite-tsconfig-paths": "6.1.1"
   },

@@ -14,10 +14,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ui5/webcomponents": "2.20.1",
-    "@ui5/webcomponents-base": "2.20.1",
-    "@ui5/webcomponents-fiori": "2.20.1",
-    "@ui5/webcomponents-icons": "2.20.1",
+    "@ui5/webcomponents": "2.20.2",
+    "@ui5/webcomponents-base": "2.20.2",
+    "@ui5/webcomponents-fiori": "2.20.2",
+    "@ui5/webcomponents-icons": "2.20.2",
     "@ui5/webcomponents-react": "2.20.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -33,7 +33,7 @@
     "eslint-plugin-react-hooks": "7.0.1",
     "eslint-plugin-react-refresh": "0.5.2",
     "globals": "17.4.0",
-    "typescript-eslint": "8.57.0",
+    "typescript-eslint": "8.57.1",
     "vite": "7.3.1"
   }
 }
