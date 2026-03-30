@@ -11,7 +11,7 @@
  *   npm run extract:descriptions
  */
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { glob } from 'glob';
@@ -116,6 +116,25 @@ async function main() {
       const cemEntry = cemLookup.get(name);
       if (cemEntry) enrichWithCem(result.api, cemEntry.decl);
       componentApis.ai[name] = result.api;
+    }
+  }
+
+  // --- Sub-type documentation (complex prop types) ---
+  const subTypeDocsMap: Record<string, string> = {
+    AnalyticalTable: join(UI5_WCR_PATH, 'packages/main/src/components/AnalyticalTable/docs/ColumnProperties.md'),
+  };
+  for (const [componentName, mdPath] of Object.entries(subTypeDocsMap)) {
+    if (!existsSync(mdPath)) {
+      console.warn(`  subTypeDocs not found: ${mdPath}`);
+      continue;
+    }
+    // Find the component in any category
+    for (const category of ['components', 'webComponents', 'charts', 'ai'] as const) {
+      if (componentApis[category][componentName]) {
+        componentApis[category][componentName].subTypeDocs = readFileSync(mdPath, 'utf-8');
+        console.log(`Attached subTypeDocs for ${componentName}`);
+        break;
+      }
     }
   }
 

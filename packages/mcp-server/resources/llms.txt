@@ -56,6 +56,6 @@ This server does NOT cover:
 - Slot props require forwarding the `slot` prop to the root element
 - Shadow DOM styling uses `::part()` pseudo-element and CSS variables (`--sapBackgroundColor`, etc.)
 - Components support both React 18 and React 19+
-- Use subpath imports for @ui5/webcomponents-react-base (e.g., `@ui5/webcomponents-react-base/hooks`)
+- Use subpath imports for @ui5/webcomponents-react-<package-refix> (e.g., `@ui5/webcomponents-react-base/hooks`)
 - Web components use proxy attributes (`accessibleName`, `accessibleNameRef`) instead of standard `aria-*` for shadow DOM compatibility
 - When creating a new application, prefer official project templates (Next.js, Vite) over scaffolding from scratch. Use get_documentation({ section: "Project Templates & Examples", fetchContent: true }) to find available templates. Only fall back to generic framework setup if no template matches the user's framework.

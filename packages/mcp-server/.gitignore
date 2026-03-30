@@ -4,6 +4,10 @@ dist/
 # Bundled documentation (copied from monorepo at build time)
 docs/
 
+# Generated API data (produced by npm run extract:descriptions)
+src/tools/get_component_api/component-apis.json
+src/tools/list_components/descriptions.json
+
 # TypeScript build info
 tsconfig.tsbuildinfo
 tsconfig.build.tsbuildinfo

@@ -111,7 +111,8 @@ EXAMPLE INPUT: { "componentName": "Dialog" }
   cssParts?: Array<{                   // CSS ::part() selectors for shadow DOM styling (web components only)
     name: string,                      // Use as: componentSelector::part(name) { ... }
     description: string
-  }>
+  }>,
+  subTypeDocs?: string                 // Markdown docs for complex prop types (e.g. column definition properties)
 }
 \`\`\`
 
@@ -132,6 +133,10 @@ EXAMPLE INPUT: { "componentName": "Dialog" }
       .array(z.object({ name: z.string(), description: z.string() }))
       .optional()
       .describe('CSS ::part() selectors for shadow DOM styling'),
+    subTypeDocs: z
+      .string()
+      .optional()
+      .describe('Additional documentation for complex prop types (e.g. AnalyticalTable column definition)'),
     _meta: z.object({
       apiVersion: z.string(),
       extractedAt: z.string().optional(),

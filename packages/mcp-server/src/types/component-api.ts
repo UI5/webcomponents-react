@@ -57,6 +57,8 @@ export interface ComponentApiData {
   props: Record<string, CleanedProp>;
   methods: MethodInfo[];
   cssParts?: CssPart[];
+  /** Additional documentation for complex prop types (e.g. column definition shape). */
+  subTypeDocs?: string;
 }
 
 export interface ComponentDescription {
