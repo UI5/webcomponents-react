@@ -21,7 +21,9 @@ import {
   WEB_COMPONENT_CATEGORIES,
   CHART_CATEGORIES,
   AI_CATEGORIES,
-} from '../src/utils/categories.js';
+  SUB_TYPE_DOCS,
+  UPSTREAM_DOC_URLS,
+} from '../src/utils/component-config.js';
 import { findComponentCategory } from './utils/text.js';
 import { extractFullComponentApi } from './utils/docgen.js';
 import { loadCemData, enrichWithCem } from './utils/cem.js';
@@ -120,15 +122,12 @@ async function main() {
   }
 
   // --- Sub-type documentation (complex prop types) ---
-  const subTypeDocsMap: Record<string, string> = {
-    AnalyticalTable: join(UI5_WCR_PATH, 'packages/main/src/components/AnalyticalTable/docs/ColumnProperties.md'),
-  };
-  for (const [componentName, mdPath] of Object.entries(subTypeDocsMap)) {
+  for (const [componentName, relativePath] of Object.entries(SUB_TYPE_DOCS)) {
+    const mdPath = join(UI5_WCR_PATH, relativePath);
     if (!existsSync(mdPath)) {
       console.warn(`  subTypeDocs not found: ${mdPath}`);
       continue;
     }
-    // Find the component in any category
     for (const category of ['components', 'webComponents', 'charts', 'ai'] as const) {
       if (componentApis[category][componentName]) {
         componentApis[category][componentName].subTypeDocs = readFileSync(mdPath, 'utf-8');
@@ -139,8 +138,7 @@ async function main() {
   }
 
   // --- Upstream documentation links (for components with complex behavioral logic) ---
-  const upstreamDocUrls = new Map<string, string>([['Form', 'https://ui5.github.io/webcomponents/components/Form/']]);
-  for (const [componentName, docUrl] of upstreamDocUrls) {
+  for (const [componentName, docUrl] of UPSTREAM_DOC_URLS) {
     for (const category of ['components', 'webComponents', 'charts', 'ai'] as const) {
       if (componentApis[category][componentName]) {
         componentApis[category][componentName].docUrl = docUrl;

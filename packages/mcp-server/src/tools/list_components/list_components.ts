@@ -12,7 +12,9 @@ import {
   WEB_COMPONENT_CATEGORIES,
   CHART_CATEGORIES,
   AI_CATEGORIES,
-} from '../../utils/categories.js';
+  MAIN_CATEGORY_NAMES,
+  TOTAL_COMPONENT_COUNT,
+} from '../../utils/component-config.js';
 import { createTextResponse, handleToolError } from '../../utils/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -61,7 +63,7 @@ function formatComponentList(categoryFilter?: string, packageFilter?: string): s
     output += '## @ui5/webcomponents-react\n\n';
 
     // Combine React and Web Component categories
-    const allCategories = ['Data Display', 'Layouts & Floorplans', 'Inputs', 'Modals & Popovers', 'User Feedback'];
+    const allCategories = MAIN_CATEGORY_NAMES;
 
     for (const category of allCategories) {
       if (categoryFilter && categoryFilter !== category && categoryFilter !== WEB_COMPONENTS_CATEGORY) continue;
@@ -158,10 +160,10 @@ export const listComponentsTool = {
     openWorldHint: false,
   },
   description:
-    'Browse all 203 available UI5 Web Components for React components across 4 packages with descriptions, categories, and import statements.\n\n' +
+    `Browse all ${TOTAL_COMPONENT_COUNT} available UI5 Web Components for React components across 4 packages with descriptions, categories, and import statements.\n\n` +
     'WHEN TO USE: You need to discover which components exist, find the right component for a use case, or verify a component name before calling get_component_api.\n' +
     'DO NOT USE FOR: Getting detailed props or methods — use get_component_api after finding the component name here.\n' +
-    'LIMITS: Returns all matching components at once (up to 203). Filter by category or package to reduce output size.\n\n' +
+    `LIMITS: Returns all matching components at once (up to ${TOTAL_COMPONENT_COUNT}). Filter by category or package to reduce output size.\n\n` +
     'EXAMPLE INPUT: { "category": "Inputs" }\n' +
     'EXAMPLE INPUT: { "package": "@ui5/webcomponents-react-charts" }\n' +
     'EXAMPLE INPUT: {} (returns all components)',

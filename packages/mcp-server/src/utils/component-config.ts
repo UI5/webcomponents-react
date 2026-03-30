@@ -1,6 +1,11 @@
 /**
- * Component categorization shared between list_components and extraction script
+ * Single source of truth for all manually maintained component data.
+ * Update this file when components are added/removed or enrichment config changes.
+ *
+ * New components not listed here will trigger a warning in `npm run extract:descriptions`.
  */
+
+// --- Component Categories ---
 
 export const REACT_COMPONENT_CATEGORIES = {
   'Data Display': ['AnalyticalTable', 'AnalyticalCardHeader', 'ObjectStatus', 'NumericSideIndicator'],
@@ -216,3 +221,26 @@ export const CHART_CATEGORIES = {
 export const AI_CATEGORIES = {
   'AI Components': ['Button', 'ButtonState', 'Input', 'PromptInput', 'TextArea'],
 };
+
+// --- Derived (computed from categories) ---
+
+export const MAIN_CATEGORY_NAMES = Object.keys(REACT_COMPONENT_CATEGORIES);
+
+export const TOTAL_COMPONENT_COUNT = [
+  REACT_COMPONENT_CATEGORIES,
+  WEB_COMPONENT_CATEGORIES,
+  CHART_CATEGORIES,
+  AI_CATEGORIES,
+].reduce((sum, cats) => sum + Object.values(cats).reduce((s, arr) => s + arr.length, 0), 0);
+
+// --- Enrichment Config ---
+
+/** Complex prop types that need additional markdown docs. Path relative to monorepo root. */
+export const SUB_TYPE_DOCS: Record<string, string> = {
+  AnalyticalTable: 'packages/main/src/components/AnalyticalTable/docs/ColumnProperties.md',
+};
+
+/** Upstream doc links for components with complex behavioral logic not captured in props. */
+export const UPSTREAM_DOC_URLS = new Map<string, string>([
+  ['Form', 'https://ui5.github.io/webcomponents/components/Form/'],
+]);
