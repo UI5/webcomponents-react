@@ -1,0 +1,1 @@
+import{n as o,a7 as s}from"./iframe-C-8CikNF.js";const c=a=>o.useCallback((t,e)=>{typeof a=="function"&&a(s(e,{payload:t?.activePayload?.[0]?.payload,activePayloads:t?.activePayload}))},[a]);export{c as u};
