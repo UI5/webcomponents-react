@@ -3787,13 +3787,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sap-theming/theming-base-content@npm:11.29.3":
-  version: 11.29.3
-  resolution: "@sap-theming/theming-base-content@npm:11.29.3"
-  checksum: 10c0/8da4e8c0dafce793fb410832534eebf1f35eb1eb15f55f030810cfd32a15d45778ead2b89b04418f4e187f62f4af5afacf9a8191a7b2d5b91253715878be058e
-  languageName: node
-  linkType: hard
-
 "@sap-theming/theming-base-content@npm:11.33.0":
   version: 11.33.0
   resolution: "@sap-theming/theming-base-content@npm:11.33.0"
@@ -4674,15 +4667,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.19.15":
-  version: 22.19.15
-  resolution: "@types/node@npm:22.19.15"
-  dependencies:
-    undici-types: "npm:~6.21.0"
-  checksum: 10c0/f17eaf3d0d1da5e93ad9e287efb78201f8a5282973c004c5f70d91675c5c6b926a23acaa7b158a42b3d7e27e36b349d65a531710c91c308fca53dd7fa280ef98
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:24.12.0":
   version: 24.12.0
   resolution: "@types/node@npm:24.12.0"
@@ -5384,16 +5368,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ui5/webcomponents-base@npm:2.19.2":
-  version: 2.19.2
-  resolution: "@ui5/webcomponents-base@npm:2.19.2"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": "npm:^1.1.2"
-    lit-html: "npm:^2.0.1"
-  checksum: 10c0/de4e73a5c557e91f3a005a3fd8983b5beac5e2e9d6016444a88d80bf6e66ea29c1828ccd64812b5f9c5f9535d34524458fd38bb6e4df09b1e08ce2c3fe66b5dd
-  languageName: node
-  linkType: hard
-
 "@ui5/webcomponents-base@npm:2.20.2":
   version: 2.20.2
   resolution: "@ui5/webcomponents-base@npm:2.20.2"
@@ -5449,30 +5423,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ui5/webcomponents-icons-business-suite@npm:2.19.2":
-  version: 2.19.2
-  resolution: "@ui5/webcomponents-icons-business-suite@npm:2.19.2"
-  dependencies:
-    "@ui5/webcomponents-base": "npm:2.19.2"
-  checksum: 10c0/65c8cd799b322fafeafa248f1fdf53c2f237a3b1615e3aff3be7bba83c302cc2389d0d5799fe7478c4f530364f5f62bb45b1e6fef5e466032f062c911889f4b7
-  languageName: node
-  linkType: hard
-
 "@ui5/webcomponents-icons-business-suite@npm:2.20.2":
   version: 2.20.2
   resolution: "@ui5/webcomponents-icons-business-suite@npm:2.20.2"
   dependencies:
     "@ui5/webcomponents-base": "npm:2.20.2"
   checksum: 10c0/11a1dfe412dc14682e2a0c54a024d9bf25af66912672313f2541005e7786d918e08c33da534e08c11be72ce38d0da28659d116965edab47242e2bcaa51f88176
-  languageName: node
-  linkType: hard
-
-"@ui5/webcomponents-icons-tnt@npm:2.19.2":
-  version: 2.19.2
-  resolution: "@ui5/webcomponents-icons-tnt@npm:2.19.2"
-  dependencies:
-    "@ui5/webcomponents-base": "npm:2.19.2"
-  checksum: 10c0/20fe246f41ed6fdcd87cd3a1f64c8926935d9f354e65eb0baaf56ef4fc5cc32c0072b14b44a5647620b4e19d01df6dac1700ceb4a0e86e97865404b5f15edeb4
   languageName: node
   linkType: hard
 
@@ -5485,31 +5441,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ui5/webcomponents-icons@npm:2.19.2":
-  version: 2.19.2
-  resolution: "@ui5/webcomponents-icons@npm:2.19.2"
-  dependencies:
-    "@ui5/webcomponents-base": "npm:2.19.2"
-  checksum: 10c0/fc37f54d601fc30eb3867085558ec56019ff2884fa9287aa0c51901112c2d5e643d5fb47ae708cc2b85c2f223c9db10d14d4b9ed8c8f4dd6d58ad5bdbf3a1b10
-  languageName: node
-  linkType: hard
-
 "@ui5/webcomponents-icons@npm:2.20.2":
   version: 2.20.2
   resolution: "@ui5/webcomponents-icons@npm:2.20.2"
   dependencies:
     "@ui5/webcomponents-base": "npm:2.20.2"
   checksum: 10c0/67f3765a6a6bec0b7d10ae38680494e58a38fcffa5df561cff62495a97c6b37808fcd2ab1fe002f6d76215675aed2aeccaab4f87c71e3404ea58fd2b38e2878b
-  languageName: node
-  linkType: hard
-
-"@ui5/webcomponents-localization@npm:2.19.2":
-  version: 2.19.2
-  resolution: "@ui5/webcomponents-localization@npm:2.19.2"
-  dependencies:
-    "@types/openui5": "npm:^1.113.0"
-    "@ui5/webcomponents-base": "npm:2.19.2"
-  checksum: 10c0/65ea91adc281a544d68bf35ff103e6b813891100f75ea94acf27ca46061ecc04ae7a24cd81a236831b04162dc16342f7e65d4dcbbb8556bb99c445ac869345f6
   languageName: node
   linkType: hard
 
@@ -5593,12 +5530,8 @@ __metadata:
   resolution: "@ui5/webcomponents-react-mcp@workspace:packages/mcp-server"
   dependencies:
     "@modelcontextprotocol/sdk": "npm:1.28.0"
-    "@types/node": "npm:22.19.15"
-    "@ui5/webcomponents": "npm:2.19.2"
-    "@ui5/webcomponents-base": "npm:2.19.2"
     "@ui5/webcomponents-react": "workspace:~"
     ava: "npm:6.4.1"
-    glob: "npm:12.0.0"
     react-docgen-typescript: "npm:2.4.0"
     tsx: "npm:4.21.0"
     zod: "npm:4.3.6"
@@ -5637,16 +5570,6 @@ __metadata:
       optional: true
   languageName: unknown
   linkType: soft
-
-"@ui5/webcomponents-theming@npm:2.19.2":
-  version: 2.19.2
-  resolution: "@ui5/webcomponents-theming@npm:2.19.2"
-  dependencies:
-    "@sap-theming/theming-base-content": "npm:11.29.3"
-    "@ui5/webcomponents-base": "npm:2.19.2"
-  checksum: 10c0/2490f054f3c2a5714086a0bf85d434c3b1ec3fe1926a59df61f1871ce7e647106c7cfb6c7be9ba4778831848ae92cd44ace2b5e9a07bcb09f00e4b384f5cc5ad
-  languageName: node
-  linkType: hard
 
 "@ui5/webcomponents-theming@npm:2.20.2":
   version: 2.20.2
@@ -5718,20 +5641,6 @@ __metadata:
     wc-create-ui5-element: bin/create-ui5-element.js
     wc-dev: bin/dev.js
   checksum: 10c0/fab3c143a25401c2cde36a7373b2181585d8b699084b0b95cedf01652908d3a8155cbc40a51efded3b3a3d2c267aa4bfa23bc2dfda9d15aff7da7d0903ff8df1
-  languageName: node
-  linkType: hard
-
-"@ui5/webcomponents@npm:2.19.2":
-  version: 2.19.2
-  resolution: "@ui5/webcomponents@npm:2.19.2"
-  dependencies:
-    "@ui5/webcomponents-base": "npm:2.19.2"
-    "@ui5/webcomponents-icons": "npm:2.19.2"
-    "@ui5/webcomponents-icons-business-suite": "npm:2.19.2"
-    "@ui5/webcomponents-icons-tnt": "npm:2.19.2"
-    "@ui5/webcomponents-localization": "npm:2.19.2"
-    "@ui5/webcomponents-theming": "npm:2.19.2"
-  checksum: 10c0/0ca5fae571ad6a83bd2880eae4a065f7b2637e66080224c0091bba605d1b86cedb415890598c2259a85929609dd28fe623eacea1c8ca35075435a7b1ec1a2e0c
   languageName: node
   linkType: hard
 
@@ -12002,22 +11911,6 @@ __metadata:
   dependencies:
     is-glob: "npm:^4.0.1"
   checksum: 10c0/cab87638e2112bee3f839ef5f6e0765057163d39c66be8ec1602f3823da4692297ad4e972de876ea17c44d652978638d2fd583c6713d0eb6591706825020c9ee
-  languageName: node
-  linkType: hard
-
-"glob@npm:12.0.0":
-  version: 12.0.0
-  resolution: "glob@npm:12.0.0"
-  dependencies:
-    foreground-child: "npm:^3.3.1"
-    jackspeak: "npm:^4.1.1"
-    minimatch: "npm:^10.1.1"
-    minipass: "npm:^7.1.2"
-    package-json-from-dist: "npm:^1.0.0"
-    path-scurry: "npm:^2.0.0"
-  bin:
-    glob: dist/esm/bin.mjs
-  checksum: 10c0/923fbb7e30913496dc1c30191edb7ebb610a26edac81710a5f697c718b08694bce7fb0245baceba5383472778a8431ff7c36571703507cc6563602d3c139c993
   languageName: node
   linkType: hard
 
@@ -21747,13 +21640,6 @@ __metadata:
   version: 5.26.5
   resolution: "undici-types@npm:5.26.5"
   checksum: 10c0/bb673d7876c2d411b6eb6c560e0c571eef4a01c1c19925175d16e3a30c4c428181fb8d7ae802a261f283e4166a0ac435e2f505743aa9e45d893f9a3df017b501
-  languageName: node
-  linkType: hard
-
-"undici-types@npm:~6.21.0":
-  version: 6.21.0
-  resolution: "undici-types@npm:6.21.0"
-  checksum: 10c0/c01ed51829b10aa72fc3ce64b747f8e74ae9b60eafa19a7b46ef624403508a54c526ffab06a14a26b3120d055e1104d7abe7c9017e83ced038ea5cf52f8d5e04
   languageName: node
   linkType: hard
 

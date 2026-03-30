@@ -61,12 +61,8 @@
     "zod": "4.3.6"
   },
   "devDependencies": {
-    "@types/node": "22.19.15",
-    "@ui5/webcomponents": "2.19.2",
-    "@ui5/webcomponents-base": "2.19.2",
     "@ui5/webcomponents-react": "workspace:~",
     "ava": "6.4.1",
-    "glob": "12.0.0",
     "react-docgen-typescript": "2.4.0",
     "tsx": "4.21.0"
   }
