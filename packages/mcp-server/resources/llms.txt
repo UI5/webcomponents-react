@@ -21,7 +21,8 @@ This server does NOT cover:
 
 ## Available MCP Tools
 
-- `list_components`: Browse all 203 available components by category or package. Use this first to discover component names.
+- `create_app`: Scaffold a new application from an official template (Vite, Next.js). Use when the user wants to create a new project.
+- `list_components`: Browse all available components by category or package. Use this first to discover component names.
 - `get_component_api`: Get detailed props, methods, and type information for any component. Use after list_components.
 - `get_documentation`: Read documentation guides, search across topics, and retrieve full content with line-range support.
 - `get_public_utils`: Get documentation for Device API, ThemingParameters, useI18nBundle, useViewportRange, and withWebComponent from @ui5/webcomponents-react-base.
@@ -44,11 +45,6 @@ This server does NOT cover:
 - [Styling](docs--knowledge-base--Styling.mdx): CSS variables, shadow parts (::part), custom states (:state), ThemingParameters, CSS bundles
 - [Accessibility](upstream--accessibility.mdx): Accessibility APIs, proxy attributes, label-input relationships, screen reader support
 
-### Patterns
-
-- [Architecture Patterns](docs--Patterns.mdx): Common use cases, component interactions, composition strategies
-- [SelectionAssistant (Experimental)](patterns--selection-assistant--SelectionAssistant.mdx): Advanced multi-selection with filtering and search
-
 ## Key Concepts
 
 - Web components emit CustomEvents with data in `e.detail` (not `e.value`)
@@ -56,6 +52,6 @@ This server does NOT cover:
 - Slot props require forwarding the `slot` prop to the root element
 - Shadow DOM styling uses `::part()` pseudo-element and CSS variables (`--sapBackgroundColor`, etc.)
 - Components support both React 18 and React 19+
-- Use subpath imports for @ui5/webcomponents-react-<package-refix> (e.g., `@ui5/webcomponents-react-base/hooks`)
+- Use subpath imports for @ui5/webcomponents-react-base (e.g., `@ui5/webcomponents-react-base/hooks`)
 - Web components use proxy attributes (`accessibleName`, `accessibleNameRef`) instead of standard `aria-*` for shadow DOM compatibility
-- When creating a new application, prefer official project templates (Next.js, Vite) over scaffolding from scratch. Use get_documentation({ section: "Project Templates & Examples", fetchContent: true }) to find available templates. Only fall back to generic framework setup if no template matches the user's framework.
+- When creating a new application, prefer official project templates (Next.js, Vite) over scaffolding from scratch. Use create_app to scaffold from a template. Only fall back to generic framework setup if no template matches the user's framework.

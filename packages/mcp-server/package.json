@@ -33,12 +33,10 @@
     "build": "tsc --build tsconfig.build.json && tsx scripts/post-build.ts",
     "fetch:skills": "tsx scripts/fetch-upstream-skills.ts",
     "update": "npm run fetch:skills && npm run extract:descriptions && npm run bundle:docs && npm run build",
-    "clean": "rimraf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo",
+    "clean": "rimraf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo src/tools/get_component_api/component-apis.json src/tools/list_components/descriptions.json docs/",
     "dev": "npm run build && node dist/index.js",
     "inspector": "npx @modelcontextprotocol/inspector node ./dist/index.js",
-    "type-check": "tsc --noEmit",
-    "test": "npm run build && ava",
-    "test:watch": "ava --watch"
+    "test": "npm run build && ava --watch"
   },
   "publishConfig": {
     "access": "public"
