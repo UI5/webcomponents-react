@@ -138,6 +138,18 @@ async function main() {
     }
   }
 
+  // --- Upstream documentation links (for components with complex behavioral logic) ---
+  const upstreamDocUrls = new Map<string, string>([['Form', 'https://ui5.github.io/webcomponents/components/Form/']]);
+  for (const [componentName, docUrl] of upstreamDocUrls) {
+    for (const category of ['components', 'webComponents', 'charts', 'ai'] as const) {
+      if (componentApis[category][componentName]) {
+        componentApis[category][componentName].docUrl = docUrl;
+        console.log(`Attached docUrl for ${componentName}`);
+        break;
+      }
+    }
+  }
+
   // --- Metadata ---
   try {
     const wcrPkg = JSON.parse(readFileSync(join(UI5_WCR_PATH, 'packages/main/package.json'), 'utf-8'));

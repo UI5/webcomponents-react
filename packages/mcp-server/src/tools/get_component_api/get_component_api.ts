@@ -113,6 +113,7 @@ EXAMPLE INPUT: { "componentName": "Dialog" }
     description: string
   }>,
   subTypeDocs?: string                 // Markdown docs for complex prop types (e.g. column definition properties)
+  docUrl?: string                      // Upstream docs link for complex behavioral concepts
 }
 \`\`\`
 
@@ -137,6 +138,10 @@ EXAMPLE INPUT: { "componentName": "Dialog" }
       .string()
       .optional()
       .describe('Additional documentation for complex prop types (e.g. AnalyticalTable column definition)'),
+    docUrl: z
+      .string()
+      .optional()
+      .describe('Link to upstream documentation for complex behavioral concepts (e.g. layout algorithms)'),
     _meta: z.object({
       apiVersion: z.string(),
       extractedAt: z.string().optional(),

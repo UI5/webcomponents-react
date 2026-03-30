@@ -59,6 +59,8 @@ export interface ComponentApiData {
   cssParts?: CssPart[];
   /** Additional documentation for complex prop types (e.g. column definition shape). */
   subTypeDocs?: string;
+  /** Link to upstream UI5 Web Components documentation for complex behavioral concepts. */
+  docUrl?: string;
 }
 
 export interface ComponentDescription {
