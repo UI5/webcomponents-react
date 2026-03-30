@@ -37,10 +37,9 @@ This MCP server gives AI assistants direct access to UI5 Web Components for Reac
 
 5. **`get_public_utils`** - Public utilities from `@ui5/webcomponents-react-base`
    - Device API (device detection, responsive breakpoints, resize/orientation handlers)
-   - ThemingParameters (CSS variables in JavaScript)
    - useI18nBundle hook (internationalization)
    - useViewportRange hook (responsive breakpoint detection)
-   - withWebComponent (wrapping custom web components)
+   - ThemingParameters (CSS variables in JavaScript)
 
 ### Resources
 
