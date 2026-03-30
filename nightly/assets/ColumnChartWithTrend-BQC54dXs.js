@@ -1,0 +1,12 @@
+import{j as o}from"./iframe-Dr24b1_2.js";import{u as e,M as s,C as i}from"./blocks-DOkdIKLK.js";import"./Tag-BIxdINB7.js";import"./index-CL-oiXYR.js";import{C as a}from"./ControlsWithNote-BXcQcfnL.js";import{D as d}from"./DocsHeader-9y2YWA-s.js";import{F as h}from"./Footer-B2LKGocf.js";import"./CommandsAndQueries-D2RSxAeU.js";import"./PageNotFound-t4KH-Yk6.js";import{C as m,D as n,L as x,W as c,a as l}from"./ColumnChartWithTrend.stories-C8KhoZlR.js";import{M as f,a as j}from"./LegendConfig-PKUGf-Mo.js";import"./preload-helper-PPVm8Dsz.js";import"./information-C20uFQS0.js";import"./sys-enter-2-CQd_0MF7.js";import"./alert-B9PmGrag.js";import"./index-DrqpZzSV.js";import"./index-VF4msgJe.js";import"./Link-CG4ImuUx.js";import"./copy-zEtP8ZOb.js";import"./copy-D1SgAW06.js";import"./GitHub-Mark-BVwUWF2c.js";import"./TableOfContent-CTShD90n.js";import"./index-DcUuq1aq.js";import"./index-CjU6u75C.js";import"./index-_maGeclj.js";import"./index-aTzn3I1m.js";import"./index-B_PGO6aF.js";import"./AvatarSize-BtKTMFJ5.js";import"./employee-Dh4aGlp7.js";import"./addCustomCSSWithScoping-BCzlWLsZ.js";import"./Illustrations-Dt9P8lxH.js";import"./i18n-defaults-CFWtSmu6.js";import"./DemoProps-BHJ6AWTi.js";import"./ThemingParameters-BvhwmbYD.js";import"./useLongestYAxisLabel-CKr_oxOA.js";import"./staticProps-l9IXS5uI.js";import"./ChartContainer-C-1o_phy.js";import"./index-CJOj_130.js";import"./useTooltipFormatter-D8TxQYcM.js";import"./index-ujnp3wxu.js";import"./YAxisTicks-BYVCXC1t.js";import"./debounce-D7W5PopO.js";import"./ChartDataLabel-DaRX_8SC.js";import"./useOnClickInternal-xdY8cJ0S.js";import"./react-content-loader.es-B7RQtwj4.js";import"./ComposedChart-CAUbWwze.js";import"./Line-mc0M3XmI.js";import"./Scatter-BDIIUo6S.js";import"./useIsRTL-BcSpX-QV.js";function p(r){const t={b:"b",code:"code",h2:"h2",h3:"h3",...e(),...r.components};return o.jsxs(o.Fragment,{children:[o.jsx(s,{of:m}),`
+`,o.jsx(d,{of:m,isChart:!0}),`
+`,o.jsx(t.h2,{id:"example",children:"Example"}),`
+`,o.jsx(i,{of:n}),`
+`,o.jsx(a,{of:n}),`
+`,o.jsx(t.h3,{id:"loading-placeholder",children:"Loading Placeholder"}),`
+`,o.jsx(i,{of:x}),`
+`,o.jsx(f,{of:c,additionalDescription:o.jsxs(o.Fragment,{children:[o.jsx(t.b,{children:"Note: "}),"The ",o.jsx(t.code,{children:"tooltipConfig"})," is used for both LineChart and ColumnChart."]})}),`
+`,o.jsx(j,{of:l}),`
+`,o.jsx("br",{}),`
+`,o.jsx("br",{}),`
+`,o.jsx(h,{})]})}function co(r={}){const{wrapper:t}={...e(),...r.components};return t?o.jsx(t,{...r,children:o.jsx(p,{...r})}):p(r)}export{co as default};
