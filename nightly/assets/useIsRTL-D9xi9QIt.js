@@ -1,0 +1,1 @@
+import{n as a,u,q as n,t as o}from"./iframe-DMCuegit.js";const i=r=>{const[c,s]=a.useState(!1),t=a.useRef(!1);return u(()=>{t.current=!0,s(r.current?.matches(":dir(rtl)")??!1);const e=()=>{t.current&&s(r.current?.matches(":dir(rtl)")??!1)};return n(e),()=>{t.current=!1,o(e)}},[]),c};export{i as u};
