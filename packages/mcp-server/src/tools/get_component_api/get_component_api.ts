@@ -128,7 +128,7 @@ EXAMPLE INPUT: { "componentName": "Dialog" }
   outputSchema: {
     package: z.string().describe('NPM package name'),
     description: z.string().describe('Full component description'),
-    props: z.record(z.any()).describe('Component props with types, descriptions, and eventDetail'),
+    props: z.record(z.string(), z.any()).describe('Component props with types, descriptions, and eventDetail'),
     methods: z.array(z.any()).describe('Imperative methods accessible via ref'),
     cssParts: z
       .array(z.object({ name: z.string(), description: z.string() }))
