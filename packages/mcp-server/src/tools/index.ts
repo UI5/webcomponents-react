@@ -1,3 +1,4 @@
+export { createAppTool } from './create_app/create_app.js';
 export { getDocumentationTool } from './get_documentation/get_documentation.js';
 export { listComponentsTool } from './list_components/list_components.js';
 export { getComponentApiTool } from './get_component_api/get_component_api.js';
