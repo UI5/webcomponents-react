@@ -187,6 +187,22 @@ function searchDocumentation(query: string): Array<{
 const DOCS_DIR = join(__dirname, '..', '..', '..', 'docs');
 
 /**
+ * Extract a line range from content string.
+ * Converts 1-based user input to 0-based slicing with bounds clamping.
+ * @internal - exported for testing
+ */
+function sliceLines(content: string, startLine?: number, endLine?: number): string {
+  if (startLine || endLine) {
+    const lines = content.split('\n');
+    const start = Math.max(1, startLine || 1) - 1; // Convert to 0-indexed
+    const end = Math.min(lines.length, endLine || lines.length);
+    const sliced = lines.slice(start, end);
+    return `[Lines ${start + 1}-${end} of ${lines.length}]\n\n${sliced.join('\n')}`;
+  }
+  return content;
+}
+
+/**
  * Read documentation content from bundled local file.
  * Optionally extracts a specific line range.
  */
@@ -205,16 +221,7 @@ function readDocContent(localPath?: string, startLine?: number, endLine?: number
     return 'Documentation content not available locally. The bundled docs may need to be regenerated with `npm run bundle:docs`.';
   }
 
-  // Apply line range if specified
-  if (startLine || endLine) {
-    const lines = fullContent.split('\n');
-    const start = Math.max(1, startLine || 1) - 1; // Convert to 0-indexed
-    const end = Math.min(lines.length, endLine || lines.length);
-    const sliced = lines.slice(start, end);
-    return `[Lines ${start + 1}-${end} of ${lines.length}]\n\n${sliced.join('\n')}`;
-  }
-
-  return fullContent;
+  return sliceLines(fullContent, startLine, endLine);
 }
 
 /**
@@ -492,3 +499,6 @@ export const getDocumentationTool = {
     }
   },
 };
+
+/** Exported for direct testing — pure line-slicing logic extracted from readDocContent */
+export { sliceLines };

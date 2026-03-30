@@ -81,7 +81,7 @@ Once configured, your AI assistant will have access to the tools. You can ask qu
 npm run build                 # Build TypeScript + copy JSON assets
 npm run dev                   # Build and run locally
 npm run inspector             # Debug with MCP Inspector (opens web UI)
-npm run test                  # Build and run tests in watch mode (TODO: add test files)
+npm run test                  # Run tests in watch mode (AVA + tsx)
 npm run extract:descriptions  # Regenerate component metadata from monorepo sources
 npm run bundle:docs           # Copy documentation files from monorepo into docs/
 npm run fetch:skills          # Fetch upstream documentation (e.g. accessibility skill)

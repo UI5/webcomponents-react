@@ -62,7 +62,7 @@ const config = tseslint.config(
 
       parserOptions: {
         projectService: {
-          allowDefaultProject: ['packages/*/postcss.config.mjs'],
+          allowDefaultProject: ['packages/*/postcss.config.mjs', 'packages/*/ava.config.js'],
           // eslint-disable-next-line camelcase
           maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING: 1000,
         },
