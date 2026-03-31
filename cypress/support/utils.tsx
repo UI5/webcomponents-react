@@ -109,7 +109,7 @@ export function testStackAggregateTotals(Component, props) {
       stackAccessors.reduce((sum, accessor) => sum + (Number(entry[accessor]) || 0), 0),
     );
 
-    cy.mount(<Component {...props} chartConfig={{ showStackAggregateTotals: true }} />);
+    cy.mount(<Component {...props} noAnimation chartConfig={{ showStackAggregateTotals: true }} />);
 
     expectedTotals.forEach((total) => {
       cy.get('.recharts-label').contains(total).closest('text').should('have.attr', 'font-weight', 'bold');
@@ -119,7 +119,7 @@ export function testStackAggregateTotals(Component, props) {
     cy.get('.recharts-wrapper').trigger('mousemove', 'center', { force: true });
     cy.get('.recharts-tooltip-item').last().should('contain.text', 'Total : 560').and('have.css', 'font-weight', '700');
 
-    cy.mount(<Component {...props} chartConfig={{ showStackAggregateTotals: false }} />);
+    cy.mount(<Component {...props} noAnimation chartConfig={{ showStackAggregateTotals: false }} />);
     cy.get('.recharts-label').should('not.exist');
   });
 }
