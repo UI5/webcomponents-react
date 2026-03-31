@@ -110,6 +110,7 @@ export function testStackAggregateTotals(Component, props) {
     );
 
     cy.mount(<Component {...props} noAnimation chartConfig={{ showStackAggregateTotals: true }} />);
+    cy.get('.recharts-bar-rectangles').should('exist');
 
     expectedTotals.forEach((total) => {
       cy.get('.recharts-label').contains(total).closest('text').should('have.attr', 'font-weight', 'bold');
@@ -120,6 +121,7 @@ export function testStackAggregateTotals(Component, props) {
     cy.get('.recharts-tooltip-item').last().should('contain.text', 'Total : 560').and('have.css', 'font-weight', '700');
 
     cy.mount(<Component {...props} noAnimation chartConfig={{ showStackAggregateTotals: false }} />);
-    cy.get('.recharts-label').should('not.exist');
+    cy.get('.recharts-bar-rectangles').should('exist');
+    cy.get('text[font-weight="bold"]').should('not.exist');
   });
 }
