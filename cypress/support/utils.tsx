@@ -102,7 +102,7 @@ export function testChartLegendConfig(Component, props) {
 }
 
 export function testStackAggregateTotals(Component, props) {
-  it.only('showStackAggregateTotals', () => {
+  it('showStackAggregateTotals', () => {
     const { dataset, measures } = props;
     const stackAccessors = measures.filter((measure) => measure.stackId != null).map((measure) => measure.accessor);
     const expectedTotals: number[] = dataset.map((entry) =>
