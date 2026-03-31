@@ -1,0 +1,51 @@
+import { Canvas } from '@storybook/addon-docs/blocks';
+
+### With Custom Tooltip Total
+
+<p>{props.description}</p>
+
+```jsx
+import { ThemingParameters } from '@ui5/webcomponents-react-base';
+import { DefaultTooltipContent } from 'recharts';
+
+const stackedAccessors = new Set(['users', 'sessions']);
+
+const CustomTooltipContent = (props) => {
+  const { payload, ...rest } = props;
+  if (!payload?.length) {
+    return <DefaultTooltipContent {...rest} payload={payload} />;
+  }
+  const stackedEntries = payload.filter((entry) => stackedAccessors.has(entry.dataKey));
+  if (!stackedEntries.length) {
+    return <DefaultTooltipContent {...rest} payload={payload} />;
+  }
+  const total = stackedEntries.reduce((sum, entry) => sum + (Number(entry.value) || 0), 0);
+  const augmentedPayload = [
+    ...payload,
+    {
+      name: `Total (${stackedEntries.map((entry) => entry.name).join(' + ')})`,
+      value: total,
+      color: ThemingParameters.sapTextColor,
+    },
+  ];
+  return (
+    <DefaultTooltipContent
+      {...rest}
+      payload={augmentedPayload}
+      wrapperClassName="custom-stacked-tooltip"
+    />
+  );
+};
+
+// CSS: bold the Total row (last item)
+// .custom-stacked-tooltip .recharts-tooltip-item:last-child { font-weight: bold; }
+
+<MyChart
+  {...props}
+  tooltipConfig={{
+    content: <CustomTooltipContent />
+  }}
+/>
+```
+
+<Canvas of={props.of} />

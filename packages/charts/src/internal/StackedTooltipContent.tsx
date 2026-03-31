@@ -1,6 +1,7 @@
 import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import type { ReactElement } from 'react';
 import { DefaultTooltipContent } from 'recharts';
+import classNames from './StackedTooltipContent.module.css';
 
 interface StackedTooltipContentProps {
   stackAccessors: string[];
@@ -44,5 +45,5 @@ export const StackedTooltipContent = (props: StackedTooltipContentProps): ReactE
     },
   ];
 
-  return <DefaultTooltipContent {...tooltipProps} payload={augmentedPayload} />;
+  return <DefaultTooltipContent {...tooltipProps} payload={augmentedPayload} wrapperClassName={classNames.withTotal} />;
 };

@@ -31,6 +31,7 @@ export const StackAggregateLabel = (props: StackAggregateLabelProps): ReactEleme
       position={position}
       offset={offset}
       fill={ThemingParameters.sapTextColor}
+      fontWeight="bold"
       stroke="none"
       value={total}
     />
