@@ -1,6 +1,11 @@
 import { complexDataSet } from '../../resources/DemoProps.js';
 import { ColumnChart } from './index.js';
-import { cypressPassThroughTestsFactory, testChartLegendConfig, testChartZoomingTool } from '@/cypress/support/utils';
+import {
+  cypressPassThroughTestsFactory,
+  testChartLegendConfig,
+  testChartZoomingTool,
+  testStackAggregateTotals,
+} from '@/cypress/support/utils';
 
 const dimensions = [
   {
@@ -83,4 +88,13 @@ describe('ColumnChart', () => {
   testChartLegendConfig(ColumnChart, { dataset: complexDataSet, dimensions, measures });
 
   cypressPassThroughTestsFactory(ColumnChart, { dimensions: [], measures: [] });
+
+  testStackAggregateTotals(ColumnChart, {
+    dataset: complexDataSet.slice(0, 3),
+    dimensions,
+    measures: [
+      { accessor: 'users', stackId: 'A', label: 'Users' },
+      { accessor: 'sessions', stackId: 'A', label: 'Active Sessions' },
+    ],
+  });
 });

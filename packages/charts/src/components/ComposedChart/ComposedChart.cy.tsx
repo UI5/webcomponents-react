@@ -1,6 +1,11 @@
 import { complexDataSet } from '../../resources/DemoProps.js';
 import { ComposedChart } from './index.js';
-import { cypressPassThroughTestsFactory, testChartLegendConfig, testChartZoomingTool } from '@/cypress/support/utils';
+import {
+  cypressPassThroughTestsFactory,
+  testChartLegendConfig,
+  testChartZoomingTool,
+  testStackAggregateTotals,
+} from '@/cypress/support/utils';
 
 const dimensions = [
   {
@@ -90,4 +95,13 @@ describe('ComposedChart', () => {
   testChartLegendConfig(ComposedChart, { dataset: complexDataSet, dimensions, measures });
 
   cypressPassThroughTestsFactory(ComposedChart, { dimensions: [], measures: [] });
+
+  testStackAggregateTotals(ComposedChart, {
+    dataset: complexDataSet.slice(0, 3),
+    dimensions,
+    measures: [
+      { accessor: 'users', stackId: 'A', label: 'Users', type: 'bar' },
+      { accessor: 'sessions', stackId: 'A', label: 'Active Sessions', type: 'bar' },
+    ],
+  });
 });

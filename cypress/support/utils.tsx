@@ -100,3 +100,26 @@ export function testChartLegendConfig(Component, props) {
     cy.findAllByTestId('catval').should('be.visible');
   });
 }
+
+export function testStackAggregateTotals(Component, props) {
+  it.only('showStackAggregateTotals', () => {
+    const { dataset, measures } = props;
+    const stackAccessors = measures.filter((measure) => measure.stackId != null).map((measure) => measure.accessor);
+    const expectedTotals: number[] = dataset.map((entry) =>
+      stackAccessors.reduce((sum, accessor) => sum + (Number(entry[accessor]) || 0), 0),
+    );
+
+    cy.mount(<Component {...props} chartConfig={{ showStackAggregateTotals: true }} />);
+
+    expectedTotals.forEach((total) => {
+      cy.get('.recharts-label').contains(total).closest('text').should('have.attr', 'font-weight', 'bold');
+    });
+
+    // tooltip
+    cy.get('.recharts-wrapper').trigger('mousemove', 'center', { force: true });
+    cy.get('.recharts-tooltip-item').last().should('contain.text', 'Total : 560').and('have.css', 'font-weight', '700');
+
+    cy.mount(<Component {...props} chartConfig={{ showStackAggregateTotals: false }} />);
+    cy.get('.recharts-label').should('not.exist');
+  });
+}
