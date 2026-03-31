@@ -32,11 +32,16 @@ export const stateReducer: TableInstance['stateReducer'] = (state, action, _prev
       // `tableClientWidth` is misleading, as only when scaled the `clientWidth` is used. In all other cases `getBoundingClientRect` is measuring the width.
       // Without `retainColumnWidth` (!state.tableColResized), clear user-resized widths on container resize so `adjustColumnWidths` recalculates.
       if (!state.tableColResized && Object.keys(state.columnResizing?.columnWidths ?? {}).length > 0) {
-        return {
-          ...state,
-          tableClientWidth: nextWidth,
-          columnResizing: { ...state.columnResizing, columnWidths: {} },
-        };
+        // dead-zone for reset trigger, to prevent resizes when a scrollbar is briefly displayed
+        const widthDelta = Math.abs(nextWidth - state.tableClientWidth);
+        if (widthDelta > 20) {
+          return {
+            ...state,
+            tableClientWidth: nextWidth,
+            columnResizing: { ...state.columnResizing, columnWidths: {} },
+          };
+        }
+        return { ...state, tableClientWidth: nextWidth };
       }
       return { ...state, tableClientWidth: nextWidth };
     }
