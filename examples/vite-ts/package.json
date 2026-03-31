@@ -14,26 +14,26 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ui5/webcomponents": "2.20.0",
-    "@ui5/webcomponents-base": "2.20.0",
-    "@ui5/webcomponents-fiori": "2.20.0",
-    "@ui5/webcomponents-icons": "2.20.0",
-    "@ui5/webcomponents-react": "2.20.0",
+    "@ui5/webcomponents": "2.20.2",
+    "@ui5/webcomponents-base": "2.20.2",
+    "@ui5/webcomponents-fiori": "2.20.2",
+    "@ui5/webcomponents-icons": "2.20.2",
+    "@ui5/webcomponents-react": "2.20.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "react-router": "7.13.1"
+    "react-router": "7.13.2"
   },
   "devDependencies": {
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "@ui5/webcomponents-cypress-commands": "2.20.0",
-    "@vitejs/plugin-react": "5.1.4",
-    "cypress": "15.11.0",
-    "eslint": "9.39.3",
+    "@ui5/webcomponents-cypress-commands": "2.20.1",
+    "@vitejs/plugin-react": "5.2.0",
+    "cypress": "15.13.0",
+    "eslint": "9.39.4",
     "eslint-plugin-react-hooks": "7.0.1",
     "eslint-plugin-react-refresh": "0.5.2",
     "globals": "17.4.0",
-    "typescript-eslint": "8.56.1",
+    "typescript-eslint": "8.57.2",
     "vite": "7.3.1"
   }
 }

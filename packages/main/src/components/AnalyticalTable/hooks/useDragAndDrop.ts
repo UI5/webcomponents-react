@@ -1,9 +1,5 @@
 import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
-import type { ReactTableHooks, TableInstance } from '../types/index.js';
-
-const getColumnId = (column) => {
-  return typeof column.accessor === 'string' ? column.accessor : column.id;
-};
+import type { ColumnType, ReactTableHooks, TableInstance } from '../types/index.js';
 
 function getHeaderProps(
   props: Record<string, unknown>,
@@ -39,7 +35,19 @@ function getHeaderProps(
     const draggedColId = e.dataTransfer.getData('text');
     if (droppedColId === draggedColId) return;
 
-    const internalColumnOrder = columnOrder.length > 0 ? columnOrder : columns.map((col) => getColumnId(col));
+    // Reconciliation uses same approach as visibleColumns in plugin-hooks/useColumnOrder.js of react-table
+    const columnOrderCopy = [...columnOrder];
+    const columnsCopy = [...columns];
+    const columnsInOrder: ColumnType[] = [];
+
+    while (columnsCopy.length && columnOrderCopy.length) {
+      const targetId = columnOrderCopy.shift();
+      const foundIndex = columnsCopy.findIndex((col) => col.id === targetId);
+      if (foundIndex > -1) {
+        columnsInOrder.push(columnsCopy.splice(foundIndex, 1)[0]);
+      }
+    }
+    const internalColumnOrder = [...columnsInOrder, ...columnsCopy].map((col) => col.id);
     const droppedColIdx = internalColumnOrder.findIndex((col) => col === droppedColId);
     const draggedColIdx = internalColumnOrder.findIndex((col) => col === draggedColId);
 
@@ -50,7 +58,7 @@ function getHeaderProps(
     setColumnOrder(tempCols);
 
     if (typeof onColumnsReorder === 'function') {
-      const columnsNewOrder = tempCols.map((tempColId) => columns.find((col) => getColumnId(col) === tempColId));
+      const columnsNewOrder = tempCols.map((tempColId) => columns.find((col) => col.id === tempColId));
       onColumnsReorder(
         enrichEventWithDetails(e, {
           columnsNewOrder,

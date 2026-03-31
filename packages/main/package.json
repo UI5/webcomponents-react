@@ -1,6 +1,6 @@
 {
   "name": "@ui5/webcomponents-react",
-  "version": "2.20.0",
+  "version": "2.20.1",
   "description": "React Wrapper for UI5 Web Components and additional components",
   "type": "module",
   "main": "dist/index.js",
@@ -18,7 +18,10 @@
       "default": "./wrappers/index.js"
     },
     "./package.json": "./package.json",
-    "./styles.css": "./dist/css/index.css",
+    "./styles.css": {
+      "types": "./dist/css/index.d.css.ts",
+      "default": "./dist/css/index.css"
+    },
     "./dist": "./dist/index.js",
     "./dist/*": "./dist/*",
     "./dist/*.js": "./dist/*.js",
@@ -809,7 +812,7 @@
     "watch:css": "yarn build:css --watch"
   },
   "dependencies": {
-    "@tanstack/react-virtual": "3.13.21",
+    "@tanstack/react-virtual": "3.13.23",
     "@ui5/webcomponents-react-base": "workspace:~",
     "clsx": "2.1.1",
     "react-table": "7.8.0"

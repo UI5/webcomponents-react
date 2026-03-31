@@ -125,6 +125,7 @@
 .content {
   flex-grow: 1;
   position: relative;
+  z-index: 0;
 }
 
 @container (max-width: 599px) {

@@ -4,6 +4,7 @@ import { glob } from 'glob';
 
 const cssDir = resolve(process.cwd(), 'dist', 'css');
 const cssIndexFile = resolve(cssDir, 'index.css');
+const cssIndexTypes = resolve(cssDir, 'index.d.css.ts');
 
 const cssModules = await glob(`${cssDir}/**/*.module.css`);
 
@@ -25,3 +26,10 @@ for (const cssModule of cssModules) {
 }
 
 writeFileSync(cssIndexFile, fileContent.join('\n'));
+writeFileSync(
+  cssIndexTypes,
+  `declare const css: string;
+
+export default css;
+`,
+);

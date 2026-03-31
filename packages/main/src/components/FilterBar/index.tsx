@@ -293,7 +293,7 @@ const FilterBar = forwardRef<HTMLDivElement, FilterBarPropTypes>((props, ref) =>
     const debouncedObserverFn = debounce(([area]: ResizeObserverEntry[]) => {
       const firstChild = area.target?.children?.[0] as HTMLDivElement;
       if (firstChild) {
-        setFirstChildWidth(firstChild.offsetWidth + 16 /*margin*/);
+        setFirstChildWidth(firstChild.getBoundingClientRect().width + 16 /*margin*/);
       }
     }, 100);
     const filterAreaObserver = new ResizeObserver(debouncedObserverFn);
@@ -338,17 +338,19 @@ const FilterBar = forwardRef<HTMLDivElement, FilterBarPropTypes>((props, ref) =>
 
   // calculates the number of spacers depending on the available width inside the row
   const renderSpacers = () => {
-    if (firstChildWidth && filterAreaWidth && filterBarButtonsWidth) {
-      const spacers = [];
-      const filterItemsWidth = calculatedChildren.length * firstChildWidth;
-      //early return if enough space is available
-      if (filterAreaWidth - filterBarButtonsWidth > filterItemsWidth) {
+    if (firstChildWidth && filterAreaWidth) {
+      const totalItems = calculatedChildren.length + (search ? 1 : 0);
+      const itemsPerRow = Math.round(filterAreaWidth / firstChildWidth);
+
+      if (totalItems <= itemsPerRow) {
         return null;
       }
-      const usedSpaceLastRow = filterItemsWidth % filterAreaWidth;
-      const emptySpaceLastRow = filterAreaWidth - usedSpaceLastRow;
-      // deduct width of buttons container of the empty space in the last row to calculate number of spacers (-1 because of "lastSpacer")
-      const numberOfSpacers = Math.floor((emptySpaceLastRow - filterBarButtonsWidth) / firstChildWidth) - 1;
+
+      const itemsInLastRow = totalItems % itemsPerRow || itemsPerRow;
+      // -1 because "lastSpacer" already occupies one flex slot
+      const numberOfSpacers = Math.max(0, itemsPerRow - itemsInLastRow - 1);
+
+      const spacers = [];
       for (let i = 0; i < numberOfSpacers; i++) {
         spacers.push(<div key={`filter-spacer-${i}`} className={classNames.spacer} />);
       }

@@ -40,18 +40,25 @@ UI5 Web Components update internal state **before** firing events. For fully con
 
 ### Ref Handling (MUST KNOW)
 
-**Never use `useRef()` directly for forwarded refs** - use `useSyncRef()`:
+When a component needs **both** a forwarded ref and internal access to the same DOM node, use `useSyncRef()` instead of `useRef()`:
 
 ```tsx
 import { useSyncRef } from '@ui5/webcomponents-react-base/internal/hooks';
 
 const MyComponent = forwardRef((props, ref) => {
-  // ✅ CORRECT - syncs forwarded ref with internal ref
   const [componentRef, internalRef] = useSyncRef(ref);
 
+  useEffect(() => {
+    // internalRef gives stable access to the DOM node inside the component
+    internalRef.current?.focus();
+  }, []);
+
+  // componentRef is passed to the DOM element so both the forwarded ref and internalRef stay in sync
   return <div ref={componentRef} />;
 });
 ```
+
+If the ref is just passed through without internal usage, forward it directly - no `useSyncRef` needed.
 
 ### Slot Props (MUST KNOW)
 

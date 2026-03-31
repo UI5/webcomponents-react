@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.20.1](https://github.com/UI5/webcomponents-react/compare/v2.20.0...v2.20.1) (2026-03-18)
+
+### Bug Fixes
+
+- **AnalyticalTable:** add error log for nested headers ([#8300](https://github.com/UI5/webcomponents-react/issues/8300)) ([6008598](https://github.com/UI5/webcomponents-react/commit/60085985f4d0acb570749afa6e84a490edcbc93e)), closes [#8293](https://github.com/UI5/webcomponents-react/issues/8293)
+- **AnalyticalTable:** fix bottom border position ([#8319](https://github.com/UI5/webcomponents-react/issues/8319)) ([8fd8533](https://github.com/UI5/webcomponents-react/commit/8fd8533ba97b2291fd48bdda28183eff1ce730c8))
+- **AnalyticalTable:** reconcile columnOrder with columns on reorder ([#8290](https://github.com/UI5/webcomponents-react/issues/8290)) ([7e16ae8](https://github.com/UI5/webcomponents-react/commit/7e16ae8213149a7dbaed91ae9dd5c78e966e6a0e))
+- **AnalyticalTable:** use "menu" role for columns popover ([#8316](https://github.com/UI5/webcomponents-react/issues/8316)) ([952c60b](https://github.com/UI5/webcomponents-react/commit/952c60bcd74c4ea238aed6935faeba650471e6f4)), closes [#8313](https://github.com/UI5/webcomponents-react/issues/8313)
+- **deps:** update dependency @tanstack/react-virtual to v3.13.21 ([#8289](https://github.com/UI5/webcomponents-react/issues/8289)) ([72f1768](https://github.com/UI5/webcomponents-react/commit/72f1768328be125647af16026ba30f89a7107d83))
+- **deps:** update dependency @tanstack/react-virtual to v3.13.22 ([#8318](https://github.com/UI5/webcomponents-react/issues/8318)) ([31dbe85](https://github.com/UI5/webcomponents-react/commit/31dbe85386db160ab8c0dbbadbd15bad530bd5d8))
+- **deps:** update dependency @tanstack/react-virtual to v3.13.23 ([#8331](https://github.com/UI5/webcomponents-react/issues/8331)) ([1eed1e7](https://github.com/UI5/webcomponents-react/commit/1eed1e75455070bdf1f4bc1690a7507ce5ab896d))
+- **ThemingParameters:** sync CSS vars ([#8334](https://github.com/UI5/webcomponents-react/issues/8334)) ([7556390](https://github.com/UI5/webcomponents-react/commit/7556390188f12a15fc3d72ebd4540235184d293a))
+
 # [2.20.0](https://github.com/UI5/webcomponents-react/compare/v2.19.0...v2.20.0) (2026-03-06)
 
 ### Bug Fixes
