@@ -1,7 +1,6 @@
 import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import { DefaultTooltipContent } from 'recharts';
 import type { TooltipProps } from 'recharts';
-import classNames from '../internal/StackedTooltipContent.module.css';
 import type { IChartBaseProps } from '@/interfaces/IChartBaseProps.js';
 
 export const legendConfig: IChartBaseProps = {
@@ -651,7 +650,7 @@ export const CustomTooltipContent = ({ payload, ...rest }: TooltipProps<number, 
   if (!payload?.length) {
     return <DefaultTooltipContent {...rest} payload={payload} />;
   }
-  const stackedEntries = payload.filter((entry) => stackedAccessors.has(entry.dataKey));
+  const stackedEntries = payload.filter((entry) => stackedAccessors.has(entry.dataKey as string));
   if (!stackedEntries.length) {
     return <DefaultTooltipContent {...rest} payload={payload} />;
   }
@@ -664,5 +663,7 @@ export const CustomTooltipContent = ({ payload, ...rest }: TooltipProps<number, 
       color: ThemingParameters.sapTextColor,
     },
   ];
-  return <DefaultTooltipContent {...rest} payload={augmentedPayload} wrapperClassName={classNames.withTotal} />;
+  return <DefaultTooltipContent {...rest} payload={augmentedPayload} wrapperClassName="stackedTooltipWithTotal" />;
 };
+
+CustomTooltipContent.displayName = 'CustomTooltipContent';

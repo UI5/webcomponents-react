@@ -1,7 +1,10 @@
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
+import { ThemingParameters, useStylesheet } from '@ui5/webcomponents-react-base';
+import { useI18nBundle } from '@ui5/webcomponents-react-base/hooks';
 import type { ReactElement } from 'react';
 import { DefaultTooltipContent } from 'recharts';
-import classNames from './StackedTooltipContent.module.css';
+import { classNames, styleData } from './StackedTooltipContent.module.css.js';
+
+const TOTAL = { key: 'TOTAL', defaultText: 'Total' };
 
 interface StackedTooltipContentProps {
   stackAccessors: string[];
@@ -19,6 +22,10 @@ interface StackedTooltipContentProps {
 
 export const StackedTooltipContent = (props: StackedTooltipContentProps): ReactElement => {
   const { stackAccessors, totalFormatter, payload, ...tooltipProps } = props;
+
+  useStylesheet(styleData, StackedTooltipContent.displayName);
+
+  const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
 
   if (!payload?.length) {
     return <DefaultTooltipContent {...tooltipProps} payload={payload} />;
@@ -38,7 +45,7 @@ export const StackedTooltipContent = (props: StackedTooltipContentProps): ReactE
   const augmentedPayload = [
     ...payload,
     {
-      name: 'Total',
+      name: i18nBundle.getText(TOTAL),
       value: formattedTotal,
       color: ThemingParameters.sapTextColor,
       dataKey: '__stackTotal__',
@@ -47,3 +54,5 @@ export const StackedTooltipContent = (props: StackedTooltipContentProps): ReactE
 
   return <DefaultTooltipContent {...tooltipProps} payload={augmentedPayload} wrapperClassName={classNames.withTotal} />;
 };
+
+StackedTooltipContent.displayName = 'StackedTooltipContent';
