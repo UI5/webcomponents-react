@@ -1,6 +1,6 @@
 import { attachBoot } from '@ui5/webcomponents-base/dist/Boot.js';
 import { addCustomCSS } from '@ui5/webcomponents-base/dist/Theming.js';
-import { getUi5TagWithSuffix } from './index.js';
+import { getUi5TagWithSuffix } from './getUi5TagWithSuffix.js';
 
 /**
  * ⚠️ __INTERNAL__ use only! This function is not part of the public API.
