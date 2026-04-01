@@ -29,6 +29,28 @@ Components currently only available in the `ui5/webcomponents-react` repo, are n
 `@ui5/webcomponents` components come with globally applied scrollbar styles.
 If you want to opt-out of this behavior, you can add the `.ui5-content-native-scrollbars` class to the `body` of the page. You can find out more about this in the [ui5/webcomponents documentation](https://ui5.github.io/webcomponents/docs/advanced/scrollbars-customization/).
 
+## Forced Colors Mode
+
+In [forced colors mode](https://developer.mozilla.org/en-US/docs/Web/CSS/forced-color-adjust) (e.g. Windows High Contrast), the user agent automatically overrides component colors to meet accessibility needs.
+If you need to opt out of this behavior for specific elements, you can use the `forced-color-adjust` CSS property:
+
+```css
+html {
+  forced-color-adjust: none;
+}
+```
+
+By setting `forced-color-adjust` to `none`, the element's colors will not be adjusted by the user agent in forced colors mode.
+You can also scope this to individual components instead of the entire page. Wrapping the rule in a `@media (forced-colors: active)` query is functionally equivalent, but makes the intent more explicit in your code:
+
+```css
+@media (forced-colors: active) {
+  .myComponent {
+    forced-color-adjust: none;
+  }
+}
+```
+
 ## Changing CSS Variables
 
 You can override SAP theming CSS variables on specific web component selectors to customize their appearance:
