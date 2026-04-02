@@ -3,7 +3,7 @@
   "description": "Model Context Protocol server for UI5 Web Components for React - Developer documentation and API assistance",
   "author": "SAP SE (https://www.sap.com)",
   "license": "Apache-2.0",
-  "version": "2.20.0",
+  "version": "2.20.1",
   "type": "module",
   "mcpName": "io.github.UI5/webcomponents-react-mcp-server",
   "types": "./dist/index.d.ts",
