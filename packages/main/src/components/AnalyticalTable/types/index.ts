@@ -140,6 +140,9 @@ export interface TableInstance {
     type: string;
     payload?: Record<string, unknown> | AnalyticalTableState['popInColumns'] | boolean | string | number;
     clientX?: number;
+    columnId?: string;
+    columnWidth?: number;
+    headerIdWidths?: (string | number)[][];
     value?: boolean;
     id?: string;
   }) => void;
@@ -251,6 +254,10 @@ export interface TableInstance {
     row?: RowType;
     selectAll?: boolean;
   };
+  rawColumnSizing?: Map<
+    string,
+    { width: number | undefined; minWidth: number | undefined; maxWidth: number | undefined }
+  >;
   [key: string]: any;
 }
 
@@ -1199,5 +1206,8 @@ export interface ReactTableHooks {
   getToggleRowSelectedProps: any[];
   getToggleAllRowsSelectedProps: any[];
   getToggleAllPageRowsSelectedProps: any[];
-  getResizerProps: any[];
+  getResizerProps: ((
+    props: Record<string, any>,
+    meta: { instance: TableInstance; header: ColumnType },
+  ) => Record<string, any> | Record<string, any>[])[];
 }

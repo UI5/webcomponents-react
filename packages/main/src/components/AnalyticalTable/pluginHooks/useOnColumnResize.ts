@@ -1,12 +1,14 @@
 'use client';
 
-import { debounce } from '@ui5/webcomponents-react-base';
+import { debounce } from '@ui5/webcomponents-react-base/utils';
+import type { MouseEvent, TouchEvent } from 'react';
 import { useEffect, useRef } from 'react';
-import type { ReactTableHooks, TableInstance } from '../types/index.js';
+import { getProjectedWidth } from '../hooks/useColumnResizing.js';
+import type { ColumnType, ReactTableHooks, TableInstance } from '../types/index.js';
 
 interface useOnColumnResizeOptions {
   /**
-   * If `liveUpdate` is `true`, the resize function will fire every time the width has changed depending on the `options.wait` delay.
+   * If `liveUpdate` is `true`, the resize function will fire while the resizer is being dragged according to the `options.wait` delay.
    */
   liveUpdate?: boolean;
   /**
@@ -17,7 +19,7 @@ interface useOnColumnResizeOptions {
   wait?: number;
 }
 
-type useOnColumnResizeFunc = (e: { columnWidth: number; header: Record<string, any> }) => void;
+type useOnColumnResizeFunc = (e: { columnWidth: number; header: ColumnType }) => void;
 
 /**
  * Plugin Hook that adds a callback which is fired on column resize.
@@ -30,21 +32,69 @@ type useOnColumnResizeFunc = (e: { columnWidth: number; header: Record<string, a
 export const useOnColumnResize = (callback: useOnColumnResizeFunc, options?: useOnColumnResizeOptions) => {
   const debouncedEvent = debounce(callback, options?.wait ?? 100);
 
+  // for liveUpdate mousemove/touchmove listeners have to be added via getResizerProps to fire the callback. Number of calls is defined by debounce value `wait`.
+  const getLiveResizerProps: ReactTableHooks['getResizerProps'][0] = (props, { instance, header }) => {
+    return {
+      ...props,
+      onMouseDown: (e: MouseEvent<HTMLDivElement>) => {
+        props.onMouseDown?.(e);
+        const startClientX = e.clientX;
+        const columnWidth = header.totalWidth;
+        const columnId = header.id;
+
+        const handleMouseMove = (moveEvent: globalThis.MouseEvent) => {
+          const deltaX = moveEvent.clientX - startClientX;
+          if (Math.abs(deltaX) < 3) {
+            return;
+          }
+          const projectedWidth = getProjectedWidth(deltaX, columnWidth, instance.state.isRtl);
+          const currentHeader = instance.columns.find((item: ColumnType) => item.id === columnId);
+          debouncedEvent({ columnWidth: projectedWidth, header: currentHeader });
+        };
+
+        const handleMouseUp = () => {
+          document.removeEventListener('mousemove', handleMouseMove);
+          document.removeEventListener('mouseup', handleMouseUp);
+        };
+
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+      },
+      onTouchStart: (e: TouchEvent<HTMLDivElement>) => {
+        props.onTouchStart?.(e);
+        if (e.touches && e.touches.length > 1) {
+          return;
+        }
+        const startClientX = Math.round(e.touches[0].clientX);
+        const columnWidth = header.totalWidth;
+        const columnId = header.id;
+
+        const handleTouchMove = (moveEvent: globalThis.TouchEvent) => {
+          const deltaX = moveEvent.touches[0].clientX - startClientX;
+          if (Math.abs(deltaX) < 3) {
+            return;
+          }
+          const projectedWidth = getProjectedWidth(deltaX, columnWidth, instance.state.isRtl);
+          const currentHeader = instance.columns.find((item: ColumnType) => item.id === columnId);
+          debouncedEvent({ columnWidth: projectedWidth, header: currentHeader });
+        };
+
+        const handleTouchEnd = () => {
+          document.removeEventListener('touchmove', handleTouchMove);
+          document.removeEventListener('touchend', handleTouchEnd);
+        };
+
+        document.addEventListener('touchmove', handleTouchMove);
+        document.addEventListener('touchend', handleTouchEnd);
+      },
+    };
+  };
+
   const useInstance = (instance: TableInstance) => {
     const { state, columns } = instance;
     const { columnResizing } = state;
     const { isResizingColumn, columnWidths } = columnResizing;
-    const prevHeaderIsResizing = useRef(undefined);
-
-    useEffect(() => {
-      if (isResizingColumn && options?.liveUpdate) {
-        const currentHeader = columns.find((item) => item.id === isResizingColumn);
-        debouncedEvent({
-          columnWidth: columnWidths[isResizingColumn],
-          header: currentHeader,
-        });
-      }
-    }, [columnResizing, options?.liveUpdate, columns]);
+    const prevHeaderIsResizing = useRef<string | undefined>(undefined);
 
     useEffect(() => {
       if (options?.liveUpdate) {
@@ -54,7 +104,7 @@ export const useOnColumnResize = (callback: useOnColumnResizeFunc, options?: use
 
     useEffect(() => {
       if (!options?.liveUpdate) {
-        const currentHeader = columns.find((item) => item.id === prevHeaderIsResizing.current);
+        const currentHeader = columns.find((item: ColumnType) => item.id === prevHeaderIsResizing.current);
         if (isResizingColumn) {
           prevHeaderIsResizing.current = isResizingColumn;
         }
@@ -65,11 +115,14 @@ export const useOnColumnResize = (callback: useOnColumnResizeFunc, options?: use
           });
         }
       }
-    }, [columnResizing, options?.liveUpdate, columns]);
+    }, [columnResizing, columns, isResizingColumn, columnWidths]);
   };
 
   const useOnColumnResizeHooks = (hooks: ReactTableHooks) => {
     hooks.useFinalInstance.push(useInstance);
+    if (options?.liveUpdate) {
+      hooks.getResizerProps.push(getLiveResizerProps);
+    }
   };
 
   useOnColumnResizeHooks.pluginName = 'useOnColumnResize';
