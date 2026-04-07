@@ -1,0 +1,35 @@
+name: Publish to MCP Registry
+
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run in dry-run mode (install and login only, no publishing)'
+        required: false
+        type: boolean
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish-mcp-registry:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/mcp-server
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+
+      - name: Authenticate to MCP Registry
+        run: ./mcp-publisher login github-oidc
+
+      - name: Publish server to MCP Registry
+        if: ${{ inputs.dry_run != true }}
+        run: ./mcp-publisher publish

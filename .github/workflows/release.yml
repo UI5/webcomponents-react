@@ -148,3 +148,11 @@ jobs:
             const { default: addIssueComments } = await import('${{ github.workspace }}/.github/createIssueCommentsForRelease.mjs');
 
             await addIssueComments({ github, context })
+
+  publish-mcp-registry:
+    needs: ['build-and-release']
+    if: ${{ github.event.inputs.snapshot == 'false' && github.event.inputs.prerelease == 'false' }}
+    uses: './.github/workflows/publish-mcp-registry.yml'
+    permissions:
+      id-token: write
+      contents: read

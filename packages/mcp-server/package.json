@@ -32,7 +32,8 @@
     "clean": "rimraf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo src/tools/get_component_api/component-apis.json src/tools/list_components/descriptions.json docs/",
     "dev": "npm run build && node dist/index.js",
     "inspector": "npx @modelcontextprotocol/inspector node ./dist/index.js",
-    "test": "ava --watch"
+    "test": "ava --watch",
+    "version": "tsx scripts/sync-server-version.ts && git add server.json"
   },
   "publishConfig": {
     "access": "public"

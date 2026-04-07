@@ -1,19 +1,18 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.UI5/webcomponents-react-mcp-server",
-  "description": "MCP server for UI5 Web Components for React",
+  "description": "Model Context Protocol server for UI5 Web Components for React - Developer documentation and API assistance",
   "repository": {
     "url": "https://github.com/UI5/webcomponents-react",
     "source": "github",
     "subfolder": "packages/mcp-server"
   },
-  "version": "2.20.0",
+  "version": "2.20.1",
   "packages": [
     {
       "registryType": "npm",
-      "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@ui5/webcomponents-react-mcp",
-      "version": "2.20.0",
+      "version": "2.20.1",
       "transport": {
         "type": "stdio"
       },
