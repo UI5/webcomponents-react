@@ -287,7 +287,8 @@ const Splitter = forwardRef<HTMLDivElement, SplitterPropTypes>((props, ref) => {
     currentTheme === 'sap_fiori_3_hcb' ||
     currentTheme === 'sap_fiori_3_hcw' ||
     currentTheme === 'sap_horizon_hcb' ||
-    currentTheme === 'sap_horizon_hcw';
+    currentTheme === 'sap_horizon_hcw' ||
+    currentTheme === 'sap_horizon_hc_auto';
 
   return (
     <div

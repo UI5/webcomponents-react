@@ -1,4 +1,4 @@
-[data-sap-theme='sap_horizon_hcb'] {
+[data-sap-theme^='sap_horizon_hc'] {
   --_ui5wcr_Splitter_BarOutline: 0.15rem dotted var(--sapGroup_ContentBorderColor);
   --_ui5wcr_Splitter_BarBorderFocus: solid var(--sapGroup_ContentBorderColor) 0.0625rem;
   --_ui5wcr_Splitter_BarBorderStyle: solid var(--sapGroup_ContentBorderColor) 0.0625rem;

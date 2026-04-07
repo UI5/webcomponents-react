@@ -24,6 +24,8 @@ const THEMES = [
   { key: 'sap_horizon_dark', value: 'Evening Horizon (Dark)' },
   { key: 'sap_horizon_hcb', value: 'Horizon High Contrast Black' },
   { key: 'sap_horizon_hcw', value: 'Horizon High Contrast White' },
+  { key: 'sap_horizon_auto', value: 'OS Adaptive Horizon Theme' },
+  { key: 'sap_horizon_hc_auto', value: 'OS Adaptive High Contrast Horizon Theme' },
 ];
 
 export function AppShellBar() {

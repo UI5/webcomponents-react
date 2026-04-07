@@ -35,7 +35,8 @@ export const Expandable = (props: CellInstance) => {
     classes: classNames,
   } = webComponentsReactProperties;
   const currentTheme = useCurrentTheme();
-  const shouldRenderButton = currentTheme === 'sap_horizon' || currentTheme === 'sap_horizon_dark';
+  const shouldRenderButton =
+    currentTheme === 'sap_horizon' || currentTheme === 'sap_horizon_dark' || currentTheme === 'sap_horizon_auto';
   const tableColumns = columns.filter(
     ({ id }) =>
       id !== '__ui5wcr__internal_selection_column' &&

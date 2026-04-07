@@ -2,14 +2,10 @@
 
 @import './Sizes.css';
 @import '../../themes/base.css';
-@import '../../themes/sap_belize.css';
-@import '../../themes/sap_belize_hcb.css';
-@import '../../themes/sap_belize_hcw.css';
 @import '../../themes/sap_fiori_3.css';
 @import '../../themes/sap_fiori_3_dark.css';
 @import '../../themes/sap_fiori_3_hcb.css';
 @import '../../themes/sap_fiori_3_hcw.css';
 @import '../../themes/sap_horizon.css';
 @import '../../themes/sap_horizon_dark.css';
-@import '../../themes/sap_horizon_hcb.css';
-@import '../../themes/sap_horizon_hcw.css';
+@import '../../themes/sap_horizon_hc.css';
