@@ -92,6 +92,11 @@
       "matchSourceUrls": ["https://github.com/UI5/webcomponents{/,}**"]
     },
     {
+      "description": "MCP server dependencies",
+      "matchFileNames": ["packages/mcp-server/**"],
+      "semanticCommitType": "chore"
+    },
+    {
       "groupName": "Typescript",
       "description": "Typescript dependency update",
       "matchPackageNames": ["typescript"]
