@@ -11,6 +11,8 @@ export const MAPPED_THEMES = [
   { value: 'sap_horizon_dark', title: 'Evening Horizon (Dark)' },
   { value: 'sap_horizon_hcb', title: 'Horizon High Contrast Black' },
   { value: 'sap_horizon_hcw', title: 'Horizon High Contrast White' },
+  { value: 'sap_horizon_auto', title: 'OS Adaptive Horizon Theme' },
+  { value: 'sap_horizon_hc_auto', title: 'OS Adaptive High Contrast Horizon Theme' },
   { value: 'sap_fiori_3', title: 'Quartz Light' },
   { value: 'sap_fiori_3_dark', title: 'Quartz Dark' },
   { value: 'sap_fiori_3_hcb', title: 'Quartz High Contrast Black' },
