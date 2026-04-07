@@ -1,4 +1,4 @@
-import { getEffectiveScopingSuffixForTag } from '@ui5/webcomponents-base/dist/CustomElementsScope.js';
+export { getUi5TagWithSuffix } from './getUi5TagWithSuffix.js';
 
 /**
  * ⚠️ __INTERNAL__ use only! This function is not part of the public API.
@@ -55,14 +55,6 @@ export const enrichEventWithDetails = <
 
   return event as EnrichedEventType<Event, Detail>;
 };
-
-/**
- * ⚠️ __INTERNAL__ use only! This function is not part of the public API.
- */
-export function getUi5TagWithSuffix(baseTagName: string) {
-  const tagNameSuffix: string | undefined = getEffectiveScopingSuffixForTag(baseTagName);
-  return tagNameSuffix ? `${baseTagName}-${tagNameSuffix}` : baseTagName;
-}
 
 export { debounce } from './debounce.js';
 export { throttle } from './throttle.js';

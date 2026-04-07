@@ -254,6 +254,10 @@ export interface TableInstance {
     row?: RowType;
     selectAll?: boolean;
   };
+  rawColumnSizing?: Map<
+    string,
+    { width: number | undefined; minWidth: number | undefined; maxWidth: number | undefined }
+  >;
   [key: string]: any;
 }
 

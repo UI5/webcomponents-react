@@ -1,8 +1,8 @@
 <style>
-  html[data-sap-theme]:not([data-sap-theme*='hc']),
-  /*fallback*/
-  html:not([data-sap-theme]) {
-    forced-color-adjust: none;
+  @media (forced-colors: active) {
+    html {
+      forced-color-adjust: none;
+    }
   }
 
   body {

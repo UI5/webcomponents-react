@@ -18,7 +18,10 @@
       "default": "./wrappers/index.js"
     },
     "./package.json": "./package.json",
-    "./styles.css": "./dist/css/index.css",
+    "./styles.css": {
+      "types": "./dist/css/index.d.css.ts",
+      "default": "./dist/css/index.css"
+    },
     "./dist": "./dist/index.js",
     "./dist/*": "./dist/*",
     "./dist/*.js": "./dist/*.js",
