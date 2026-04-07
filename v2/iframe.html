@@ -45,7 +45,7 @@
       window.LOGLEVEL = 'info';
       window.FRAMEWORK_OPTIONS = {};
       window.CHANNEL_OPTIONS = {};
-      window.FEATURES = {"argTypeTargetsV7":true,"legacyDecoratorFileOrder":false,"disallowImplicitActionsInRenderV8":true,"viewport":true,"highlight":true,"controls":true,"interactions":true,"actions":true,"backgrounds":true,"outline":true,"measure":true,"sidebarOnboardingChecklist":true};
+      window.FEATURES = {"argTypeTargetsV7":true,"legacyDecoratorFileOrder":false,"disallowImplicitActionsInRenderV8":true,"viewport":true,"highlight":true,"controls":true,"interactions":true,"actions":true,"backgrounds":true,"outline":true,"measure":true,"sidebarOnboardingChecklist":true,"componentsManifest":true};
       window.STORIES = [{"titlePrefix":"","directory":"./docs","files":"*.mdx","importPathMatcher":"^\\.[\\\\/](?:docs\\/(?!\\.)(?=.)[^/]*?\\.mdx)$"},{"titlePrefix":"Knowledge Base","files":"*.mdx","directory":"./docs/knowledge-base","importPathMatcher":"^\\.[\\\\/](?:docs\\/knowledge-base\\/(?!\\.)(?=.)[^/]*?\\.mdx)$"},{"titlePrefix":"Charts","files":"**/*.@(mdx|stories.@(mdx|tsx))","directory":"./packages/charts/src/components","importPathMatcher":"^\\.[\\\\/](?:packages\\/charts\\/src\\/components(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.(mdx|stories\\.(mdx|tsx)))$"},{"titlePrefix":"Base","files":"*.@(tsx|jsx)","directory":"./packages/base","importPathMatcher":"^\\.[\\\\/](?:packages\\/base\\/(?!\\.)(?=.)[^/]*?\\.(tsx|jsx))$"},{"titlePrefix":"Testing with Cypress","files":"**/*.mdx","directory":"./packages/cypress-commands","importPathMatcher":"^\\.[\\\\/](?:packages\\/cypress-commands(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.mdx)$"},{"titlePrefix":"","directory":"./packages/main","files":"**/*.mdx","importPathMatcher":"^\\.[\\\\/](?:packages\\/main(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.mdx)$"},{"titlePrefix":"","directory":"./packages/main","files":"**/*.stories.@(tsx|jsx)","importPathMatcher":"^\\.[\\\\/](?:packages\\/main(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.stories\\.(tsx|jsx))$"},{"titlePrefix":"AI","files":"**/*.@(mdx|stories.@(mdx|js|jsx|mjs|ts|tsx))","directory":"./packages/ai","importPathMatcher":"^\\.[\\\\/](?:packages\\/ai(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.(mdx|stories\\.(mdx|js|jsx|mjs|ts|tsx)))$"},{"titlePrefix":"Legacy Components","files":"**/*.@(mdx|stories.@(mdx|js|jsx|mjs|ts|tsx))","directory":"./packages/compat","importPathMatcher":"^\\.[\\\\/](?:packages\\/compat(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.(mdx|stories\\.(mdx|js|jsx|mjs|ts|tsx)))$"},{"titlePrefix":"Patterns","files":"**/*.@(mdx|stories.@(mdx|tsx))","directory":"./patterns","importPathMatcher":"^\\.[\\\\/](?:patterns(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.(mdx|stories\\.(mdx|tsx)))$"}];
       window.DOCS_OPTIONS = {"defaultName":"Docs"};
       window.TAGS_OPTIONS = {};
@@ -547,10 +547,10 @@
   }
 </script>
 <style>
-  html[data-sap-theme]:not([data-sap-theme*='hc']),
-  /*fallback*/
-  html:not([data-sap-theme]) {
-    forced-color-adjust: none;
+  @media (forced-colors: active) {
+    html {
+      forced-color-adjust: none;
+    }
   }
 
   body {
@@ -739,6 +739,11 @@
     align-items: flex-start;
   }
 
+  /* Stacked chart tooltip total row */
+  .stackedTooltipWithTotal .recharts-tooltip-item:last-child {
+    font-weight: bold;
+  }
+
   /* TODO remove this workaround as soon as https://github.com/storybookjs/storybook/issues/20497 is fixed */
   .docs-story > div > div[scale] {
     min-height: 20px;
@@ -751,9 +756,17 @@
   }
 </script>
 
-    <script type="module" crossorigin src="./assets/iframe-CFWpN4R7.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/preload-helper-PPVm8Dsz.js">
-    <link rel="stylesheet" crossorigin href="./assets/iframe-CIHg7SeG.css">
+    <script type="module" crossorigin src="./assets/iframe-BZL7dK_T.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/chunk-zsgVPwQN.js">
+    <link rel="modulepreload" crossorigin href="./assets/preload-helper-D_VTBiTN.js">
+    <link rel="modulepreload" crossorigin href="./assets/NoEntries-AScfRHx_.js">
+    <link rel="modulepreload" crossorigin href="./assets/Tent-BhGrPMDg.js">
+    <link rel="modulepreload" crossorigin href="./assets/UnableToLoad-k-dN_fpC.js">
+    <link rel="modulepreload" crossorigin href="./assets/MenuItem-B4a-x_7h.js">
+    <link rel="modulepreload" crossorigin href="./assets/Menu-CAGmMCgX.js">
+    <link rel="modulepreload" crossorigin href="./assets/iframe-BZL7dK_T.js">
+    <link rel="modulepreload" crossorigin href="./assets/BeforeSearch-_ViDSTWq.js">
+    <link rel="stylesheet" crossorigin href="./assets/iframe-DXGpIK5v.css">
   </head>
 
   <body>
@@ -885,10 +898,10 @@
         if (hostname !== 'localhost' && globalThis.CONFIG_TYPE === 'DEVELOPMENT') {
           const message = `Failed to load the Storybook preview file 'vite-app.js':
 
-It looks like you're visiting the Storybook development server on another hostname than localhost: '${hostname}', but you haven't configured the necessary security features to support this.
-Please re-run your Storybook development server with the '--host ${hostname}' flag, or manually configure your Vite allowedHosts configuration with viteFinal.
+      It looks like you're visiting the Storybook development server on another hostname than localhost: '${hostname}', but you haven't configured the necessary security features to support this.
+      Please re-run your Storybook development server with the '--host ${hostname}' flag, or manually configure your Vite allowedHosts configuration with viteFinal.
 
-See:`;
+      See:`;
           const docs = [
             'https://storybook.js.org/docs/api/cli-options#dev',
             'https://storybook.js.org/docs/api/main-config/main-config-vite-final',
@@ -900,7 +913,7 @@ See:`;
             `<p style="color: red; max-width: 70ch">${message.replaceAll(
               '\n',
               '<br/>'
-            )}<ul>${docs.map((doc) => `<li><a href='${doc}' target='_blank'>${doc}</a></li>`).join('')}<ul></p>`;
+            )}<ul>${docs.map((doc) => `<li><a href='${doc}' target='_blank'>${doc}</a></li>`).join('')}</ul></p>`;
           return;
         }
       }
