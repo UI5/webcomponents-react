@@ -72,9 +72,10 @@ interface IconDomRef extends Required<IconAttributes>, Ui5DomRef {}
 
 interface IconPropTypes extends IconAttributes, Omit<CommonProps, keyof IconAttributes | 'onClick'> {
   /**
-   * Fired on mouseup, `SPACE` and `ENTER`.
-   * - on mouse click, the icon fires native `click` event
-   * - on `SPACE` and `ENTER`, the icon fires custom `click` event
+   * Fired when the component is activated by mouse/touch, keyboard (Enter or Space),
+   * or screen reader virtual cursor activation.
+   *
+   * **Note:** The event will not be fired if the `mode` property is set to `Decorative` or `Image`.
    *
    * **Note:** Available since [v2.11.0](https://github.com/UI5/webcomponents/releases/tag/v2.11.0) of **@ui5/webcomponents**.
    *
@@ -141,7 +142,6 @@ interface IconPropTypes extends IconAttributes, Omit<CommonProps, keyof IconAttr
  * ### Keyboard Handling
  *
  * - [Space] / [Enter] or [Return] - Fires the `click` event if the `mode` property is set to `Interactive`.
- * - [Shift] - If [Space] / [Enter] or [Return] is pressed, pressing [Shift] releases the ui5-icon without triggering the click event.
  *
  *
  *

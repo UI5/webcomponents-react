@@ -1512,6 +1512,17 @@
             },
             {
               "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Associates the button with a form element by the form's `id` attribute.\nWhen set, the button can submit or reset the specified form even if the button\nis not a descendant of that form.\n\n**Note:** This property takes effect only when the button's \"type\" property is set to \"Submit\" or \"Reset\".",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.21.0"
+            },
+            {
+              "kind": "field",
               "name": "icon",
               "type": {
                 "text": "string | undefined"
@@ -1715,6 +1726,15 @@
               "name": "end-icon",
               "default": "undefined",
               "fieldName": "endIcon",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Associates the button with a form element by the form's `id` attribute.\nWhen set, the button can submit or reset the specified form even if the button\nis not a descendant of that form.\n\n**Note:** This property takes effect only when the button's \"type\" property is set to \"Submit\" or \"Reset\".",
+              "name": "form",
+              "default": "undefined",
+              "fieldName": "form",
               "type": {
                 "text": "string | undefined"
               }
@@ -9011,7 +9031,7 @@
             },
             {
               "name": "footer",
-              "description": "Defines the footer HTML Element.\n\n**Note:** When a `ui5-bar` is used in the footer, you should remove the default dialog's paddings.",
+              "description": "Defines the footer HTML Element.",
               "_ui5type": {
                 "text": "Array<HTMLElement>"
               },
@@ -9019,7 +9039,7 @@
             },
             {
               "name": "header",
-              "description": "Defines the header HTML Element.\n\n**Note:** When a `ui5-bar` is used in the header, you should remove the default dialog's paddings.\n\n**Note:** If `header` slot is provided, the labelling of the dialog is a responsibility of the application developer.\n`accessibleName` should be used.",
+              "description": "Defines the header HTML Element.\n\n**Note:** If `header` slot is provided, the labelling of the dialog is a responsibility of the application developer.\n`accessibleName` should be used.",
               "_ui5type": {
                 "text": "Array<HTMLElement>"
               },
@@ -10840,7 +10860,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "### Overview\n\nThe `ui5-icon` component represents an SVG icon.\nThere are two main scenarios how the `ui5-icon` component is used:\nas a purely decorative element,\nor as an interactive element that can be focused and clicked.\n\n### Usage\n\n1. **Get familiar with the icons collections.**\n\nBefore displaying an icon, you need to explore the icons collections to find and import the desired icon.\n\nCurrently there are 3 icons collection, available as 3 npm packages:\n\n- [@ui5/webcomponents-icons](https://www.npmjs.com/package/@ui5/webcomponents-icons) represents the \"SAP-icons\" collection and includes the following\n[icons](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons).\n- [@ui5/webcomponents-icons-tnt](https://www.npmjs.com/package/@ui5/webcomponents-icons-tnt) represents the \"tnt\" collection and includes the following\n[icons](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT).\n- [@ui5/webcomponents-icons-business-suite](https://www.npmjs.com/package/@ui5/webcomponents-icons-business-suite) represents the \"business-suite\" collection and includes the following\n[icons](https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/BusinessSuiteInAppSymbols).\n\n2. **After exploring the icons collections, add one or more of the packages as dependencies to your project.**\n\n`npm i @ui5/webcomponents-icons`\n`npm i @ui5/webcomponents-icons-tnt`\n`npm i @ui5/webcomponents-icons-business-suite`\n\n3. **Then, import the desired icon**.\n\n`import \"@ui5/\\{package_name\\}/dist/\\{icon_name\\}.js\";`\n\n**For Example**:\n\nFor the standard \"SAP-icons\" icon collection, import an icon from the `@ui5/webcomponents-icons` package:\n\n`import \"@ui5/webcomponents-icons/dist/employee.js\";`\n\nFor the \"tnt\" (SAP Fiori Tools) icon collection, import an icon from the `@ui5/webcomponents-icons-tnt` package:\n\n`import \"@ui5/webcomponents-icons-tnt/dist/antenna.js\";`\n\nFor the \"business-suite\" (SAP Business Suite) icon collection, import an icon from the `@ui5/webcomponents-icons-business-suite` package:\n\n`import \"@ui5/webcomponents-icons-business-suite/dist/ab-testing.js\";`\n\n4. **Display the icon using the `ui5-icon` web component.**\nSet the icon collection (\"SAP-icons\", \"tnt\" or \"business-suite\" - \"SAP-icons\" is the default icon collection and can be skipped)\nand the icon name to the `name` property.\n\n`<ui5-icon name=\"employee\"></ui5-icon>`\n`<ui5-icon name=\"tnt/antenna\"></ui5-icon>`\n`<ui5-icon name=\"business-suite/ab-testing\"></ui5-icon>`\n\n### Keyboard Handling\n\n- [Space] / [Enter] or [Return] - Fires the `click` event if the `mode` property is set to `Interactive`.\n- [Shift] - If [Space] / [Enter] or [Return] is pressed, pressing [Shift] releases the ui5-icon without triggering the click event.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/Icon.js\";`",
+          "description": "### Overview\n\nThe `ui5-icon` component represents an SVG icon.\nThere are two main scenarios how the `ui5-icon` component is used:\nas a purely decorative element,\nor as an interactive element that can be focused and clicked.\n\n### Usage\n\n1. **Get familiar with the icons collections.**\n\nBefore displaying an icon, you need to explore the icons collections to find and import the desired icon.\n\nCurrently there are 3 icons collection, available as 3 npm packages:\n\n- [@ui5/webcomponents-icons](https://www.npmjs.com/package/@ui5/webcomponents-icons) represents the \"SAP-icons\" collection and includes the following\n[icons](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons).\n- [@ui5/webcomponents-icons-tnt](https://www.npmjs.com/package/@ui5/webcomponents-icons-tnt) represents the \"tnt\" collection and includes the following\n[icons](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT).\n- [@ui5/webcomponents-icons-business-suite](https://www.npmjs.com/package/@ui5/webcomponents-icons-business-suite) represents the \"business-suite\" collection and includes the following\n[icons](https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/BusinessSuiteInAppSymbols).\n\n2. **After exploring the icons collections, add one or more of the packages as dependencies to your project.**\n\n`npm i @ui5/webcomponents-icons`\n`npm i @ui5/webcomponents-icons-tnt`\n`npm i @ui5/webcomponents-icons-business-suite`\n\n3. **Then, import the desired icon**.\n\n`import \"@ui5/\\{package_name\\}/dist/\\{icon_name\\}.js\";`\n\n**For Example**:\n\nFor the standard \"SAP-icons\" icon collection, import an icon from the `@ui5/webcomponents-icons` package:\n\n`import \"@ui5/webcomponents-icons/dist/employee.js\";`\n\nFor the \"tnt\" (SAP Fiori Tools) icon collection, import an icon from the `@ui5/webcomponents-icons-tnt` package:\n\n`import \"@ui5/webcomponents-icons-tnt/dist/antenna.js\";`\n\nFor the \"business-suite\" (SAP Business Suite) icon collection, import an icon from the `@ui5/webcomponents-icons-business-suite` package:\n\n`import \"@ui5/webcomponents-icons-business-suite/dist/ab-testing.js\";`\n\n4. **Display the icon using the `ui5-icon` web component.**\nSet the icon collection (\"SAP-icons\", \"tnt\" or \"business-suite\" - \"SAP-icons\" is the default icon collection and can be skipped)\nand the icon name to the `name` property.\n\n`<ui5-icon name=\"employee\"></ui5-icon>`\n`<ui5-icon name=\"tnt/antenna\"></ui5-icon>`\n`<ui5-icon name=\"business-suite/ab-testing\"></ui5-icon>`\n\n### Keyboard Handling\n\n- [Space] / [Enter] or [Return] - Fires the `click` event if the `mode` property is set to `Interactive`.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/Icon.js\";`",
           "name": "Icon",
           "cssParts": [
             {
@@ -10923,7 +10943,7 @@
               "type": {
                 "text": "CustomEvent"
               },
-              "description": "Fired on mouseup, `SPACE` and `ENTER`.\n- on mouse click, the icon fires native `click` event\n- on `SPACE` and `ENTER`, the icon fires custom `click` event",
+              "description": "Fired when the component is activated by mouse/touch, keyboard (Enter or Space),\nor screen reader virtual cursor activation.\n\n**Note:** The event will not be fired if the `mode` property is set to `Decorative` or `Image`.",
               "_ui5Cancelable": false,
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": true,
@@ -23359,7 +23379,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Defines if the component is checked.\n\n**Note:** The property can be changed with user interaction,\neither by cliking the component, or by pressing the `Enter` or `Space` key.",
+              "description": "Defines if the component is checked.\n\n**Note:** The property can be changed with user interaction,\neither by clicking the component, or by pressing the `Enter` or `Space` key.",
               "privacy": "public",
               "_ui5formProperty": true,
               "_ui5formEvents": "change"
@@ -23401,6 +23421,17 @@
               "default": "undefined",
               "privacy": "public",
               "_ui5since": "1.16.0"
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the component is in readonly state.\n\n**Note:** A readonly switch cannot be toggled by user interaction,\nbut can still be focused and its value read programmatically.",
+              "privacy": "public",
+              "_ui5since": "2.21.0"
             },
             {
               "kind": "field",
@@ -23489,7 +23520,7 @@
               }
             },
             {
-              "description": "Defines if the component is checked.\n\n**Note:** The property can be changed with user interaction,\neither by cliking the component, or by pressing the `Enter` or `Space` key.",
+              "description": "Defines if the component is checked.\n\n**Note:** The property can be changed with user interaction,\neither by clicking the component, or by pressing the `Enter` or `Space` key.",
               "name": "checked",
               "default": "false",
               "fieldName": "checked",
@@ -23522,6 +23553,15 @@
               "fieldName": "name",
               "type": {
                 "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines whether the component is in readonly state.\n\n**Note:** A readonly switch cannot be toggled by user interaction,\nbut can still be focused and its value read programmatically.",
+              "name": "readonly",
+              "default": "false",
+              "fieldName": "readonly",
+              "type": {
+                "text": "boolean"
               }
             },
             {
@@ -24759,6 +24799,37 @@
               "description": "Determines the horizontal alignment of table cells.",
               "default": "undefined",
               "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "merged",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the cell is visually merged with the cell directly above it.\n\nThis is useful when consecutive cells in a column have the same value and should visually appear as a single merged cell.\nAlthough the cell is visually merged with the previous one, its content must still be provided for accessibility purposes.\n**Note:** This feature is disabled when cells are rendered as popin, and should remain `false` for interactive cell content.",
+              "privacy": "public",
+              "_ui5since": "2.21.0"
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Determines the horizontal alignment of table cells.",
+              "name": "horizontal-align",
+              "default": "undefined",
+              "fieldName": "horizontalAlign",
+              "type": {
+                "text": "\"Start\" | \"End\" | \"Center\" | \"Left\" | \"Right\" | undefined"
+              }
+            },
+            {
+              "description": "Defines whether the cell is visually merged with the cell directly above it.\n\nThis is useful when consecutive cells in a column have the same value and should visually appear as a single merged cell.\nAlthough the cell is visually merged with the previous one, its content must still be provided for accessibility purposes.\n**Note:** This feature is disabled when cells are rendered as popin, and should remain `false` for interactive cell content.",
+              "name": "merged",
+              "default": "false",
+              "fieldName": "merged",
+              "type": {
+                "text": "boolean"
+              }
             }
           ],
           "superclass": {
@@ -24779,17 +24850,6 @@
                 "text": "Array<Node>"
               },
               "_ui5privacy": "public"
-            }
-          ],
-          "attributes": [
-            {
-              "description": "Determines the horizontal alignment of table cells.",
-              "name": "horizontal-align",
-              "default": "undefined",
-              "fieldName": "horizontalAlign",
-              "type": {
-                "text": "\"Start\" | \"End\" | \"Center\" | \"Left\" | \"Right\" | undefined"
-              }
             }
           ]
         }
@@ -27495,7 +27555,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "### Overview\nThe `ui5-time-picker` component provides an input field with assigned clocks which are opened on user action.\nThe `ui5-time-picker` allows users to select a localized time using touch, mouse, or keyboard input.\nIt consists of two parts: the time input field and the clocks.\n\n### Usage\nThe user can enter a time by:\n\n- Using the clocks that are displayed in a popup\n- Typing it in directly in the input field\n\nWhen the user makes an entry and chooses the enter key, the clocks show the corresponding time (hours, minutes and seconds separately).\nWhen the user directly triggers the clocks display, the actual time is displayed.\nFor the `ui5-time-picker`\n\n### Formatting\n\nIf a time is entered by typing it into\nthe input field, it must fit to the used time format.\n\nSupported format options are pattern-based on Unicode LDML Date Format notation.\nFor more information, see [UTS #35: Unicode Locale Data Markup Language](https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table).\n\nFor example, if the `format-pattern` is \"HH:mm:ss\",\na valid value string is \"11:42:35\" and the same is displayed in the input.\n\n### Keyboard handling\n[F4], [Alt]+[Up], [Alt]+[Down] Open/Close picker dialog and move focus to it.\n\nWhen closed:\n\n- [Page Up] - Increments hours by 1. If 12 am is reached, increment hours to 1 pm and vice versa.\n- [Page Down] - Decrements the corresponding field by 1. If 1 pm is reached, decrement hours to 12 am and vice versa.\n- [Shift]+[Page Up] - Increments minutes by 1.\n- [Shift]+[Page Down] - Decrements minutes by 1.\n- [Shift]+[Ctrl]+[Page Up] - Increments seconds by 1.\n- [Shift]+[Ctrl]+[Page Down] - Decrements seconds by 1.\n-\n\nWhen opened:\n\n- [Page Up] - Increments hours by 1. If 12 am is reached, increment hours to 1 pm and vice versa.\n- [Page Down] - Decrements the corresponding field by 1. If 1 pm is reached, decrement hours to 12 am and vice versa.\n- [Shift]+[Page Up] - Increments minutes by 1.\n- [Shift]+[Page Down] - Decrements minutes by 1.\n- [Shift]+[Ctrl]+[Page Up] - Increments seconds by 1.\n- [Shift]+[Ctrl]+[Page Down] - Decrements seconds by 1.\n- [A] or [P] - Selects AM or PM respectively.\n- [0]-[9] - Allows direct time selecting (hours/minutes/seconds).\n- [:] - Allows switching between hours/minutes/seconds clocks. If the last clock is displayed and [:] is pressed, the first clock is beind displayed.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/TimePicker.js\";`",
+          "description": "### Overview\nThe `ui5-time-picker` component provides an input field with assigned clocks which are opened on user action.\nThe `ui5-time-picker` allows users to select a localized time using touch, mouse, or keyboard input.\nIt consists of two parts: the time input field and the clocks.\n\n### Usage\nThe user can enter a time by:\n\n- Using the clocks that are displayed in a popup\n- Typing it in directly in the input field\n\nWhen the user makes an entry and chooses the enter key, the clocks show the corresponding time (hours, minutes and seconds separately).\nWhen the user directly triggers the clocks display, the actual time is displayed.\nFor the `ui5-time-picker`\n\n### Formatting\n\nIf a time is entered by typing it into\nthe input field, it must fit to the used time format.\n\nSupported format options are pattern-based on Unicode LDML Date Format notation.\nFor more information, see [UTS #35: Unicode Locale Data Markup Language](https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table).\n\nFor example, if the valueFormat is \"HH:mm:ss\", the displayFormat is \"hh:mm: ss a\", and the used locale is English, a valid value string is \"11:42:35\", which leads to an output of \"11:42:35 AM\".\nIf no placeholder is set to the TimePicker, the used displayFormat is displayed as a placeholder. If another placeholder is needed, it must be set.\n\n### Keyboard handling\n[F4], [Alt]+[Up], [Alt]+[Down] Open/Close picker dialog and move focus to it.\n\nWhen closed:\n\n- [Page Up] - Increments hours by 1. If 12 am is reached, increment hours to 1 pm and vice versa.\n- [Page Down] - Decrements the corresponding field by 1. If 1 pm is reached, decrement hours to 12 am and vice versa.\n- [Shift]+[Page Up] - Increments minutes by 1.\n- [Shift]+[Page Down] - Decrements minutes by 1.\n- [Shift]+[Ctrl]+[Page Up] - Increments seconds by 1.\n- [Shift]+[Ctrl]+[Page Down] - Decrements seconds by 1.\n-\n\nWhen opened:\n\n- [Page Up] - Increments hours by 1. If 12 am is reached, increment hours to 1 pm and vice versa.\n- [Page Down] - Decrements the corresponding field by 1. If 1 pm is reached, decrement hours to 12 am and vice versa.\n- [Shift]+[Page Up] - Increments minutes by 1.\n- [Shift]+[Page Down] - Decrements minutes by 1.\n- [Shift]+[Ctrl]+[Page Up] - Increments seconds by 1.\n- [Shift]+[Ctrl]+[Page Down] - Decrements seconds by 1.\n- [A] or [P] - Selects AM or PM respectively.\n- [0]-[9] - Allows direct time selecting (hours/minutes/seconds).\n- [:] - Allows switching between hours/minutes/seconds clocks. If the last clock is displayed and [:] is pressed, the first clock is beind displayed.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/TimePicker.js\";`",
           "name": "TimePicker",
           "cssParts": [
             {
@@ -27582,12 +27642,24 @@
             },
             {
               "kind": "field",
+              "name": "displayFormat",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Determines the format, displayed in the input field.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.21.0"
+            },
+            {
+              "kind": "field",
               "name": "formatPattern",
               "type": {
                 "text": "string | undefined"
               },
               "description": "Determines the format, displayed in the input field.\n\nExample:\nHH:mm:ss -> 11:42:35\nhh:mm:ss a -> 2:23:15 PM\nmm:ss -> 12:04 (only minutes and seconds)",
               "default": "undefined",
+              "deprecated": "Use displayFormat and valueFormat instead",
               "privacy": "public"
             },
             {
@@ -27632,6 +27704,28 @@
               ],
               "description": "Checks if a value is valid against the current `formatPattern` value.\n\n**Note:** an empty string is considered as valid value.",
               "privacy": "public"
+            },
+            {
+              "kind": "method",
+              "name": "isValidValue",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string | undefined"
+                  },
+                  "description": "The value to be tested against the value format",
+                  "_ui5privacy": "public"
+                }
+              ],
+              "description": "Checks if a value is valid against the current `valueFormat` value.\n\n**Note:** an empty string is considered as valid value.",
+              "privacy": "public",
+              "_ui5since": "2.21.0"
             },
             {
               "kind": "field",
@@ -27697,6 +27791,17 @@
               "privacy": "public",
               "_ui5formProperty": true,
               "_ui5formEvents": "change,input"
+            },
+            {
+              "kind": "field",
+              "name": "valueFormat",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Determines the format, used for the value attribute.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.21.0"
             },
             {
               "kind": "field",
@@ -27870,13 +27975,23 @@
               }
             },
             {
+              "description": "Determines the format, displayed in the input field.",
+              "name": "display-format",
+              "default": "undefined",
+              "fieldName": "displayFormat",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
               "description": "Determines the format, displayed in the input field.\n\nExample:\nHH:mm:ss -> 11:42:35\nhh:mm:ss a -> 2:23:15 PM\nmm:ss -> 12:04 (only minutes and seconds)",
               "name": "format-pattern",
               "default": "undefined",
               "fieldName": "formatPattern",
               "type": {
                 "text": "string | undefined"
-              }
+              },
+              "deprecated": "Use displayFormat and valueFormat instead"
             },
             {
               "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.",
@@ -27930,6 +28045,15 @@
               "fieldName": "value",
               "type": {
                 "text": "string"
+              }
+            },
+            {
+              "description": "Determines the format, used for the value attribute.",
+              "name": "value-format",
+              "default": "undefined",
+              "fieldName": "valueFormat",
+              "type": {
+                "text": "string | undefined"
               }
             },
             {
@@ -28621,6 +28745,17 @@
             },
             {
               "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Associates the button with a form element by the form's `id` attribute.\nWhen set, the button can submit or reset the specified form even if the button\nis not a descendant of that form.\n\n**Note:** This property takes effect only when the button's \"type\" property is set to \"Submit\" or \"Reset\".",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.21.0"
+            },
+            {
+              "kind": "field",
               "name": "icon",
               "type": {
                 "text": "string | undefined"
@@ -28771,6 +28906,15 @@
               "name": "end-icon",
               "default": "undefined",
               "fieldName": "endIcon",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Associates the button with a form element by the form's `id` attribute.\nWhen set, the button can submit or reset the specified form even if the button\nis not a descendant of that form.\n\n**Note:** This property takes effect only when the button's \"type\" property is set to \"Submit\" or \"Reset\".",
+              "name": "form",
+              "default": "undefined",
+              "fieldName": "form",
               "type": {
                 "text": "string | undefined"
               }
@@ -29090,6 +29234,17 @@
             },
             {
               "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Associates the button with a form element by the form's `id` attribute.\nWhen set, the button can submit or reset the specified form even if the button\nis not a descendant of that form.\n\n**Note:** This property takes effect only when the button's \"type\" property is set to \"Submit\" or \"Reset\".",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.21.0"
+            },
+            {
+              "kind": "field",
               "name": "icon",
               "type": {
                 "text": "string | undefined"
@@ -29290,6 +29445,15 @@
               "name": "end-icon",
               "default": "undefined",
               "fieldName": "endIcon",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Associates the button with a form element by the form's `id` attribute.\nWhen set, the button can submit or reset the specified form even if the button\nis not a descendant of that form.\n\n**Note:** This property takes effect only when the button's \"type\" property is set to \"Submit\" or \"Reset\".",
+              "name": "form",
+              "default": "undefined",
+              "fieldName": "form",
               "type": {
                 "text": "string | undefined"
               }

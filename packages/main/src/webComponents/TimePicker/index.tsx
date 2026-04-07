@@ -48,11 +48,20 @@ interface TimePickerAttributes {
   /**
    * Determines the format, displayed in the input field.
    *
+   * **Note:** Available since [v2.21.0](https://github.com/UI5/webcomponents/releases/tag/v2.21.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  displayFormat?: string | undefined;
+
+  /**
+   * Determines the format, displayed in the input field.
+   *
    * Example:
    * HH:mm:ss -> 11:42:35
    * hh:mm:ss a -> 2:23:15 PM
    * mm:ss -> 12:04 (only minutes and seconds)
    * @default undefined
+   * @deprecated Use displayFormat and valueFormat instead
    */
   formatPattern?: string | undefined;
 
@@ -104,6 +113,14 @@ interface TimePickerAttributes {
   value?: string;
 
   /**
+   * Determines the format, used for the value attribute.
+   *
+   * **Note:** Available since [v2.21.0](https://github.com/UI5/webcomponents/releases/tag/v2.21.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  valueFormat?: string | undefined;
+
+  /**
    * Defines the value state of the component.
    * @default "None"
    */
@@ -132,6 +149,17 @@ interface TimePickerDomRef extends Required<TimePickerAttributes>, Ui5DomRef {
    * @returns {boolean}
    */
   isValid: (value: string | undefined) => boolean;
+
+  /**
+   * Checks if a value is valid against the current `valueFormat` value.
+   *
+   * **Note:** an empty string is considered as valid value.
+   *
+   * **Note:** Available since [v2.21.0](https://github.com/UI5/webcomponents/releases/tag/v2.21.0) of **@ui5/webcomponents**.
+   * @param {string | undefined} value - The value to be tested against the value format
+   * @returns {boolean}
+   */
+  isValidValue: (value: string | undefined) => boolean;
 }
 
 interface TimePickerPropTypes
@@ -223,8 +251,8 @@ interface TimePickerPropTypes
  * Supported format options are pattern-based on Unicode LDML Date Format notation.
  * For more information, see [UTS #35: Unicode Locale Data Markup Language](https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table).
  *
- * For example, if the `format-pattern` is "HH:mm:ss",
- * a valid value string is "11:42:35" and the same is displayed in the input.
+ * For example, if the valueFormat is "HH:mm:ss", the displayFormat is "hh:mm: ss a", and the used locale is English, a valid value string is "11:42:35", which leads to an output of "11:42:35 AM".
+ * If no placeholder is set to the TimePicker, the used displayFormat is displayed as a placeholder. If another placeholder is needed, it must be set.
  *
  * ### Keyboard handling
  * [F4], [Alt]+[Up], [Alt]+[Down] Open/Close picker dialog and move focus to it.
@@ -262,10 +290,12 @@ const TimePicker = withWebComponent<TimePickerPropTypes, TimePickerDomRef>(
     'accessibleDescriptionRef',
     'accessibleName',
     'accessibleNameRef',
+    'displayFormat',
     'formatPattern',
     'name',
     'placeholder',
     'value',
+    'valueFormat',
     'valueState',
   ],
   ['disabled', 'open', 'readonly', 'required'],

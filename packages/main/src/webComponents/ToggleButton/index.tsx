@@ -94,6 +94,18 @@ interface ToggleButtonAttributes {
   endIcon?: string | undefined;
 
   /**
+   * Associates the button with a form element by the form's `id` attribute.
+   * When set, the button can submit or reset the specified form even if the button
+   * is not a descendant of that form.
+   *
+   * **Note:** This property takes effect only when the button's "type" property is set to "Submit" or "Reset".
+   *
+   * **Note:** Available since [v2.21.0](https://github.com/UI5/webcomponents/releases/tag/v2.21.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  form?: string | undefined;
+
+  /**
    * Defines the icon, displayed as graphical element within the component.
    * The SAP-icons font provides numerous options.
    *
@@ -225,6 +237,7 @@ const ToggleButton = withWebComponent<ToggleButtonPropTypes, ToggleButtonDomRef>
     'accessibleRole',
     'design',
     'endIcon',
+    'form',
     'icon',
     'loadingDelay',
     'tooltip',

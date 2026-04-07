@@ -32,7 +32,7 @@ interface SwitchAttributes {
    * Defines if the component is checked.
    *
    * **Note:** The property can be changed with user interaction,
-   * either by cliking the component, or by pressing the `Enter` or `Space` key.
+   * either by clicking the component, or by pressing the `Enter` or `Space` key.
    * @default false
    */
   checked?: boolean;
@@ -63,6 +63,17 @@ interface SwitchAttributes {
    * @default undefined
    */
   name?: string | undefined;
+
+  /**
+   * Defines whether the component is in readonly state.
+   *
+   * **Note:** A readonly switch cannot be toggled by user interaction,
+   * but can still be focused and its value read programmatically.
+   *
+   * **Note:** Available since [v2.21.0](https://github.com/UI5/webcomponents/releases/tag/v2.21.0) of **@ui5/webcomponents**.
+   * @default false
+   */
+  readonly?: boolean;
 
   /**
    * Defines whether the component is required.
@@ -141,7 +152,7 @@ interface SwitchPropTypes extends SwitchAttributes, Omit<CommonProps, keyof Swit
 const Switch = withWebComponent<SwitchPropTypes, SwitchDomRef>(
   'ui5-switch',
   ['accessibleName', 'accessibleNameRef', 'design', 'name', 'textOff', 'textOn', 'tooltip', 'value'],
-  ['checked', 'disabled', 'required'],
+  ['checked', 'disabled', 'readonly', 'required'],
   [],
   ['change'],
 );

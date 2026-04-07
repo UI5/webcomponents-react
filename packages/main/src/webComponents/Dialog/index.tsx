@@ -164,8 +164,6 @@ interface DialogPropTypes
   /**
    * Defines the footer HTML Element.
    *
-   * **Note:** When a `Bar` is used in the footer, you should remove the default dialog's paddings.
-   *
    * __Note:__ The content of the prop will be rendered into a [&lt;slot&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) by assigning the respective [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) attribute (`slot="footer"`).
    * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
    *
@@ -178,8 +176,6 @@ interface DialogPropTypes
 
   /**
    * Defines the header HTML Element.
-   *
-   * **Note:** When a `Bar` is used in the header, you should remove the default dialog's paddings.
    *
    * **Note:** If `header` slot is provided, the labelling of the dialog is a responsibility of the application developer.
    * `accessibleName` should be used.
