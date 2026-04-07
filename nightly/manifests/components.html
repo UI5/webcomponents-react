@@ -576,13 +576,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">111/111 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">111/111 infos</a><span class="filter-pill ok" aria-disabled="true">300 stories ok</span><a class="filter-pill ok" data-k="docs" href="#filter-docs">142 docs ok</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">111/111 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">111/111 infos</a><span class="filter-pill ok" aria-disabled="true">306 stories ok</span><a class="filter-pill ok" data-k="docs" href="#filter-docs">142 docs ok</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note ok" style="margin-bottom: 16px;">
-              Using <code>react-docgen-typescript</code>. Generation took <strong>4.1s</strong>.
+              Using <code>react-docgen-typescript</code>. Generation took <strong>4.2s</strong>.
             </div>
     <h2 class="section-title">Components</h2>
     <div class="grid" role="list">
@@ -2345,8 +2345,9 @@ export const EllipsisExamples: Story = {
               <div class="hint">./packages/main/src/components/AnalyticalTable/docs/AnalyticalTable.mdx</div>
               
               <div class="mdx-content"><pre><code>import { ControlsWithNote, DocsHeader, Footer } from &#39;@sb/components&#39;;
-import { Canvas, Meta } from &#39;@storybook/addon-docs/blocks&#39;;
+import { Canvas, Markdown, Meta } from &#39;@storybook/addon-docs/blocks&#39;;
 import * as ComponentStories from &#39;./AnalyticalTable.stories&#39;;
+import ColumnPropertiesMd from &#39;./ColumnProperties.md?raw&#39;;
 
 &lt;Meta of={ComponentStories} /&gt;
 
@@ -2434,50 +2435,7 @@ const TableComp = () =&gt; {
 
 ## Column Properties
 
-**Required Attributes**
-
-| Attribute  | Type                                                                                                                                                      | Description                                                                                                                                                                                                                    |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `accessor` | `string` OR &lt;br /&gt;`(originalRow: Record&lt;string, any&gt;, rowIndex: number, row: RowType,` &lt;br /&gt;`parentRows: RowType[], data: Record&lt;string, any&gt;[]) =&gt; any` | This `string`/`function` is used to build the data model for your column.&lt;br /&gt;&lt;br /&gt;**Note**: You can also specify deeply nested values with accessors like `info.hobby` or even `address[0].street`.&lt;br /&gt;                   |
-| `id`       | `string`                                                                                                                                                  | Defines the unique ID for the column. It is used by reference in things like sorting, grouping, filtering, etc.&lt;br /&gt;&lt;br /&gt;**Note:** If no `accessor` is set, or the `accessor` is a function, the `id` property is mandatory. |
-
-**Optional Properties**
-
-| Attribute               | Type                                                                                                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ----------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Header`                | `string` OR&lt;br/&gt;`ComponentType`                                                                     | Can either be `string` or a React component that will be rendered as column header                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `headerLabel`           | `string`                                                                                            | Defines the `aria-label` for the whole column read by screen readers.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `headerTooltip`         | `string`                                                                                            | Tooltip for the column header. If not set, the display text will be the same as the Header if it is a `string`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `Cell`                  | `string` OR&lt;br /&gt;`ComponentType`&lt;br/&gt;`&lt;CellInstance&gt;`                                               | Custom cell renderer. If set, the table will use this component or render the provided string for every cell, passing all necessary information as props, e.g., the cell value as `props.value`.&lt;br /&gt;&lt;br /&gt;**Note:**&lt;ul&gt;&lt;li&gt;Using a custom component **can impact performance**! If you pass a component, **memoizing it is strongly recommended**, especially for complex components or large datasets.&lt;/li&gt;&lt;li&gt;For custom elements, text truncation needs to be applied manually. [Here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs) you can find out more.&lt;/li&gt;&lt;/ul&gt; |
-| `cellLabel`             | `({cell, instance})`&lt;br/&gt;`=&gt; string`                                                                | Defines a function that receives an object as a parameter, including the cell and table instance, and should return the `aria-label` of the current cell. &lt;br /&gt;&lt;br /&gt;**Note:** Use this property if there is no textual content available through the dataset (e.g. no `accessor` field available), or if you want to provide additional context when navigating to the respective cell for screen readers.&lt;br /&gt;&lt;br /&gt;**Note:** To retrieve the internal `aria-label`, utilize the `cell.cellLabel` property.                                                                                                                   |
-| `width`                 | `number`                                                                                            | Defines the column width. If not set, the table will distribute all columns without a width evenly.&lt;br /&gt;**Note:** The `width` cannot be less than `minWidth`. Since `minWidth` defaults to 60, set a lower `minWidth` to allow narrower columns.                                                                                                                                                                                                                                                                                                                                                                                 |
-| `minWidth`              | `number`                                                                                            | Minimum width of the column.&lt;br /&gt;**Default:** `60`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `maxWidth`              | `number`                                                                                            | Maximum width of the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `Filter`                | `ComponentType`                                                                                     | Filter Component to be rendered in the Header                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `disableFilters`        | `boolean`                                                                                           | Disable filters for this column                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `disableGlobalFilter`   | `boolean`                                                                                           | Disable global filtering for this column                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `defaultCanFilter`      | `boolean`                                                                                           | If set to true, this column will be filterable, regardless if it has a valid `accessor`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `filter`                | `string OR Function`                                                                                | Either a string or a filter function.&lt;br /&gt;Supported String Values: &lt;ul&gt;&lt;li&gt;`text`&lt;/li&gt;&lt;li&gt;`exactText`&lt;/li&gt;&lt;li&gt;`exactTextCase`&lt;/li&gt;&lt;li&gt;`equals`&lt;/li&gt;&lt;/ul&gt;**Note:** When the standard `Filter` component is used, the filter function is not triggered if the `filterValue` is empty, as the filter is then removed.                                                                                                                                                                                                                                                                                                               |
-| `Aggregated`            | `ComponentType`                                                                                     | Component to render for aggregated cells                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `aggregate`             | `string` OR&lt;br/&gt;`((leafValues,`&lt;br/&gt;`aggregatedValues)`&lt;br/&gt;`=&gt; any)`                               | Aggregation function or string.&lt;br /&gt;Supported String Values: &lt;ul&gt;&lt;li&gt;`sum`&lt;/li&gt;&lt;li&gt;`min`&lt;/li&gt;&lt;li&gt;`max`&lt;/li&gt;&lt;li&gt;`minMax`&lt;/li&gt;&lt;li&gt;`average`&lt;/li&gt;&lt;li&gt;`median`&lt;/li&gt;&lt;li&gt;`unique`&lt;/li&gt;&lt;li&gt;`uniqueCount`&lt;/li&gt;&lt;li&gt;`count`&lt;/li&gt;&lt;/ul&gt;                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `aggregateValue`        | `string` OR&lt;br/&gt;`((values, row,`&lt;br/&gt;`column) =&gt; any)`                                              | When attempting to group/aggregate non primitive cell values (eg. arrays of items) you will likely need to resolve a stable primitive value like a number or string to use in normal row aggregations. This property can be used to aggregate or simply access the value to be used in aggregations eg. count-ing the unique number of items in a cell&#39;s array value before sum-ing that count across the table                                                                                                                                                                                                                   |
-| `disableGroupBy`        | `boolean`                                                                                           | Disable groupBy for this column                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `defaultCanSort`        | `boolean`                                                                                           | If set to true, this column will be sortable, regardless if it has a valid `accessor`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `disableSortBy`         | `boolean`                                                                                           | Disable sorting for this column                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `sortDescFirst`         | `boolean`                                                                                           | If set to `true`, the first sort direction for this column will be descending instead of ascending.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `sortInverted`          | `boolean`                                                                                           | If set to `true`, the underlying sorting direction will be inverted, but the UI will not.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `sortType`              | `string` OR&lt;br/&gt;`((rowA, rowB,`&lt;br/&gt;`columnId: string,`&lt;br/&gt;`descending: boolean)`&lt;br/&gt;`=&gt; number)` | String or custom **memoized** sort function.&lt;br /&gt;Supported String Values: &lt;ul&gt;&lt;li&gt;`basic`&lt;/li&gt;&lt;li&gt;`datetime`&lt;/li&gt;&lt;li&gt;`alphanumeric`&lt;/li&gt;&lt;/ul&gt;**Default:**`&#39;alphanumeric&#39;`                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `disableResizing`       | `boolean`                                                                                           | Disable resizing for this column                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `hAlign`                | `TextAlign`                                                                                         | Horizontal align of the cell                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `vAlign`                | `VerticalAlign`                                                                                     | Vertical align of the cell                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `scaleWidthModeOptions` | `ScaleWidthModeOptions`                                                                             | Allows passing a custom string for the internal width calculation of custom cells for `scaleWidthMode` `Grow` and `Smart`. More &lt;a href=&quot;./?path=/docs/data-display-analyticaltable-recipes--docs#how-to-scale-custom-cells&quot;&gt;here&lt;/a&gt;                                                                                                                                                                                                                                                                                                                                                                                             |
-| `responsivePopIn`       | `boolean`                                                                                           | Enables the pop-in behavior of the column. When the `responsiveMinWidth` is smaller then the width of the table, the content of each cell will move to the first cell in the row, improving usability on small or mobile devices.&lt;br /&gt;**Note:** At least one column must remain visible at all times!                                                                                                                                                                                                                                                                                                                            |
-| `responsiveMinWidth`    | `number`                                                                                            | Defines how the table should react when its width falls below the `responsiveMinWidth`. &lt;ul&gt;&lt;li&gt;If `responsivePopIn` is `true` the content of this column will be moved to the first column.&lt;/li&gt;&lt;li&gt;If `responsivePopIn` is not set or `false` the column will be hidden.&lt;/li&gt;&lt;/ul&gt;                                                                                                                                                                                                                                                                                                                                              |
-| `PopInHeader`           | `string` OR&lt;br/&gt;`ComponentType`                                                                     | Custom pop-in header renderer. If set, the table will call that component for every column that is &quot;popped-in&quot; and pass the table instance as prop.                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `popinDisplay`          | `AnalyticalTablePopinDisplay`                                                                       | Defines the display of `AnalyticalTable` pop-ins.&lt;br /&gt;**Default:** `AnalyticalTablePopinDisplay.Block`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `disableDragAndDrop`    | `boolean`                                                                                           | Defines if the column is reorderable by dragging and dropping columns.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `enableMultiSort`       | `boolean`                                                                                           | Defines whether this column should allow multi-sort.&lt;br /&gt;&lt;br /&gt; **Note:** When sorting by a column that does not allow multiple sorting, only the current column is sorted and all other sorted columns are reset.                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `autoResizable`         | `boolean`                                                                                           | Defines whether double-clicking a columns resizer will automatically resize the column to fit the largest cell content of visible rows.&lt;br /&gt;&lt;br /&gt;**Note:** Only default text content is supported by this option, for custom content it might work as well, but we recommend checking the behavior carefully as the logic can&#39;t account for all possible implementations.                                                                                                                                                                                                                                                       |
+&lt;Markdown&gt;{ColumnPropertiesMd}&lt;/Markdown&gt;
 
 &lt;br /&gt;
 
@@ -3752,7 +3710,7 @@ import * as ComponentStories from &#39;./Bar.stories&#39;;
       <div class="badges">
         <label for="c-6-charts-barchart-err" class="badge err as-toggle">prop type error</label>
         <label for="c-6-charts-barchart-info" class="badge info as-toggle">1 info</label>
-        <label for="c-6-charts-barchart-stories" class="badge ok as-toggle">11 stories</label>
+        <label for="c-6-charts-barchart-stories" class="badge ok as-toggle">13 stories</label>
         <label for="c-6-charts-barchart-docs" class="badge ok as-toggle">1 doc</label>
       </div>
     </div>
@@ -3776,18 +3734,19 @@ import * as ComponentStories from &#39;./Bar.stories&#39;;
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>No component file found for the &quot;BarChart&quot; component.
-  10 | import { BarChart } from &#39;./index.js&#39;;
-  11 |
-&gt; 12 | const meta = {
+  11 | import { BarChart } from &#39;./index.js&#39;;
+  12 |
+&gt; 13 | const meta = {
      | ^
-  13 |   title: &#39;BarChart&#39;,
-  14 |   component: BarChart,
-  15 |   tags: [&#39;package:@ui5/webcomponents-react-charts&#39;],
+  14 |   title: &#39;BarChart&#39;,
+  15 |   component: BarChart,
+  16 |   tags: [&#39;package:@ui5/webcomponents-react-charts&#39;],
 
 ./packages/charts/src/components/BarChart/BarChart.stories.tsx:
 import type { Meta, StoryObj } from &#39;@storybook/react-vite&#39;;
 import {
   complexDataSet,
+  CustomTooltipContent,
   legendConfig,
   secondaryDimensionDataSet,
   simpleDataSet,
@@ -3952,6 +3911,56 @@ export const WithNormalizedStacks: Story = {
   args: stackedNormalizedConfig,
 };
 
+export const WithStackAggregateTotalsAndTooltip: Story = {
+  name: &#39;With Stack Aggregate Totals&#39;,
+  args: {
+    dataset: complexDataSet.slice(0, 3),
+    measures: [
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+  },
+};
+
+export const WithCustomTooltipTotal: Story = {
+  args: {
+    dataset: complexDataSet.slice(0, 5),
+    measures: [
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+    tooltipConfig: {
+      content: &lt;CustomTooltipContent /&gt;,
+    },
+  },
+};
+
 export const WithCustomTooltipConfig: Story = {
   args: tooltipConfig,
 };
@@ -3980,7 +3989,7 @@ export const WithCustomLegendConfig: Story = {
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { BarChart } from "@ui5/webcomponents-react-charts";</code></pre>
+                <pre><code>import { BarChart, CustomTooltipContent } from "@ui5/webcomponents-react-charts";</code></pre>
               </div>
           
           
@@ -4234,6 +4243,73 @@ export const WithCustomLegendConfig: Story = {
             </div>
             <div class="note ok">
               <div class="row">
+                <span class="ex-name">With Stack Aggregate Totals</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithStackAggregateTotalsAndTooltip = () =&gt; &lt;BarChart
+    dataset={complexDataSet.slice(0, 3)}
+    dimensions={[
+      {
+        accessor: &#39;name&#39;,
+      },
+    ]}
+    measures={[
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+    ]}
+    chartConfig={{
+      showStackAggregateTotals: true,
+    }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Custom Tooltip Total</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithCustomTooltipTotal = () =&gt; &lt;BarChart
+    dataset={complexDataSet.slice(0, 5)}
+    dimensions={[
+      {
+        accessor: &#39;name&#39;,
+      },
+    ]}
+    measures={[
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+      },
+    ]}
+    chartConfig={{
+      showStackAggregateTotals: true,
+    }}
+    tooltipConfig={{
+      content: &lt;CustomTooltipContent /&gt;,
+    }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
                 <span class="ex-name">With Custom Tooltip Config</span>
                 <span class="badge ok">story ok</span>
               </div>
@@ -4315,6 +4391,8 @@ import { Canvas, Meta } from &#39;@storybook/addon-docs/blocks&#39;;
 import TooltipStory from &#39;../../resources/TooltipConfig.mdx&#39;;
 import LegendStory from &#39;../../resources/LegendConfig.mdx&#39;;
 import NormalizedStackedChartStory from &#39;../../resources/NormalizedStackedChart.mdx&#39;;
+import StackAggregateTotalsStory from &#39;../../resources/StackAggregateTotals.mdx&#39;;
+import CustomTooltipTotalStory from &#39;../../resources/CustomTooltipTotal.mdx&#39;;
 import * as ComponentStories from &#39;./BarChart.stories&#39;;
 
 &lt;Meta of={ComponentStories} /&gt;
@@ -4378,6 +4456,16 @@ You can set a reference line to any value by using the `referenceLine` `chartCon
 ### With Highlighted Measure
 
 &lt;Canvas of={ComponentStories.WithHighlightedMeasure} /&gt;
+
+&lt;StackAggregateTotalsStory
+  of={ComponentStories.WithStackAggregateTotalsAndTooltip}
+  description={&lt;&gt;You can display a total label at the end of each stacked bar group by setting &lt;code&gt;chartConfig.showStackAggregateTotals&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;. The tooltip includes the total automatically when only a single bar per dimension is present.&lt;/&gt;}
+/&gt;
+
+&lt;CustomTooltipTotalStory
+  of={ComponentStories.WithCustomTooltipTotal}
+  description={&lt;&gt;When multiple bars per dimension are present (e.g. stacked + standalone), the built-in tooltip total is not available. You can provide a custom tooltip via the &lt;code&gt;tooltipConfig.content&lt;/code&gt; prop to display a total for specific measures.&lt;/&gt;}
+/&gt;
 
 &lt;TooltipStory of={ComponentStories.WithCustomTooltipConfig} /&gt;
 
@@ -7374,7 +7462,7 @@ import * as ComponentStories from &#39;./ColorPicker.stories&#39;;
       <div class="badges">
         <label for="c-20-charts-columnchart-err" class="badge err as-toggle">prop type error</label>
         <label for="c-20-charts-columnchart-info" class="badge info as-toggle">1 info</label>
-        <label for="c-20-charts-columnchart-stories" class="badge ok as-toggle">11 stories</label>
+        <label for="c-20-charts-columnchart-stories" class="badge ok as-toggle">13 stories</label>
         <label for="c-20-charts-columnchart-docs" class="badge ok as-toggle">1 doc</label>
       </div>
     </div>
@@ -7398,18 +7486,19 @@ import * as ComponentStories from &#39;./ColorPicker.stories&#39;;
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>No component file found for the &quot;ColumnChart&quot; component.
-  10 | import { ColumnChart } from &#39;./index.js&#39;;
-  11 |
-&gt; 12 | const meta = {
+  11 | import { ColumnChart } from &#39;./index.js&#39;;
+  12 |
+&gt; 13 | const meta = {
      | ^
-  13 |   title: &#39;ColumnChart&#39;,
-  14 |   component: ColumnChart,
-  15 |   tags: [&#39;package:@ui5/webcomponents-react-charts&#39;],
+  14 |   title: &#39;ColumnChart&#39;,
+  15 |   component: ColumnChart,
+  16 |   tags: [&#39;package:@ui5/webcomponents-react-charts&#39;],
 
 ./packages/charts/src/components/ColumnChart/ColumnChart.stories.tsx:
 import type { Meta, StoryObj } from &#39;@storybook/react-vite&#39;;
 import {
   complexDataSet,
+  CustomTooltipContent,
   legendConfig,
   secondaryDimensionDataSet,
   simpleDataSet,
@@ -7565,6 +7654,57 @@ export const WithHighlightedMeasure: Story = {
   },
 };
 
+export const WithStackAggregateTotals: Story = {
+  args: {
+    dataset: complexDataSet.slice(0, 3),
+    dimensions: [{ accessor: &#39;name&#39; }],
+    measures: [
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+  },
+};
+
+export const WithCustomTooltipTotal: Story = {
+  args: {
+    dataset: complexDataSet.slice(0, 5),
+    dimensions: [{ accessor: &#39;name&#39; }],
+    measures: [
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+    tooltipConfig: {
+      content: &lt;CustomTooltipContent /&gt;,
+    },
+  },
+};
+
 export const WithCustomTooltipConfig: Story = {
   args: tooltipConfig,
 };
@@ -7593,7 +7733,7 @@ export const WithCustomLegendConfig: Story = {
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { ColumnChart } from "@ui5/webcomponents-react-charts";</code></pre>
+                <pre><code>import { ColumnChart, CustomTooltipContent } from "@ui5/webcomponents-react-charts";</code></pre>
               </div>
           
           
@@ -7858,6 +7998,65 @@ export const WithCustomLegendConfig: Story = {
             </div>
             <div class="note ok">
               <div class="row">
+                <span class="ex-name">With Stack Aggregate Totals</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithStackAggregateTotals = () =&gt; &lt;ColumnChart
+    dataset={complexDataSet.slice(0, 3)}
+    dimensions={[{ accessor: &#39;name&#39; }]}
+    measures={[
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+    ]}
+    chartConfig={{
+      showStackAggregateTotals: true,
+    }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Custom Tooltip Total</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithCustomTooltipTotal = () =&gt; &lt;ColumnChart
+    dataset={complexDataSet.slice(0, 5)}
+    dimensions={[{ accessor: &#39;name&#39; }]}
+    measures={[
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+      },
+    ]}
+    chartConfig={{
+      showStackAggregateTotals: true,
+    }}
+    tooltipConfig={{
+      content: &lt;CustomTooltipContent /&gt;,
+    }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
                 <span class="ex-name">With Custom Tooltip Config</span>
                 <span class="badge ok">story ok</span>
               </div>
@@ -7939,6 +8138,8 @@ import { Canvas, Meta } from &#39;@storybook/addon-docs/blocks&#39;;
 import TooltipStory from &#39;../../resources/TooltipConfig.mdx&#39;;
 import LegendStory from &#39;../../resources/LegendConfig.mdx&#39;;
 import NormalizedStackedChartStory from &#39;../../resources/NormalizedStackedChart.mdx&#39;;
+import StackAggregateTotalsStory from &#39;../../resources/StackAggregateTotals.mdx&#39;;
+import CustomTooltipTotalStory from &#39;../../resources/CustomTooltipTotal.mdx&#39;;
 import * as ComponentStories from &#39;./ColumnChart.stories&#39;;
 
 &lt;Meta of={ComponentStories} /&gt;
@@ -7998,9 +8199,19 @@ You can set a reference line to any value by using the `referenceLine` `chartCon
 
 &lt;Canvas of={ComponentStories.WithReferenceLine} /&gt;
 
-## With Highlighted Measures
+### With Highlighted Measures
 
 &lt;Canvas of={ComponentStories.WithHighlightedMeasure} /&gt;
+
+&lt;StackAggregateTotalsStory
+  of={ComponentStories.WithStackAggregateTotals}
+  description={&lt;&gt;You can display a total label at the top of each stacked column group by setting &lt;code&gt;chartConfig.showStackAggregateTotals&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;. The tooltip includes the total automatically when only a single column per dimension is present.&lt;/&gt;}
+/&gt;
+
+&lt;CustomTooltipTotalStory
+  of={ComponentStories.WithCustomTooltipTotal}
+  description={&lt;&gt;When multiple columns per dimension are present (e.g. stacked + standalone), the built-in tooltip total is not available. You can provide a custom tooltip via the &lt;code&gt;tooltipConfig.content&lt;/code&gt; prop to display a total for specific measures.&lt;/&gt;}
+/&gt;
 
 &lt;TooltipStory of={ComponentStories.WithCustomTooltipConfig} /&gt;;
 
@@ -8641,7 +8852,7 @@ All available filter types controlled by the `filter` prop.
       <div class="badges">
         <label for="c-23-charts-composedchart-err" class="badge err as-toggle">prop type error</label>
         <label for="c-23-charts-composedchart-info" class="badge info as-toggle">1 info</label>
-        <label for="c-23-charts-composedchart-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-23-charts-composedchart-stories" class="badge ok as-toggle">12 stories</label>
         <label for="c-23-charts-composedchart-docs" class="badge ok as-toggle">1 doc</label>
       </div>
     </div>
@@ -8665,17 +8876,24 @@ All available filter types controlled by the `filter` prop.
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>No component file found for the &quot;ComposedChart&quot; component.
-  3 | import { ComposedChart } from &#39;./index.js&#39;;
-  4 |
-&gt; 5 | const meta = {
-    | ^
-  6 |   title: &#39;ComposedChart&#39;,
-  7 |   component: ComposedChart,
-  8 |   tags: [&#39;package:@ui5/webcomponents-react-charts&#39;],
+  10 | import { ComposedChart } from &#39;./index.js&#39;;
+  11 |
+&gt; 12 | const meta = {
+     | ^
+  13 |   title: &#39;ComposedChart&#39;,
+  14 |   component: ComposedChart,
+  15 |   tags: [&#39;package:@ui5/webcomponents-react-charts&#39;],
 
 ./packages/charts/src/components/ComposedChart/ComposedChart.stories.tsx:
 import type { Meta, StoryObj } from &#39;@storybook/react-vite&#39;;
-import { bigDataSet, complexDataSet, legendConfig, simpleDataSet, tooltipConfig } from &#39;../../resources/DemoProps.js&#39;;
+import {
+  bigDataSet,
+  complexDataSet,
+  CustomTooltipContent,
+  legendConfig,
+  simpleDataSet,
+  tooltipConfig,
+} from &#39;../../resources/DemoProps.js&#39;;
 import { ComposedChart } from &#39;./index.js&#39;;
 
 const meta = {
@@ -8881,6 +9099,67 @@ export const LoadingPlaceholder: Story = {
   },
 };
 
+export const WithStackAggregateTotals: Story = {
+  args: {
+    dataset: complexDataSet.slice(0, 7),
+    dimensions: [{ accessor: &#39;name&#39; }],
+    measures: [
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+        type: &#39;line&#39;,
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+  },
+};
+
+export const WithCustomTooltipTotal: Story = {
+  args: {
+    dataset: complexDataSet.slice(0, 7),
+    dimensions: [{ accessor: &#39;name&#39; }],
+    measures: [
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+        type: &#39;line&#39;,
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+    tooltipConfig: {
+      content: &lt;CustomTooltipContent /&gt;,
+    },
+  },
+};
+
 export const WithCustomTooltipConfig: Story = {
   args: tooltipConfig,
 };
@@ -8909,7 +9188,7 @@ export const WithCustomLegendConfig: Story = {
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { ComposedChart } from "@ui5/webcomponents-react-charts";</code></pre>
+                <pre><code>import { ComposedChart, CustomTooltipContent } from "@ui5/webcomponents-react-charts";</code></pre>
               </div>
           
           
@@ -9185,6 +9464,75 @@ export const WithCustomLegendConfig: Story = {
             </div>
             <div class="note ok">
               <div class="row">
+                <span class="ex-name">With Stack Aggregate Totals</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithStackAggregateTotals = () =&gt; &lt;ComposedChart
+    dataset={complexDataSet.slice(0, 7)}
+    dimensions={[{ accessor: &#39;name&#39; }]}
+    measures={[
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+        type: &#39;line&#39;,
+      },
+    ]}
+    chartConfig={{
+      showStackAggregateTotals: true,
+    }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Custom Tooltip Total</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithCustomTooltipTotal = () =&gt; &lt;ComposedChart
+    dataset={complexDataSet.slice(0, 7)}
+    dimensions={[{ accessor: &#39;name&#39; }]}
+    measures={[
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+        type: &#39;line&#39;,
+      },
+    ]}
+    chartConfig={{
+      showStackAggregateTotals: true,
+    }}
+    tooltipConfig={{
+      content: &lt;CustomTooltipContent /&gt;,
+    }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
                 <span class="ex-name">With Custom Tooltip Config</span>
                 <span class="badge ok">story ok</span>
               </div>
@@ -9271,6 +9619,8 @@ export const WithCustomLegendConfig: Story = {
 import { Canvas, Meta } from &#39;@storybook/addon-docs/blocks&#39;;
 import TooltipStory from &#39;../../resources/TooltipConfig.mdx&#39;;
 import LegendStory from &#39;../../resources/LegendConfig.mdx&#39;;
+import StackAggregateTotalsStory from &#39;../../resources/StackAggregateTotals.mdx&#39;;
+import CustomTooltipTotalStory from &#39;../../resources/CustomTooltipTotal.mdx&#39;;
 import * as ComponentStories from &#39;./ComposedChart.stories&#39;;
 
 &lt;Meta of={ComponentStories} /&gt;
@@ -9332,6 +9682,16 @@ You can set a reference line to any value by using the `referenceLine` `chartCon
 ### Loading Placeholder
 
 &lt;Canvas of={ComponentStories.LoadingPlaceholder} /&gt;
+
+&lt;StackAggregateTotalsStory
+  of={ComponentStories.WithStackAggregateTotals}
+  description={&lt;&gt;You can display a total label at the top of each stacked bar group by setting &lt;code&gt;chartConfig.showStackAggregateTotals&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;. The tooltip includes the total automatically when all measures are stacked bars within a single stack group. If non-bar measures (e.g. lines or areas) are present, only the bar labels are shown.&lt;/&gt;}
+/&gt;
+
+&lt;CustomTooltipTotalStory
+  of={ComponentStories.WithCustomTooltipTotal}
+  description={&lt;&gt;When non-bar measures (e.g. lines or areas) are present alongside stacked bars, the built-in tooltip total is not available. You can provide a custom tooltip via the &lt;code&gt;tooltipConfig.content&lt;/code&gt; prop to display a total for the stacked bar measures.&lt;/&gt;}
+/&gt;
 
 &lt;TooltipStory of={ComponentStories.WithCustomTooltipConfig} /&gt;
 
@@ -42458,8 +42818,9 @@ export const EllipsisExamples: Story = {
               <div class="hint">./packages/main/src/components/AnalyticalTable/docs/AnalyticalTable.mdx</div>
               
               <div class="mdx-content"><pre><code>import { ControlsWithNote, DocsHeader, Footer } from &#39;@sb/components&#39;;
-import { Canvas, Meta } from &#39;@storybook/addon-docs/blocks&#39;;
+import { Canvas, Markdown, Meta } from &#39;@storybook/addon-docs/blocks&#39;;
 import * as ComponentStories from &#39;./AnalyticalTable.stories&#39;;
+import ColumnPropertiesMd from &#39;./ColumnProperties.md?raw&#39;;
 
 &lt;Meta of={ComponentStories} /&gt;
 
@@ -42547,50 +42908,7 @@ const TableComp = () =&gt; {
 
 ## Column Properties
 
-**Required Attributes**
-
-| Attribute  | Type                                                                                                                                                      | Description                                                                                                                                                                                                                    |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `accessor` | `string` OR &lt;br /&gt;`(originalRow: Record&lt;string, any&gt;, rowIndex: number, row: RowType,` &lt;br /&gt;`parentRows: RowType[], data: Record&lt;string, any&gt;[]) =&gt; any` | This `string`/`function` is used to build the data model for your column.&lt;br /&gt;&lt;br /&gt;**Note**: You can also specify deeply nested values with accessors like `info.hobby` or even `address[0].street`.&lt;br /&gt;                   |
-| `id`       | `string`                                                                                                                                                  | Defines the unique ID for the column. It is used by reference in things like sorting, grouping, filtering, etc.&lt;br /&gt;&lt;br /&gt;**Note:** If no `accessor` is set, or the `accessor` is a function, the `id` property is mandatory. |
-
-**Optional Properties**
-
-| Attribute               | Type                                                                                                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ----------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Header`                | `string` OR&lt;br/&gt;`ComponentType`                                                                     | Can either be `string` or a React component that will be rendered as column header                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `headerLabel`           | `string`                                                                                            | Defines the `aria-label` for the whole column read by screen readers.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `headerTooltip`         | `string`                                                                                            | Tooltip for the column header. If not set, the display text will be the same as the Header if it is a `string`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `Cell`                  | `string` OR&lt;br /&gt;`ComponentType`&lt;br/&gt;`&lt;CellInstance&gt;`                                               | Custom cell renderer. If set, the table will use this component or render the provided string for every cell, passing all necessary information as props, e.g., the cell value as `props.value`.&lt;br /&gt;&lt;br /&gt;**Note:**&lt;ul&gt;&lt;li&gt;Using a custom component **can impact performance**! If you pass a component, **memoizing it is strongly recommended**, especially for complex components or large datasets.&lt;/li&gt;&lt;li&gt;For custom elements, text truncation needs to be applied manually. [Here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs) you can find out more.&lt;/li&gt;&lt;/ul&gt; |
-| `cellLabel`             | `({cell, instance})`&lt;br/&gt;`=&gt; string`                                                                | Defines a function that receives an object as a parameter, including the cell and table instance, and should return the `aria-label` of the current cell. &lt;br /&gt;&lt;br /&gt;**Note:** Use this property if there is no textual content available through the dataset (e.g. no `accessor` field available), or if you want to provide additional context when navigating to the respective cell for screen readers.&lt;br /&gt;&lt;br /&gt;**Note:** To retrieve the internal `aria-label`, utilize the `cell.cellLabel` property.                                                                                                                   |
-| `width`                 | `number`                                                                                            | Defines the column width. If not set, the table will distribute all columns without a width evenly.&lt;br /&gt;**Note:** The `width` cannot be less than `minWidth`. Since `minWidth` defaults to 60, set a lower `minWidth` to allow narrower columns.                                                                                                                                                                                                                                                                                                                                                                                 |
-| `minWidth`              | `number`                                                                                            | Minimum width of the column.&lt;br /&gt;**Default:** `60`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `maxWidth`              | `number`                                                                                            | Maximum width of the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `Filter`                | `ComponentType`                                                                                     | Filter Component to be rendered in the Header                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `disableFilters`        | `boolean`                                                                                           | Disable filters for this column                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `disableGlobalFilter`   | `boolean`                                                                                           | Disable global filtering for this column                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `defaultCanFilter`      | `boolean`                                                                                           | If set to true, this column will be filterable, regardless if it has a valid `accessor`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `filter`                | `string OR Function`                                                                                | Either a string or a filter function.&lt;br /&gt;Supported String Values: &lt;ul&gt;&lt;li&gt;`text`&lt;/li&gt;&lt;li&gt;`exactText`&lt;/li&gt;&lt;li&gt;`exactTextCase`&lt;/li&gt;&lt;li&gt;`equals`&lt;/li&gt;&lt;/ul&gt;**Note:** When the standard `Filter` component is used, the filter function is not triggered if the `filterValue` is empty, as the filter is then removed.                                                                                                                                                                                                                                                                                                               |
-| `Aggregated`            | `ComponentType`                                                                                     | Component to render for aggregated cells                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `aggregate`             | `string` OR&lt;br/&gt;`((leafValues,`&lt;br/&gt;`aggregatedValues)`&lt;br/&gt;`=&gt; any)`                               | Aggregation function or string.&lt;br /&gt;Supported String Values: &lt;ul&gt;&lt;li&gt;`sum`&lt;/li&gt;&lt;li&gt;`min`&lt;/li&gt;&lt;li&gt;`max`&lt;/li&gt;&lt;li&gt;`minMax`&lt;/li&gt;&lt;li&gt;`average`&lt;/li&gt;&lt;li&gt;`median`&lt;/li&gt;&lt;li&gt;`unique`&lt;/li&gt;&lt;li&gt;`uniqueCount`&lt;/li&gt;&lt;li&gt;`count`&lt;/li&gt;&lt;/ul&gt;                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `aggregateValue`        | `string` OR&lt;br/&gt;`((values, row,`&lt;br/&gt;`column) =&gt; any)`                                              | When attempting to group/aggregate non primitive cell values (eg. arrays of items) you will likely need to resolve a stable primitive value like a number or string to use in normal row aggregations. This property can be used to aggregate or simply access the value to be used in aggregations eg. count-ing the unique number of items in a cell&#39;s array value before sum-ing that count across the table                                                                                                                                                                                                                   |
-| `disableGroupBy`        | `boolean`                                                                                           | Disable groupBy for this column                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `defaultCanSort`        | `boolean`                                                                                           | If set to true, this column will be sortable, regardless if it has a valid `accessor`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `disableSortBy`         | `boolean`                                                                                           | Disable sorting for this column                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `sortDescFirst`         | `boolean`                                                                                           | If set to `true`, the first sort direction for this column will be descending instead of ascending.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `sortInverted`          | `boolean`                                                                                           | If set to `true`, the underlying sorting direction will be inverted, but the UI will not.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `sortType`              | `string` OR&lt;br/&gt;`((rowA, rowB,`&lt;br/&gt;`columnId: string,`&lt;br/&gt;`descending: boolean)`&lt;br/&gt;`=&gt; number)` | String or custom **memoized** sort function.&lt;br /&gt;Supported String Values: &lt;ul&gt;&lt;li&gt;`basic`&lt;/li&gt;&lt;li&gt;`datetime`&lt;/li&gt;&lt;li&gt;`alphanumeric`&lt;/li&gt;&lt;/ul&gt;**Default:**`&#39;alphanumeric&#39;`                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `disableResizing`       | `boolean`                                                                                           | Disable resizing for this column                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `hAlign`                | `TextAlign`                                                                                         | Horizontal align of the cell                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `vAlign`                | `VerticalAlign`                                                                                     | Vertical align of the cell                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `scaleWidthModeOptions` | `ScaleWidthModeOptions`                                                                             | Allows passing a custom string for the internal width calculation of custom cells for `scaleWidthMode` `Grow` and `Smart`. More &lt;a href=&quot;./?path=/docs/data-display-analyticaltable-recipes--docs#how-to-scale-custom-cells&quot;&gt;here&lt;/a&gt;                                                                                                                                                                                                                                                                                                                                                                                             |
-| `responsivePopIn`       | `boolean`                                                                                           | Enables the pop-in behavior of the column. When the `responsiveMinWidth` is smaller then the width of the table, the content of each cell will move to the first cell in the row, improving usability on small or mobile devices.&lt;br /&gt;**Note:** At least one column must remain visible at all times!                                                                                                                                                                                                                                                                                                                            |
-| `responsiveMinWidth`    | `number`                                                                                            | Defines how the table should react when its width falls below the `responsiveMinWidth`. &lt;ul&gt;&lt;li&gt;If `responsivePopIn` is `true` the content of this column will be moved to the first column.&lt;/li&gt;&lt;li&gt;If `responsivePopIn` is not set or `false` the column will be hidden.&lt;/li&gt;&lt;/ul&gt;                                                                                                                                                                                                                                                                                                                                              |
-| `PopInHeader`           | `string` OR&lt;br/&gt;`ComponentType`                                                                     | Custom pop-in header renderer. If set, the table will call that component for every column that is &quot;popped-in&quot; and pass the table instance as prop.                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `popinDisplay`          | `AnalyticalTablePopinDisplay`                                                                       | Defines the display of `AnalyticalTable` pop-ins.&lt;br /&gt;**Default:** `AnalyticalTablePopinDisplay.Block`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `disableDragAndDrop`    | `boolean`                                                                                           | Defines if the column is reorderable by dragging and dropping columns.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `enableMultiSort`       | `boolean`                                                                                           | Defines whether this column should allow multi-sort.&lt;br /&gt;&lt;br /&gt; **Note:** When sorting by a column that does not allow multiple sorting, only the current column is sorted and all other sorted columns are reset.                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `autoResizable`         | `boolean`                                                                                           | Defines whether double-clicking a columns resizer will automatically resize the column to fit the largest cell content of visible rows.&lt;br /&gt;&lt;br /&gt;**Note:** Only default text content is supported by this option, for custom content it might work as well, but we recommend checking the behavior carefully as the logic can&#39;t account for all possible implementations.                                                                                                                                                                                                                                                       |
+&lt;Markdown&gt;{ColumnPropertiesMd}&lt;/Markdown&gt;
 
 &lt;br /&gt;
 
@@ -43865,7 +44183,7 @@ import * as ComponentStories from &#39;./Bar.stories&#39;;
       <div class="badges">
         <label for="c-error-6-charts-barchart-err" class="badge err as-toggle">prop type error</label>
         <label for="c-error-6-charts-barchart-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-6-charts-barchart-stories" class="badge ok as-toggle">11 stories</label>
+        <label for="c-error-6-charts-barchart-stories" class="badge ok as-toggle">13 stories</label>
         <label for="c-error-6-charts-barchart-docs" class="badge ok as-toggle">1 doc</label>
       </div>
     </div>
@@ -43889,18 +44207,19 @@ import * as ComponentStories from &#39;./Bar.stories&#39;;
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>No component file found for the &quot;BarChart&quot; component.
-  10 | import { BarChart } from &#39;./index.js&#39;;
-  11 |
-&gt; 12 | const meta = {
+  11 | import { BarChart } from &#39;./index.js&#39;;
+  12 |
+&gt; 13 | const meta = {
      | ^
-  13 |   title: &#39;BarChart&#39;,
-  14 |   component: BarChart,
-  15 |   tags: [&#39;package:@ui5/webcomponents-react-charts&#39;],
+  14 |   title: &#39;BarChart&#39;,
+  15 |   component: BarChart,
+  16 |   tags: [&#39;package:@ui5/webcomponents-react-charts&#39;],
 
 ./packages/charts/src/components/BarChart/BarChart.stories.tsx:
 import type { Meta, StoryObj } from &#39;@storybook/react-vite&#39;;
 import {
   complexDataSet,
+  CustomTooltipContent,
   legendConfig,
   secondaryDimensionDataSet,
   simpleDataSet,
@@ -44065,6 +44384,56 @@ export const WithNormalizedStacks: Story = {
   args: stackedNormalizedConfig,
 };
 
+export const WithStackAggregateTotalsAndTooltip: Story = {
+  name: &#39;With Stack Aggregate Totals&#39;,
+  args: {
+    dataset: complexDataSet.slice(0, 3),
+    measures: [
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+  },
+};
+
+export const WithCustomTooltipTotal: Story = {
+  args: {
+    dataset: complexDataSet.slice(0, 5),
+    measures: [
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+    tooltipConfig: {
+      content: &lt;CustomTooltipContent /&gt;,
+    },
+  },
+};
+
 export const WithCustomTooltipConfig: Story = {
   args: tooltipConfig,
 };
@@ -44093,7 +44462,7 @@ export const WithCustomLegendConfig: Story = {
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { BarChart } from "@ui5/webcomponents-react-charts";</code></pre>
+                <pre><code>import { BarChart, CustomTooltipContent } from "@ui5/webcomponents-react-charts";</code></pre>
               </div>
           
           
@@ -44347,6 +44716,73 @@ export const WithCustomLegendConfig: Story = {
             </div>
             <div class="note ok">
               <div class="row">
+                <span class="ex-name">With Stack Aggregate Totals</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithStackAggregateTotalsAndTooltip = () =&gt; &lt;BarChart
+    dataset={complexDataSet.slice(0, 3)}
+    dimensions={[
+      {
+        accessor: &#39;name&#39;,
+      },
+    ]}
+    measures={[
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+    ]}
+    chartConfig={{
+      showStackAggregateTotals: true,
+    }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Custom Tooltip Total</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithCustomTooltipTotal = () =&gt; &lt;BarChart
+    dataset={complexDataSet.slice(0, 5)}
+    dimensions={[
+      {
+        accessor: &#39;name&#39;,
+      },
+    ]}
+    measures={[
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+      },
+    ]}
+    chartConfig={{
+      showStackAggregateTotals: true,
+    }}
+    tooltipConfig={{
+      content: &lt;CustomTooltipContent /&gt;,
+    }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
                 <span class="ex-name">With Custom Tooltip Config</span>
                 <span class="badge ok">story ok</span>
               </div>
@@ -44428,6 +44864,8 @@ import { Canvas, Meta } from &#39;@storybook/addon-docs/blocks&#39;;
 import TooltipStory from &#39;../../resources/TooltipConfig.mdx&#39;;
 import LegendStory from &#39;../../resources/LegendConfig.mdx&#39;;
 import NormalizedStackedChartStory from &#39;../../resources/NormalizedStackedChart.mdx&#39;;
+import StackAggregateTotalsStory from &#39;../../resources/StackAggregateTotals.mdx&#39;;
+import CustomTooltipTotalStory from &#39;../../resources/CustomTooltipTotal.mdx&#39;;
 import * as ComponentStories from &#39;./BarChart.stories&#39;;
 
 &lt;Meta of={ComponentStories} /&gt;
@@ -44491,6 +44929,16 @@ You can set a reference line to any value by using the `referenceLine` `chartCon
 ### With Highlighted Measure
 
 &lt;Canvas of={ComponentStories.WithHighlightedMeasure} /&gt;
+
+&lt;StackAggregateTotalsStory
+  of={ComponentStories.WithStackAggregateTotalsAndTooltip}
+  description={&lt;&gt;You can display a total label at the end of each stacked bar group by setting &lt;code&gt;chartConfig.showStackAggregateTotals&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;. The tooltip includes the total automatically when only a single bar per dimension is present.&lt;/&gt;}
+/&gt;
+
+&lt;CustomTooltipTotalStory
+  of={ComponentStories.WithCustomTooltipTotal}
+  description={&lt;&gt;When multiple bars per dimension are present (e.g. stacked + standalone), the built-in tooltip total is not available. You can provide a custom tooltip via the &lt;code&gt;tooltipConfig.content&lt;/code&gt; prop to display a total for specific measures.&lt;/&gt;}
+/&gt;
 
 &lt;TooltipStory of={ComponentStories.WithCustomTooltipConfig} /&gt;
 
@@ -47487,7 +47935,7 @@ import * as ComponentStories from &#39;./ColorPicker.stories&#39;;
       <div class="badges">
         <label for="c-error-20-charts-columnchart-err" class="badge err as-toggle">prop type error</label>
         <label for="c-error-20-charts-columnchart-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-20-charts-columnchart-stories" class="badge ok as-toggle">11 stories</label>
+        <label for="c-error-20-charts-columnchart-stories" class="badge ok as-toggle">13 stories</label>
         <label for="c-error-20-charts-columnchart-docs" class="badge ok as-toggle">1 doc</label>
       </div>
     </div>
@@ -47511,18 +47959,19 @@ import * as ComponentStories from &#39;./ColorPicker.stories&#39;;
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>No component file found for the &quot;ColumnChart&quot; component.
-  10 | import { ColumnChart } from &#39;./index.js&#39;;
-  11 |
-&gt; 12 | const meta = {
+  11 | import { ColumnChart } from &#39;./index.js&#39;;
+  12 |
+&gt; 13 | const meta = {
      | ^
-  13 |   title: &#39;ColumnChart&#39;,
-  14 |   component: ColumnChart,
-  15 |   tags: [&#39;package:@ui5/webcomponents-react-charts&#39;],
+  14 |   title: &#39;ColumnChart&#39;,
+  15 |   component: ColumnChart,
+  16 |   tags: [&#39;package:@ui5/webcomponents-react-charts&#39;],
 
 ./packages/charts/src/components/ColumnChart/ColumnChart.stories.tsx:
 import type { Meta, StoryObj } from &#39;@storybook/react-vite&#39;;
 import {
   complexDataSet,
+  CustomTooltipContent,
   legendConfig,
   secondaryDimensionDataSet,
   simpleDataSet,
@@ -47678,6 +48127,57 @@ export const WithHighlightedMeasure: Story = {
   },
 };
 
+export const WithStackAggregateTotals: Story = {
+  args: {
+    dataset: complexDataSet.slice(0, 3),
+    dimensions: [{ accessor: &#39;name&#39; }],
+    measures: [
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+  },
+};
+
+export const WithCustomTooltipTotal: Story = {
+  args: {
+    dataset: complexDataSet.slice(0, 5),
+    dimensions: [{ accessor: &#39;name&#39; }],
+    measures: [
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+    tooltipConfig: {
+      content: &lt;CustomTooltipContent /&gt;,
+    },
+  },
+};
+
 export const WithCustomTooltipConfig: Story = {
   args: tooltipConfig,
 };
@@ -47706,7 +48206,7 @@ export const WithCustomLegendConfig: Story = {
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { ColumnChart } from "@ui5/webcomponents-react-charts";</code></pre>
+                <pre><code>import { ColumnChart, CustomTooltipContent } from "@ui5/webcomponents-react-charts";</code></pre>
               </div>
           
           
@@ -47971,6 +48471,65 @@ export const WithCustomLegendConfig: Story = {
             </div>
             <div class="note ok">
               <div class="row">
+                <span class="ex-name">With Stack Aggregate Totals</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithStackAggregateTotals = () =&gt; &lt;ColumnChart
+    dataset={complexDataSet.slice(0, 3)}
+    dimensions={[{ accessor: &#39;name&#39; }]}
+    measures={[
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+    ]}
+    chartConfig={{
+      showStackAggregateTotals: true,
+    }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Custom Tooltip Total</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithCustomTooltipTotal = () =&gt; &lt;ColumnChart
+    dataset={complexDataSet.slice(0, 5)}
+    dimensions={[{ accessor: &#39;name&#39; }]}
+    measures={[
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+      },
+    ]}
+    chartConfig={{
+      showStackAggregateTotals: true,
+    }}
+    tooltipConfig={{
+      content: &lt;CustomTooltipContent /&gt;,
+    }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
                 <span class="ex-name">With Custom Tooltip Config</span>
                 <span class="badge ok">story ok</span>
               </div>
@@ -48052,6 +48611,8 @@ import { Canvas, Meta } from &#39;@storybook/addon-docs/blocks&#39;;
 import TooltipStory from &#39;../../resources/TooltipConfig.mdx&#39;;
 import LegendStory from &#39;../../resources/LegendConfig.mdx&#39;;
 import NormalizedStackedChartStory from &#39;../../resources/NormalizedStackedChart.mdx&#39;;
+import StackAggregateTotalsStory from &#39;../../resources/StackAggregateTotals.mdx&#39;;
+import CustomTooltipTotalStory from &#39;../../resources/CustomTooltipTotal.mdx&#39;;
 import * as ComponentStories from &#39;./ColumnChart.stories&#39;;
 
 &lt;Meta of={ComponentStories} /&gt;
@@ -48111,9 +48672,19 @@ You can set a reference line to any value by using the `referenceLine` `chartCon
 
 &lt;Canvas of={ComponentStories.WithReferenceLine} /&gt;
 
-## With Highlighted Measures
+### With Highlighted Measures
 
 &lt;Canvas of={ComponentStories.WithHighlightedMeasure} /&gt;
+
+&lt;StackAggregateTotalsStory
+  of={ComponentStories.WithStackAggregateTotals}
+  description={&lt;&gt;You can display a total label at the top of each stacked column group by setting &lt;code&gt;chartConfig.showStackAggregateTotals&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;. The tooltip includes the total automatically when only a single column per dimension is present.&lt;/&gt;}
+/&gt;
+
+&lt;CustomTooltipTotalStory
+  of={ComponentStories.WithCustomTooltipTotal}
+  description={&lt;&gt;When multiple columns per dimension are present (e.g. stacked + standalone), the built-in tooltip total is not available. You can provide a custom tooltip via the &lt;code&gt;tooltipConfig.content&lt;/code&gt; prop to display a total for specific measures.&lt;/&gt;}
+/&gt;
 
 &lt;TooltipStory of={ComponentStories.WithCustomTooltipConfig} /&gt;;
 
@@ -48754,7 +49325,7 @@ All available filter types controlled by the `filter` prop.
       <div class="badges">
         <label for="c-error-23-charts-composedchart-err" class="badge err as-toggle">prop type error</label>
         <label for="c-error-23-charts-composedchart-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-23-charts-composedchart-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-error-23-charts-composedchart-stories" class="badge ok as-toggle">12 stories</label>
         <label for="c-error-23-charts-composedchart-docs" class="badge ok as-toggle">1 doc</label>
       </div>
     </div>
@@ -48778,17 +49349,24 @@ All available filter types controlled by the `filter` prop.
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>No component file found for the &quot;ComposedChart&quot; component.
-  3 | import { ComposedChart } from &#39;./index.js&#39;;
-  4 |
-&gt; 5 | const meta = {
-    | ^
-  6 |   title: &#39;ComposedChart&#39;,
-  7 |   component: ComposedChart,
-  8 |   tags: [&#39;package:@ui5/webcomponents-react-charts&#39;],
+  10 | import { ComposedChart } from &#39;./index.js&#39;;
+  11 |
+&gt; 12 | const meta = {
+     | ^
+  13 |   title: &#39;ComposedChart&#39;,
+  14 |   component: ComposedChart,
+  15 |   tags: [&#39;package:@ui5/webcomponents-react-charts&#39;],
 
 ./packages/charts/src/components/ComposedChart/ComposedChart.stories.tsx:
 import type { Meta, StoryObj } from &#39;@storybook/react-vite&#39;;
-import { bigDataSet, complexDataSet, legendConfig, simpleDataSet, tooltipConfig } from &#39;../../resources/DemoProps.js&#39;;
+import {
+  bigDataSet,
+  complexDataSet,
+  CustomTooltipContent,
+  legendConfig,
+  simpleDataSet,
+  tooltipConfig,
+} from &#39;../../resources/DemoProps.js&#39;;
 import { ComposedChart } from &#39;./index.js&#39;;
 
 const meta = {
@@ -48994,6 +49572,67 @@ export const LoadingPlaceholder: Story = {
   },
 };
 
+export const WithStackAggregateTotals: Story = {
+  args: {
+    dataset: complexDataSet.slice(0, 7),
+    dimensions: [{ accessor: &#39;name&#39; }],
+    measures: [
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+        type: &#39;line&#39;,
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+  },
+};
+
+export const WithCustomTooltipTotal: Story = {
+  args: {
+    dataset: complexDataSet.slice(0, 7),
+    dimensions: [{ accessor: &#39;name&#39; }],
+    measures: [
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+        type: &#39;line&#39;,
+      },
+    ],
+    chartConfig: {
+      showStackAggregateTotals: true,
+    },
+    tooltipConfig: {
+      content: &lt;CustomTooltipContent /&gt;,
+    },
+  },
+};
+
 export const WithCustomTooltipConfig: Story = {
   args: tooltipConfig,
 };
@@ -49022,7 +49661,7 @@ export const WithCustomLegendConfig: Story = {
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { ComposedChart } from "@ui5/webcomponents-react-charts";</code></pre>
+                <pre><code>import { ComposedChart, CustomTooltipContent } from "@ui5/webcomponents-react-charts";</code></pre>
               </div>
           
           
@@ -49298,6 +49937,75 @@ export const WithCustomLegendConfig: Story = {
             </div>
             <div class="note ok">
               <div class="row">
+                <span class="ex-name">With Stack Aggregate Totals</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithStackAggregateTotals = () =&gt; &lt;ComposedChart
+    dataset={complexDataSet.slice(0, 7)}
+    dimensions={[{ accessor: &#39;name&#39; }]}
+    measures={[
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+        type: &#39;line&#39;,
+      },
+    ]}
+    chartConfig={{
+      showStackAggregateTotals: true,
+    }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Custom Tooltip Total</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithCustomTooltipTotal = () =&gt; &lt;ComposedChart
+    dataset={complexDataSet.slice(0, 7)}
+    dimensions={[{ accessor: &#39;name&#39; }]}
+    measures={[
+      {
+        accessor: &#39;users&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Users&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;sessions&#39;,
+        stackId: &#39;A&#39;,
+        label: &#39;Active Sessions&#39;,
+        type: &#39;bar&#39;,
+      },
+      {
+        accessor: &#39;volume&#39;,
+        label: &#39;Vol.&#39;,
+        type: &#39;line&#39;,
+      },
+    ]}
+    chartConfig={{
+      showStackAggregateTotals: true,
+    }}
+    tooltipConfig={{
+      content: &lt;CustomTooltipContent /&gt;,
+    }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
                 <span class="ex-name">With Custom Tooltip Config</span>
                 <span class="badge ok">story ok</span>
               </div>
@@ -49384,6 +50092,8 @@ export const WithCustomLegendConfig: Story = {
 import { Canvas, Meta } from &#39;@storybook/addon-docs/blocks&#39;;
 import TooltipStory from &#39;../../resources/TooltipConfig.mdx&#39;;
 import LegendStory from &#39;../../resources/LegendConfig.mdx&#39;;
+import StackAggregateTotalsStory from &#39;../../resources/StackAggregateTotals.mdx&#39;;
+import CustomTooltipTotalStory from &#39;../../resources/CustomTooltipTotal.mdx&#39;;
 import * as ComponentStories from &#39;./ComposedChart.stories&#39;;
 
 &lt;Meta of={ComponentStories} /&gt;
@@ -49445,6 +50155,16 @@ You can set a reference line to any value by using the `referenceLine` `chartCon
 ### Loading Placeholder
 
 &lt;Canvas of={ComponentStories.LoadingPlaceholder} /&gt;
+
+&lt;StackAggregateTotalsStory
+  of={ComponentStories.WithStackAggregateTotals}
+  description={&lt;&gt;You can display a total label at the top of each stacked bar group by setting &lt;code&gt;chartConfig.showStackAggregateTotals&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;. The tooltip includes the total automatically when all measures are stacked bars within a single stack group. If non-bar measures (e.g. lines or areas) are present, only the bar labels are shown.&lt;/&gt;}
+/&gt;
+
+&lt;CustomTooltipTotalStory
+  of={ComponentStories.WithCustomTooltipTotal}
+  description={&lt;&gt;When non-bar measures (e.g. lines or areas) are present alongside stacked bars, the built-in tooltip total is not available. You can provide a custom tooltip via the &lt;code&gt;tooltipConfig.content&lt;/code&gt; prop to display a total for the stacked bar measures.&lt;/&gt;}
+/&gt;
 
 &lt;TooltipStory of={ComponentStories.WithCustomTooltipConfig} /&gt;
 
@@ -81014,6 +81734,8 @@ Available Themes:
 - `sap_horizon_dark`
 - `sap_horizon_hcb`
 - `sap_horizon_hcw`
+- `sap_horizon_auto`
+- `sap_horizon_hc_auto`
 
 - `sap_fiori_3`
 - `sap_fiori_3_dark`
@@ -81117,12 +81839,21 @@ Please note that you have to join this slack workspace via [this link](https://u
     
         <div class="panel panel-content">
           <div class="mdx-content">
-            <pre><code>import { Footer, LabelWithWrapping, ProjectTemplate, TableOfContent } from &#39;@sb/components&#39;;
+            <pre><code>import { Footer, ProjectTemplate, TableOfContent } from &#39;@sb/components&#39;;
 import NextLogo from &#39;@sb/images/logo-nextjs.svg&#39;;
 import ReactRouterLogo from &#39;@sb/images/logo-react-router.svg&#39;;
 import ViteLogo from &#39;@sb/images/logo-vitejs.svg&#39;;
 import { Meta } from &#39;@storybook/addon-docs/blocks&#39;;
 import { FlexBox, FlexBoxJustifyContent, FlexBoxWrap, Label } from &#39;@ui5/webcomponents-react&#39;;
+import projectTemplates from &#39;./project-templates.json&#39;;
+
+export const logos = {
+  nextjs: NextLogo,
+  vite: ViteLogo,
+  &#39;react-router&#39;: ReactRouterLogo,
+};
+
+export const repoBase = &#39;https://github.com/UI5/webcomponents-react/tree/main/&#39;;
 
 &lt;Meta title=&quot;Project Templates &amp; Examples&quot; /&gt;
 
@@ -81137,34 +81868,21 @@ A curated list of minimal project templates and examples to get started using UI
 &lt;br /&gt;
 
 &lt;FlexBox wrap={FlexBoxWrap.Wrap} style={{ width: &#39;100%&#39;, gap: &#39;1rem&#39; }} justifyContent={FlexBoxJustifyContent.Start}&gt;
-  &lt;ProjectTemplate
-    title={&#39;Next.js&#39;}
-    subtitle={&#39;App Router&#39;}
-    logo={NextLogo}
-    logoAttribution={&#39;Next.js Logo. Original Source: https://vercel.com/design/brands#next-js&#39;}
-    href={&#39;https://github.com/UI5/webcomponents-react/tree/main/templates/nextjs-app&#39;}
-    stackBlitzHref=&quot;https://stackblitz.com/github/UI5/webcomponents-react/tree/main/templates/nextjs-app&quot;
-    isTypeScript
-    isTemplate
-  /&gt;
-  &lt;ProjectTemplate
-    title={&#39;Next.js&#39;}
-    subtitle={&#39;Pages Router&#39;}
-    logo={NextLogo}
-    logoAttribution={&#39;Next.js Logo. Original Source: https://vercel.com/design/brands#next-js&#39;}
-    href={&#39;https://github.com/UI5/webcomponents-react/tree/main/templates/nextjs-pages&#39;}
-    isTypeScript
-    isTemplate
-  /&gt;
-  &lt;ProjectTemplate
-    title={&#39;Vite.js&#39;}
-    logo={ViteLogo}
-    logoAttribution={&#39;Vite.js Logo. Original Source: https://github.com/vitejs/vite/blob/main/docs/public/logo.svg &#39;}
-    href={&#39;https://github.com/UI5/webcomponents-react/tree/main/templates/vite-ts&#39;}
-    isTypeScript
-    isTemplate
-    stackBlitzHref=&quot;https://stackblitz.com/github/UI5/webcomponents-react/tree/main/templates/vite-ts?file=src%2FApp.tsx&quot;
-  /&gt;
+  {projectTemplates
+    .filter((t) =&gt; t.type === &#39;template&#39;)
+    .map((t) =&gt; (
+      &lt;ProjectTemplate
+        key={t.path}
+        title={t.name}
+        subtitle={t.variant}
+        logo={logos[t.logo]}
+        logoAttribution={t.logoAttribution}
+        href={`${repoBase}${t.path}`}
+        stackBlitzHref={t.stackBlitz}
+        isTypeScript={t.typescript}
+        isTemplate
+      /&gt;
+    ))}
 &lt;/FlexBox&gt;
 
 ## Examples
@@ -81172,78 +81890,30 @@ A curated list of minimal project templates and examples to get started using UI
 &lt;br /&gt;
 
 &lt;FlexBox wrap={FlexBoxWrap.Wrap} style={{ width: &#39;100%&#39;, gap: &#39;1rem&#39; }} justifyContent={FlexBoxJustifyContent.Start}&gt;
-  &lt;ProjectTemplate
-    title={&#39;Next.js&#39;}
-    subtitle={&#39;App Router&#39;}
-    logo={NextLogo}
-    logoAttribution={&#39;Next.js Logo. Original Source: https://vercel.com/design/brands#next-js&#39;}
-    href={&#39;https://github.com/UI5/webcomponents-react/tree/main/examples/nextjs-app&#39;}
-    stackBlitzHref=&quot;https://stackblitz.com/github/UI5/webcomponents-react/tree/main/examples/nextjs-app&quot;
-    isTypeScript
-  &gt;
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;Label&gt;Next.js Template using the App Router&lt;/Label&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;Label&gt;Data Fetching using React Server Components&lt;/Label&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/ProjectTemplate&gt;
-  &lt;ProjectTemplate
-    title={&#39;Next.js&#39;}
-    subtitle={&#39;Pages Router&#39;}
-    logo={NextLogo}
-    logoAttribution={&#39;Next.js Logo. Original Source: https://vercel.com/design/brands#next-js&#39;}
-    href={&#39;https://github.com/UI5/webcomponents-react/tree/main/examples/nextjs-pages&#39;}
-    isTypeScript
-  &gt;
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;Label&gt;Next.js Template using the Pages Router&lt;/Label&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;Label&gt;API Routes&lt;/Label&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/ProjectTemplate&gt;
-  &lt;ProjectTemplate
-    title={&#39;Vite.js&#39;}
-    logo={ViteLogo}
-    logoAttribution={&#39;Vite.js Logo. Original Source: https://github.com/vitejs/vite/blob/main/docs/public/logo.svg &#39;}
-    href={&#39;https://github.com/UI5/webcomponents-react/tree/main/examples/vite-ts&#39;}
-    isTypeScript
-    stackBlitzHref=&quot;https://stackblitz.com/github/UI5/webcomponents-react/tree/main/examples/vite-ts?file=src%2Fmain.tsx&quot;
-  &gt;
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;LabelWithWrapping&gt;{`Routing and Data Fetching using the createBrowserRouter of React Router v7`}&lt;/LabelWithWrapping&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;Label&gt;Cypress Component &amp; E2E Test setup&lt;/Label&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;Label&gt;Theming&lt;/Label&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/ProjectTemplate&gt;
-  &lt;ProjectTemplate
-    title={&#39;React Router v7&#39;}
-    subtitle={&#39;Previously: Remix Template&#39;}
-    logo={ReactRouterLogo}
-    logoAttribution={&#39;React Router Logo. Original Source: https://reactrouter.com&#39;}
-    href={&#39;https://github.com/UI5/webcomponents-react/tree/main/examples/react-router-ts&#39;}
-    isTypeScript
-  &gt;
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;Label&gt;{`React Router v7 with server side rendering`}&lt;/Label&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;Label&gt;Theming&lt;/Label&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/ProjectTemplate&gt;
+  {projectTemplates
+    .filter((t) =&gt; t.type === &#39;example&#39;)
+    .map((t) =&gt; (
+      &lt;ProjectTemplate
+        key={t.path}
+        title={t.name}
+        subtitle={t.variant}
+        logo={logos[t.logo]}
+        logoAttribution={t.logoAttribution}
+        href={`${repoBase}${t.path}`}
+        stackBlitzHref={t.stackBlitz}
+        isTypeScript={t.typescript}
+      &gt;
+        {t.features &amp;&amp; (
+          &lt;ul&gt;
+            {t.features.map((f) =&gt; (
+              &lt;li key={f}&gt;
+                &lt;Label&gt;{f}&lt;/Label&gt;
+              &lt;/li&gt;
+            ))}
+          &lt;/ul&gt;
+        )}
+      &lt;/ProjectTemplate&gt;
+    ))}
 &lt;/FlexBox&gt;
 
 &lt;Footer /&gt;
@@ -85258,6 +85928,8 @@ To **ensure the hook works correctly**, make sure that:
 The hook manages focus, keyboard navigation, and `tabindex` for cells with interactive content:
 
 - Pressing `F2` moves focus between the cell container and its first interactive element.
+- Pressing `Tab` on a focused header cell moves focus to the body cell in the same column at the last focused body row (or the first row if none was focused).
+- Pressing `Shift+Tab` on a focused body cell moves focus back to the header cell of the same column.
 - Updates the cell&#39;s `aria-label` with the interactive element&#39;s name for accessibility.
 - Prevents standard navigation keys from interfering when editing a cell.
 
