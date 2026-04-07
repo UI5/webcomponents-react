@@ -77,6 +77,8 @@ const config: StorybookConfig = {
     reactDocgen: 'react-docgen-typescript',
     reactDocgenTypescriptOptions: {
       tsconfigPath: fileURLToPath(new URL('../tsconfig.json', import.meta.url)),
+      shouldExtractLiteralValuesFromEnum: true,
+      shouldRemoveUndefinedFromOptional: true,
     },
   },
   staticDirs: isDevMode ? ['images-dev'] : ['images'],

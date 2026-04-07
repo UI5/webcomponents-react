@@ -1,8 +1,11 @@
+import { CssSizeVariablesNames } from '@ui5/webcomponents-react-base/CssSizeVariables';
 import type { CSSProperties, MutableRefObject, RefObject } from 'react';
 import { TextAlign } from '../../../enums/TextAlign.js';
 import { VerticalAlign } from '../../../enums/VerticalAlign.js';
 
 // ╔════════════════════════ Constants ═══════════════════════╗
+
+const DEFAULT_SELECTION_COLUMN_WIDTH = 44;
 
 export const NAVIGATION_KEYS = new Set([
   'End',
@@ -53,6 +56,23 @@ export const tagNamesWhichShouldNotSelectARow = new Set([
 ]);
 
 // ╔════════════════════════ Util Functions ═══════════════════════╗
+
+/**
+ * Reads the selection column width from the CSS variable on the table element.
+ * Returns `undefined` if `tableRef` is not mounted yet.
+ */
+export function getSelectionColumnWidth(tableRef: RefObject<HTMLDivElement | null>): number | undefined {
+  if (!tableRef?.current) {
+    return undefined;
+  }
+  const cssWidth = parseInt(
+    getComputedStyle(tableRef.current).getPropertyValue(
+      CssSizeVariablesNames.ui5WcrAnalyticalTableSelectionColumnWidth,
+    ),
+    10,
+  );
+  return !isNaN(cssWidth) && cssWidth > 0 ? cssWidth : DEFAULT_SELECTION_COLUMN_WIDTH;
+}
 
 // copied from https://github.com/tannerlinsley/react-table/blob/f97fb98509d0b27cc0bebcf3137872afe4f2809e/src/utils.js#L320-L347 (13. Jan 2021)
 const reOpenBracket = /\[/g;

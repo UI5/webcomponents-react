@@ -357,7 +357,7 @@ function getPayload(e: KeyboardEvent, column: ColumnType) {
   const columnId = column.id;
   const columnWidth = column.totalWidth;
   const headersToResize = getLeafHeaders(column);
-  const headerIdWidths = headersToResize.map((d) => [d.id, d.totalWidth]);
+  const headerIdWidths = headersToResize.map((d) => [d.id, d.totalWidth, d.minWidth]);
   return { clientX, columnId, columnWidth, headerIdWidths };
 }
 

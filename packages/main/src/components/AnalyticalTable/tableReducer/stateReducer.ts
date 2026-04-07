@@ -1,32 +1,8 @@
-import { actions } from 'react-table';
 import type { TableInstance } from '../types/index.js';
 
 export const stateReducer: TableInstance['stateReducer'] = (state, action, _prevState, instance) => {
   const { payload } = action;
-  if (state.isRtl && action.type === actions.columnResizing) {
-    const { clientX } = action;
-    const { startX, columnWidth, headerIdWidths } = state.columnResizing;
 
-    const deltaX = startX - clientX;
-    const percentageDeltaX = deltaX / columnWidth;
-
-    const newColumnWidths = {};
-
-    headerIdWidths.forEach(([headerId, headerWidth]) => {
-      newColumnWidths[headerId] = Math.max(headerWidth + headerWidth * percentageDeltaX, 0);
-    });
-
-    return {
-      ...state,
-      columnResizing: {
-        ...state.columnResizing,
-        columnWidths: {
-          ...state.columnResizing.columnWidths,
-          ...newColumnWidths,
-        },
-      },
-    };
-  }
   switch (action.type) {
     case 'setFilter': {
       const { onFilter } = instance.webComponentsReactProperties;
@@ -48,12 +24,36 @@ export const stateReducer: TableInstance['stateReducer'] = (state, action, _prev
         });
       }
       return state;
-    case 'TABLE_RESIZE':
-      // tableClientWidth is misleading, as only when scaled the `clientWidth` is used. In all other cases `getBoundingClientRect` is measuring the width.
-      return { ...state, tableClientWidth: payload.tableClientWidth };
+    case 'TABLE_RESIZE': {
+      const nextWidth = Math.floor(payload.tableClientWidth);
+      if (nextWidth === state.tableClientWidth) {
+        return state;
+      }
+      // `tableClientWidth` is misleading, as only when scaled the `clientWidth` is used. In all other cases `getBoundingClientRect` is measuring the width.
+      // Without `retainColumnWidth` (!state.tableColResized), clear user-resized widths on container resize so `adjustColumnWidths` recalculates.
+      if (!state.tableColResized && Object.keys(state.columnResizing?.columnWidths ?? {}).length > 0) {
+        // dead-zone for reset trigger, to prevent resizes when a scrollbar is briefly displayed
+        const widthDelta = Math.abs(nextWidth - state.tableClientWidth);
+        if (widthDelta > 20) {
+          return {
+            ...state,
+            tableClientWidth: nextWidth,
+            columnResizing: { ...state.columnResizing, columnWidths: {} },
+          };
+        }
+        return { ...state, tableClientWidth: nextWidth };
+      }
+      return { ...state, tableClientWidth: nextWidth };
+    }
     case 'VISIBLE_ROWS':
+      if (payload.visibleRows === state.visibleRows) {
+        return state;
+      }
       return { ...state, visibleRows: payload.visibleRows };
     case 'TABLE_SCROLLING_ENABLED':
+      if (payload.isScrollable === state.isScrollable) {
+        return state;
+      }
       return { ...state, isScrollable: payload.isScrollable };
     case 'SET_SELECTED_ROW_IDS':
       return { ...state, selectedRowIds: payload.selectedRowIds };

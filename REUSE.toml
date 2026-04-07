@@ -44,3 +44,9 @@ path = "packages/main/src/components/AnalyticalTable/hooks/useRowSelect.ts"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2019-2021 Tanner Linsley"
 SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = "packages/main/src/components/AnalyticalTable/hooks/useColumnResizing.ts"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2019-2021 Tanner Linsley"
+SPDX-License-Identifier = "MIT"

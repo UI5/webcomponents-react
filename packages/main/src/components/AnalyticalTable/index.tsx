@@ -14,16 +14,7 @@ import {
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { forwardRef, useCallback, useEffect, useId, useMemo, useRef } from 'react';
-import {
-  useColumnOrder,
-  useExpanded,
-  useFilters,
-  useGlobalFilter,
-  useGroupBy,
-  useResizeColumns,
-  useSortBy,
-  useTable,
-} from 'react-table';
+import { useColumnOrder, useExpanded, useFilters, useGlobalFilter, useGroupBy, useSortBy, useTable } from 'react-table';
 import { AnalyticalTableNoDataReason } from '../../enums/AnalyticalTableNoDataReason.js';
 import { AnalyticalTablePopinDisplay } from '../../enums/AnalyticalTablePopinDisplay.js';
 import { AnalyticalTableScaleWidthMode } from '../../enums/AnalyticalTableScaleWidthMode.js';
@@ -64,6 +55,7 @@ import { DefaultNoDataComponent } from './defaults/NoDataComponent/index.js';
 import { useA11y } from './hooks/useA11y.js';
 import { useAutoResize } from './hooks/useAutoResize.js';
 import { useCanUseVoiceOver } from './hooks/useCanUseVoiceOver.js';
+import { useColumnResizing } from './hooks/useColumnResizing.js';
 import { useColumnsDeps } from './hooks/useColumnsDeps.js';
 import { useColumnDragAndDrop } from './hooks/useDragAndDrop.js';
 import { useDynamicColumnWidths } from './hooks/useDynamicColumnWidths.js';
@@ -71,7 +63,6 @@ import { useFontsReady } from './hooks/useFontsReady.js';
 import { useIsFirefox } from './hooks/useIsFirefox.js';
 import { useKeyboardNavigation } from './hooks/useKeyboardNavigation.js';
 import { usePopIn } from './hooks/usePopIn.js';
-import { useResizeColumnsConfig } from './hooks/useResizeColumnsConfig.js';
 import { useRowHighlight } from './hooks/useRowHighlight.js';
 import { useRowNavigationIndicators } from './hooks/useRowNavigationIndicator.js';
 import { useRowSelect } from './hooks/useRowSelect.js';
@@ -312,9 +303,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     useSortBy,
     useExpanded,
     useRowSelect,
-    useResizeColumns,
+    useColumnResizing,
     useColumnsDeps,
-    useResizeColumnsConfig,
     useRowSelectionColumn,
     useAutoResize,
     useSingleRowStateSelection,
