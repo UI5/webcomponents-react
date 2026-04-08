@@ -1,6 +1,6 @@
 {
   "name": "@ui5/webcomponents-react-mcp",
-  "description": "Model Context Protocol server for UI5 Web Components for React - Developer documentation and API assistance",
+  "description": "MCP server for UI5 Web Components for React - Developer documentation and API assistance",
   "author": "SAP SE (https://www.sap.com)",
   "license": "Apache-2.0",
   "version": "2.21.0",

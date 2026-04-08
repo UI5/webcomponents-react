@@ -1,6 +1,6 @@
 # UI5 Web Components for React MCP Server
 
-Model Context Protocol (MCP) server providing development assistance and API documentation for developers using `@ui5/webcomponents-react`.
+MCP server providing development assistance and API documentation for [UI5 Web Components for React](https://github.com/UI5/webcomponents-react).
 
 ## What is this?
 
@@ -31,7 +31,7 @@ This MCP server gives AI assistants direct access to UI5 Web Components for Reac
 
 4. **`get_documentation`** - Documentation, guides, and knowledge base
    - Browse by section name or search by keyword across all docs
-   - Getting Started, Knowledge Base (styling, i18n, SSR, slots, FAQ, accessibility), project templates
+   - Getting Started, Knowledge Base (styling, i18n, SSR, slots, FAQ, accessibility, and more), project templates
    - Full content read from bundled local files (no network required)
    - Line-range support (`startLine`/`endLine`) for large documents
 
@@ -47,7 +47,28 @@ This MCP server gives AI assistants direct access to UI5 Web Components for Reac
 
 ## Setup
 
-> **Note:** This package is not yet published to npm. See [Local Development with Claude Code](#local-development-with-claude-code) for how to use it locally.
+This server is available in the [MCP Registry](https://registry.modelcontextprotocol.io/servers/io.github.UI5/webcomponents-react-mcp-server), which allows compatible clients to install it directly.
+
+### Claude Code
+
+```bash
+claude mcp add ui5-wcr -- npx @ui5/webcomponents-react-mcp
+```
+
+### VS Code / Cursor
+
+Add to `.vscode/mcp.json`:
+
+```json
+{
+  "servers": {
+    "ui5-wcr": {
+      "command": "npx",
+      "args": ["@ui5/webcomponents-react-mcp"]
+    }
+  }
+}
+```
 
 ## Usage
 
@@ -60,10 +81,8 @@ Once configured, your AI assistant will have access to the tools. You can ask qu
 
 **Documentation:**
 
-- "Show me the FAQ"
-- "How do I get started with UI5 Web Components for React?"
 - "How do I style components?"
-- "How do I migrate from v1 to v2?"
+- "How do slots work?"
 
 **Components:**
 
@@ -71,7 +90,7 @@ Once configured, your AI assistant will have access to the tools. You can ask qu
 - "Show me chart components"
 - "What layout components are available?"
 - "Show me the API for AnalyticalTable"
-- "How do I use the Button component?"
+- "How do I use the DynamicPage component?"
 
 ## Development
 
