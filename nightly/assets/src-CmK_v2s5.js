@@ -1,0 +1,1 @@
+import{n as e}from"./chunk-zsgVPwQN.js";import{n as t}from"./LineChart-CiIHF-8t.js";var n,r=e((()=>{n={version:`2.21.0`,major:2,minor:21,patch:0,suffix:``,isNext:!1,buildTime:1775635846},n.version})),i=e((()=>{t(),r(),n.version}));export{i as t};
