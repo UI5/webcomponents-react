@@ -1,1 +1,0 @@
-import{n as e}from"./chunk-zsgVPwQN.js";import{Lp as t,Rp as n,Ua as r,Wa as i}from"./iframe-CYHA5bK3.js";function a(e){let{className:t,text:i,maxCharacters:a,part:o}=e;return n(r,{part:o,class:t,text:i,maxCharacters:a})}e((()=>{t(),i()}))();export{a as default};
