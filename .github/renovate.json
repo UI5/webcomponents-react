@@ -8,7 +8,8 @@
     ":enableVulnerabilityAlerts",
     ":semanticCommits",
     ":pinAllExceptPeerDependencies",
-    ":maintainLockFilesWeekly"
+    ":maintainLockFilesWeekly",
+    "security:minimumReleaseAgeNpm"
   ],
   "automerge": true,
   "platformAutomerge": true,
@@ -32,7 +33,8 @@
     },
     {
       "groupName": "UI5 Web Components",
-      "matchSourceUrls": ["https://github.com/UI5/webcomponents{/,}**"]
+      "matchSourceUrls": ["https://github.com/UI5/webcomponents{/,}**"],
+      "minimumReleaseAge": "0 days"
     },
     {
       "groupName": "vite & plugins",
@@ -78,6 +80,7 @@
       "groupSlug": "examples-ui5-webcomponents-react",
       "matchFileNames": ["examples/**", "templates/**", "patterns/**"],
       "semanticCommitType": "chore",
+      "minimumReleaseAge": "0 days",
       "matchSourceUrls": [
         "https://github.com/UI5/webcomponents{/,}**",
         "https://github.com/UI5/webcomponents-react{/,}**"
@@ -89,6 +92,7 @@
       "groupSlug": "root-ui5-webcomponents",
       "matchFileNames": ["package.json"],
       "semanticCommitType": "chore",
+      "minimumReleaseAge": "0 days",
       "matchSourceUrls": ["https://github.com/UI5/webcomponents{/,}**"]
     },
     {
