@@ -1,4 +1,4 @@
-import test from 'ava';
+import test, { type ExecutionContext } from 'ava';
 import { z } from 'zod';
 import { getComponentApiTool } from './get_component_api.js';
 
@@ -13,7 +13,7 @@ function getStructured(response: ReturnType<typeof handler>): any {
   return response.structuredContent;
 }
 
-function assertMatchesOutputSchema(t: Parameters<Parameters<typeof test>[1]>[0], data: unknown) {
+function assertMatchesOutputSchema(t: ExecutionContext, data: unknown) {
   const result = outputSchema.safeParse(data);
   if (!result.success) {
     t.fail(
