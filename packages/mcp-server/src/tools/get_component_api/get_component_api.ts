@@ -126,10 +126,13 @@ EXAMPLE INPUT: { "componentName": "Dialog" }
       ),
   },
   outputSchema: {
-    package: z.string().describe('NPM package name'),
-    description: z.string().describe('Full component description'),
-    props: z.record(z.string(), z.any()).describe('Component props with types, descriptions, and eventDetail'),
-    methods: z.array(z.any()).describe('Imperative methods accessible via ref'),
+    package: z.string().optional().describe('NPM package name'),
+    description: z.string().optional().describe('Full component description'),
+    props: z
+      .record(z.string(), z.any())
+      .optional()
+      .describe('Component props with types, descriptions, and eventDetail'),
+    methods: z.array(z.any()).optional().describe('Imperative methods accessible via ref'),
     cssParts: z
       .array(z.object({ name: z.string(), description: z.string() }))
       .optional()
@@ -142,10 +145,12 @@ EXAMPLE INPUT: { "componentName": "Dialog" }
       .string()
       .optional()
       .describe('Link to upstream documentation for complex behavioral concepts (e.g. layout algorithms)'),
-    _meta: z.object({
-      apiVersion: z.string(),
-      extractedAt: z.string().optional(),
-    }),
+    _meta: z
+      .object({
+        apiVersion: z.string(),
+        extractedAt: z.string().optional(),
+      })
+      .optional(),
     error: z.string().optional().describe('Error message if component not found'),
     errorType: z
       .enum(['not_found', 'invalid_input'])

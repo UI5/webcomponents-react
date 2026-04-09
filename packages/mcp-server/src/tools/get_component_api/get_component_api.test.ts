@@ -1,7 +1,9 @@
 import test from 'ava';
+import { z } from 'zod';
 import { getComponentApiTool } from './get_component_api.js';
 
 const handler = getComponentApiTool.handler;
+const outputSchema = z.object(getComponentApiTool.outputSchema);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getStructured(response: ReturnType<typeof handler>): any {
@@ -9,6 +11,15 @@ function getStructured(response: ReturnType<typeof handler>): any {
     throw new Error('Expected structuredContent in response');
   }
   return response.structuredContent;
+}
+
+function assertMatchesOutputSchema(t: Parameters<Parameters<typeof test>[1]>[0], data: unknown) {
+  const result = outputSchema.safeParse(data);
+  if (!result.success) {
+    t.fail(
+      `Output schema validation failed:\n${result.error.issues.map((i) => `  ${i.path.join('.')}: ${i.message}`).join('\n')}`,
+    );
+  }
 }
 
 test('handler: finds component case-insensitively from generated component-apis.json', (t) => {
@@ -30,4 +41,16 @@ test('handler: not-found returns error with available components list', (t) => {
   const result = getStructured(handler({ componentName: 'FakeWidget' }));
   t.is(result.errorType, 'not_found');
   t.true(result.availableComponents.length > 0);
+});
+
+test('handler: AnalyticalTable response passes outputSchema validation', (t) => {
+  const result = getStructured(handler({ componentName: 'AnalyticalTable' }));
+  assertMatchesOutputSchema(t, result);
+  t.pass();
+});
+
+test('handler: not-found response passes outputSchema validation', (t) => {
+  const result = getStructured(handler({ componentName: 'FakeWidget' }));
+  assertMatchesOutputSchema(t, result);
+  t.pass();
 });

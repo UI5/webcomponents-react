@@ -26,13 +26,13 @@
   "scripts": {
     "extract:descriptions": "tsx scripts/extract-component-descriptions.ts",
     "bundle:docs": "tsx scripts/bundle-docs.ts",
-    "build": "tsc --build tsconfig.build.json && tsx scripts/post-build.ts",
     "fetch:skills": "tsx scripts/fetch-upstream-skills.ts",
-    "update": "npm run fetch:skills && npm run extract:descriptions && npm run bundle:docs && npm run build",
+    "compile": "tsc --build tsconfig.build.json && tsx scripts/post-build.ts",
+    "update": "npm run fetch:skills && npm run extract:descriptions && npm run bundle:docs && npm run compile",
     "clean": "rimraf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo src/tools/get_component_api/component-apis.json src/tools/list_components/descriptions.json docs/",
-    "dev": "npm run build && node dist/index.js",
     "inspector": "npx @modelcontextprotocol/inspector node ./dist/index.js",
     "test": "ava --watch",
+    "test:ci": "ava",
     "version": "tsx scripts/sync-server-version.ts && git add server.json"
   },
   "publishConfig": {

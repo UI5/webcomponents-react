@@ -9,6 +9,27 @@ on:
         required: false
 
 jobs:
+  mcp-server:
+    name: MCP Server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: Install
+        run: yarn install --immutable
+
+      - name: Generate MCP data
+        run: yarn build:mcp
+
+      - name: Run MCP server tests
+        run: yarn test:mcp:ci
+
   playwright:
     name: Playwright
     runs-on: ubuntu-latest

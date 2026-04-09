@@ -129,6 +129,9 @@ jobs:
       - name: build
         run: yarn build
 
+      - name: build mcp-server data
+        run: yarn build:mcp
+
       - name: publish to npm
         run: |
           ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-git ${{ (github.event.inputs.snapshot == 'true' && '--pre-dist-tag dev') || '' }}

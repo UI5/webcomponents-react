@@ -97,14 +97,14 @@ Once configured, your AI assistant will have access to the tools. You can ask qu
 ### Scripts
 
 ```bash
-npm run build                 # Build TypeScript + copy JSON assets
-npm run dev                   # Build and run locally
+npm run compile               # Build TypeScript + copy JSON assets (fast rebuild)
 npm run inspector             # Debug with MCP Inspector (opens web UI)
 npm run test                  # Run tests in watch mode (AVA + tsx)
+npm run test:ci               # Run tests once (CI)
 npm run extract:descriptions  # Regenerate component metadata from monorepo sources
 npm run bundle:docs           # Copy documentation files from monorepo into docs/
 npm run fetch:skills          # Fetch upstream documentation (e.g. accessibility skill)
-npm run update                # Full pipeline: fetch:skills + extract:descriptions + bundle:docs + build
+npm run update                # Full pipeline: fetch:skills + extract:descriptions + bundle:docs + compile
 npm run clean                 # Remove dist/, build cache, and all generated files
 ```
 
@@ -181,7 +181,7 @@ The MCP server is a **stdio-based** Node.js process that communicates with AI cl
 1. **`fetch:skills`** — Downloads upstream skill documents (e.g. accessibility) from GitHub, adapts HTML examples to React JSX, writes to `docs/`
 2. **`extract:descriptions`** — Uses `react-docgen-typescript` to parse component sources and Custom Elements Manifests (CEM). Outputs `descriptions.json` and `component-apis.json`. Also attaches `subTypeDocs` (markdown for complex prop types) and `docUrl` (upstream doc links) from `component-config.ts`
 3. **`bundle:docs`** — Copies MDX/MD documentation files from the monorepo into `docs/`. For JSON data sources (e.g. project templates), generates LLM-friendly markdown. Updates `localPath` fields in `documentation_sections.json`
-4. **`build`** — Compiles TypeScript, then `post-build.ts` copies JSON files from `src/` to `dist/` and makes the entry point executable
+4. **`compile`** — Compiles TypeScript, then `post-build.ts` copies JSON files from `src/` to `dist/` and makes the entry point executable
 
 ### Updating Component Data
 
@@ -210,4 +210,4 @@ Then add the server to any project using the absolute path to the built entry po
 claude mcp add --scope project ui5-wcr -- node /path/to/ui5-webcomponents-react/packages/mcp-server/dist/index.js
 ```
 
-After code changes, `npm run build` is enough.
+After code changes, `npm run compile` is enough.
