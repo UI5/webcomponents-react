@@ -47,7 +47,7 @@ This MCP server gives AI assistants direct access to UI5 Web Components for Reac
 
 ## Setup
 
-This server is available in the [MCP Registry](https://registry.modelcontextprotocol.io/servers/io.github.UI5/webcomponents-react-mcp-server), which allows compatible clients to install it directly.
+This server is available in the [MCP Registry](https://registry.modelcontextprotocol.io), which allows compatible clients to install it directly.
 
 ### Claude Code
 
