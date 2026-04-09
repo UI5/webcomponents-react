@@ -28,7 +28,7 @@
     "bundle:docs": "tsx scripts/bundle-docs.ts",
     "fetch:skills": "tsx scripts/fetch-upstream-skills.ts",
     "compile": "tsc --build tsconfig.build.json && tsx scripts/post-build.ts",
-    "update": "npm run fetch:skills && npm run extract:descriptions && npm run bundle:docs && npm run compile",
+    "update": "npm run fetch:skills && npm run extract:descriptions && npm run bundle:docs && prettier --write src/tools/get_documentation/documentation_sections.json && npm run compile",
     "clean": "rimraf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo src/tools/get_component_api/component-apis.json src/tools/list_components/descriptions.json docs/",
     "inspector": "npx @modelcontextprotocol/inspector node ./dist/index.js",
     "test": "ava --watch",

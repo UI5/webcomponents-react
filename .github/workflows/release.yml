@@ -18,18 +18,26 @@ on:
         description: 'Release as snapshot. This setting has precedence over all other inputs.'
         required: false
         default: false
+      publish_only:
+        type: boolean
+        description: 'Skip versioning and only publish existing tags to npm. Use when a previous release failed during publish.'
+        required: false
+        default: false
 
 jobs:
   build:
+    if: ${{ github.event.inputs.publish_only != 'true' }}
     uses: './.github/workflows/build.yml'
 
   test:
+    if: ${{ github.event.inputs.publish_only != 'true' }}
     needs: ['build']
     uses: './.github/workflows/test.yml'
     with:
       reportCoverage: false
 
   check-charts-compat-peer-deps:
+    if: ${{ github.event.inputs.publish_only != 'true' }}
     runs-on: ubuntu-latest
     environment: charts-peer-deps-approval
     steps:
@@ -37,6 +45,7 @@ jobs:
         run: echo "Did you update the peer dependencies of the charts and compat package?"
 
   release-dryrun:
+    if: ${{ github.event.inputs.publish_only != 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -76,6 +85,7 @@ jobs:
             --allow-branch ${{ github.ref_name }}
 
   build-and-release:
+    if: ${{ github.event.inputs.publish_only == 'true' || (needs.test.result == 'success' && needs.release-dryrun.result == 'success' && needs.check-charts-compat-peer-deps.result == 'success') }}
     needs: ['test', 'release-dryrun', 'check-charts-compat-peer-deps']
     runs-on: ubuntu-latest
     environment:
@@ -103,12 +113,13 @@ jobs:
           yarn install --immutable
 
       - name: Setup Git User
+        if: ${{ github.event.inputs.publish_only != 'true' }}
         run: |
           git config user.email ${{ secrets.BOT_GIT_EMAIL }}
           git config user.name ${{ secrets.BOT_GIT_USERNAME }}
 
       - name: version - Release
-        if: ${{ github.event.inputs.snapshot == 'false' }}
+        if: ${{ github.event.inputs.publish_only != 'true' && github.event.inputs.snapshot == 'false' }}
         run: |
           ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version ${{ github.event.inputs.release_type }} \
             ${{ (github.event.inputs.prerelease == 'true' && '--conventional-prerelease') || '--conventional-graduate' }} \
@@ -117,7 +128,7 @@ jobs:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
       - name: version - Snapshot
-        if: ${{ github.event.inputs.snapshot == 'true' }}
+        if: ${{ github.event.inputs.publish_only != 'true' && github.event.inputs.snapshot == 'true' }}
         run: |
           git_hash=$(git rev-parse --short "${{ github.sha }}")
 
@@ -131,6 +142,10 @@ jobs:
 
       - name: build mcp-server data
         run: yarn build:mcp
+
+      - name: List packages to publish
+        if: ${{ github.event.inputs.publish_only == 'true' }}
+        run: ${GITHUB_WORKSPACE}/node_modules/.bin/lerna ls --json
 
       - name: publish to npm
         run: |
