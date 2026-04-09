@@ -80,7 +80,7 @@
       "groupSlug": "examples-ui5-webcomponents-react",
       "matchFileNames": ["examples/**", "templates/**", "patterns/**"],
       "semanticCommitType": "chore",
-      "minimumReleaseAge": "0 days",
+      "minimumReleaseAge": null,
       "matchSourceUrls": [
         "https://github.com/UI5/webcomponents{/,}**",
         "https://github.com/UI5/webcomponents-react{/,}**"
