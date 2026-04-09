@@ -85,7 +85,7 @@ jobs:
             --allow-branch ${{ github.ref_name }}
 
   build-and-release:
-    if: ${{ github.event.inputs.publish_only == 'true' || (needs.test.result == 'success' && needs.release-dryrun.result == 'success' && needs.check-charts-compat-peer-deps.result == 'success') }}
+    if: ${{ !cancelled() && (github.event.inputs.publish_only == 'true' || (needs.test.result == 'success' && needs.release-dryrun.result == 'success' && needs.check-charts-compat-peer-deps.result == 'success')) }}
     needs: ['test', 'release-dryrun', 'check-charts-compat-peer-deps']
     runs-on: ubuntu-latest
     environment:
