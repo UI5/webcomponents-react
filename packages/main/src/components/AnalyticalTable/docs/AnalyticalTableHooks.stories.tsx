@@ -1,11 +1,11 @@
 import dataSmall from '@sb/mockData/Friends50.json';
 import dataLarge from '@sb/mockData/Friends500.json';
-import dataManualSelect from '@sb/mockData/FriendsManualSelect25.json';
+import dataManualSelect500 from '@sb/mockData/FriendsManualSelect500.json';
 import dataTree from '@sb/mockData/FriendsTree.json';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import InputType from '@ui5/webcomponents/dist/types/InputType.js';
 import paperPlaneIcon from '@ui5/webcomponents-icons/dist/paper-plane';
-import { useCallback, useMemo, useReducer, useState } from 'react';
+import { useCallback, useMemo, useReducer, useRef, useState } from 'react';
 import { AnalyticalTableSelectionMode, FlexBoxAlignItems, FlexBoxDirection } from '../../../enums/index.js';
 import { Button } from '../../../webComponents/Button/index.js';
 import { CheckBox } from '../../../webComponents/CheckBox/index.js';
@@ -18,7 +18,7 @@ import { Text } from '../../../webComponents/Text/index.js';
 import { ToggleButton } from '../../../webComponents/ToggleButton/index.js';
 import { FlexBox } from '../../FlexBox/index.js';
 import { AnalyticalTable } from '../index.js';
-import type { AnalyticalTableCellInstance, AnalyticalTableColumnDefinition } from '../index.js';
+import type { AnalyticalTableCellInstance, AnalyticalTableColumnDefinition, TableInstance } from '../index.js';
 import * as AnalyticalTableHooks from '../pluginHooks/AnalyticalTableHooks.js';
 import { useF2CellEdit } from '../pluginHooks/AnalyticalTableHooks.js';
 import meta from './AnalyticalTable.stories.js';
@@ -137,25 +137,25 @@ export const PluginIndeterminateRowSelection: Story = {
 const tableHooksManualRowSel = [AnalyticalTableHooks.useManualRowSelect('isSelected')];
 export const PluginManualRowSelect: Story = {
   args: {
-    data: dataManualSelect,
+    data: dataManualSelect500,
   },
   render: (args) => {
     const [collapsedCode, setCollapsedCode] = useReducer((coll) => !coll, true);
-    const [data, toggleFirstRowSelected] = useReducer((prev) => {
-      const [, ...updatedData] = prev;
-      if (prev[0].isSelected) {
-        return [{ ...prev[0], isSelected: false }, ...updatedData];
-      } else {
-        return [{ ...prev[0], isSelected: true }, ...updatedData];
-      }
+    const tableInstanceRef = useRef<TableInstance>(null);
+    const handleToggle = () => {
+      tableInstanceRef.current?.toggleRowSelected('0');
+    };
+    const [data, toggleSecondRowSelected] = useReducer((prev) => {
+      const newData = [...prev];
+      newData[1] = { ...prev[1], isSelected: !prev[1].isSelected };
+      return newData;
     }, args.data);
     return (
       <>
-        <Button onClick={toggleFirstRowSelected}>
-          Toggle <code>isSelected</code> of 1st row
+        <Button onClick={handleToggle}>Toggle selection of 1st row</Button>
+        <Button onClick={toggleSecondRowSelected}>
+          Toggle selection of 2nd row via data update (slow with large datasets)
         </Button>
-        <br />
-        <Label>Clicking this button will refresh the data array passed to the `data` prop.</Label>
         <br />
         <br />
         <AnalyticalTable
@@ -163,15 +163,14 @@ export const PluginManualRowSelect: Story = {
           data={data}
           columns={args.columns}
           tableHooks={tableHooksManualRowSel}
+          tableInstance={tableInstanceRef}
         />
         <Button onClick={setCollapsedCode}>Show first entries in data array</Button>
         {!collapsedCode && (
           <FlexBox direction="Column">
-            <span>{JSON.stringify(data[0], null, 2)}</span>
-            <span>{JSON.stringify(data[1], null, 2)}</span>
-            <span>{JSON.stringify(data[2], null, 2)}</span>
-            <span>{JSON.stringify(data[3], null, 2)}</span>
-            <span>{JSON.stringify(data[4], null, 2)}</span>
+            {data.slice(0, 5).map((entry, i) => (
+              <span key={i}>{JSON.stringify(entry, null, 2)}</span>
+            ))}
             <span>...</span>
           </FlexBox>
         )}
