@@ -92,7 +92,7 @@
       "groupSlug": "root-ui5-webcomponents",
       "matchFileNames": ["package.json"],
       "semanticCommitType": "chore",
-      "minimumReleaseAge": "0 days",
+      "minimumReleaseAge": null,
       "matchSourceUrls": ["https://github.com/UI5/webcomponents{/,}**"]
     },
     {
