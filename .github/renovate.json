@@ -34,7 +34,7 @@
     {
       "groupName": "UI5 Web Components",
       "matchSourceUrls": ["https://github.com/UI5/webcomponents{/,}**"],
-      "minimumReleaseAge": "0 days"
+      "minimumReleaseAge": null
     },
     {
       "groupName": "vite & plugins",
