@@ -112,6 +112,17 @@ jobs:
           npm install -g npm
           yarn install --immutable
 
+      - name: Move release tag to HEAD
+        if: ${{ github.event.inputs.publish_only == 'true' }}
+        run: |
+          tag=$(git describe --abbrev=0)
+          echo "Moving tag $tag to HEAD"
+          git tag -f "$tag"
+
+      - name: List packages to publish
+        if: ${{ github.event.inputs.publish_only == 'true' }}
+        run: ${GITHUB_WORKSPACE}/node_modules/.bin/lerna ls --json
+
       - name: Setup Git User
         if: ${{ github.event.inputs.publish_only != 'true' }}
         run: |
@@ -142,10 +153,6 @@ jobs:
 
       - name: build mcp-server data
         run: yarn build:mcp
-
-      - name: List packages to publish
-        if: ${{ github.event.inputs.publish_only == 'true' }}
-        run: ${GITHUB_WORKSPACE}/node_modules/.bin/lerna ls --json
 
       - name: publish to npm
         run: |
