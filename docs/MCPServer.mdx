@@ -1,0 +1,9 @@
+import { Footer } from '@sb/components';
+import { Markdown, Meta } from '@storybook/addon-docs/blocks';
+import MCPServerReadme from '../packages/mcp-server/README.md?raw';
+
+<Meta title="MCP Server" />
+
+<Markdown>{MCPServerReadme.replace(/^## Contributing[\s\S]*$/m, '')}</Markdown>
+
+<Footer />

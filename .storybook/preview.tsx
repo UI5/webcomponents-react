@@ -140,6 +140,7 @@ const preview: Preview = {
         order: [
           'Getting Started',
           'Project Templates & Examples',
+          'MCP Server',
           'Change Log',
           'Migration Guide',
           'Knowledge Base',
