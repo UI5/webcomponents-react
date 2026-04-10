@@ -16,7 +16,7 @@
     "@ui5/webcomponents-base": "2.21.0",
     "@ui5/webcomponents-fiori": "2.21.0",
     "@ui5/webcomponents-icons": "2.21.0",
-    "@ui5/webcomponents-react": "2.21.2",
+    "@ui5/webcomponents-react": "2.21.3",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -24,7 +24,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",
-    "@ui5/webcomponents-cypress-commands": "2.21.2",
+    "@ui5/webcomponents-cypress-commands": "2.21.3",
     "cypress": "15.13.0",
     "eslint": "9.39.4",
     "eslint-plugin-react-hooks": "7.0.1",
