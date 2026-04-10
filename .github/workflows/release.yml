@@ -112,13 +112,6 @@ jobs:
           npm install -g npm
           yarn install --immutable
 
-      - name: Move release tag to HEAD
-        if: ${{ github.event.inputs.publish_only == 'true' }}
-        run: |
-          tag=$(git describe --abbrev=0)
-          echo "Moving tag $tag to HEAD"
-          git tag -f "$tag"
-
       - name: List packages to publish
         if: ${{ github.event.inputs.publish_only == 'true' }}
         run: ${GITHUB_WORKSPACE}/node_modules/.bin/lerna ls --json
@@ -155,8 +148,17 @@ jobs:
         run: yarn build:mcp
 
       - name: publish to npm
+        if: ${{ github.event.inputs.publish_only != 'true' }}
         run: |
           ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-git ${{ (github.event.inputs.snapshot == 'true' && '--pre-dist-tag dev') || '' }}
+        env:
+          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
+
+      - name: publish to npm (from-package)
+        if: ${{ github.event.inputs.publish_only == 'true' }}
+        run: |
+          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-package
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
