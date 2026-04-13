@@ -4826,6 +4826,61 @@ describe('AnalyticalTable', () => {
     cy.get('[data-component-name="AnalyticalTableBody"]').should('have.prop', 'scrollTop', 2500);
   });
 
+  it('retainColumnWidth: recalculates widths after columns change', () => {
+    const columnsA = [
+      { Header: 'Name', accessor: 'name' },
+      { Header: 'Age', accessor: 'age' },
+    ];
+    const columnsB = [
+      { Header: 'Product', accessor: 'product' },
+      { Header: 'Price', accessor: 'price' },
+      { Header: 'Qty', accessor: 'qty' },
+    ];
+    const dataA = [
+      { name: 'Alice', age: 30 },
+      { name: 'Bob', age: 25 },
+    ];
+    const dataB = [
+      { product: 'Widget', price: '$10', qty: 5 },
+      { product: 'Gadget', price: '$20', qty: 3 },
+    ];
+
+    function TestComp() {
+      const [useB, setUseB] = useState(false);
+      return (
+        <>
+          <Button data-testid="switch" onClick={() => setUseB((prev) => !prev)}>
+            Switch
+          </Button>
+          <AnalyticalTable
+            columns={useB ? columnsB : columnsA}
+            data={useB ? dataB : dataA}
+            retainColumnWidth
+            scaleWidthMode={AnalyticalTableScaleWidthMode.Default}
+          />
+        </>
+      );
+    }
+
+    cy.mount(<TestComp />);
+    cy.get('[data-column-id="name"]').invoke('outerWidth').should('be.gt', 150).as('initialWidth');
+
+    // resize first column
+    cy.get('[data-component-name="AnalyticalTableResizer"]')
+      .eq(0)
+      .realMouseDown()
+      .realMouseMove(-50, 0, { scrollBehavior: false });
+    cy.get('body').realMouseUp();
+    cy.get('@initialWidth').then((initialWidth) => {
+      cy.get('[data-column-id="name"]').invoke('outerWidth').should('not.eq', initialWidth);
+    });
+
+    cy.get('[data-testid="switch"]').click();
+    cy.get('[data-column-id="product"]').invoke('outerWidth').should('be.gt', 150);
+    cy.get('[data-column-id="price"]').invoke('outerWidth').should('be.gt', 150);
+    cy.get('[data-column-id="qty"]').invoke('outerWidth').should('be.gt', 150);
+  });
+
   cypressPassThroughTestsFactory(AnalyticalTable, { data, columns });
 });
 
