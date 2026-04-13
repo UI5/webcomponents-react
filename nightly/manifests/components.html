@@ -576,13 +576,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">111/111 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">111/111 infos</a><span class="filter-pill ok" aria-disabled="true">306 stories ok</span><a class="filter-pill ok" data-k="docs" href="#filter-docs">142 docs ok</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">111/111 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">111/111 infos</a><span class="filter-pill ok" aria-disabled="true">306 stories ok</span><a class="filter-pill ok" data-k="docs" href="#filter-docs">143 docs ok</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note ok" style="margin-bottom: 16px;">
-              Using <code>react-docgen-typescript</code>. Generation took <strong>4.5s</strong>.
+              Using <code>react-docgen-typescript</code>. Generation took <strong>4.3s</strong>.
             </div>
     <h2 class="section-title">Components</h2>
     <div class="grid" role="list">
@@ -81928,10 +81928,49 @@ A curated list of minimal project templates and examples to get started using UI
   aria-label="Docs">
   <div class="head">
     <div class="title">
+      <h2><span class="status-dot dot-ok"></span> MCP Server</h2>
+      <div class="badges">
+        
+        <label for="doc-2-mcp-server-docs-content" class="badge ok as-toggle">view content</label>
+      </div>
+    </div>
+    <div class="meta" title="./docs/MCPServer.mdx">mcp-server--docs · ./docs/MCPServer.mdx</div>
+    
+  </div>
+
+  <!-- Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="doc-2-mcp-server-docs-content" class="tg tg-content" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-content">
+          <div class="mdx-content">
+            <pre><code>import { Footer } from &#39;@sb/components&#39;;
+import { Markdown, Meta } from &#39;@storybook/addon-docs/blocks&#39;;
+import MCPServerReadme from &#39;../packages/mcp-server/README.md?raw&#39;;
+
+&lt;Meta title=&quot;MCP Server&quot; /&gt;
+
+&lt;Markdown&gt;{MCPServerReadme.replace(/^## Contributing[\s\S]*$/m, &#39;&#39;)}&lt;/Markdown&gt;
+
+&lt;Footer /&gt;
+</code></pre>
+          </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card is-doc no-doc-error"
+  role="listitem"
+  aria-label="Docs">
+  <div class="head">
+    <div class="title">
       <h2><span class="status-dot dot-ok"></span> Change Log</h2>
       <div class="badges">
         
-        <label for="doc-2-change-log-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-3-change-log-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/Changelog.mdx">change-log--docs · ./docs/Changelog.mdx</div>
@@ -81940,7 +81979,7 @@ A curated list of minimal project templates and examples to get started using UI
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-2-change-log-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-3-change-log-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -81972,7 +82011,7 @@ import { Footer, TableOfContent } from &#39;@sb/components&#39;;
       <h2><span class="status-dot dot-ok"></span> Migration Guide</h2>
       <div class="badges">
         
-        <label for="doc-3-migration-guide-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-4-migration-guide-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/MigrationGuide.mdx">migration-guide--docs · ./docs/MigrationGuide.mdx</div>
@@ -81981,7 +82020,7 @@ import { Footer, TableOfContent } from &#39;@sb/components&#39;;
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-3-migration-guide-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-4-migration-guide-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -83259,7 +83298,7 @@ For better alignment with the UI5 Web Components, the following enums have been 
       <h2><span class="status-dot dot-ok"></span> Knowledge Base/Bring Your Own Web Components</h2>
       <div class="badges">
         
-        <label for="doc-4-knowledge-base-bring-your-own-web-components-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-5-knowledge-base-bring-your-own-web-components-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/knowledge-base/BringYourOwnWebComponents.mdx">knowledge-base-bring-your-own-web-components--docs · ./docs/knowledge-base/BringYourOwnWebComponents.mdx</div>
@@ -83268,7 +83307,7 @@ For better alignment with the UI5 Web Components, the following enums have been 
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-4-knowledge-base-bring-your-own-web-components-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-5-knowledge-base-bring-your-own-web-components-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -83360,7 +83399,7 @@ _We recommend ensuring that the target directory (specified by the `--out` param
       <h2><span class="status-dot dot-ok"></span> Knowledge Base/Common CSS</h2>
       <div class="badges">
         
-        <label for="doc-5-knowledge-base-common-css-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-6-knowledge-base-common-css-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/knowledge-base/CommonCSS.mdx">knowledge-base-common-css--docs · ./docs/knowledge-base/CommonCSS.mdx</div>
@@ -83369,7 +83408,7 @@ _We recommend ensuring that the target directory (specified by the `--out` param
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-5-knowledge-base-common-css-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-6-knowledge-base-common-css-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -83455,7 +83494,7 @@ Common CSS is offering classes that you can use to create some spacing between e
       <h2><span class="status-dot dot-ok"></span> Knowledge Base/FAQ</h2>
       <div class="badges">
         
-        <label for="doc-6-knowledge-base-faq-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-7-knowledge-base-faq-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/knowledge-base/FAQ.mdx">knowledge-base-faq--docs · ./docs/knowledge-base/FAQ.mdx</div>
@@ -83464,7 +83503,7 @@ Common CSS is offering classes that you can use to create some spacing between e
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-6-knowledge-base-faq-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-7-knowledge-base-faq-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -83646,7 +83685,7 @@ npx @ui5/webcomponents-react-cli codemod --transform export-maps \
       <h2><span class="status-dot dot-ok"></span> Knowledge Base/Handling Slots</h2>
       <div class="badges">
         
-        <label for="doc-7-knowledge-base-handling-slots-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-8-knowledge-base-handling-slots-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/knowledge-base/CustomComponentsSlots.mdx">knowledge-base-handling-slots--docs · ./docs/knowledge-base/CustomComponentsSlots.mdx</div>
@@ -83655,7 +83694,7 @@ npx @ui5/webcomponents-react-cli codemod --transform export-maps \
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-7-knowledge-base-handling-slots-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-8-knowledge-base-handling-slots-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -83739,7 +83778,7 @@ Now the `BarComponent` would compile to this:
       <h2><span class="status-dot dot-ok"></span> Knowledge Base/IDs via dataset</h2>
       <div class="badges">
         
-        <label for="doc-8-knowledge-base-ids-via-dataset-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-9-knowledge-base-ids-via-dataset-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/knowledge-base/ChangeEvents.mdx">knowledge-base-ids-via-dataset--docs · ./docs/knowledge-base/ChangeEvents.mdx</div>
@@ -83748,7 +83787,7 @@ Now the `BarComponent` would compile to this:
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-8-knowledge-base-ids-via-dataset-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-9-knowledge-base-ids-via-dataset-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -83859,7 +83898,7 @@ const onSuggestionItemSelect = (event) =&gt; {
       <h2><span class="status-dot dot-ok"></span> Knowledge Base/Internationalization</h2>
       <div class="badges">
         
-        <label for="doc-9-knowledge-base-internationalization-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-10-knowledge-base-internationalization-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/knowledge-base/Internationalization.mdx">knowledge-base-internationalization--docs · ./docs/knowledge-base/Internationalization.mdx</div>
@@ -83868,7 +83907,7 @@ const onSuggestionItemSelect = (event) =&gt; {
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-9-knowledge-base-internationalization-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-10-knowledge-base-internationalization-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -84054,7 +84093,7 @@ Here you can find a basic example that uses the internal translations and also i
       <h2><span class="status-dot dot-ok"></span> Knowledge Base/Public Utils</h2>
       <div class="badges">
         
-        <label for="doc-10-knowledge-base-public-utils-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-11-knowledge-base-public-utils-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/knowledge-base/Public-Utils.mdx">knowledge-base-public-utils--docs · ./docs/knowledge-base/Public-Utils.mdx</div>
@@ -84063,7 +84102,7 @@ Here you can find a basic example that uses the internal translations and also i
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-10-knowledge-base-public-utils-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-11-knowledge-base-public-utils-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -84197,7 +84236,7 @@ It will always return a string with the name of the currently active range.
       <h2><span class="status-dot dot-ok"></span> Knowledge Base/Server Side Rendering</h2>
       <div class="badges">
         
-        <label for="doc-11-knowledge-base-server-side-rendering-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-12-knowledge-base-server-side-rendering-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/knowledge-base/ServerSideRendering.mdx">knowledge-base-server-side-rendering--docs · ./docs/knowledge-base/ServerSideRendering.mdx</div>
@@ -84206,7 +84245,7 @@ It will always return a string with the name of the currently active range.
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-11-knowledge-base-server-side-rendering-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-12-knowledge-base-server-side-rendering-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -84290,7 +84329,7 @@ Your favorite framework is missing here? Feel free to [edit this page](https://g
       <h2><span class="status-dot dot-ok"></span> Knowledge Base/Styling</h2>
       <div class="badges">
         
-        <label for="doc-12-knowledge-base-styling-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-13-knowledge-base-styling-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/knowledge-base/Styling.mdx">knowledge-base-styling--docs · ./docs/knowledge-base/Styling.mdx</div>
@@ -84299,7 +84338,7 @@ Your favorite framework is missing here? Feel free to [edit this page](https://g
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-12-knowledge-base-styling-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-13-knowledge-base-styling-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -84515,7 +84554,7 @@ For applying common styling blocks based on SAP Fiori Design Guidelines, we reco
       <h2><span class="status-dot dot-ok"></span> Testing with Cypress/Setup</h2>
       <div class="badges">
         
-        <label for="doc-13-testing-with-cypress-setup-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-14-testing-with-cypress-setup-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/cypress-commands/TestSetup.mdx">testing-with-cypress-setup--docs · ./packages/cypress-commands/TestSetup.mdx</div>
@@ -84524,7 +84563,7 @@ For applying common styling blocks based on SAP Fiori Design Guidelines, we reco
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-13-testing-with-cypress-setup-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-14-testing-with-cypress-setup-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -84655,7 +84694,7 @@ Now you can use all commands and queries that are available in this package.
       <h2><span class="status-dot dot-ok"></span> Testing with Cypress/Commands</h2>
       <div class="badges">
         
-        <label for="doc-14-testing-with-cypress-commands-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-15-testing-with-cypress-commands-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/cypress-commands/Commands.mdx">testing-with-cypress-commands--docs · ./packages/cypress-commands/Commands.mdx</div>
@@ -84664,7 +84703,7 @@ Now you can use all commands and queries that are available in this package.
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-14-testing-with-cypress-commands-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-15-testing-with-cypress-commands-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -84700,7 +84739,7 @@ Here you can find all available Commands of the `@ui5/webcomponents-cypress-comm
       <h2><span class="status-dot dot-ok"></span> Testing with Cypress/Queries</h2>
       <div class="badges">
         
-        <label for="doc-15-testing-with-cypress-queries-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-16-testing-with-cypress-queries-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/cypress-commands/Queries.mdx">testing-with-cypress-queries--docs · ./packages/cypress-commands/Queries.mdx</div>
@@ -84709,7 +84748,7 @@ Here you can find all available Commands of the `@ui5/webcomponents-cypress-comm
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-15-testing-with-cypress-queries-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-16-testing-with-cypress-queries-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -84745,7 +84784,7 @@ Here you can find all available Queries of the `@ui5/webcomponents-cypress-comma
       <h2><span class="status-dot dot-ok"></span> Patterns/Docs</h2>
       <div class="badges">
         
-        <label for="doc-16-patterns-docs-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-17-patterns-docs-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./patterns/Docs.mdx">patterns-docs--docs · ./patterns/Docs.mdx</div>
@@ -84754,7 +84793,7 @@ Here you can find all available Queries of the `@ui5/webcomponents-cypress-comma
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-16-patterns-docs-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-17-patterns-docs-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -84792,7 +84831,7 @@ Discover additional patterns built with standard UI5 Web Components: https://ui5
       <h2><span class="status-dot dot-ok"></span> Patterns/SelectionAssistant</h2>
       <div class="badges">
         
-        <label for="doc-17-patterns-selectionassistant-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-18-patterns-selectionassistant-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./patterns/selection-assistant/SelectionAssistant.mdx">patterns-selectionassistant--docs · ./patterns/selection-assistant/SelectionAssistant.mdx</div>
@@ -84801,7 +84840,7 @@ Discover additional patterns built with standard UI5 Web Components: https://ui5
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-17-patterns-selectionassistant-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-18-patterns-selectionassistant-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -85145,7 +85184,7 @@ SelectionAssistantContainer.displayName = &#39;SelectionAssistantContainer&#39;;
       <h2><span class="status-dot dot-ok"></span> Patterns / UXC Integration</h2>
       <div class="badges">
         
-        <label for="doc-18-patterns-uxc-integration-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-19-patterns-uxc-integration-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/Patterns.mdx">patterns-uxc-integration--docs · ./docs/Patterns.mdx</div>
@@ -85154,7 +85193,7 @@ SelectionAssistantContainer.displayName = &#39;SelectionAssistantContainer&#39;;
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-18-patterns-uxc-integration-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-19-patterns-uxc-integration-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -85203,7 +85242,7 @@ This example is ideal for developers and designers looking to align their applic
       <h2><span class="status-dot dot-ok"></span> Data Display / AnalyticalTable / FAQ</h2>
       <div class="badges">
         
-        <label for="doc-19-data-display-analyticaltable-faq-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-20-data-display-analyticaltable-faq-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/main/src/components/AnalyticalTable/docs/FAQ.mdx">data-display-analyticaltable-faq--docs · ./packages/main/src/components/AnalyticalTable/docs/FAQ.mdx</div>
@@ -85212,7 +85251,7 @@ This example is ideal for developers and designers looking to align their applic
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-19-data-display-analyticaltable-faq-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-20-data-display-analyticaltable-faq-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -85748,7 +85787,7 @@ For multi-line content or custom components that don&#39;t handle ellipsis, trun
       <h2><span class="status-dot dot-ok"></span> Data Display / AnalyticalTable / Plugin Hooks</h2>
       <div class="badges">
         
-        <label for="doc-20-data-display-analyticaltable-plugin-hooks-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-21-data-display-analyticaltable-plugin-hooks-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/main/src/components/AnalyticalTable/docs/AnalyticalTableHooks.mdx">data-display-analyticaltable-plugin-hooks--docs · ./packages/main/src/components/AnalyticalTable/docs/AnalyticalTableHooks.mdx</div>
@@ -85757,7 +85796,7 @@ For multi-line content or custom components that don&#39;t handle ellipsis, trun
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-20-data-display-analyticaltable-plugin-hooks-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-21-data-display-analyticaltable-plugin-hooks-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -85815,7 +85854,7 @@ const tableHooks = [useAnnounceEmptyCells]; // this array should be memoized
       <h2><span class="status-dot dot-ok"></span> Data Display / AnalyticalTable / Plugin Hooks / useAnnounceEmptyCells</h2>
       <div class="badges">
         
-        <label for="doc-21-data-display-analyticaltable-plugin-hooks-useannounceemptycells-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-22-data-display-analyticaltable-plugin-hooks-useannounceemptycells-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/main/src/components/AnalyticalTable/docs/PluginAnnounceEmptyCells.mdx">data-display-analyticaltable-plugin-hooks-useannounceemptycells--docs · ./packages/main/src/components/AnalyticalTable/docs/PluginAnnounceEmptyCells.mdx</div>
@@ -85824,7 +85863,7 @@ const tableHooks = [useAnnounceEmptyCells]; // this array should be memoized
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-21-data-display-analyticaltable-plugin-hooks-useannounceemptycells-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-22-data-display-analyticaltable-plugin-hooks-useannounceemptycells-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -85889,7 +85928,7 @@ const tableHooks = [useAnnounceEmptyCells] // this array should be memoized
       <h2><span class="status-dot dot-ok"></span> Data Display / AnalyticalTable / Plugin Hooks / useF2CellEdit</h2>
       <div class="badges">
         
-        <label for="doc-22-data-display-analyticaltable-plugin-hooks-usef2celledit-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-23-data-display-analyticaltable-plugin-hooks-usef2celledit-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/main/src/components/AnalyticalTable/docs/PluginF2CellEdit.mdx">data-display-analyticaltable-plugin-hooks-usef2celledit--docs · ./packages/main/src/components/AnalyticalTable/docs/PluginF2CellEdit.mdx</div>
@@ -85898,7 +85937,7 @@ const tableHooks = [useAnnounceEmptyCells] // this array should be memoized
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-22-data-display-analyticaltable-plugin-hooks-usef2celledit-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-23-data-display-analyticaltable-plugin-hooks-usef2celledit-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -86036,7 +86075,7 @@ function TableWithInputs({ data }) {
       <h2><span class="status-dot dot-ok"></span> Data Display / AnalyticalTable / Plugin Hooks / useIndeterminateRowSelection</h2>
       <div class="badges">
         
-        <label for="doc-23-data-display-analyticaltable-plugin-hooks-useindeterminaterowselection-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-24-data-display-analyticaltable-plugin-hooks-useindeterminaterowselection-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/main/src/components/AnalyticalTable/docs/PluginIndeterminateRowSelection.mdx">data-display-analyticaltable-plugin-hooks-useindeterminaterowselection--docs · ./packages/main/src/components/AnalyticalTable/docs/PluginIndeterminateRowSelection.mdx</div>
@@ -86045,7 +86084,7 @@ function TableWithInputs({ data }) {
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-23-data-display-analyticaltable-plugin-hooks-useindeterminaterowselection-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-24-data-display-analyticaltable-plugin-hooks-useindeterminaterowselection-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -86125,7 +86164,7 @@ The event parameter is an object, with all indeterminate rows by id (e.g. `{&quo
       <h2><span class="status-dot dot-ok"></span> Data Display / AnalyticalTable / Plugin Hooks / useManualRowSelect</h2>
       <div class="badges">
         
-        <label for="doc-24-data-display-analyticaltable-plugin-hooks-usemanualrowselect-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-25-data-display-analyticaltable-plugin-hooks-usemanualrowselect-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/main/src/components/AnalyticalTable/docs/PluginManualRowSelect.mdx">data-display-analyticaltable-plugin-hooks-usemanualrowselect--docs · ./packages/main/src/components/AnalyticalTable/docs/PluginManualRowSelect.mdx</div>
@@ -86134,7 +86173,7 @@ The event parameter is an object, with all indeterminate rows by id (e.g. `{&quo
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-24-data-display-analyticaltable-plugin-hooks-usemanualrowselect-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-25-data-display-analyticaltable-plugin-hooks-usemanualrowselect-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -86186,7 +86225,7 @@ const tableHooks = [AnalyticalTableHooks.useManualRowSelect(&#39;isSelected&#39;
       <h2><span class="status-dot dot-ok"></span> Data Display / AnalyticalTable / Plugin Hooks / useOnColumnResize</h2>
       <div class="badges">
         
-        <label for="doc-25-data-display-analyticaltable-plugin-hooks-useoncolumnresize-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-26-data-display-analyticaltable-plugin-hooks-useoncolumnresize-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/main/src/components/AnalyticalTable/docs/PluginOnColumnResize.mdx">data-display-analyticaltable-plugin-hooks-useoncolumnresize--docs · ./packages/main/src/components/AnalyticalTable/docs/PluginOnColumnResize.mdx</div>
@@ -86195,7 +86234,7 @@ const tableHooks = [AnalyticalTableHooks.useManualRowSelect(&#39;isSelected&#39;
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-25-data-display-analyticaltable-plugin-hooks-useoncolumnresize-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-26-data-display-analyticaltable-plugin-hooks-useoncolumnresize-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -86266,7 +86305,7 @@ const TableComponent = (props) =&gt; {
       <h2><span class="status-dot dot-ok"></span> Data Display / AnalyticalTable / Plugin Hooks / useOrderedMultiSort</h2>
       <div class="badges">
         
-        <label for="doc-26-data-display-analyticaltable-plugin-hooks-useorderedmultisort-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-27-data-display-analyticaltable-plugin-hooks-useorderedmultisort-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/main/src/components/AnalyticalTable/docs/PluginOrderedMultiSort.mdx">data-display-analyticaltable-plugin-hooks-useorderedmultisort--docs · ./packages/main/src/components/AnalyticalTable/docs/PluginOrderedMultiSort.mdx</div>
@@ -86275,7 +86314,7 @@ const TableComponent = (props) =&gt; {
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-26-data-display-analyticaltable-plugin-hooks-useorderedmultisort-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-27-data-display-analyticaltable-plugin-hooks-useorderedmultisort-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -86376,7 +86415,7 @@ const TableComponent = () =&gt; {
       <h2><span class="status-dot dot-ok"></span> Data Display / AnalyticalTable / Plugin Hooks / useRowDisableSelection</h2>
       <div class="badges">
         
-        <label for="doc-27-data-display-analyticaltable-plugin-hooks-userowdisableselection-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-28-data-display-analyticaltable-plugin-hooks-userowdisableselection-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/main/src/components/AnalyticalTable/docs/PluginDisableRowSelection.mdx">data-display-analyticaltable-plugin-hooks-userowdisableselection--docs · ./packages/main/src/components/AnalyticalTable/docs/PluginDisableRowSelection.mdx</div>
@@ -86385,7 +86424,7 @@ const TableComponent = () =&gt; {
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-27-data-display-analyticaltable-plugin-hooks-userowdisableselection-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-28-data-display-analyticaltable-plugin-hooks-userowdisableselection-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -86482,7 +86521,7 @@ const WithStringParameter = () =&gt; {
       <h2><span class="status-dot dot-ok"></span> Data Display / AnalyticalTable / Recipes</h2>
       <div class="badges">
         
-        <label for="doc-28-data-display-analyticaltable-recipes-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-29-data-display-analyticaltable-recipes-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./packages/main/src/components/AnalyticalTable/docs/Recipes.mdx">data-display-analyticaltable-recipes--docs · ./packages/main/src/components/AnalyticalTable/docs/Recipes.mdx</div>
@@ -86491,7 +86530,7 @@ const WithStringParameter = () =&gt; {
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-28-data-display-analyticaltable-recipes-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-29-data-display-analyticaltable-recipes-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -86518,7 +86557,7 @@ import { Redirect } from &#39;@sb/components&#39;;
       <h2><span class="status-dot dot-ok"></span> Charts / Docs</h2>
       <div class="badges">
         
-        <label for="doc-29-charts-docs-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-30-charts-docs-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/ReadMeCharts.mdx">charts-docs--docs · ./docs/ReadMeCharts.mdx</div>
@@ -86527,7 +86566,7 @@ import { Redirect } from &#39;@sb/components&#39;;
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-29-charts-docs-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-30-charts-docs-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -86598,7 +86637,7 @@ import { Title } from &#39;@ui5/webcomponents-react&#39;;
       <h2><span class="status-dot dot-ok"></span> AI / Docs</h2>
       <div class="badges">
         
-        <label for="doc-30-ai-docs-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-31-ai-docs-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/ReadMeAI.mdx">ai-docs--docs · ./docs/ReadMeAI.mdx</div>
@@ -86607,7 +86646,7 @@ import { Title } from &#39;@ui5/webcomponents-react&#39;;
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-30-ai-docs-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-31-ai-docs-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -86639,7 +86678,7 @@ import ReadMe from &#39;../packages/ai/README.md?raw&#39;;
       <h2><span class="status-dot dot-ok"></span> Legacy Components / Docs</h2>
       <div class="badges">
         
-        <label for="doc-31-legacy-components-docs-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-32-legacy-components-docs-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
     <div class="meta" title="./docs/ReadMeCompat.mdx">legacy-components-docs--docs · ./docs/ReadMeCompat.mdx</div>
@@ -86648,7 +86687,7 @@ import ReadMe from &#39;../packages/ai/README.md?raw&#39;;
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-31-legacy-components-docs-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-32-legacy-components-docs-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
