@@ -1,0 +1,1 @@
+import{n as e}from"./chunk-zsgVPwQN.js";var t,n,r=e((()=>{(function(e){e.Header=`Header`,e.Subheader=`Subheader`,e.Footer=`Footer`,e.FloatingFooter=`FloatingFooter`})(t||={}),n=t}));export{r as n,n as t};

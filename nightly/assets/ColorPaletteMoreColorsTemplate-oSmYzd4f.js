@@ -1,0 +1,1 @@
+import{n as e,t}from"./ColorPaletteMoreColorsTemplate-wqlCXOpi.js";e();export{t as default};

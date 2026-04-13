@@ -1,0 +1,1 @@
+import{n as e}from"./chunk-zsgVPwQN.js";var t,n=e((()=>{t=e=>{if(e.nodeName===`SLOT`)return!1;let t=window.getComputedStyle(e);return t.display!==`contents`&&e.offsetWidth<=0&&e.offsetHeight<=0||t.visibility===`hidden`}}));export{n,t};

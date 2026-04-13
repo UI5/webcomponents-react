@@ -1,0 +1,1 @@
+import{n as e}from"./chunk-zsgVPwQN.js";var t,n=e((()=>{t=e=>{e.stopPropagation(),e.stopImmediatePropagation?.()}}));export{t as n,n as t};

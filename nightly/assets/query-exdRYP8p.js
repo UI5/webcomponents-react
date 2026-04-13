@@ -1,0 +1,1 @@
+import{n as e}from"./chunk-zsgVPwQN.js";var t,n=e((()=>{t=e=>(t,n)=>{Object.defineProperty(t,n,{get(){return this.shadowRoot?.querySelector(e)}})}}));export{t as n,n as t};
