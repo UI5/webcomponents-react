@@ -7,13 +7,13 @@ import type { Alias } from 'vite';
  * generates Vite `resolve.alias` entries that map subpath imports to source
  * files (`src/`) during dev, so `dist/` doesn't need to exist.
  *
- * Uses Vite's built-in alias resolution which calls `this.resolve()` internally,
- * so `.ts`/`.tsx` extension resolution is handled automatically — no filesystem
- * probing at runtime.
+ * Uses Vite's built-in alias plugin (Rolldown's `viteAliasPlugin`) which
+ * feeds replacements back into Vite's resolver, so `.ts`/`.tsx` extension
+ * resolution is handled automatically — no filesystem probing at runtime.
  *
  * Ordering: wildcard (regex) entries come first, then exact (string) entries
- * sorted by descending subpath length. This prevents string prefix-matching
- * from intercepting imports meant for wildcards.
+ * sorted by descending subpath length. This prevents Vite's alias plugin
+ * from prefix-matching string entries before regex wildcards are checked.
  */
 export function generateMonorepoAliases(packagesDir: string): Alias[] {
   const wildcardAliases: Alias[] = [];
@@ -62,7 +62,7 @@ export function generateMonorepoAliases(packagesDir: string): Alias[] {
     const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
     // Wildcards first — they must be checked before string entries because
-    // @rollup/plugin-alias uses prefix matching for strings, which would
+    // Vite's alias plugin uses prefix matching for strings, which would
     // incorrectly intercept imports like `pkg/dist/foo` via the `pkg` root alias.
     for (const { subpath, srcRelative } of wildcardEntries) {
       const subpathPattern = subpath
