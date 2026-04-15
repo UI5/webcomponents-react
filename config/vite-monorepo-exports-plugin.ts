@@ -70,7 +70,7 @@ export function generateMonorepoAliases(packagesDir: string): Alias[] {
         .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
         .replace(/\\\*/, '(.+)');
       const find = new RegExp(`^${escapedName}/${subpathPattern}$`);
-      const replacement = join(srcDir, srcRelative).replace('*', '$1');
+      const replacement = join(srcDir, srcRelative).replace(/\*/g, '$1');
       wildcardAliases.push({ find, replacement });
     }
 
