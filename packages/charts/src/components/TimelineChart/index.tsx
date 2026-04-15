@@ -1,5 +1,6 @@
-import type { CommonProps } from '@ui5/webcomponents-react';
-import { throttle, useStylesheet } from '@ui5/webcomponents-react-base';
+import { useStylesheet } from '@ui5/webcomponents-react-base/internal/hooks';
+import type { CommonProps } from '@ui5/webcomponents-react-base/internal/types';
+import { throttle } from '@ui5/webcomponents-react-base/internal/utils';
 import type { CSSProperties, ReactNode, MouseEvent as ReactMouseEvent } from 'react';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { TimelineChartBody } from './chartbody/TimelineChartBody.js';

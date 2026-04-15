@@ -1,4 +1,5 @@
-import { ThemingParameters, useStylesheet } from '@ui5/webcomponents-react-base';
+import { useStylesheet } from '@ui5/webcomponents-react-base/internal/hooks';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import type { CSSProperties, ReactElement } from 'react';
 import { useEffect, useState } from 'react';
 import type { ITimelineChartRow } from './types/TimelineChartTypes.js';

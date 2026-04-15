@@ -1,6 +1,8 @@
 'use client';
 
-import { enrichEventWithDetails, ThemingParameters, useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base';
+import { useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base/internal/hooks';
+import { enrichEventWithDetails } from '@ui5/webcomponents-react-base/internal/utils';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import type { CSSProperties, FC } from 'react';
 import { forwardRef, useCallback } from 'react';
 import {

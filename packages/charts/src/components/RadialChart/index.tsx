@@ -1,7 +1,8 @@
 'use client';
 
-import type { CommonProps } from '@ui5/webcomponents-react';
-import { enrichEventWithDetails, ThemingParameters } from '@ui5/webcomponents-react-base';
+import type { CommonProps } from '@ui5/webcomponents-react-base/internal/types';
+import { enrichEventWithDetails } from '@ui5/webcomponents-react-base/internal/utils';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import type { CSSProperties } from 'react';
 import { forwardRef } from 'react';
 import { PolarAngleAxis, RadialBar, RadialBarChart } from 'recharts';

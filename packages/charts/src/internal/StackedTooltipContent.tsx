@@ -1,5 +1,6 @@
-import { ThemingParameters, useStylesheet } from '@ui5/webcomponents-react-base';
 import { useI18nBundle } from '@ui5/webcomponents-react-base/hooks';
+import { useStylesheet } from '@ui5/webcomponents-react-base/internal/hooks';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import type { ReactElement } from 'react';
 import { DefaultTooltipContent } from 'recharts';
 import { classNames, styleData } from './StackedTooltipContent.module.css.js';

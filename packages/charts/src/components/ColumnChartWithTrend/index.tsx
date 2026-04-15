@@ -1,6 +1,7 @@
 'use client';
 
-import { ThemingParameters, useStylesheet } from '@ui5/webcomponents-react-base';
+import { useStylesheet } from '@ui5/webcomponents-react-base/internal/hooks';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { forwardRef, useId } from 'react';

@@ -1,6 +1,7 @@
 'use client';
 
-import { enrichEventWithDetails, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
+import { useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base/internal/hooks';
+import { enrichEventWithDetails } from '@ui5/webcomponents-react-base/internal/utils';
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { cloneElement, forwardRef, isValidElement, useCallback, useMemo } from 'react';

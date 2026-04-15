@@ -1,4 +1,4 @@
-import { debounce } from '@ui5/webcomponents-react-base';
+import { debounce } from '@ui5/webcomponents-react-base/internal/utils';
 import type { RefObject } from 'react';
 import { useEffect, useRef, useState } from 'react';
 

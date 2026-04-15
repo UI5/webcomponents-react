@@ -1,4 +1,4 @@
-import { useStylesheet } from '@ui5/webcomponents-react-base';
+import { useStylesheet } from '@ui5/webcomponents-react-base/internal/hooks';
 import type { CSSProperties, ReactNode } from 'react';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import type { ITimelineChartRow } from '../types/TimelineChartTypes.js';

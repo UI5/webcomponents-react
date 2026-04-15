@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { FlexBox, FlexBoxAlignItems, FlexBoxJustifyContent, Text } from '@ui5/webcomponents-react';
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
+import { FlexBoxAlignItems } from '@ui5/webcomponents-react/enums/FlexBoxAlignItems';
+import { FlexBoxJustifyContent } from '@ui5/webcomponents-react/enums/FlexBoxJustifyContent';
+import { FlexBox } from '@ui5/webcomponents-react/FlexBox';
+import { Text } from '@ui5/webcomponents-react/Text';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import { RadialChart } from './index.js';
 
 const meta = {

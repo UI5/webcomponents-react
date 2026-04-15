@@ -1,4 +1,5 @@
-import { ThemingParameters, useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base';
+import { useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base/internal/hooks';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import type { ReactElement } from 'react';
 import { useState } from 'react';
 import type { ITimelineChartMileStone, ITimelineChartRow, ITimelineChartTask } from '../types/TimelineChartTypes.js';

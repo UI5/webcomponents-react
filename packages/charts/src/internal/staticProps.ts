@@ -1,4 +1,4 @@
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 
 export const tickLineConfig = { stroke: 'transparent' };
 export const tooltipContentStyle = { backgroundColor: ThemingParameters.sapBackgroundColor };
