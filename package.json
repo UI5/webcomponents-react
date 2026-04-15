@@ -37,6 +37,7 @@
     "sb:prepare-cem": "node packages/cli/dist/bin/index.js resolve-cem --packageName @ui5/webcomponents --out ./.storybook/custom-element-manifests/main.json && node packages/cli/dist/bin/index.js resolve-cem --packageName @ui5/webcomponents-fiori --out ./.storybook/custom-element-manifests/fiori.json && node packages/cli/dist/bin/index.js resolve-cem --packageName @ui5/webcomponents-ai --out ./.storybook/custom-element-manifests/ai.json",
     "create-theming-parameters": "node scripts/generate-theming-parameters.js",
     "create-exports": "node --experimental-strip-types scripts/create-export-paths.ts",
+    "validate-exports": "publint packages/ai && publint packages/base && publint packages/charts && publint packages/compat && publint packages/main",
     "build:mcp": "yarn workspace @ui5/webcomponents-react-mcp update",
     "test:mcp:ci": "yarn workspace @ui5/webcomponents-react-mcp test:ci"
   },
@@ -102,6 +103,7 @@
     "postcss-import": "16.1.1",
     "postcss-modules": "6.0.1",
     "prettier": "3.8.2",
+    "publint": "0.3.18",
     "rimraf": "6.1.3",
     "typescript": "5.9.3",
     "typescript-eslint": "8.58.1",
