@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import IstanbulPlugin from 'vite-plugin-istanbul';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { generateMonorepoAliases } from './config/vite-monorepo-exports-plugin.js';
 
 // https://vitejs.dev/config/
 
@@ -12,13 +13,11 @@ export default defineConfig(() => {
       'process.env.STORYBOOK_ENV': `'${process.env.STORYBOOK_ENV}'`,
     },
     resolve: {
-      alias: {
-        '@sb': fileURLToPath(new URL('./.storybook', import.meta.url)),
-        '@ui5/webcomponents-react-charts': fileURLToPath(new URL('./packages/charts/src/index.ts', import.meta.url)),
-        '@ui5/webcomponents-react/dist': fileURLToPath(new URL('./packages/main/src/', import.meta.url)),
-        '@ui5/webcomponents-react': fileURLToPath(new URL('./packages/main/src/index.ts', import.meta.url)),
-        '@/': fileURLToPath(new URL('./', import.meta.url)),
-      },
+      alias: [
+        { find: '@sb', replacement: fileURLToPath(new URL('./.storybook', import.meta.url)) },
+        ...generateMonorepoAliases(fileURLToPath(new URL('./packages', import.meta.url))),
+        { find: '@/', replacement: fileURLToPath(new URL('./', import.meta.url)) },
+      ],
     },
     optimizeDeps: {
       esbuildOptions: {
