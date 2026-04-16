@@ -1,0 +1,1 @@
+import{n as e,t}from"./Menu-B25MfGmd.js";e();export{t as default};

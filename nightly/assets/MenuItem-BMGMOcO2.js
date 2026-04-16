@@ -1,1 +1,0 @@
-import{n as e,t}from"./MenuItem-ipUyIUdq.js";e();export{t as default};
