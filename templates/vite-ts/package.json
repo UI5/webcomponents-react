@@ -12,10 +12,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ui5/webcomponents": "2.21.0",
-    "@ui5/webcomponents-base": "2.21.0",
-    "@ui5/webcomponents-fiori": "2.21.0",
-    "@ui5/webcomponents-icons": "2.21.0",
+    "@ui5/webcomponents": "2.21.1",
+    "@ui5/webcomponents-base": "2.21.1",
+    "@ui5/webcomponents-fiori": "2.21.1",
+    "@ui5/webcomponents-icons": "2.21.1",
     "@ui5/webcomponents-react": "2.21.3",
     "react": "19.2.5",
     "react-dom": "19.2.5"
