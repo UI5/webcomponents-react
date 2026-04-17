@@ -1,7 +1,7 @@
 import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import { DefaultTooltipContent } from 'recharts';
 import type { TooltipProps } from 'recharts';
-import type { IChartBaseProps } from '@/interfaces/IChartBaseProps.js';
+import type { IChartBaseProps } from '../interfaces/IChartBaseProps.js';
 
 export const legendConfig: IChartBaseProps = {
   chartConfig: {
