@@ -63,9 +63,24 @@ const navigateFromActiveSubCompItem = (currentlyFocusedCell: MutableRefObject<HT
   setFocus(currentlyFocusedCell, recursiveSubComponentElementSearch(e.target as HTMLElement));
 };
 
+const scrollToHorizontalEdgeAndFocus = (
+  tableRef: MutableRefObject<HTMLElement>,
+  scrollLeft: number,
+  targetSelector: string,
+  currentlyFocusedCell: MutableRefObject<HTMLElement>,
+) => {
+  tableRef.current.scrollLeft = scrollLeft;
+  requestAnimationFrame(() => {
+    const el: HTMLElement | null = tableRef.current.querySelector(targetSelector);
+    if (el) {
+      setFocus(currentlyFocusedCell, el);
+    }
+  });
+};
+
 const useGetTableProps = (
   tableProps,
-  { instance: { webComponentsReactProperties, data, columns, state } }: { instance: TableInstance },
+  { instance: { webComponentsReactProperties, data, columns, state, visibleColumns } }: { instance: TableInstance },
 ) => {
   const { showOverlay, tableRef } = webComponentsReactProperties;
   const { isRtl } = state;
@@ -182,32 +197,34 @@ const useGetTableProps = (
 
         switch (e.key) {
           case 'End': {
-            const visibleColumns = tableRef.current.querySelector(
-              `div[data-component-name="AnalyticalTableHeaderRow"]`,
-            ).children;
-
-            const lastVisibleColumn = Array.from(visibleColumns)
-              .slice(0)
-              .reduceRight((_, cur, index, arr) => {
-                const columnIndex = parseInt((cur.children?.[0] as HTMLDivElement)?.dataset.columnIndex, 10);
-                if (!isNaN(columnIndex)) {
-                  arr.length = 0;
-                  return columnIndex;
-                }
-                return 0;
-              }, 0);
-
-            const newElement: HTMLElement | null = tableRef.current.querySelector(
-              `div[data-visible-column-index="${lastVisibleColumn}"][data-row-index="${rowIndex}"]`,
-            );
-            setFocus(currentlyFocusedCell, newElement);
+            const lastColumnIndex = visibleColumns.length - 1;
+            const targetSelector = `div[data-column-index="${lastColumnIndex}"][data-row-index="${rowIndex}"]`;
+            const newElement: HTMLElement | null = tableRef.current.querySelector(targetSelector);
+            if (newElement) {
+              setFocus(currentlyFocusedCell, newElement);
+            } else {
+              scrollToHorizontalEdgeAndFocus(
+                tableRef,
+                isRtl ? 0 : tableRef.current.scrollWidth,
+                targetSelector,
+                currentlyFocusedCell,
+              );
+            }
             break;
           }
           case 'Home': {
-            const newElement: HTMLElement | null = tableRef.current.querySelector(
-              `div[data-visible-column-index="0"][data-row-index="${rowIndex}"]`,
-            );
-            setFocus(currentlyFocusedCell, newElement);
+            const targetSelector = `div[data-column-index="0"][data-row-index="${rowIndex}"]`;
+            const newElement: HTMLElement | null = tableRef.current.querySelector(targetSelector);
+            if (newElement) {
+              setFocus(currentlyFocusedCell, newElement);
+            } else {
+              scrollToHorizontalEdgeAndFocus(
+                tableRef,
+                isRtl ? tableRef.current.scrollWidth : 0,
+                targetSelector,
+                currentlyFocusedCell,
+              );
+            }
             break;
           }
           case 'PageDown': {
@@ -326,7 +343,7 @@ const useGetTableProps = (
         }
       }
     },
-    [isRtl, tableRef],
+    [isRtl, tableRef, visibleColumns],
   );
   if (showOverlay) {
     return tableProps;
@@ -357,7 +374,7 @@ function getPayload(e: KeyboardEvent, column: ColumnType) {
   const columnId = column.id;
   const columnWidth = column.totalWidth;
   const headersToResize = getLeafHeaders(column);
-  const headerIdWidths = headersToResize.map((d) => [d.id, d.totalWidth, d.minWidth]);
+  const headerIdWidths = headersToResize.map((d) => [d.id, d.totalWidth, d.minWidth, d.maxWidth]);
   return { clientX, columnId, columnWidth, headerIdWidths };
 }
 

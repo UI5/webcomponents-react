@@ -3742,10 +3742,51 @@ describe('AnalyticalTable', () => {
     cy.realPress('ArrowLeft');
     cy.focused().should('have.attr', 'data-row-index', '0').should('have.attr', 'data-column-index', '0');
 
+    // End/Home
+    const manyColumns = Array.from({ length: 30 }, (_, i) => ({
+      Header: `Col ${i}`,
+      accessor: `col${i}`,
+    }));
+    const manyColumnsData = Array.from({ length: 10 }, (_, rowIdx) => {
+      const row: Record<string, string> = {};
+      for (let c = 0; c < 30; c++) {
+        row[`col${c}`] = `R${rowIdx}C${c}`;
+      }
+      return row;
+    });
+
+    cy.mount(
+      <AnalyticalTable
+        data={manyColumnsData}
+        columns={manyColumns}
+        scaleWidthMode={AnalyticalTableScaleWidthMode.Default}
+        overscanCountHorizontal={2}
+        style={{ width: '600px' }}
+      />,
+    );
+
+    cy.findByText('R0C0').should('be.visible');
+    cy.window().focus();
+    cy.realPress('Tab');
+    cy.focused().should('have.attr', 'data-column-index', '0');
+
     cy.realPress('End');
-    cy.focused().should('have.attr', 'data-row-index', '0').should('have.attr', 'data-column-index', '3');
+    cy.focused().should('have.attr', 'data-column-index', '29').should('have.attr', 'data-row-index', '0');
     cy.realPress('Home');
-    cy.focused().should('have.attr', 'data-row-index', '0').should('have.attr', 'data-column-index', '0');
+    cy.focused().should('have.attr', 'data-column-index', '0').should('have.attr', 'data-row-index', '0');
+
+    cy.realPress('ArrowDown');
+    cy.focused().should('have.attr', 'data-row-index', '1');
+    cy.realPress('End');
+    cy.focused().should('have.attr', 'data-column-index', '29').should('have.attr', 'data-row-index', '1');
+    cy.realPress('Home');
+    cy.focused().should('have.attr', 'data-column-index', '0').should('have.attr', 'data-row-index', '1');
+
+    // PageDown/PageUp
+    cy.mount(<AnalyticalTable data={generateMoreData(50)} columns={columns} />);
+    cy.findByText('Name-0').should('be.visible');
+    cy.window().focus();
+    cy.realPress('Tab');
 
     cy.realPress('PageDown');
     cy.focused().should('have.attr', 'data-row-index', '1').should('have.attr', 'data-column-index', '0');
@@ -3905,6 +3946,30 @@ describe('AnalyticalTable', () => {
     cy.window().focus();
     cy.realPress('Tab');
     cy.focused().should('have.attr', 'data-row-index', '0').should('have.attr', 'data-column-index', '2');
+
+    // column resize with Shift+Arrow
+    cy.mount(<AnalyticalTable data={data} columns={columns} />);
+    cy.findByText('Name').should('be.visible');
+    cy.window().focus();
+    cy.realPress('Tab');
+    cy.focused().should('have.attr', 'data-row-index', '0').should('have.attr', 'data-column-index', '0');
+
+    cy.get('[data-column-id="name"]')
+      .invoke('outerWidth')
+      .then((initialWidth) => {
+        cy.realPress(['Shift', 'ArrowRight']);
+        cy.get('[data-column-id="name"]')
+          .invoke('outerWidth')
+          .should(($width: number) => {
+            expect($width).to.equal(initialWidth + 16);
+          });
+        cy.realPress(['Shift', 'ArrowLeft']);
+        cy.get('[data-column-id="name"]')
+          .invoke('outerWidth')
+          .should(($width: number) => {
+            expect($width).to.equal(initialWidth);
+          });
+      });
   });
 
   it('controlled bodyHeight', () => {
