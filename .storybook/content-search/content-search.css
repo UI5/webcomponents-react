@@ -1,0 +1,17 @@
+#pagefind-search-container {
+  border: none;
+  padding: 1rem;
+  max-width: 80vw;
+  max-height: 80vh;
+  width: 100%;
+  overflow-y: auto;
+  background: var(--sapBackgroundColor);
+  border-radius: var(--sapElement_BorderCornerRadius);
+  box-shadow: var(--sapContent_Shadow3);
+}
+#pagefind-search-container::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+#pagefind-search-container .pagefind-ui__result-link {
+  color: var(--sapLinkColor);
+}

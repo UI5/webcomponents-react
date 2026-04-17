@@ -5,6 +5,7 @@ import { addons } from 'storybook/manager-api';
 import { Badge } from './components/Badge.js';
 import { Fiori4ReactTheme } from './theme.js';
 import './components/VersionSwitch.js';
+import './components/ContentSearch.js';
 
 const customTags = new Set(['package:@ui5/webcomponents-react-charts', 'custom']);
 
