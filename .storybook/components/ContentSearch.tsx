@@ -5,6 +5,8 @@ import { addons, types } from 'storybook/manager-api';
 
 const ADDON_ID = 'content-search';
 const TOOL_ID = `${ADDON_ID}/toolbar`;
+const isMac = navigator.platform.toUpperCase().includes('MAC');
+const shortcut = isMac ? '⌘⇧F' : 'Ctrl+Shift+F';
 
 function SearchButton() {
   const openSearch = React.useCallback(() => {
@@ -27,7 +29,7 @@ function SearchButton() {
   }, [openSearch]);
 
   return (
-    <IconButton key={TOOL_ID} title="Search docs (⌘⇧F)" style={{ order: -2 }} onClick={openSearch}>
+    <IconButton key={TOOL_ID} title={`Search docs (${shortcut})`} style={{ order: -2 }} onClick={openSearch}>
       <SearchIcon />
       Search Docs (Beta)
     </IconButton>
