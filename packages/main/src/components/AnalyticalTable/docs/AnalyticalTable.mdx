@@ -99,6 +99,8 @@ const TableComp = () => {
 
 ## Tree Table
 
+Set `isTreeTable` to `true` and provide nested data via the `subRows` key (configurable with `subRowsKey`). Each row with `subRows` becomes expandable.
+
 <Canvas of={ComponentStories.TreeTable} sourceState={'none'} />
 
 The `data` structure of the tree table is as follows:
@@ -136,7 +138,7 @@ In this example the default key for sub row detection is used (`subRows`), you c
 
 The table initially contains 50 rows, when the last 10 rows are reached the table will load more data.
 
-**Note:** To prevent the table state from resetting when the data is updated, please see [this recipe](?path=/docs/data-display-analyticaltable-recipes--docs#how-to-stop-the-table-state-from-automatically-resetting-when-the-data-changes).
+**Note:** To prevent the table state from resetting when the data is updated, please see [this faq entry](?path=/docs/data-display-analyticaltable-faq--docs#how-to-stop-the-table-state-from-automatically-resetting-when-the-data-changes).
 
 <Canvas sourceState="none" of={ComponentStories.InfiniteScrolling} />
 
@@ -172,91 +174,7 @@ const InfiniteScrollTable = (props) => {
       header="Scroll to load more data"
       onLoadMore={onLoadMore}
       loading={loading}
-      reactTableOptions: {{ autoResetSelectedRows: false }}
-    />
-  );
-};
-```
-
-</details>
-
-## AnalyticalTable with subcomponents
-
-Adding custom subcomponents below table rows can be achieved by setting the `renderRowSubComponent` prop.
-The prop expects a function with an optional parameter containing the `row` instance, there you can control which row should display subcomponents. If you want to display the subcomponent at the bottom of the row without an expandable container, you can set `subComponentsBehavior` prop to `"Visible"` or to `"IncludeHeight"`. "Visible" simply adds the subcomponent to the row without including its height in the initial calculation of the table body, whereas "IncludeHeight" does.
-
-### Notes
-
-- When `renderRowSubComponent` is set, `grouping` is disabled.
-- When rendering active elements inside the subcomponent, make sure to add the `data-subcomponent-active-element' attribute, otherwise focus behavior won't be consistent.
-- When `AnalyticalTableSubComponentsBehavior.IncludeHeight` or `AnalyticalTableSubComponentsBehavior.IncludeHeightExpandable` is used, `AnalyticalTableVisibleRowCountMode.Interactive` is not supported.
-
-<ControlsWithNote of={ComponentStories.Subcomponents} include={['renderRowSubComponent', 'subComponentsBehavior']} />
-
-<Canvas sourceState="none" of={ComponentStories.Subcomponents} />
-
-### Code
-
-<details>
-
-<summary>Show Code</summary>
-
-```jsx
-const TableWithSubcomponents = (props) => {
-  const renderRowSubComponent = (row) => {
-    if (row.id === '0') {
-      return (
-        <FlexBox
-          style={{ backgroundColor: 'lightblue', height: '300px' }}
-          justifyContent={FlexBoxJustifyContent.Center}
-          alignItems={FlexBoxAlignItems.Center}
-          direction={FlexBoxDirection.Column}
-        >
-          <Tag>height: 300px</Tag>
-          <Text>This subcomponent will only be displayed below the first row.</Text>
-          <hr />
-          <Text>
-            The button below is rendered with `data-subcomponent-active-element` attribute to ensure consistent focus
-            behavior
-          </Text>
-          <Button data-subcomponent-active-element>Click</Button>
-        </FlexBox>
-      );
-    }
-    if (row.id === '1') {
-      return (
-        <FlexBox
-          style={{ backgroundColor: 'lightyellow', height: '100px' }}
-          justifyContent={FlexBoxJustifyContent.Center}
-          alignItems={FlexBoxAlignItems.Center}
-          direction={FlexBoxDirection.Column}
-        >
-          <Tag>height: 100px</Tag>
-          <Text>This subcomponent will only be displayed below the second row.</Text>
-        </FlexBox>
-      );
-    }
-    if (row.id === '2') {
-      return null;
-    }
-    return (
-      <FlexBox
-        style={{ backgroundColor: 'lightgrey', height: '50px' }}
-        justifyContent={FlexBoxJustifyContent.Center}
-        alignItems={FlexBoxAlignItems.Center}
-        direction={FlexBoxDirection.Column}
-      >
-        <Tag>height: 50px</Tag>
-        <Text>This subcomponent will be displayed below all rows except the first, second and third.</Text>
-      </FlexBox>
-    );
-  };
-  return (
-    <AnalyticalTable
-      data={props.data}
-      columns={props.columns}
-      renderRowSubComponent={renderRowSubComponent}
-      subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Expandable} //default value
+      reactTableOptions={{ autoResetSelectedRows: false }}
     />
   );
 };
@@ -366,9 +284,9 @@ const COLUMNS = [
     Header: 'PopinDisplay Modes',
     responsivePopIn: true,
     responsiveMinWidth: 801,
-    popinDisplay: popinDisplay, // possible values: "Block", "Inline", "WithoutHeader"
+    popinDisplay: AnalyticalTablePopinDisplay.Block, // possible values: "Block", "Inline", "WithoutHeader"
     Cell: () => {
-      return <Text maxLines={1}>Using popinDisplay: {popinDisplay}</Text>;
+      return <Text maxLines={1}>Using popinDisplay: Block</Text>;
     }
   }
 ];
@@ -438,7 +356,7 @@ export const TableWithNavigationIndicators = () => {
       data={data}
       columns={columns}
       withNavigationHighlight
-      selectionMode={selectionMode}
+      selectionMode={AnalyticalTableSelectionMode.Multiple}
       markNavigatedRow={markNavigatedRow}
       onRowSelect={onRowSelect}
     />
@@ -523,6 +441,8 @@ const TableComponent = () => {
 
 ## Table Without Data
 
+Use the `NoDataComponent` prop to customize the empty state. By default, a simple text message is shown. You can pass a custom component (e.g. an `IllustratedMessage`) to display a richer empty state for different scenarios like "no data" vs. "no filter results". The component receives an `accessibleRole` prop that should be forwarded for accessibility.
+
 <Canvas of={ComponentStories.NoData} />
 
 ### Code
@@ -586,7 +506,93 @@ function NoDataTable(props) {
 
 </details>
 
+## AnalyticalTable with subcomponents
+
+Adding custom subcomponents below table rows can be achieved by setting the `renderRowSubComponent` prop.
+The prop expects a function with an optional parameter containing the `row` instance, there you can control which row should display subcomponents. Use the `subComponentsBehavior` control below to switch between `"Expandable"` (default, click to expand), `"Visible"` (always shown), `"IncludeHeight"` (always shown, height included in body calculation), and `"IncludeHeightExpandable"` (expandable, body height adjusts on toggle).
+
+**Notes:**
+
+- When `renderRowSubComponent` is set, `grouping` is disabled.
+- When rendering active elements inside the subcomponent, make sure to add the `data-subcomponent-active-element` attribute, otherwise focus behavior won't be consistent.
+- When `AnalyticalTableSubComponentsBehavior.IncludeHeight` or `AnalyticalTableSubComponentsBehavior.IncludeHeightExpandable` is used, `AnalyticalTableVisibleRowCountMode.Interactive` is not supported.
+
+<ControlsWithNote of={ComponentStories.Subcomponents} include={['renderRowSubComponent', 'subComponentsBehavior']} />
+
+<Canvas sourceState="none" of={ComponentStories.Subcomponents} />
+
+### Code
+
+<details>
+
+<summary>Show Code</summary>
+
+```jsx
+const TableWithSubcomponents = (props) => {
+  const renderRowSubComponent = (row) => {
+    if (row.id === '0') {
+      return (
+        <FlexBox
+          style={{ backgroundColor: 'lightblue', height: '300px' }}
+          justifyContent={FlexBoxJustifyContent.Center}
+          alignItems={FlexBoxAlignItems.Center}
+          direction={FlexBoxDirection.Column}
+        >
+          <Tag>height: 300px</Tag>
+          <Text>This subcomponent will only be displayed below the first row.</Text>
+          <hr />
+          <Text>
+            The button below is rendered with `data-subcomponent-active-element` attribute to ensure consistent focus
+            behavior
+          </Text>
+          <Button data-subcomponent-active-element>Click</Button>
+        </FlexBox>
+      );
+    }
+    if (row.id === '1') {
+      return (
+        <FlexBox
+          style={{ backgroundColor: 'lightyellow', height: '100px' }}
+          justifyContent={FlexBoxJustifyContent.Center}
+          alignItems={FlexBoxAlignItems.Center}
+          direction={FlexBoxDirection.Column}
+        >
+          <Tag>height: 100px</Tag>
+          <Text>This subcomponent will only be displayed below the second row.</Text>
+        </FlexBox>
+      );
+    }
+    if (row.id === '2') {
+      return null;
+    }
+    return (
+      <FlexBox
+        style={{ backgroundColor: 'lightgrey', height: '50px' }}
+        justifyContent={FlexBoxJustifyContent.Center}
+        alignItems={FlexBoxAlignItems.Center}
+        direction={FlexBoxDirection.Column}
+      >
+        <Tag>height: 50px</Tag>
+        <Text>This subcomponent will be displayed below all rows except the first, second and third.</Text>
+      </FlexBox>
+    );
+  };
+  return (
+    <AnalyticalTable
+      data={props.data}
+      columns={props.columns}
+      renderRowSubComponent={renderRowSubComponent}
+      subComponentsBehavior={subComponentsBehavior} // "Expandable" (default), "Visible", "IncludeHeight", "IncludeHeightExpandable"
+    />
+  );
+};
+```
+
+</details>
+
 ## Kitchen Sink
+
+A comprehensive example combining many AnalyticalTable features: sorting, filtering, grouping, custom cells, row and navigation highlighting, infinite scrolling, column reordering, vertical alignment, `scaleWidthModeOptions` for custom renderers, `retainColumnWidth`, `sortDescFirst`, and more.
 
 <Canvas of={ComponentStories.KitchenSink} />
 
@@ -634,12 +640,14 @@ const columns = [
     disableFilters: false,
     disableGroupBy: true,
     disableSortBy: false,
-    hAlign: 'End'
+    hAlign: 'End',
+    sortDescFirst: true
   },
   {
     Header: 'Friend Name',
     accessor: 'friend.name',
-    autoResizable: true
+    autoResizable: true,
+    vAlign: VerticalAlign.Middle
   },
   {
     Filter: () => {},
@@ -648,7 +656,14 @@ const columns = [
     autoResizable: true,
     filter: () => {},
     hAlign: 'End',
-    headerLabel: 'Friend Age'
+    headerLabel: 'Friend Age',
+    scaleWidthModeOptions: { headerString: 'Friend Age' }
+  },
+  {
+    Header: 'Status',
+    id: 'os',
+    Cell: () => {},
+    scaleWidthModeOptions: { cellString: 'Negative' }
   },
   {
     Cell: () => {},
@@ -656,9 +671,11 @@ const columns = [
     accessor: '.',
     cellLabel: () => {},
     disableFilters: true,
+    disableGlobalFilter: true,
     disableGroupBy: true,
     disableResizing: true,
     disableSortBy: true,
+    disableDragAndDrop: true,
     id: 'actions',
     minWidth: 100,
     width: 100
@@ -688,6 +705,7 @@ const TestComp2 = () => {
       minRows={5}
       noDataText="Custom 'noDataText' message"
       overscanCountHorizontal={5}
+      retainColumnWidth
       scaleWidthMode="Smart"
       selectedRowIds={{
         3: true
@@ -698,6 +716,7 @@ const TestComp2 = () => {
       subRowsKey="subRows"
       visibleRowCountMode="Interactive"
       visibleRows={5}
+      withNavigationHighlight
       withRowHighlight
       onAutoResize={() => {}}
       onColumnsReorder={() => {}}

@@ -3,7 +3,6 @@ import dataTree from '@sb/mockData/FriendsTree.json';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@ui5/webcomponents-icons/dist/delete.js';
 import '@ui5/webcomponents-icons/dist/edit.js';
-import '@ui5/webcomponents-icons/dist/settings.js';
 import NoDataIllustration from '@ui5/webcomponents-fiori/dist/illustrations/NoData.js';
 import NoFilterResults from '@ui5/webcomponents-fiori/dist/illustrations/NoFilterResults.js';
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
@@ -12,11 +11,13 @@ import {
   AnalyticalTableScaleWidthMode,
   AnalyticalTableSelectionBehavior,
   AnalyticalTableSelectionMode,
+  AnalyticalTableSubComponentsBehavior,
   AnalyticalTableVisibleRowCountMode,
   FlexBoxAlignItems,
   FlexBoxDirection,
   FlexBoxJustifyContent,
   TextAlign,
+  VerticalAlign,
 } from '../../../enums/index.js';
 import { Button } from '../../../webComponents/Button/index.js';
 import { IllustratedMessage } from '../../../webComponents/IllustratedMessage/index.js';
@@ -57,12 +58,14 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
       disableSortBy: false,
       disableFilters: false,
       className: 'superCustomClass',
+      sortDescFirst: true,
     },
     {
       Header: 'Friend Name',
       accessor: 'friend.name',
       width: 300,
       autoResizable: true,
+      vAlign: VerticalAlign.Middle,
     },
     {
       Header: () => <span>Friend Age</span>,
@@ -70,6 +73,7 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
       accessor: 'friend.age',
       autoResizable: true,
       hAlign: TextAlign.End,
+      scaleWidthModeOptions: { headerString: 'Friend Age' },
       filter: (rows, accessor, filterValue) => {
         if (filterValue === 'all') {
           return rows;
@@ -102,6 +106,7 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
         const state = instance.row.index % 2 === 0 ? 'Positive' : 'Negative';
         return <ObjectStatus state={state}>{state}</ObjectStatus>;
       },
+      scaleWidthModeOptions: { cellString: 'Negative' },
     },
     {
       id: 'actions',
@@ -113,6 +118,8 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
       disableGroupBy: true,
       disableFilters: true,
       disableSortBy: true,
+      disableGlobalFilter: true,
+      disableDragAndDrop: true,
       Cell: (instance) => {
         const { _cell, _row, webComponentsReactProperties } = instance;
         const { loading, showOverlay } = webComponentsReactProperties;
@@ -149,6 +156,7 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
   minRows: 5,
   noDataText: "Custom 'noDataText' message",
   overscanCountHorizontal: 5,
+  retainColumnWidth: true,
   scaleWidthMode: AnalyticalTableScaleWidthMode.Smart,
   selectedRowIds: { 3: true },
   selectionBehavior: AnalyticalTableSelectionBehavior.Row,
@@ -157,6 +165,7 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
   subRowsKey: 'subRows',
   visibleRowCountMode: AnalyticalTableVisibleRowCountMode.Interactive,
   visibleRows: 5,
+  withNavigationHighlight: true,
   withRowHighlight: true,
   // sb actions has a huge impact on performance here.
   onTableScroll: undefined,
@@ -271,64 +280,6 @@ export const InfiniteScrolling: Story = {
       <AnalyticalTable {...args} data={data} onLoadMore={onLoadMore} loading={loading} />
     ) : (
       <ToggleableTable {...args} data={data} onLoadMore={onLoadMore} loading={loading} />
-    );
-  },
-};
-
-export const Subcomponents: Story = {
-  render: (args, context) => {
-    const renderRowSubComponent = (row) => {
-      if (row.id === '0') {
-        return (
-          <FlexBox
-            style={{ backgroundColor: 'lightblue', height: '300px' }}
-            justifyContent={FlexBoxJustifyContent.Center}
-            alignItems={FlexBoxAlignItems.Center}
-            direction={FlexBoxDirection.Column}
-          >
-            <Tag>height: 300px</Tag>
-            <Text>This subcomponent will only be displayed below the first row.</Text>
-            <hr />
-            <Text>
-              The button below is rendered with `data-subcomponent-active-element` attribute to ensure consistent focus
-              behavior
-            </Text>
-            <Button data-subcomponent-active-element>Click</Button>
-          </FlexBox>
-        );
-      }
-      if (row.id === '1') {
-        return (
-          <FlexBox
-            style={{ backgroundColor: 'lightyellow', height: '100px' }}
-            justifyContent={FlexBoxJustifyContent.Center}
-            alignItems={FlexBoxAlignItems.Center}
-            direction={FlexBoxDirection.Column}
-          >
-            <Tag>height: 100px</Tag>
-            <Text>This subcomponent will only be displayed below the second row.</Text>
-          </FlexBox>
-        );
-      }
-      if (row.id === '2') {
-        return null;
-      }
-      return (
-        <FlexBox
-          style={{ backgroundColor: 'lightgrey', height: '50px' }}
-          justifyContent={FlexBoxJustifyContent.Center}
-          alignItems={FlexBoxAlignItems.Center}
-          direction={FlexBoxDirection.Column}
-        >
-          <Tag>height: 50px</Tag>
-          <Text>This subcomponent will be displayed below all rows except the first, second and third.</Text>
-        </FlexBox>
-      );
-    };
-    return context.viewMode === 'story' ? (
-      <AnalyticalTable {...args} renderRowSubComponent={renderRowSubComponent} />
-    ) : (
-      <ToggleableTable {...args} renderRowSubComponent={renderRowSubComponent} />
     );
   },
 };
@@ -664,6 +615,72 @@ export const NoData: Story = {
   },
 };
 
+export const Subcomponents: Story = {
+  args: {
+    subComponentsBehavior: AnalyticalTableSubComponentsBehavior.Expandable,
+  },
+  render: (args, context) => {
+    const renderRowSubComponent = useCallback((row) => {
+      if (row.id === '0') {
+        return (
+          <FlexBox
+            style={{ backgroundColor: 'lightblue', height: '300px' }}
+            justifyContent={FlexBoxJustifyContent.Center}
+            alignItems={FlexBoxAlignItems.Center}
+            direction={FlexBoxDirection.Column}
+          >
+            <Tag>height: 300px</Tag>
+            <Text>This subcomponent will only be displayed below the first row.</Text>
+            <hr />
+            <Text>
+              The button below is rendered with `data-subcomponent-active-element` attribute to ensure consistent focus
+              behavior
+            </Text>
+            <Button data-subcomponent-active-element>Click</Button>
+          </FlexBox>
+        );
+      }
+      if (row.id === '1') {
+        return (
+          <FlexBox
+            style={{ backgroundColor: 'lightyellow', height: '100px' }}
+            justifyContent={FlexBoxJustifyContent.Center}
+            alignItems={FlexBoxAlignItems.Center}
+            direction={FlexBoxDirection.Column}
+          >
+            <Tag>height: 100px</Tag>
+            <Text>This subcomponent will only be displayed below the second row.</Text>
+          </FlexBox>
+        );
+      }
+      if (row.id === '2') {
+        return null;
+      }
+      return (
+        <FlexBox
+          style={{ backgroundColor: 'lightgrey', height: '50px' }}
+          justifyContent={FlexBoxJustifyContent.Center}
+          alignItems={FlexBoxAlignItems.Center}
+          direction={FlexBoxDirection.Column}
+        >
+          <Tag>height: 50px</Tag>
+          <Text>This subcomponent will be displayed below all rows except the first, second and third.</Text>
+        </FlexBox>
+      );
+    }, []);
+
+    return context.viewMode === 'story' ? (
+      <AnalyticalTable
+        {...args}
+        renderRowSubComponent={renderRowSubComponent}
+        header={`subComponentsBehavior: "${args.subComponentsBehavior}"`}
+      />
+    ) : (
+      <ToggleableTable {...args} renderRowSubComponent={renderRowSubComponent} />
+    );
+  },
+};
+
 export const KitchenSink: Story = {
   args: kitchenSinkArgs,
   render(args, context) {
@@ -671,7 +688,7 @@ export const KitchenSink: Story = {
   },
 };
 
-// ===================== Not displayed in sidebar & tags popover =====================
+// ===================== Not displayed in sidebar =====================
 
 export const EllipsisExamples: Story = {
   tags: ['excludeFromSidebar'],
@@ -707,5 +724,194 @@ export const EllipsisExamples: Story = {
     ],
     visibleRows: 5,
     style: { width: 'min(100%, 300px)' },
+  },
+};
+
+// Bug #3: Keyboard navigation with End/Home fails on virtualized-out columns.
+// Steps: 1) Click any cell in the first row. 2) Press End — focus should jump to the last column.
+export const BugKeyboardNavVirtualizedColumns: Story = {
+  tags: ['excludeFromSidebar'],
+  render(args) {
+    const manyColumns = useMemo<AnalyticalTableColumnDefinition[]>(
+      () =>
+        Array.from({ length: 30 }, (_, i) => ({
+          Header: `Col ${i}`,
+          id: `col_${i}`,
+          accessor: 'name',
+          width: 120,
+          Cell: ({ value }) => `${value} (${i})`,
+        })),
+      [],
+    );
+    const data = useMemo(() => dataLarge.slice(0, 50), []);
+    return (
+      <AnalyticalTable
+        {...args}
+        columns={manyColumns}
+        data={data}
+        scaleWidthMode={AnalyticalTableScaleWidthMode.Default}
+        overscanCountHorizontal={2}
+        visibleRows={8}
+        header="Bug #3: Press End/Home to navigate to first/last column"
+        style={{ width: '600px' }}
+      />
+    );
+  },
+};
+
+// Bug #13: Shift+Arrow keyboard resize produces NaN column width.
+// Steps: 1) Focus any column header. 2) Press Shift+ArrowRight — column should grow by 16px.
+export const BugKeyboardResizeNaN: Story = {
+  tags: ['excludeFromSidebar'],
+  args: {
+    data: dataLarge.slice(0, 10),
+    columns: [
+      { Header: 'Name', accessor: 'name', width: 200 },
+      { Header: 'Age', accessor: 'age', width: 150 },
+      { Header: 'Friend Name', accessor: 'friend.name', width: 200 },
+      { Header: 'Friend Age', accessor: 'friend.age', width: 150 },
+    ],
+    visibleRows: 5,
+    header: 'Bug #13: Focus a column header, press Shift+ArrowRight to resize',
+  },
+};
+
+// Performance: selectedFlatRows useMemo regression test.
+//
+// 10,000 rows with selection enabled. onTableScroll updates parent state on every
+// scroll frame, forcing re-renders where rows/selectedRowIds DON'T change.
+// Without useMemo: each re-render iterates all 10k rows. With useMemo: O(1) cache hit.
+//
+// How to measure:
+//   1. Open Chrome DevTools → Performance tab.
+//   2. Click Record, scroll the table for ~3 seconds, stop recording.
+//   3. Look at individual "render" flames in the "Main" thread.
+//      Without useMemo: useInstance calls show ~2-5ms of getRowIsSelected iteration.
+//      With useMemo: useInstance calls are <0.1ms (memoized).
+//   4. Alternatively: DevTools → Performance → check "CPU 6x slowdown" to exaggerate.
+//
+// To toggle the fix: in useRowSelect.ts, remove/restore useMemo around selectedFlatRows.
+export const PerfSelectedFlatRowsMemo: Story = {
+  tags: ['excludeFromSidebar'],
+  render(args) {
+    const ROW_COUNT = 10_000;
+
+    const columns = useMemo<AnalyticalTableColumnDefinition[]>(
+      () => [
+        { Header: 'Row', accessor: 'id' },
+        { Header: 'Name', accessor: 'name' },
+        { Header: 'Value A', accessor: 'a' },
+        { Header: 'Value B', accessor: 'b' },
+        { Header: 'Value C', accessor: 'c' },
+      ],
+      [],
+    );
+
+    const data = useMemo(
+      () =>
+        Array.from({ length: ROW_COUNT }, (_, i) => ({
+          id: i,
+          name: `Row ${i}`,
+          a: Math.round(Math.random() * 1000),
+          b: Math.round(Math.random() * 1000),
+          c: Math.round(Math.random() * 1000),
+        })),
+      [],
+    );
+
+    // Updating state on every scroll forces a parent re-render → AnalyticalTable
+    // re-render → useInstance runs. rows and selectedRowIds haven't changed,
+    // so this isolates the useMemo vs. no-useMemo cost difference.
+    const [scrollEvents, setScrollEvents] = useState(0);
+    const onTableScroll = useCallback(() => {
+      setScrollEvents((prev) => prev + 1);
+    }, []);
+
+    return (
+      <AnalyticalTable
+        {...args}
+        columns={columns}
+        data={data}
+        selectionMode={AnalyticalTableSelectionMode.Multiple}
+        onTableScroll={onTableScroll}
+        visibleRows={15}
+        header={`${ROW_COUNT.toLocaleString()} rows — scroll events: ${scrollEvents}`}
+      />
+    );
+  },
+};
+
+// Bug #14: tableColResized gate permanently disables dynamic width recalculation.
+// Steps: 1) Drag any column resizer to resize a column. 2) Click "Switch to Column Set B".
+// Expected: New columns distribute evenly across the table width.
+// Actual: All columns are stuck at 150px (decorateColumn default) because tableColResized blocks adjustColumnWidths.
+export const BugRetainColumnWidthBlocksRecalculation: Story = {
+  tags: ['excludeFromSidebar'],
+  render(args) {
+    const columnsA = useMemo<AnalyticalTableColumnDefinition[]>(
+      () => [
+        { Header: 'Name', accessor: 'name' },
+        { Header: 'Age', accessor: 'age' },
+        { Header: 'Status', accessor: 'status' },
+      ],
+      [],
+    );
+
+    const columnsB = useMemo<AnalyticalTableColumnDefinition[]>(
+      () => [
+        { Header: 'Product', accessor: 'product' },
+        { Header: 'Price', accessor: 'price' },
+        { Header: 'Quantity', accessor: 'qty' },
+        { Header: 'Category', accessor: 'category' },
+      ],
+      [],
+    );
+
+    const dataA = useMemo(
+      () =>
+        Array.from({ length: 20 }, (_, i) => ({
+          name: `Person ${i}`,
+          age: 20 + (i % 40),
+          status: i % 2 === 0 ? 'Active' : 'Inactive',
+        })),
+      [],
+    );
+
+    const dataB = useMemo(
+      () =>
+        Array.from({ length: 20 }, (_, i) => ({
+          product: `Product ${i}`,
+          price: `$${(Math.random() * 100).toFixed(2)}`,
+          qty: Math.floor(Math.random() * 500),
+          category: ['Electronics', 'Clothing', 'Food'][i % 3],
+        })),
+      [],
+    );
+
+    const [useSetB, setUseSetB] = useState(false);
+
+    return (
+      <FlexBox direction={FlexBoxDirection.Column} style={{ gap: '1rem' }}>
+        <Text>
+          Bug: With retainColumnWidth, resize any column, then switch column set. New columns get 150px instead of
+          recalculating.
+        </Text>
+        <Button
+          onClick={() => {
+            setUseSetB((prev) => !prev);
+          }}
+        >
+          {useSetB ? 'Switch to Column Set A (3 cols)' : 'Switch to Column Set B (4 cols)'}
+        </Button>
+        <AnalyticalTable
+          {...args}
+          columns={useSetB ? columnsB : columnsA}
+          data={useSetB ? dataB : dataA}
+          retainColumnWidth
+          scaleWidthMode={AnalyticalTableScaleWidthMode.Default}
+          header={`Column Set ${useSetB ? 'B' : 'A'} — retainColumnWidth=true`}
+        />
+      </FlexBox>
+    );
   },
 };
