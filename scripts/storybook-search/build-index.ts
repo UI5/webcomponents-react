@@ -88,6 +88,7 @@ function extractTextFromMdx(source: string): string {
       .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
       .replace(/`([^`]+)`/g, '$1')
       .replace(/\*{1,3}([^*]+)\*{1,3}/g, '$1')
+      .replace(/[<>]/g, '')
       .trim();
 
     if (cleaned.length > 0) {
