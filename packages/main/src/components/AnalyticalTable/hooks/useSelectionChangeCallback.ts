@@ -13,6 +13,8 @@ const useInstance = (instance: TableInstance) => {
 
   const prevSelectedRowIdsRef = useRef(selectedRowIds);
 
+  // react-table instance is intentionally mutable
+  // eslint-disable-next-line react-hooks/immutability
   useEffect(() => {
     const pendingEvent = instance.pendingSelectEvent;
 

@@ -135,6 +135,8 @@ export const ManageViewsDialog = (props: ManageViewsDialogPropTypes) => {
     }),
   );
 
+  // childrenProps syncs from children but also has independent mutations (delete)
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     let _hasApplyAutomaticallyText = false;
     setChildrenProps(
@@ -150,11 +152,15 @@ export const ManageViewsDialog = (props: ManageViewsDialogPropTypes) => {
     );
     setHasApplyAutomaticallyText(_hasApplyAutomaticallyText);
   }, [children]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const [filteredProps, setFilteredProps] = useState(childrenProps);
+  // Resets search filter when source data changes
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     setFilteredProps(childrenProps);
   }, [childrenProps]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const [defaultView, setDefaultView] = useState<string>();
 

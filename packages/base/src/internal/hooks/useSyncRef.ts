@@ -29,6 +29,8 @@ export function useSyncRef<RefType = never>(
   const localRef = useRef<RefType | null>(null);
 
   const componentRef = useCallback(
+    // callback ref forwards to external ref
+    // eslint-disable-next-line react-hooks/immutability
     (node) => {
       if (ref) {
         if (typeof ref === 'function') {

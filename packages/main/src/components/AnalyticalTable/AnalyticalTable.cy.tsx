@@ -4129,7 +4129,6 @@ describe('AnalyticalTable', () => {
       // transform data to the pattern which is accepted by the tree table
       // NOTES: this algorithm is less likely related to the bug, because in our reality project there is a different algorithm to generate the tree table and the bug still occurs.
       const data = useMemo(() => {
-        // eslint-disable-next-line react-hooks/refs
         raw.forEach((item) => {
           const newItem = { ...item };
           rowById.current[newItem.nodeId] = {
@@ -4153,7 +4152,7 @@ describe('AnalyticalTable', () => {
             rowById.current[newItem.parentId].subRows.push(rowById.current[newItem.nodeId]);
           }
         });
-        // eslint-disable-next-line react-hooks/refs
+
         return Object.values(rowById.current).filter((row) => !row.parentId);
       }, [raw]);
 

@@ -1,11 +1,11 @@
-import { complexDataSet } from '../../resources/DemoProps.js';
-import { ColumnChart } from './index.js';
 import {
   cypressPassThroughTestsFactory,
   testChartLegendConfig,
   testChartZoomingTool,
   testStackAggregateTotals,
 } from '../../../../../cypress/support/utils';
+import { complexDataSet } from '../../resources/DemoProps.js';
+import { ColumnChart } from './index.js';
 
 const dimensions = [
   {
