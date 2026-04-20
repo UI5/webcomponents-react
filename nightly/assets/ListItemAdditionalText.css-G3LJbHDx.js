@@ -1,2 +1,0 @@
-import{n as e}from"./chunk-zsgVPwQN.js";import{A as t,j as n}from"./Theme-C3l9uMDH.js";import{a as r,o as i}from"./jsx-runtime-CxkUPnxk.js";import{n as a,t as o}from"./parameters-bundle.css-Cn1yhhAF.js";var s,c=e((()=>{n(),r(),o(),t(`@ui5/webcomponents-theming`,`sap_horizon`,async()=>i),t(`@ui5/webcomponents`,`sap_horizon`,async()=>a,`host`),s=`.ui5-li-additional-text{margin:0 .25rem;color:var(--sapNeutralTextColor);font-size:var(--sapFontSize);min-width:3.75rem;text-align:end;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-`}));export{c as n,s as t};
