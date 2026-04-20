@@ -14,6 +14,138 @@ For common questions, see the [FAQ](?path=/docs/data-display-analyticaltable-faq
 
 <br />
 
+## Navigation Indicator
+
+Display a navigation column by setting `withNavigationHighlight` to `true`. Use the `markNavigatedRow` callback to control which rows show the "navigated" indicator. Click on any row in the example below to mark it as navigated.
+
+<Canvas sourceState="none" of={FeatureStories.NavigationIndicator} />
+
+### Code
+
+```jsx
+const TableWithNavigationIndicators = () => {
+  const [selectedRow, setSelectedRow] = useState();
+  const onRowSelect = (e) => {
+    setSelectedRow(e.detail.row);
+  };
+  const markNavigatedRow = useCallback(
+    (row) => {
+      return selectedRow?.id === row.id;
+    },
+    [selectedRow]
+  );
+  return (
+    <AnalyticalTable
+      data={data}
+      columns={columns}
+      withNavigationHighlight
+      selectionMode="Multiple"
+      markNavigatedRow={markNavigatedRow}
+      onRowSelect={onRowSelect}
+    />
+  );
+};
+```
+
+## Custom Column Filtering
+
+Define custom filter functions and filter UIs per column via the `filter` and `Filter` column options. `filter` receives `(rows, accessor, filterValue)` and returns filtered rows. `Filter` renders a custom component inside the column header popover. Alternatively, register shared filter types via `reactTableOptions.filterTypes` and reference them by key.
+
+<Canvas sourceState="none" of={FeatureStories.CustomFilter} />
+
+### Code
+
+<details>
+
+<summary>Show Code</summary>
+
+```jsx
+const filterFn = (rows, accessor, filterValue) => {
+  if (filterValue.length > 0) {
+    return rows.filter((row) => {
+      const rowVal = row.values[accessor];
+      return filterValue.some((item) => rowVal.includes(item));
+    });
+  }
+  return rows;
+};
+
+const columns = [
+  {
+    Header: 'Custom Column Filter',
+    accessor: 'name',
+    filter: filterFn,
+    Filter: ({ column }) => {
+      const firstNames = ['Carl', 'Dan', 'Rose', 'Susanne'];
+      return (
+        <MultiComboBox
+          onSelectionChange={(e) => {
+            column.setFilter(e.detail.items.map((item) => item.getAttribute('text')));
+          }}
+        >
+          {firstNames.map((item) => {
+            const isSelected = column?.filterValue?.some((filterVal) => filterVal.includes(item));
+            return <MultiComboBoxItem text={item} key={item} selected={isSelected} />;
+          })}
+        </MultiComboBox>
+      );
+    }
+  },
+  { Header: 'Age', accessor: 'age' }
+];
+
+<AnalyticalTable columns={columns} data={data} filterable />
+```
+
+</details>
+
+## Subcomponents
+
+Add custom subcomponents below table rows via `renderRowSubComponent`. The function receives the `row` instance, letting you control which rows display subcomponents. Use the `subComponentsBehavior` prop to switch between `"Expandable"` (default, click to expand), `"Visible"` (always shown), `"IncludeHeight"` (always shown, height included in body calculation), and `"IncludeHeightExpandable"` (expandable, body height adjusts on toggle).
+
+**Notes:**
+
+- When `renderRowSubComponent` is set, `grouping` is disabled.
+- When rendering active elements inside the subcomponent, add the `data-subcomponent-active-element` attribute for consistent focus behavior.
+- `IncludeHeight` and `IncludeHeightExpandable` do not support `AnalyticalTableVisibleRowCountMode.Interactive`.
+
+<Canvas sourceState="none" of={FeatureStories.Subcomponents} />
+
+### Code
+
+<details>
+
+<summary>Show Code</summary>
+
+```jsx
+const renderRowSubComponent = (row) => {
+  if (row.id === '0') {
+    return (
+      <FlexBox style={{ backgroundColor: 'lightblue', height: '300px' }}>
+        <Tag>height: 300px</Tag>
+        <Text>This subcomponent will only be displayed below the first row.</Text>
+        <Button data-subcomponent-active-element>Click</Button>
+      </FlexBox>
+    );
+  }
+  if (row.id === '2') return null;
+  return (
+    <FlexBox style={{ backgroundColor: 'lightgrey', height: '50px' }}>
+      <Tag>height: 50px</Tag>
+    </FlexBox>
+  );
+};
+
+<AnalyticalTable
+  data={data}
+  columns={columns}
+  renderRowSubComponent={renderRowSubComponent}
+  subComponentsBehavior="Expandable" // "Expandable" | "Visible" | "IncludeHeight" | "IncludeHeightExpandable"
+/>
+```
+
+</details>
+
 ## Column Width Scaling Modes
 
 The `scaleWidthMode` prop controls how column widths are calculated. `Default` distributes available space evenly across columns without a fixed width. `Smart` ensures every column has enough space for its full header text, then distributes remaining space to columns with longer content. `Grow` sizes columns to fit both their full header text and full cell content. The three tables below show the same data with each mode applied.

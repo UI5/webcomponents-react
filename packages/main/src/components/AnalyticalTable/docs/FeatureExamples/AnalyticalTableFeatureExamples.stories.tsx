@@ -9,6 +9,7 @@ import {
   AnalyticalTableScaleWidthMode,
   AnalyticalTableSelectionBehavior,
   AnalyticalTableSelectionMode,
+  AnalyticalTableSubComponentsBehavior,
   FlexBoxAlignItems,
   FlexBoxDirection,
   FlexBoxWrap,
@@ -18,6 +19,8 @@ import {
 import { Button } from '../../../../webComponents/Button/index.js';
 import { Dialog } from '../../../../webComponents/Dialog/index.js';
 import { Input } from '../../../../webComponents/Input/index.js';
+import { MultiComboBox } from '../../../../webComponents/MultiComboBox/index.js';
+import { MultiComboBoxItem } from '../../../../webComponents/MultiComboBoxItem/index.js';
 import { Option } from '../../../../webComponents/Option/index.js';
 import { Popover } from '../../../../webComponents/Popover/index.js';
 import { Select } from '../../../../webComponents/Select/index.js';
@@ -37,6 +40,136 @@ const recipesMeta = {
 } satisfies Meta<typeof AnalyticalTable>;
 export default recipesMeta;
 type Story = StoryObj<typeof recipesMeta>;
+
+export const NavigationIndicator: Story = {
+  args: { withNavigationHighlight: true, selectionMode: AnalyticalTableSelectionMode.Multiple, data: dataLarge },
+  render: (args) => {
+    const [selectedRow, setSelectedRow] = useState();
+    const onRowSelect = (e) => {
+      setSelectedRow(e.detail.row);
+    };
+    const markNavigatedRow = useCallback(
+      (row) => {
+        return selectedRow?.id === row.id;
+      },
+      [selectedRow],
+    );
+    return <AnalyticalTable {...args} markNavigatedRow={markNavigatedRow} onRowSelect={onRowSelect} />;
+  },
+};
+
+export const CustomFilter: Story = {
+  args: {
+    data: dataLarge,
+    filterable: true,
+  },
+  render: (args) => {
+    const filterFn = useCallback((rows, accessor, filterValue) => {
+      if (filterValue.length > 0) {
+        return rows.filter((row) => {
+          const rowVal = row.values[accessor];
+          return !!filterValue.some((item) => rowVal.includes(item));
+        });
+      }
+      return rows;
+    }, []);
+    const columns: AnalyticalTableColumnDefinition[] = useMemo(
+      () => [
+        {
+          Header: 'Custom Column Filter',
+          accessor: 'name',
+          filter: filterFn,
+          Filter: ({ column }) => {
+            const firstNames = ['Carl', 'Dan', 'Rose', 'Susanne'];
+            return (
+              <MultiComboBox
+                placeholder="Filter Names"
+                onSelectionChange={(e) => {
+                  column.setFilter(e.detail.items.map((item) => item.getAttribute('text')));
+                }}
+              >
+                {firstNames.map((item) => {
+                  const isSelected = column?.filterValue?.some((filterVal) => filterVal.includes(item));
+                  return <MultiComboBoxItem text={item} key={item} selected={isSelected} />;
+                })}
+              </MultiComboBox>
+            );
+          },
+        },
+        {
+          Header: 'Age',
+          accessor: 'age',
+        },
+      ],
+      [],
+    );
+    return <AnalyticalTable {...args} columns={columns} />;
+  },
+};
+
+export const Subcomponents: Story = {
+  args: {
+    subComponentsBehavior: AnalyticalTableSubComponentsBehavior.Expandable,
+  },
+  render: (args) => {
+    const renderRowSubComponent = useCallback((row) => {
+      if (row.id === '0') {
+        return (
+          <FlexBox
+            style={{ backgroundColor: 'lightblue', height: '300px' }}
+            justifyContent="Center"
+            alignItems={FlexBoxAlignItems.Center}
+            direction={FlexBoxDirection.Column}
+          >
+            <Tag>height: 300px</Tag>
+            <Text>This subcomponent will only be displayed below the first row.</Text>
+            <hr />
+            <Text>
+              The button below is rendered with `data-subcomponent-active-element` attribute to ensure consistent focus
+              behavior
+            </Text>
+            <Button data-subcomponent-active-element>Click</Button>
+          </FlexBox>
+        );
+      }
+      if (row.id === '1') {
+        return (
+          <FlexBox
+            style={{ backgroundColor: 'lightyellow', height: '100px' }}
+            justifyContent="Center"
+            alignItems={FlexBoxAlignItems.Center}
+            direction={FlexBoxDirection.Column}
+          >
+            <Tag>height: 100px</Tag>
+            <Text>This subcomponent will only be displayed below the second row.</Text>
+          </FlexBox>
+        );
+      }
+      if (row.id === '2') {
+        return null;
+      }
+      return (
+        <FlexBox
+          style={{ backgroundColor: 'lightgrey', height: '50px' }}
+          justifyContent="Center"
+          alignItems={FlexBoxAlignItems.Center}
+          direction={FlexBoxDirection.Column}
+        >
+          <Tag>height: 50px</Tag>
+          <Text>This subcomponent will be displayed below all rows except the first, second and third.</Text>
+        </FlexBox>
+      );
+    }, []);
+
+    return (
+      <AnalyticalTable
+        {...args}
+        renderRowSubComponent={renderRowSubComponent}
+        header={`subComponentsBehavior: "${args.subComponentsBehavior}"`}
+      />
+    );
+  },
+};
 
 export const ScaleWidthModeComparison: Story = {
   render(args) {

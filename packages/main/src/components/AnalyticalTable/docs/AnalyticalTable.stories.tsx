@@ -5,16 +5,13 @@ import '@ui5/webcomponents-icons/dist/delete.js';
 import '@ui5/webcomponents-icons/dist/edit.js';
 import NoDataIllustration from '@ui5/webcomponents-fiori/dist/illustrations/NoData.js';
 import NoFilterResults from '@ui5/webcomponents-fiori/dist/illustrations/NoFilterResults.js';
-import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   AnalyticalTablePopinDisplay,
   AnalyticalTableScaleWidthMode,
   AnalyticalTableSelectionBehavior,
   AnalyticalTableSelectionMode,
-  AnalyticalTableSubComponentsBehavior,
   AnalyticalTableVisibleRowCountMode,
-  FlexBoxAlignItems,
-  FlexBoxDirection,
   FlexBoxJustifyContent,
   TextAlign,
   VerticalAlign,
@@ -22,14 +19,11 @@ import {
 import { Button } from '../../../webComponents/Button/index.js';
 import { IllustratedMessage } from '../../../webComponents/IllustratedMessage/index.js';
 import { Label } from '../../../webComponents/Label/index.js';
-import { MultiComboBox } from '../../../webComponents/MultiComboBox/index.js';
-import { MultiComboBoxItem } from '../../../webComponents/MultiComboBoxItem/index.js';
 import { Option } from '../../../webComponents/Option/index.js';
 import type { SegmentedButtonPropTypes } from '../../../webComponents/SegmentedButton/index.js';
 import { SegmentedButton } from '../../../webComponents/SegmentedButton/index.js';
 import { SegmentedButtonItem } from '../../../webComponents/SegmentedButtonItem/index.js';
 import { Select } from '../../../webComponents/Select/index.js';
-import { Tag } from '../../../webComponents/Tag/index.js';
 import { Text } from '../../../webComponents/Text/index.js';
 import type { ToggleButtonPropTypes } from '../../../webComponents/ToggleButton/index.js';
 import { ToggleButton } from '../../../webComponents/ToggleButton/index.js';
@@ -228,26 +222,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const ToggleableTable = (args) => {
-  const [visible, toggle] = useReducer((prev) => !prev, false);
-  return (
-    <>
-      <Button onClick={toggle}>{visible ? 'Hide' : 'Show'} Example</Button>
-      {visible && <AnalyticalTable {...args} />}
-    </>
-  );
-};
-
 export const Default: Story = {};
 
 export const TreeTable: Story = {
   args: {
     data: dataTree,
     isTreeTable: true,
-  },
-  render(args, context) {
-    const { viewMode } = context;
-    return viewMode === 'story' ? <AnalyticalTable {...args} /> : <ToggleableTable {...args} />;
   },
 };
 
@@ -259,7 +239,7 @@ export const InfiniteScrolling: Story = {
     header: 'Scroll to load more data',
     reactTableOptions: { autoResetSelectedRows: false },
   },
-  render: (args, context) => {
+  render: (args) => {
     const [data, setData] = useState(args.data.slice(0, 50));
     const [loading, setLoading] = useState(false);
     const offset = useRef(50);
@@ -276,15 +256,11 @@ export const InfiniteScrolling: Story = {
         }, 2000);
       }
     }, [loading, args.data, offset.current]);
-    return context.viewMode === 'story' ? (
-      <AnalyticalTable {...args} data={data} onLoadMore={onLoadMore} loading={loading} />
-    ) : (
-      <ToggleableTable {...args} data={data} onLoadMore={onLoadMore} loading={loading} />
-    );
+    return <AnalyticalTable {...args} data={data} onLoadMore={onLoadMore} loading={loading} />;
   },
 };
 
-export const DynamicRowCount = {
+export const AutoRowCount = {
   args: { visibleRowCountMode: AnalyticalTableVisibleRowCountMode.Auto, containerHeight: 250 } as unknown,
   argTypes: {
     containerHeight: {
@@ -296,7 +272,7 @@ export const DynamicRowCount = {
         'Select an option to change the height of the surrounding container of the table (in `px`). <br /> __Note__: This is not an actual prop of the table.',
     },
   },
-  render: (args, context) => {
+  render: (args) => {
     const [data, setData] = useState(args.data);
     const handleClick = () => {
       setData((prev) => {
@@ -314,28 +290,19 @@ export const DynamicRowCount = {
         <Text>Number of visible rows: {data.length}</Text>
         <hr />
         <div style={{ height: `${args.containerHeight}px` }}>
-          {context.viewMode === 'story' ? (
-            <AnalyticalTable
-              {...args}
-              data={data}
-              visibleRowCountMode={args.visibleRowCountMode}
-              header={`Current height: ${args.containerHeight}px - Change the height in the table above`}
-            />
-          ) : (
-            <ToggleableTable
-              {...args}
-              data={data}
-              visibleRowCountMode={args.visibleRowCountMode}
-              header={`Current height: ${args.containerHeight}px - Change the height in the table above`}
-            />
-          )}
+          <AnalyticalTable
+            {...args}
+            data={data}
+            visibleRowCountMode={args.visibleRowCountMode}
+            header={`Current height: ${args.containerHeight}px - Change the height in the table above`}
+          />
         </div>
       </>
     );
   },
 };
 
-export const ResponsiveColumns: Story = {
+export const ResponsiveColumnsPopIn: Story = {
   args: {
     visibleRowCountMode: AnalyticalTableVisibleRowCountMode.Fixed,
     // @ts-expect-error: custom prop for the controls table
@@ -406,7 +373,7 @@ export const ResponsiveColumns: Story = {
         'Select an option to change the width of the surrounding container of the table (in `px`). <br /> __Note__: This is not a prop of the table.',
     },
   },
-  render: (args, context) => {
+  render: (args) => {
     const [columns, setColumns] = useState(args.columns);
     const [popinDisplay, setPopinDisplay] = useState<AnalyticalTableColumnDefinition['popinDisplay']>(
       AnalyticalTablePopinDisplay.Block,
@@ -449,105 +416,19 @@ export const ResponsiveColumns: Story = {
           <Option selected={popinDisplay === AnalyticalTablePopinDisplay.Inline}>Inline</Option>
           <Option selected={popinDisplay === AnalyticalTablePopinDisplay.WithoutHeader}>WithoutHeader</Option>
         </Select>
-        {context.viewMode === 'story' ? (
-          <AnalyticalTable
-            {...tableArgs}
-            columns={columns}
-            adjustTableHeightOnPopIn={args.adjustTableHeightOnPopIn}
-            header={`Current width: ${args.containerWidth}`}
-          />
-        ) : (
-          <>
-            <hr />
-            <ToggleableTable
-              {...tableArgs}
-              columns={columns}
-              adjustTableHeightOnPopIn={args.adjustTableHeightOnPopIn}
-              header={`Current width: ${args.containerWidth}`}
-            />
-          </>
-        )}
+        <AnalyticalTable
+          {...tableArgs}
+          columns={columns}
+          adjustTableHeightOnPopIn={args.adjustTableHeightOnPopIn}
+          header={`Current width: ${args.containerWidth}`}
+        />
       </div>
     );
   },
 };
 
-export const NavigationIndicator: Story = {
-  args: { withNavigationHighlight: true, selectionMode: AnalyticalTableSelectionMode.Multiple, data: dataLarge },
-  render: (args, context) => {
-    const [selectedRow, setSelectedRow] = useState();
-    const onRowSelect = (e) => {
-      setSelectedRow(e.detail.row);
-    };
-    const markNavigatedRow = useCallback(
-      (row) => {
-        return selectedRow?.id === row.id;
-      },
-      [selectedRow],
-    );
-    return context.viewMode === 'story' ? (
-      <AnalyticalTable {...args} markNavigatedRow={markNavigatedRow} onRowSelect={onRowSelect} />
-    ) : (
-      <ToggleableTable {...args} markNavigatedRow={markNavigatedRow} onRowSelect={onRowSelect} />
-    );
-  },
-};
-
-export const CustomFilter: Story = {
-  args: {
-    data: dataLarge,
-    filterable: true,
-  },
-  render: (args, context) => {
-    const filterFn = useCallback((rows, accessor, filterValue) => {
-      if (filterValue.length > 0) {
-        return rows.filter((row) => {
-          const rowVal = row.values[accessor];
-          return !!filterValue.some((item) => rowVal.includes(item));
-        });
-      }
-      return rows;
-    }, []);
-    const columns: AnalyticalTableColumnDefinition[] = useMemo(
-      () => [
-        {
-          Header: 'Custom Column Filter',
-          accessor: 'name',
-          filter: filterFn,
-          Filter: ({ column }) => {
-            const firstNames = ['Carl', 'Dan', 'Rose', 'Susanne'];
-            return (
-              <MultiComboBox
-                placeholder="Filter Names"
-                onSelectionChange={(e) => {
-                  column.setFilter(e.detail.items.map((item) => item.getAttribute('text')));
-                }}
-              >
-                {firstNames.map((item) => {
-                  const isSelected = column?.filterValue?.some((filterVal) => filterVal.includes(item));
-                  return <MultiComboBoxItem text={item} key={item} selected={isSelected} />;
-                })}
-              </MultiComboBox>
-            );
-          },
-        },
-        {
-          Header: 'Age',
-          accessor: 'age',
-        },
-      ],
-      [],
-    );
-    return context.viewMode === 'story' ? (
-      <AnalyticalTable {...args} columns={columns} />
-    ) : (
-      <ToggleableTable {...args} columns={columns} />
-    );
-  },
-};
-
 export const NoData: Story = {
-  render(args, context) {
+  render(args) {
     const [selected, setSelected] = useState('noData');
     const [filtered, setFiltered] = useState(false);
     const handleChange: SegmentedButtonPropTypes['onSelectionChange'] = (e) => {
@@ -598,94 +479,16 @@ export const NoData: Story = {
         <ToggleButton onClick={handleClick} pressed={filtered} disabled={selected === 'data'}>
           Table filtered
         </ToggleButton>
-        {context.viewMode === 'story' ? (
-          <div style={{ height: isAutoRowCount ? '300px' : 'auto' }}>
-            <AnalyticalTable {...tableProps} />
-          </div>
-        ) : (
-          <>
-            <hr />
-            <div style={{ height: isAutoRowCount ? '300px' : 'auto' }}>
-              <ToggleableTable {...tableProps} />
-            </div>
-          </>
-        )}
+        <div style={{ height: isAutoRowCount ? '300px' : 'auto' }}>
+          <AnalyticalTable {...tableProps} />
+        </div>
       </>
-    );
-  },
-};
-
-export const Subcomponents: Story = {
-  args: {
-    subComponentsBehavior: AnalyticalTableSubComponentsBehavior.Expandable,
-  },
-  render: (args, context) => {
-    const renderRowSubComponent = useCallback((row) => {
-      if (row.id === '0') {
-        return (
-          <FlexBox
-            style={{ backgroundColor: 'lightblue', height: '300px' }}
-            justifyContent={FlexBoxJustifyContent.Center}
-            alignItems={FlexBoxAlignItems.Center}
-            direction={FlexBoxDirection.Column}
-          >
-            <Tag>height: 300px</Tag>
-            <Text>This subcomponent will only be displayed below the first row.</Text>
-            <hr />
-            <Text>
-              The button below is rendered with `data-subcomponent-active-element` attribute to ensure consistent focus
-              behavior
-            </Text>
-            <Button data-subcomponent-active-element>Click</Button>
-          </FlexBox>
-        );
-      }
-      if (row.id === '1') {
-        return (
-          <FlexBox
-            style={{ backgroundColor: 'lightyellow', height: '100px' }}
-            justifyContent={FlexBoxJustifyContent.Center}
-            alignItems={FlexBoxAlignItems.Center}
-            direction={FlexBoxDirection.Column}
-          >
-            <Tag>height: 100px</Tag>
-            <Text>This subcomponent will only be displayed below the second row.</Text>
-          </FlexBox>
-        );
-      }
-      if (row.id === '2') {
-        return null;
-      }
-      return (
-        <FlexBox
-          style={{ backgroundColor: 'lightgrey', height: '50px' }}
-          justifyContent={FlexBoxJustifyContent.Center}
-          alignItems={FlexBoxAlignItems.Center}
-          direction={FlexBoxDirection.Column}
-        >
-          <Tag>height: 50px</Tag>
-          <Text>This subcomponent will be displayed below all rows except the first, second and third.</Text>
-        </FlexBox>
-      );
-    }, []);
-
-    return context.viewMode === 'story' ? (
-      <AnalyticalTable
-        {...args}
-        renderRowSubComponent={renderRowSubComponent}
-        header={`subComponentsBehavior: "${args.subComponentsBehavior}"`}
-      />
-    ) : (
-      <ToggleableTable {...args} renderRowSubComponent={renderRowSubComponent} />
     );
   },
 };
 
 export const KitchenSink: Story = {
   args: kitchenSinkArgs,
-  render(args, context) {
-    return context.viewMode === 'story' ? <AnalyticalTable {...args} /> : <ToggleableTable {...args} />;
-  },
 };
 
 // ===================== Not displayed in sidebar =====================
