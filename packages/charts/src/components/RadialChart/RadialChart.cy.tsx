@@ -1,5 +1,5 @@
-import { cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import { RadialChart } from './index.js';
+import { cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 
 describe('RadialChart', () => {
   it('Basic', () => {
