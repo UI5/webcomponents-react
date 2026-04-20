@@ -76,9 +76,9 @@
     "@types/react-dom": "19.2.3",
     "@ui5/webcomponents-tools": "2.21.1",
     "@vitejs/plugin-react": "6.0.1",
-    "chromatic": "16.2.0",
+    "chromatic": "16.3.0",
     "cssnano": "7.1.5",
-    "cypress": "15.13.1",
+    "cypress": "15.14.0",
     "cypress-real-events": "1.15.0",
     "dedent": "1.7.2",
     "documentation": "14.0.3",
@@ -89,10 +89,10 @@
     "eslint-plugin-no-only-tests": "3.3.0",
     "eslint-plugin-prettier": "5.5.5",
     "eslint-plugin-react": "7.37.5",
-    "eslint-plugin-react-hooks": "7.0.1",
+    "eslint-plugin-react-hooks": "7.1.0",
     "eslint-plugin-storybook": "10.3.5",
     "glob": "13.0.6",
-    "globals": "17.4.0",
+    "globals": "17.5.0",
     "husky": "9.1.7",
     "lerna": "9.0.7",
     "lint-staged": "16.4.0",
@@ -132,5 +132,5 @@
       "lcov"
     ]
   },
-  "packageManager": "yarn@4.13.0"
+  "packageManager": "yarn@4.14.1"
 }
