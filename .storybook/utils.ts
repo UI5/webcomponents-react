@@ -97,10 +97,6 @@ export function useFakeStream(initialValue = '', typingDelay = 10, startingDelay
   const [isTyping, setIsTyping] = useState(false); // actively typing characters
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isProcessingRef = useRef(isProcessing);
-  const isTypingRef = useRef(isTyping);
-  isProcessingRef.current = isProcessing;
-  isTypingRef.current = isTyping;
 
   const startStream = ({ text, onComplete, onProcessingComplete }: StartStreamOptions) => {
     // Stop previous stream and timeout

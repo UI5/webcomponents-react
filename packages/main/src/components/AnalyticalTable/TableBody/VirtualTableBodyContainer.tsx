@@ -49,7 +49,7 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
   useIsomorphicLayoutEffect(() => {
     if (parentRef.current) {
       // Run before paint so rows appear with the body container (avoids empty-body flash).
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+
       setIsMounted(true);
     }
   }, [parentRef]);

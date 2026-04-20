@@ -116,6 +116,10 @@ jobs:
           name: build-${{ matrix.react }}
           path: packages
 
+      # TODO: remove once Cypress properly installs the binary via postinstall
+      - name: Install Cypress binary
+        run: npx cypress install
+
       - name: Cypress run
         uses: cypress-io/github-action@783cb3f07983868532cabaedaa1e6c00ff4786a8 # v7.1.9
         with:

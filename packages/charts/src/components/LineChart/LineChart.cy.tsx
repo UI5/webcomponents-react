@@ -1,6 +1,6 @@
+import { cypressPassThroughTestsFactory, testChartLegendConfig, testChartZoomingTool } from '@/cypress/support/utils';
 import { complexDataSet } from '../../resources/DemoProps.js';
 import { LineChart } from './index.js';
-import { cypressPassThroughTestsFactory, testChartLegendConfig, testChartZoomingTool } from '@/cypress/support/utils';
 
 const dimensions = [
   {

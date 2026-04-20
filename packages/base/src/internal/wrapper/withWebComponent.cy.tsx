@@ -198,7 +198,6 @@ describe('withWebComponent', () => {
           </Button>
           <Popover
             open={open}
-            // eslint-disable-next-line react-hooks/refs
             opener={btnRef.current}
             onClose={() => {
               setOpen(false);
