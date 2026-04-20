@@ -5,7 +5,7 @@ import {
   testChartLegendConfig,
   testChartZoomingTool,
   testStackAggregateTotals,
-} from '../../../../../cypress/support/utils';
+} from '@/cypress/support/utils';
 
 const dimensions = [
   {
