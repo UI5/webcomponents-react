@@ -6,6 +6,10 @@ This directory contains agent skills for working with this repository.
 
 Currently, only **internal skills** for maintainers of this repository are offered.
 
+| Skill           | Description                                                                                                                                                                                         | Invocation              |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| `ui5wc-upgrade` | Guides a complete `@ui5/webcomponents` version upgrade — updates dependencies, regenerates wrappers, syncs theming parameters, detects new components and breaking changes, and verifies the build. | `/ui5wc-upgrade 2.25.0` |
+
 ### Installing Internal Skills
 
 Since these skills are marked as internal, `npx skills` does not list them by default. To discover and install them, set the `INSTALL_INTERNAL_SKILLS` environment variable:
