@@ -26,7 +26,7 @@ INSTALL_INTERNAL_SKILLS=1 npx skills add ./skills --skill ui5wc-upgrade
 
 ## Requesting New Skills
 
-If you use Claude Code with UI5 Web Components for React and feel a skill would improve your workflow — whether for component usage, migration, styling, testing, or anything else — we'd love to hear about it.
+If you use an AI coding agent with UI5 Web Components for React and feel a skill would improve your workflow — whether for component usage, migration, styling, testing, or anything else — we'd love to hear about it.
 
 Additionally to the [`@ui5/webcomponents-react-mcp` MCP server](../packages/mcp-server/README.md), skills can provide guided multi-step workflows, bundled scripts, and domain-specific knowledge that go beyond what an MCP server offers.
 
