@@ -1,21 +1,21 @@
 # Package peerDependency Map for UI5 WC Upgrades
 
-When upgrading to version X.Y.0, update tilde ranges to `~X.Y.0` in these files.
+When upgrading to a target version, update tilde ranges to `~TARGET_VERSION` in these files.
 
 ## Root package.json (dependencies, NOT peerDeps)
 
-Update to exact version (e.g. `2.22.0`):
+Update to exact target version (e.g. `2.25.1`):
 
 ```json
 "dependencies": {
-  "@ui5/webcomponents": "X.Y.0",
-  "@ui5/webcomponents-ai": "X.Y.0",
-  "@ui5/webcomponents-compat": "X.Y.0",
-  "@ui5/webcomponents-fiori": "X.Y.0",
-  "@ui5/webcomponents-icons": "X.Y.0"
+  "@ui5/webcomponents": "TARGET_VERSION",
+  "@ui5/webcomponents-ai": "TARGET_VERSION",
+  "@ui5/webcomponents-compat": "TARGET_VERSION",
+  "@ui5/webcomponents-fiori": "TARGET_VERSION",
+  "@ui5/webcomponents-icons": "TARGET_VERSION"
 },
 "devDependencies": {
-  "@ui5/webcomponents-tools": "X.Y.0"
+  "@ui5/webcomponents-tools": "TARGET_VERSION"
 }
 ```
 
@@ -27,10 +27,10 @@ Update to exact version (e.g. `2.22.0`):
 
 ```json
 "peerDependencies": {
-  "@ui5/webcomponents": "~X.Y.0",
-  "@ui5/webcomponents-base": "~X.Y.0",
-  "@ui5/webcomponents-fiori": "~X.Y.0",
-  "@ui5/webcomponents-icons": "~X.Y.0"
+  "@ui5/webcomponents": "~X.Y.Z",
+  "@ui5/webcomponents-base": "~X.Y.Z",
+  "@ui5/webcomponents-fiori": "~X.Y.Z",
+  "@ui5/webcomponents-icons": "~X.Y.Z"
 }
 ```
 
@@ -38,7 +38,7 @@ Update to exact version (e.g. `2.22.0`):
 
 ```json
 "peerDependencies": {
-  "@ui5/webcomponents-base": "~X.Y.0"
+  "@ui5/webcomponents-base": "~X.Y.Z"
 }
 ```
 
@@ -46,7 +46,7 @@ Update to exact version (e.g. `2.22.0`):
 
 ```json
 "peerDependencies": {
-  "@ui5/webcomponents-ai": "~X.Y.0"
+  "@ui5/webcomponents-ai": "~X.Y.Z"
 }
 ```
 
@@ -54,8 +54,8 @@ Update to exact version (e.g. `2.22.0`):
 
 ```json
 "peerDependencies": {
-  "@ui5/webcomponents-compat": "~X.Y.0",
-  "@ui5/webcomponents-react": "~X.Y.0"
+  "@ui5/webcomponents-compat": "~X.Y.Z",
+  "@ui5/webcomponents-react": "~X.Y.Z"
 }
 ```
 
@@ -63,8 +63,8 @@ Update to exact version (e.g. `2.22.0`):
 
 ```json
 "peerDependencies": {
-  "@ui5/webcomponents-react": "~X.Y.0",
-  "@ui5/webcomponents-react-base": "~X.Y.0"
+  "@ui5/webcomponents-react": "~X.Y.Z",
+  "@ui5/webcomponents-react-base": "~X.Y.Z"
 }
 ```
 
@@ -72,8 +72,8 @@ Update to exact version (e.g. `2.22.0`):
 
 ```json
 "peerDependencies": {
-  "@ui5/webcomponents": "~X.Y.0",
-  "@ui5/webcomponents-base": "~X.Y.0"
+  "@ui5/webcomponents": "~X.Y.Z",
+  "@ui5/webcomponents-base": "~X.Y.Z"
 }
 ```
 

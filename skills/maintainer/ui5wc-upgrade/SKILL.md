@@ -27,8 +27,8 @@ Ensure the working tree is clean before starting (`git status` should show no un
 
 ## Initialization
 
-1. Parse the **target version** from the argument (e.g. `2.22.0`).
-2. Derive the **tilde range** `~X.Y.0` for peerDependencies.
+1. Parse the **target version** from the argument (e.g. `2.25.0` or `2.25.1`).
+2. Derive the **tilde range** `~TARGET_VERSION` for peerDependencies (e.g. `~2.25.1`).
 3. Read the **current version** from root `package.json` → `dependencies["@ui5/webcomponents"]`.
 4. If current matches target, ask if the user wants to re-run wrapper generation only (skip to Step 2).
 5. Check if Renovate already updated root deps — if `dependencies["@ui5/webcomponents"]` already matches target, note that Step 1a can be skipped.
@@ -51,7 +51,7 @@ Update to the exact target version:
 
 ### 1b. Package peerDependencies
 
-Update tilde ranges to `~X.Y.0` in all sub-packages. See `references/package-json-peer-deps.md` for the exact map. Summary:
+Update tilde ranges to `~TARGET_VERSION` in all sub-packages. See `references/package-json-peer-deps.md` for the exact map. Summary:
 
 | File                                     | Keys to update                                          |
 | ---------------------------------------- | ------------------------------------------------------- |
@@ -171,10 +171,10 @@ Note added/removed CSS variable mappings for the PR description.
 Edit `config/version-info.json` — add a new entry before the closing `}`:
 
 ```json
-"X.Y.0": "X.Y.0"
+"X.Y.0": "TARGET_VERSION"
 ```
 
-Since v2.4.0 the React wrapper and UI5 WC minor versions are aligned, so key and value match.
+The key is the React wrapper minor version (`X.Y.0`), the value is the upstream `@ui5/webcomponents` target version from the argument. The React wrapper version itself is bumped by lerna during the release.
 
 ### Verify
 
