@@ -28,3 +28,4 @@ export const useColumnsDeps = (hooks: ReactTableHooks) => {
   hooks.columnsDeps.push(columnsDeps);
   hooks.visibleColumnsDeps.push(visibleColumnsDeps);
 };
+useColumnsDeps.pluginName = 'useColumnsDeps';

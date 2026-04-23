@@ -67,3 +67,4 @@ export const useRowNavigationIndicators = (hooks: ReactTableHooks) => {
   hooks.columns.push(columns);
   hooks.visibleColumns.push(visibleColumns);
 };
+useRowNavigationIndicators.pluginName = 'useRowNavigationIndicators';

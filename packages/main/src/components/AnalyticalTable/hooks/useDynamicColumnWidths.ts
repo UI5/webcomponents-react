@@ -1,3 +1,4 @@
+import { ensurePluginOrder } from 'react-table';
 import { AnalyticalTableScaleWidthMode } from '../../../enums/AnalyticalTableScaleWidthMode.js';
 import type {
   AnalyticalTableColumnDefinition,
@@ -483,7 +484,10 @@ function captureRawColumnWidths(columns: AnalyticalTableColumnDefinition[], { in
  * This function follows `react-table`'s own `useResizeColumns` pattern: mutate `header.width` directly, to prevent cascading updates and rerenders.
  */
 const adjustColumnWidths = (instance: TableInstance) => {
-  const { flatHeaders, state, rows, data, webComponentsReactProperties } = instance;
+  const { flatHeaders, state, rows, data, webComponentsReactProperties, plugins } = instance;
+
+  ensurePluginOrder(plugins, ['useColumnResizing'], 'useDynamicColumnWidths');
+
   const { scaleWidthMode, loading, fontsReady } = webComponentsReactProperties;
   const { hiddenColumns, tableClientWidth: totalWidth, tableColResized, columnResizing } = state;
 
@@ -605,3 +609,4 @@ export const useDynamicColumnWidths = (hooks: ReactTableHooks) => {
   hooks.columns.push(captureRawColumnWidths);
   hooks.useInstanceBeforeDimensions.push(adjustColumnWidths);
 };
+useDynamicColumnWidths.pluginName = 'useDynamicColumnWidths';

@@ -1,5 +1,6 @@
 import { enrichEventWithDetails } from '@ui5/webcomponents-react-base/internal/utils';
 import { useEffect, useRef } from 'react';
+import { ensurePluginOrder } from 'react-table';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import type { AnalyticalTablePropTypes, ReactTableHooks, TableInstance } from '../types/index.js';
 
@@ -7,9 +8,11 @@ type OnRowSelectEvent = Parameters<NonNullable<AnalyticalTablePropTypes['onRowSe
 type OnRowSelectDetail = OnRowSelectEvent['detail'];
 
 const useInstance = (instance: TableInstance) => {
-  const { webComponentsReactProperties, rowsById, preFilteredRowsById, state } = instance;
+  const { webComponentsReactProperties, rowsById, preFilteredRowsById, state, plugins } = instance;
   const { selectedRowIds, filters, globalFilter } = state;
   const { onRowSelect, selectionMode } = webComponentsReactProperties;
+
+  ensurePluginOrder(plugins, ['useRowSelect'], 'useSelectionChangeCallback');
 
   const prevSelectedRowIdsRef = useRef(selectedRowIds);
 
