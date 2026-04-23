@@ -18,6 +18,7 @@ import {
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils.js';
 import { useLegendItemClick } from '../../hooks/useLegendItemClick.js';
 import { useOnClickInternal } from '../../hooks/useOnClickInternal.js';
+import { usePieSectorFocus } from '../../hooks/usePieSectorFocus.js';
 import type { IChartBaseProps } from '../../interfaces/IChartBaseProps.js';
 import type { IChartDimension } from '../../interfaces/IChartDimension.js';
 import type { IChartMeasure } from '../../interfaces/IChartMeasure.js';
@@ -144,6 +145,42 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
     [props.measure],
   );
 
+  const { containerProps: sectorFocusProps, handleSectorClick } = usePieSectorFocus({
+    chartRef,
+    enabled: !!chartConfig.accessibilityLayer,
+    activeSegment: chartConfig.activeSegment,
+    dataLength: dataset?.length ?? 0,
+    onSelect: useCallback(
+      (index, e) => {
+        if (typeof onDataPointClick !== 'function' || !dataset?.[index]) return;
+        const entry = dataset[index];
+        onDataPointClick(
+          enrichEventWithDetails(e as unknown as CustomEvent, {
+            value: getValueByDataKey(entry, measure.accessor),
+            dataKey: measure.accessor,
+            name: getValueByDataKey(entry, dimension.accessor, ''),
+            payload: entry,
+            dataIndex: index,
+          }),
+        );
+      },
+      [onDataPointClick, dataset, measure.accessor, dimension.accessor],
+    ),
+    getSectorLabel: useCallback(
+      (index: number) => {
+        if (!dataset?.[index]) return '';
+        const entry = dataset[index];
+        const name = dimension.formatter(getValueByDataKey(entry, dimension.accessor, ''));
+        const value = measure.formatter(getValueByDataKey(entry, measure.accessor));
+        const rawValue = Number(getValueByDataKey(entry, measure.accessor)) || 0;
+        const total = dataset.reduce((sum, d) => sum + (Number(getValueByDataKey(d, measure.accessor)) || 0), 0);
+        const pct = total > 0 ? ((rawValue / total) * 100).toFixed(1) : '0';
+        return `${name}, ${value}, ${pct}%`;
+      },
+      [dataset, dimension, measure],
+    ),
+  });
+
   const dataLabel = (props) => {
     const hideDataLabel =
       typeof measure.hideDataLabel === 'function' ? measure.hideDataLabel(props) : measure.hideDataLabel;
@@ -180,8 +217,9 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
           }),
         );
       }
+      handleSectorClick(dataIndex);
     },
-    [onDataPointClick],
+    [onDataPointClick, handleSectorClick],
   );
 
   // REUSE: part of this function is copied from: https://github.com/recharts/recharts/blob/411e57a3c206a1425ff33a7e63cacf40a844e551/storybook/stories/Examples/Pie/CustomActiveShapePieChart.stories.tsx#L22-L44
@@ -290,12 +328,14 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
       className={className}
       slot={slot}
       resizeDebounce={chartConfig.resizeDebounce}
+      {...sectorFocusProps}
       {...propsWithoutOmitted}
     >
       <PieChartLib
+        // TODO: re-evaluate after recharts v3 upgrade - currently a no-op for polar charts
+        // accessibilityLayer={chartConfig.accessibilityLayer}
         onClick={onClickInternal}
         margin={chartConfig.margin}
-        accessibilityLayer={chartConfig.accessibilityLayer}
         className={clsx(
           typeof onDataPointClick === 'function' || typeof onClick === 'function' ? 'has-click-handler' : undefined,
           classNames.piechart,
