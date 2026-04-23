@@ -12,20 +12,43 @@ import * as ComponentStories from './AnalyticalTableHooks.stories';
 The `useManualRowSelect` plugin hook allows controlling the selected rows manually. It accepts a parameter (`manualRowSelectedKey`) which defaults to `isSelected`.
 If this key is found on the original data row, and it is `true`, this row will be manually selected.
 
+**Note:** This hook sets `autoResetSelectedRows` to `false` by default unless explicitly defined via `reactTableOptions`. [Learn more](?path=/docs/data-display-analyticaltable-faq--docs#how-to-stop-the-table-state-from-automatically-resetting-when-the-data-changes)
+
 ## Example
 
 <Canvas sourceState="none" of={ComponentStories.PluginManualRowSelect} />
 
-```jsx
+```tsx
 // you could also omit the `'isSelected'`, as this is the default value
 const tableHooks = [AnalyticalTableHooks.useManualRowSelect('isSelected')]; // should be memoized
 
-<AnalyticalTable
-  selectionMode={AnalyticalTableSelectionMode.Multiple}
-  data={data}
-  columns={columns}
-  tableHooks={tableHooks}
-/>
+function TableComponent({ initialData, columns }) {
+  const tableInstanceRef = useRef<AnalyticalTableInstance>(null);
+  const handleToggle = () => {
+    tableInstanceRef.current?.toggleRowSelected('0');
+  };
+  const [data, toggleSecondRowSelected] = useReducer((prev) => {
+    const newData = [...prev];
+    newData[1] = { ...prev[1], isSelected: !prev[1].isSelected };
+    return newData;
+  }, initialData);
+
+  return (
+    <>
+      <Button onClick={handleToggle}>Toggle selection of 1st row</Button>
+      <Button onClick={toggleSecondRowSelected}>
+        Toggle selection of 2nd row via data update (slow with large datasets)
+      </Button>
+      <AnalyticalTable
+        selectionMode={AnalyticalTableSelectionMode.Multiple}
+        data={data}
+        columns={columns}
+        tableHooks={tableHooks}
+        tableInstance={tableInstanceRef}
+      />
+    </>
+  );
+}
 ```
 
 <Footer />

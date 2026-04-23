@@ -179,7 +179,6 @@ export interface TableInstance {
   isAllPageRowsSelected?: boolean;
   isAllRowsExpanded?: boolean;
   isAllRowsSelected?: boolean;
-  manualRowSelectedKey?: string;
   nonGroupedFlatRows?: RowType[];
   nonGroupedRowsById?: Record<string, RowType>;
   onlyGroupedFlatRows?: RowType[];
