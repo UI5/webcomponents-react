@@ -1,0 +1,5 @@
+import{n as e,r as t}from"./chunk-zsgVPwQN.js";import{t as n}from"./jsx-runtime-CNp2Ms8r.js";import{n as r,t as i}from"./Icon-B50uuhbw.js";import{n as a,t as o}from"./employee-BQg2fU8R.js";import{i as s,n as c,r as l,t as u}from"./MessageStrip-DNSyu_WJ.js";var d=t({Default:()=>m,WithIcon:()=>h,__namedExportsOrder:()=>g,default:()=>p}),f,p,m,h,g,_=e((()=>{s(),a(),r(),c(),f=n(),p={title:`Data Display / MessageStrip`,component:u,argTypes:{children:{control:`text`},icon:{control:{disable:!0}}},args:{design:l.Information,children:`MessageStrip Text`},tags:[`package:@ui5/webcomponents`]},m={},h={args:{icon:(0,f.jsx)(i,{name:o})}},m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`{}`,...m.parameters?.docs?.source}}},h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`{
+  args: {
+    icon: <Icon name={employeeIcon} />
+  }
+}`,...h.parameters?.docs?.source}}},g=[`Default`,`WithIcon`]}));_();export{m as Default,h as WithIcon,g as __namedExportsOrder,p as default,_ as n,d as t};

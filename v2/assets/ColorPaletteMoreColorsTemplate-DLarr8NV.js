@@ -1,0 +1,1 @@
+import{n as e,t}from"./ColorPaletteMoreColorsTemplate-BxdRkVy6.js";e();export{t as default};

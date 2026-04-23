@@ -1,0 +1,1 @@
+import{n as e}from"./chunk-zsgVPwQN.js";var t,n,r=e((()=>{t=null,n=(e,n)=>{t&&clearTimeout(t),t=setTimeout(()=>{t=null,e()},n)}}));export{n,r as t};
