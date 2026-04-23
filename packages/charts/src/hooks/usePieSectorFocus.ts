@@ -1,5 +1,6 @@
+import { useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base/internal/hooks';
 import type { FocusEvent, KeyboardEvent, RefObject } from 'react';
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface UsePieSectorFocusOptions {
   chartRef: RefObject<HTMLDivElement | null>;
@@ -22,7 +23,7 @@ export function usePieSectorFocus({
   const lastSectorRef = useRef(-1);
   const [inSectorMode, setInSectorMode] = useState(false);
   const getSectorLabelRef = useRef(getSectorLabel);
-  useLayoutEffect(() => {
+  useEffect(() => {
     getSectorLabelRef.current = getSectorLabel;
   });
 
@@ -69,7 +70,7 @@ export function usePieSectorFocus({
     setInSectorMode(false);
   }, [chartRef]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!enabled || sectorFocusRef.current < 0) return;
     focusSector(sectorFocusRef.current);
   }, [activeSegment, enabled, focusSector, inSectorMode]);
