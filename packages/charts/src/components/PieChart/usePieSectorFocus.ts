@@ -32,6 +32,7 @@ export function usePieSectorFocus({
 }: UsePieSectorFocusOptions) {
   const sectorFocusRef = useRef(-1);
   const lastSectorRef = useRef(-1);
+  const spaceHeldRef = useRef(false);
   const [inSectorMode, setInSectorMode] = useState(false);
   const getSectorLabelRef = useRef(getSectorLabel);
   // Keep ref in sync so focusSector always uses the latest callback without re-creating the memoized function.
@@ -154,12 +155,17 @@ export function usePieSectorFocus({
           focusSector((sectorFocusRef.current - 1 + dataLength) % dataLength);
           break;
         }
-        case 'Enter':
-        case ' ': {
+        case 'Enter': {
           e.preventDefault();
           if (sectorFocusRef.current >= 0) {
             onSelect?.(sectorFocusRef.current, e);
           }
+          break;
+        }
+        case ' ': {
+          // Space activates on keyup so users can hold it, arrow to another sector, then release.
+          e.preventDefault();
+          spaceHeldRef.current = true;
           break;
         }
       }
@@ -211,6 +217,18 @@ export function usePieSectorFocus({
     [handleKeyDown, consumerOnKeyDownCapture],
   );
 
+  const handleKeyUp = useCallback(
+    (e: KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === ' ' && spaceHeldRef.current) {
+        spaceHeldRef.current = false;
+        if (sectorFocusRef.current >= 0) {
+          onSelect?.(sectorFocusRef.current, e);
+        }
+      }
+    },
+    [onSelect],
+  );
+
   const handleSectorClick = useCallback(
     (dataIndex: number) => {
       if (!enabled) {
@@ -249,6 +267,7 @@ export function usePieSectorFocus({
       role: 'application' as const,
       'aria-roledescription': 'chart',
       onKeyDownCapture: handleKeyDownCapture,
+      onKeyUp: handleKeyUp,
       onBlur: handleBlur,
       onFocus: handleFocus,
     },

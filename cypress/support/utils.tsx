@@ -196,16 +196,21 @@ export function testPieSectorFocus(Component, props, { only }: { only?: boolean 
 
     cy.realPress('ArrowRight');
     cy.focused().should('have.attr', 'data-sector-index', '5');
-    cy.realPress('Space');
+
+    // Space activates on keyup — hold Space, arrow to next sector, then release
+    cy.focused().then(($el) => $el[0].dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true })));
+    cy.realPress('ArrowRight');
+    cy.focused().should('have.attr', 'data-sector-index', '6');
+    cy.focused().then(($el) => $el[0].dispatchEvent(new KeyboardEvent('keyup', { key: ' ', bubbles: true })));
     cy.get('@onDataPointClick').should(
       'have.been.calledWith',
       Cypress.sinon.match({
         detail: Cypress.sinon.match({
-          dataIndex: 5,
+          dataIndex: 6,
         }),
       }),
     );
-    cy.focused().should('have.attr', 'data-sector-index', '5');
+    cy.focused().should('have.attr', 'data-sector-index', '6');
   });
 
   test('sector focus - activeSegment out of bounds is clamped', () => {
