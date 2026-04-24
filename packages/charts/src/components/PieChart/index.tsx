@@ -145,14 +145,29 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
     [props.measure],
   );
 
+  const {
+    chartConfig: _0,
+    dimension: _1,
+    measure: _2,
+    onBlur: consumerOnBlur,
+    onFocus: consumerOnFocus,
+    onKeyDownCapture: consumerOnKeyDownCapture,
+    ...propsWithoutOmitted
+  } = rest;
+
   const { containerProps: sectorFocusProps, handleSectorClick } = usePieSectorFocus({
     chartRef,
     enabled: !!chartConfig.accessibilityLayer,
     activeSegment: chartConfig.activeSegment,
     dataLength: dataset?.length ?? 0,
+    consumerOnBlur,
+    consumerOnFocus,
+    consumerOnKeyDownCapture,
     onSelect: useCallback(
       (index, e) => {
-        if (typeof onDataPointClick !== 'function' || !dataset?.[index]) return;
+        if (typeof onDataPointClick !== 'function' || !dataset?.[index]) {
+          return;
+        }
         const entry = dataset[index];
         onDataPointClick(
           enrichEventWithDetails(e as unknown as CustomEvent, {
@@ -168,7 +183,9 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
     ),
     getSectorLabel: useCallback(
       (index: number) => {
-        if (!dataset?.[index]) return '';
+        if (!dataset?.[index]) {
+          return '';
+        }
         const entry = dataset[index];
         const name = dimension.formatter(getValueByDataKey(entry, dimension.accessor, ''));
         const value = measure.formatter(getValueByDataKey(entry, measure.accessor));
@@ -184,7 +201,9 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
   const dataLabel = (props) => {
     const hideDataLabel =
       typeof measure.hideDataLabel === 'function' ? measure.hideDataLabel(props) : measure.hideDataLabel;
-    if (hideDataLabel || chartConfig.activeSegment === props.index) return null;
+    if (hideDataLabel || chartConfig.activeSegment === props.index) {
+      return null;
+    }
 
     if (isValidElement(measure.DataLabel)) {
       return cloneElement(measure.DataLabel, { ...props, config: measure });
@@ -293,7 +312,9 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
     (props) => {
       const hideDataLabel =
         typeof measure.hideDataLabel === 'function' ? measure.hideDataLabel(props) : measure.hideDataLabel;
-      if (hideDataLabel || chartConfig.activeSegment === props.index) return null;
+      if (hideDataLabel || chartConfig.activeSegment === props.index) {
+        return null;
+      }
       return Pie.renderLabelLineItem({}, props, undefined);
     },
     [chartConfig.activeSegment, measure],
@@ -314,8 +335,6 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
 
     return null;
   }, [showActiveSegmentDataLabel, chartConfig.activeSegment, chartConfig.legendPosition]);
-
-  const { chartConfig: _0, dimension: _1, measure: _2, ...propsWithoutOmitted } = rest;
 
   return (
     <ChartContainer

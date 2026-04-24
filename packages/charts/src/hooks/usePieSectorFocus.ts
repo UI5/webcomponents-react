@@ -1,5 +1,5 @@
 import { useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base/internal/hooks';
-import type { FocusEvent, KeyboardEvent, RefObject } from 'react';
+import type { FocusEvent, FocusEventHandler, KeyboardEvent, KeyboardEventHandler, RefObject } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface UsePieSectorFocusOptions {
@@ -9,6 +9,9 @@ interface UsePieSectorFocusOptions {
   dataLength: number;
   onSelect?: (index: number, event: KeyboardEvent) => void;
   getSectorLabel?: (index: number) => string;
+  consumerOnBlur?: FocusEventHandler<HTMLDivElement>;
+  consumerOnFocus?: FocusEventHandler<HTMLDivElement>;
+  consumerOnKeyDownCapture?: KeyboardEventHandler<HTMLDivElement>;
 }
 
 export function usePieSectorFocus({
@@ -18,6 +21,9 @@ export function usePieSectorFocus({
   dataLength,
   onSelect,
   getSectorLabel,
+  consumerOnBlur,
+  consumerOnFocus,
+  consumerOnKeyDownCapture,
 }: UsePieSectorFocusOptions) {
   const sectorFocusRef = useRef(-1);
   const lastSectorRef = useRef(-1);
@@ -27,12 +33,24 @@ export function usePieSectorFocus({
     getSectorLabelRef.current = getSectorLabel;
   });
 
+  useEffect(() => {
+    sectorFocusRef.current = -1;
+    lastSectorRef.current = -1;
+    // Dataset changed - exit sector mode so the container becomes tabbable (tabIndex=0) again.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setInSectorMode(false);
+  }, [dataLength]);
+
   const focusSector = useCallback(
     (index: number) => {
       const pieGroup = chartRef.current?.querySelector<SVGGElement>('.recharts-pie');
-      if (!pieGroup) return;
+      if (!pieGroup) {
+        return;
+      }
       const sectors = pieGroup.querySelectorAll<SVGGElement>(':scope > .recharts-pie-sector');
-      if (!sectors.length) return;
+      if (!sectors.length) {
+        return;
+      }
       if (!sectors[0].hasAttribute('data-sector-index')) {
         sectors.forEach((s, i) => {
           s.setAttribute('data-sector-index', String(i));
@@ -71,21 +89,27 @@ export function usePieSectorFocus({
   }, [chartRef]);
 
   useIsomorphicLayoutEffect(() => {
-    if (!enabled || sectorFocusRef.current < 0) return;
+    if (!enabled || sectorFocusRef.current < 0) {
+      return;
+    }
     focusSector(sectorFocusRef.current);
   }, [activeSegment, enabled, focusSector, inSectorMode]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (!dataLength) return;
+      if (!dataLength) {
+        return;
+      }
       const isContainerFocused = e.target === e.currentTarget;
 
       if (e.key === 'Tab') {
         if (isContainerFocused && !e.shiftKey) {
           const sectors = chartRef.current?.querySelectorAll<SVGGElement>('.recharts-pie-sector');
-          if (!sectors?.length) return;
+          if (!sectors?.length) {
+            return;
+          }
           e.preventDefault();
-          sectorFocusRef.current = activeSegment ?? 0;
+          sectorFocusRef.current = Math.min(activeSegment ?? 0, dataLength - 1);
           setInSectorMode(true);
           return;
         }
@@ -101,7 +125,9 @@ export function usePieSectorFocus({
         return;
       }
 
-      if (isContainerFocused) return;
+      if (isContainerFocused) {
+        return;
+      }
 
       switch (e.key) {
         case 'ArrowRight':
@@ -142,21 +168,42 @@ export function usePieSectorFocus({
           }
         });
       }
+      if (typeof consumerOnBlur === 'function') {
+        consumerOnBlur(e);
+      }
     },
-    [exitSectorMode],
+    [exitSectorMode, consumerOnBlur],
   );
 
-  const handleFocus = useCallback((e: FocusEvent) => {
-    if (e.target === e.currentTarget && lastSectorRef.current >= 0) {
-      sectorFocusRef.current = lastSectorRef.current;
-      lastSectorRef.current = -1;
-      setInSectorMode(true);
-    }
-  }, []);
+  const handleFocus = useCallback(
+    (e: FocusEvent) => {
+      if (e.target === e.currentTarget && lastSectorRef.current >= 0) {
+        sectorFocusRef.current = lastSectorRef.current;
+        lastSectorRef.current = -1;
+        setInSectorMode(true);
+      }
+      if (typeof consumerOnFocus === 'function') {
+        consumerOnFocus(e);
+      }
+    },
+    [consumerOnFocus],
+  );
+
+  const handleKeyDownCapture = useCallback(
+    (e: KeyboardEvent) => {
+      handleKeyDown(e);
+      if (typeof consumerOnKeyDownCapture === 'function') {
+        consumerOnKeyDownCapture(e);
+      }
+    },
+    [handleKeyDown, consumerOnKeyDownCapture],
+  );
 
   const handleSectorClick = useCallback(
     (dataIndex: number) => {
-      if (!enabled) return;
+      if (!enabled) {
+        return;
+      }
       if (inSectorMode) {
         focusSector(dataIndex);
       } else {
@@ -174,12 +221,22 @@ export function usePieSectorFocus({
     };
   }
 
+  if (dataLength === 0) {
+    return {
+      containerProps: {
+        tabIndex: 0,
+        'aria-roledescription': 'chart',
+      } as const,
+      handleSectorClick: () => {},
+    };
+  }
+
   return {
     containerProps: {
       tabIndex: inSectorMode ? -1 : 0,
       role: 'application' as const,
       'aria-roledescription': 'chart',
-      onKeyDownCapture: handleKeyDown,
+      onKeyDownCapture: handleKeyDownCapture,
       onBlur: handleBlur,
       onFocus: handleFocus,
     },
