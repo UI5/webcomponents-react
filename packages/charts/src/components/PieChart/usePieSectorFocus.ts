@@ -7,13 +7,18 @@ interface UsePieSectorFocusOptions {
   enabled: boolean;
   activeSegment?: number;
   dataLength: number;
-  onSelect?: (index: number, event: KeyboardEvent) => void;
+  onSelect?: (index: number, event: KeyboardEvent<HTMLDivElement>) => void;
   getSectorLabel?: (index: number) => string;
   consumerOnBlur?: FocusEventHandler<HTMLDivElement>;
   consumerOnFocus?: FocusEventHandler<HTMLDivElement>;
   consumerOnKeyDownCapture?: KeyboardEventHandler<HTMLDivElement>;
 }
 
+/**
+ * Manages keyboard navigation through pie/donut chart sectors. Only one sector is tabbable at a time; arrow keys move focus between sectors.
+ *
+ * Active when `chartConfig.accessibilityLayer` is enabled.
+ */
 export function usePieSectorFocus({
   chartRef,
   enabled,
@@ -29,10 +34,12 @@ export function usePieSectorFocus({
   const lastSectorRef = useRef(-1);
   const [inSectorMode, setInSectorMode] = useState(false);
   const getSectorLabelRef = useRef(getSectorLabel);
+  // Keep ref in sync so focusSector always uses the latest callback without re-creating the memoized function.
   useEffect(() => {
     getSectorLabelRef.current = getSectorLabel;
   });
 
+  // Reset keyboard state when dataset size changes to prevent stale sector indices.
   useEffect(() => {
     sectorFocusRef.current = -1;
     lastSectorRef.current = -1;
@@ -51,6 +58,7 @@ export function usePieSectorFocus({
       if (!sectors.length) {
         return;
       }
+      // Recharts sectors have no identifying attributes, add them so they can be found after DOM reordering
       if (!sectors[0].hasAttribute('data-sector-index')) {
         sectors.forEach((s, i) => {
           s.setAttribute('data-sector-index', String(i));
@@ -68,6 +76,7 @@ export function usePieSectorFocus({
       }
       const target = pieGroup.querySelector<SVGGElement>(`.recharts-pie-sector[data-sector-index="${index}"]`);
       if (target) {
+        // SVG paints in document order - move focused sector last so its focus outline isn't hidden.
         pieGroup.appendChild(target);
         target.tabIndex = 0;
         target.focus();
@@ -88,6 +97,7 @@ export function usePieSectorFocus({
     setInSectorMode(false);
   }, [chartRef]);
 
+  // Recharts destroys and recreates all sector DOM elements on re-render, wiping imperative attributes.
   useIsomorphicLayoutEffect(() => {
     if (!enabled || sectorFocusRef.current < 0) {
       return;
@@ -96,7 +106,7 @@ export function usePieSectorFocus({
   }, [activeSegment, enabled, focusSector, inSectorMode]);
 
   const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
+    (e: KeyboardEvent<HTMLDivElement>) => {
       if (!dataLength) {
         return;
       }
@@ -158,7 +168,8 @@ export function usePieSectorFocus({
   );
 
   const handleBlur = useCallback(
-    (e: FocusEvent) => {
+    (e: FocusEvent<HTMLDivElement>) => {
+      // Defer cleanup — blur fires before layout effects, so the new focus target may not be settled yet.
       if (!e.currentTarget.contains(e.relatedTarget as Node)) {
         const container = e.currentTarget as HTMLElement;
         requestAnimationFrame(() => {
@@ -176,7 +187,8 @@ export function usePieSectorFocus({
   );
 
   const handleFocus = useCallback(
-    (e: FocusEvent) => {
+    (e: FocusEvent<HTMLDivElement>) => {
+      // Re-enter sector mode when tabbing back — restore the last focused sector.
       if (e.target === e.currentTarget && lastSectorRef.current >= 0) {
         sectorFocusRef.current = lastSectorRef.current;
         lastSectorRef.current = -1;
@@ -190,7 +202,7 @@ export function usePieSectorFocus({
   );
 
   const handleKeyDownCapture = useCallback(
-    (e: KeyboardEvent) => {
+    (e: KeyboardEvent<HTMLDivElement>) => {
       handleKeyDown(e);
       if (typeof consumerOnKeyDownCapture === 'function') {
         consumerOnKeyDownCapture(e);
