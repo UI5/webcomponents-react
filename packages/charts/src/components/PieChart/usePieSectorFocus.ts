@@ -33,6 +33,7 @@ export function usePieSectorFocus({
   const sectorFocusRef = useRef(-1);
   const lastSectorRef = useRef(-1);
   const spaceHeldRef = useRef(false);
+  const rafIdRef = useRef(0);
   const [inSectorMode, setInSectorMode] = useState(false);
   const getSectorLabelRef = useRef(getSectorLabel);
   // Keep ref in sync so focusSector always uses the latest callback without re-creating the memoized function.
@@ -48,6 +49,10 @@ export function usePieSectorFocus({
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setInSectorMode(false);
   }, [dataLength]);
+
+  useEffect(() => {
+    return () => cancelAnimationFrame(rafIdRef.current);
+  }, []);
 
   const focusSector = useCallback(
     (index: number) => {
@@ -94,6 +99,7 @@ export function usePieSectorFocus({
         .querySelectorAll<SVGGElement>('.recharts-pie-sector[tabindex]')
         .forEach((s) => s.removeAttribute('tabindex'));
     }
+    spaceHeldRef.current = false;
     sectorFocusRef.current = -1;
     setInSectorMode(false);
   }, [chartRef]);
@@ -178,7 +184,7 @@ export function usePieSectorFocus({
       // Defer cleanup — blur fires before layout effects, so the new focus target may not be settled yet.
       if (!e.currentTarget.contains(e.relatedTarget as Node)) {
         const container = e.currentTarget as HTMLElement;
-        requestAnimationFrame(() => {
+        rafIdRef.current = requestAnimationFrame(() => {
           if (!container.contains(document.activeElement)) {
             lastSectorRef.current = sectorFocusRef.current;
             exitSectorMode();
