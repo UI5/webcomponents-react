@@ -1,25 +1,11 @@
-import { BusyIndicator } from '@ui5/webcomponents-react/BusyIndicator';
-import { Label } from '@ui5/webcomponents-react/Label';
 import { useStylesheet } from '@ui5/webcomponents-react-base/internal/hooks';
 import type { CommonProps } from '@ui5/webcomponents-react-base/internal/types';
-import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { clsx } from 'clsx';
 import type { ComponentType, ReactElement, ReactNode } from 'react';
 import { Component, forwardRef } from 'react';
 import { ResponsiveContainer } from 'recharts';
+import { ChartBusyIndicator } from './ChartBusyIndicator.js';
 import { classNames, styleData } from './ChartContainer.module.css.js';
-
-addCustomCSSWithScoping(
-  'ui5-busy-indicator',
-  `
-:host([data-component-name="ChartContainerBusyIndicator"]) .ui5-busy-indicator-busy-area{
-    background:unset;
-},
-:host([data-component-name="ChartContainerBusyIndicator"]) .ui5-busy-indicator-busy-area:focus {
-    border-radius: 0;
-}
-`,
-);
 
 export interface ContainerProps extends CommonProps {
   children: ReactElement;
@@ -43,7 +29,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { errorCount: num
 
   render() {
     if (this.state.errorCount >= 3) {
-      return <Label>Sorry, something went wrong while rendering this chart!</Label>;
+      return <span className={classNames.errorMessage}>Sorry, something went wrong while rendering this chart!</span>;
     }
     return this.props.children;
   }
@@ -58,7 +44,7 @@ const ChartContainer = forwardRef<HTMLDivElement, ContainerProps>((props, ref) =
     slot,
     children,
     resizeDebounce,
-    loadingDelay,
+    loadingDelay = 1000,
     ...rest
   } = props;
 
@@ -68,14 +54,7 @@ const ChartContainer = forwardRef<HTMLDivElement, ContainerProps>((props, ref) =
     <div ref={ref} className={clsx(classNames.container, className)} slot={slot} {...rest}>
       {dataset?.length > 0 ? (
         <>
-          {loading && (
-            <BusyIndicator
-              active
-              delay={loadingDelay}
-              className={classNames.busyIndicator}
-              data-component-name="ChartContainerBusyIndicator"
-            />
-          )}
+          {loading && <ChartBusyIndicator delay={loadingDelay} className={classNames.busyIndicator} />}
           <ErrorBoundary>
             <ResponsiveContainer debounce={resizeDebounce}>{children}</ResponsiveContainer>
           </ErrorBoundary>

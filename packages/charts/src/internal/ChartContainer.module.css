@@ -8,12 +8,62 @@
   position: relative;
 }
 
+.errorMessage {
+  font-family: var(--sapFontFamily);
+  font-size: var(--sapFontSize);
+  color: var(--sapContent_LabelColor);
+}
+
 .busyIndicator {
   background-color: color-mix(in srgb, var(--sapBackgroundColor) 45%, transparent);
   position: absolute;
   inset: 0;
   height: 100%;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.busyIndicatorCircles {
+  line-height: 0;
+}
+
+.busyIndicatorCircle {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: var(--sapContent_BusyColor);
+}
+
+.busyIndicatorCircle:not(:last-child) {
+  margin-inline-end: 0.1875rem;
+}
+
+.circleAnimation0 {
+  animation: grow 1.6s infinite cubic-bezier(0.32, 0.06, 0.85, 1.11);
+}
+
+.circleAnimation1 {
+  animation: grow 1.6s infinite cubic-bezier(0.32, 0.06, 0.85, 1.11);
+  animation-delay: 0.2s;
+}
+
+.circleAnimation2 {
+  animation: grow 1.6s infinite cubic-bezier(0.32, 0.06, 0.85, 1.11);
+  animation-delay: 0.4s;
+}
+
+@keyframes grow {
+  0%,
+  50%,
+  100% {
+    transform: scale(0.5);
+  }
+  25% {
+    transform: scale(1);
+  }
 }
 
 :global(.has-click-handler) {
