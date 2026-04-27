@@ -1,0 +1,35 @@
+import{n as e,o as t,r as n}from"./chunk-jRWAZmH_.js";import{Bp as r,Cg as i,Cs as a,Ed as o,Gm as ee,Jp as s,Kp as c,Td as l,Ud as u,Wd as te,Xp as ne,Yp as re,as as ie,co as ae,cs as d,ds as f,es as p,eu as m,fs as h,lo as g,os as _,qp as v,sm as y,so as b,ss as x,ts as S,tu as oe,uo as C,ws as w,zp as T}from"./iframe-S6__9jAv.js";var E,D,O,k,A,j=e((()=>{w(),E=e=>{if(!e||!e.values||e.values.length!==1)return[];let t=e.values?e.values[0]:a.getInstance(),n=a.getInstance(t.getTime());return t?.setHours(0,0,0,0),n?.setHours(23,59,59,999),[t,n]},D=e=>{if(!e||!e.values||e.values.length!==2)return[];let t=e.values?e.values[0]:a.getInstance(),n=e.values?e.values[1]:a.getInstance();return t?.setHours(0,0,0,0),n?.setHours(23,59,59,999),[t,n]},O=()=>{let e=a.getInstance(),t=a.getInstance();return e.setHours(0,0,0,0),t.setHours(23,59,59,999),[e,t]},k=()=>{let e=a.getInstance(),t=a.getInstance();return e.setHours(0,0,0,0),e.setDate(e.getDate()-1),t.setHours(23,59,59,999),t.setDate(t.getDate()-1),[e,t]},A=()=>{let e=a.getInstance(),t=a.getInstance();return e.setHours(0,0,0,0),e.setDate(e.getDate()+1),t.setHours(23,59,59,999),t.setDate(t.getDate()+1),[e,t]}})),M,N=e((()=>{j(),y(),C(),M=class{parse(){let e={operator:``};return e.operator=this.operator,e}format(){return`Today`}toDates(){return O()}isValidString(e){return e===this.text}get text(){return g.i18nBundle.getText(s)}get operator(){return`TODAY`}get icon(){return``}},g.register(`TODAY`,M)})),P,F=e((()=>{j(),y(),C(),P=class{parse(){let e={operator:``};return e.operator=this.operator,e}format(){return`Yesterday`}toDates(){return k()}isValidString(e){return e===this.text}get text(){return g.i18nBundle.getText(ne)}get operator(){return`YESTERDAY`}get icon(){return``}},g.register(`YESTERDAY`,P)})),I,L=e((()=>{j(),y(),C(),I=class{parse(){let e={operator:``};return e.operator=this.operator,e}format(){return`Tomorrow`}toDates(){return A()}isValidString(e){return e===this.text}get text(){return g.i18nBundle.getText(re)}get operator(){return`TOMORROW`}get icon(){return``}},g.register(`TOMORROW`,I)}));function R(){return r(p,{onSelectionChange:this.handleSelectionChange,children:r(x,{value:this.value&&this.getOption(this.value?.operator)?.format(this.value)})})}var z=e((()=>{T(),S(),d()})),B,V=e((()=>{z(),h(),y(),j(),C(),B=class{constructor(){this.template=R}parse(e){let t=this.getFormat().parse(e),n={operator:``,values:[]};return n.operator=this.operator,n.values=[t],n}format(e){let t=e?.values;if(!t)return``;let n=t[0];return this.getFormat().format(n)}toDates(e){return E(e)}isValidString(e){let t=this.getFormat().parse(e);return!(!t||Number.isNaN(t.getTime()))}get text(){return g.i18nBundle.getText(v)}get operator(){return`DATE`}get icon(){return`appointment-2`}handleSelectionChange(e){let t={operator:``,values:[]};return t.values=[],t.operator=this.operator,e.detail.selectedDates[0]&&(t.values[0]=new Date(e.detail.selectedDates[0]*1e3)),t}getFormat(){return f.getDateInstance({strictParsing:!0})}},g.register(`DATE`,B)}));function H(){return r(p,{onSelectionChange:this.handleSelectionChange,selectionMode:`Range`,children:r(ie,{startValue:this.value?.operator===`DATERANGE`&&this.getOption(this.value.operator)?.format(this.value)?.split(`-`)[0]||void 0,endValue:this.value?.operator===`DATERANGE`&&this.getOption(this.value.operator)?.format(this.value)?.split(`-`)[1]||void 0})})}var U=e((()=>{T(),S(),_()})),W,G=e((()=>{U(),h(),w(),y(),j(),C(),W=class{constructor(){this.template=H}parse(e){let t={operator:``,values:[]};return t.operator=this.operator,t.values=this.getFormat().parse(e),t}format(e){let t=e?.values;return!t||t.length!==2||!t[1]?``:this.getFormat().format(t)}toDates(e){return D(e)}get text(){return g.i18nBundle.getText(c)}get operator(){return`DATERANGE`}get icon(){return`appointment-2`}isValidString(e){let t=this.getFormat().parse(e);return!(!t[0]||!t[1]||Number.isNaN(t[0].getTime())||Number.isNaN(t[1].getTime()))}getFormat(){return f.getDateInstance({strictParsing:!0,interval:!0,intervalDelimiter:` - `})}handleSelectionChange(e){let t={operator:``,values:[]};if(t.values=[],t.operator=this.operator,e.detail.selectedDates[0]&&(t.values[0]=a.getInstance(e.detail.selectedDates[0]*1e3)),e.detail.selectedDates[1]&&(t.values[1]=a.getInstance(e.detail.selectedDates[1]*1e3)),t.values.length===2&&t.values[0]&&t.values[1]){let e=t.values[0],n=t.values[1];e.getTime()>n.getTime()&&(t.values=[n,e])}return t}},g.register(`DATERANGE`,W)})),K=n({Default:()=>X,ValueChange:()=>Z,__namedExportsOrder:()=>Q,default:()=>Y}),q,J,Y,X,Z,Q,$=e((()=>{N(),F(),L(),V(),G(),q=t(i(),1),te(),o(),oe(),ae(),J=ee(),Y={title:`Inputs / DynamicDateRange`,component:b,argTypes:{},args:{options:`TODAY, TOMORROW, YESTERDAY, DATE, DATERANGE`},tags:[`package:@ui5/webcomponents`]},X={},Z={render(e){let[t,n]=(0,q.useState)(``),[r,i]=(0,q.useState)(``);return(0,J.jsxs)(J.Fragment,{children:[(0,J.jsx)(b,{...e,onChange:e=>{let t=e.detail.value;n(JSON.stringify(t)),i(e.currentTarget.toDates(t).map(e=>e.toLocaleString()).join(` - `))}}),(0,J.jsx)(`hr`,{}),(0,J.jsxs)(u,{alignItems:`Center`,gap:`0.5rem`,children:[(0,J.jsx)(m,{for:`sel-val`,showColon:!0,children:`Selected Value`}),(0,J.jsx)(l,{id:`sel-val`,readonly:!0,value:t,style:{width:`100%`,maxWidth:`400px`}})]}),(0,J.jsxs)(u,{alignItems:`Center`,gap:`0.5rem`,children:[(0,J.jsx)(m,{for:`conv-val`,showColon:!0,children:`Converted Dates`}),(0,J.jsx)(l,{id:`conv-val`,readonly:!0,value:r,style:{width:`100%`,maxWidth:`400px`}})]})]})}},X.parameters={...X.parameters,docs:{...X.parameters?.docs,source:{originalSource:`{}`,...X.parameters?.docs?.source}}},Z.parameters={...Z.parameters,docs:{...Z.parameters?.docs,source:{originalSource:`{
+  render(args) {
+    const [selValue, setSelValue] = useState('');
+    const [convertedDates, setConvertedDates] = useState('');
+    return <>
+        <DynamicDateRange {...args} onChange={e => {
+        const selectedValue = e.detail.value;
+        setSelValue(JSON.stringify(selectedValue));
+
+        //@ts-expect-error: \`toDates\` is available
+        const dates = e.currentTarget.toDates(selectedValue);
+        setConvertedDates(dates.map(date => date.toLocaleString()).join(' - '));
+      }} />
+        <hr />
+        <FlexBox alignItems="Center" gap="0.5rem">
+          <Label for="sel-val" showColon>
+            Selected Value
+          </Label>
+          <Input id="sel-val" readonly value={selValue} style={{
+          width: '100%',
+          maxWidth: '400px'
+        }} />
+        </FlexBox>
+        <FlexBox alignItems="Center" gap="0.5rem">
+          <Label for="conv-val" showColon>
+            Converted Dates
+          </Label>
+          <Input id="conv-val" readonly value={convertedDates} style={{
+          width: '100%',
+          maxWidth: '400px'
+        }} />
+        </FlexBox>
+      </>;
+  }
+}`,...Z.parameters?.docs?.source}}},Q=[`Default`,`ValueChange`]}));$();export{X as Default,Z as ValueChange,Q as __namedExportsOrder,Y as default,$ as n,K as t};

@@ -1,1 +1,0 @@
-import{n as e,o as t}from"./chunk-zsgVPwQN.js";import{t as n}from"./react-C184PLS3.js";import{i as r,u as i}from"./utils-CniFWuoe.js";var a,o,s=e((()=>{r(),a=t(n(),1),o=e=>{let[t,n]=(0,a.useState)(!0),r=(0,a.useRef)(i(()=>{n(!1),n(!0)},1500)).current;return{isMounted:t,handleBarAnimationStart:()=>{e||r()},handleBarAnimationEnd:()=>{e||r.cancel()}}}}));export{o as n,s as t};
