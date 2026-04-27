@@ -707,7 +707,14 @@ export const ContextMenu: Story = {
     const [checkedAvailable, setCheckedAvailable] = useState<Product[]>([]);
     const [checkedSelected, setCheckedSelected] = useState<Product[]>([]);
     const anchorRef = useRef<HTMLDivElement>(null);
+    const rafId = useRef(0);
     const [toastOpen, setToastOpen] = useState(false);
+
+    useEffect(() => {
+      return () => {
+        cancelAnimationFrame(rafId.current);
+      };
+    }, []);
 
     const columns = useMemo(() => productColumns, []);
 
@@ -760,7 +767,7 @@ export const ContextMenu: Story = {
         }
         // Defer open so it runs after the menu's onClose from the previous right-click.
         setMenuOpen(false);
-        requestAnimationFrame(() => {
+        rafId.current = requestAnimationFrame(() => {
           setMenuOpen(true);
         });
       };

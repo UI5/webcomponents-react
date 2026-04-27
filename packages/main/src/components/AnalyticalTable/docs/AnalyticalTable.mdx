@@ -624,6 +624,12 @@ function ContextMenuExample() {
   const [menuTarget, setMenuTarget] = useState<'available' | 'selected'>('available');
   const [contextRow, setContextRow] = useState<Product | null>(null);
   const anchorRef = useRef<HTMLDivElement>(null);
+  const rafId = useRef(0);
+  useEffect(() => {
+    return () => {
+      cancelAnimationFrame(rafId.current);
+    };
+  }, []);
 
   const moveToSelected = (rows: Product[]) => {
     const ids = new Set(rows.map((r) => r.id));
@@ -660,7 +666,7 @@ function ContextMenuExample() {
     }
     // Defer open so it runs after the menu's onClose from the previous right-click.
     setMenuOpen(false);
-    requestAnimationFrame(() => setMenuOpen(true));
+    rafId.current = requestAnimationFrame(() => setMenuOpen(true));
   };
 
   const handleMenuItemClick = () => {
