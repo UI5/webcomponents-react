@@ -6,6 +6,7 @@ import type { ReactTableHooks, RowType, TableInstance } from '../types/index.js'
 
 const getRowProps = (rowProps, { row, instance }: { row: RowType; instance: TableInstance }) => {
   const { webComponentsReactProperties, toggleRowSelected, selectedFlatRows } = instance;
+  const { onRowContextMenu } = webComponentsReactProperties;
   const handleRowSelect = (e) => {
     const isSelectionCell = e.target.dataset.selectionCell === 'true';
     if (
@@ -86,12 +87,22 @@ const getRowProps = (rowProps, { row, instance }: { row: RowType; instance: Tabl
     }
   };
 
+  const handleContextMenu = (e) => {
+    if (typeof onRowContextMenu === 'function') {
+      const cellElement = e.target.closest('[data-column-index]');
+      const columnIndex = cellElement ? parseInt(cellElement.dataset.columnIndex, 10) : undefined;
+      const column = columnIndex != null ? row.cells[columnIndex]?.column : undefined;
+      onRowContextMenu(enrichEventWithDetails(e, { row, column }));
+    }
+  };
+
   return [
     rowProps,
     {
       onKeyDown: handleKeyDown,
       onKeyUp: handleKeyUp,
       onClick: handleRowSelect,
+      onContextMenu: handleContextMenu,
     },
   ];
 };

@@ -3,6 +3,8 @@ import dataTree from '@sb/mockData/FriendsTree.json';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@ui5/webcomponents-icons/dist/delete.js';
 import '@ui5/webcomponents-icons/dist/edit.js';
+import '@ui5/webcomponents-icons/dist/navigation-left-arrow.js';
+import '@ui5/webcomponents-icons/dist/navigation-right-arrow.js';
 import '@ui5/webcomponents-icons/dist/settings.js';
 import NoDataIllustration from '@ui5/webcomponents-fiori/dist/illustrations/NoData.js';
 import NoFilterResults from '@ui5/webcomponents-fiori/dist/illustrations/NoFilterResults.js';
@@ -21,6 +23,8 @@ import {
 import { Button } from '../../../webComponents/Button/index.js';
 import { IllustratedMessage } from '../../../webComponents/IllustratedMessage/index.js';
 import { Label } from '../../../webComponents/Label/index.js';
+import { Menu } from '../../../webComponents/Menu/index.js';
+import { MenuItem } from '../../../webComponents/MenuItem/index.js';
 import { MultiComboBox } from '../../../webComponents/MultiComboBox/index.js';
 import { MultiComboBoxItem } from '../../../webComponents/MultiComboBoxItem/index.js';
 import { Option } from '../../../webComponents/Option/index.js';
@@ -30,6 +34,7 @@ import { SegmentedButtonItem } from '../../../webComponents/SegmentedButtonItem/
 import { Select } from '../../../webComponents/Select/index.js';
 import { Tag } from '../../../webComponents/Tag/index.js';
 import { Text } from '../../../webComponents/Text/index.js';
+import { Toast } from '../../../webComponents/Toast/index.js';
 import type { ToggleButtonPropTypes } from '../../../webComponents/ToggleButton/index.js';
 import { ToggleButton } from '../../../webComponents/ToggleButton/index.js';
 import { FlexBox } from '../../FlexBox/index.js';
@@ -169,6 +174,7 @@ const meta = {
     chromatic: { disableSnapshot: true },
   },
   args: {
+    onRowContextMenu: console.log,
     data: dataLarge,
     columns: [
       {
@@ -668,6 +674,184 @@ export const KitchenSink: Story = {
   args: kitchenSinkArgs,
   render(args, context) {
     return context.viewMode === 'story' ? <AnalyticalTable {...args} /> : <ToggleableTable {...args} />;
+  },
+};
+
+const productData = [
+  { id: '1', product: 'Laptop Pro 15', category: 'Electronics', price: 1299 },
+  { id: '2', product: 'Wireless Mouse', category: 'Accessories', price: 49 },
+  { id: '3', product: 'USB-C Hub', category: 'Accessories', price: 79 },
+  { id: '4', product: 'Mechanical Keyboard', category: 'Accessories', price: 159 },
+  { id: '5', product: 'Monitor 27"', category: 'Electronics', price: 599 },
+  { id: '6', product: 'Webcam HD', category: 'Electronics', price: 89 },
+  { id: '7', product: 'Desk Lamp', category: 'Office', price: 45 },
+  { id: '8', product: 'Standing Desk', category: 'Office', price: 899 },
+];
+
+const productColumns: AnalyticalTableColumnDefinition[] = [
+  { Header: 'Product', accessor: 'product' },
+  { Header: 'Category', accessor: 'category' },
+  { Header: 'Price', accessor: 'price', hAlign: TextAlign.End },
+];
+
+type Product = (typeof productData)[number];
+
+export const ContextMenu: Story = {
+  render() {
+    const [availableProducts, setAvailableProducts] = useState(productData);
+    const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [menuTarget, setMenuTarget] = useState<'available' | 'selected'>('available');
+    const [contextRow, setContextRow] = useState<Product | null>(null);
+    const [checkedAvailable, setCheckedAvailable] = useState<Product[]>([]);
+    const [checkedSelected, setCheckedSelected] = useState<Product[]>([]);
+    const anchorRef = useRef<HTMLDivElement>(null);
+    const [toastOpen, setToastOpen] = useState(false);
+
+    const columns = useMemo(() => productColumns, []);
+
+    const moveToSelected = (rows: Product[]) => {
+      const ids = new Set(rows.map((r) => r.id));
+      setAvailableProducts((prev) => prev.filter((p) => !ids.has(p.id)));
+      setSelectedProducts((prev) => [...prev, ...rows.filter((r) => !prev.some((p) => p.id === r.id))]);
+      setCheckedAvailable([]);
+    };
+
+    const moveToAvailable = (rows: Product[]) => {
+      const ids = new Set(rows.map((r) => r.id));
+      setSelectedProducts((prev) => prev.filter((p) => !ids.has(p.id)));
+      setAvailableProducts((prev) => [...prev, ...rows.filter((r) => !prev.some((p) => p.id === r.id))]);
+      setCheckedSelected([]);
+    };
+
+    const handleMoveRight = () => {
+      if (checkedAvailable.length) {
+        moveToSelected(checkedAvailable);
+      } else {
+        setToastOpen(true);
+      }
+    };
+
+    const handleMoveLeft = () => {
+      if (checkedSelected.length) {
+        moveToAvailable(checkedSelected);
+      } else {
+        setToastOpen(true);
+      }
+    };
+
+    const handleRowSelect: (setter: typeof setCheckedAvailable) => AnalyticalTablePropTypes['onRowSelect'] =
+      (setter) => (e) => {
+        const rows = Object.values(e.detail.rowsById)
+          .filter((r) => e.detail.selectedRowIds[r.id])
+          .map((r) => r.original as Product);
+        setter(rows);
+      };
+
+    const handleContextMenu: (target: 'available' | 'selected') => AnalyticalTablePropTypes['onRowContextMenu'] =
+      (target) => (e) => {
+        e.preventDefault();
+        setContextRow(e.detail.row.original as Product);
+        setMenuTarget(target);
+        if (anchorRef.current) {
+          anchorRef.current.style.left = `${e.clientX}px`;
+          anchorRef.current.style.top = `${e.clientY}px`;
+        }
+        // Defer open so it runs after the menu's onClose from the previous right-click.
+        setMenuOpen(false);
+        requestAnimationFrame(() => {
+          setMenuOpen(true);
+        });
+      };
+
+    const handleMenuItemClick = () => {
+      if (!contextRow) {
+        return;
+      }
+      if (menuTarget === 'available') {
+        moveToSelected([contextRow]);
+      } else {
+        moveToAvailable([contextRow]);
+      }
+      setMenuOpen(false);
+      setContextRow(null);
+    };
+
+    return (
+      <>
+        <FlexBox alignItems={FlexBoxAlignItems.Start} style={{ gap: '0.5rem' }}>
+          <AnalyticalTable
+            header="Available Products"
+            columns={columns}
+            data={availableProducts}
+            selectionMode={AnalyticalTableSelectionMode.Multiple}
+            onRowContextMenu={handleContextMenu('available')}
+            onRowSelect={handleRowSelect(setCheckedAvailable)}
+            noDataText="All products have been moved to the selected table."
+            visibleRows={8}
+            minRows={8}
+            style={{ flex: 1 }}
+          />
+          <FlexBox
+            direction={FlexBoxDirection.Column}
+            justifyContent={FlexBoxJustifyContent.Center}
+            alignItems={FlexBoxAlignItems.Center}
+            style={{ gap: '0.25rem', alignSelf: 'center' }}
+          >
+            <Button
+              icon="navigation-right-arrow"
+              onClick={handleMoveRight}
+              tooltip="Move selected to Selected Products"
+              accessibleName="Move selected to Selected Products"
+            />
+            <Button
+              icon="navigation-left-arrow"
+              onClick={handleMoveLeft}
+              tooltip="Move selected to Available Products"
+              accessibleName="Move selected to Available Products"
+            />
+          </FlexBox>
+          <AnalyticalTable
+            header="Selected Products"
+            columns={columns}
+            data={selectedProducts}
+            selectionMode={AnalyticalTableSelectionMode.Multiple}
+            onRowContextMenu={handleContextMenu('selected')}
+            onRowSelect={handleRowSelect(setCheckedSelected)}
+            noDataText="No products selected yet. Use the buttons or right-click a row to move products here."
+            visibleRows={8}
+            minRows={8}
+            style={{ flex: 1 }}
+          />
+        </FlexBox>
+        <div
+          ref={anchorRef}
+          aria-hidden="true"
+          style={{ position: 'fixed', width: 0, height: 0, pointerEvents: 'none' }}
+        />
+        {menuOpen && (
+          <Menu
+            open
+            opener={anchorRef.current}
+            onClose={() => {
+              setMenuOpen(false);
+            }}
+            onItemClick={handleMenuItemClick}
+          >
+            <MenuItem
+              text={`Move to ${menuTarget === 'available' ? 'Selected Products' : 'Available Products'}`}
+              icon={menuTarget === 'available' ? 'navigation-right-arrow' : 'navigation-left-arrow'}
+            />
+          </Menu>
+        )}
+        {toastOpen && (
+          <Toast open onClose={() => setToastOpen(false)}>
+            Please select a row
+          </Toast>
+        )}
+      </>
+    );
   },
 };
 

@@ -295,6 +295,7 @@ export interface WCRPropertiesType {
   classes: ClassNames;
   onAutoResize: AnalyticalTablePropTypes['onAutoResize'];
   onRowClick: AnalyticalTablePropTypes['onRowClick'];
+  onRowContextMenu: AnalyticalTablePropTypes['onRowContextMenu'];
   onRowExpandChange: AnalyticalTablePropTypes['onRowExpandChange'];
   onSort: AnalyticalTablePropTypes['onSort'];
   onGroup: AnalyticalTablePropTypes['onGroup'];
@@ -731,6 +732,16 @@ interface OnRowClickEvent extends Omit<UIEvent, 'detail'> {
   detail: { row: RowType; nativeDetail: number };
 }
 
+interface OnRowContextMenuEvent extends Omit<MouseEvent, 'detail'> {
+  detail: {
+    row: RowType;
+    /**
+     * __Note:__ `undefined` if right-click did not target a specific cell
+     **/
+    column: ColumnType | undefined;
+  };
+}
+
 export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   /**
    * Defines the columns array where you can define the configuration for each column.
@@ -1095,6 +1106,12 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    * Fired when a row is clicked
    */
   onRowClick?: (e: OnRowClickEvent) => void;
+  /**
+   * Fired when a row is right-clicked (context menu).
+   *
+   * Call `e.preventDefault()` inside the callback to suppress it and show your own menu.
+   */
+  onRowContextMenu?: (e: OnRowContextMenuEvent) => void;
   /**
    * Fired when a row is expanded or collapsed
    */

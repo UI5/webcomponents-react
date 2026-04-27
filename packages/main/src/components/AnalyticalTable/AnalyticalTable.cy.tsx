@@ -2262,6 +2262,29 @@ describe('AnalyticalTable', () => {
     cy.get('@rowSelect').should('have.callCount', 11);
   });
 
+  it('onRowContextMenu', () => {
+    const contextMenu = cy.spy().as('contextMenu');
+    cy.mount(<AnalyticalTable data={data} columns={columns} onRowContextMenu={contextMenu} />);
+
+    cy.findByText('A').rightclick();
+    cy.get('@contextMenu').should('have.been.calledOnce');
+    cy.get('@contextMenu').should('have.been.calledWithMatch', {
+      detail: {
+        row: Cypress.sinon.match({ original: { name: 'A', age: 40 } }),
+        column: Cypress.sinon.match({ id: 'name' }),
+      },
+    });
+
+    cy.findByText('20').rightclick();
+    cy.get('@contextMenu').should('have.been.calledTwice');
+    cy.get('@contextMenu').should('have.been.calledWithMatch', {
+      detail: {
+        row: Cypress.sinon.match({ original: Cypress.sinon.match({ name: 'B', age: 20 }) }),
+        column: Cypress.sinon.match({ id: 'age' }),
+      },
+    });
+  });
+
   it('withRowHighlight', () => {
     const errorColor = cssVarToRgb(ThemingParameters.sapErrorColor);
     const successColor = cssVarToRgb(ThemingParameters.sapSuccessColor);
