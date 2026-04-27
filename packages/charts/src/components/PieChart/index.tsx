@@ -154,7 +154,15 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
     }
 
     return (
-      <RechartsText {...props} alignmentBaseline="middle" className="recharts-pie-label-text">
+      <RechartsText
+        {...props}
+        alignmentBaseline="middle"
+        className="recharts-pie-label-text"
+        style={{ paintOrder: 'stroke fill' }}
+        stroke="var(--sapTextColor)"
+        strokeWidth={0.5}
+        strokeLinejoin="round"
+      >
         {measure.formatter(props.value)}
       </RechartsText>
     );
@@ -237,10 +245,29 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
             <>
               <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
               <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-              <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill={fill}>
+              <text
+                x={ex + (cos >= 0 ? 1 : -1) * 12}
+                y={ey}
+                textAnchor={textAnchor}
+                fill={fill}
+                style={{ paintOrder: 'stroke fill' }}
+                stroke="var(--sapTextColor)"
+                strokeWidth={0.5}
+                strokeLinejoin="round"
+              >
                 {measure.formatter(value)}
               </text>
-              <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill={fill}>
+              <text
+                x={ex + (cos >= 0 ? 1 : -1) * 12}
+                y={ey}
+                dy={18}
+                textAnchor={textAnchor}
+                fill={fill}
+                style={{ paintOrder: 'stroke fill' }}
+                stroke="var(--sapTextColor)"
+                strokeWidth={0.5}
+                strokeLinejoin="round"
+              >
                 {`(${(percent * 100).toFixed(2)}%)`}
               </text>
             </>
