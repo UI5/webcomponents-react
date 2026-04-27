@@ -2,7 +2,6 @@
 
 import { debounce, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
-import type { CSSProperties } from 'react';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { SplitterLayoutContext } from '../../internal/SplitterLayoutContext.js';
 import { classNames, styleData } from './SplitterLayout.module.css.js';
@@ -89,12 +88,10 @@ const SplitterLayout = forwardRef<HTMLDivElement, SplitterLayoutPropTypes>((prop
   return (
     <SplitterLayoutContext.Provider value={{ vertical, reset }}>
       <div
-        style={
-          {
-            flexDirection: vertical ? 'column' : 'row',
-            ...style,
-          } as CSSProperties
-        }
+        style={{
+          flexDirection: vertical ? 'column' : 'row',
+          ...style,
+        }}
         title={title}
         {...rest}
         className={clsx(classNames.splitterLayout, className)}

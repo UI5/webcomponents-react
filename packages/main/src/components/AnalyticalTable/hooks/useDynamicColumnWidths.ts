@@ -531,7 +531,7 @@ const adjustColumnWidths = (instance: TableInstance) => {
       width,
       minWidth,
       maxWidth,
-    } as AnalyticalTableColumnDefinition;
+    };
   });
 
   const hasData = data.length > 0;

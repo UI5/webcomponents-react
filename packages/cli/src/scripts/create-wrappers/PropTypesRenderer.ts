@@ -24,7 +24,7 @@ export class PropTypesRenderer extends AbstractRenderer {
           return {
             ...s,
             name: 'children',
-          } as CEM.Slot;
+          };
         }
         return s;
       })
