@@ -361,6 +361,7 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
         )}
       >
         <Pie
+          // TODO: only pass onClick when hasDataPointClick || activeSegment != null in v3
           onClick={onDataPointClickInternal}
           innerRadius={chartConfig.innerRadius}
           outerRadius={chartConfig.outerRadius}

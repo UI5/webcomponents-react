@@ -130,13 +130,13 @@ export function testPieSectorFocus(Component, props, { only }: { only?: boolean 
       .and('have.attr', 'role', 'img')
       .and('have.attr', 'aria-label');
 
-    cy.realPress('ArrowRight');
-    cy.focused().should('have.attr', 'data-sector-index', '1');
     cy.realPress('ArrowLeft');
+    cy.focused().should('have.attr', 'data-sector-index', '1');
+    cy.realPress('ArrowRight');
     cy.focused().should('have.attr', 'data-sector-index', '0');
 
     // Wraps from first to last
-    cy.realPress('ArrowLeft');
+    cy.realPress('ArrowRight');
     cy.focused().should('have.attr', 'data-sector-index', String(props.dataset.length - 1));
 
     cy.realPress('Enter');
@@ -180,7 +180,7 @@ export function testPieSectorFocus(Component, props, { only }: { only?: boolean 
     cy.realPress('Tab');
     cy.focused().should('have.attr', 'data-sector-index', '3');
 
-    cy.realPress('ArrowRight');
+    cy.realPress('ArrowLeft');
     cy.focused().should('have.attr', 'data-sector-index', '4');
     cy.realPress('Enter');
     cy.get('@onDataPointClick').should(
@@ -194,12 +194,12 @@ export function testPieSectorFocus(Component, props, { only }: { only?: boolean 
     cy.get('.recharts-active-shape').should('exist');
     cy.focused().should('have.attr', 'data-sector-index', '4');
 
-    cy.realPress('ArrowRight');
+    cy.realPress('ArrowLeft');
     cy.focused().should('have.attr', 'data-sector-index', '5');
 
     // Space activates on keyup — hold Space, arrow to next sector, then release
     cy.focused().then(($el) => $el[0].dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true })));
-    cy.realPress('ArrowRight');
+    cy.realPress('ArrowLeft');
     cy.focused().should('have.attr', 'data-sector-index', '6');
     cy.focused().then(($el) => $el[0].dispatchEvent(new KeyboardEvent('keyup', { key: ' ', bubbles: true })));
     cy.get('@onDataPointClick').should(

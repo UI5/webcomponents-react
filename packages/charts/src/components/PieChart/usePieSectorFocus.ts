@@ -147,14 +147,14 @@ export function usePieSectorFocus({
       }
 
       switch (e.key) {
-        case 'ArrowRight':
+        case 'ArrowLeft':
         case 'ArrowUp': {
           e.preventDefault();
           e.stopPropagation();
           focusSector((sectorFocusRef.current + 1) % dataLength);
           break;
         }
-        case 'ArrowLeft':
+        case 'ArrowRight':
         case 'ArrowDown': {
           e.preventDefault();
           e.stopPropagation();
@@ -182,7 +182,7 @@ export function usePieSectorFocus({
   const handleBlur = useCallback(
     (e: FocusEvent<HTMLDivElement>) => {
       // Defer cleanup — blur fires before layout effects, so the new focus target may not be settled yet.
-      if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+      if (!e.currentTarget.contains(e.relatedTarget)) {
         const container = e.currentTarget as HTMLElement;
         rafIdRef.current = requestAnimationFrame(() => {
           if (!container.contains(document.activeElement)) {
