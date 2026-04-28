@@ -1,1 +1,0 @@
-import{n as e,o as t}from"./chunk-jRWAZmH_.js";import{Cg as n,Xm as r,qm as i}from"./iframe-Dht4FHWD.js";var a,o,s=e((()=>{i(),a=t(n(),1),o=e=>{let[t,n]=(0,a.useState)(!0),i=(0,a.useRef)(r(()=>{n(!1),n(!0)},1500)).current;return{isMounted:t,handleBarAnimationStart:()=>{e||i()},handleBarAnimationEnd:()=>{e||i.cancel()}}}}));export{o as n,s as t};
