@@ -255,7 +255,7 @@ export function testPieSectorFocus(Component, props, { only }: { only?: boolean 
     cy.realPress('Tab');
 
     for (let i = 0; i < 5; i++) {
-      cy.realPress('ArrowRight');
+      cy.realPress('ArrowLeft');
     }
     cy.focused().should('have.attr', 'data-sector-index', '5');
 
