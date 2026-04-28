@@ -344,7 +344,11 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
           activeShape={chartConfig.activeSegment != null && renderActiveShape}
           rootTabIndex={-1}
         >
-          {centerLabel && <RechartsLabel position="center">{centerLabel}</RechartsLabel>}
+          {centerLabel && (
+            <RechartsLabel position="center" fill="var(--sapTextColor)">
+              {centerLabel}
+            </RechartsLabel>
+          )}
           {dataset &&
             dataset.map((data, index) => (
               <Cell
