@@ -2,6 +2,22 @@
 
 Chart library built on top of [recharts](https://recharts.org/) for ui5-webcomponents-react.
 
+## Deprecation Notice
+
+`@ui5/webcomponents-react-charts` will be discontinued with v3 of `@ui5/webcomponents-react`. The package will not receive updates beyond v2 maintenance.
+
+### Why
+
+This package is not backed by SAP global design or accessibility specifications and does not meet the quality and governance standards of the UI5 Web Components ecosystem. Capturing every aspect of a chart for assistive technologies is inherently complex, and without clear specifications to implement against, comprehensive accessibility support cannot be ensured within current maintenance capacity.
+
+New implementations should not depend on this package. Existing consumers should plan for migration before the v3 release.
+
+If you have questions or concerns, please raise them in the [deprecation announcement](https://github.com/UI5/webcomponents-react/discussions/).
+
+### SAP Inner-Source alternative
+
+If you have access to SAP-internal systems, a drop-in replacement is available [`here`](https://github.tools.sap/mxp/charts).
+
 ## Installation
 
 ```bash
