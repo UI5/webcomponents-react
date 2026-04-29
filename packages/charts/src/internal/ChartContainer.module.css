@@ -25,7 +25,7 @@
   }
 }
 
-.container svg[tabindex]:focus-visible {
+.container svg[tabindex]:focus {
   outline: var(--sapContent_FocusWidth) var(--sapContent_FocusStyle) var(--sapContent_FocusColor);
   outline-offset: -1px;
 }
