@@ -4,6 +4,12 @@
     outline: none;
   }
 
+  :global(.recharts-pie-sector):focus path {
+    stroke: var(--sapContent_FocusColor);
+    stroke-width: calc(var(--sapContent_FocusWidth) * 2);
+    paint-order: stroke;
+  }
+
   [data-active-legend] {
     background: color-mix(in srgb, var(--sapSelectedColor), transparent 87%);
     :global(.recharts-legend-item-text) {

@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
-import { legendConfig, simpleDataSet, simpleDataSetWithSmallValues, tooltipConfig } from '../../resources/DemoProps.js';
+import {
+  legendConfig,
+  simpleDataSet,
+  simpleDataSetWithSmallValues,
+  tooltipConfig,
+  keyboardNavigationStory,
+} from '../../resources/DemoProps.js';
 import { PieChart } from './index.js';
 
 const meta = {
@@ -90,6 +96,8 @@ export const WithActiveShape: Story = {
     return <PieChart {...args} chartConfig={{ ...args.chartConfig, activeSegment }} onClick={handleChartClick} />;
   },
 };
+
+export const KeyboardNavigation: Story = keyboardNavigationStory(PieChart);
 
 export const HideLabels: Story = {
   args: {

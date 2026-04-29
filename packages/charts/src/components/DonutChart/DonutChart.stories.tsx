@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
-import { legendConfig, simpleDataSet, simpleDataSetWithSmallValues, tooltipConfig } from '../../resources/DemoProps.js';
+import {
+  legendConfig,
+  simpleDataSet,
+  simpleDataSetWithSmallValues,
+  tooltipConfig,
+  keyboardNavigationStory,
+} from '../../resources/DemoProps.js';
 import { DonutChart } from './index.js';
 
 const meta = {
@@ -75,28 +81,6 @@ export const WithFormatter: Story = {
   },
 };
 
-export const HideLabels: Story = {
-  args: {
-    measure: {
-      accessor: 'users',
-      hideDataLabel: (chartConfig) => {
-        if (chartConfig.percent < 0.01) {
-          return true;
-        }
-      },
-    },
-    dataset: simpleDataSetWithSmallValues,
-  },
-};
-
-export const WithCustomTooltipConfig: Story = {
-  args: tooltipConfig,
-};
-
-export const WithCustomLegendConfig: Story = {
-  args: legendConfig,
-};
-
 export const WithActiveShape: Story = {
   args: {
     chartConfig: {
@@ -119,4 +103,28 @@ export const WithActiveShape: Story = {
 
     return <DonutChart {...args} chartConfig={{ ...args.chartConfig, activeSegment }} onClick={handleChartClick} />;
   },
+};
+
+export const KeyboardNavigation: Story = keyboardNavigationStory(DonutChart);
+
+export const HideLabels: Story = {
+  args: {
+    measure: {
+      accessor: 'users',
+      hideDataLabel: (chartConfig) => {
+        if (chartConfig.percent < 0.01) {
+          return true;
+        }
+      },
+    },
+    dataset: simpleDataSetWithSmallValues,
+  },
+};
+
+export const WithCustomTooltipConfig: Story = {
+  args: tooltipConfig,
+};
+
+export const WithCustomLegendConfig: Story = {
+  args: legendConfig,
 };

@@ -1,4 +1,6 @@
 import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
+import type { ComponentType } from 'react';
+import { useEffect, useState } from 'react';
 import { DefaultTooltipContent } from 'recharts';
 import type { TooltipProps } from 'recharts';
 import type { IChartBaseProps } from '../interfaces/IChartBaseProps.js';
@@ -667,3 +669,34 @@ export const CustomTooltipContent = ({ payload, ...rest }: TooltipProps<number, 
 };
 
 CustomTooltipContent.displayName = 'CustomTooltipContent';
+
+export function keyboardNavigationStory(Chart: ComponentType<any>) {
+  return {
+    args: {
+      chartConfig: {
+        accessibilityLayer: true,
+        activeSegment: 0,
+        showActiveSegmentDataLabel: true,
+      },
+    },
+    render(args) {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const [activeSegment, setActiveSegment] = useState(args.chartConfig.activeSegment);
+      const handleDataPointClick = (e) => {
+        const { dataIndex } = e.detail;
+        if (dataIndex != null) {
+          setActiveSegment(dataIndex);
+        }
+      };
+
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useEffect(() => {
+        setActiveSegment(args.chartConfig.activeSegment);
+      }, [args.chartConfig.activeSegment]);
+
+      return (
+        <Chart {...args} chartConfig={{ ...args.chartConfig, activeSegment }} onDataPointClick={handleDataPointClick} />
+      );
+    },
+  };
+}

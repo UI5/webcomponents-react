@@ -109,8 +109,8 @@ export interface IChartBaseProps<T = ICartesianChartConfig> extends Omit<CommonP
      *
      * Apply an accessibility layer on the chart, i.a. allowing users to focus and navigate the chart via the arrow keys.
      *
-     * __Note:__ Currently, this feature only supports categorical and horizontal charts with tooltips!
-     * For more details, please refer to the [Recharts documentation](https://recharts.org/en-US/storybook) under the "Accessibility" section.
+     * __Note:__ For categorical/horizontal charts, this enables recharts' built-in accessibility layer with tooltip navigation.
+     * For PieChart/DonutChart, this enables keyboard navigation through chart segments using arrow keys.
      *
      * @experimental
      */
