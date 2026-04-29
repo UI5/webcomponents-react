@@ -586,6 +586,152 @@ function NoDataTable(props) {
 
 </details>
 
+## Context Menu
+
+The `onRowContextMenu` callback fires when a row is right-clicked. It provides the `row` and `column` (if the click targeted a specific cell) in `e.detail`. The native browser context menu is **not** suppressed — call `e.preventDefault()` in your callback to replace it with a custom menu.
+
+This example shows two tables with products that can be moved between them via buttons or a right-click context menu.
+
+<Canvas sourceState="none" of={ComponentStories.ContextMenu} />
+
+### Code
+
+<details>
+
+<summary>Show Code</summary>
+
+```tsx
+const productData = [
+  { id: '1', product: 'Laptop Pro 15', category: 'Electronics', price: 1299 },
+  { id: '2', product: 'Wireless Mouse', category: 'Accessories', price: 49 },
+  // ...
+];
+
+type Product = (typeof productData)[number];
+
+const productColumns = [
+  { Header: 'Product', accessor: 'product' },
+  { Header: 'Category', accessor: 'category' },
+  { Header: 'Price', accessor: 'price', hAlign: TextAlign.End },
+];
+
+function ContextMenuExample() {
+  const [availableProducts, setAvailableProducts] = useState(productData);
+  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+  const [checkedAvailable, setCheckedAvailable] = useState<Product[]>([]);
+  const [checkedSelected, setCheckedSelected] = useState<Product[]>([]);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuTarget, setMenuTarget] = useState<'available' | 'selected'>('available');
+  const [contextRow, setContextRow] = useState<Product | null>(null);
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const rafId = useRef(0);
+  useEffect(() => {
+    return () => {
+      cancelAnimationFrame(rafId.current);
+    };
+  }, []);
+
+  const moveToSelected = (rows: Product[]) => {
+    const ids = new Set(rows.map((r) => r.id));
+    setAvailableProducts((prev) => prev.filter((p) => !ids.has(p.id)));
+    setSelectedProducts((prev) => [...prev, ...rows.filter((r) => !prev.some((p) => p.id === r.id))]);
+    setCheckedAvailable([]);
+  };
+
+  const moveToAvailable = (rows: Product[]) => {
+    const ids = new Set(rows.map((r) => r.id));
+    setSelectedProducts((prev) => prev.filter((p) => !ids.has(p.id)));
+    setAvailableProducts((prev) => [...prev, ...rows.filter((r) => !prev.some((p) => p.id === r.id))]);
+    setCheckedSelected([]);
+  };
+
+  const handleRowSelect: (
+    setter: typeof setCheckedAvailable
+  ) => AnalyticalTablePropTypes['onRowSelect'] = (setter) => (e) => {
+    const rows = Object.values(e.detail.rowsById)
+      .filter((r) => e.detail.selectedRowIds[r.id])
+      .map((r) => r.original as Product);
+    setter(rows);
+  };
+
+  const handleContextMenu: (
+    target: 'available' | 'selected'
+  ) => AnalyticalTablePropTypes['onRowContextMenu'] = (target) => (e) => {
+    e.preventDefault();
+    setContextRow(e.detail.row.original as Product);
+    setMenuTarget(target);
+    if (anchorRef.current) {
+      anchorRef.current.style.left = `${e.clientX}px`;
+      anchorRef.current.style.top = `${e.clientY}px`;
+    }
+    // Defer open so it runs after the menu's onClose from the previous right-click.
+    setMenuOpen(false);
+    rafId.current = requestAnimationFrame(() => setMenuOpen(true));
+  };
+
+  const handleMenuItemClick = () => {
+    if (!contextRow) {
+      return;
+    }
+    if (menuTarget === 'available') {
+      moveToSelected([contextRow]);
+    } else {
+      moveToAvailable([contextRow]);
+    }
+    setMenuOpen(false);
+    setContextRow(null);
+  };
+
+  return (
+    <>
+      <FlexBox alignItems={FlexBoxAlignItems.Start} style={{ gap: '0.5rem' }}>
+        <AnalyticalTable
+          header="Available Products"
+          columns={productColumns}
+          data={availableProducts}
+          selectionMode="Multiple"
+          onRowContextMenu={handleContextMenu('available')}
+          onRowSelect={handleRowSelect(setCheckedAvailable)}
+          style={{ flex: 1 }}
+        />
+        <FlexBox
+          direction={FlexBoxDirection.Column}
+          justifyContent={FlexBoxJustifyContent.Center}
+          style={{ alignSelf: 'center' }}
+        >
+          <Button icon="navigation-right-arrow" onClick={() => moveToSelected(checkedAvailable)} />
+          <Button icon="navigation-left-arrow" onClick={() => moveToAvailable(checkedSelected)} />
+        </FlexBox>
+        <AnalyticalTable
+          header="Selected Products"
+          columns={productColumns}
+          data={selectedProducts}
+          selectionMode="Multiple"
+          onRowContextMenu={handleContextMenu('selected')}
+          onRowSelect={handleRowSelect(setCheckedSelected)}
+          style={{ flex: 1 }}
+        />
+      </FlexBox>
+      {/* Hidden anchor for Menu positioning */}
+      <div
+        ref={anchorRef}
+        style={{ position: 'fixed', width: 0, height: 0, pointerEvents: 'none' }}
+      />
+      {menuOpen && (
+        <Menu open opener={anchorRef.current} onClose={() => setMenuOpen(false)} onItemClick={handleMenuItemClick}>
+          <MenuItem
+            text={`Move to ${menuTarget === 'available' ? 'Selected Products' : 'Available Products'}`}
+            icon={menuTarget === 'available' ? 'navigation-right-arrow' : 'navigation-left-arrow'}
+          />
+        </Menu>
+      )}
+    </>
+  );
+}
+```
+
+</details>
+
 ## Kitchen Sink
 
 <Canvas of={ComponentStories.KitchenSink} />
