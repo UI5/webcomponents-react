@@ -158,42 +158,71 @@ For other elements or components, we recommend either disabling event propagatio
 
 ## How to stop the table state from automatically resetting when the data changes?
 
-By default, the `AnalyticalTable` will reset the sorters, filters, grouping, selected rows, etc. when the table data changes. It will also reset all manually resized columns if the container width changes.
-In case you want to keep the current state of the Table, you can disable this behavior by using the `reactTableOptions` prop or for column resize the `retainColumnWidth` prop.
+By default, the `AnalyticalTable` resets most table state whenever the `data` or `columns` reference changes.
+
+### What resets when?
+
+Each `autoReset*` option defaults to `true`. Most trigger on **`data`** changes, but `autoResetResize` is the exception - it triggers on **`columns`** changes.
+
+<details>
+<summary>Full list of <code>autoReset*</code> options</summary>
+
+| `reactTableOptions` option | Default | Resets on        | What it resets                              |
+| -------------------------- | ------- | ---------------- | ------------------------------------------- |
+| `autoResetSelectedRows`    | `true`  | `data` change    | Row selection (`selectedRowIds`)            |
+| `autoResetSortBy`          | `true`  | `data` change    | Sort state (unless `manualSortBy`)          |
+| `autoResetFilters`         | `true`  | `data` change    | Filter state (unless `manualFilters`)       |
+| `autoResetGlobalFilter`    | `true`  | `data` change    | Global filter (unless `manualGlobalFilter`) |
+| `autoResetGroupBy`         | `true`  | `data` change    | Grouping state (unless `manualGroupBy`)     |
+| `autoResetExpanded`        | `true`  | `data` change    | Expanded rows                               |
+| `autoResetHiddenColumns`   | `true`  | `data` change    | Hidden columns                              |
+| `autoResetResize`          | `true`  | `columns` change | User-resized column widths                  |
+
+</details>
+
+**Important:** Column resize widths are never reset by `data` changes - only by `columns` changes. If you want to preserve user-resized widths across column changes, set `autoResetResize: false`.
+
+### `retainColumnWidth` prop
+
+`retainColumnWidth` is a separate mechanism from `autoResetResize`. It controls what happens on **container resizes** (e.g., window resize):
+
+- **Without** `retainColumnWidth`: A container resize clears user-resized column widths and triggers dynamic width recalculation.
+- **With** `retainColumnWidth`: User-resized column widths are preserved across container resizes.
+
+### Keeping state across data updates
+
+To prevent automatic resets when updating data, set the corresponding `autoReset*` option to `false` in `reactTableOptions`. The ref-based flag shown below is optional - it avoids an unnecessary re-render by reading the flag during render instead of toggling state:
 
 ```jsx
-const [data, setData] = React.useState([])
-const skipPageResetRef = React.useRef(false)
+const [data, setData] = useState([])
+const skipPageResetRef = useRef(false)
 
 const updateData = newData => {
-  // When data gets updated with this function, set a flag
-  // to disable all of the auto resetting
+  // When data gets updated with this function, set a flag to disable all of the auto resetting
   skipPageResetRef.current = true
 
   setData(newData)
 }
 
-React.useEffect(() => {
-  // After the table has updated, always remove the flag
+useEffect(() => {
+  // After the table has updated, remove the flag
   skipPageResetRef.current = false
 })
 <AnalyticalTable
   columns={columns}
   data={data}
-  // disable auto reset of columns width if a column has been manually resized
+  // preserve user-resized widths across container resizes
   retainColumnWidth
-  // react-table options
   reactTableOptions={{
     // ... any other options you want to set
     autoResetHiddenColumns: !skipPageResetRef.current,
-    autoResetPage: !skipPageResetRef.current,
     autoResetExpanded: !skipPageResetRef.current,
     autoResetGroupBy: !skipPageResetRef.current,
     autoResetSelectedRows: !skipPageResetRef.current,
     autoResetSortBy: !skipPageResetRef.current,
     autoResetFilters: !skipPageResetRef.current,
-    autoResetRowState: !skipPageResetRef.current,
-    autoResetResize: !skipPageResetRef.current
+    // resets on `columns` changes, not `data`
+    autoResetResize: false,
   }}
 />
 ```
