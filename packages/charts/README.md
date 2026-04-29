@@ -12,11 +12,11 @@ This package is not backed by SAP global design or accessibility specifications 
 
 New implementations should not depend on this package. Existing consumers should plan for migration before the v3 release.
 
-If you have questions or concerns, please raise them in the [deprecation announcement](https://github.com/UI5/webcomponents-react/discussions/).
+If you have questions or concerns, please raise them in the [deprecation announcement](https://github.com/UI5/webcomponents-react/discussions/8528).
 
 ### SAP Inner-Source alternative
 
-If you have access to SAP-internal systems, a drop-in replacement is available [`here`](https://github.tools.sap/mxp/charts).
+If you have access to SAP-internal systems, a drop-in replacement is available [`here`](https://url.sap/ldfa34).
 
 ## Installation
 
