@@ -507,6 +507,8 @@ export interface AnalyticalTableColumnDefinition {
    * __Note:__ Use this property if there is no textual content available through the dataset (e.g. no `accessor` field available), or if you want to provide additional context when navigating to the respective cell for screen readers.
    *
    * __Note:__ To retrieve the internal `aria-label`, utilize the `cell.cellLabel` property.
+   *
+   * __Note:__ When defined on the first column, this overrides automatic pop-in accessibility announcements.
    */
   cellLabel?: (param: CellLabelParam) => string;
   /**

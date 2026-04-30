@@ -2585,6 +2585,19 @@ describe('AnalyticalTable', () => {
         //popinDisplay: Block
         cy.get('@popinHeader').parent().should('have.css', 'flex-direction', 'column');
 
+        // a11y: pop-in elements have id + aria-hidden, first cell aria-labelledby includes pop-in IDs
+        cy.get('[data-component-name="AnalyticalTablePopinHeaderContainer"]')
+          .first()
+          .should('have.attr', 'aria-hidden', 'true')
+          .and('have.attr', 'id');
+        cy.get('[aria-rowindex="2"] [data-is-first-column="true"]')
+          .first()
+          .then(($cell) => {
+            const labelledby = $cell.attr('aria-labelledby');
+            expect(labelledby).to.contain('popin-h-friend.name-');
+            expect(labelledby).to.contain('popin-v-friend.name-');
+          });
+
         cy.viewport(600, 1024);
         cy.wait(200);
         cy.contains('Age').should('not.exist');
@@ -2644,6 +2657,15 @@ describe('AnalyticalTable', () => {
         //popinDisplay: WithoutHeader
         cy.findAllByText('PopinDisplay Modes:').should('not.exist');
         cy.findAllByTestId('popinCell').should('exist');
+
+        // a11y: WithoutHeader skips header IDs in aria-labelledby
+        cy.get('[aria-rowindex="2"] [data-is-first-column="true"]')
+          .first()
+          .then(($cell) => {
+            const labelledby = $cell.attr('aria-labelledby');
+            expect(labelledby).to.contain('popin-v-popinDisplay-');
+            expect(labelledby).to.not.contain('popin-h-popinDisplay-');
+          });
       });
     });
   } else {

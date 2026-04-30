@@ -1,4 +1,5 @@
 import type { KeyboardEventHandler } from 'react';
+import { AnalyticalTablePopinDisplay } from '../../../enums/AnalyticalTablePopinDisplay.js';
 import { AnalyticalTableSelectionBehavior } from '../../../enums/AnalyticalTableSelectionBehavior.js';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import type { ReactTableHooks, TableInstance } from '../types/index.js';
@@ -46,6 +47,22 @@ const setCellProps = (cellProps, { cell, instance }: { cell: TableInstance['cell
 
   const isFirstUserCol = userCols[0]?.id === column.id || userCols[0]?.accessor === column.accessor;
   updatedCellProps['data-is-first-column'] = isFirstUserCol;
+
+  const { popInColumns } = instance.state;
+  if (isFirstUserCol && popInColumns?.length && !row.isGrouped) {
+    if (canUseVoiceOver) {
+      // For VoiceOver: put column header before value for context when pop-in content follows
+      updatedCellProps['aria-labelledby'] = `${uniqueId}${column.id} ${uniqueId}${column.id}${row.id}`;
+    }
+    let popInLabelledBy = '';
+    for (const popInCol of popInColumns) {
+      if (popInCol.popinDisplay !== AnalyticalTablePopinDisplay.WithoutHeader && popInCol.column?.Header) {
+        popInLabelledBy += ` ${uniqueId}popin-h-${popInCol.id}-${row.id}`;
+      }
+      popInLabelledBy += ` ${uniqueId}popin-v-${popInCol.id}-${row.id}`;
+    }
+    updatedCellProps['aria-labelledby'] += popInLabelledBy;
+  }
 
   if ((isFirstUserCol && rowIsExpandable) || (row.isGrouped && row.canExpand)) {
     updatedCellProps.onKeyDown = row.getToggleRowExpandedProps?.()?.onKeyDown;

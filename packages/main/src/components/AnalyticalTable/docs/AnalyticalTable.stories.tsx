@@ -121,8 +121,8 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
         // console.log('This is your row data', row.original);
         return (
           <FlexBox>
-            <Button icon="edit" disabled={disabled} accessibleName="Edit" />
-            <Button icon="delete" disabled={disabled} accessibleName="Delete" />
+            <Button icon="edit" disabled={disabled} accessibleName="Edit" tooltip="Edit" />
+            <Button icon="delete" disabled={disabled} accessibleName="Delete" tooltip="Delete" />
           </FlexBox>
         );
       },
@@ -136,7 +136,7 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
   columnOrder: ['friend.name', 'friend.age', 'name'],
   extension: (
     <FlexBox justifyContent={FlexBoxJustifyContent.End}>
-      <Button icon="edit" accessibleName="edit" design="Transparent" />
+      <Button icon="edit" accessibleName="edit" design="Transparent" tooltip="Edit" />
     </FlexBox>
   ),
   groupable: true,
@@ -426,8 +426,8 @@ export const ResponsiveColumns: Story = {
         Cell: (instance) => {
           return (
             <FlexBox>
-              <Button icon="edit" />
-              <Button icon="delete" />
+              <Button icon="edit" accessibleName="Edit" tooltip="Edit" />
+              <Button icon="delete" accessibleName="Delete" tooltip="Delete" />
             </FlexBox>
           );
         },
