@@ -75,6 +75,21 @@ interface DimensionConfig extends IChartDimension {
 
 export interface ColumnChartProps extends IChartBaseProps {
   /**
+   * Alignment of the labels of the data points. Can be one of the following: `"center"`, `"insideTop"`, `"insideTopRight"`, `"insideRight"`, `"insideBottomRight"`, `"insideBottom"`, `"insideBottomLeft"`, `"insideLeft"`, `"insideTopLeft"`
+   *
+   * @default 'center'
+   */
+  alignLabels:
+    | 'center'
+    | 'insideTop'
+    | 'insideTopRight'
+    | 'insideRight'
+    | 'insideBottomRight'
+    | 'insideBottom'
+    | 'insideBottomLeft'
+    | 'insideLeft'
+    | 'insideTopLeft';
+  /**
    * An array of config objects. Each object will define one dimension of the chart.
    *
    * **Required Properties**
@@ -148,6 +163,7 @@ const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>((props, ref) =>
     ChartPlaceholder,
     syncId,
     children,
+    alignLabels = 'center',
     ...rest
   } = props;
 
@@ -339,7 +355,7 @@ const ColumnChart = forwardRef<HTMLDivElement, ColumnChartProps>((props, ref) =>
                 <LabelList
                   data={dataset}
                   valueAccessor={valueAccessor(element.accessor)}
-                  content={<ChartDataLabel config={element} chartType="column" position={'insideTop'} />}
+                  content={<ChartDataLabel config={element} chartType="column" position={alignLabels} />}
                 />
                 {chartConfig.showStackAggregateTotals &&
                   element.stackId &&
