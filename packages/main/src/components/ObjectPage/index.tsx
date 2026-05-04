@@ -673,7 +673,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       headerPinned || scrolledHeaderExpanded
         ? `${topHeaderHeight + (headerCollapsed === true ? 0 : headerContentHeight) + tabContainerHeaderHeight}px`
         : `${topHeaderHeight + tabContainerHeaderHeight}px`,
-  } as CSSProperties;
+  };
   if (headerCollapsed === true && headerArea) {
     objectPageStyles[ObjectPageCssVariables.titleFontSize] = ThemingParameters.sapObjectHeader_Title_SnappedFontSize;
   }
@@ -693,7 +693,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     const opNode = objectPageRef.current;
     if (!opNode) return;
 
-    if (e.relatedTarget && !e.currentTarget.contains(e.relatedTarget as Node)) {
+    if (e.relatedTarget && !e.currentTarget.contains(e.relatedTarget)) {
       opNode.style.scrollPaddingBlock = '0px';
       // Fallback: Some (ui5-table) ui5wc components don't implement `relatedTarget` as expected.
     } else if (!e.relatedTarget) {

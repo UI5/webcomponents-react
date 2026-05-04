@@ -46,6 +46,33 @@ As artificial intelligence evolves, AI-generated code is becoming valuable for m
 
 Please see our [guideline for AI-generated code contributions to SAP Open Source Software Projects](https://github.com/SAP/.github/blob/main/CONTRIBUTING_USING_GENAI.md) for these requirements.
 
+## Development Setup
+
+> **Before you start, read the [Development Conventions and Guidelines](/docs/Guidelines.md)** for commit message format, naming conventions, and coding standards.
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (see `.nvmrc` for the required version)
+- [Yarn](https://yarnpkg.com/) v4 (managed via corepack, see `packageManager` in `package.json`)
+
+### Getting Started
+
+```bash
+git clone https://github.com/UI5/webcomponents-react.git
+cd webcomponents-react
+yarn install        # installs dependencies and runs postinstall setup (husky + build:i18n/css/version-info)
+```
+
+### Common Commands
+
+```bash
+yarn start          # Storybook at localhost:6006 (includes CSS watcher)
+yarn build          # Full build (setup + tsc + client/wrapper builds)
+yarn test           # Cypress component tests (all packages)
+yarn test:open      # Cypress interactive mode
+yarn lint           # ESLint
+```
+
 ### How to contribute - the Process
 
 1. Please let us know, that you want to work on the issue you've filed in the [issue tracker](https://github.com/UI5/webcomponents-react/issues).
@@ -53,7 +80,6 @@ Please see our [guideline for AI-generated code contributions to SAP Open Source
 3. Once you are assigned to the issue, you are ready to go.
 4. Fork the `ui5-webcomponents-react` repository into your GitHub account, create a branch and apply your change. Please don't work directly on the `main` branch of your fork. This will help to update your fork in the future more easily.
 5. Commit and push your change on that branch.
-   Please follow our [Development Conventions and Guidelines](/docs/Guidelines.md).
 6. Create a pull request from your branch into `ui5-webcomponents-react`-`main` branch.
 7. Follow the link posted by the CLA assistant to your pull request and accept it, as described above.
 8. Wait for our code review and approval, possibly enhancing your change on request.

@@ -1,35 +1,8 @@
 # Development Conventions and Guidelines
 
-## Requirements
-
-- [Yarn](https://yarnpkg.com)
-- [Node.js](https://nodejs.org/) (**[LTS](https://github.com/nodejs/release?tab=readme-ov-file#release-schedule) version** ⚠️)
-
-## Setup your local development environment
-
-Please make sure you have installed a [LTS](https://github.com/nodejs/release?tab=readme-ov-file#release-schedule) `node` version (check by running `node -v`) and yarn v1 (check by running `yarn -v`).
-
-First, you need to clone the git repository by running
-
-```sh
-# this git url points to the original repository, you can exchange it with the address of your fork
-git clone https://github.com/UI5/webcomponents-react.git
-```
-
-Then, go into that cloned directory and run `yarn install`. At this point, you are ready to start local development. You can now run:
-
-- `yarn start` <br />
-  This starts the local storybook, so you can check if your components are rendered correctly. _If the storybook doesn't open automatically after executing the command, you can use this link: http://localhost:6006/_
-- `yarn test` <br />
-  This command is running all tests in the project.
-- `yarn test:open` <br />
-  This command is opening all cypress tests in Chrome.
-- `yarn build` <br />
-  This command executes the full build of the project.
-
 ## TypeScript
 
-Please use TypeScript to write your components. A good introduction to TypeScript in React can be found [here](https://levelup.gitconnected.com/ultimate-react-component-patterns-with-typescript-2-8-82990c516935).
+All components must be written in TypeScript.
 
 ## Naming Convention for Props
 
@@ -38,12 +11,11 @@ Please use TypeScript to write your components. A good introduction to TypeScrip
   All Events must pass an instance of the `Event`-Class as single parameter.
 - When passing additional elements into a component, a slot should be used. This prop should contain a `ReactNode` or an array of ReactNodes (`ReactNode[]`)
 
-You must follow the coding style as best you can when submitting code. Take note of naming conventions, separation of concerns, and formatting rules. You can use the code formatter [Prettier](https://prettier.io/) to handle some of this for you automatically.
-When you are finished with your implementation please run `yarn prettier:all`, this will auto format all files for you.
+Follow the coding style as best you can when submitting code. Take note of naming conventions, separation of concerns, and formatting rules. Prettier runs automatically as a pre-commit hook.
 
-## Unit testing
+## Testing
 
-All components should have associated unit tests created with a code coverage score of at least 80%. Be an overachiever and shoot for 100% :)
+All components should have associated Cypress component tests with a code coverage score of at least 80%.
 
 ## Git Guidelines
 
