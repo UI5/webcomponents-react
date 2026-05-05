@@ -1,6 +1,6 @@
 import type { MouseEvent, TouchEvent } from 'react';
 import { useCallback } from 'react';
-import { actions, defaultColumn, makePropGetter, useGetLatest, useMountedLayoutEffect } from 'react-table';
+import { actions, defaultColumn, makePropGetter, useGetLatest, useMountedLayoutEffect } from '../react-table/index.js';
 import type { ColumnType, ReactTableHooks, TableInstance } from '../types/index.js';
 
 // Default Column

@@ -14,7 +14,7 @@ import {
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { forwardRef, useCallback, useEffect, useId, useMemo, useRef } from 'react';
-import { useColumnOrder, useExpanded, useFilters, useGlobalFilter, useGroupBy, useSortBy, useTable } from 'react-table';
+import { useColumnOrder, useExpanded, useFilters, useGlobalFilter, useGroupBy, useSortBy, useTable } from './react-table/index.js';
 import { AnalyticalTableNoDataReason } from '../../enums/AnalyticalTableNoDataReason.js';
 import { AnalyticalTablePopinDisplay } from '../../enums/AnalyticalTablePopinDisplay.js';
 import { AnalyticalTableScaleWidthMode } from '../../enums/AnalyticalTableScaleWidthMode.js';

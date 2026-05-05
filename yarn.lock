@@ -5460,7 +5460,6 @@ __metadata:
     "@tanstack/react-virtual": "npm:3.13.24"
     "@ui5/webcomponents-react-base": "workspace:~"
     clsx: "npm:2.1.1"
-    react-table: "npm:7.8.0"
   peerDependencies:
     "@types/react": "*"
     "@types/react-dom": "*"
@@ -18861,15 +18860,6 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
   checksum: 10c0/d94cb27f808721ec040d320ca1927919199495fd212e54eb9dc8ee3f73ff1d808a34be9f4b09fe49b01f411ac2387fdf0e4bee297f18faf56f94bfbef5fd204c
-  languageName: node
-  linkType: hard
-
-"react-table@npm:7.8.0":
-  version: 7.8.0
-  resolution: "react-table@npm:7.8.0"
-  peerDependencies:
-    react: ^16.8.3 || ^17.0.0-0 || ^18.0.0
-  checksum: 10c0/592938cb331331a4b10a67e881458ccf590c16639e2781a0329ca0803bad92991c9b9a2a3b1db1dce0de9ad325195fc5b38e1ea13813f8a55a35c94dc194757a
   languageName: node
   linkType: hard
 

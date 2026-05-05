@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { actions, makePropGetter, ensurePluginOrder, useGetLatest, useMountedLayoutEffect } from 'react-table';
+import { actions, makePropGetter, ensurePluginOrder, useGetLatest, useMountedLayoutEffect } from '../react-table/index.js';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import type { ReactTableHooks, RowType, TableInstance } from '../types/index.js';
 

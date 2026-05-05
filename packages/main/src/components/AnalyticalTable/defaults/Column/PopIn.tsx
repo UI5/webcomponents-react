@@ -1,4 +1,4 @@
-import { makeRenderer } from 'react-table';
+import { makeRenderer } from '../../react-table/index.js';
 import { AnalyticalTablePopinDisplay } from '../../../../enums/AnalyticalTablePopinDisplay.js';
 import { FlexBoxAlignItems } from '../../../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../../../enums/FlexBoxDirection.js';

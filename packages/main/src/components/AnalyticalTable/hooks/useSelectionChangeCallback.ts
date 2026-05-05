@@ -1,6 +1,6 @@
 import { enrichEventWithDetails } from '@ui5/webcomponents-react-base/internal/utils';
 import { useEffect, useRef } from 'react';
-import { ensurePluginOrder } from 'react-table';
+import { ensurePluginOrder } from '../react-table/index.js';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import type { AnalyticalTablePropTypes, ReactTableHooks, TableInstance } from '../types/index.js';
 

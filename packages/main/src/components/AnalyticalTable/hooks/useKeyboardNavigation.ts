@@ -1,6 +1,6 @@
 import type { FocusEventHandler, KeyboardEvent, KeyboardEventHandler, MutableRefObject } from 'react';
 import { useCallback, useEffect, useRef } from 'react';
-import { actions } from 'react-table';
+import { actions } from '../react-table/index.js';
 import type { ColumnType, ReactTableHooks, TableInstance } from '../types/index.js';
 import { getLeafHeaders, NAVIGATION_KEYS } from '../util/index.js';
 
