@@ -1,56 +1,50 @@
 // @ts-nocheck
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react';
 
-import { expandRows } from '../utils.js'
+import { expandRows } from '../utils.js';
 
-import {
-  useGetLatest,
-  actions,
-  useMountedLayoutEffect,
-  makePropGetter,
-  ensurePluginOrder,
-} from '../publicUtils.js'
+import { useGetLatest, actions, useMountedLayoutEffect, makePropGetter, ensurePluginOrder } from '../publicUtils.js';
 
 // Actions
-actions.resetExpanded = 'resetExpanded'
-actions.toggleRowExpanded = 'toggleRowExpanded'
-actions.toggleAllRowsExpanded = 'toggleAllRowsExpanded'
+actions.resetExpanded = 'resetExpanded';
+actions.toggleRowExpanded = 'toggleRowExpanded';
+actions.toggleAllRowsExpanded = 'toggleAllRowsExpanded';
 
-export const useExpanded = hooks => {
-  hooks.getToggleAllRowsExpandedProps = [defaultGetToggleAllRowsExpandedProps]
-  hooks.getToggleRowExpandedProps = [defaultGetToggleRowExpandedProps]
-  hooks.stateReducers.push(reducer)
-  hooks.useInstance.push(useInstance)
-  hooks.prepareRow.push(prepareRow)
-}
+export const useExpanded = (hooks) => {
+  hooks.getToggleAllRowsExpandedProps = [defaultGetToggleAllRowsExpandedProps];
+  hooks.getToggleRowExpandedProps = [defaultGetToggleRowExpandedProps];
+  hooks.stateReducers.push(reducer);
+  hooks.useInstance.push(useInstance);
+  hooks.prepareRow.push(prepareRow);
+};
 
-useExpanded.pluginName = 'useExpanded'
+useExpanded.pluginName = 'useExpanded';
 
 const defaultGetToggleAllRowsExpandedProps = (props, { instance }) => [
   props,
   {
-    onClick: e => {
-      instance.toggleAllRowsExpanded()
+    onClick: (e) => {
+      instance.toggleAllRowsExpanded();
     },
     style: {
       cursor: 'pointer',
     },
     title: 'Toggle All Rows Expanded',
   },
-]
+];
 
 const defaultGetToggleRowExpandedProps = (props, { row }) => [
   props,
   {
     onClick: () => {
-      row.toggleRowExpanded()
+      row.toggleRowExpanded();
     },
     style: {
       cursor: 'pointer',
     },
     title: 'Toggle Row Expanded',
   },
-]
+];
 
 // Reducer
 function reducer(state, action, previousState, instance) {
@@ -58,50 +52,48 @@ function reducer(state, action, previousState, instance) {
     return {
       expanded: {},
       ...state,
-    }
+    };
   }
 
   if (action.type === actions.resetExpanded) {
     return {
       ...state,
       expanded: instance.initialState.expanded || {},
-    }
+    };
   }
 
   if (action.type === actions.toggleAllRowsExpanded) {
-    const { value } = action
-    const { rowsById } = instance
+    const { value } = action;
+    const { rowsById } = instance;
 
-    const isAllRowsExpanded =
-      Object.keys(rowsById).length === Object.keys(state.expanded).length
+    const isAllRowsExpanded = Object.keys(rowsById).length === Object.keys(state.expanded).length;
 
-    const expandAll = typeof value !== 'undefined' ? value : !isAllRowsExpanded
+    const expandAll = typeof value !== 'undefined' ? value : !isAllRowsExpanded;
 
     if (expandAll) {
-      const expanded = {}
+      const expanded = {};
 
-      Object.keys(rowsById).forEach(rowId => {
-        expanded[rowId] = true
-      })
+      Object.keys(rowsById).forEach((rowId) => {
+        expanded[rowId] = true;
+      });
 
       return {
         ...state,
         expanded,
-      }
+      };
     }
 
     return {
       ...state,
       expanded: {},
-    }
+    };
   }
 
   if (action.type === actions.toggleRowExpanded) {
-    const { id, value: setExpanded } = action
-    const exists = state.expanded[id]
+    const { id, value: setExpanded } = action;
+    const exists = state.expanded[id];
 
-    const shouldExist =
-      typeof setExpanded !== 'undefined' ? setExpanded : !exists
+    const shouldExist = typeof setExpanded !== 'undefined' ? setExpanded : !exists;
 
     if (!exists && shouldExist) {
       return {
@@ -110,15 +102,15 @@ function reducer(state, action, previousState, instance) {
           ...state.expanded,
           [id]: true,
         },
-      }
+      };
     } else if (exists && !shouldExist) {
-      const { [id]: _, ...rest } = state.expanded
+      const { [id]: _, ...rest } = state.expanded;
       return {
         ...state,
         expanded: rest,
-      }
+      };
     } else {
-      return state
+      return state;
     }
   }
 }
@@ -136,63 +128,54 @@ function useInstance(instance) {
     plugins,
     state: { expanded },
     dispatch,
-  } = instance
+  } = instance;
 
-  ensurePluginOrder(
-    plugins,
-    ['useSortBy', 'useGroupBy', 'usePivotColumns', 'useGlobalFilter'],
-    'useExpanded'
-  )
+  ensurePluginOrder(plugins, ['useSortBy', 'useGroupBy', 'usePivotColumns', 'useGlobalFilter'], 'useExpanded');
 
-  const getAutoResetExpanded = useGetLatest(autoResetExpanded)
+  const getAutoResetExpanded = useGetLatest(autoResetExpanded);
 
-  let isAllRowsExpanded = Boolean(
-    Object.keys(rowsById).length && Object.keys(expanded).length
-  )
+  let isAllRowsExpanded = Boolean(Object.keys(rowsById).length && Object.keys(expanded).length);
 
   if (isAllRowsExpanded) {
-    if (Object.keys(rowsById).some(id => !expanded[id])) {
-      isAllRowsExpanded = false
+    if (Object.keys(rowsById).some((id) => !expanded[id])) {
+      isAllRowsExpanded = false;
     }
   }
 
   // Bypass any effects from firing when this changes
   useMountedLayoutEffect(() => {
     if (getAutoResetExpanded()) {
-      dispatch({ type: actions.resetExpanded })
+      dispatch({ type: actions.resetExpanded });
     }
-  }, [dispatch, data])
+  }, [dispatch, data]);
 
   const toggleRowExpanded = useCallback(
     (id, value) => {
-      dispatch({ type: actions.toggleRowExpanded, id, value })
+      dispatch({ type: actions.toggleRowExpanded, id, value });
     },
-    [dispatch]
-  )
+    [dispatch],
+  );
 
   const toggleAllRowsExpanded = useCallback(
-    value => dispatch({ type: actions.toggleAllRowsExpanded, value }),
-    [dispatch]
-  )
+    (value) => dispatch({ type: actions.toggleAllRowsExpanded, value }),
+    [dispatch],
+  );
 
   const expandedRows = useMemo(() => {
     if (paginateExpandedRows) {
-      return expandRows(rows, { manualExpandedKey, expanded, expandSubRows })
+      return expandRows(rows, { manualExpandedKey, expanded, expandSubRows });
     }
 
-    return rows
-  }, [paginateExpandedRows, rows, manualExpandedKey, expanded, expandSubRows])
+    return rows;
+  }, [paginateExpandedRows, rows, manualExpandedKey, expanded, expandSubRows]);
 
-  const expandedDepth = useMemo(() => findExpandedDepth(expanded), [
-    expanded,
-  ])
+  const expandedDepth = useMemo(() => findExpandedDepth(expanded), [expanded]);
 
-  const getInstance = useGetLatest(instance)
+  const getInstance = useGetLatest(instance);
 
-  const getToggleAllRowsExpandedProps = makePropGetter(
-    getHooks().getToggleAllRowsExpandedProps,
-    { instance: getInstance() }
-  )
+  const getToggleAllRowsExpandedProps = makePropGetter(getHooks().getToggleAllRowsExpandedProps, {
+    instance: getInstance(),
+  });
 
   Object.assign(instance, {
     preExpandedRows: rows,
@@ -203,28 +186,25 @@ function useInstance(instance) {
     toggleRowExpanded,
     toggleAllRowsExpanded,
     getToggleAllRowsExpandedProps,
-  })
+  });
 }
 
 function prepareRow(row, { instance: { getHooks }, instance }) {
-  row.toggleRowExpanded = set => instance.toggleRowExpanded(row.id, set)
+  row.toggleRowExpanded = (set) => instance.toggleRowExpanded(row.id, set);
 
-  row.getToggleRowExpandedProps = makePropGetter(
-    getHooks().getToggleRowExpandedProps,
-    {
-      instance,
-      row,
-    }
-  )
+  row.getToggleRowExpandedProps = makePropGetter(getHooks().getToggleRowExpandedProps, {
+    instance,
+    row,
+  });
 }
 
 function findExpandedDepth(expanded) {
-  let maxDepth = 0
+  let maxDepth = 0;
 
-  Object.keys(expanded).forEach(id => {
-    const splitId = id.split('.')
-    maxDepth = Math.max(maxDepth, splitId.length)
-  })
+  Object.keys(expanded).forEach((id) => {
+    const splitId = id.split('.');
+    maxDepth = Math.max(maxDepth, splitId.length);
+  });
 
-  return maxDepth
+  return maxDepth;
 }

@@ -1,39 +1,30 @@
 // @ts-nocheck
-import { useCallback, useRef } from 'react'
+import { useCallback, useRef } from 'react';
 
-import {
-  actions,
-  functionalUpdate,
-  useGetLatest,
-  makePropGetter,
-  useMountedLayoutEffect,
-} from '../publicUtils.js'
+import { actions, functionalUpdate, useGetLatest, makePropGetter, useMountedLayoutEffect } from '../publicUtils.js';
 
-actions.resetHiddenColumns = 'resetHiddenColumns'
-actions.toggleHideColumn = 'toggleHideColumn'
-actions.setHiddenColumns = 'setHiddenColumns'
-actions.toggleHideAllColumns = 'toggleHideAllColumns'
+actions.resetHiddenColumns = 'resetHiddenColumns';
+actions.toggleHideColumn = 'toggleHideColumn';
+actions.setHiddenColumns = 'setHiddenColumns';
+actions.toggleHideAllColumns = 'toggleHideAllColumns';
 
-export const useColumnVisibility = hooks => {
-  hooks.getToggleHiddenProps = [defaultGetToggleHiddenProps]
-  hooks.getToggleHideAllColumnsProps = [defaultGetToggleHideAllColumnsProps]
+export const useColumnVisibility = (hooks) => {
+  hooks.getToggleHiddenProps = [defaultGetToggleHiddenProps];
+  hooks.getToggleHideAllColumnsProps = [defaultGetToggleHideAllColumnsProps];
 
-  hooks.stateReducers.push(reducer)
-  hooks.useInstanceBeforeDimensions.push(useInstanceBeforeDimensions)
-  hooks.headerGroupsDeps.push((deps, { instance }) => [
-    ...deps,
-    instance.state.hiddenColumns,
-  ])
-  hooks.useInstance.push(useInstance)
-}
+  hooks.stateReducers.push(reducer);
+  hooks.useInstanceBeforeDimensions.push(useInstanceBeforeDimensions);
+  hooks.headerGroupsDeps.push((deps, { instance }) => [...deps, instance.state.hiddenColumns]);
+  hooks.useInstance.push(useInstance);
+};
 
-useColumnVisibility.pluginName = 'useColumnVisibility'
+useColumnVisibility.pluginName = 'useColumnVisibility';
 
 const defaultGetToggleHiddenProps = (props, { column }) => [
   props,
   {
-    onChange: e => {
-      column.toggleHidden(!e.target.checked)
+    onChange: (e) => {
+      column.toggleHidden(!e.target.checked);
     },
     style: {
       cursor: 'pointer',
@@ -41,72 +32,65 @@ const defaultGetToggleHiddenProps = (props, { column }) => [
     checked: column.isVisible,
     title: 'Toggle Column Visible',
   },
-]
+];
 
 const defaultGetToggleHideAllColumnsProps = (props, { instance }) => [
   props,
   {
-    onChange: e => {
-      instance.toggleHideAllColumns(!e.target.checked)
+    onChange: (e) => {
+      instance.toggleHideAllColumns(!e.target.checked);
     },
     style: {
       cursor: 'pointer',
     },
     checked: !instance.allColumnsHidden && !instance.state.hiddenColumns.length,
     title: 'Toggle All Columns Hidden',
-    indeterminate:
-      !instance.allColumnsHidden && instance.state.hiddenColumns.length,
+    indeterminate: !instance.allColumnsHidden && instance.state.hiddenColumns.length,
   },
-]
+];
 
 function reducer(state, action, previousState, instance) {
   if (action.type === actions.init) {
     return {
       hiddenColumns: [],
       ...state,
-    }
+    };
   }
 
   if (action.type === actions.resetHiddenColumns) {
     return {
       ...state,
       hiddenColumns: instance.initialState.hiddenColumns || [],
-    }
+    };
   }
 
   if (action.type === actions.toggleHideColumn) {
-    const should =
-      typeof action.value !== 'undefined'
-        ? action.value
-        : !state.hiddenColumns.includes(action.columnId)
+    const should = typeof action.value !== 'undefined' ? action.value : !state.hiddenColumns.includes(action.columnId);
 
     const hiddenColumns = should
       ? [...state.hiddenColumns, action.columnId]
-      : state.hiddenColumns.filter(d => d !== action.columnId)
+      : state.hiddenColumns.filter((d) => d !== action.columnId);
 
     return {
       ...state,
       hiddenColumns,
-    }
+    };
   }
 
   if (action.type === actions.setHiddenColumns) {
     return {
       ...state,
       hiddenColumns: functionalUpdate(action.value, state.hiddenColumns),
-    }
+    };
   }
 
   if (action.type === actions.toggleHideAllColumns) {
-    const shouldAll =
-      typeof action.value !== 'undefined'
-        ? action.value
-        : !state.hiddenColumns.length
+    const shouldAll = typeof action.value !== 'undefined' ? action.value : !state.hiddenColumns.length;
 
     return {
       ...state,
-      hiddenColumns: shouldAll ? instance.allColumns.map(d => d.id) : [],
-    }
+      hiddenColumns: shouldAll ? instance.allColumns.map((d) => d.id) : [],
+    };
   }
 }
 
@@ -114,37 +98,32 @@ function useInstanceBeforeDimensions(instance) {
   const {
     headers,
     state: { hiddenColumns },
-  } = instance
+  } = instance;
 
-  const isMountedRef = useRef(false)
+  const isMountedRef = useRef(false);
 
   if (!isMountedRef.current) {
   }
 
   const handleColumn = (column, parentVisible) => {
-    column.isVisible = parentVisible && !hiddenColumns.includes(column.id)
+    column.isVisible = parentVisible && !hiddenColumns.includes(column.id);
 
-    let totalVisibleHeaderCount = 0
+    let totalVisibleHeaderCount = 0;
 
     if (column.headers && column.headers.length) {
-      column.headers.forEach(
-        subColumn =>
-          (totalVisibleHeaderCount += handleColumn(subColumn, column.isVisible))
-      )
+      column.headers.forEach((subColumn) => (totalVisibleHeaderCount += handleColumn(subColumn, column.isVisible)));
     } else {
-      totalVisibleHeaderCount = column.isVisible ? 1 : 0
+      totalVisibleHeaderCount = column.isVisible ? 1 : 0;
     }
 
-    column.totalVisibleHeaderCount = totalVisibleHeaderCount
+    column.totalVisibleHeaderCount = totalVisibleHeaderCount;
 
-    return totalVisibleHeaderCount
-  }
+    return totalVisibleHeaderCount;
+  };
 
-  let totalVisibleHeaderCount = 0
+  let totalVisibleHeaderCount = 0;
 
-  headers.forEach(
-    subHeader => (totalVisibleHeaderCount += handleColumn(subHeader, true))
-  )
+  headers.forEach((subHeader) => (totalVisibleHeaderCount += handleColumn(subHeader, true)));
 }
 
 function useInstance(instance) {
@@ -156,58 +135,50 @@ function useInstance(instance) {
     getHooks,
     state: { hiddenColumns },
     autoResetHiddenColumns = true,
-  } = instance
+  } = instance;
 
-  const getInstance = useGetLatest(instance)
+  const getInstance = useGetLatest(instance);
 
-  const allColumnsHidden = allColumns.length === hiddenColumns.length
+  const allColumnsHidden = allColumns.length === hiddenColumns.length;
 
   const toggleHideColumn = useCallback(
-    (columnId, value) =>
-      dispatch({ type: actions.toggleHideColumn, columnId, value }),
-    [dispatch]
-  )
+    (columnId, value) => dispatch({ type: actions.toggleHideColumn, columnId, value }),
+    [dispatch],
+  );
 
-  const setHiddenColumns = useCallback(
-    value => dispatch({ type: actions.setHiddenColumns, value }),
-    [dispatch]
-  )
+  const setHiddenColumns = useCallback((value) => dispatch({ type: actions.setHiddenColumns, value }), [dispatch]);
 
   const toggleHideAllColumns = useCallback(
-    value => dispatch({ type: actions.toggleHideAllColumns, value }),
-    [dispatch]
-  )
+    (value) => dispatch({ type: actions.toggleHideAllColumns, value }),
+    [dispatch],
+  );
 
-  const getToggleHideAllColumnsProps = makePropGetter(
-    getHooks().getToggleHideAllColumnsProps,
-    { instance: getInstance() }
-  )
+  const getToggleHideAllColumnsProps = makePropGetter(getHooks().getToggleHideAllColumnsProps, {
+    instance: getInstance(),
+  });
 
-  flatHeaders.forEach(column => {
-    column.toggleHidden = value => {
+  flatHeaders.forEach((column) => {
+    column.toggleHidden = (value) => {
       dispatch({
         type: actions.toggleHideColumn,
         columnId: column.id,
         value,
-      })
-    }
+      });
+    };
 
-    column.getToggleHiddenProps = makePropGetter(
-      getHooks().getToggleHiddenProps,
-      {
-        instance: getInstance(),
-        column,
-      }
-    )
-  })
+    column.getToggleHiddenProps = makePropGetter(getHooks().getToggleHiddenProps, {
+      instance: getInstance(),
+      column,
+    });
+  });
 
-  const getAutoResetHiddenColumns = useGetLatest(autoResetHiddenColumns)
+  const getAutoResetHiddenColumns = useGetLatest(autoResetHiddenColumns);
 
   useMountedLayoutEffect(() => {
     if (getAutoResetHiddenColumns()) {
-      dispatch({ type: actions.resetHiddenColumns })
+      dispatch({ type: actions.resetHiddenColumns });
     }
-  }, [dispatch, columns])
+  }, [dispatch, columns]);
 
   Object.assign(instance, {
     allColumnsHidden,
@@ -215,5 +186,5 @@ function useInstance(instance) {
     setHiddenColumns,
     toggleHideAllColumns,
     getToggleHideAllColumnsProps,
-  })
+  });
 }

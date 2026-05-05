@@ -1,11 +1,11 @@
 // @ts-nocheck
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
-let renderErr = 'Renderer Error ☝️'
+let renderErr = 'Renderer Error ☝️';
 
 export const actions: Record<string, string> = {
   init: 'init',
-}
+};
 
 export const defaultRenderer = ({ value = '' }) => value;
 export const emptyRenderer = () => <>&nbsp;</>;
@@ -15,50 +15,46 @@ export const defaultColumn: Record<string, unknown> = {
   width: 150,
   minWidth: 0,
   maxWidth: Number.MAX_SAFE_INTEGER,
-}
+};
 
 function mergeProps(...propList) {
   return propList.reduce((props, next) => {
-    const { style, className, ...rest } = next
+    const { style, className, ...rest } = next;
 
     props = {
       ...props,
       ...rest,
-    }
+    };
 
     if (style) {
-      props.style = props.style
-        ? { ...(props.style || {}), ...(style || {}) }
-        : style
+      props.style = props.style ? { ...(props.style || {}), ...(style || {}) } : style;
     }
 
     if (className) {
-      props.className = props.className
-        ? props.className + ' ' + className
-        : className
+      props.className = props.className ? props.className + ' ' + className : className;
     }
 
     if (props.className === '') {
-      delete props.className
+      delete props.className;
     }
 
-    return props
-  }, {})
+    return props;
+  }, {});
 }
 
 function handlePropGetter(prevProps, userProps, meta) {
   // Handle a lambda, pass it the previous props
   if (typeof userProps === 'function') {
-    return handlePropGetter({}, userProps(prevProps, meta))
+    return handlePropGetter({}, userProps(prevProps, meta));
   }
 
   // Handle an array, merge each item as separate props
   if (Array.isArray(userProps)) {
-    return mergeProps(prevProps, ...userProps)
+    return mergeProps(prevProps, ...userProps);
   }
 
   // Handle an object by default, merge the two objects
-  return mergeProps(prevProps, userProps)
+  return mergeProps(prevProps, userProps);
 }
 
 export const makePropGetter = (hooks, meta = {}) => {
@@ -69,46 +65,40 @@ export const makePropGetter = (hooks, meta = {}) => {
           ...meta,
           userProps,
         }),
-      {}
-    )
-}
+      {},
+    );
+};
 
 export const reduceHooks = (hooks, initial, meta = {}, allowUndefined) =>
   hooks.reduce((prev, next) => {
-    const nextValue = next(prev, meta)
+    const nextValue = next(prev, meta);
     if (process.env.NODE_ENV !== 'production') {
       if (!allowUndefined && typeof nextValue === 'undefined') {
-        console.info(next)
-        throw new Error(
-          'React Table: A reducer hook ☝️ just returned undefined! This is not allowed.'
-        )
+        console.info(next);
+        throw new Error('React Table: A reducer hook ☝️ just returned undefined! This is not allowed.');
       }
     }
-    return nextValue
-  }, initial)
+    return nextValue;
+  }, initial);
 
 export const loopHooks = (hooks, context, meta = {}) =>
-  hooks.forEach(hook => {
-    const nextValue = hook(context, meta)
+  hooks.forEach((hook) => {
+    const nextValue = hook(context, meta);
     if (process.env.NODE_ENV !== 'production') {
       if (typeof nextValue !== 'undefined') {
-        console.info(hook, nextValue)
-        throw new Error(
-          'React Table: A loop-type hook ☝️ just returned a value! This is not allowed.'
-        )
+        console.info(hook, nextValue);
+        throw new Error('React Table: A loop-type hook ☝️ just returned a value! This is not allowed.');
       }
     }
-  })
+  });
 
 export function ensurePluginOrder(plugins, befores, pluginName, afters?) {
   if (process.env.NODE_ENV !== 'production' && afters) {
     throw new Error(
-      `Defining plugins in the "after" section of ensurePluginOrder is no longer supported (see plugin ${pluginName})`
-    )
+      `Defining plugins in the "after" section of ensurePluginOrder is no longer supported (see plugin ${pluginName})`,
+    );
   }
-  const pluginIndex = plugins.findIndex(
-    plugin => plugin.pluginName === pluginName
-  )
+  const pluginIndex = plugins.findIndex((plugin) => plugin.pluginName === pluginName);
 
   if (pluginIndex === -1) {
     if (process.env.NODE_ENV !== 'production') {
@@ -116,120 +106,111 @@ export function ensurePluginOrder(plugins, befores, pluginName, afters?) {
 This usually means you need to need to name your plugin hook by setting the 'pluginName' property of the hook function, eg:
 
   ${pluginName}.pluginName = '${pluginName}'
-`)
+`);
     }
   }
 
-  befores.forEach(before => {
-    const beforeIndex = plugins.findIndex(
-      plugin => plugin.pluginName === before
-    )
+  befores.forEach((before) => {
+    const beforeIndex = plugins.findIndex((plugin) => plugin.pluginName === before);
     if (beforeIndex > -1 && beforeIndex > pluginIndex) {
       if (process.env.NODE_ENV !== 'production') {
-        throw new Error(
-          `React Table: The ${pluginName} plugin hook must be placed after the ${before} plugin hook!`
-        )
+        throw new Error(`React Table: The ${pluginName} plugin hook must be placed after the ${before} plugin hook!`);
       }
     }
-  })
+  });
 }
 
 export function functionalUpdate(updater, old) {
-  return typeof updater === 'function' ? updater(old) : updater
+  return typeof updater === 'function' ? updater(old) : updater;
 }
 
 export function useGetLatest(obj) {
-  const ref = useRef()
-  ref.current = obj
+  const ref = useRef();
+  ref.current = obj;
 
-  return useCallback(() => ref.current, [])
+  return useCallback(() => ref.current, []);
 }
 
 // SSR has issues with useLayoutEffect still, so use useEffect during SSR
-export const safeUseLayoutEffect =
-  typeof document !== 'undefined' ? useLayoutEffect : useEffect
+export const safeUseLayoutEffect = typeof document !== 'undefined' ? useLayoutEffect : useEffect;
 
 export function useMountedLayoutEffect(fn, deps) {
-  const mountedRef = useRef(false)
+  const mountedRef = useRef(false);
 
   safeUseLayoutEffect(() => {
     if (mountedRef.current) {
-      fn()
+      fn();
     }
-    mountedRef.current = true
+    mountedRef.current = true;
     // eslint-disable-next-line
-  }, deps)
+  }, deps);
 }
 
 export function useAsyncDebounce(defaultFn, defaultWait = 0) {
-  const debounceRef = useRef({})
+  const debounceRef = useRef({});
 
-  const getDefaultFn = useGetLatest(defaultFn)
-  const getDefaultWait = useGetLatest(defaultWait)
+  const getDefaultFn = useGetLatest(defaultFn);
+  const getDefaultWait = useGetLatest(defaultWait);
 
   return useCallback(
     async (...args) => {
       if (!debounceRef.current.promise) {
         debounceRef.current.promise = new Promise((resolve, reject) => {
-          debounceRef.current.resolve = resolve
-          debounceRef.current.reject = reject
-        })
+          debounceRef.current.resolve = resolve;
+          debounceRef.current.reject = reject;
+        });
       }
 
       if (debounceRef.current.timeout) {
-        clearTimeout(debounceRef.current.timeout)
+        clearTimeout(debounceRef.current.timeout);
       }
 
       debounceRef.current.timeout = setTimeout(async () => {
-        delete debounceRef.current.timeout
+        delete debounceRef.current.timeout;
         try {
-          debounceRef.current.resolve(await getDefaultFn()(...args))
+          debounceRef.current.resolve(await getDefaultFn()(...args));
         } catch (err) {
-          debounceRef.current.reject(err)
+          debounceRef.current.reject(err);
         } finally {
-          delete debounceRef.current.promise
+          delete debounceRef.current.promise;
         }
-      }, getDefaultWait())
+      }, getDefaultWait());
 
-      return debounceRef.current.promise
+      return debounceRef.current.promise;
     },
-    [getDefaultFn, getDefaultWait]
-  )
+    [getDefaultFn, getDefaultWait],
+  );
 }
 
 export function makeRenderer(instance, column, meta = {}) {
   return (type, userProps = {}) => {
-    const Comp = typeof type === 'string' ? column[type] : type
+    const Comp = typeof type === 'string' ? column[type] : type;
 
     if (typeof Comp === 'undefined') {
-      console.info(column)
-      throw new Error(renderErr)
+      console.info(column);
+      throw new Error(renderErr);
     }
 
-    return flexRender(Comp, { ...instance, column, ...meta, ...userProps })
-  }
+    return flexRender(Comp, { ...instance, column, ...meta, ...userProps });
+  };
 }
 
 export function flexRender(Comp, props) {
-  return isReactComponent(Comp) ? <Comp {...props} /> : Comp
+  return isReactComponent(Comp) ? <Comp {...props} /> : Comp;
 }
 
 function isReactComponent(component) {
-  return (
-    isClassComponent(component) ||
-    typeof component === 'function' ||
-    isExoticComponent(component)
-  )
+  return isClassComponent(component) || typeof component === 'function' || isExoticComponent(component);
 }
 
 function isClassComponent(component) {
   return (
     typeof component === 'function' &&
     (() => {
-      const proto = Object.getPrototypeOf(component)
-      return proto.prototype && proto.prototype.isReactComponent
+      const proto = Object.getPrototypeOf(component);
+      return proto.prototype && proto.prototype.isReactComponent;
     })()
-  )
+  );
 }
 
 function isExoticComponent(component) {
@@ -237,5 +218,5 @@ function isExoticComponent(component) {
     typeof component === 'object' &&
     typeof component.$$typeof === 'symbol' &&
     ['react.memo', 'react.forward_ref'].includes(component.$$typeof.description)
-  )
+  );
 }
