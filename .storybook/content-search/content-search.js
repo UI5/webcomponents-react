@@ -6,6 +6,7 @@ if (container) {
   try {
     new PagefindUI({
       element: '#pagefind-ui',
+      bundlePath: new URL('./pagefind/', import.meta.url).pathname,
       showSubResults: true,
       showImages: false,
       showEmptyFilters: false,
