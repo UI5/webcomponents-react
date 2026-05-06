@@ -31,6 +31,7 @@ const emptyArray: RowType[] = [];
  * - `selectedFlatRows` computation is memoized
  * - Uses stable noop references when disabled
  * - Fixes select-all indeterminate state considering filtered-out rows (now only visible rows are considered)
+ * - Removed `manualRowSelectedKey` display override from `defaultGetToggleRowSelectedProps` (`row.isSelected` is the single source of truth)
  *
  * _Pagination specific implementation where adjusted as well, although they are currently not being used_
  */
@@ -49,16 +50,8 @@ const defaultGetToggleRowSelectedProps = (
   props: Record<string, unknown>,
   { instance, row }: { instance: TableInstance; row: RowType },
 ) => {
-  const { manualRowSelectedKey = 'isSelected', webComponentsReactProperties } = instance;
-  // UI5WCR: use className instead of inline style
-  const { classes } = webComponentsReactProperties;
-  let checked = false;
-
-  if (row.original && row.original[manualRowSelectedKey]) {
-    checked = true;
-  } else {
-    checked = row.isSelected;
-  }
+  // UI5WCR: use className instead of inline style; removed `manualRowSelectedKey` display override
+  const { classes } = instance.webComponentsReactProperties;
 
   return [
     props,
@@ -68,7 +61,7 @@ const defaultGetToggleRowSelectedProps = (
       },
       // UI5WCR: removed style/title, added className
       className: classes.checkBox,
-      checked,
+      checked: row.isSelected,
       indeterminate: row.isSomeSelected,
     },
   ];

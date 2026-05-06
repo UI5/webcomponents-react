@@ -177,7 +177,7 @@ const PieChart = forwardRef<HTMLDivElement, PieChartProps>((props, ref) => {
 
   const onDataPointClickInternal = useCallback(
     (payload, dataIndex, event) => {
-      if (payload && payload && typeof onDataPointClick === 'function') {
+      if (payload && typeof onDataPointClick === 'function') {
         onDataPointClick(
           enrichEventWithDetails(event, {
             value: payload.value,

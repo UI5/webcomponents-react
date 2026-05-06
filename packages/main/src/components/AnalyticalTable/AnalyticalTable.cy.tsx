@@ -2262,6 +2262,29 @@ describe('AnalyticalTable', () => {
     cy.get('@rowSelect').should('have.callCount', 11);
   });
 
+  it('onRowContextMenu', () => {
+    const contextMenu = cy.spy().as('contextMenu');
+    cy.mount(<AnalyticalTable data={data} columns={columns} onRowContextMenu={contextMenu} />);
+
+    cy.findByText('A').rightclick();
+    cy.get('@contextMenu').should('have.been.calledOnce');
+    cy.get('@contextMenu').should('have.been.calledWithMatch', {
+      detail: {
+        row: Cypress.sinon.match({ original: { name: 'A', age: 40 } }),
+        column: Cypress.sinon.match({ id: 'name' }),
+      },
+    });
+
+    cy.findByText('20').rightclick();
+    cy.get('@contextMenu').should('have.been.calledTwice');
+    cy.get('@contextMenu').should('have.been.calledWithMatch', {
+      detail: {
+        row: Cypress.sinon.match({ original: Cypress.sinon.match({ name: 'B', age: 20 }) }),
+        column: Cypress.sinon.match({ id: 'age' }),
+      },
+    });
+  });
+
   it('withRowHighlight', () => {
     const errorColor = cssVarToRgb(ThemingParameters.sapErrorColor);
     const successColor = cssVarToRgb(ThemingParameters.sapSuccessColor);
@@ -2906,47 +2929,68 @@ describe('AnalyticalTable', () => {
     });
   });
 
-  it('plugin hook: useManualRowSelect', () => {
-    cy.mount(
-      <AnalyticalTable
-        selectionMode={AnalyticalTableSelectionMode.Multiple}
-        data={manualSelectData}
-        columns={columns}
-        tableHooks={[useManualRowSelect('isSelected')]}
-      />,
-    );
-    // header row included
-    cy.findAllByRole('row').each(($row, index) => {
-      if (index !== 1) {
-        cy.wrap($row).should('not.have.attr', 'data-is-selected');
-      } else {
-        cy.wrap($row).should('have.attr', 'data-is-selected');
-      }
-    });
+  ['default', 'checked'].forEach((key) => {
+    const isDefault = key === 'default';
+    const selectionKey = isDefault ? 'isSelected' : key;
 
-    const [, ...updatedManualSelectData] = manualSelectData;
-    cy.mount(
-      <AnalyticalTable
-        selectionMode={AnalyticalTableSelectionMode.Multiple}
-        data={[
-          {
-            name: 'Selected',
-            age: 40,
-            friend: {
-              name: 'MAR',
-              age: 28,
-            },
-            isSelected: false,
-          },
-          ...updatedManualSelectData,
-        ]}
-        columns={columns}
-        tableHooks={[useManualRowSelect('isSelected')]}
-      />,
-    );
-    // header row included
-    cy.findAllByRole('row').each(($row) => {
-      cy.wrap($row).should('not.have.attr', 'data-is-selected');
+    it(`plugin hook: useManualRowSelect (${key} key)`, () => {
+      const testData = [
+        { name: 'Initially Selected', age: 40, friend: { name: 'MAR', age: 28 }, [selectionKey]: true },
+        { name: 'Initially Not selected', age: 20, friend: { name: 'Nei', age: 50 }, [selectionKey]: false },
+        { name: 'No key', age: 20, friend: { name: 'Nei', age: 50 } },
+      ];
+
+      const hook = isDefault ? useManualRowSelect() : useManualRowSelect(selectionKey);
+
+      // 1st row selected
+      cy.mount(
+        <AnalyticalTable
+          selectionMode={AnalyticalTableSelectionMode.Multiple}
+          data={testData}
+          columns={columns}
+          tableHooks={[hook]}
+        />,
+      );
+
+      cy.findAllByRole('row').each(($row, index) => {
+        if (index === 1) {
+          cy.wrap($row).should('have.attr', 'data-is-selected');
+        } else {
+          cy.wrap($row).should('not.have.attr', 'data-is-selected');
+        }
+      });
+
+      const testData2 = [
+        { name: 'Selected', age: 40, friend: { name: 'MAR', age: 28 }, [selectionKey]: false },
+        { name: 'Not selected', age: 20, friend: { name: 'Nei', age: 50 }, [selectionKey]: true },
+        { name: 'No key', age: 20, friend: { name: 'Nei', age: 50 } },
+      ];
+      // 2nd row selected
+      cy.mount(
+        <AnalyticalTable
+          selectionMode={AnalyticalTableSelectionMode.Multiple}
+          data={testData2}
+          columns={columns}
+          tableHooks={[hook]}
+        />,
+      );
+      cy.findAllByRole('row').each(($row, index) => {
+        if (index === 2) {
+          cy.wrap($row).should('have.attr', 'data-is-selected');
+        } else {
+          cy.wrap($row).should('not.have.attr', 'data-is-selected');
+        }
+      });
+
+      // select 3rd row
+      cy.get('[data-selection-cell="true"]').eq(2).click();
+      cy.findAllByRole('row').eq(3).should('have.attr', 'data-is-selected');
+      cy.findAllByRole('row').eq(2).should('have.attr', 'data-is-selected');
+
+      // deselect 2nd row
+      cy.get('[data-selection-cell="true"]').eq(1).click();
+      cy.findAllByRole('row').eq(2).should('not.have.attr', 'data-is-selected');
+      cy.findAllByRole('row').eq(3).should('have.attr', 'data-is-selected');
     });
   });
 
@@ -5109,35 +5153,6 @@ const columnsWithPopIn = [
           Popin Cell
         </Text>
       );
-    },
-  },
-];
-
-const manualSelectData = [
-  {
-    name: 'Selected',
-    age: 40,
-    friend: {
-      name: 'MAR',
-      age: 28,
-    },
-    isSelected: true,
-  },
-  {
-    name: 'Not selected',
-    age: 20,
-    friend: {
-      name: 'Nei',
-      age: 50,
-    },
-    isSelected: false,
-  },
-  {
-    name: 'Not selected2',
-    age: 20,
-    friend: {
-      name: 'Nei',
-      age: 50,
     },
   },
 ];

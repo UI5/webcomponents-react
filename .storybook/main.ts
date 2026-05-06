@@ -81,7 +81,7 @@ const config: StorybookConfig = {
       shouldRemoveUndefinedFromOptional: true,
     },
   },
-  staticDirs: isDevMode ? ['images-dev'] : ['images'],
+  staticDirs: isDevMode ? ['images-dev', 'content-search'] : ['images', 'content-search'],
   viteFinal: (viteConfig) =>
     mergeConfig(viteConfig, {
       build: {
