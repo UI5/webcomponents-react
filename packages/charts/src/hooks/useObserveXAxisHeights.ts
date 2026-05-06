@@ -2,9 +2,13 @@ import { useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base/interna
 import type { RefObject } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
+// recharts default axis height -> is changed when labels are rotated
 const defaultAxisHeight = 30;
 
-function measure(container: Element | null, axisCount: number, prevHeightsRef: React.RefObject<number[]>) {
+/**
+ * Measure x-axis height(s) - defaults to `defaultAxisHeight`
+ */
+function measure(container: Element | null, axisCount: number, prevHeightsRef: RefObject<number[]>) {
   const heights = Array(axisCount).fill(defaultAxisHeight);
   container?.querySelectorAll<SVGGraphicsElement>('.xAxis').forEach((xAxis, index) => {
     const height = xAxis?.getBBox()?.height;
@@ -13,12 +17,13 @@ function measure(container: Element | null, axisCount: number, prevHeightsRef: R
     }
   });
 
-  const prev = prevHeightsRef.current;
-  const same = prev.length === heights.length && prev.every((v, i) => v === heights[i]);
+  const prevHeights = prevHeightsRef.current;
+  const same = prevHeights.length === heights.length && prevHeights.every((value, index) => value === heights[index]);
   if (!same) {
     prevHeightsRef.current = heights;
     return heights;
   }
+  // no change
   return null;
 }
 
@@ -26,7 +31,7 @@ export const useObserveXAxisHeights = (chartRef: RefObject<SVGElement>, axisCoun
   const [xAxisHeights, setXAxisHeights] = useState(Array(axisCount).fill(defaultAxisHeight));
   const prevHeightsRef = useRef(xAxisHeights);
 
-  // Synchronous measurement after each of our own commits.
+  // check on every render if height changed
   useIsomorphicLayoutEffect(() => {
     const result = measure(chartRef.current, axisCount, prevHeightsRef);
     if (result) {
@@ -34,8 +39,7 @@ export const useObserveXAxisHeights = (chartRef: RefObject<SVGElement>, axisCoun
     }
   });
 
-  // MutationObserver to catch chart content appearing from ResponsiveContainer's
-  // internal re-render and CartesianAxis's componentDidMount re-render.
+  // check on every component DOM subtree change (catches internal rerender)
   useEffect(() => {
     const container = chartRef.current;
     if (!container) {
