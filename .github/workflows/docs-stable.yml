@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Storybook
         run: |
-          yarn build:storybook
+          yarn build:sb-with-search
           yarn build:storybook-sitemap --basePath "v${{ env.MAJOR_VERSION }}"
         env:
           NODE_OPTIONS: '--max-old-space-size=4096'

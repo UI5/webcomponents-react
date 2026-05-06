@@ -80,7 +80,7 @@ jobs:
       - name: Install and Build
         run: |
           yarn install --immutable
-          yarn build:storybook
+          yarn build:sb-with-search
         env:
           NODE_OPTIONS: '--max-old-space-size=4096'
 
