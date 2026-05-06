@@ -260,7 +260,7 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
                       }
                       return (
                         <Fragment key={groupName}>
-                          {groupName && <ListItemGroup headerText={groupName}>{items}</ListItemGroup>}
+                          <ListItemGroup headerText={groupName}>{items}</ListItemGroup>
                         </Fragment>
                       );
                     })
