@@ -63,6 +63,7 @@ addons.register(ADDON_ID, () => {
             onClick={() => {
               setOpen(true);
             }}
+            ariaLabel={false}
           >
             Version: {activeVersion}
           </IconButton>

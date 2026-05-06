@@ -67,6 +67,9 @@ export const stateReducer: TableInstance['stateReducer'] = (state, action, _prev
       return { ...state, subComponentsHeight: payload };
     case 'TABLE_COL_RESIZED':
       return { ...state, tableColResized: payload };
+    case 'resetResize':
+      // reset `tableColResized` state, when react-table resize state is reset
+      return { ...state, tableColResized: undefined };
     case 'ROW_COLLAPSED_FLAG':
       return { ...state, rowCollapsed: payload };
     case 'COLUMN_DND_START':

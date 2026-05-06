@@ -394,3 +394,4 @@ export const useKeyboardNavigation = (hooks: ReactTableHooks) => {
   hooks.getTableProps.push(useGetTableProps);
   hooks.getHeaderProps.push(setHeaderProps);
 };
+useKeyboardNavigation.pluginName = 'useKeyboardNavigation';

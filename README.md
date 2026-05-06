@@ -34,7 +34,7 @@ You can find our documentation under the following links:
 
   [![](https://badgen.net/npm/v/@ui5/webcomponents-react?icon=npm)](https://www.npmjs.com/package/@ui5/webcomponents-react)
 
-- [@ui5/webcomponents-react-charts](https://github.com/UI5/webcomponents-react/tree/main/packages/charts) - Charts Package
+- [@ui5/webcomponents-react-charts](https://github.com/UI5/webcomponents-react/tree/main/packages/charts) - Charts Package (**[deprecated](https://github.com/UI5/webcomponents-react/tree/main/packages/charts#deprecation-notice)**)
 
   [![](https://badgen.net/npm/v/@ui5/webcomponents-react-charts?icon=npm)](https://www.npmjs.com/package/@ui5/webcomponents-react-charts)
 
