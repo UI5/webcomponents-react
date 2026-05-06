@@ -1,0 +1,1 @@
+import{n as e,o as t}from"./chunk-jRWAZmH_.js";import{Dg as n,Xm as r,Zm as i}from"./iframe-DtX1lS1n.js";var a,o,s=e((()=>{i(),a=t(n(),1),o=e=>(0,a.useCallback)((t,n)=>{typeof e==`function`&&e(r(n,{payload:t?.activePayload?.[0]?.payload,activePayloads:t?.activePayload}))},[e])}));export{o as n,s as t};
