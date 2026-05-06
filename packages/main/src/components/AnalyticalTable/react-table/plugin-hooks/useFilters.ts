@@ -1,25 +1,26 @@
-// @ts-nocheck
 import { useCallback, useMemo } from 'react';
-
-import { getFirstDefined, getFilterMethod, shouldAutoRemoveFilter } from '../utils.js';
-
-import { actions, useGetLatest, functionalUpdate, useMountedLayoutEffect } from '../publicUtils.js';
-
+import type { ReactTableHooks, TableInstance, ColumnType, RowType, PluginHook } from '../../types/index.js';
 import * as filterTypes from '../filterTypes.js';
+import { actions, useGetLatest, functionalUpdate, useMountedLayoutEffect } from '../publicUtils.js';
+import { getFirstDefined, getFilterMethod, shouldAutoRemoveFilter } from '../utils.js';
 
 // Actions
 actions.resetFilters = 'resetFilters';
 actions.setFilter = 'setFilter';
 actions.setAllFilters = 'setAllFilters';
 
-export const useFilters = (hooks) => {
+export const useFilters: PluginHook = (hooks: ReactTableHooks) => {
   hooks.stateReducers.push(reducer);
   hooks.useInstance.push(useInstance);
 };
-
 useFilters.pluginName = 'useFilters';
 
-function reducer(state, action, previousState, instance) {
+function reducer(
+  state: TableInstance['state'],
+  action: { type: string; columnId?: string; filterValue?: any; filters?: any },
+  _previousState: TableInstance['state'],
+  instance: TableInstance,
+) {
   if (action.type === actions.init) {
     return {
       filters: [],
@@ -38,7 +39,7 @@ function reducer(state, action, previousState, instance) {
     const { columnId, filterValue } = action;
     const { allColumns, filterTypes: userFilterTypes } = instance;
 
-    const column = allColumns.find((d) => d.id === columnId);
+    const column = allColumns.find((d: ColumnType) => d.id === columnId);
 
     if (!column) {
       throw new Error(`React-Table: Could not find a column with id: ${columnId}`);
@@ -50,7 +51,6 @@ function reducer(state, action, previousState, instance) {
 
     const newFilter = functionalUpdate(filterValue, previousfilter && previousfilter.value);
 
-    //
     if (shouldAutoRemoveFilter(filterMethod.autoRemove, newFilter, column)) {
       return {
         ...state,
@@ -83,8 +83,8 @@ function reducer(state, action, previousState, instance) {
     return {
       ...state,
       // Filter out undefined values
-      filters: functionalUpdate(filters, state.filters).filter((filter) => {
-        const column = allColumns.find((d) => d.id === filter.id);
+      filters: functionalUpdate(filters, state.filters).filter((filter: any) => {
+        const column = allColumns.find((d: ColumnType) => d.id === filter.id);
         const filterMethod = getFilterMethod(column.filter, userFilterTypes || {}, filterTypes);
 
         if (shouldAutoRemoveFilter(filterMethod.autoRemove, filter.value, column)) {
@@ -96,7 +96,7 @@ function reducer(state, action, previousState, instance) {
   }
 }
 
-function useInstance(instance) {
+function useInstance(instance: TableInstance) {
   const {
     data,
     rows,
@@ -113,14 +113,14 @@ function useInstance(instance) {
   } = instance;
 
   const setFilter = useCallback(
-    (columnId, filterValue) => {
+    (columnId: string, filterValue: any) => {
       dispatch({ type: actions.setFilter, columnId, filterValue });
     },
     [dispatch],
   );
 
   const setAllFilters = useCallback(
-    (filters) => {
+    (filters: any) => {
       dispatch({
         type: actions.setAllFilters,
         filters,
@@ -129,7 +129,7 @@ function useInstance(instance) {
     [dispatch],
   );
 
-  allColumns.forEach((column) => {
+  allColumns.forEach((column: ColumnType) => {
     const { id, accessor, defaultCanFilter: columnDefaultCanFilter, disableFilters: columnDisableFilters } = column;
 
     // Determine if a column is filterable
@@ -142,7 +142,7 @@ function useInstance(instance) {
       : getFirstDefined(columnDefaultCanFilter, defaultCanFilter, false);
 
     // Provide the column a way of updating the filter value
-    column.setFilter = (val) => setFilter(column.id, val);
+    column.setFilter = (val: any) => setFilter(column.id, val);
 
     // Provide the current filter value to the column for
     // convenience
@@ -155,38 +155,41 @@ function useInstance(instance) {
       return [rows, flatRows, rowsById];
     }
 
-    const filteredFlatRows = [];
-    const filteredRowsById = {};
+    const filteredFlatRows: RowType[] = [];
+    const filteredRowsById: Record<string, RowType> = {};
 
     // Filters top level and nested rows
-    const filterRows = (rows, depth = 0) => {
+    const filterRows = (rows: RowType[], depth = 0): RowType[] => {
       let filteredRows = rows;
 
-      filteredRows = filters.reduce((filteredSoFar, { id: columnId, value: filterValue }) => {
-        // Find the filters column
-        const column = allColumns.find((d) => d.id === columnId);
+      filteredRows = (filters as any[]).reduce(
+        (filteredSoFar: RowType[], { id: columnId, value: filterValue }: any) => {
+          // Find the filters column
+          const column = allColumns.find((d: ColumnType) => d.id === columnId);
 
-        if (!column) {
-          return filteredSoFar;
-        }
+          if (!column) {
+            return filteredSoFar;
+          }
 
-        if (depth === 0) {
-          column.preFilteredRows = filteredSoFar;
-        }
+          if (depth === 0) {
+            column.preFilteredRows = filteredSoFar;
+          }
 
-        const filterMethod = getFilterMethod(column.filter, userFilterTypes || {}, filterTypes);
+          const filterMethod = getFilterMethod(column.filter, userFilterTypes || {}, filterTypes);
 
-        if (!filterMethod) {
-          console.warn(`Could not find a valid 'column.filter' for column with the ID: ${column.id}.`);
-          return filteredSoFar;
-        }
+          if (!filterMethod) {
+            console.warn(`Could not find a valid 'column.filter' for column with the ID: ${column.id}.`);
+            return filteredSoFar;
+          }
 
-        // Pass the rows, id, filterValue and column to the filterMethod
-        // to get the filtered rows back
-        column.filteredRows = filterMethod(filteredSoFar, [columnId], filterValue);
+          // Pass the rows, id, filterValue and column to the filterMethod
+          // to get the filtered rows back
+          column.filteredRows = filterMethod(filteredSoFar, [columnId], filterValue);
 
-        return column.filteredRows;
-      }, rows);
+          return column.filteredRows;
+        },
+        rows,
+      );
 
       // Apply the filter to any subRows
       filteredRows.forEach((row) => {
@@ -208,11 +211,11 @@ function useInstance(instance) {
   useMemo(() => {
     // Now that each filtered column has it's partially filtered rows,
     // lets assign the final filtered rows to all of the other columns
-    const nonFilteredColumns = allColumns.filter((column) => !filters.find((d) => d.id === column.id));
+    const nonFilteredColumns = allColumns.filter((column: ColumnType) => !filters.find((d) => d.id === column.id));
 
     // This essentially enables faceted filter options to be built easily
     // using every column's preFilteredRows value
-    nonFilteredColumns.forEach((column) => {
+    nonFilteredColumns.forEach((column: ColumnType) => {
       column.preFilteredRows = filteredRows;
       column.filteredRows = filteredRows;
     });

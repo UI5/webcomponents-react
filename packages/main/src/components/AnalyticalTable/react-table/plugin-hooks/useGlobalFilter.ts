@@ -1,24 +1,25 @@
-// @ts-nocheck
 import { useCallback, useMemo } from 'react';
-
-import { getFilterMethod, shouldAutoRemoveFilter, getFirstDefined } from '../utils.js';
-
-import { actions, useMountedLayoutEffect, functionalUpdate, useGetLatest } from '../publicUtils.js';
-
+import type { ReactTableHooks, TableInstance, ColumnType, RowType, PluginHook } from '../../types/index.js';
 import * as filterTypes from '../filterTypes.js';
+import { actions, useMountedLayoutEffect, functionalUpdate, useGetLatest } from '../publicUtils.js';
+import { getFilterMethod, shouldAutoRemoveFilter, getFirstDefined } from '../utils.js';
 
 // Actions
 actions.resetGlobalFilter = 'resetGlobalFilter';
 actions.setGlobalFilter = 'setGlobalFilter';
 
-export const useGlobalFilter = (hooks) => {
+export const useGlobalFilter: PluginHook = (hooks: ReactTableHooks) => {
   hooks.stateReducers.push(reducer);
   hooks.useInstance.push(useInstance);
 };
-
 useGlobalFilter.pluginName = 'useGlobalFilter';
 
-function reducer(state, action, previousState, instance) {
+function reducer(
+  state: TableInstance['state'],
+  action: { type: string; filterValue?: any },
+  _previousState: TableInstance['state'],
+  instance: TableInstance,
+) {
   if (action.type === actions.resetGlobalFilter) {
     return {
       ...state,
@@ -34,9 +35,8 @@ function reducer(state, action, previousState, instance) {
 
     const newFilter = functionalUpdate(filterValue, state.globalFilter);
 
-    //
     if (shouldAutoRemoveFilter(filterMethod.autoRemove, newFilter)) {
-      const { globalFilter, ...stateWithoutGlobalFilter } = state;
+      const { globalFilter: _gf, ...stateWithoutGlobalFilter } = state;
       return stateWithoutGlobalFilter;
     }
 
@@ -47,7 +47,7 @@ function reducer(state, action, previousState, instance) {
   }
 }
 
-function useInstance(instance) {
+function useInstance(instance: TableInstance) {
   const {
     data,
     rows,
@@ -64,7 +64,7 @@ function useInstance(instance) {
   } = instance;
 
   const setGlobalFilter = useCallback(
-    (filterValue) => {
+    (filterValue: any) => {
       dispatch({ type: actions.setGlobalFilter, filterValue });
     },
     [dispatch],
@@ -75,8 +75,8 @@ function useInstance(instance) {
       return [rows, flatRows, rowsById];
     }
 
-    const filteredFlatRows = [];
-    const filteredRowsById = {};
+    const filteredFlatRows: RowType[] = [];
+    const filteredRowsById: Record<string, RowType> = {};
 
     const filterMethod = getFilterMethod(globalFilter, userFilterTypes || {}, filterTypes);
 
@@ -85,7 +85,7 @@ function useInstance(instance) {
       return rows;
     }
 
-    allColumns.forEach((column) => {
+    allColumns.forEach((column: ColumnType) => {
       const { disableGlobalFilter: columnDisableGlobalFilter } = column;
 
       column.canFilter = getFirstDefined(
@@ -95,13 +95,13 @@ function useInstance(instance) {
       );
     });
 
-    const filterableColumns = allColumns.filter((c) => c.canFilter === true);
+    const filterableColumns = allColumns.filter((c: ColumnType) => c.canFilter === true);
 
     // Filters top level and nested rows
-    const filterRows = (filteredRows) => {
+    const filterRows = (filteredRows: RowType[]): RowType[] => {
       filteredRows = filterMethod(
         filteredRows,
-        filterableColumns.map((d) => d.id),
+        filterableColumns.map((d: ColumnType) => d.id),
         globalFilterValue,
       );
 

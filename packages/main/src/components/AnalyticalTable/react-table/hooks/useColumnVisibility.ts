@@ -1,6 +1,5 @@
-// @ts-nocheck
-import { useCallback, useRef } from 'react';
-
+import { useCallback } from 'react';
+import type { ReactTableHooks, TableInstance, ColumnType, PluginHook } from '../../types/index.js';
 import { actions, functionalUpdate, useGetLatest, makePropGetter, useMountedLayoutEffect } from '../publicUtils.js';
 
 actions.resetHiddenColumns = 'resetHiddenColumns';
@@ -8,7 +7,7 @@ actions.toggleHideColumn = 'toggleHideColumn';
 actions.setHiddenColumns = 'setHiddenColumns';
 actions.toggleHideAllColumns = 'toggleHideAllColumns';
 
-export const useColumnVisibility = (hooks) => {
+export const useColumnVisibility: PluginHook = (hooks: ReactTableHooks) => {
   hooks.getToggleHiddenProps = [defaultGetToggleHiddenProps];
   hooks.getToggleHideAllColumnsProps = [defaultGetToggleHideAllColumnsProps];
 
@@ -17,13 +16,12 @@ export const useColumnVisibility = (hooks) => {
   hooks.headerGroupsDeps.push((deps, { instance }) => [...deps, instance.state.hiddenColumns]);
   hooks.useInstance.push(useInstance);
 };
-
 useColumnVisibility.pluginName = 'useColumnVisibility';
 
-const defaultGetToggleHiddenProps = (props, { column }) => [
+const defaultGetToggleHiddenProps = (props: Record<string, any>, { column }: { column: ColumnType }) => [
   props,
   {
-    onChange: (e) => {
+    onChange: (e: { target: { checked: boolean } }) => {
       column.toggleHidden(!e.target.checked);
     },
     style: {
@@ -34,10 +32,10 @@ const defaultGetToggleHiddenProps = (props, { column }) => [
   },
 ];
 
-const defaultGetToggleHideAllColumnsProps = (props, { instance }) => [
+const defaultGetToggleHideAllColumnsProps = (props: Record<string, any>, { instance }: { instance: TableInstance }) => [
   props,
   {
-    onChange: (e) => {
+    onChange: (e: { target: { checked: boolean } }) => {
       instance.toggleHideAllColumns(!e.target.checked);
     },
     style: {
@@ -49,7 +47,12 @@ const defaultGetToggleHideAllColumnsProps = (props, { instance }) => [
   },
 ];
 
-function reducer(state, action, previousState, instance) {
+function reducer(
+  state: TableInstance['state'],
+  action: { type: string; columnId?: string; value?: boolean | string[] | ((old: string[]) => string[]) },
+  _previousState: TableInstance['state'],
+  instance: TableInstance,
+) {
   if (action.type === actions.init) {
     return {
       hiddenColumns: [],
@@ -69,7 +72,7 @@ function reducer(state, action, previousState, instance) {
 
     const hiddenColumns = should
       ? [...state.hiddenColumns, action.columnId]
-      : state.hiddenColumns.filter((d) => d !== action.columnId);
+      : state.hiddenColumns.filter((d: string) => d !== action.columnId);
 
     return {
       ...state,
@@ -89,29 +92,26 @@ function reducer(state, action, previousState, instance) {
 
     return {
       ...state,
-      hiddenColumns: shouldAll ? instance.allColumns.map((d) => d.id) : [],
+      hiddenColumns: shouldAll ? instance.allColumns.map((d: ColumnType) => d.id) : [],
     };
   }
 }
 
-function useInstanceBeforeDimensions(instance) {
+function useInstanceBeforeDimensions(instance: TableInstance) {
   const {
     headers,
     state: { hiddenColumns },
   } = instance;
 
-  const isMountedRef = useRef(false);
-
-  if (!isMountedRef.current) {
-  }
-
-  const handleColumn = (column, parentVisible) => {
+  const handleColumn = (column: ColumnType, parentVisible: boolean): number => {
     column.isVisible = parentVisible && !hiddenColumns.includes(column.id);
 
     let totalVisibleHeaderCount = 0;
 
     if (column.headers && column.headers.length) {
-      column.headers.forEach((subColumn) => (totalVisibleHeaderCount += handleColumn(subColumn, column.isVisible)));
+      column.headers.forEach(
+        (subColumn: ColumnType) => (totalVisibleHeaderCount += handleColumn(subColumn, column.isVisible)),
+      );
     } else {
       totalVisibleHeaderCount = column.isVisible ? 1 : 0;
     }
@@ -123,10 +123,10 @@ function useInstanceBeforeDimensions(instance) {
 
   let totalVisibleHeaderCount = 0;
 
-  headers.forEach((subHeader) => (totalVisibleHeaderCount += handleColumn(subHeader, true)));
+  headers.forEach((subHeader: ColumnType) => (totalVisibleHeaderCount += handleColumn(subHeader, true)));
 }
 
-function useInstance(instance) {
+function useInstance(instance: TableInstance) {
   const {
     columns,
     flatHeaders,
@@ -142,14 +142,17 @@ function useInstance(instance) {
   const allColumnsHidden = allColumns.length === hiddenColumns.length;
 
   const toggleHideColumn = useCallback(
-    (columnId, value) => dispatch({ type: actions.toggleHideColumn, columnId, value }),
+    (columnId: string, value?: boolean) => dispatch({ type: actions.toggleHideColumn, columnId, value }),
     [dispatch],
   );
 
-  const setHiddenColumns = useCallback((value) => dispatch({ type: actions.setHiddenColumns, value }), [dispatch]);
+  const setHiddenColumns = useCallback(
+    (value: string[] | ((old: string[]) => string[])) => dispatch({ type: actions.setHiddenColumns, value }),
+    [dispatch],
+  );
 
   const toggleHideAllColumns = useCallback(
-    (value) => dispatch({ type: actions.toggleHideAllColumns, value }),
+    (value?: boolean) => dispatch({ type: actions.toggleHideAllColumns, value }),
     [dispatch],
   );
 
@@ -157,8 +160,8 @@ function useInstance(instance) {
     instance: getInstance(),
   });
 
-  flatHeaders.forEach((column) => {
-    column.toggleHidden = (value) => {
+  flatHeaders.forEach((column: ColumnType) => {
+    column.toggleHidden = (value?: boolean) => {
       dispatch({
         type: actions.toggleHideColumn,
         columnId: column.id,

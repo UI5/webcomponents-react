@@ -1,10 +1,11 @@
-// @ts-nocheck
+import type { RowType } from '../types/index.js';
+
 const reSplitAlphaNumeric = /([0-9]+)/gm;
 
 // Mixed sorting is slow, but very inclusive of many edge cases.
 // It handles numbers, mixed alphanumeric combinations, and even
 // null, undefined, and Infinity
-export const alphanumeric = (rowA, rowB, columnId) => {
+export const alphanumeric = (rowA: RowType, rowB: RowType, columnId: string): number => {
   let [a, b] = getRowValuesByColumnID(rowA, rowB, columnId);
 
   // Force to strings (or "" for unsupported types)
@@ -53,7 +54,8 @@ export const alphanumeric = (rowA, rowB, columnId) => {
 
   return a.length - b.length;
 };
-export function datetime(rowA, rowB, columnId) {
+
+export function datetime(rowA: RowType, rowB: RowType, columnId: string): number {
   let [a, b] = getRowValuesByColumnID(rowA, rowB, columnId);
 
   a = a.getTime();
@@ -62,21 +64,21 @@ export function datetime(rowA, rowB, columnId) {
   return compareBasic(a, b);
 }
 
-export function basic(rowA, rowB, columnId) {
+export function basic(rowA: RowType, rowB: RowType, columnId: string): number {
   let [a, b] = getRowValuesByColumnID(rowA, rowB, columnId);
 
   return compareBasic(a, b);
 }
 
-export function string(rowA, rowB, columnId) {
+export function string(rowA: RowType, rowB: RowType, columnId: string): number {
   let [a, b] = getRowValuesByColumnID(rowA, rowB, columnId);
 
   a = a.split('').filter(Boolean);
   b = b.split('').filter(Boolean);
 
   while (a.length && b.length) {
-    let aa = a.shift();
-    let bb = b.shift();
+    let aa: string = a.shift();
+    let bb: string = b.shift();
 
     let alower = aa.toLowerCase();
     let blower = bb.toLowerCase();
@@ -101,7 +103,7 @@ export function string(rowA, rowB, columnId) {
   return a.length - b.length;
 }
 
-export function number(rowA, rowB, columnId) {
+export function number(rowA: RowType, rowB: RowType, columnId: string): number {
   let [a, b] = getRowValuesByColumnID(rowA, rowB, columnId);
 
   const replaceNonNumeric = /[^0-9.]/gi;
@@ -114,15 +116,15 @@ export function number(rowA, rowB, columnId) {
 
 // Utils
 
-function compareBasic(a, b) {
+function compareBasic(a: any, b: any): number {
   return a === b ? 0 : a > b ? 1 : -1;
 }
 
-function getRowValuesByColumnID(row1, row2, columnId) {
+function getRowValuesByColumnID(row1: RowType, row2: RowType, columnId: string): [any, any] {
   return [row1.values[columnId], row2.values[columnId]];
 }
 
-function toString(a) {
+function toString(a: any): string {
   if (typeof a === 'number') {
     if (isNaN(a) || a === Infinity || a === -Infinity) {
       return '';

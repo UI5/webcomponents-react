@@ -1,13 +1,13 @@
-// @ts-nocheck
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import type { DependencyList, ReactNode } from 'react';
 
-let renderErr = 'Renderer Error ☝️';
+const renderErr = 'Renderer Error ☝️';
 
 export const actions: Record<string, string> = {
   init: 'init',
 };
 
-export const defaultRenderer = ({ value = '' }) => value;
+export const defaultRenderer = ({ value = '' }: { value?: any }) => value;
 export const emptyRenderer = () => <>&nbsp;</>;
 
 export const defaultColumn: Record<string, unknown> = {
@@ -17,7 +17,7 @@ export const defaultColumn: Record<string, unknown> = {
   maxWidth: Number.MAX_SAFE_INTEGER,
 };
 
-function mergeProps(...propList) {
+function mergeProps(...propList: Record<string, any>[]): Record<string, any> {
   return propList.reduce((props, next) => {
     const { style, className, ...rest } = next;
 
@@ -42,23 +42,20 @@ function mergeProps(...propList) {
   }, {});
 }
 
-function handlePropGetter(prevProps, userProps, meta) {
-  // Handle a lambda, pass it the previous props
+function handlePropGetter(prevProps: Record<string, any>, userProps: any, meta?: any): Record<string, any> {
   if (typeof userProps === 'function') {
     return handlePropGetter({}, userProps(prevProps, meta));
   }
 
-  // Handle an array, merge each item as separate props
   if (Array.isArray(userProps)) {
     return mergeProps(prevProps, ...userProps);
   }
 
-  // Handle an object by default, merge the two objects
   return mergeProps(prevProps, userProps);
 }
 
-export const makePropGetter = (hooks, meta = {}) => {
-  return (userProps = {}) =>
+export const makePropGetter = (hooks: any[], meta: Record<string, any> = {}) => {
+  return (userProps: Record<string, any> = {}) =>
     [...hooks, userProps].reduce(
       (prev, next) =>
         handlePropGetter(prev, next, {
@@ -69,8 +66,8 @@ export const makePropGetter = (hooks, meta = {}) => {
     );
 };
 
-export const reduceHooks = (hooks, initial, meta = {}, allowUndefined) =>
-  hooks.reduce((prev, next) => {
+export const reduceHooks = (hooks: any[], initial: any, meta: Record<string, any> = {}, allowUndefined?: boolean) =>
+  hooks.reduce((prev: any, next: any) => {
     const nextValue = next(prev, meta);
     if (process.env.NODE_ENV !== 'production') {
       if (!allowUndefined && typeof nextValue === 'undefined') {
@@ -81,8 +78,8 @@ export const reduceHooks = (hooks, initial, meta = {}, allowUndefined) =>
     return nextValue;
   }, initial);
 
-export const loopHooks = (hooks, context, meta = {}) =>
-  hooks.forEach((hook) => {
+export const loopHooks = (hooks: any[], context: any, meta: Record<string, any> = {}) =>
+  hooks.forEach((hook: any) => {
     const nextValue = hook(context, meta);
     if (process.env.NODE_ENV !== 'production') {
       if (typeof nextValue !== 'undefined') {
@@ -92,7 +89,12 @@ export const loopHooks = (hooks, context, meta = {}) =>
     }
   });
 
-export function ensurePluginOrder(plugins, befores, pluginName, afters?) {
+export function ensurePluginOrder(
+  plugins: Array<{ pluginName?: string } & ((...args: any[]) => void)>,
+  befores: string[],
+  pluginName: string,
+  afters?: string[],
+) {
   if (process.env.NODE_ENV !== 'production' && afters) {
     throw new Error(
       `Defining plugins in the "after" section of ensurePluginOrder is no longer supported (see plugin ${pluginName})`,
@@ -120,21 +122,20 @@ This usually means you need to need to name your plugin hook by setting the 'plu
   });
 }
 
-export function functionalUpdate(updater, old) {
+export function functionalUpdate(updater: any, old: any) {
   return typeof updater === 'function' ? updater(old) : updater;
 }
 
-export function useGetLatest(obj) {
-  const ref = useRef();
+export function useGetLatest<T>(obj: T): () => T {
+  const ref = useRef<T>(obj);
   ref.current = obj;
 
   return useCallback(() => ref.current, []);
 }
 
-// SSR has issues with useLayoutEffect still, so use useEffect during SSR
 export const safeUseLayoutEffect = typeof document !== 'undefined' ? useLayoutEffect : useEffect;
 
-export function useMountedLayoutEffect(fn, deps) {
+export function useMountedLayoutEffect(fn: () => void, deps: DependencyList) {
   const mountedRef = useRef(false);
 
   safeUseLayoutEffect(() => {
@@ -142,18 +143,18 @@ export function useMountedLayoutEffect(fn, deps) {
       fn();
     }
     mountedRef.current = true;
-    // eslint-disable-next-line
   }, deps);
 }
 
-export function useAsyncDebounce(defaultFn, defaultWait = 0) {
-  const debounceRef = useRef({});
+export function useAsyncDebounce(defaultFn: (...args: any[]) => any, defaultWait = 0) {
+  const debounceRef = useRef<any>({});
 
   const getDefaultFn = useGetLatest(defaultFn);
   const getDefaultWait = useGetLatest(defaultWait);
 
   return useCallback(
-    async (...args) => {
+    // eslint-disable-next-line @typescript-eslint/require-await
+    async (...args: any[]) => {
       if (!debounceRef.current.promise) {
         debounceRef.current.promise = new Promise((resolve, reject) => {
           debounceRef.current.resolve = resolve;
@@ -165,6 +166,7 @@ export function useAsyncDebounce(defaultFn, defaultWait = 0) {
         clearTimeout(debounceRef.current.timeout);
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       debounceRef.current.timeout = setTimeout(async () => {
         delete debounceRef.current.timeout;
         try {
@@ -182,8 +184,8 @@ export function useAsyncDebounce(defaultFn, defaultWait = 0) {
   );
 }
 
-export function makeRenderer(instance, column, meta = {}) {
-  return (type, userProps = {}) => {
+export function makeRenderer(instance: any, column: any, meta: Record<string, any> = {}) {
+  return (type: any, userProps: Record<string, any> = {}): ReactNode => {
     const Comp = typeof type === 'string' ? column[type] : type;
 
     if (typeof Comp === 'undefined') {
@@ -195,15 +197,15 @@ export function makeRenderer(instance, column, meta = {}) {
   };
 }
 
-export function flexRender(Comp, props) {
+export function flexRender(Comp: any, props: Record<string, any>): ReactNode {
   return isReactComponent(Comp) ? <Comp {...props} /> : Comp;
 }
 
-function isReactComponent(component) {
+function isReactComponent(component: any): boolean {
   return isClassComponent(component) || typeof component === 'function' || isExoticComponent(component);
 }
 
-function isClassComponent(component) {
+function isClassComponent(component: any): boolean {
   return (
     typeof component === 'function' &&
     (() => {
@@ -213,7 +215,7 @@ function isClassComponent(component) {
   );
 }
 
-function isExoticComponent(component) {
+function isExoticComponent(component: any): boolean {
   return (
     typeof component === 'object' &&
     typeof component.$$typeof === 'symbol' &&

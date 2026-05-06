@@ -1,4 +1,3 @@
-// @ts-nocheck
 export { useTable } from './hooks/useTable.js';
 export { useExpanded } from './plugin-hooks/useExpanded.js';
 export { useFilters } from './plugin-hooks/useFilters.js';

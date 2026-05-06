@@ -1,29 +1,29 @@
-// @ts-nocheck
 import { useCallback, useMemo } from 'react';
-
-import { expandRows } from '../utils.js';
-
+import type { ReactTableHooks, TableInstance, RowType, PluginHook } from '../../types/index.js';
 import { useGetLatest, actions, useMountedLayoutEffect, makePropGetter, ensurePluginOrder } from '../publicUtils.js';
+import { expandRows } from '../utils.js';
 
 // Actions
 actions.resetExpanded = 'resetExpanded';
 actions.toggleRowExpanded = 'toggleRowExpanded';
 actions.toggleAllRowsExpanded = 'toggleAllRowsExpanded';
 
-export const useExpanded = (hooks) => {
+export const useExpanded: PluginHook = (hooks: ReactTableHooks) => {
   hooks.getToggleAllRowsExpandedProps = [defaultGetToggleAllRowsExpandedProps];
   hooks.getToggleRowExpandedProps = [defaultGetToggleRowExpandedProps];
   hooks.stateReducers.push(reducer);
   hooks.useInstance.push(useInstance);
   hooks.prepareRow.push(prepareRow);
 };
-
 useExpanded.pluginName = 'useExpanded';
 
-const defaultGetToggleAllRowsExpandedProps = (props, { instance }) => [
+const defaultGetToggleAllRowsExpandedProps = (
+  props: Record<string, any>,
+  { instance }: { instance: TableInstance },
+) => [
   props,
   {
-    onClick: (e) => {
+    onClick: () => {
       instance.toggleAllRowsExpanded();
     },
     style: {
@@ -33,7 +33,7 @@ const defaultGetToggleAllRowsExpandedProps = (props, { instance }) => [
   },
 ];
 
-const defaultGetToggleRowExpandedProps = (props, { row }) => [
+const defaultGetToggleRowExpandedProps = (props: Record<string, any>, { row }: { row: RowType }) => [
   props,
   {
     onClick: () => {
@@ -46,8 +46,12 @@ const defaultGetToggleRowExpandedProps = (props, { row }) => [
   },
 ];
 
-// Reducer
-function reducer(state, action, previousState, instance) {
+function reducer(
+  state: TableInstance['state'],
+  action: { type: string; id?: string; value?: boolean },
+  _previousState: TableInstance['state'],
+  instance: TableInstance,
+) {
   if (action.type === actions.init) {
     return {
       expanded: {},
@@ -71,7 +75,7 @@ function reducer(state, action, previousState, instance) {
     const expandAll = typeof value !== 'undefined' ? value : !isAllRowsExpanded;
 
     if (expandAll) {
-      const expanded = {};
+      const expanded: Record<string, boolean> = {};
 
       Object.keys(rowsById).forEach((rowId) => {
         expanded[rowId] = true;
@@ -115,7 +119,7 @@ function reducer(state, action, previousState, instance) {
   }
 }
 
-function useInstance(instance) {
+function useInstance(instance: TableInstance) {
   const {
     data,
     rows,
@@ -137,7 +141,7 @@ function useInstance(instance) {
   let isAllRowsExpanded = Boolean(Object.keys(rowsById).length && Object.keys(expanded).length);
 
   if (isAllRowsExpanded) {
-    if (Object.keys(rowsById).some((id) => !expanded[id])) {
+    if (Object.keys(rowsById).some((id: string) => !expanded[id])) {
       isAllRowsExpanded = false;
     }
   }
@@ -150,14 +154,14 @@ function useInstance(instance) {
   }, [dispatch, data]);
 
   const toggleRowExpanded = useCallback(
-    (id, value) => {
+    (id: string, value?: boolean) => {
       dispatch({ type: actions.toggleRowExpanded, id, value });
     },
     [dispatch],
   );
 
   const toggleAllRowsExpanded = useCallback(
-    (value) => dispatch({ type: actions.toggleAllRowsExpanded, value }),
+    (value?: boolean) => dispatch({ type: actions.toggleAllRowsExpanded, value }),
     [dispatch],
   );
 
@@ -189,8 +193,8 @@ function useInstance(instance) {
   });
 }
 
-function prepareRow(row, { instance: { getHooks }, instance }) {
-  row.toggleRowExpanded = (set) => instance.toggleRowExpanded(row.id, set);
+function prepareRow(row: RowType, { instance: { getHooks }, instance }: { instance: TableInstance }) {
+  row.toggleRowExpanded = (set?: boolean) => instance.toggleRowExpanded(row.id, set);
 
   row.getToggleRowExpandedProps = makePropGetter(getHooks().getToggleRowExpandedProps, {
     instance,
@@ -198,7 +202,7 @@ function prepareRow(row, { instance: { getHooks }, instance }) {
   });
 }
 
-function findExpandedDepth(expanded) {
+function findExpandedDepth(expanded: Record<string, boolean>): number {
   let maxDepth = 0;
 
   Object.keys(expanded).forEach((id) => {

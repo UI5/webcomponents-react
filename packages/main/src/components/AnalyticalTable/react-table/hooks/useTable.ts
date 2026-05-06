@@ -1,6 +1,7 @@
-// @ts-nocheck
 import { useCallback, useMemo, useReducer, useRef } from 'react';
-
+import type { ReactTableHooks, TableInstance, ColumnType, RowType, CellType, PluginHook } from '../../types/index.js';
+import makeDefaultPluginHooks from '../makeDefaultPluginHooks.js';
+import { useGetLatest, reduceHooks, actions, loopHooks, makePropGetter, makeRenderer } from '../publicUtils.js';
 import {
   linkColumnStructure,
   flattenColumns,
@@ -9,21 +10,17 @@ import {
   makeHeaderGroups,
   decorateColumn,
 } from '../utils.js';
-
-import { useGetLatest, reduceHooks, actions, loopHooks, makePropGetter, makeRenderer } from '../publicUtils.js';
-
-import makeDefaultPluginHooks from '../makeDefaultPluginHooks.js';
-
 import { useColumnVisibility } from './useColumnVisibility.js';
 
 const defaultInitialState = {};
 const defaultColumnInstance = {};
-const defaultReducer = (state, action, prevState) => state;
-const defaultGetSubRows = (row, index) => row.subRows || [];
-const defaultGetRowId = (row, index, parent) => `${parent ? [parent.id, index].join('.') : index}`;
-const defaultUseControlledState = (d) => d;
+const defaultReducer: NonNullable<TableInstance['stateReducer']> = (state) => state;
+const defaultGetSubRows = (row: Record<string, any>, _index: number) => row.subRows || [];
+const defaultGetRowId = (row: Record<string, any>, index: number, parent?: RowType) =>
+  `${parent ? [parent.id, index].join('.') : index}`;
+const defaultUseControlledState = (d: TableInstance['state']) => d;
 
-function applyDefaults(props) {
+function applyDefaults(props: any) {
   const {
     initialState = defaultInitialState,
     defaultColumn = defaultColumnInstance,
@@ -45,7 +42,10 @@ function applyDefaults(props) {
   };
 }
 
-export const useTable = (props, ...plugins): any => {
+export const useTable = (
+  props: any,
+  ...plugins: Array<PluginHook | ((hooks: ReactTableHooks) => void)>
+): TableInstance => {
   // Apply default props
   props = applyDefaults(props);
 
@@ -53,10 +53,10 @@ export const useTable = (props, ...plugins): any => {
   plugins = [useColumnVisibility, ...plugins];
 
   // Create the table instance
-  let instanceRef = useRef({});
+  const instanceRef = useRef<Record<string, any>>({});
 
   // Create a getter for the instance (helps avoid a lot of potential memory leaks)
-  const getInstance = useGetLatest(instanceRef.current);
+  const getInstance = useGetLatest(instanceRef.current) as () => any;
 
   // Assign the props, plugins and hooks to the instance
   Object.assign(getInstance(), {
@@ -94,7 +94,7 @@ export const useTable = (props, ...plugins): any => {
 
   // Build the reducer
   const reducer = useCallback(
-    (state, action) => {
+    (state: any, action: { type: string; [key: string]: any }) => {
       // Detect invalid actions
       if (!action.type) {
         console.info({ action });
@@ -106,7 +106,7 @@ export const useTable = (props, ...plugins): any => {
         ...getHooks().stateReducers,
         // Allow the user to add their own state reducer(s)
         ...(Array.isArray(getStateReducer()) ? getStateReducer() : [getStateReducer()]),
-      ].reduce((s, handler) => handler(s, action, state, getInstance()) || s, state);
+      ].reduce((s: any, handler: any) => handler(s, action, state, getInstance()) || s, state);
     },
     [getHooks, getStateReducer, getInstance],
   );
@@ -144,7 +144,7 @@ export const useTable = (props, ...plugins): any => {
 
   // Get the flat list of all columns and allow hooks to decorate
   // those columns (and trigger this memoization via deps)
-  let allColumns = useMemo(
+  let allColumns: ColumnType[] = useMemo(
     () =>
       reduceHooks(getHooks().allColumns, flattenColumns(columns), {
         instance: getInstance(),
@@ -163,9 +163,9 @@ export const useTable = (props, ...plugins): any => {
 
   // Access the row model using initial columns
   const [rows, flatRows, rowsById] = useMemo(() => {
-    let rows = [];
-    let flatRows = [];
-    const rowsById = {};
+    const rows: RowType[] = [];
+    const flatRows: RowType[] = [];
+    const rowsById: Record<string, RowType> = {};
 
     const allColumnsQueue = [...allColumns];
 
@@ -199,11 +199,11 @@ export const useTable = (props, ...plugins): any => {
   // Get the flat list of all columns AFTER the rows
   // have been access, and allow hooks to decorate
   // those columns (and trigger this memoization via deps)
-  let visibleColumns = useMemo(
+  let visibleColumns: ColumnType[] = useMemo(
     () =>
       reduceHooks(getHooks().visibleColumns, allColumns, {
         instance: getInstance(),
-      }).map((d) => decorateColumn(d, defaultColumn)),
+      }).map((d: ColumnType) => decorateColumn(d, defaultColumn)),
     [
       getHooks,
       allColumns,
@@ -266,19 +266,22 @@ export const useTable = (props, ...plugins): any => {
   getInstance().headers = headers;
 
   // Provide a flat header list for utilities
-  getInstance().flatHeaders = headerGroups.reduce((all, headerGroup) => [...all, ...headerGroup.headers], []);
+  getInstance().flatHeaders = headerGroups.reduce(
+    (all: ColumnType[], headerGroup: any) => [...all, ...headerGroup.headers],
+    [],
+  );
 
   loopHooks(getHooks().useInstanceBeforeDimensions, getInstance());
 
   // Filter columns down to visible ones
   const visibleColumnsDep = visibleColumns
-    .filter((d) => d.isVisible)
+    .filter((d: ColumnType) => d.isVisible)
     .map((d) => d.id)
     .sort()
     .join('_');
 
   visibleColumns = useMemo(
-    () => visibleColumns.filter((d) => d.isVisible),
+    () => visibleColumns.filter((d: ColumnType) => d.isVisible),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [visibleColumns, visibleColumnsDep],
   );
@@ -295,7 +298,7 @@ export const useTable = (props, ...plugins): any => {
 
   // Each materialized header needs to be assigned a render function and other
   // prop getter properties here.
-  [...getInstance().flatHeaders, ...getInstance().allColumns].forEach((column) => {
+  [...getInstance().flatHeaders, ...getInstance().allColumns].forEach((column: ColumnType) => {
     // Give columns/headers rendering power
     column.render = makeRenderer(getInstance(), column);
 
@@ -314,11 +317,11 @@ export const useTable = (props, ...plugins): any => {
 
   getInstance().headerGroups = useMemo(
     () =>
-      headerGroups.filter((headerGroup, i) => {
+      headerGroups.filter((headerGroup: any, i: number) => {
         // Filter out any headers and headerGroups that don't have visible columns
-        headerGroup.headers = headerGroup.headers.filter((column) => {
-          const recurse = (headers) =>
-            headers.filter((column) => {
+        headerGroup.headers = headerGroup.headers.filter((column: ColumnType) => {
+          const recurse = (headers: ColumnType[]): number =>
+            headers.filter((column: ColumnType) => {
               if (column.headers) {
                 return recurse(column.headers);
               }
@@ -358,7 +361,7 @@ export const useTable = (props, ...plugins): any => {
   // any rows the user wishes to be displayed.
 
   getInstance().prepareRow = useCallback(
-    (row) => {
+    (row: RowType) => {
       row.getRowProps = makePropGetter(getHooks().getRowProps, {
         instance: getInstance(),
         row,
@@ -368,11 +371,11 @@ export const useTable = (props, ...plugins): any => {
       row.allCells = allColumns.map((column) => {
         const value = row.values[column.id];
 
-        const cell = {
+        const cell: CellType = {
           column,
           row,
           value,
-        };
+        } as CellType;
 
         // Give each cell a getCellProps base
         cell.getCellProps = makePropGetter(getHooks().getCellProps, {
@@ -390,7 +393,9 @@ export const useTable = (props, ...plugins): any => {
         return cell;
       });
 
-      row.cells = visibleColumns.map((column) => row.allCells.find((cell) => cell.column.id === column.id));
+      row.cells = visibleColumns.map((column) =>
+        row.allCells.find((cell) => cell.column.id === column.id),
+      ) as CellType[];
 
       // need to apply any row specific hooks (useExpanded requires this)
       loopHooks(getHooks().prepareRow, row, { instance: getInstance() });
@@ -411,14 +416,14 @@ export const useTable = (props, ...plugins): any => {
   return getInstance();
 };
 
-function calculateHeaderWidths(headers, left = 0) {
+function calculateHeaderWidths(headers: ColumnType[], left = 0): [number, number, number, number] {
   let sumTotalMinWidth = 0;
   let sumTotalWidth = 0;
   let sumTotalMaxWidth = 0;
   let sumTotalFlexWidth = 0;
 
   headers.forEach((header) => {
-    let { headers: subHeaders } = header;
+    const { headers: subHeaders } = header;
 
     header.totalLeft = left;
 
@@ -446,6 +451,18 @@ function calculateHeaderWidths(headers, left = 0) {
   return [sumTotalMinWidth, sumTotalWidth, sumTotalMaxWidth, sumTotalFlexWidth];
 }
 
+interface AccessRowsForColumnOptions {
+  data: Record<string, any>[];
+  rows: RowType[];
+  flatRows: RowType[];
+  rowsById: Record<string, RowType>;
+  column: ColumnType;
+  getRowId: (row: Record<string, any>, index: number, parent?: RowType) => string;
+  getSubRows: (row: Record<string, any>, index: number) => Record<string, any>[];
+  accessValueHooks: any[];
+  getInstance: () => TableInstance;
+}
+
 function accessRowsForColumn({
   data,
   rows,
@@ -456,11 +473,17 @@ function accessRowsForColumn({
   getSubRows,
   accessValueHooks,
   getInstance,
-}) {
+}: AccessRowsForColumnOptions) {
   // Access the row's data column-by-column
   // We do it this way so we can incrementally add materialized
   // columns after the first pass and avoid excessive looping
-  const accessRow = (originalRow, rowIndex, depth = 0, parent, parentRows) => {
+  const accessRow = (
+    originalRow: Record<string, any>,
+    rowIndex: number,
+    depth = 0,
+    parent?: RowType,
+    parentRows?: RowType[],
+  ) => {
     // Keep the original reference around
     const original = originalRow;
 
@@ -475,7 +498,8 @@ function accessRowsForColumn({
         original,
         index: rowIndex,
         depth,
-        cells: [{}], // This is a dummy cell
+        cells: [{}] as any, // This is a dummy cell
+        values: {},
       };
 
       // Override common array functions (and the dummy cell's getCellProps function)
@@ -484,9 +508,6 @@ function accessRowsForColumn({
       row.cells.filter = unpreparedAccessWarning;
       row.cells.forEach = unpreparedAccessWarning;
       row.cells[0].getCellProps = unpreparedAccessWarning;
-
-      // Create the cells and values
-      row.values = {};
 
       // Push this row into the parentRows array
       parentRows.push(row);
@@ -500,8 +521,8 @@ function accessRowsForColumn({
 
       // Then recursively access them
       if (row.originalSubRows) {
-        const subRows = [];
-        row.originalSubRows.forEach((d, i) => accessRow(d, i, depth + 1, row, subRows));
+        const subRows: RowType[] = [];
+        row.originalSubRows.forEach((d: Record<string, any>, i: number) => accessRow(d, i, depth + 1, row, subRows));
         // Keep the new subRows array on the row
         row.subRows = subRows;
       }
@@ -509,7 +530,7 @@ function accessRowsForColumn({
       // If the row exists, then it's already been accessed
       // Keep recursing, but don't worry about passing the
       // accumlator array (those rows already exist)
-      row.originalSubRows.forEach((d, i) => accessRow(d, i, depth + 1, row));
+      row.originalSubRows.forEach((d: Record<string, any>, i: number) => accessRow(d, i, depth + 1, row));
     }
 
     // If the column has an accessor, use it to get a value
@@ -530,5 +551,7 @@ function accessRowsForColumn({
     );
   };
 
-  data.forEach((originalRow, rowIndex) => accessRow(originalRow, rowIndex, 0, undefined, rows));
+  data.forEach((originalRow: Record<string, any>, rowIndex: number) =>
+    accessRow(originalRow, rowIndex, 0, undefined, rows),
+  );
 }

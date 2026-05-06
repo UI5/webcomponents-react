@@ -1,6 +1,12 @@
-// @ts-nocheck
 import { useCallback, useMemo } from 'react';
-
+import type {
+  ReactTableHooks,
+  TableInstance,
+  ColumnType,
+  RowType,
+  PluginHook,
+  AnalyticalTableState,
+} from '../../types/index.js';
 import {
   actions,
   ensurePluginOrder,
@@ -9,10 +15,8 @@ import {
   useGetLatest,
   useMountedLayoutEffect,
 } from '../publicUtils.js';
-
-import { getFirstDefined, isFunction } from '../utils.js';
-
 import * as sortTypes from '../sortTypes.js';
+import { getFirstDefined, isFunction } from '../utils.js';
 
 // Actions
 actions.resetSortBy = 'resetSortBy';
@@ -23,22 +27,24 @@ actions.clearSortBy = 'clearSortBy';
 defaultColumn.sortType = 'alphanumeric';
 defaultColumn.sortDescFirst = false;
 
-export const useSortBy = (hooks) => {
+export const useSortBy: PluginHook = (hooks: ReactTableHooks) => {
   hooks.getSortByToggleProps = [defaultGetSortByToggleProps];
   hooks.stateReducers.push(reducer);
   hooks.useInstance.push(useInstance);
 };
-
 useSortBy.pluginName = 'useSortBy';
 
-const defaultGetSortByToggleProps = (props, { instance, column }) => {
-  const { isMultiSortEvent = (e) => e.shiftKey } = instance;
+const defaultGetSortByToggleProps = (
+  props: Record<string, any>,
+  { instance, column }: { instance: TableInstance; column: ColumnType },
+) => {
+  const { isMultiSortEvent = (e: { shiftKey: boolean }) => e.shiftKey } = instance;
 
   return [
     props,
     {
       onClick: column.canSort
-        ? (e) => {
+        ? (e: { persist: () => void; shiftKey: boolean }) => {
             e.persist();
             column.toggleSortBy(undefined, !instance.disableMultiSort && isMultiSortEvent(e));
           }
@@ -52,7 +58,12 @@ const defaultGetSortByToggleProps = (props, { instance, column }) => {
 };
 
 // Reducer
-function reducer(state, action, previousState, instance) {
+function reducer(
+  state: TableInstance['state'],
+  action: { type: string; columnId?: string; sortBy?: AnalyticalTableState['sortBy']; desc?: boolean; multi?: boolean },
+  _previousState: TableInstance['state'],
+  instance: TableInstance,
+) {
   if (action.type === actions.init) {
     return {
       sortBy: [],
@@ -99,7 +110,7 @@ function reducer(state, action, previousState, instance) {
     const { sortBy } = state;
 
     // Find the column for this columnId
-    const column = allColumns.find((d) => d.id === columnId);
+    const column = allColumns.find((d: ColumnType) => d.id === columnId);
     const { sortDescFirst } = column;
 
     // Find any existing sortBy for this column
@@ -107,10 +118,10 @@ function reducer(state, action, previousState, instance) {
     const existingIndex = sortBy.findIndex((d) => d.id === columnId);
     const hasDescDefined = typeof desc !== 'undefined' && desc !== null;
 
-    let newSortBy = [];
+    let newSortBy: AnalyticalTableState['sortBy'] = [];
 
     // What should we do with this sort action?
-    let sortAction;
+    let sortAction: string;
 
     if (!disableMultiSort && multi) {
       if (existingSortBy) {
@@ -135,10 +146,8 @@ function reducer(state, action, previousState, instance) {
       !disableSortRemove && // If disableSortRemove, disable in general
       !hasDescDefined && // Must not be setting desc
       (multi ? !disableMultiRemove : true) && // If multi, don't allow if disableMultiRemove
-      ((existingSortBy && // Finally, detect if it should indeed be removed
-        existingSortBy.desc &&
-        !sortDescFirst) ||
-        (!existingSortBy.desc && sortDescFirst))
+      // Finally, detect if it should indeed be removed
+      ((existingSortBy && existingSortBy.desc && !sortDescFirst) || (!existingSortBy.desc && sortDescFirst))
     ) {
       sortAction = 'remove';
     }
@@ -182,7 +191,7 @@ function reducer(state, action, previousState, instance) {
   }
 }
 
-function useInstance(instance) {
+function useInstance(instance: TableInstance) {
   const {
     data,
     rows,
@@ -204,7 +213,7 @@ function useInstance(instance) {
   ensurePluginOrder(plugins, ['useFilters', 'useGlobalFilter', 'useGroupBy', 'usePivotColumns'], 'useSortBy');
 
   const setSortBy = useCallback(
-    (sortBy) => {
+    (sortBy: { id: string; desc: boolean }[]) => {
       dispatch({ type: actions.setSortBy, sortBy });
     },
     [dispatch],
@@ -212,7 +221,7 @@ function useInstance(instance) {
 
   // Updates sorting based on a columnId, desc flag and multi flag
   const toggleSortBy = useCallback(
-    (columnId, desc, multi) => {
+    (columnId: string, desc?: boolean, multi?: boolean) => {
       dispatch({ type: actions.toggleSortBy, columnId, desc, multi });
     },
     [dispatch],
@@ -222,7 +231,7 @@ function useInstance(instance) {
   const getInstance = useGetLatest(instance);
 
   // Add the getSortByToggleProps method to columns and headers
-  flatHeaders.forEach((column) => {
+  flatHeaders.forEach((column: ColumnType) => {
     const { accessor, canSort: defaultColumnCanSort, disableSortBy: columnDisableSortBy, id } = column;
 
     const canSort = accessor
@@ -236,7 +245,7 @@ function useInstance(instance) {
     column.canSort = canSort;
 
     if (column.canSort) {
-      column.toggleSortBy = (desc, multi) => toggleSortBy(column.id, desc, multi);
+      column.toggleSortBy = (desc?: boolean, multi?: boolean) => toggleSortBy(column.id, desc, multi);
 
       column.clearSortBy = () => {
         dispatch({ type: actions.clearSortBy, columnId: column.id });
@@ -259,12 +268,12 @@ function useInstance(instance) {
       return [rows, flatRows];
     }
 
-    const sortedFlatRows = [];
+    const sortedFlatRows: RowType[] = [];
 
     // Filter out sortBys that correspond to non existing columns
-    const availableSortBy = sortBy.filter((sort) => allColumns.find((col) => col.id === sort.id));
+    const availableSortBy = sortBy.filter((sort) => allColumns.find((col: ColumnType) => col.id === sort.id));
 
-    const sortData = (rows) => {
+    const sortData = (rows: RowType[]): RowType[] => {
       // Use the orderByFn to compose multiple sortBy's together.
       // This will also perform a stable sorting using the row index
       // if needed.
@@ -272,7 +281,7 @@ function useInstance(instance) {
         rows,
         availableSortBy.map((sort) => {
           // Support custom sorting methods for each column
-          const column = allColumns.find((d) => d.id === sort.id);
+          const column = allColumns.find((d: ColumnType) => d.id === sort.id);
 
           if (!column) {
             throw new Error(`React-Table: Could not find a column with id: ${sort.id} while sorting`);
@@ -287,7 +296,8 @@ function useInstance(instance) {
           // default function
           // default string lookup on user sortType
           // default string lookup on built-in sortType
-          const sortMethod = isFunction(sortType) || (userSortTypes || {})[sortType] || sortTypes[sortType];
+          const sortMethod =
+            isFunction(sortType) || (userSortTypes || {})[sortType] || (sortTypes as Record<string, any>)[sortType];
 
           if (!sortMethod) {
             throw new Error(`React-Table: Could not find a valid sortType of '${sortType}' for column '${sort.id}'.`);
@@ -295,12 +305,12 @@ function useInstance(instance) {
 
           // Return the correct sortFn.
           // This function should always return in ascending order
-          return (a, b) => sortMethod(a, b, sort.id, sort.desc);
+          return (a: RowType, b: RowType) => sortMethod(a, b, sort.id, sort.desc);
         }),
         // Map the directions
         availableSortBy.map((sort) => {
           // Detect and use the sortInverted option
-          const column = allColumns.find((d) => d.id === sort.id);
+          const column = allColumns.find((d: ColumnType) => d.id === sort.id);
 
           if (column && column.sortInverted) {
             return sort.desc;
@@ -311,7 +321,7 @@ function useInstance(instance) {
       );
 
       // If there are sub-rows, sort them
-      sortedData.forEach((row) => {
+      sortedData.forEach((row: RowType) => {
         sortedFlatRows.push(row);
         if (!row.subRows || row.subRows.length === 0) {
           return;
@@ -345,11 +355,15 @@ function useInstance(instance) {
   });
 }
 
-export function defaultOrderByFn(arr, funcs, dirs) {
+export function defaultOrderByFn(
+  arr: RowType[],
+  funcs: Array<(a: RowType, b: RowType) => number>,
+  dirs: boolean[],
+): RowType[] {
   return [...arr].sort((rowA, rowB) => {
     for (let i = 0; i < funcs.length; i += 1) {
       const sortFn = funcs[i];
-      const desc = dirs[i] === false || dirs[i] === 'desc';
+      const desc = dirs[i] === false || (dirs[i] as any) === 'desc';
       const sortInt = sortFn(rowA, rowB);
       if (sortInt !== 0) {
         return desc ? -sortInt : sortInt;

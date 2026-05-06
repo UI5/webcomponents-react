@@ -1,9 +1,9 @@
-// @ts-nocheck
+import type { ColumnType, RowType } from '../types/index.js';
 import { defaultColumn, emptyRenderer } from './publicUtils.js';
 
 // Find the depth of the columns
-export function findMaxDepth(columns, depth = 0) {
-  return columns.reduce((prev, curr) => {
+export function findMaxDepth(columns: ColumnType[], depth = 0): number {
+  return columns.reduce((prev: number, curr: ColumnType) => {
     if (curr.columns) {
       return Math.max(prev, findMaxDepth(curr.columns, depth + 1));
     }
@@ -12,7 +12,7 @@ export function findMaxDepth(columns, depth = 0) {
 }
 
 // Build the visible columns, headers and flat column list
-export function linkColumnStructure(columns, parent, depth = 0) {
+export function linkColumnStructure(columns: ColumnType[], parent?: ColumnType, depth = 0): ColumnType[] {
   return columns.map((column) => {
     column = {
       ...column,
@@ -29,18 +29,19 @@ export function linkColumnStructure(columns, parent, depth = 0) {
   });
 }
 
-export function flattenColumns(columns) {
+export function flattenColumns(columns: ColumnType[]): ColumnType[] {
   return flattenBy(columns, 'columns');
 }
 
-export function assignColumnAccessor(column) {
+export function assignColumnAccessor(column: ColumnType): ColumnType {
   // First check for string accessor
-  let { id, accessor, Header } = column;
+  let { id, accessor } = column;
+  const { Header } = column;
 
   if (typeof accessor === 'string') {
     id = id || accessor;
     const accessorPath = accessor.split('.');
-    accessor = (row) => getBy(row, accessorPath);
+    accessor = (row: any) => getBy(row, accessorPath);
   }
 
   if (!id && typeof Header === 'string' && Header) {
@@ -65,7 +66,7 @@ export function assignColumnAccessor(column) {
   return column;
 }
 
-export function decorateColumn(column, userDefaultColumn) {
+export function decorateColumn(column: ColumnType, userDefaultColumn: Record<string, unknown>): ColumnType {
   if (!userDefaultColumn) {
     throw new Error();
   }
@@ -86,8 +87,12 @@ export function decorateColumn(column, userDefaultColumn) {
 }
 
 // Build the header groups from the bottom up
-export function makeHeaderGroups(allColumns, defaultColumn, additionalHeaderProperties = () => ({})) {
-  const headerGroups = [];
+export function makeHeaderGroups(
+  allColumns: ColumnType[],
+  defaultColumn: Record<string, unknown>,
+  additionalHeaderProperties: (column: ColumnType) => Record<string, any> = () => ({}),
+): any[] {
+  const headerGroups: any[] = [];
 
   let scanColumns = allColumns;
 
@@ -96,19 +101,19 @@ export function makeHeaderGroups(allColumns, defaultColumn, additionalHeaderProp
 
   while (scanColumns.length) {
     // The header group we are creating
-    const headerGroup = {
+    const headerGroup: any = {
       headers: [],
     };
 
     // The parent columns we're going to scan next
-    const parentColumns = [];
+    const parentColumns: any[] = [];
 
-    const hasParents = scanColumns.some((d) => d.parent);
+    const hasParents = scanColumns.some((d: ColumnType) => d.parent);
 
     // Scan each column for parents
-    scanColumns.forEach((column) => {
+    scanColumns.forEach((column: ColumnType) => {
       // What is the latest (last) parent column?
-      let latestParentColumn = [...parentColumns].reverse()[0];
+      const latestParentColumn = [...parentColumns].reverse()[0];
 
       let newParent;
 
@@ -158,13 +163,13 @@ export function makeHeaderGroups(allColumns, defaultColumn, additionalHeaderProp
   return headerGroups.reverse();
 }
 
-const pathObjCache = new Map();
+const pathObjCache = new Map<string, string[]>();
 
-export function getBy(obj, path, def) {
+export function getBy(obj: any, path: string | string[], def?: any): any {
   if (!path) {
     return obj;
   }
-  const cacheKey = typeof path === 'function' ? path : JSON.stringify(path);
+  const cacheKey: string = typeof path === 'function' ? path : JSON.stringify(path);
 
   const pathObj =
     pathObjCache.get(cacheKey) ||
@@ -177,14 +182,14 @@ export function getBy(obj, path, def) {
   let val;
 
   try {
-    val = pathObj.reduce((cursor, pathPart) => cursor[pathPart], obj);
-  } catch (e) {
+    val = pathObj.reduce((cursor: any, pathPart: string) => cursor[pathPart], obj);
+  } catch (_e) {
     // continue regardless of error
   }
   return typeof val !== 'undefined' ? val : def;
 }
 
-export function getFirstDefined(...args) {
+export function getFirstDefined(...args: any[]): any {
   for (let i = 0; i < args.length; i += 1) {
     if (typeof args[i] !== 'undefined') {
       return args[i];
@@ -192,7 +197,7 @@ export function getFirstDefined(...args) {
   }
 }
 
-export function getElementDimensions(element) {
+export function getElementDimensions(element: HTMLElement) {
   const rect = element.getBoundingClientRect();
   const style = window.getComputedStyle(element);
   const margins = {
@@ -215,16 +220,16 @@ export function getElementDimensions(element) {
   };
 }
 
-export function isFunction(a) {
+export function isFunction(a: any): ((...args: any[]) => any) | undefined {
   if (typeof a === 'function') {
     return a;
   }
 }
 
-export function flattenBy(arr, key) {
-  const flat = [];
+export function flattenBy<T extends Record<string, any>>(arr: T[], key: string): T[] {
+  const flat: T[] = [];
 
-  const recurse = (arr) => {
+  const recurse = (arr: T[]) => {
     arr.forEach((d) => {
       if (!d[key]) {
         flat.push(d);
@@ -239,10 +244,17 @@ export function flattenBy(arr, key) {
   return flat;
 }
 
-export function expandRows(rows, { manualExpandedKey, expanded, expandSubRows = true }) {
-  const expandedRows = [];
+export function expandRows(
+  rows: RowType[],
+  {
+    manualExpandedKey,
+    expanded,
+    expandSubRows = true,
+  }: { manualExpandedKey: string; expanded: Record<string, any>; expandSubRows?: boolean },
+): RowType[] {
+  const expandedRows: RowType[] = [];
 
-  const handleRow = (row, addToExpandedRows = true) => {
+  const handleRow = (row: RowType, addToExpandedRows = true) => {
     row.isExpanded = (row.original && row.original[manualExpandedKey]) || expanded[row.id];
 
     row.canExpand = row.subRows && !!row.subRows.length;
@@ -252,7 +264,7 @@ export function expandRows(rows, { manualExpandedKey, expanded, expandSubRows = 
     }
 
     if (row.subRows && row.subRows.length && row.isExpanded) {
-      row.subRows.forEach((row) => handleRow(row, expandSubRows));
+      row.subRows.forEach((row: RowType) => handleRow(row, expandSubRows));
     }
   };
 
@@ -261,20 +273,28 @@ export function expandRows(rows, { manualExpandedKey, expanded, expandSubRows = 
   return expandedRows;
 }
 
-export function getFilterMethod(filter, userFilterTypes, filterTypes) {
+export function getFilterMethod(
+  filter: any,
+  userFilterTypes: Record<string, any>,
+  filterTypes: Record<string, any>,
+): any {
   return isFunction(filter) || userFilterTypes[filter] || filterTypes[filter] || filterTypes.text;
 }
 
-export function shouldAutoRemoveFilter(autoRemove, value, column) {
+export function shouldAutoRemoveFilter(
+  autoRemove: ((value: any, column?: ColumnType) => boolean) | undefined,
+  value: any,
+  column?: ColumnType,
+): boolean {
   return autoRemove ? autoRemove(value, column) : typeof value === 'undefined';
 }
 
-export function unpreparedAccessWarning() {
+export function unpreparedAccessWarning(): never {
   throw new Error('React-Table: You have not called prepareRow(row) one or more rows you are attempting to render.');
 }
 
-let passiveSupported = null;
-export function passiveEventSupported() {
+let passiveSupported: boolean | null = null;
+export function passiveEventSupported(): boolean {
   // memoize support to avoid adding multiple test events
   if (typeof passiveSupported === 'boolean') return passiveSupported;
 
@@ -288,8 +308,8 @@ export function passiveEventSupported() {
     };
 
     window.addEventListener('test', null, options);
-    window.removeEventListener('test', null, options);
-  } catch (err) {
+    window.removeEventListener('test', null, options as EventListenerOptions);
+  } catch (_err) {
     supported = false;
   }
   passiveSupported = supported;
@@ -301,11 +321,11 @@ export function passiveEventSupported() {
 const reOpenBracket = /\[/g;
 const reCloseBracket = /\]/g;
 
-function makePathArray(obj) {
+function makePathArray(obj: any): string[] {
   return (
     flattenDeep(obj)
       // remove all periods in parts
-      .map((d) => String(d).replace('.', '_'))
+      .map((d: any) => String(d).replace('.', '_'))
       // join parts using period
       .join('.')
       // replace brackets with periods
@@ -316,7 +336,7 @@ function makePathArray(obj) {
   );
 }
 
-function flattenDeep(arr, newArr = []) {
+function flattenDeep(arr: any, newArr: any[] = []): any[] {
   if (!Array.isArray(arr)) {
     newArr.push(arr);
   } else {

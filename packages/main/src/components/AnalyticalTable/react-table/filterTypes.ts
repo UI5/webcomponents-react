@@ -1,17 +1,16 @@
-// @ts-nocheck
-export const text = (rows, ids, filterValue) => {
-  rows = rows.filter((row) => {
+import type { RowType, FilterFn } from '../types/index.js';
+
+export const text: FilterFn = (rows: RowType[], ids: string[], filterValue: any): RowType[] => {
+  return rows.filter((row) => {
     return ids.some((id) => {
       const rowValue = row.values[id];
       return String(rowValue).toLowerCase().includes(String(filterValue).toLowerCase());
     });
   });
-  return rows;
 };
+text.autoRemove = (val: any) => !val;
 
-text.autoRemove = (val) => !val;
-
-export const exactText = (rows, ids, filterValue) => {
+export const exactText: FilterFn = (rows: RowType[], ids: string[], filterValue: any): RowType[] => {
   return rows.filter((row) => {
     return ids.some((id) => {
       const rowValue = row.values[id];
@@ -19,10 +18,9 @@ export const exactText = (rows, ids, filterValue) => {
     });
   });
 };
+exactText.autoRemove = (val: any) => !val;
 
-exactText.autoRemove = (val) => !val;
-
-export const exactTextCase = (rows, ids, filterValue) => {
+export const exactTextCase: FilterFn = (rows: RowType[], ids: string[], filterValue: any): RowType[] => {
   return rows.filter((row) => {
     return ids.some((id) => {
       const rowValue = row.values[id];
@@ -30,10 +28,9 @@ export const exactTextCase = (rows, ids, filterValue) => {
     });
   });
 };
+exactTextCase.autoRemove = (val: any) => !val;
 
-exactTextCase.autoRemove = (val) => !val;
-
-export const includes = (rows, ids, filterValue) => {
+export const includes: FilterFn = (rows: RowType[], ids: string[], filterValue: any): RowType[] => {
   return rows.filter((row) => {
     return ids.some((id) => {
       const rowValue = row.values[id];
@@ -41,32 +38,29 @@ export const includes = (rows, ids, filterValue) => {
     });
   });
 };
+includes.autoRemove = (val: any) => !val || !val.length;
 
-includes.autoRemove = (val) => !val || !val.length;
-
-export const includesAll = (rows, ids, filterValue) => {
+export const includesAll: FilterFn = (rows: RowType[], ids: string[], filterValue: any): RowType[] => {
   return rows.filter((row) => {
     return ids.some((id) => {
       const rowValue = row.values[id];
-      return rowValue && rowValue.length && filterValue.every((val) => rowValue.includes(val));
+      return rowValue && rowValue.length && filterValue.every((val: any) => rowValue.includes(val));
     });
   });
 };
+includesAll.autoRemove = (val: any) => !val || !val.length;
 
-includesAll.autoRemove = (val) => !val || !val.length;
-
-export const includesSome = (rows, ids, filterValue) => {
+export const includesSome: FilterFn = (rows: RowType[], ids: string[], filterValue: any): RowType[] => {
   return rows.filter((row) => {
     return ids.some((id) => {
       const rowValue = row.values[id];
-      return rowValue && rowValue.length && filterValue.some((val) => rowValue.includes(val));
+      return rowValue && rowValue.length && filterValue.some((val: any) => rowValue.includes(val));
     });
   });
 };
+includesSome.autoRemove = (val: any) => !val || !val.length;
 
-includesSome.autoRemove = (val) => !val || !val.length;
-
-export const includesValue = (rows, ids, filterValue) => {
+export const includesValue: FilterFn = (rows: RowType[], ids: string[], filterValue: any): RowType[] => {
   return rows.filter((row) => {
     return ids.some((id) => {
       const rowValue = row.values[id];
@@ -74,10 +68,9 @@ export const includesValue = (rows, ids, filterValue) => {
     });
   });
 };
+includesValue.autoRemove = (val: any) => !val || !val.length;
 
-includesValue.autoRemove = (val) => !val || !val.length;
-
-export const exact = (rows, ids, filterValue) => {
+export const exact: FilterFn = (rows: RowType[], ids: string[], filterValue: any): RowType[] => {
   return rows.filter((row) => {
     return ids.some((id) => {
       const rowValue = row.values[id];
@@ -85,22 +78,20 @@ export const exact = (rows, ids, filterValue) => {
     });
   });
 };
+exact.autoRemove = (val: any) => typeof val === 'undefined';
 
-exact.autoRemove = (val) => typeof val === 'undefined';
-
-export const equals = (rows, ids, filterValue) => {
+export const equals: FilterFn = (rows: RowType[], ids: string[], filterValue: any): RowType[] => {
   return rows.filter((row) => {
     return ids.some((id) => {
       const rowValue = row.values[id];
-      // eslint-disable-next-line eqeqeq
+
       return rowValue == filterValue;
     });
   });
 };
+equals.autoRemove = (val: any) => val == null;
 
-equals.autoRemove = (val) => val == null;
-
-export const between = (rows, ids, filterValue) => {
+export const between: FilterFn = (rows: RowType[], ids: string[], filterValue: any): RowType[] => {
   let [min, max] = filterValue || [];
 
   min = typeof min === 'number' ? min : -Infinity;
@@ -119,5 +110,4 @@ export const between = (rows, ids, filterValue) => {
     });
   });
 };
-
-between.autoRemove = (val) => !val || (typeof val[0] !== 'number' && typeof val[1] !== 'number');
+between.autoRemove = (val: any) => !val || (typeof val[0] !== 'number' && typeof val[1] !== 'number');

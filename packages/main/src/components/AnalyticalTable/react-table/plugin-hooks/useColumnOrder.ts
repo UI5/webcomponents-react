@@ -1,13 +1,12 @@
-// @ts-nocheck
 import { useCallback } from 'react';
-
+import type { ReactTableHooks, TableInstance, ColumnType, PluginHook } from '../../types/index.js';
 import { functionalUpdate, actions } from '../publicUtils.js';
 
 // Actions
 actions.resetColumnOrder = 'resetColumnOrder';
 actions.setColumnOrder = 'setColumnOrder';
 
-export const useColumnOrder = (hooks) => {
+export const useColumnOrder: PluginHook = (hooks: ReactTableHooks) => {
   hooks.stateReducers.push(reducer);
   hooks.visibleColumnsDeps.push((deps, { instance }) => {
     return [...deps, instance.state.columnOrder];
@@ -15,10 +14,14 @@ export const useColumnOrder = (hooks) => {
   hooks.visibleColumns.push(visibleColumns);
   hooks.useInstance.push(useInstance);
 };
-
 useColumnOrder.pluginName = 'useColumnOrder';
 
-function reducer(state, action, previousState, instance) {
+function reducer(
+  state: TableInstance['state'],
+  action: { type: string; columnOrder?: string[] | ((order: string[]) => string[]) },
+  _previousState: TableInstance['state'],
+  instance: TableInstance,
+) {
   if (action.type === actions.init) {
     return {
       columnOrder: [],
@@ -42,25 +45,23 @@ function reducer(state, action, previousState, instance) {
 }
 
 function visibleColumns(
-  columns,
+  columns: ColumnType[],
   {
     instance: {
       state: { columnOrder },
     },
-  },
-) {
+  }: { instance: TableInstance },
+): ColumnType[] {
   // If there is no order, return the normal columns
   if (!columnOrder || !columnOrder.length) {
     return columns;
   }
 
-  const columnOrderCopy = [...columnOrder];
-
   // If there is an order, make a copy of the columns
+  const columnOrderCopy = [...columnOrder];
   const columnsCopy = [...columns];
-
   // And make a new ordered array of the columns
-  const columnsInOrder = [];
+  const columnsInOrder: ColumnType[] = [];
 
   // Loop over the columns and place them in order into the new array
   while (columnsCopy.length && columnOrderCopy.length) {
@@ -75,11 +76,11 @@ function visibleColumns(
   return [...columnsInOrder, ...columnsCopy];
 }
 
-function useInstance(instance) {
+function useInstance(instance: TableInstance) {
   const { dispatch } = instance;
 
   instance.setColumnOrder = useCallback(
-    (columnOrder) => {
+    (columnOrder: string[] | ((order: string[]) => string[])) => {
       return dispatch({ type: actions.setColumnOrder, columnOrder });
     },
     [dispatch],

@@ -1,11 +1,10 @@
-// @ts-nocheck
-export function sum(values, aggregatedValues) {
+export function sum(values: any[], aggregatedValues: number[]): number {
   // It's faster to just add the aggregations together instead of
   // process leaf nodes individually
   return aggregatedValues.reduce((sum, next) => sum + (typeof next === 'number' ? next : 0), 0);
 }
 
-export function min(values) {
+export function min(values: number[]): number {
   let min = values[0] || 0;
 
   values.forEach((value) => {
@@ -17,7 +16,7 @@ export function min(values) {
   return min;
 }
 
-export function max(values) {
+export function max(values: number[]): number {
   let max = values[0] || 0;
 
   values.forEach((value) => {
@@ -29,7 +28,7 @@ export function max(values) {
   return max;
 }
 
-export function minMax(values) {
+export function minMax(values: number[]): string {
   let min = values[0] || 0;
   let max = values[0] || 0;
 
@@ -43,11 +42,11 @@ export function minMax(values) {
   return `${min}..${max}`;
 }
 
-export function average(values) {
+export function average(values: number[]): number {
   return sum(null, values) / values.length;
 }
 
-export function median(values) {
+export function median(values: number[]): number | null {
   if (!values.length) {
     return null;
   }
@@ -57,14 +56,14 @@ export function median(values) {
   return values.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
 }
 
-export function unique(values) {
+export function unique(values: any[]): any[] {
   return Array.from(new Set(values).values());
 }
 
-export function uniqueCount(values) {
+export function uniqueCount(values: any[]): number {
   return new Set(values).size;
 }
 
-export function count(values) {
+export function count(values: any[]): number {
   return values.length;
 }
