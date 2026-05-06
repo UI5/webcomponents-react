@@ -1,20 +1,21 @@
 import dataLarge from '@sb/mockData/Friends500.json';
 import dataTree from '@sb/mockData/FriendsTree.json';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import '@ui5/webcomponents-icons/dist/delete.js';
-import '@ui5/webcomponents-icons/dist/edit.js';
-import '@ui5/webcomponents-icons/dist/navigation-left-arrow.js';
-import '@ui5/webcomponents-icons/dist/navigation-right-arrow.js';
-import '@ui5/webcomponents-icons/dist/settings.js';
 import NoDataIllustration from '@ui5/webcomponents-fiori/dist/illustrations/NoData.js';
 import NoFilterResults from '@ui5/webcomponents-fiori/dist/illustrations/NoFilterResults.js';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import deleteIcon from '@ui5/webcomponents-icons/dist/delete.js';
+import editIcon from '@ui5/webcomponents-icons/dist/edit.js';
+import navLeftIcon from '@ui5/webcomponents-icons/dist/navigation-left-arrow.js';
+import navRightIcon from '@ui5/webcomponents-icons/dist/navigation-right-arrow.js';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AnalyticalTablePopinDisplay,
   AnalyticalTableScaleWidthMode,
   AnalyticalTableSelectionBehavior,
   AnalyticalTableSelectionMode,
   AnalyticalTableVisibleRowCountMode,
+  FlexBoxAlignItems,
+  FlexBoxDirection,
   FlexBoxJustifyContent,
   TextAlign,
   VerticalAlign,
@@ -24,8 +25,6 @@ import { IllustratedMessage } from '../../../webComponents/IllustratedMessage/in
 import { Label } from '../../../webComponents/Label/index.js';
 import { Menu } from '../../../webComponents/Menu/index.js';
 import { MenuItem } from '../../../webComponents/MenuItem/index.js';
-import { MultiComboBox } from '../../../webComponents/MultiComboBox/index.js';
-import { MultiComboBoxItem } from '../../../webComponents/MultiComboBoxItem/index.js';
 import { Option } from '../../../webComponents/Option/index.js';
 import type { SegmentedButtonPropTypes } from '../../../webComponents/SegmentedButton/index.js';
 import { SegmentedButton } from '../../../webComponents/SegmentedButton/index.js';
@@ -130,8 +129,8 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
         // console.log('This is your row data', row.original);
         return (
           <FlexBox>
-            <Button icon="edit" disabled={disabled} accessibleName="Edit" tooltip="Edit" />
-            <Button icon="delete" disabled={disabled} accessibleName="Delete" tooltip="Delete" />
+            <Button icon={editIcon} disabled={disabled} accessibleName="Edit" tooltip="Edit" />
+            <Button icon={deleteIcon} disabled={disabled} accessibleName="Delete" tooltip="Delete" />
           </FlexBox>
         );
       },
@@ -145,7 +144,7 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
   columnOrder: ['friend.name', 'friend.age', 'name'],
   extension: (
     <FlexBox justifyContent={FlexBoxJustifyContent.End}>
-      <Button icon="edit" accessibleName="edit" design="Transparent" tooltip="Edit" />
+      <Button icon={editIcon} accessibleName="edit" design="Transparent" tooltip="Edit" />
     </FlexBox>
   ),
   groupable: true,
@@ -353,8 +352,8 @@ export const ResponsiveColumnsPopIn: Story = {
         Cell: (instance) => {
           return (
             <FlexBox>
-              <Button icon="edit" accessibleName="Edit" tooltip="Edit" />
-              <Button icon="delete" accessibleName="Delete" tooltip="Delete" />
+              <Button icon={editIcon} accessibleName="Edit" tooltip="Edit" />
+              <Button icon={deleteIcon} accessibleName="Delete" tooltip="Delete" />
             </FlexBox>
           );
         },
@@ -496,10 +495,6 @@ export const NoData: Story = {
   },
 };
 
-export const KitchenSink: Story = {
-  args: kitchenSinkArgs,
-};
-
 const productData = [
   { id: '1', product: 'Laptop Pro 15', category: 'Electronics', price: 1299 },
   { id: '2', product: 'Wireless Mouse', category: 'Accessories', price: 49 },
@@ -630,13 +625,13 @@ export const ContextMenu: Story = {
             style={{ gap: '0.25rem', alignSelf: 'center' }}
           >
             <Button
-              icon="navigation-right-arrow"
+              icon={navRightIcon}
               onClick={handleMoveRight}
               tooltip="Move selected to Selected Products"
               accessibleName="Move selected to Selected Products"
             />
             <Button
-              icon="navigation-left-arrow"
+              icon={navLeftIcon}
               onClick={handleMoveLeft}
               tooltip="Move selected to Available Products"
               accessibleName="Move selected to Available Products"
@@ -671,7 +666,7 @@ export const ContextMenu: Story = {
           >
             <MenuItem
               text={`Move to ${menuTarget === 'available' ? 'Selected Products' : 'Available Products'}`}
-              icon={menuTarget === 'available' ? 'navigation-right-arrow' : 'navigation-left-arrow'}
+              icon={menuTarget === 'available' ? navRightIcon : navLeftIcon}
             />
           </Menu>
         )}
@@ -683,6 +678,10 @@ export const ContextMenu: Story = {
       </>
     );
   },
+};
+
+export const KitchenSink: Story = {
+  args: kitchenSinkArgs,
 };
 
 // ===================== Not displayed in sidebar =====================
