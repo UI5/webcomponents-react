@@ -1,6 +1,7 @@
-import type { CommonProps } from '@ui5/webcomponents-react';
-import { BusyIndicator, Label } from '@ui5/webcomponents-react';
-import { useStylesheet } from '@ui5/webcomponents-react-base';
+import { BusyIndicator } from '@ui5/webcomponents-react/BusyIndicator';
+import { Label } from '@ui5/webcomponents-react/Label';
+import { useStylesheet } from '@ui5/webcomponents-react-base/internal/hooks';
+import type { CommonProps } from '@ui5/webcomponents-react-base/internal/types';
 import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { clsx } from 'clsx';
 import type { ComponentType, ReactElement, ReactNode } from 'react';

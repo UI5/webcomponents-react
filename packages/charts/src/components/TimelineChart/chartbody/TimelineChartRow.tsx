@@ -1,4 +1,4 @@
-import { throttle } from '@ui5/webcomponents-react-base';
+import { throttle } from '@ui5/webcomponents-react-base/internal/utils';
 import type { CSSProperties, MouseEvent as ReactMouseEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import type { ITimelineChartRow } from '../types/TimelineChartTypes.js';

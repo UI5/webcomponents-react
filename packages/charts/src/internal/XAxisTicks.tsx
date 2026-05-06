@@ -1,4 +1,4 @@
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import type { XAxisProps } from 'recharts';
 import type { IChartDimension } from '../interfaces/IChartDimension.js';
 import type { IChartMeasure } from '../interfaces/IChartMeasure.js';

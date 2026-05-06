@@ -208,11 +208,14 @@ export const FilterDialog = (props: FilterDialogPropTypes) => {
     [children],
   );
 
+  // orderedChildren syncs from children but also has independent mutations (reorder, restore)
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (children.length) {
       setOrderedChildren(visibleChildren());
     }
   }, [children, visibleChildren]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const renderChildren = () => {
     const searchStringLower = searchString.toLowerCase();
@@ -299,6 +302,8 @@ export const FilterDialog = (props: FilterDialogPropTypes) => {
     }
   }, [orderedChildren, onReorder]);
 
+  // Reorder triggers setOrderedChildren; currentReorderedItem also provides context value
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (currentReorderedItem?.index != null) {
       const { index, direction } = currentReorderedItem;
@@ -342,6 +347,7 @@ export const FilterDialog = (props: FilterDialogPropTypes) => {
       void currentReorderedItem.target.focus();
     }
   }, [currentReorderedItem]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   useEffect(() => {
     if (updatedIndex != null) {
@@ -396,6 +402,8 @@ export const FilterDialog = (props: FilterDialogPropTypes) => {
     }
   };
 
+  // Two-phase pattern: handler sets forceRequired, effect processes it after render and clears it
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (forceRequired && forceRequired.target) {
       const { prevSelected, selectedKeys, selected: _selected, required, target } = forceRequired;
@@ -414,6 +422,7 @@ export const FilterDialog = (props: FilterDialogPropTypes) => {
     // `forceRequired` triggers async DOM update; no extra deps needed
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [forceRequired]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const renderGroups = () => {
     const groups = {};
@@ -455,6 +464,8 @@ export const FilterDialog = (props: FilterDialogPropTypes) => {
       });
   };
 
+  // One-time lazy init, idempotent under Strict Mode
+  // eslint-disable-next-line react-hooks/refs
   if (initialSelected.current === undefined && selected.length) {
     initialSelected.current = selectedFilters;
   }

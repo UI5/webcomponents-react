@@ -21,7 +21,7 @@ const getToggleRowExpandedProps = (
     }
 
     let column = null;
-    if (!isTreeTable && (!renderRowSubComponent || (renderRowSubComponent && alwaysShowSubComponent))) {
+    if (!isTreeTable && (!renderRowSubComponent || alwaysShowSubComponent)) {
       if (!manualGroupBy) {
         column = row.cells.find((cell) => cell.column.id === row.groupByID)?.column;
       } else {

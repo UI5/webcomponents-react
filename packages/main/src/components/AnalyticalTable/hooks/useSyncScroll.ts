@@ -10,6 +10,8 @@ export function useSyncScroll(
   const isProgrammatic = useRef(false);
   const [isMounted, setIsMounted] = useState(false);
 
+  // DOM scrollTop manipulation, not React state
+  // eslint-disable-next-line react-hooks/immutability
   useEffect(() => {
     if (disabled || !isScrollable) {
       return;
@@ -19,6 +21,8 @@ export function useSyncScroll(
     const scrollbar = refScrollbar.current;
 
     if (!content || !scrollbar || !isMounted) {
+      // Forces a second effect run so refs are populated
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsMounted(true);
       return;
     }

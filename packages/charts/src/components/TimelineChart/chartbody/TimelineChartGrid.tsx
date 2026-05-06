@@ -1,4 +1,4 @@
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import type { ReactElement } from 'react';
 import { DEFAULT_CHART_VERTICAL_COLS, TOLERANCE } from '../util/constants.js';
 

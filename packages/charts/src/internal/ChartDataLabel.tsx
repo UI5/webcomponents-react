@@ -1,4 +1,4 @@
-import { ThemingParameters } from '@ui5/webcomponents-react-base';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import { createElement } from 'react';
 import { Label } from 'recharts';
 import type { IChartMeasure } from '../interfaces/IChartMeasure.js';

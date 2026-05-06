@@ -179,7 +179,6 @@ export interface TableInstance {
   isAllPageRowsSelected?: boolean;
   isAllRowsExpanded?: boolean;
   isAllRowsSelected?: boolean;
-  manualRowSelectedKey?: string;
   nonGroupedFlatRows?: RowType[];
   nonGroupedRowsById?: Record<string, RowType>;
   onlyGroupedFlatRows?: RowType[];
@@ -404,7 +403,7 @@ interface ScaleWidthModeOptions {
   /**
    * Defines the string used for internal width calculation of custom header cells (e.g. `Header: () => <Link>Click me!</Link>`).
    *
-   * You can find out more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs#how-to-scale-custom-cells).
+   * You can find out more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-faq--docs#how-to-scale-custom-cells).
    *
    * __Note:__ This property has no effect when used with `AnalyticalTableScaleWidthMode.Default`.
    */
@@ -412,7 +411,7 @@ interface ScaleWidthModeOptions {
   /**
    * Defines the string used for internal width calculation of the longest cell inside the body of the table (e.g. `Cell: () => <Link>Click me!</Link>`).
    *
-   * You can find out more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs#how-to-scale-custom-cells).
+   * You can find out more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-faq--docs#how-to-scale-custom-cells).
    *
    * __Note:__ This property has no effect when used with `AnalyticalTableScaleWidthMode.Default`.
    */
@@ -498,7 +497,7 @@ export interface AnalyticalTableColumnDefinition {
    *
    * __Note:__
    * - Using a custom component __can impact performance__! If you pass a component, __memoizing it is strongly recommended__, especially for complex components or large datasets.
-   * - For custom elements, text truncation needs to be applied manually. [Here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs) you can find out more.
+   * - For custom elements, text truncation needs to be applied manually. [Here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-faq--docs) you can find out more.
    */
   Cell?: string | ComponentType<CellInstance>;
   /**
@@ -507,6 +506,8 @@ export interface AnalyticalTableColumnDefinition {
    * __Note:__ Use this property if there is no textual content available through the dataset (e.g. no `accessor` field available), or if you want to provide additional context when navigating to the respective cell for screen readers.
    *
    * __Note:__ To retrieve the internal `aria-label`, utilize the `cell.cellLabel` property.
+   *
+   * __Note:__ When defined on the first column, this overrides automatic pop-in accessibility announcements.
    */
   cellLabel?: (param: CellLabelParam) => string;
   /**
@@ -640,7 +641,7 @@ export interface AnalyticalTableColumnDefinition {
   /**
    * Allows passing a custom string for the internal width calculation of custom cells for `scaleWidthMode` `Grow` and `Smart`.
    *
-   * You can find out more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs#how-to-scale-custom-cells).
+   * You can find out more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-faq--docs#how-to-scale-custom-cells).
    *
    * __Note:__ This property has no effect when used with `AnalyticalTableScaleWidthMode.Default`.
    *
@@ -878,7 +879,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    *
    * @default "status"
    */
-  highlightField?: string | ((row: RowType) => HighlightColor);
+  highlightField?: string | ((original: Record<string, any>) => HighlightColor);
   /**
    * Defines whether columns are filterable.
    *
@@ -959,7 +960,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    *
    * __Note:__ It is not recommended to use this prop in combination with a grouped table, as there is no concept for this configuration.
    *
-   * __Note:__ To prevent the table state from resetting when the data is updated, please see [this recipe](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-recipes--docs#how-to-stop-the-table-state-from-automatically-resetting-when-the-data-changes).
+   * __Note:__ To prevent the table state from resetting when the data is updated, please see [this faq entry](https://ui5.github.io/webcomponents-react/v2/?path=/docs/data-display-analyticaltable-faq--docs#how-to-stop-the-table-state-from-automatically-resetting-when-the-data-changes).
    */
   infiniteScroll?: boolean;
   /**

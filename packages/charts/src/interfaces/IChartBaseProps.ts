@@ -1,4 +1,4 @@
-import type { CommonProps } from '@ui5/webcomponents-react';
+import type { CommonProps } from '@ui5/webcomponents-react-base/internal/types';
 import type { ComponentType, ReactNode } from 'react';
 import type { LegendProps, TooltipProps } from 'recharts';
 import type { ICartesianChartConfig } from './ICartesianChartConfig.js';

@@ -3,7 +3,6 @@ import { AnalyticalTablePopinDisplay } from '../../../../enums/AnalyticalTablePo
 import { FlexBoxAlignItems } from '../../../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../../../enums/FlexBoxDirection.js';
 import { FlexBoxWrap } from '../../../../enums/FlexBoxWrap.js';
-import { Text } from '../../../../webComponents/Text/index.js';
 import { FlexBox } from '../../../FlexBox/index.js';
 import type { CellInstance } from '../../types/index.js';
 import { RenderColumnTypes } from '../../types/index.js';
@@ -15,7 +14,7 @@ export const PopIn = (instance: CellInstance) => {
     cell,
     row,
     internalRowHeight,
-    webComponentsReactProperties: { classes: classNames },
+    webComponentsReactProperties: { classes: classNames, uniqueId },
   } = instance;
 
   return (
@@ -53,17 +52,20 @@ export const PopIn = (instance: CellInstance) => {
               const cell = column.Cell;
               if (typeof cell === 'string') {
                 return (
-                  <Text maxLines={1} title={cell}>
+                  <span title={cell} className={classNames.textEllipsis}>
                     {cell}
-                  </Text>
+                  </span>
                 );
               }
-              return makeRenderer({ ...instance, ...popInInstanceProps, isPopIn: true }, column)(column.Cell);
+              return makeRenderer(
+                { ...instance, ...popInInstanceProps, cell: popInInstanceProps, isPopIn: true },
+                column,
+              )(column.Cell);
             }
             return popInInstanceProps?.value ? (
-              <Text maxLines={1} title={popInInstanceProps.value}>
+              <span title={popInInstanceProps.value} className={classNames.textEllipsis}>
                 {popInInstanceProps.value}
-              </Text>
+              </span>
             ) : null;
           };
           return (
@@ -75,11 +77,18 @@ export const PopIn = (instance: CellInstance) => {
               key={id}
             >
               {popinDisplay !== AnalyticalTablePopinDisplay.WithoutHeader && column?.Header && (
-                <div className={classNames.popInHeader} data-component-name="AnalyticalTablePopinHeaderContainer">
+                <div
+                  id={`${uniqueId}popin-h-${id}-${row.id}`}
+                  aria-hidden="true"
+                  className={classNames.popInHeader}
+                  data-component-name="AnalyticalTablePopinHeaderContainer"
+                >
                   {renderHeader()}:
                 </div>
               )}
-              <div style={{ height: internalRowHeight }}>{popInInstanceProps && renderCell()}</div>
+              <div id={`${uniqueId}popin-v-${id}-${row.id}`} aria-hidden="true" style={{ height: internalRowHeight }}>
+                {popInInstanceProps && renderCell()}
+              </div>
             </FlexBox>
           );
         })}

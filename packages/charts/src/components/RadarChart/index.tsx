@@ -1,6 +1,7 @@
 'use client';
 
-import { enrichEventWithDetails, ThemingParameters } from '@ui5/webcomponents-react-base';
+import { enrichEventWithDetails } from '@ui5/webcomponents-react-base/internal/utils';
+import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import { forwardRef, useCallback, useRef } from 'react';
 import type { PolarGridProps } from 'recharts';
 import {

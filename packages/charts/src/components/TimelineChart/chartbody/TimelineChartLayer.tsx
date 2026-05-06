@@ -1,4 +1,4 @@
-import { useStylesheet } from '@ui5/webcomponents-react-base';
+import { useStylesheet } from '@ui5/webcomponents-react-base/internal/hooks';
 import type { ReactNode } from 'react';
 import { classNames, styleData } from '../util/TimelineChart.module.css.js';
 

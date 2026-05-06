@@ -84,3 +84,4 @@ function getHeaderProps(
 export function useColumnDragAndDrop(hooks: ReactTableHooks) {
   hooks.getHeaderProps.push(getHeaderProps);
 }
+useColumnDragAndDrop.pluginName = 'useColumnDragAndDrop';

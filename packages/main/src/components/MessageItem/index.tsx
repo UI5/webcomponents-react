@@ -145,7 +145,7 @@ const MessageItem = forwardRef<ListItemCustomDomRef, MessageItemPropTypes>((prop
     >
       <FlexBox alignItems={FlexBoxAlignItems.Center} className={messageClasses}>
         <div className={classNames.iconContainer}>
-          <Icon name={getIconNameForType(type as ValueState)} className={classNames.icon} mode={IconMode.Decorative} />
+          <Icon name={getIconNameForType(type)} className={classNames.icon} mode={IconMode.Decorative} />
         </div>
         <FlexBox direction={FlexBoxDirection.Column} className={classNames.titleContainer}>
           {titleText && (

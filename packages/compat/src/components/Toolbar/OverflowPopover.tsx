@@ -110,6 +110,8 @@ export const OverflowPopover: FC<OverflowPopoverProps> = (props: OverflowPopover
 
   const [canRenderPortal, setCanRenderPortal] = useState(false);
   useEffect(() => {
+    // SSR guard
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCanRenderPortal(true);
   }, []);
 
@@ -164,7 +166,6 @@ export const OverflowPopover: FC<OverflowPopoverProps> = (props: OverflowPopover
   return (
     <OverflowPopoverContextProvider value={{ inPopover: true }}>
       {overflowButton ? (
-        // eslint-disable-next-line react-hooks/refs
         cloneElement(overflowButton, { onClick: clonedOverflowButtonClick })
       ) : (
         <ToggleButton

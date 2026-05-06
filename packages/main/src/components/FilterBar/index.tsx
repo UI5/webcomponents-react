@@ -122,7 +122,7 @@ const FilterBar = forwardRef<HTMLDivElement, FilterBarPropTypes>((props, ref) =>
   useEffect(() => {
     if (filterBarCollapsed !== undefined) {
       // syncing controlled prop to state
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+
       setShowFilters(!hideToolbar ? !filterBarCollapsed : true);
     }
   }, [hideToolbar, filterBarCollapsed]);

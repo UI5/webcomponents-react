@@ -4,10 +4,11 @@
     outline: none;
   }
 
+  :global(.recharts-legend-item-text) {
+    color: var(--sapTextColor) !important;
+  }
+
   [data-active-legend] {
     background: color-mix(in srgb, var(--sapSelectedColor), transparent 87%);
-    :global(.recharts-legend-item-text) {
-      color: var(--sapTextColor) !important;
-    }
   }
 }

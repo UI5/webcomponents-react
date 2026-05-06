@@ -446,7 +446,7 @@ useEffect(() => {
 <AnalyticalTable
   data={data}
   columns={columns}
-  retainColumnWidth // prevent column width reset
+  retainColumnWidth // prevent column width reset on container resize
   reactTableOptions={{
     autoResetSelectedRows: !skipPageResetRef.current,
     autoResetSortBy: !skipPageResetRef.current,
