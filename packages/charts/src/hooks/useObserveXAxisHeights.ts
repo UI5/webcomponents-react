@@ -1,5 +1,5 @@
 import { useIsomorphicLayoutEffect } from '@ui5/webcomponents-react-base/internal/hooks';
-import type { RefObject } from 'react';
+import type { MutableRefObject, RefObject } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
 // recharts default axis height -> is changed when labels are rotated
@@ -8,7 +8,7 @@ const defaultAxisHeight = 30;
 /**
  * Measure x-axis height(s) - defaults to `defaultAxisHeight`
  */
-function measure(container: Element | null, axisCount: number, prevHeightsRef: RefObject<number[]>) {
+function measure(container: Element | null, axisCount: number, prevHeightsRef: MutableRefObject<number[]>) {
   const heights = Array(axisCount).fill(defaultAxisHeight);
   container?.querySelectorAll<SVGGraphicsElement>('.xAxis').forEach((xAxis, index) => {
     const height = xAxis?.getBBox()?.height;
