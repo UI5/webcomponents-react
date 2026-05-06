@@ -19,8 +19,8 @@ export const alphanumeric = (rowA: RowType, rowB: RowType, columnId: string): nu
 
   // While
   while (a.length && b.length) {
-    let aa = a.shift();
-    let bb = b.shift();
+    const aa = a.shift();
+    const bb = b.shift();
 
     const an = parseInt(aa, 10);
     const bn = parseInt(bb, 10);
@@ -65,7 +65,7 @@ export function datetime(rowA: RowType, rowB: RowType, columnId: string): number
 }
 
 export function basic(rowA: RowType, rowB: RowType, columnId: string): number {
-  let [a, b] = getRowValuesByColumnID(rowA, rowB, columnId);
+  const [a, b] = getRowValuesByColumnID(rowA, rowB, columnId);
 
   return compareBasic(a, b);
 }
@@ -77,11 +77,11 @@ export function string(rowA: RowType, rowB: RowType, columnId: string): number {
   b = b.split('').filter(Boolean);
 
   while (a.length && b.length) {
-    let aa: string = a.shift();
-    let bb: string = b.shift();
+    const aa: string = a.shift();
+    const bb: string = b.shift();
 
-    let alower = aa.toLowerCase();
-    let blower = bb.toLowerCase();
+    const alower = aa.toLowerCase();
+    const blower = bb.toLowerCase();
 
     // Case insensitive comparison until characters match
     if (alower > blower) {

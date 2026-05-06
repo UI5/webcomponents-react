@@ -23,7 +23,6 @@ const ignorePatterns = {
     'packages/mcp-server/dist',
     'packages/mcp-server/scripts',
     'packages/main/src/i18n/i18n-defaults.ts',
-    'packages/main/src/components/AnalyticalTable/react-table',
     'packages/main/src/generated',
     'packages/cypress-commands/dist',
     '**/generated',

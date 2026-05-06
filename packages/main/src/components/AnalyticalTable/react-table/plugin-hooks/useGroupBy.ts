@@ -110,7 +110,7 @@ function visibleColumns(
   return columns;
 }
 
-const defaultUserAggregations: Record<string, Function> = {};
+const defaultUserAggregations: Record<string, (leafValues: any[], groupedValues: any[]) => any> = {};
 
 function useInstance(instance: TableInstance) {
   const {

@@ -56,6 +56,7 @@ export const useTable = (
   const instanceRef = useRef<Record<string, any>>({});
 
   // Create a getter for the instance (helps avoid a lot of potential memory leaks)
+  // eslint-disable-next-line react-hooks/refs
   const getInstance = useGetLatest(instanceRef.current) as () => any;
 
   // Assign the props, plugins and hooks to the instance
@@ -132,6 +133,7 @@ export const useTable = (
           instance: getInstance(),
         }),
       ),
+    // eslint-disable-next-line react-hooks/use-memo
     [
       getHooks,
       getInstance,
@@ -149,6 +151,7 @@ export const useTable = (
       reduceHooks(getHooks().allColumns, flattenColumns(columns), {
         instance: getInstance(),
       }).map(assignColumnAccessor),
+    // eslint-disable-next-line react-hooks/use-memo
     [
       columns,
       getHooks,
@@ -204,6 +207,7 @@ export const useTable = (
       reduceHooks(getHooks().visibleColumns, allColumns, {
         instance: getInstance(),
       }).map((d: ColumnType) => decorateColumn(d, defaultColumn)),
+    // eslint-disable-next-line react-hooks/use-memo
     [
       getHooks,
       allColumns,
@@ -217,6 +221,7 @@ export const useTable = (
   );
 
   // Combine new visible columns with all columns
+  // eslint-disable-next-line react-hooks/immutability,react-hooks/preserve-manual-memoization
   allColumns = useMemo(() => {
     const columns = [...visibleColumns];
 
@@ -248,6 +253,7 @@ export const useTable = (
   // Make the headerGroups
   const headerGroups = useMemo(
     () => reduceHooks(getHooks().headerGroups, makeHeaderGroups(visibleColumns, defaultColumn), getInstance()),
+    // eslint-disable-next-line react-hooks/use-memo
     [
       getHooks,
       visibleColumns,
@@ -280,6 +286,7 @@ export const useTable = (
     .sort()
     .join('_');
 
+  // eslint-disable-next-line react-hooks/immutability
   visibleColumns = useMemo(
     () => visibleColumns.filter((d: ColumnType) => d.isVisible),
     // eslint-disable-next-line react-hooks/exhaustive-deps

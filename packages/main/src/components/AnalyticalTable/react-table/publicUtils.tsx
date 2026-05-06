@@ -128,6 +128,7 @@ export function functionalUpdate(updater: any, old: any) {
 
 export function useGetLatest<T>(obj: T): () => T {
   const ref = useRef<T>(obj);
+  // eslint-disable-next-line react-hooks/refs
   ref.current = obj;
 
   return useCallback(() => ref.current, []);
@@ -138,6 +139,7 @@ export const safeUseLayoutEffect = typeof document !== 'undefined' ? useLayoutEf
 export function useMountedLayoutEffect(fn: () => void, deps: DependencyList) {
   const mountedRef = useRef(false);
 
+  // eslint-disable-next-line react-hooks/refs
   safeUseLayoutEffect(() => {
     if (mountedRef.current) {
       fn();

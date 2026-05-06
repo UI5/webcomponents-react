@@ -79,6 +79,7 @@ function visibleColumns(
 function useInstance(instance: TableInstance) {
   const { dispatch } = instance;
 
+  // eslint-disable-next-line react-hooks/immutability
   instance.setColumnOrder = useCallback(
     (columnOrder: string[] | ((order: string[]) => string[])) => {
       return dispatch({ type: actions.setColumnOrder, columnOrder });
