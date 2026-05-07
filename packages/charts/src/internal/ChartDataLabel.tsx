@@ -16,7 +16,7 @@ interface CustomDataLabelProps {
 }
 
 export const ChartDataLabel = (props: CustomDataLabelProps) => {
-  const { config, chartType, viewBox, isBigDataSet } = props;
+  const { config, chartType, viewBox, isBigDataSet, ...labelProps } = props;
   const hideLabel = config.hideDataLabel !== false && (isBigDataSet || config.hideDataLabel || props.value == null);
 
   if (hideLabel) {
@@ -43,16 +43,6 @@ export const ChartDataLabel = (props: CustomDataLabelProps) => {
   }
 
   return (
-    <Label
-      config={config}
-      chartType={chartType}
-      isBigDataSet={isBigDataSet}
-      viewBox={viewBox}
-      {...props}
-      fill={fill}
-      stroke={'none'}
-      content={undefined}
-      value={formattedLabel}
-    />
+    <Label viewBox={viewBox} {...labelProps} fill={fill} stroke={'none'} content={undefined} value={formattedLabel} />
   );
 };
