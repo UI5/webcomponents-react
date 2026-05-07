@@ -26,6 +26,12 @@ const preview: Preview = {
     ref: {
       table: { disable: true },
     },
+    dataset: {
+      control: { disable: true },
+    },
+    ChartPlaceholder: {
+      control: { disable: true },
+    },
   },
   decorators: [
     (Story, { globals, viewMode }) => {
