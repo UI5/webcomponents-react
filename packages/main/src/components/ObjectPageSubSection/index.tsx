@@ -120,7 +120,7 @@ const ObjectPageSubSection = forwardRef<HTMLDivElement, ObjectPageSubSectionProp
         ) : (
           <span aria-hidden="true" className={classNames.spacer} />
         )}
-        {actions && actions}
+        {actions}
       </FlexBox>
       <div className={classNames.subSectionContent} data-component-name="ObjectPageSubSectionContent">
         {children}

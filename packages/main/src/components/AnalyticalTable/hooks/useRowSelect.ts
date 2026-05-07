@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { actions, makePropGetter, ensurePluginOrder, useGetLatest, useMountedLayoutEffect } from 'react-table';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import type { ReactTableHooks, RowType, TableInstance } from '../types/index.js';
@@ -22,9 +22,10 @@ const emptyArray: RowType[] = [];
  * This is a fork of react-table's `useRowSelect` with performance optimizations:
  * - Early exit when `selectionMode` is 'None'
  * - Skips `selectedFlatRows` computation, `isAllRowsSelected` checks, and `prepareRow` overhead when selection is disabled
- * - `isAllRowsSelected` computation is memoized
+ * - `selectedFlatRows` computation is memoized
  * - Uses stable noop references when disabled
  * - Fixes select-all indeterminate state considering filtered-out rows (now only visible rows are considered)
+ * - Removed `manualRowSelectedKey` display override from `defaultGetToggleRowSelectedProps` (`row.isSelected` is the single source of truth)
  *
  * _Pagination specific implementation where adjusted as well, although they are currently not being used_
  */
@@ -43,16 +44,8 @@ const defaultGetToggleRowSelectedProps = (
   props: Record<string, unknown>,
   { instance, row }: { instance: TableInstance; row: RowType },
 ) => {
-  const { manualRowSelectedKey = 'isSelected', webComponentsReactProperties } = instance;
-  // UI5WCR: use className instead of inline style
-  const { classes } = webComponentsReactProperties;
-  let checked = false;
-
-  if (row.original && row.original[manualRowSelectedKey]) {
-    checked = true;
-  } else {
-    checked = row.isSelected;
-  }
+  // UI5WCR: use className instead of inline style; removed `manualRowSelectedKey` display override
+  const { classes } = instance.webComponentsReactProperties;
 
   return [
     props,
@@ -62,7 +55,7 @@ const defaultGetToggleRowSelectedProps = (
       },
       // UI5WCR: removed style/title, added className
       className: classes.checkBox,
-      checked,
+      checked: row.isSelected,
       indeterminate: row.isSomeSelected,
     },
   ];
@@ -250,23 +243,29 @@ function useInstance(instance: TableInstance) {
 
   ensurePluginOrder(plugins, ['useFilters', 'useGroupBy', 'useSortBy', 'useExpanded', 'usePagination'], 'useRowSelect');
 
-  // UI5WCR: early exit when selection disabled
-  let selectedFlatRows: RowType[] = emptyArray;
-  let isAllRowsSelected = false;
-  let isAllPageRowsSelected = false;
+  // UI5WCR: memoized computation with early exit when selection disabled.
+  const selectedFlatRows = useMemo(() => {
+    if (!isSelectionEnabled) {
+      return emptyArray;
+    }
 
-  if (isSelectionEnabled) {
-    selectedFlatRows = [];
+    const result: RowType[] = [];
     rows.forEach((row) => {
       const isSelected = selectSubRows ? getRowIsSelected(row, selectedRowIds, getSubRows) : !!selectedRowIds[row.id];
       row.isSelected = !!isSelected;
       row.isSomeSelected = isSelected === null;
 
       if (isSelected) {
-        selectedFlatRows.push(row);
+        result.push(row);
       }
     });
+    return result;
+  }, [rows, selectSubRows, selectedRowIds, getSubRows, isSelectionEnabled]);
 
+  let isAllRowsSelected = false;
+  let isAllPageRowsSelected = false;
+
+  if (isSelectionEnabled) {
     // isAllRowsSelected
     const rowIds = Object.keys(nonGroupedRowsById);
     const selectedIds = Object.keys(selectedRowIds);

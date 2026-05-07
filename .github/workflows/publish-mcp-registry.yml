@@ -30,6 +30,10 @@ jobs:
       - name: Authenticate to MCP Registry
         run: ./mcp-publisher login github-oidc
 
+      - name: Wait for npm registry propagation
+        if: ${{ inputs.dry_run != true }}
+        run: sleep 120
+
       - name: Publish server to MCP Registry
         if: ${{ inputs.dry_run != true }}
         run: ./mcp-publisher publish
