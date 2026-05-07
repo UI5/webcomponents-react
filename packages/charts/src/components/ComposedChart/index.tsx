@@ -20,7 +20,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import type { YAxisProps } from 'recharts';
+import type { LabelProps, YAxisProps } from 'recharts';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils.js';
 import { useChartMargin } from '../../hooks/useChartMargin.js';
 import { useLabelFormatter } from '../../hooks/useLabelFormatter.js';
@@ -462,7 +462,7 @@ const ComposedChart = forwardRef<HTMLDivElement, ComposedChartProps>((props, ref
           const chartElementProps: any = {
             isAnimationActive: !noAnimation,
           };
-          let labelPosition = 'top';
+          let labelPosition: LabelProps['position'] = 'top';
 
           switch (element.type) {
             case 'line':

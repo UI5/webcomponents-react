@@ -1,7 +1,7 @@
 import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
 import { createElement } from 'react';
 import { Label } from 'recharts';
-import type { LabelPosition } from 'recharts/types/component/Label.js';
+import type { LabelProps } from 'recharts';
 import type { IChartMeasure } from '../interfaces/IChartMeasure.js';
 import { getTextWidth } from '../internal/Utils.js';
 
@@ -9,7 +9,7 @@ interface CustomDataLabelProps {
   config: IChartMeasure;
   viewBox?: any;
   chartType: 'bar' | 'column' | 'line' | 'radar' | 'pie' | 'area';
-  position?: LabelPosition;
+  position?: LabelProps['position'];
   value?: any;
   children?: any;
   isBigDataSet?: boolean;
@@ -42,5 +42,17 @@ export const ChartDataLabel = (props: CustomDataLabelProps) => {
     fill = ThemingParameters.sapTextColor; // label is displayed outside of the colored element
   }
 
-  return <Label viewBox={viewBox} {...props} fill={fill} stroke={'none'} content={undefined} value={formattedLabel} />;
+  return (
+    <Label
+      config={config}
+      chartType={chartType}
+      isBigDataSet={isBigDataSet}
+      viewBox={viewBox}
+      {...props}
+      fill={fill}
+      stroke={'none'}
+      content={undefined}
+      value={formattedLabel}
+    />
+  );
 };

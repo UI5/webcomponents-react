@@ -17,7 +17,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import type { YAxisProps } from 'recharts';
+import type { LabelProps, YAxisProps } from 'recharts';
 import { useChartMargin } from '../../hooks/useChartMargin.js';
 import { useLabelFormatter } from '../../hooks/useLabelFormatter.js';
 import { useLegendItemClick } from '../../hooks/useLegendItemClick.js';
@@ -441,7 +441,7 @@ const BulletChart = forwardRef<HTMLDivElement, BulletChartProps>((props, ref) =>
           const chartElementProps: any = {
             isAnimationActive: !noAnimation,
           };
-          let labelPosition = 'top';
+          let labelPosition: LabelProps['position'] = 'top';
           switch (element.type) {
             case 'primary':
             case 'additional':
