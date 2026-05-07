@@ -75,7 +75,7 @@ interface DimensionConfig extends IChartDimension {
 
 export interface ColumnChartProps extends IChartBaseProps {
   /**
-   * Alignment of the labels of the data points. Can be one of the following: `"center"`, `"insideTop"`, `"insideTopRight"`, `"insideRight"`, `"insideBottomRight"`, `"insideBottom"`, `"insideBottomLeft"`, `"insideLeft"`, `"insideTopLeft"`
+   * Alignment of the labels of the data points.
    *
    * @default 'insideTop'
    */
