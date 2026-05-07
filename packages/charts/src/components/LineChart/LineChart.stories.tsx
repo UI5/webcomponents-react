@@ -41,11 +41,6 @@ const meta = {
     ],
     dataset: complexDataSet,
   },
-  argTypes: {
-    dataset: {
-      control: { disable: true },
-    },
-  },
 } satisfies Meta<typeof LineChart>;
 
 export default meta;

@@ -15,9 +15,6 @@ const meta = {
   component: BarChart,
   tags: ['package:@ui5/webcomponents-react-charts'],
   argTypes: {
-    dataset: {
-      control: { disable: true },
-    },
     children: {
       control: { disable: true },
     },

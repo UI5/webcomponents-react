@@ -16,11 +16,6 @@ const meta = {
     },
     dataset: simpleDataSet,
   },
-  argTypes: {
-    dataset: {
-      control: { disable: true },
-    },
-  },
 } satisfies Meta<typeof PieChart>;
 
 export default meta;

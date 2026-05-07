@@ -32,11 +32,6 @@ const meta = {
     ],
     dataset: complexDataSet,
   },
-  argTypes: {
-    dataset: {
-      control: { disable: true },
-    },
-  },
 } satisfies Meta<typeof RadarChart>;
 
 export default meta;

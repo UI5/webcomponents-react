@@ -7,9 +7,6 @@ const meta = {
   component: BulletChart,
   tags: ['package:@ui5/webcomponents-react-charts'],
   argTypes: {
-    dataset: {
-      control: { disable: true },
-    },
     children: {
       control: { disable: true },
     },
