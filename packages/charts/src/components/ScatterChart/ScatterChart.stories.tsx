@@ -12,7 +12,6 @@ const meta = {
   },
   tags: ['package:@ui5/webcomponents-react-charts'],
   args: {
-    chartConfig: { accessibilityLayer: true },
     dataset: scatterComplexDataSet,
     measures: [
       {
@@ -58,6 +57,12 @@ export const WithCustomColor: Story = {
         axis: 'z',
       },
     ],
+  },
+};
+
+export const WithAccessibilityLayer: Story = {
+  args: {
+    chartConfig: { accessibilityLayer: true },
   },
 };
 

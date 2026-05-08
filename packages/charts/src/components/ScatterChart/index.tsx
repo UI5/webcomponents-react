@@ -240,7 +240,9 @@ const ScatterChart = forwardRef<HTMLDivElement, ScatterChartProps>((props, ref) 
     consumerOnKeyDownCapture,
     onSelect: useCallback(
       (point, e) => {
-        if (typeof onDataPointClick !== 'function') return;
+        if (typeof onDataPointClick !== 'function') {
+          return;
+        }
         onDataPointClick(
           enrichEventWithDetails(e as unknown as CustomEvent, {
             value: point.raw,
