@@ -73,6 +73,7 @@
 .sectionContent {
   white-space: normal;
   height: 100%;
+  isolation: isolate;
 }
 
 .sectionContentInner {
