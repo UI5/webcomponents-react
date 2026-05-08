@@ -127,6 +127,10 @@ const style = {
 
 Components must work in both SPA and SSR environments. Wrappers use `suppressHydrationWarning` because web component internal state doesn't serialize consistently.
 
+### CSS Modules
+
+Component styles use CSS Modules (`.module.css` files). The corresponding `.css.ts` files are **auto-generated** by the build system and **gitignored** (`src/**/*.css.ts` in each package's `.gitignore`). Never create or edit `.css.ts` files manually — only create the `.module.css` source file.
+
 ## Core Architecture
 
 ### Base Package Imports

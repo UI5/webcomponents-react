@@ -82,8 +82,6 @@ export function useScatterPointFocus({
   const spaceHeldRef = useRef(false);
   const baseId = useId();
 
-  console.log('update');
-
   const xMeasure = measures.find((m) => m.axis === 'x');
 
   const flatPoints: FlatPoint[] = useMemo(() => {
@@ -104,7 +102,9 @@ export function useScatterPointFocus({
     points.sort((a, b) => {
       const ax = Number(getAccessorValue(a.raw, xMeasure.accessor)) || 0;
       const bx = Number(getAccessorValue(b.raw, xMeasure.accessor)) || 0;
-      if (ax !== bx) return ax - bx;
+      if (ax !== bx) {
+        return ax - bx;
+      }
       return a.datasetIndex - b.datasetIndex;
     });
     return points;
@@ -117,25 +117,36 @@ export function useScatterPointFocus({
   }, [flatPoints]);
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      return;
+    }
     const container = chartRef.current;
-    if (!container) return;
+    if (!container) {
+      return;
+    }
 
     const allSymbols: SVGGElement[][] = [];
+
     container.querySelectorAll<SVGGElement>('.recharts-scatter').forEach((group) => {
       allSymbols.push(Array.from(group.querySelectorAll<SVGGElement>(':scope .recharts-scatter-symbol')));
     });
 
-    for (const point of flatPoints) {
+    if (allSymbols.length === 0) {
+      return;
+    }
+
+    for (let idx = 0; idx < flatPoints.length; idx++) {
+      const point = flatPoints[idx];
       const el = allSymbols[point.datasetIndex]?.[point.pointIndex];
-      if (!el) continue;
-      const idx = flatPoints.indexOf(point);
+      if (!el) {
+        continue;
+      }
       el.setAttribute('id', `${baseId}-point-${idx}`);
       el.setAttribute('role', 'img');
       el.setAttribute('aria-label', getPointLabel(point, measures));
     }
 
-    // Re-apply active point state after recharts re-creates DOM elements.
+    // Re-apply active point state after recharts re-creates DOM elements (e.g. resize).
     const activeIdx = pointFocusRef.current;
     if (activeIdx >= 0 && container.contains(document.activeElement)) {
       const el = container.querySelector<SVGGElement>(`#${CSS.escape(baseId)}-point-${activeIdx}`);
@@ -149,7 +160,9 @@ export function useScatterPointFocus({
   const activatePoint = useCallback(
     (index: number) => {
       const container = chartRef.current;
-      if (!container) return;
+      if (!container) {
+        return;
+      }
 
       container
         .querySelector<SVGGElement>('.recharts-scatter-symbol[data-point-focused]')
@@ -158,7 +171,9 @@ export function useScatterPointFocus({
       pointFocusRef.current = index;
 
       const el = container.querySelector<SVGGElement>(`#${CSS.escape(baseId)}-point-${index}`);
-      if (!el) return;
+      if (!el) {
+        return;
+      }
 
       el.setAttribute('data-point-focused', '');
       container.setAttribute('aria-activedescendant', `${baseId}-point-${index}`);
@@ -168,7 +183,9 @@ export function useScatterPointFocus({
 
   const clearActivePoint = useCallback(() => {
     const container = chartRef.current;
-    if (!container) return;
+    if (!container) {
+      return;
+    }
     container
       .querySelector<SVGGElement>('.recharts-scatter-symbol[data-point-focused]')
       ?.removeAttribute('data-point-focused');
@@ -178,7 +195,9 @@ export function useScatterPointFocus({
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
       const points = flatPointsRef.current;
-      if (!points.length) return;
+      if (!points.length) {
+        return;
+      }
 
       switch (e.key) {
         case 'ArrowRight':
