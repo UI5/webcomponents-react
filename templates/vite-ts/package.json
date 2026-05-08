@@ -17,8 +17,8 @@
     "@ui5/webcomponents-fiori": "2.21.1",
     "@ui5/webcomponents-icons": "2.21.1",
     "@ui5/webcomponents-react": "2.21.3",
-    "react": "19.2.5",
-    "react-dom": "19.2.5"
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
   },
   "devDependencies": {
     "@types/react": "19.2.14",
