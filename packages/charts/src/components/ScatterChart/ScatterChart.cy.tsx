@@ -153,6 +153,10 @@ describe('ScatterChart', () => {
       }),
     );
 
+    cy.get('[role="img"][aria-label]').eq(2).click();
+    cy.get('@onDataPointClick').should('have.been.calledTwice');
+    activePointLabelShould(containerSelector, 'Number: 200');
+
     // Leave chart
     cy.realPress('Tab');
     cy.focused().should('contain.text', 'after');
@@ -163,9 +167,10 @@ describe('ScatterChart', () => {
     // Reenter chart
     cy.realPress(['Shift', 'Tab']);
     cy.focused().should('have.attr', 'aria-roledescription', 'chart');
-    activePointLabelShould(containerSelector, 'Number: 100');
+    activePointLabelShould(containerSelector, 'Number: 200');
 
-    // 1st scatter active
+    cy.realPress('ArrowLeft');
+    activePointLabelShould(containerSelector, 'Number: 100');
     cy.realPress('ArrowLeft');
     activePointLabelShould(containerSelector, 'Number: 50');
     cy.realPress('ArrowLeft');
