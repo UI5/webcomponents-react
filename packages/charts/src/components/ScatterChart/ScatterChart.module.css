@@ -1,0 +1,13 @@
+.scatterchart {
+  g:focus,
+  path:focus {
+    outline: none;
+  }
+
+  :global(.recharts-scatter-symbol):focus path,
+  :global(.recharts-scatter-symbol)[data-point-focused] path {
+    stroke: var(--sapContent_FocusColor);
+    stroke-width: calc(var(--sapContent_FocusWidth) * 2);
+    paint-order: stroke;
+  }
+}

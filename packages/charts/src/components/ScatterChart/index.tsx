@@ -1,8 +1,9 @@
 'use client';
 
-import { useIsRTL, useSyncRef } from '@ui5/webcomponents-react-base/internal/hooks';
+import { useIsRTL, useStylesheet, useSyncRef } from '@ui5/webcomponents-react-base/internal/hooks';
 import { enrichEventWithDetails } from '@ui5/webcomponents-react-base/internal/utils';
 import { ThemingParameters } from '@ui5/webcomponents-react-base/ThemingParameters';
+import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { forwardRef, useCallback, useRef } from 'react';
 import type { ReferenceLineProps } from 'recharts';
@@ -32,6 +33,8 @@ import { tickLineConfig, tooltipContentStyle, tooltipFillOpacity, xAxisPadding }
 import { XAxisTicks } from '../../internal/XAxisTicks.js';
 import { YAxisTicks } from '../../internal/YAxisTicks.js';
 import { ScatterChartPlaceholder } from './Placeholder.js';
+import { classNames, styleData } from './ScatterChart.module.css.js';
+import { useScatterPointFocus } from './useScatterPointFocus.js';
 
 interface MeasureConfig extends Omit<IChartMeasure, 'color' | 'hideDataLabel' | 'DataLabel'> {
   /**
@@ -162,7 +165,7 @@ const ScatterChart = forwardRef<HTMLDivElement, ScatterChartProps>((props, ref) 
     legendPosition: 'bottom',
     legendHorizontalAlign: 'left',
     zoomingTool: false,
-    resizeDebounce: 250,
+    resizeDebounce: 0,
     ...props.chartConfig,
   };
   const { referenceLine, referenceLineX } = chartConfig;
@@ -215,8 +218,40 @@ const ScatterChart = forwardRef<HTMLDivElement, ScatterChartProps>((props, ref) 
   const [yAxisWidth, legendPosition] = useLongestYAxisLabel(dataset?.[0]?.data, [yMeasure], chartConfig.legendPosition);
   const xAxisHeights = useObserveXAxisHeights(chartRef, 1);
   const marginChart = useChartMargin(chartConfig.margin, chartConfig.zoomingTool);
-  const { chartConfig: _0, measures: _1, ...propsWithoutOmitted } = rest;
+  const {
+    chartConfig: _0,
+    measures: _1,
+    onBlur: consumerOnBlur,
+    onFocus: consumerOnFocus,
+    onKeyDownCapture: consumerOnKeyDownCapture,
+    ...propsWithoutOmitted
+  } = rest;
   const isRTL = useIsRTL(chartRef);
+
+  useStylesheet(styleData, ScatterChart.displayName);
+
+  const { containerProps: pointFocusProps, handlePointClick } = useScatterPointFocus({
+    chartRef,
+    enabled: !!chartConfig.accessibilityLayer,
+    dataset: dataset ?? [],
+    measures,
+    consumerOnBlur,
+    consumerOnFocus,
+    consumerOnKeyDownCapture,
+    onSelect: useCallback(
+      (point, e) => {
+        if (typeof onDataPointClick !== 'function') return;
+        onDataPointClick(
+          enrichEventWithDetails(e as unknown as CustomEvent, {
+            value: point.raw,
+            dataIndex: point.pointIndex,
+            payload: point.raw,
+          }),
+        );
+      },
+      [onDataPointClick],
+    ),
+  });
 
   return (
     <ChartContainer
@@ -229,13 +264,16 @@ const ScatterChart = forwardRef<HTMLDivElement, ScatterChartProps>((props, ref) 
       className={className}
       slot={slot}
       resizeDebounce={chartConfig.resizeDebounce}
+      {...pointFocusProps}
       {...propsWithoutOmitted}
     >
       <ScatterChartLib
         onClick={onClickInternal}
         margin={marginChart}
-        accessibilityLayer={chartConfig.accessibilityLayer}
-        className={typeof onDataPointClick === 'function' ? 'has-click-handler' : undefined}
+        className={clsx(
+          typeof onDataPointClick === 'function' ? 'has-click-handler' : undefined,
+          classNames.scatterchart,
+        )}
       >
         <CartesianGrid
           vertical={chartConfig.gridVertical}
@@ -284,13 +322,16 @@ const ScatterChart = forwardRef<HTMLDivElement, ScatterChartProps>((props, ref) 
           return (
             <Scatter
               className={typeof onDataPointClick === 'function' ? 'has-click-handler' : undefined}
-              onMouseDown={onDataPointClickInternal}
+              onMouseDown={(payload, pointIndex, event) => {
+                onDataPointClickInternal(payload, pointIndex, event);
+                handlePointClick?.(index, pointIndex);
+              }}
               opacity={dataSet.opacity}
               data={dataSet?.data}
               name={dataSet?.label}
               key={dataSet?.label}
               fill={dataSet?.color ?? `var(--sapChart_OrderedColor_${(index % 12) + 1})`}
-              isAnimationActive={!noAnimation}
+              isAnimationActive={!noAnimation && !chartConfig.accessibilityLayer}
             />
           );
         })}
