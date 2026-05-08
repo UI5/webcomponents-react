@@ -1,7 +1,5 @@
 export default {
-  extensions: {
-    ts: 'module',
-  },
+  extensions: ['ts'],
   files: ['src/**/*.test.ts'],
   watchMode: {
     ignoreChanges: ['dist/**', 'node_modules/**'],
