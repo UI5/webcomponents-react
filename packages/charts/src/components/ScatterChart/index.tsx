@@ -165,7 +165,7 @@ const ScatterChart = forwardRef<HTMLDivElement, ScatterChartProps>((props, ref) 
     legendPosition: 'bottom',
     legendHorizontalAlign: 'left',
     zoomingTool: false,
-    resizeDebounce: 0,
+    resizeDebounce: 250,
     ...props.chartConfig,
   };
   const { referenceLine, referenceLineX } = chartConfig;
@@ -331,6 +331,7 @@ const ScatterChart = forwardRef<HTMLDivElement, ScatterChartProps>((props, ref) 
               name={dataSet?.label}
               key={dataSet?.label}
               fill={dataSet?.color ?? `var(--sapChart_OrderedColor_${(index % 12) + 1})`}
+              // Animation recreates DOM elements, wiping a11y attributes.
               isAnimationActive={!noAnimation && !chartConfig.accessibilityLayer}
             />
           );

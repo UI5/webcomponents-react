@@ -33,6 +33,7 @@ interface UseScatterPointFocusOptions {
   consumerOnKeyDownCapture?: KeyboardEventHandler<HTMLDivElement>;
 }
 
+// Resolves an accessor (string key or getter function) to the value from a data entry.
 function getAccessorValue(
   entry: Record<string, unknown>,
   accessor: string | ((e: Record<string, unknown>) => unknown),
@@ -43,6 +44,7 @@ function getAccessorValue(
   return entry[accessor];
 }
 
+// Builds the aria-label string for a point: "DatasetLabel, MeasureLabel: value, ..."
 function getPointLabel(point: FlatPoint, measures: MeasureInfo[]) {
   const parts: string[] = [];
   if (point.datasetLabel) {
@@ -84,6 +86,7 @@ export function useScatterPointFocus({
 
   const xMeasure = measures.find((m) => m.axis === 'x');
 
+  // flatten dataset and sort by x-axis value for arrow key nav
   const flatPoints: FlatPoint[] = useMemo(() => {
     if (!dataset?.length || !xMeasure) {
       return [];
@@ -110,12 +113,14 @@ export function useScatterPointFocus({
     return points;
   }, [dataset, xMeasure]);
 
+  // mutable ref for event handler data (reset when data changes)
   const flatPointsRef = useRef(flatPoints);
   useEffect(() => {
     flatPointsRef.current = flatPoints;
     pointFocusRef.current = -1;
   }, [flatPoints]);
 
+  // Recharts recreates DOM elements on rerender -> must set attributes again after each update
   useEffect(() => {
     if (!enabled) {
       return;
@@ -126,15 +131,14 @@ export function useScatterPointFocus({
     }
 
     const allSymbols: SVGGElement[][] = [];
-
     container.querySelectorAll<SVGGElement>('.recharts-scatter').forEach((group) => {
       allSymbols.push(Array.from(group.querySelectorAll<SVGGElement>(':scope .recharts-scatter-symbol')));
     });
-
     if (allSymbols.length === 0) {
       return;
     }
 
+    // Set a11y attributes on each scatter symbol.
     for (let idx = 0; idx < flatPoints.length; idx++) {
       const point = flatPoints[idx];
       const el = allSymbols[point.datasetIndex]?.[point.pointIndex];
@@ -146,7 +150,7 @@ export function useScatterPointFocus({
       el.setAttribute('aria-label', getPointLabel(point, measures));
     }
 
-    // Re-apply active point state after recharts re-creates DOM elements (e.g. resize).
+    // Reapply attributes when chart is updated if it still has focus.
     const activeIdx = pointFocusRef.current;
     if (activeIdx >= 0 && container.contains(document.activeElement)) {
       const el = container.querySelector<SVGGElement>(`#${CSS.escape(baseId)}-point-${activeIdx}`);
@@ -216,12 +220,13 @@ export function useScatterPointFocus({
         }
         case 'Enter': {
           e.preventDefault();
-          if (pointFocusRef.current >= 0) {
-            onSelect?.(points[pointFocusRef.current], e);
+          if (pointFocusRef.current >= 0 && typeof onSelect === 'function') {
+            onSelect(points[pointFocusRef.current], e);
           }
           break;
         }
         case ' ': {
+          // Space fires selection on keyup.
           e.preventDefault();
           spaceHeldRef.current = true;
           break;
@@ -236,8 +241,8 @@ export function useScatterPointFocus({
       if (e.key === ' ' && spaceHeldRef.current) {
         spaceHeldRef.current = false;
         const points = flatPointsRef.current;
-        if (pointFocusRef.current >= 0) {
-          onSelect?.(points[pointFocusRef.current], e);
+        if (pointFocusRef.current >= 0 && typeof onSelect === 'function') {
+          onSelect(points[pointFocusRef.current], e);
         }
       }
     },
@@ -250,7 +255,9 @@ export function useScatterPointFocus({
         const index = pointFocusRef.current >= 0 ? pointFocusRef.current : 0;
         activatePoint(index);
       }
-      consumerOnFocus?.(e);
+      if (typeof consumerOnFocus === 'function') {
+        consumerOnFocus(e);
+      }
     },
     [activatePoint, consumerOnFocus],
   );
@@ -261,7 +268,9 @@ export function useScatterPointFocus({
         clearActivePoint();
         spaceHeldRef.current = false;
       }
-      consumerOnBlur?.(e);
+      if (typeof consumerOnBlur === 'function') {
+        consumerOnBlur(e);
+      }
     },
     [clearActivePoint, consumerOnBlur],
   );
@@ -269,7 +278,9 @@ export function useScatterPointFocus({
   const handleKeyDownCapture = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
       handleKeyDown(e);
-      consumerOnKeyDownCapture?.(e);
+      if (typeof consumerOnKeyDownCapture === 'function') {
+        consumerOnKeyDownCapture(e);
+      }
     },
     [handleKeyDown, consumerOnKeyDownCapture],
   );

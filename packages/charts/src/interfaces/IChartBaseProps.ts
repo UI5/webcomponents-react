@@ -111,7 +111,7 @@ export interface IChartBaseProps<T = ICartesianChartConfig> extends Omit<CommonP
      *
      * __Note:__ For categorical/horizontal charts, this enables recharts' built-in accessibility layer with tooltip navigation.
      * For PieChart/DonutChart, this enables keyboard navigation through chart segments using arrow keys.
-     * For ScatterChart, this enables keyboard navigation through data points sorted by X value using arrow keys.
+     * For ScatterChart, this enables keyboard navigation through data points sorted by X value using arrow keys and disables animations.
      *
      * @experimental
      */
