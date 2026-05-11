@@ -22,6 +22,8 @@ When `@ui5/webcomponents-react` packages are updated, regenerate all data:
 npm run update
 ```
 
+**Prerequisite:** The monorepo packages must be compiled first (`yarn build` from the repo root) so that `.d.ts` files exist in `packages/main/dist/`. Without them, DomRef method extraction will silently produce empty results.
+
 This runs the full pipeline:
 
 1. Fetch upstream skills (accessibility docs from UI5 Web Components)
@@ -82,12 +84,13 @@ The MCP server is a **stdio-based** Node.js process that communicates with AI cl
 
 ### Build Pipeline
 
-`npm run update` runs these steps in order:
+`npm run update` runs these steps:
 
-1. **`fetch:skills`** — Downloads upstream skill documents (e.g. accessibility) from GitHub, adapts HTML examples to React JSX, writes to `docs/`
-2. **`extract:descriptions`** — Uses `react-docgen-typescript` to parse component sources and Custom Elements Manifests (CEM). Outputs `descriptions.json` and `component-apis.json`. Also attaches `subTypeDocs` (markdown for complex prop types) and `docUrl` (upstream doc links) from `component-config.ts`
-3. **`bundle:docs`** — Copies MDX/MD documentation files from the monorepo into `docs/`. For JSON data sources (e.g. project templates), generates LLM-friendly markdown. Updates `localPath` fields in `documentation_sections.json`
-4. **`compile`** — Compiles TypeScript, then `post-build.ts` copies JSON files from `src/` to `dist/` and makes the entry point executable
+1. **In parallel:** `fetch:skills`, `extract:descriptions`, `bundle:docs`
+   - **`fetch:skills`** — Downloads upstream skill documents (e.g. accessibility) from GitHub, adapts HTML examples to React JSX, writes to `docs/`
+   - **`extract:descriptions`** — Uses `react-docgen-typescript` to parse component sources and Custom Elements Manifests (CEM). Outputs `descriptions.json` and `component-apis.json`. Also attaches `subTypeDocs` (markdown for complex prop types) and `docUrl` (upstream doc links) from `component-config.ts`
+   - **`bundle:docs`** — Copies MDX/MD documentation files from the monorepo into `docs/`. For JSON data sources (e.g. project templates), generates LLM-friendly markdown. Updates `localPath` fields in `documentation_sections.json`
+2. **`compile`** — Compiles TypeScript, then `post-build.ts` copies JSON files from `src/` to `dist/` and makes the entry point executable
 
 ### Updating Component Data
 
@@ -107,7 +110,8 @@ When components are added or removed, update `src/utils/component-config.ts`:
 Generate all data files (only needed once, or after version bumps):
 
 ```bash
-npm run update
+yarn build          # from repo root — produces .d.ts files needed for method extraction
+npm run update      # from packages/mcp-server
 ```
 
 Then add the server to any project using the absolute path to the built entry point:
