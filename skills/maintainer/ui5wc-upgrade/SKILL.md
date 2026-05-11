@@ -9,9 +9,9 @@ allowed-tools:
   - Bash(yarn create-webcomponents-wrapper-compat*)
   - Bash(yarn create-theming-parameters*)
   - Bash(yarn create-exports*)
-  - Bash((cd packages/cli && tsc)*)
   - Bash(yarn install*)
   - Bash(yarn build*)
+  - Bash(yarn build:mcp*)
   - Bash(yarn lint*)
 metadata:
   internal: true
