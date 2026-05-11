@@ -1,1 +1,0 @@
-import{n as e}from"./chunk-jRWAZmH_.js";import{Ua as t,Up as n,Wa as r,Wp as i}from"./iframe-CsTKeElY.js";function a(e){let{className:n,text:r,maxCharacters:a,part:o}=e;return i(t,{part:o,class:n,text:r,maxCharacters:a})}e((()=>{n(),r()}))();export{a as default};
