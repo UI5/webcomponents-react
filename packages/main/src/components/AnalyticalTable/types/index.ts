@@ -62,7 +62,7 @@ export interface ColumnType extends Omit<AnalyticalTableColumnDefinition, 'id'> 
   canSort?: boolean;
   depth?: number;
   filterValue?: any;
-  filteredRows?: Record<string, any>[];
+  filteredRows?: RowType[];
   getFooterProps?: (props?: any) => any;
   getGroupByToggleProps?: (props?: any) => any;
   getHeaderProps?: (props?: any) => any;
@@ -141,10 +141,16 @@ export interface TableInstance {
     payload?: Record<string, unknown> | AnalyticalTableState['popInColumns'] | boolean | string | number;
     clientX?: number;
     columnId?: string;
+    columnOrder?: string[] | ((order: string[]) => string[]);
     columnWidth?: number;
+    desc?: boolean;
+    filterValue?: any;
+    filters?: any;
     headerIdWidths?: (string | number)[][];
-    value?: boolean;
     id?: string;
+    multi?: boolean;
+    sortBy?: AnalyticalTableState['sortBy'];
+    value?: boolean | string[] | ((old: string[]) => string[]);
   }) => void;
   expandedDepth?: number;
   expandedRows?: RowType[];
@@ -166,6 +172,7 @@ export interface TableInstance {
   globalFilteredFlatRows?: RowType[];
   globalFilteredRows?: RowType[];
   globalFilteredRowsById?: Record<string, RowType>;
+  groupByFn?: (rows: RowType[], columnId: string) => Record<string, RowType[]>;
   groupedFlatRows?: RowType[];
   groupedRows?: RowType[];
   groupedRowsById?: Record<string, RowType>;
@@ -184,7 +191,7 @@ export interface TableInstance {
   onlyGroupedFlatRows?: RowType[];
   onlyGroupedRowsById?: Record<string, RowType>;
   page?: RowType[];
-  plugins: ((hooks: ReactTableHooks) => void)[];
+  plugins: Array<PluginHook | ((hooks: ReactTableHooks) => void)>;
   preExpandedRows?: RowType[];
   preFilteredFlatRows?: RowType[];
   preFilteredRows?: RowType[];
@@ -228,7 +235,7 @@ export interface TableInstance {
   toggleAllPageRowsSelected?: (selected?: boolean) => void;
   toggleAllRowsExpanded?: (expanded?: boolean) => void;
   toggleAllRowsSelected?: (selected?: boolean) => void;
-  toggleGroupBy?: (columnId: string, value: boolean) => void;
+  toggleGroupBy?: (columnId: string, value?: boolean) => void;
   toggleHideAllColumns?: (hidden?: boolean) => void;
   toggleHideColumn?: (columnId: string, hidden?: boolean) => void;
   toggleRowExpanded?: (rowPath: string, expanded?: boolean) => void;
@@ -321,20 +328,20 @@ export type CellInstance = TableInstance & { cell: CellType } & Omit<
   >;
 
 export interface RowType {
-  canExpand: boolean;
-  cells: CellType[];
-  allCells: Record<string, any>[];
+  canExpand?: boolean;
+  cells?: CellType[];
+  allCells?: Record<string, any>[];
   depth: number;
   id: string;
   index: number;
-  isExpanded: boolean | undefined;
+  isExpanded?: boolean;
   isGrouped?: boolean;
-  isSelected: boolean;
-  isSomeSelected: boolean;
-  getRowProps: (props?: any) => any;
+  isSelected?: boolean;
+  isSomeSelected?: boolean;
+  getRowProps?: (props?: any) => any;
   original: Record<string, any>;
-  originalSubRows: Record<string, any>[];
-  subRows: RowType[];
+  originalSubRows?: Record<string, any>[];
+  subRows?: RowType[];
   values: Record<string, any>;
   groupByID?: string;
   groupByVal?: string;
@@ -373,7 +380,7 @@ export interface AnalyticalTableState {
   groupBy: string[];
   hiddenColumns: string[];
   selectedRowIds: Record<string | number, any>;
-  sortBy: Record<string | number, any>[];
+  sortBy: { id: string; desc: boolean }[];
   globalFilter?: string;
   tableClientWidth?: number;
   dndColumn?: string;
@@ -1215,17 +1222,27 @@ export interface ReactTableHooks {
   getRowProps: any[];
   getCellProps: any[];
   useFinalInstance: any[];
-  getToggleHiddenProps: any[];
-  getToggleHideAllColumnsProps: any[];
-  getGroupByToggleProps: any[];
-  getSortByToggleProps: any[];
-  getToggleAllRowsExpandedProps: any[];
-  getToggleRowExpandedProps: any[];
-  getToggleRowSelectedProps: any[];
-  getToggleAllRowsSelectedProps: any[];
-  getToggleAllPageRowsSelectedProps: any[];
-  getResizerProps: ((
+  getToggleHiddenProps?: any[];
+  getToggleHideAllColumnsProps?: any[];
+  getGroupByToggleProps?: any[];
+  getSortByToggleProps?: any[];
+  getToggleAllRowsExpandedProps?: any[];
+  getToggleRowExpandedProps?: any[];
+  getToggleRowSelectedProps?: any[];
+  getToggleAllRowsSelectedProps?: any[];
+  getToggleAllPageRowsSelectedProps?: any[];
+  getResizerProps?: ((
     props: Record<string, any>,
     meta: { instance: TableInstance; header: ColumnType },
   ) => Record<string, any> | Record<string, any>[])[];
+}
+
+export type PluginHook = {
+  (hooks: ReactTableHooks): void;
+  pluginName: string;
+};
+
+export interface FilterFn {
+  (rows: RowType[], columnIds: string[], filterValue: any): RowType[];
+  autoRemove?: (filterValue: any, column?: any) => boolean;
 }

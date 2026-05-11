@@ -1,6 +1,13 @@
 import type { MouseEvent, TouchEvent } from 'react';
 import { useCallback } from 'react';
-import { actions, defaultColumn, makePropGetter, useGetLatest, useMountedLayoutEffect } from 'react-table';
+import {
+  actions,
+  defaultColumn,
+  getFirstDefined,
+  makePropGetter,
+  useGetLatest,
+  useMountedLayoutEffect,
+} from '../react-table/index.js';
 import type { ColumnType, ReactTableHooks, TableInstance } from '../types/index.js';
 
 // Default Column
@@ -241,15 +248,6 @@ const reducer: TableInstance['stateReducer'] = (state, action) => {
     };
   }
 };
-
-// Replaces react-table's internal `getFirstDefined` from `utils.js` (not publicly exported)
-function getFirstDefined<T>(...args: (T | undefined)[]): T | undefined {
-  for (let i = 0; i < args.length; i += 1) {
-    if (typeof args[i] !== 'undefined') {
-      return args[i];
-    }
-  }
-}
 
 const useInstanceBeforeDimensions = (instance: TableInstance) => {
   const {

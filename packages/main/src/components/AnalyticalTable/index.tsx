@@ -14,7 +14,6 @@ import {
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { forwardRef, useCallback, useEffect, useId, useMemo, useRef } from 'react';
-import { useColumnOrder, useExpanded, useFilters, useGlobalFilter, useGroupBy, useSortBy, useTable } from 'react-table';
 import { AnalyticalTableNoDataReason } from '../../enums/AnalyticalTableNoDataReason.js';
 import { AnalyticalTablePopinDisplay } from '../../enums/AnalyticalTablePopinDisplay.js';
 import { AnalyticalTableScaleWidthMode } from '../../enums/AnalyticalTableScaleWidthMode.js';
@@ -74,6 +73,15 @@ import { useStyling } from './hooks/useStyling.js';
 import { useSyncScroll } from './hooks/useSyncScroll.js';
 import { useToggleRowExpand } from './hooks/useToggleRowExpand.js';
 import { useVisibleColumnsWidth } from './hooks/useVisibleColumnsWidth.js';
+import {
+  useColumnOrder,
+  useExpanded,
+  useFilters,
+  useGlobalFilter,
+  useGroupBy,
+  useSortBy,
+  useTable,
+} from './react-table/index.js';
 import { VerticalScrollbar } from './scrollbars/VerticalScrollbar.js';
 import { VirtualTableBody } from './TableBody/VirtualTableBody.js';
 import { VirtualTableBodyContainer } from './TableBody/VirtualTableBodyContainer.js';

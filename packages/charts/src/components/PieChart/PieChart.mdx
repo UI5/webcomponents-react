@@ -3,6 +3,7 @@ import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import TooltipStory from '../../resources/TooltipConfig.mdx';
 import * as ComponentStories from './PieChart.stories';
 import LegendStory from '../../resources/LegendConfig.mdx';
+import KeyboardNavigationStory from '../../resources/KeyboardNavigation.mdx';
 
 <Meta of={ComponentStories} />
 
@@ -32,6 +33,12 @@ import LegendStory from '../../resources/LegendConfig.mdx';
 ### With Formatter
 
 <Canvas of={ComponentStories.WithFormatter} />
+
+### With highlighted active segment
+
+<Canvas of={ComponentStories.WithActiveShape} />
+
+<KeyboardNavigationStory of={ComponentStories.KeyboardNavigation} />
 
 ### Hide labels
 

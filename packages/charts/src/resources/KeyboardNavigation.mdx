@@ -1,0 +1,41 @@
+import { Canvas } from '@storybook/addon-docs/blocks';
+
+### Keyboard Navigation
+
+Enable keyboard navigation for chart sectors via `chartConfig.accessibilityLayer`. When enabled, users can Tab into the chart, use arrow keys to navigate between sectors, and press Enter or Space to select a sector.
+
+Use `chartConfig.activeSegment` to highlight the selected sector. Space activates on key release, allowing users to hold Space, navigate with arrow keys, and release to select the final sector.
+
+<Canvas of={props.of} />
+
+<details>
+
+<summary>Show Code</summary>
+
+```tsx
+function ChartComponent() {
+  const [activeSegment, setActiveSegment] = useState(0);
+  const handleDataPointClick = (e) => {
+    const { dataIndex } = e.detail;
+    if (dataIndex != null) {
+      setActiveSegment(dataIndex);
+    }
+  };
+
+  return (
+    <PieChart
+      dataset={dataset}
+      dimension={{ accessor: 'name' }}
+      measure={{ accessor: 'users' }}
+      chartConfig={{
+        accessibilityLayer: true,
+        activeSegment,
+        showActiveSegmentDataLabel: true,
+      }}
+      onDataPointClick={handleDataPointClick}
+    />
+  );
+}
+```
+
+</details>

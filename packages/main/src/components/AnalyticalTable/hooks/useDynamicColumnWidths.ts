@@ -1,5 +1,5 @@
-import { ensurePluginOrder } from 'react-table';
 import { AnalyticalTableScaleWidthMode } from '../../../enums/AnalyticalTableScaleWidthMode.js';
+import { ensurePluginOrder } from '../react-table/index.js';
 import type {
   AnalyticalTableColumnDefinition,
   ColumnType,

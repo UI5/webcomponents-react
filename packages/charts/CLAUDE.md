@@ -218,7 +218,7 @@ Charts default to `width: 100%` and `height: 400px`, so they render out of the b
 **Critical:**
 
 - Charts are **custom-built without defined design specifications** - they use the Fiori color palette, but functionality and especially **accessibility may not meet standard app requirements**
-- `accessibilityLayer` is **experimental** and only supports categorical/horizontal charts with tooltips
+- `accessibilityLayer` is **experimental**. For categorical/horizontal charts it enables recharts' built-in accessibility with tooltip navigation. For PieChart/DonutChart it enables keyboard navigation through segments using arrow keys.
 - `legendPosition: "middle"` is **not supported** for: ColumnChartWithTrend, DonutChart, PieChart
 
 **Data:**

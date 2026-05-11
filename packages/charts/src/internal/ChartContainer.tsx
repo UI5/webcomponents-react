@@ -65,7 +65,13 @@ const ChartContainer = forwardRef<HTMLDivElement, ContainerProps>((props, ref) =
   useStylesheet(styleData, ChartContainer.displayName);
 
   return (
-    <div ref={ref} className={clsx(classNames.container, className)} slot={slot} {...rest}>
+    <div
+      ref={ref}
+      className={clsx(classNames.container, className)}
+      slot={slot}
+      aria-busy={loading || undefined}
+      {...rest}
+    >
       {dataset?.length > 0 ? (
         <>
           {loading && (

@@ -1,7 +1,7 @@
 import { Text as RechartsText } from 'recharts';
 import { complexDataSet, simpleDataSet } from '../../resources/DemoProps.js';
 import { PieChart } from './index.js';
-import { cypressPassThroughTestsFactory, testChartLegendConfig } from '@/cypress/support/utils';
+import { cypressPassThroughTestsFactory, testChartLegendConfig, testPieSectorFocus } from '@/cypress/support/utils';
 
 const dimension = {
   accessor: 'name',
@@ -80,4 +80,6 @@ describe('PieChart', () => {
   });
 
   testChartLegendConfig(PieChart, { dataset: complexDataSet, dimension, measure });
+
+  testPieSectorFocus(PieChart, { dataset: simpleDataSet, dimension, measure });
 });

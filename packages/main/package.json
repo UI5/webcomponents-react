@@ -814,8 +814,7 @@
   "dependencies": {
     "@tanstack/react-virtual": "3.13.24",
     "@ui5/webcomponents-react-base": "workspace:~",
-    "clsx": "2.1.1",
-    "react-table": "7.8.0"
+    "clsx": "2.1.1"
   },
   "peerDependencies": {
     "@types/react": "*",

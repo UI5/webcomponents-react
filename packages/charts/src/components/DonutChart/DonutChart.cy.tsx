@@ -1,6 +1,6 @@
 import { complexDataSet, simpleDataSet } from '../../resources/DemoProps.js';
 import { DonutChart } from './index.js';
-import { cypressPassThroughTestsFactory, testChartLegendConfig } from '@/cypress/support/utils';
+import { cypressPassThroughTestsFactory, testChartLegendConfig, testPieSectorFocus } from '@/cypress/support/utils';
 
 const dimension = {
   accessor: 'name',
@@ -63,4 +63,6 @@ describe('DonutChart', () => {
   cypressPassThroughTestsFactory(DonutChart, { dimension: {}, measure: {} });
 
   testChartLegendConfig(DonutChart, { dataset: complexDataSet, dimension, measure });
+
+  testPieSectorFocus(DonutChart, { dataset: simpleDataSet, dimension, measure });
 });

@@ -1,9 +1,9 @@
-import { makeRenderer } from 'react-table';
 import { AnalyticalTablePopinDisplay } from '../../../../enums/AnalyticalTablePopinDisplay.js';
 import { FlexBoxAlignItems } from '../../../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../../../enums/FlexBoxDirection.js';
 import { FlexBoxWrap } from '../../../../enums/FlexBoxWrap.js';
 import { FlexBox } from '../../../FlexBox/index.js';
+import { makeRenderer } from '../../react-table/index.js';
 import type { CellInstance } from '../../types/index.js';
 import { RenderColumnTypes } from '../../types/index.js';
 

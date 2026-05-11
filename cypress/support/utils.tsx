@@ -1,5 +1,6 @@
 import { getRGBColor } from '@ui5/webcomponents-base/dist/util/ColorConversion.js';
 import type { ComponentType } from 'react';
+import { useState } from 'react';
 
 export function cypressPassThroughTestsFactory(Component: ComponentType, props?: Record<string, unknown>) {
   it('Pass Through HTML Standard Props', () => {
@@ -98,6 +99,207 @@ export function testChartLegendConfig(Component, props) {
       />,
     );
     cy.findAllByTestId('catval').should('be.visible');
+  });
+}
+
+export function testPieSectorFocus(Component, props, { only }: { only?: boolean } = {}) {
+  const chartConfig = { accessibilityLayer: true };
+  const containerSelector = '[aria-roledescription="chart"]';
+  const test = only ? it.only : it;
+
+  test('sector focus - keyboard navigation: Tab, arrows, Enter', () => {
+    const onDataPointClick = cy.spy().as('onDataPointClick');
+    cy.mount(
+      <>
+        <button>before</button>
+        <Component {...props} noAnimation chartConfig={chartConfig} onDataPointClick={onDataPointClick} />
+        <button>after</button>
+      </>,
+    );
+
+    cy.findByText('before').focus();
+    cy.realPress('Tab');
+    cy.focused()
+      .should('have.attr', 'tabindex', '0')
+      .should('have.attr', 'role', 'application')
+      .should('have.attr', 'aria-roledescription', 'chart');
+
+    cy.realPress('Tab');
+    cy.focused()
+      .should('have.attr', 'data-sector-index', '0')
+      .and('have.attr', 'role', 'img')
+      .and('have.attr', 'aria-label');
+
+    cy.realPress('ArrowLeft');
+    cy.focused().should('have.attr', 'data-sector-index', '1');
+    cy.realPress('ArrowRight');
+    cy.focused().should('have.attr', 'data-sector-index', '0');
+
+    // Wraps from first to last
+    cy.realPress('ArrowRight');
+    cy.focused().should('have.attr', 'data-sector-index', String(props.dataset.length - 1));
+
+    cy.realPress('Enter');
+    cy.get('@onDataPointClick').should(
+      'have.been.calledWith',
+      Cypress.sinon.match({
+        detail: Cypress.sinon.match({
+          dataIndex: props.dataset.length - 1,
+        }),
+      }),
+    );
+
+    cy.realPress(['Shift', 'Tab']);
+    cy.focused().should('have.attr', 'aria-roledescription', 'chart').and('have.attr', 'tabindex', '0');
+  });
+
+  test('sector focus - activeSegment with Enter and Space', () => {
+    const onDataPointClick = cy.spy().as('onDataPointClick');
+    const StatefulChart = () => {
+      const [activeSegment, setActiveSegment] = useState(3);
+      return (
+        <>
+          <button>before</button>
+          <Component
+            {...props}
+            noAnimation
+            chartConfig={{ ...chartConfig, activeSegment }}
+            onDataPointClick={(e) => {
+              onDataPointClick(e);
+              setActiveSegment(e.detail.dataIndex);
+            }}
+          />
+        </>
+      );
+    };
+    cy.mount(<StatefulChart />);
+    cy.findByText('before').focus();
+    cy.realPress('Tab');
+
+    // Tab focuses the activeSegment
+    cy.realPress('Tab');
+    cy.focused().should('have.attr', 'data-sector-index', '3');
+
+    cy.realPress('ArrowLeft');
+    cy.focused().should('have.attr', 'data-sector-index', '4');
+    cy.realPress('Enter');
+    cy.get('@onDataPointClick').should(
+      'have.been.calledWith',
+      Cypress.sinon.match({
+        detail: Cypress.sinon.match({
+          dataIndex: 4,
+        }),
+      }),
+    );
+    cy.get('.recharts-active-shape').should('exist');
+    cy.focused().should('have.attr', 'data-sector-index', '4');
+
+    cy.realPress('ArrowLeft');
+    cy.focused().should('have.attr', 'data-sector-index', '5');
+
+    // Space activates on keyup — hold Space, arrow to next sector, then release
+    cy.focused().then(($el) => $el[0].dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true })));
+    cy.realPress('ArrowLeft');
+    cy.focused().should('have.attr', 'data-sector-index', '6');
+    cy.focused().then(($el) => $el[0].dispatchEvent(new KeyboardEvent('keyup', { key: ' ', bubbles: true })));
+    cy.get('@onDataPointClick').should(
+      'have.been.calledWith',
+      Cypress.sinon.match({
+        detail: Cypress.sinon.match({
+          dataIndex: 6,
+        }),
+      }),
+    );
+    cy.focused().should('have.attr', 'data-sector-index', '6');
+  });
+
+  test('sector focus - activeSegment out of bounds is clamped', () => {
+    cy.mount(
+      <>
+        <button>before</button>
+        <Component {...props} noAnimation chartConfig={{ ...chartConfig, activeSegment: 999 }} />
+      </>,
+    );
+    cy.findByText('before').focus();
+    cy.realPress('Tab');
+    cy.realPress('Tab');
+    cy.focused().should('have.attr', 'data-sector-index', String(props.dataset.length - 1));
+  });
+
+  test('sector focus - empty dataset is non-interactive', () => {
+    cy.mount(<Component {...props} dataset={[]} noAnimation chartConfig={chartConfig} />);
+    cy.get(containerSelector)
+      .should('have.attr', 'tabindex', '0')
+      .should('have.attr', 'aria-roledescription', 'chart')
+      .should('not.have.attr', 'role', 'application');
+  });
+
+  test('sector focus - dataset shrink resets keyboard state', () => {
+    const initialDataset = props.dataset;
+    const smallDataset = initialDataset.slice(0, 3);
+    const baseProps = { ...props, noAnimation: true, chartConfig };
+    const StatefulChart = () => {
+      const [ds, setDs] = useState(initialDataset);
+      return (
+        <>
+          <button>before</button>
+          <button onClick={() => setDs(smallDataset)}>shrink</button>
+          <Component {...baseProps} dataset={ds} />
+        </>
+      );
+    };
+    cy.mount(<StatefulChart />);
+    cy.findByText('before').focus();
+    cy.realPress('Tab');
+    cy.realPress('Tab');
+    cy.realPress('Tab');
+
+    for (let i = 0; i < 5; i++) {
+      cy.realPress('ArrowLeft');
+    }
+    cy.focused().should('have.attr', 'data-sector-index', '5');
+
+    cy.findByText('shrink').click();
+    cy.get(containerSelector).should('have.attr', 'tabindex', '0');
+
+    cy.findByText('before').focus();
+    cy.realPress('Tab');
+    cy.realPress('Tab');
+    cy.realPress('Tab');
+    cy.focused().should('have.attr', 'data-sector-index');
+  });
+
+  test('sector focus - consumer event handlers are composed with internal handlers', () => {
+    const onBlur = cy.spy().as('onBlur');
+    const onFocus = cy.spy().as('onFocus');
+    const onKeyDownCapture = cy.spy().as('onKeyDownCapture');
+    cy.mount(
+      <>
+        <button>before</button>
+        <Component
+          {...props}
+          noAnimation
+          chartConfig={chartConfig}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          onKeyDownCapture={onKeyDownCapture}
+        />
+        <button>after</button>
+      </>,
+    );
+
+    cy.findByText('before').focus();
+    cy.realPress('Tab');
+    cy.get('@onFocus').should('have.been.calledOnce');
+
+    cy.realPress('Tab');
+    cy.get('@onKeyDownCapture').should('have.been.called');
+    cy.focused().should('have.attr', 'data-sector-index', '0');
+
+    cy.findByText('after').click();
+    cy.get('@onBlur').should('have.been.called');
+    // raf defers exitSectorMode, so wait for tabindex to flip back
+    cy.get(containerSelector).should('have.attr', 'tabindex', '0');
   });
 }
 

@@ -1,7 +1,7 @@
 import { enrichEventWithDetails } from '@ui5/webcomponents-react-base/internal/utils';
 import { useEffect, useRef } from 'react';
-import { ensurePluginOrder } from 'react-table';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
+import { ensurePluginOrder } from '../react-table/index.js';
 import type { AnalyticalTablePropTypes, ReactTableHooks, TableInstance } from '../types/index.js';
 
 type OnRowSelectEvent = Parameters<NonNullable<AnalyticalTablePropTypes['onRowSelect']>>[0];
