@@ -21,6 +21,8 @@ test('handler: Web Components (Wrapped) category lists components with total cou
   const totalMatch = result.match(/\*\*Total\*\*: (\d+)/);
   t.truthy(totalMatch, 'should include a total count');
   t.true(Number(totalMatch![1]) > 50, 'should have a meaningful number of web components');
+  // Must not include React-only components
+  t.false(result.includes('_(React)_'), 'should not include React components when filtering for Web Components');
 });
 
 test('handler: unfiltered output does not include Web Components (Wrapped) catch-all', (t) => {

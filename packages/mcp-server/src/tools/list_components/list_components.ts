@@ -66,7 +66,7 @@ function formatComponentList(categoryFilter?: string, packageFilter?: string): s
     const allCategories = MAIN_CATEGORY_NAMES;
 
     for (const category of allCategories) {
-      if (categoryFilter && categoryFilter !== category && categoryFilter !== WEB_COMPONENTS_CATEGORY) continue;
+      if (categoryFilter && categoryFilter !== category) continue;
 
       // Check if we have any components in this category
       const reactComponents = REACT_COMPONENT_CATEGORIES[category as keyof typeof REACT_COMPONENT_CATEGORIES] || [];
@@ -76,7 +76,7 @@ function formatComponentList(categoryFilter?: string, packageFilter?: string): s
 
       output += `### ${category}\n\n`;
 
-      // Show React components first
+      // Show React components
       for (const name of reactComponents) {
         const compData = DESCRIPTIONS.components[name];
         const description = compData
@@ -88,15 +88,13 @@ function formatComponentList(categoryFilter?: string, packageFilter?: string): s
         output += `  \`\`\`tsx\n  import { ${name} } from '@ui5/webcomponents-react';\n  \`\`\`\n\n`;
       }
 
-      // Then show Web Components in same category
-      if (!categoryFilter || categoryFilter === category || categoryFilter === WEB_COMPONENTS_CATEGORY) {
-        for (const name of webComponents) {
-          const wcData = DESCRIPTIONS.webComponents[name];
-          if (!wcData) continue;
-          const description = typeof wcData === 'string' ? wcData : wcData.description;
-          output += `- **${name}** _(Web Component)_ - ${description}\n`;
-          output += `  \`\`\`tsx\n  import { ${name} } from '@ui5/webcomponents-react';\n  \`\`\`\n\n`;
-        }
+      // Show Web Components in same category
+      for (const name of webComponents) {
+        const wcData = DESCRIPTIONS.webComponents[name];
+        if (!wcData) continue;
+        const description = typeof wcData === 'string' ? wcData : wcData.description;
+        output += `- **${name}** _(Web Component)_ - ${description}\n`;
+        output += `  \`\`\`tsx\n  import { ${name} } from '@ui5/webcomponents-react';\n  \`\`\`\n\n`;
       }
     }
 
