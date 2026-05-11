@@ -113,3 +113,37 @@ Past theme changes for reference:
 - `sb:prepare-cem` for Storybook manifests
 
 No need to re-run these separately after wrapper generation.
+
+---
+
+## ESLint OOM on Full Repo
+
+`yarn lint` on the full monorepo frequently crashes with "JavaScript heap out of memory". Instead of running full lint, target the changed directories:
+
+```bash
+node --max-old-space-size=8192 ./node_modules/.bin/eslint packages/main/src/webComponents/*/index.tsx packages/compat/src/components/*/index.tsx packages/ai/src/components/*/index.tsx
+```
+
+---
+
+## create-exports Doesn't Maintain Alphabetical Order
+
+When new components are added, `yarn create-exports` appends their export entries at the end of the `exports` map in `package.json`. They must be moved to the correct alphabetical position manually.
+
+---
+
+## MCP Server Category Mapping
+
+When new components are added, `packages/mcp-server/src/utils/component-config.ts` must be updated to include them in the appropriate category array. Without this, `yarn build:mcp` will emit "missing category definitions" errors.
+
+---
+
+## New Component Detection Requires git status
+
+`git diff --name-status | grep "^A"` does NOT detect new components because newly generated directories are untracked (not staged). Use `git status --short` to find them:
+
+```bash
+git status --short -- packages/main/src/webComponents/ packages/ai/src/components/ packages/compat/src/components/ | grep "^?"
+```
+
+No need to re-run these separately after wrapper generation.

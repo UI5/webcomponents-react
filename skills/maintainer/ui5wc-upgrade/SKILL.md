@@ -84,21 +84,22 @@ Must return zero results (replace OLD_MINOR with the previous minor version tild
 Run in sequence:
 
 ```bash
-(cd packages/cli && tsc)
 yarn create-webcomponents-wrapper
 yarn create-webcomponents-wrapper-ai
 yarn create-webcomponents-wrapper-compat
 ```
 
+Each script compiles the CLI internally before generating. No separate `tsc` step needed.
+
 `create-webcomponents-wrapper` already runs prettier, eslint --fix, and `sb:prepare-cem`.
 
 ### Verify
 
-All commands exit 0. Then capture the diff for Steps 6 and 7:
+All commands exit 0. Then check for new components:
 
 ```bash
 git diff --stat
-git diff --name-status | grep "^A"
+git status --short -- packages/main/src/webComponents/ packages/ai/src/components/ packages/compat/src/components/ | grep "^?"
 ```
 
 If any command fails, see `references/common-pitfalls.md`.
@@ -203,7 +204,7 @@ If themes changed, follow `references/theme-and-storybook-checklist.md`. If not,
 
 ### 6a. Identify new components
 
-From the `git diff --name-status | grep "^A"` output in Step 2, look for new directories under:
+From the `git status --short ... | grep "^?"` output in Step 2, look for new untracked directories under:
 
 - `packages/main/src/webComponents/`
 - `packages/ai/src/components/`
@@ -221,14 +222,16 @@ The wrapper generator does NOT update barrel `index.ts` files. For each new comp
 
 ### 6c. Stories and docs (can be done after build)
 
-Create for each new component:
+For **abstract components** (`@abstract` in JSDoc) or **subcomponents** (items/options that slot into a parent):
 
-```
-<ComponentDir>/<Name>.stories.tsx
-<ComponentDir>/<Name>.mdx
-```
+- Add a new story EXPORT to the parent component's existing `.stories.tsx`
+- Add the subcomponent to the parent's `.mdx` docs (import, Canvas, Description, ArgTypes)
+- Do NOT create a separate story file
 
-Follow the pattern of a similar existing component.
+For **standalone new components**:
+
+- Create `<ComponentDir>/<Name>.stories.tsx` and `<ComponentDir>/<Name>.mdx`
+- Follow the pattern of a similar existing component
 
 If no new components, skip this step.
 
@@ -267,10 +270,15 @@ If none: "No breaking changes detected in generated wrappers."
 
 ```bash
 yarn build
-yarn lint
 ```
 
-If lint fails, try `yarn lint --fix` first.
+Then lint the changed wrapper files (full `yarn lint` may OOM on this repo):
+
+```bash
+node --max-old-space-size=8192 ./node_modules/.bin/eslint packages/main/src/webComponents/*/index.tsx packages/compat/src/components/*/index.tsx packages/ai/src/components/*/index.tsx
+```
+
+If lint fails, try adding `--fix` first.
 
 ### 8b. Generate export maps (requires dist/ from build)
 
@@ -280,9 +288,25 @@ yarn create-exports
 
 This reads `dist/` directories to update `package.json` exports maps for new components.
 
+If new components were added, check that their exports are in correct **alphabetical order** in the package.json exports map. `create-exports` may append them at the end — move them to the correct position manually.
+
+### 8c. Update and rebuild MCP server
+
+If new components were added (Step 6), update the category mapping:
+
+- `packages/mcp-server/src/utils/component-config.ts` — Add new components to the appropriate category array
+
+Then rebuild:
+
+```bash
+yarn build:mcp
+```
+
+Verify it completes without "missing category definitions" errors.
+
 ### Verify
 
-Both commands exit 0. Check if `create-exports` modified any `package.json` files:
+Build, lint, and create-exports all exit 0. Check if `create-exports` modified any `package.json` files:
 
 ```bash
 git diff packages/*/package.json
@@ -358,11 +382,11 @@ gh pr create --title "feat: update to UI5 Web Components X.Y.0" --body "<body>"
 | Script                                     | Purpose                                            |
 | ------------------------------------------ | -------------------------------------------------- |
 | `yarn install`                             | Install after version bumps                        |
-| `(cd packages/cli && tsc)`                 | Compile wrapper generator                          |
 | `yarn create-webcomponents-wrapper`        | Main + fiori wrappers + prettier + eslint + CEM    |
 | `yarn create-webcomponents-wrapper-ai`     | AI wrappers                                        |
 | `yarn create-webcomponents-wrapper-compat` | Compat wrappers                                    |
 | `yarn create-theming-parameters`           | Regenerate ThemingParameters.ts                    |
 | `yarn create-exports`                      | Regenerate package.json exports maps (needs dist/) |
 | `yarn build`                               | Full monorepo build                                |
-| `yarn lint`                                | ESLint                                             |
+| `yarn build:mcp`                           | Rebuild MCP server (after new components)          |
+| `yarn lint`                                | ESLint (may OOM — use targeted lint instead)       |
