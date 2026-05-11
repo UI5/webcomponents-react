@@ -779,6 +779,10 @@
       "types": "./dist/webComponents/ViewSettingsDialog/index.d.ts",
       "default": "./dist/webComponents/ViewSettingsDialog/index.js"
     },
+    "./ViewSettingsDialogCustomTab": {
+      "types": "./dist/webComponents/ViewSettingsDialogCustomTab/index.d.ts",
+      "default": "./dist/webComponents/ViewSettingsDialogCustomTab/index.js"
+    },
     "./Wizard": {
       "types": "./dist/webComponents/Wizard/index.d.ts",
       "default": "./dist/webComponents/Wizard/index.js"
@@ -819,10 +823,10 @@
   "peerDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@ui5/webcomponents": "~2.21.0",
-    "@ui5/webcomponents-base": "~2.21.0",
-    "@ui5/webcomponents-fiori": "~2.21.0",
-    "@ui5/webcomponents-icons": "~2.21.0",
+    "@ui5/webcomponents": "~2.22.0",
+    "@ui5/webcomponents-base": "~2.22.0",
+    "@ui5/webcomponents-fiori": "~2.22.0",
+    "@ui5/webcomponents-icons": "~2.22.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
   },

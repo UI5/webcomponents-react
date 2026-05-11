@@ -156,6 +156,7 @@ interface InputAttributes {
    * and the current language settings, especially for type `Number`.
    * - The property is mostly intended to be used with touch devices
    * that use different soft keyboard layouts depending on the given input type.
+   * - Type `Number` does not support suggestions.
    * @default "Text"
    */
   type?: InputType | keyof typeof InputType;
@@ -217,6 +218,8 @@ interface InputPropTypes
    * property is set to `true`.
    *
    * **Note:** The `<ui5-suggestion-item>`, `<ui5-suggestion-item-group>` and `ui5-suggestion-item-custom` are recommended to be used as suggestion items.
+   *
+   * **Note:** Input with type `Number` does not support suggestions.
    *
    * __Supported Node Type/s:__ `Array<IInputSuggestionItem>`
    */

@@ -5,6 +5,7 @@ import { FilterItem } from '../FilterItem/index';
 import { FilterItemOption } from '../FilterItemOption/index';
 import { SortItem } from '../SortItem/index';
 import { GroupItem } from '../GroupItem/index';
+import { ViewSettingsDialogCustomTab } from '../ViewSettingsDialogCustomTab/index';
 import * as ComponentStories from './ViewSettingsDialog.stories';
 import { excludePropsForAbstract } from '@sb/utils';
 
@@ -17,6 +18,10 @@ import { excludePropsForAbstract } from '@sb/utils';
 ## Example
 
 <Canvas of={ComponentStories.Default} />
+
+## With Custom Tabs
+
+<Canvas of={ComponentStories.WithCustomTabs} />
 
 ## Properties
 
@@ -80,5 +85,12 @@ const ViewSettingsDialogComponent = () => {
 
 <Description of={GroupItem} />
 <ArgTypes exclude={excludePropsForAbstract} of={GroupItem} />
+
+## ViewSettingsDialogCustomTab
+
+**Since v2.22.0**
+
+<Description of={ViewSettingsDialogCustomTab} />
+<ArgTypes exclude={excludePropsForAbstract} of={ViewSettingsDialogCustomTab} />
 
 <Footer />

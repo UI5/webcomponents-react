@@ -61,10 +61,12 @@ Update to exact target version (e.g. `2.25.1`):
 
 ## packages/charts/package.json
 
+Charts uses **caret ranges** (`^`), so its peerDependencies do **not** need updating for minor version bumps.
+
 ```json
 "peerDependencies": {
-  "@ui5/webcomponents-react": "~X.Y.Z",
-  "@ui5/webcomponents-react-base": "~X.Y.Z"
+  "@ui5/webcomponents-react": "^X.Y.Z",
+  "@ui5/webcomponents-react-base": "^X.Y.Z"
 }
 ```
 

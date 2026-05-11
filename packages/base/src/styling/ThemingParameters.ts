@@ -232,6 +232,9 @@ export const ThemingParameters = {
   sapShell_NeutralColor: 'var(--sapShell_NeutralColor)',
   sapShell_Assistant_ForegroundColor: 'var(--sapShell_Assistant_ForegroundColor)',
   sapShell_SubBrand_TextColor: 'var(--sapShell_SubBrand_TextColor)',
+  sapShell_HeroBanner_Background: 'var(--sapShell_HeroBanner_Background)',
+  sapShell_HeroBanner_BackgroundImage: 'var(--sapShell_HeroBanner_BackgroundImage)',
+  sapShell_HeroBanner_TextColor: 'var(--sapShell_HeroBanner_TextColor)',
   sapShell_Category_1_Background: 'var(--sapShell_Category_1_Background)',
   sapShell_Category_1_BorderColor: 'var(--sapShell_Category_1_BorderColor)',
   sapShell_Category_1_TextColor: 'var(--sapShell_Category_1_TextColor)',
@@ -612,6 +615,7 @@ export const ThemingParameters = {
   sapGroup_TitleTextColor: 'var(--sapGroup_TitleTextColor)',
   sapGroup_Title_FontSize: 'var(--sapGroup_Title_FontSize)',
   sapGroup_ContentBackground: 'var(--sapGroup_ContentBackground)',
+  sapGroup_ContentAlternatingBackground: 'var(--sapGroup_ContentAlternatingBackground)',
   sapGroup_ContentBorderColor: 'var(--sapGroup_ContentBorderColor)',
   sapGroup_BorderWidth: 'var(--sapGroup_BorderWidth)',
   sapGroup_BorderCornerRadius: 'var(--sapGroup_BorderCornerRadius)',
@@ -1539,5 +1543,4 @@ export const ThemingParameters = {
   sapHighlightTextColor: 'var(--sapHighlightTextColor)',
   sapButton_Emphasized_FontWeight: 'var(--sapButton_Emphasized_FontWeight)',
   sapShell_BackgroundGradient: 'var(--sapShell_BackgroundGradient)',
-  sapAt: 'var(--sapAt)',
 };

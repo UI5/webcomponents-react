@@ -31,7 +31,7 @@ interface ColorPalettePropTypes
   /**
    * Defines the `ColorPaletteItem` elements.
    *
-   * __Supported Node Type/s:__ `Array<IColorPaletteItem>`
+   * __Supported Node Type/s:__ `Array<ColorPaletteItem>`
    */
   children?: ReactNode | ReactNode[];
   /**

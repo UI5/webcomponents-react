@@ -123,6 +123,18 @@ interface UserMenuItemAttributes {
   selected?: boolean;
 
   /**
+   * When set, a second line appears below the menu item text showing the text
+   * of the currently selected sub-item. Intended for use with a single-select
+   * ui5-menu-item-group (check-mode="Single").
+   * When enabled, the checked sub-item cannot be unchecked,
+   * ensuring the selection text is always displayed.
+   *
+   * **Note:** Available since [v2.22.0](https://github.com/UI5/webcomponents/releases/tag/v2.22.0) of **@ui5/webcomponents-fiori**.
+   * @default false
+   */
+  showSelection?: boolean;
+
+  /**
    * Defines the text of the tree item.
    * @default undefined
    */
@@ -316,7 +328,7 @@ const UserMenuItem = withWebComponent<UserMenuItemPropTypes, UserMenuItemDomRef>
     'tooltip',
     'type',
   ],
-  ['checked', 'disabled', 'loading', 'navigated', 'selected'],
+  ['checked', 'disabled', 'loading', 'navigated', 'selected', 'showSelection'],
   ['deleteButton', 'endContent'],
   ['before-close', 'before-open', 'check', 'close', 'detail-click', 'open'],
 );

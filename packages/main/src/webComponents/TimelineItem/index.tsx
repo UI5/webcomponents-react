@@ -17,6 +17,14 @@ interface TimelineItemAttributes {
   icon?: string | undefined;
 
   /**
+   * Defines the tooltip of the graphical icon.
+   *
+   * **Note:** Available since [v2.22.0](https://github.com/UI5/webcomponents/releases/tag/v2.22.0) of **@ui5/webcomponents-fiori**.
+   * @default undefined
+   */
+  iconTooltip?: string | undefined;
+
+  /**
    * Defines the name of the item, displayed before the `title-text`.
    * @default undefined
    */
@@ -80,7 +88,7 @@ interface TimelineItemPropTypes
  */
 const TimelineItem = withWebComponent<TimelineItemPropTypes, TimelineItemDomRef>(
   'ui5-timeline-item',
-  ['icon', 'name', 'state', 'subtitleText', 'titleText'],
+  ['icon', 'iconTooltip', 'name', 'state', 'subtitleText', 'titleText'],
   ['nameClickable'],
   [],
   ['name-click'],

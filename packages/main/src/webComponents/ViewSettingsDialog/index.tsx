@@ -27,6 +27,24 @@ interface ViewSettingsDialogAttributes {
   open?: boolean;
 
   /**
+   * Controls whether the Reset button is always enabled.
+   *
+   * By default, the Reset button is enabled only when the built-in settings (Sort, Filter, Group)
+   * differ from their initial state — the component can detect these changes automatically.
+   * However, when the dialog contains custom tabs, the component has no way to detect
+   * whether the custom tab content has been modified by the user.
+   *
+   * Set this property to `true` when the user has made changes inside a custom tab, so that
+   * the Reset button becomes enabled and the user can trigger a reset.
+   * Set it back to `false` once the custom tab content is back to its initial state
+   * (e.g. after the user confirms or after a reset is applied).
+   *
+   * **Note:** Available since [v2.22.0](https://github.com/UI5/webcomponents/releases/tag/v2.22.0) of **@ui5/webcomponents-fiori**.
+   * @default false
+   */
+  resetEnabled?: boolean;
+
+  /**
    * Defines the initial sort order.
    * @default false
    */
@@ -53,6 +71,7 @@ interface ViewSettingsDialogPropTypes
     Omit<
       CommonProps,
       | keyof ViewSettingsDialogAttributes
+      | 'customTabs'
       | 'filterItems'
       | 'groupItems'
       | 'sortItems'
@@ -61,7 +80,27 @@ interface ViewSettingsDialogPropTypes
       | 'onClose'
       | 'onConfirm'
       | 'onOpen'
+      | 'onReset'
     > {
+  /**
+   * Defines custom tabs for the dialog.
+   *
+   * The custom tabs are rendered after the built-in tabs (`Sort`, `Filter`, `Group`).
+   *
+   * **Note:** If you want to use this slot, you need to import the item: `import "@ui5/webcomponents-fiori/dist/ViewSettingsDialogCustomTab.js";`
+   *
+   * __Note:__ The content of the prop will be rendered into a [&lt;slot&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) by assigning the respective [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) attribute (`slot="customTabs"`).
+   * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
+   *
+   * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * **Note:** Available since [v2.22.0](https://github.com/UI5/webcomponents/releases/tag/v2.22.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `Array<ViewSettingsDialogCustomTab>`
+   */
+  customTabs?: UI5WCSlotsNode;
+
   /**
    * Defines the `filterItems` list.
    *
@@ -156,6 +195,24 @@ interface ViewSettingsDialogPropTypes
    * | ❌|✅|
    */
   onOpen?: (event: Ui5CustomEvent<ViewSettingsDialogDomRef>) => void;
+
+  /**
+   * Fired when the Reset button is clicked.
+   *
+   * **Note:** This event is particularly relevant when the dialog contains custom tabs.
+   * By default, the Reset button resets all built-in settings (sort, filter, group) to their
+   * initial values. However, the component has no knowledge of the content or state inside
+   * custom tabs — it cannot detect what has changed or what the "default" values are.
+   * Therefore, when this event is fired, it is the application developer's responsibility
+   * to listen for it and manually reset the custom tab content to its initial state.
+   *
+   * **Note:** Available since [v2.22.0](https://github.com/UI5/webcomponents/releases/tag/v2.22.0) of **@ui5/webcomponents-fiori**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onReset?: (event: Ui5CustomEvent<ViewSettingsDialogDomRef>) => void;
 }
 
 /**
@@ -182,9 +239,9 @@ interface ViewSettingsDialogPropTypes
 const ViewSettingsDialog = withWebComponent<ViewSettingsDialogPropTypes, ViewSettingsDialogDomRef>(
   'ui5-view-settings-dialog',
   [],
-  ['groupDescending', 'open', 'sortDescending'],
-  ['filterItems', 'groupItems', 'sortItems'],
-  ['before-open', 'cancel', 'close', 'confirm', 'open'],
+  ['groupDescending', 'open', 'resetEnabled', 'sortDescending'],
+  ['customTabs', 'filterItems', 'groupItems', 'sortItems'],
+  ['before-open', 'cancel', 'close', 'confirm', 'open', 'reset'],
 );
 
 ViewSettingsDialog.displayName = 'ViewSettingsDialog';

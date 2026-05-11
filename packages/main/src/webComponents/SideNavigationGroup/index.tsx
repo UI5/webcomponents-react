@@ -7,6 +7,14 @@ import type { ReactNode } from 'react';
 
 interface SideNavigationGroupAttributes {
   /**
+   * Defines the accessible ARIA name of the component.
+   *
+   * **Note:** Available since [v2.22.0](https://github.com/UI5/webcomponents/releases/tag/v2.22.0) of **@ui5/webcomponents-fiori**.
+   * @default undefined
+   */
+  accessibleName?: string | undefined;
+
+  /**
    * Defines whether the component is disabled.
    * A disabled component can't be pressed or
    * focused, and it is not in the tab chain.
@@ -65,7 +73,7 @@ interface SideNavigationGroupPropTypes
  */
 const SideNavigationGroup = withWebComponent<SideNavigationGroupPropTypes, SideNavigationGroupDomRef>(
   'ui5-side-navigation-group',
-  ['text', 'tooltip'],
+  ['accessibleName', 'text', 'tooltip'],
   ['disabled', 'expanded'],
   [],
   [],

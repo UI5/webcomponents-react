@@ -17,7 +17,7 @@ interface TableCellPropTypes extends TableCellAttributes, Omit<CommonProps, 'chi
   /**
    * Specifies the content of the component.
    *
-   * __Supported Node Type/s:__ `Array<HTMLElement> | undefined`
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   children?: ReactNode | ReactNode[];
 }

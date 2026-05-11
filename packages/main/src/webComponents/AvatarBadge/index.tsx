@@ -28,6 +28,17 @@ interface AvatarBadgeAttributes {
    * @default "None"
    */
   state?: ValueState | keyof typeof ValueState;
+
+  /**
+   * Defines the tooltip text of the badge icon.
+   *
+   * **Note:** If not provided, the badge uses the icon accessible name.
+   * If no icon accessible name is available, a generic fallback text is used.
+   *
+   * **Note:** Available since [v2.22.0](https://github.com/UI5/webcomponents/releases/tag/v2.22.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  tooltip?: string | undefined;
 }
 
 interface AvatarBadgeDomRef extends Required<AvatarBadgeAttributes>, Ui5DomRef {}
@@ -60,7 +71,7 @@ interface AvatarBadgePropTypes extends AvatarBadgeAttributes, Omit<CommonProps, 
  */
 const AvatarBadge = withWebComponent<AvatarBadgePropTypes, AvatarBadgeDomRef>(
   'ui5-avatar-badge',
-  ['icon', 'state'],
+  ['icon', 'state', 'tooltip'],
   [],
   [],
   [],

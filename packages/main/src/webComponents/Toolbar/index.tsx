@@ -33,6 +33,16 @@ interface ToolbarAttributes {
    * @default "Solid"
    */
   design?: ToolbarDesign | keyof typeof ToolbarDesign;
+
+  /**
+   * Defines the accessible ARIA name of the overflow button of the component.
+   *
+   * **Note:** When not set, the built-in translation for "Additional Options" is used.
+   *
+   * **Note:** Available since [v2.22.0](https://github.com/UI5/webcomponents/releases/tag/v2.22.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  overflowButtonAccessibleName?: string | undefined;
 }
 
 interface ToolbarDomRef extends Required<ToolbarAttributes>, Ui5DomRef {
@@ -72,7 +82,7 @@ interface ToolbarPropTypes extends ToolbarAttributes, Omit<CommonProps, keyof To
  */
 const Toolbar = withWebComponent<ToolbarPropTypes, ToolbarDomRef>(
   'ui5-toolbar',
-  ['accessibleName', 'accessibleNameRef', 'alignContent', 'design'],
+  ['accessibleName', 'accessibleNameRef', 'alignContent', 'design', 'overflowButtonAccessibleName'],
   [],
   [],
   [],

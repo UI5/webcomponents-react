@@ -23,6 +23,14 @@ interface SideNavigationSubItemAttributes {
   accessibilityAttributes?: SideNavigationItemAccessibilityAttributes;
 
   /**
+   * Defines the accessible ARIA name of the component.
+   *
+   * **Note:** Available since [v2.22.0](https://github.com/UI5/webcomponents/releases/tag/v2.22.0) of **@ui5/webcomponents-fiori**.
+   * @default undefined
+   */
+  accessibleName?: string | undefined;
+
+  /**
    * Item design.
    *
    * **Note:** Items with "Action" design must not have sub-items.
@@ -153,7 +161,7 @@ interface SideNavigationSubItemPropTypes
  */
 const SideNavigationSubItem = withWebComponent<SideNavigationSubItemPropTypes, SideNavigationSubItemDomRef>(
   'ui5-side-navigation-sub-item',
-  ['accessibilityAttributes', 'design', 'href', 'icon', 'target', 'text', 'tooltip'],
+  ['accessibilityAttributes', 'accessibleName', 'design', 'href', 'icon', 'target', 'text', 'tooltip'],
   ['disabled', 'selected', 'unselectable'],
   [],
   ['click'],

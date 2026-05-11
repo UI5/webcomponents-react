@@ -169,6 +169,24 @@ const preview: Preview = {
     chromatic: { pauseAnimationAtEnd: true },
   },
   tags: ['autodocs'],
+  // shouldExtractValuesFromUnion: true (main.ts) leads to booleans being passed as string
+  argTypesEnhancers: [
+    (context) => {
+      const argTypes = context.argTypes;
+      Object.values(argTypes).forEach((argType: Record<string, any>) => {
+        if (
+          argType.type?.name === 'enum' &&
+          Array.isArray(argType.type.value) &&
+          argType.type.value.length === 2 &&
+          argType.type.value.includes('true') &&
+          argType.type.value.includes('false')
+        ) {
+          argType.type = { name: 'boolean' };
+        }
+      });
+      return argTypes;
+    },
+  ],
 };
 
 export default preview;

@@ -162,6 +162,20 @@ interface DateRangePickerAttributes {
   showClearIcon?: boolean;
 
   /**
+   * Defines whether the component displays two months side by side in the picker popup.
+   *
+   * When enabled, two consecutive months are shown, making it easier to select date ranges
+   * that span multiple months without the need to navigate between months.
+   *
+   * **Note:** On mobile devices only a single month
+   * will be displayed regardless of this setting.
+   *
+   * **Note:** Available since [v2.22.0](https://github.com/UI5/webcomponents/releases/tag/v2.22.0) of **@ui5/webcomponents**.
+   * @default false
+   */
+  showTwoMonths?: boolean;
+
+  /**
    * Defines a formatted date value.
    */
   value?: string;
@@ -342,7 +356,10 @@ interface DateRangePickerPropTypes
  * ### Usage
  * The user can enter a date by:
  * Using the calendar that opens in a popup or typing it in directly in the input field (not available for mobile devices).
- * For the `DateRangePicker`
+ * For the `DateRangePicker`:
+ *
+ * **Note:** Relative date values such as "today", "yesterday", or "tomorrow" are not supported.
+ * Entering a relative date sets the component to an error state.
  *
  *
  * ### Keyboard Handling
@@ -382,7 +399,7 @@ const DateRangePicker = withWebComponent<DateRangePickerPropTypes, DateRangePick
     'valueFormat',
     'valueState',
   ],
-  ['disabled', 'hideWeekNumbers', 'open', 'readonly', 'required', 'showClearIcon'],
+  ['disabled', 'hideWeekNumbers', 'open', 'readonly', 'required', 'showClearIcon', 'showTwoMonths'],
   ['valueStateMessage'],
   ['change', 'close', 'input', 'open', 'value-state-change'],
 );

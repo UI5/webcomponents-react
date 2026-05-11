@@ -8673,6 +8673,17 @@
           "members": [
             {
               "kind": "field",
+              "name": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible ARIA name of the component.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.22.0"
+            },
+            {
+              "kind": "field",
               "name": "disabled",
               "type": {
                 "text": "boolean"
@@ -8715,6 +8726,15 @@
             }
           ],
           "attributes": [
+            {
+              "description": "Defines the accessible ARIA name of the component.",
+              "name": "accessible-name",
+              "default": "undefined",
+              "fieldName": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
             {
               "description": "Defines whether the component is disabled.\nA disabled component can't be pressed or\nfocused, and it is not in the tab chain.",
               "name": "disabled",
@@ -8827,6 +8847,17 @@
               "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.\nAccepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.\n\n**Note:** Do not use it on parent items, as it will be overridden if the item is in the overflow menu.",
               "privacy": "public",
               "_ui5since": "2.7.0"
+            },
+            {
+              "kind": "field",
+              "name": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible ARIA name of the component.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.22.0"
             },
             {
               "kind": "field",
@@ -8950,6 +8981,15 @@
               "fieldName": "accessibilityAttributes",
               "type": {
                 "text": "SideNavigationItemAccessibilityAttributes"
+              }
+            },
+            {
+              "description": "Defines the accessible ARIA name of the component.",
+              "name": "accessible-name",
+              "default": "undefined",
+              "fieldName": "accessibleName",
+              "type": {
+                "text": "string | undefined"
               }
             },
             {
@@ -9139,6 +9179,17 @@
           "members": [
             {
               "kind": "field",
+              "name": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible ARIA name of the component.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.22.0"
+            },
+            {
+              "kind": "field",
               "name": "disabled",
               "type": {
                 "text": "boolean"
@@ -9171,6 +9222,15 @@
             }
           ],
           "attributes": [
+            {
+              "description": "Defines the accessible ARIA name of the component.",
+              "name": "accessible-name",
+              "default": "undefined",
+              "fieldName": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
             {
               "description": "Defines whether the component is disabled.\nA disabled component can't be pressed or\nfocused, and it is not in the tab chain.",
               "name": "disabled",
@@ -9247,6 +9307,17 @@
               "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **hasPopup**: Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by the button.\nAccepts the following string values: `dialog`, `grid`, `listbox`, `menu` or `tree`.\n\n**Note:** Do not use it on parent items, as it will be overridden if the item is in the overflow menu.",
               "privacy": "public",
               "_ui5since": "2.7.0"
+            },
+            {
+              "kind": "field",
+              "name": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible ARIA name of the component.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.22.0"
             },
             {
               "kind": "field",
@@ -9417,6 +9488,15 @@
               }
             },
             {
+              "description": "Defines the accessible ARIA name of the component.",
+              "name": "accessible-name",
+              "default": "undefined",
+              "fieldName": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
               "description": "Item design.\n\n**Note:** Items with \"Action\" design must not have sub-items.",
               "name": "design",
               "default": "\"Default\"",
@@ -9549,6 +9629,17 @@
             },
             {
               "kind": "field",
+              "name": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible ARIA name of the component.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.22.0"
+            },
+            {
+              "kind": "field",
               "name": "design",
               "type": {
                 "text": "SideNavigationItemDesign",
@@ -9669,6 +9760,15 @@
               "fieldName": "accessibilityAttributes",
               "type": {
                 "text": "SideNavigationItemAccessibilityAttributes"
+              }
+            },
+            {
+              "description": "Defines the accessible ARIA name of the component.",
+              "name": "accessible-name",
+              "default": "undefined",
+              "fieldName": "accessibleName",
+              "type": {
+                "text": "string | undefined"
               }
             },
             {
@@ -10252,6 +10352,17 @@
             },
             {
               "kind": "field",
+              "name": "iconTooltip",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the tooltip of the graphical icon.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.22.0"
+            },
+            {
+              "kind": "field",
               "name": "name",
               "type": {
                 "text": "string | undefined"
@@ -10328,6 +10439,15 @@
               "name": "icon",
               "default": "undefined",
               "fieldName": "icon",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines the tooltip of the graphical icon.",
+              "name": "icon-tooltip",
+              "default": "undefined",
+              "fieldName": "iconTooltip",
               "type": {
                 "text": "string | undefined"
               }
@@ -11748,16 +11868,18 @@
               "_ui5privacy": "public"
             }
           ],
-          "superclass": {
-            "name": "MenuItem",
-            "package": "@ui5/webcomponents",
-            "module": "dist/MenuItem.js"
-          },
-          "tagName": "ui5-user-menu-item",
-          "customElement": true,
-          "_ui5since": "2.5.0",
-          "_ui5privacy": "public",
           "members": [
+            {
+              "kind": "field",
+              "name": "showSelection",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set, a second line appears below the menu item text showing the text\nof the currently selected sub-item. Intended for use with a single-select\nui5-menu-item-group (check-mode=\"Single\").\nWhen enabled, the checked sub-item cannot be unchecked,\nensuring the selection text is always displayed.",
+              "privacy": "public",
+              "_ui5since": "2.22.0"
+            },
             {
               "kind": "field",
               "name": "accessibilityAttributes",
@@ -11929,113 +12051,16 @@
               "privacy": "public"
             }
           ],
-          "events": [
-            {
-              "name": "before-close",
-              "_ui5privacy": "public",
-              "type": {
-                "text": "CustomEvent<MenuBeforeCloseEventDetail>",
-                "references": [
-                  {
-                    "name": "MenuBeforeCloseEventDetail",
-                    "package": "@ui5/webcomponents",
-                    "module": "dist/MenuItem.js"
-                  }
-                ]
-              },
-              "description": "Fired before the menu is closed. This event can be cancelled, which will prevent the menu from closing.",
-              "_ui5Cancelable": true,
-              "_ui5allowPreventDefault": true,
-              "_ui5Bubbles": false,
-              "_ui5since": "1.10.0",
-              "_ui5parameters": [
-                {
-                  "type": {
-                    "text": "boolean"
-                  },
-                  "name": "escPressed",
-                  "_ui5privacy": "public",
-                  "description": "Indicates that `ESC` key has triggered the event."
-                }
-              ]
-            },
-            {
-              "name": "before-open",
-              "_ui5privacy": "public",
-              "type": {
-                "text": "CustomEvent<MenuBeforeOpenEventDetail>",
-                "references": [
-                  {
-                    "name": "MenuBeforeOpenEventDetail",
-                    "package": "@ui5/webcomponents",
-                    "module": "dist/MenuItem.js"
-                  }
-                ]
-              },
-              "description": "Fired before the menu is opened. This event can be cancelled, which will prevent the menu from opening.\n\n**Note:** Since 1.14.0 the event is also fired before a sub-menu opens.",
-              "_ui5Cancelable": true,
-              "_ui5allowPreventDefault": true,
-              "_ui5Bubbles": false,
-              "_ui5since": "1.10.0",
-              "_ui5parameters": [
-                {
-                  "type": {
-                    "text": "HTMLElement"
-                  },
-                  "name": "item",
-                  "_ui5privacy": "public",
-                  "description": "The menu item that triggers opening of the sub-menu or undefined when fired upon root menu opening."
-                }
-              ]
-            },
-            {
-              "name": "check",
-              "_ui5privacy": "public",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when an item is checked or unchecked.",
-              "_ui5Cancelable": false,
-              "_ui5allowPreventDefault": false,
-              "_ui5Bubbles": true,
-              "_ui5since": "2.12.0"
-            },
-            {
-              "name": "close",
-              "_ui5privacy": "public",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired after the menu is closed.",
-              "_ui5Cancelable": false,
-              "_ui5allowPreventDefault": false,
-              "_ui5Bubbles": false,
-              "_ui5since": "1.10.0"
-            },
-            {
-              "name": "detail-click",
-              "_ui5privacy": "public",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the user clicks on the detail button when type is `Detail`.",
-              "_ui5Cancelable": false,
-              "_ui5allowPreventDefault": false,
-              "_ui5Bubbles": true
-            },
-            {
-              "name": "open",
-              "_ui5privacy": "public",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired after the menu is opened.",
-              "_ui5Cancelable": false,
-              "_ui5allowPreventDefault": false,
-              "_ui5Bubbles": false
-            }
-          ],
           "attributes": [
+            {
+              "description": "When set, a second line appears below the menu item text showing the text\nof the currently selected sub-item. Intended for use with a single-select\nui5-menu-item-group (check-mode=\"Single\").\nWhen enabled, the checked sub-item cannot be unchecked,\nensuring the selection text is always displayed.",
+              "name": "show-selection",
+              "default": "false",
+              "fieldName": "showSelection",
+              "type": {
+                "text": "boolean"
+              }
+            },
             {
               "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **ariaKeyShortcuts**: Indicated the availability of a keyboard shortcuts defined for the menu item.\n\n- **role**: Defines the role of the menu item. If not set, menu item will have default role=\"menuitem\".",
               "name": "accessibility-attributes",
@@ -12161,6 +12186,121 @@
               "type": {
                 "text": "\"Navigation\" | \"Inactive\" | \"Active\" | \"Detail\""
               }
+            }
+          ],
+          "superclass": {
+            "name": "MenuItem",
+            "package": "@ui5/webcomponents",
+            "module": "dist/MenuItem.js"
+          },
+          "tagName": "ui5-user-menu-item",
+          "customElement": true,
+          "_ui5since": "2.5.0",
+          "_ui5privacy": "public",
+          "events": [
+            {
+              "name": "before-close",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<MenuBeforeCloseEventDetail>",
+                "references": [
+                  {
+                    "name": "MenuBeforeCloseEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/MenuItem.js"
+                  }
+                ]
+              },
+              "description": "Fired before the menu is closed. This event can be cancelled, which will prevent the menu from closing.",
+              "_ui5Cancelable": true,
+              "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": false,
+              "_ui5since": "1.10.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "boolean"
+                  },
+                  "name": "escPressed",
+                  "_ui5privacy": "public",
+                  "description": "Indicates that `ESC` key has triggered the event."
+                }
+              ]
+            },
+            {
+              "name": "before-open",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<MenuBeforeOpenEventDetail>",
+                "references": [
+                  {
+                    "name": "MenuBeforeOpenEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/MenuItem.js"
+                  }
+                ]
+              },
+              "description": "Fired before the menu is opened. This event can be cancelled, which will prevent the menu from opening.\n\n**Note:** Since 1.14.0 the event is also fired before a sub-menu opens.",
+              "_ui5Cancelable": true,
+              "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": false,
+              "_ui5since": "1.10.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "HTMLElement"
+                  },
+                  "name": "item",
+                  "_ui5privacy": "public",
+                  "description": "The menu item that triggers opening of the sub-menu or undefined when fired upon root menu opening."
+                }
+              ]
+            },
+            {
+              "name": "check",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when an item is checked or unchecked.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.12.0"
+            },
+            {
+              "name": "close",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired after the menu is closed.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false,
+              "_ui5since": "1.10.0"
+            },
+            {
+              "name": "detail-click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the user clicks on the detail button when type is `Detail`.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true
+            },
+            {
+              "name": "open",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired after the menu is opened.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false
             }
           ]
         }
@@ -13792,6 +13932,22 @@
           ],
           "slots": [
             {
+              "name": "customTabs",
+              "description": "Defines custom tabs for the dialog.\n\nThe custom tabs are rendered after the built-in tabs (`Sort`, `Filter`, `Group`).\n\n**Note:** If you want to use this slot, you need to import the item: `import \"@ui5/webcomponents-fiori/dist/ViewSettingsDialogCustomTab.js\";`",
+              "_ui5since": "2.22.0",
+              "_ui5type": {
+                "text": "Array<ViewSettingsDialogCustomTab>",
+                "references": [
+                  {
+                    "name": "ViewSettingsDialogCustomTab",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/ViewSettingsDialogCustomTab.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
+            },
+            {
               "name": "filterItems",
               "description": "Defines the `filterItems` list.\n\n**Note:** If you want to use this slot, you need to import used item: `import \"@ui5/webcomponents-fiori/dist/FilterItem.js\";`",
               "_ui5type": {
@@ -13859,6 +14015,17 @@
               "description": "Indicates if the dialog is open.",
               "privacy": "public",
               "_ui5since": "2.0.0"
+            },
+            {
+              "kind": "field",
+              "name": "resetEnabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Controls whether the Reset button is always enabled.\n\nBy default, the Reset button is enabled only when the built-in settings (Sort, Filter, Group)\ndiffer from their initial state — the component can detect these changes automatically.\nHowever, when the dialog contains custom tabs, the component has no way to detect\nwhether the custom tab content has been modified by the user.\n\nSet this property to `true` when the user has made changes inside a custom tab, so that\nthe Reset button becomes enabled and the user can trigger a reset.\nSet it back to `false` once the custom tab content is back to its initial state\n(e.g. after the user confirms or after a reset is applied).",
+              "privacy": "public",
+              "_ui5since": "2.22.0"
             },
             {
               "kind": "method",
@@ -14118,6 +14285,18 @@
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": true,
               "_ui5since": "2.0.0"
+            },
+            {
+              "name": "reset",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the Reset button is clicked.\n\n**Note:** This event is particularly relevant when the dialog contains custom tabs.\nBy default, the Reset button resets all built-in settings (sort, filter, group) to their\ninitial values. However, the component has no knowledge of the content or state inside\ncustom tabs — it cannot detect what has changed or what the \"default\" values are.\nTherefore, when this event is fired, it is the application developer's responsibility\nto listen for it and manually reset the custom tab content to its initial state.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.22.0"
             }
           ],
           "attributes": [
@@ -14135,6 +14314,15 @@
               "name": "open",
               "default": "false",
               "fieldName": "open",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Controls whether the Reset button is always enabled.\n\nBy default, the Reset button is enabled only when the built-in settings (Sort, Filter, Group)\ndiffer from their initial state — the component can detect these changes automatically.\nHowever, when the dialog contains custom tabs, the component has no way to detect\nwhether the custom tab content has been modified by the user.\n\nSet this property to `true` when the user has made changes inside a custom tab, so that\nthe Reset button becomes enabled and the user can trigger a reset.\nSet it back to `false` once the custom tab content is back to its initial state\n(e.g. after the user confirms or after a reset is applied).",
+              "name": "reset-enabled",
+              "default": "false",
+              "fieldName": "resetEnabled",
               "type": {
                 "text": "boolean"
               }
@@ -14175,6 +14363,116 @@
           "declaration": {
             "name": "ViewSettingsDialog",
             "module": "dist/ViewSettingsDialog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/ViewSettingsDialogCustomTab.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-view-settings-dialog-custom-tab` component allows defining custom tabs for the `ui5-view-settings-dialog`.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/ViewSettingsDialogCustomTab.js\";`",
+          "name": "ViewSettingsDialogCustomTab",
+          "slots": [
+            {
+              "description": "Defines the custom tab content.",
+              "name": "default",
+              "_ui5privacy": "public",
+              "_ui5type": {
+                "text": "Array<Node>"
+              }
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"action-settings\"",
+              "description": "Defines the icon of the custom tab button in the segmented button.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "titleText",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Defines the title text of the custom tab.\n\n**Note:** It is displayed in the dialog header when this tab is selected.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "tooltip",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Defines the tooltip of the custom tab button.\n\n**Note:** It is shown on the segmented button item.",
+              "privacy": "public"
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines the icon of the custom tab button in the segmented button.",
+              "name": "icon",
+              "default": "\"action-settings\"",
+              "fieldName": "icon",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Defines the title text of the custom tab.\n\n**Note:** It is displayed in the dialog header when this tab is selected.",
+              "name": "title-text",
+              "default": "\"\"",
+              "fieldName": "titleText",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Defines the tooltip of the custom tab button.\n\n**Note:** It is shown on the segmented button item.",
+              "name": "tooltip",
+              "default": "\"\"",
+              "fieldName": "tooltip",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "UI5Element",
+            "package": "@ui5/webcomponents-base",
+            "module": "dist/UI5Element.js"
+          },
+          "tagName": "ui5-view-settings-dialog-custom-tab",
+          "customElement": true,
+          "_ui5since": "2.22.0",
+          "_ui5privacy": "public",
+          "_ui5abstract": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "ViewSettingsDialogCustomTab",
+            "module": "dist/ViewSettingsDialogCustomTab.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-view-settings-dialog-custom-tab",
+          "declaration": {
+            "name": "ViewSettingsDialogCustomTab",
+            "module": "dist/ViewSettingsDialogCustomTab.js"
           }
         }
       ]
@@ -14575,13 +14873,13 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/illustrations/AllIllustrations.js",
+      "path": "dist/fcl-utils/FCLLayout.js",
       "declarations": [],
       "exports": []
     },
     {
       "kind": "javascript-module",
-      "path": "dist/fcl-utils/FCLLayout.js",
+      "path": "dist/illustrations/AllIllustrations.js",
       "declarations": [],
       "exports": []
     },
@@ -14680,12 +14978,6 @@
           }
         }
       ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/upload-utils/UploadCollectionBodyDnD.js",
-      "declarations": [],
-      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -16971,6 +17263,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/upload-utils/UploadCollectionBodyDnD.js",
+      "declarations": [],
+      "exports": []
     }
   ]
 }

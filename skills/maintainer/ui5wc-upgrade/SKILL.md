@@ -59,8 +59,9 @@ Update tilde ranges to `~TARGET_VERSION` in all sub-packages. See `references/pa
 | `packages/base/package.json`             | `@ui5/webcomponents-base`                               |
 | `packages/ai/package.json`               | `@ui5/webcomponents-ai`                                 |
 | `packages/compat/package.json`           | `@ui5/webcomponents-compat`, `@ui5/webcomponents-react` |
-| `packages/charts/package.json`           | `@ui5/webcomponents-react`, `-react-base`               |
 | `packages/cypress-commands/package.json` | `@ui5/webcomponents`, `-base`                           |
+
+> **Note:** `packages/charts/package.json` uses caret ranges (`^`) and does **not** need updating for minor version bumps.
 
 ### 1c. Install
 

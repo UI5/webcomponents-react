@@ -157,5 +157,6 @@ export * from './UserSettingsDialog/index.js';
 export * from './UserSettingsItem/index.js';
 export * from './UserSettingsView/index.js';
 export * from './ViewSettingsDialog/index.js';
+export * from './ViewSettingsDialogCustomTab/index.js';
 export * from './Wizard/index.js';
 export * from './WizardStep/index.js';
