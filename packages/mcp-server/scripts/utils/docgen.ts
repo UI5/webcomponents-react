@@ -117,11 +117,11 @@ export function isCommonProp(propName: string, propData: PropItem): boolean {
  * Extract methods from DomRef interface in .d.ts file.
  * Parses the DomRef interface to find method signatures.
  */
-export function extractDomRefMethods(componentName: string, packagePath: string, scriptDir: string): MethodInfo[] {
+export function extractDomRefMethods(componentName: string, packagePath: string, monorepoRoot: string): MethodInfo[] {
   try {
     const typeDefPath = join(
-      scriptDir,
-      '../node_modules',
+      monorepoRoot,
+      'node_modules',
       packagePath,
       'dist/webComponents',
       componentName,
@@ -198,7 +198,7 @@ export function extractFullComponentApi(
   filePath: string,
   packageName: string,
   componentName: string,
-  scriptDir: string,
+  monorepoRoot: string,
 ): { api: ComponentApiData; description: string | null } | null {
   try {
     const componentDocs = parser.parse(filePath);
@@ -231,7 +231,7 @@ export function extractFullComponentApi(
       }
     }
 
-    let cleanedMethods = extractDomRefMethods(componentName, packageName, scriptDir);
+    let cleanedMethods = extractDomRefMethods(componentName, packageName, monorepoRoot);
 
     if (cleanedMethods.length === 0 && doc.methods) {
       cleanedMethods = doc.methods.map((method) => ({

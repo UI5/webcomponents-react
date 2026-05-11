@@ -18,11 +18,16 @@ The Device API allows you to detect information about the environment where your
 
 ## General Device Information
 
-- \`Device.isIE()\` - Returns true if running in Internet Explorer
-- \`Device.isSafari()\` - Returns true if running in Safari
 - \`Device.isDesktop()\` - Returns true if running on desktop devices
 - \`Device.isTablet()\` - Returns true if running on tablet devices
 - \`Device.isPhone()\` - Returns true if running on mobile phone devices
+- \`Device.isCombi()\` - Returns true if running on a combi device (touch-enabled desktop)
+- \`Device.isSafari()\` - Returns true if running in Safari
+- \`Device.isChrome()\` - Returns true if running in Chrome
+- \`Device.isFirefox()\` - Returns true if running in Firefox
+- \`Device.isIOS()\` - Returns true if running on iOS
+- \`Device.isAndroid()\` - Returns true if running on Android
+- \`Device.isMac()\` - Returns true if running on macOS
 - \`Device.supportsTouch()\` - Returns true if device supports touch
 - \`Device.getCurrentRange(width?: number)\` - Returns the current media range
   - Returns: \`{ from: number, to?: number, name: 'Phone' | 'Tablet' | 'Desktop' | 'LargeDesktop', unit: string }\`

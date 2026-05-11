@@ -54,3 +54,19 @@ test('handler: not-found response passes outputSchema validation', (t) => {
   assertMatchesOutputSchema(t, result);
   t.pass();
 });
+
+test('handler: web components with DomRef methods include them in output', (t) => {
+  const result = getStructured(handler({ componentName: 'Carousel' }));
+  t.truthy(result.methods, 'Carousel should have methods array');
+  t.true(result.methods.length > 0, 'Carousel should have at least one method');
+  const navigateTo = result.methods.find((m: { name: string }) => m.name === 'navigateTo');
+  t.truthy(navigateTo, 'Carousel should have navigateTo method');
+  t.true(navigateTo.params.length > 0, 'navigateTo should have parameters');
+});
+
+test('handler: Dialog has applyFocus method extracted from DomRef', (t) => {
+  const result = getStructured(handler({ componentName: 'Dialog' }));
+  t.truthy(result.methods);
+  const applyFocus = result.methods.find((m: { name: string }) => m.name === 'applyFocus');
+  t.truthy(applyFocus, 'Dialog should have applyFocus method');
+});

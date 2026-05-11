@@ -22,3 +22,17 @@ test('handler: Web Components (Wrapped) category lists components with total cou
   t.truthy(totalMatch, 'should include a total count');
   t.true(Number(totalMatch![1]) > 50, 'should have a meaningful number of web components');
 });
+
+test('handler: unfiltered output does not include Web Components (Wrapped) catch-all', (t) => {
+  const result = getText(handler({}));
+  t.false(result.includes('### Web Components (Wrapped)'), 'catch-all section should not appear without filter');
+  // But categorized web components should still appear
+  t.true(result.includes('_(Web Component)_'), 'web components should appear in their categorized sections');
+});
+
+test('handler: category filter shows only that category', (t) => {
+  const result = getText(handler({ category: 'Charts' }));
+  t.true(result.includes('Charts'));
+  t.false(result.includes('### Inputs'));
+  t.false(result.includes('### Data Display'));
+});

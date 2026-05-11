@@ -24,6 +24,9 @@ jobs:
       - name: Install
         run: yarn install --immutable
 
+      - name: Build packages
+        run: yarn build
+
       - name: Generate MCP data
         run: yarn build:mcp
 

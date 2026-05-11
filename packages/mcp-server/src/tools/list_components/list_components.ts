@@ -100,8 +100,8 @@ function formatComponentList(categoryFilter?: string, packageFilter?: string): s
       }
     }
 
-    // Keep "Web Components (Wrapped)" category for full list
-    if (!categoryFilter || categoryFilter === WEB_COMPONENTS_CATEGORY) {
+    // Show "Web Components (Wrapped)" only when explicitly filtered to it
+    if (categoryFilter === WEB_COMPONENTS_CATEGORY) {
       output += `### ${WEB_COMPONENTS_CATEGORY}\n\n`;
       output += `All wrapped UI5 Web Components. Import from '@ui5/webcomponents-react'.\n\n`;
 
