@@ -7749,9 +7749,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromatic@npm:16.6.3":
-  version: 16.6.3
-  resolution: "chromatic@npm:16.6.3"
+"chromatic@npm:16.9.1":
+  version: 16.9.1
+  resolution: "chromatic@npm:16.9.1"
   dependencies:
     semver: "npm:^7.3.5"
   peerDependencies:
@@ -7769,7 +7769,7 @@ __metadata:
     chroma: dist/bin.cjs
     chromatic: dist/bin.cjs
     chromatic-cli: dist/bin.cjs
-  checksum: 10c0/a27b46dbef9935892f36f672e49ece11cfbe0e64bf52d09948a69bf687f26b45f17fc2da6b1c50c00bb3aca1545efe7b9fd96bbc8f1ba901e8768a8c19940d0f
+  checksum: 10c0/b0badbfc71ca4eebbad86f43814c523afc42637fa342727e65a1b8c5f10271eb0bb91a3fbfd5e1412d62190bcacf612cf1ecc459f99cd03faba8bfe84a815fd9
   languageName: node
   linkType: hard
 
@@ -11906,10 +11906,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:17.5.0":
-  version: 17.5.0
-  resolution: "globals@npm:17.5.0"
-  checksum: 10c0/92828102ed2f5637907725f0478038bed02fc83e9fc89300bb753639ba7c022b6c02576fc772117302b431b204591db1f2fa909d26f3f0a9852cc856a941df3f
+"globals@npm:17.6.0":
+  version: 17.6.0
+  resolution: "globals@npm:17.6.0"
+  checksum: 10c0/cf94fb4329cc5c68cf81018fd68324f413181ee169f0235b0b33b82bc93fe7825a21beea951f83a80e8e4bbdad9c0c80515a145b5fd4b5cb52f2a80db899a93f
   languageName: node
   linkType: hard
 
@@ -21712,7 +21712,7 @@ __metadata:
     "@ui5/webcomponents-icons": "npm:2.21.1"
     "@ui5/webcomponents-tools": "npm:2.21.1"
     "@vitejs/plugin-react": "npm:6.0.1"
-    chromatic: "npm:16.6.3"
+    chromatic: "npm:16.9.1"
     cssnano: "npm:7.1.7"
     cypress: "npm:15.14.2"
     cypress-real-events: "npm:1.15.0"
@@ -21728,7 +21728,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:7.1.1"
     eslint-plugin-storybook: "npm:10.3.6"
     glob: "npm:13.0.6"
-    globals: "npm:17.5.0"
+    globals: "npm:17.6.0"
     husky: "npm:9.1.7"
     lerna: "npm:9.0.7"
     lint-staged: "npm:16.4.0"
