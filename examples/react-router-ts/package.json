@@ -18,7 +18,7 @@
     "@ui5/webcomponents-fiori": "2.21.1",
     "@ui5/webcomponents-react": "2.21.3",
     "cross-env": "10.1.0",
-    "isbot": "5.1.39",
+    "isbot": "5.1.40",
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "react-router": "7.15.0"
@@ -35,8 +35,8 @@
     "eslint-plugin-react-hooks": "7.1.1",
     "globals": "17.6.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.59.1",
-    "vite": "8.0.10",
+    "typescript-eslint": "8.59.2",
+    "vite": "8.0.11",
     "vite-tsconfig-paths": "6.1.1"
   },
   "engines": {
