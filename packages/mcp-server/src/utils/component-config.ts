@@ -193,6 +193,7 @@ export const WEB_COMPONENT_CATEGORIES = {
     'UserSettingsItem',
     'UserSettingsView',
     'ViewSettingsDialog',
+    'ViewSettingsDialogCustomTab',
     'FilterItem',
     'FilterItemOption',
     'GroupItem',
