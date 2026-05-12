@@ -1,1 +1,0 @@
-import{n as e}from"./chunk-zsgVPwQN.js";var t,n,r=e((()=>{(function(e){e.Auto=`Auto`,e.Accent1=`Accent1`,e.Accent2=`Accent2`,e.Accent3=`Accent3`,e.Accent4=`Accent4`,e.Accent5=`Accent5`,e.Accent6=`Accent6`,e.Accent7=`Accent7`,e.Accent8=`Accent8`,e.Accent9=`Accent9`,e.Accent10=`Accent10`,e.Placeholder=`Placeholder`,e.Transparent=`Transparent`})(t||={}),n=t}));export{r as n,n as t};

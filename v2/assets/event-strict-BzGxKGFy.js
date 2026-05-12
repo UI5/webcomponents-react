@@ -1,1 +1,0 @@
-import{n as e}from"./chunk-zsgVPwQN.js";var t,n=e((()=>{t=(e,t={})=>n=>{Object.prototype.hasOwnProperty.call(n,`metadata`)||(n.metadata={});let r=n.metadata;r.events||={};let i=r.events;i[e]||(t.bubbles=!!t.bubbles,t.cancelable=!!t.cancelable,i[e]=t)}}));export{t as n,n as t};

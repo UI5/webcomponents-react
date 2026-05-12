@@ -1,0 +1,1 @@
+import{n as e}from"./chunk-jRWAZmH_.js";var t,n=e((()=>{t=function(e){return e.Left=`Left`,e.Center=`Center`,e.Right=`Right`,e}({})}));export{n,t};
