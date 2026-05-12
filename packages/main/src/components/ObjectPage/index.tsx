@@ -325,7 +325,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     // Reset scroll for section swap; scrollTimeout preserves current header collapsed/expanded state.
     if (mode === ObjectPageMode.IconTabBar) {
       scrollTimeout.current = performance.now() + 500;
-      objectPageRef.current?.scrollTo({ top: 1 });
+      objectPageRef.current?.scrollTo({ top: 0 });
     }
     setTabSelectId(newSelectionSectionId);
     scrollEvent.current = targetEvent;
