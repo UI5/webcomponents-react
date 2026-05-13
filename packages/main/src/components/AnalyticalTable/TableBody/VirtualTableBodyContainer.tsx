@@ -22,6 +22,8 @@ interface VirtualTableBodyContainerProps {
   dispatch: (e: { type: string; payload?: any }) => void;
   isGrouped: boolean;
   isFirefox: boolean;
+  hasStickyColumns?: boolean;
+  scrollContainerRef?: MutableRefObject<HTMLDivElement>;
 }
 
 export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps) => {
@@ -43,6 +45,8 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
     isGrouped,
     isFirefox,
     dispatch,
+    hasStickyColumns,
+    scrollContainerRef,
   } = props;
   const [isMounted, setIsMounted] = useState(false);
 
@@ -117,17 +121,31 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
     ],
   );
 
+  useEffect(() => {
+    if (!hasStickyColumns || !scrollContainerRef?.current) return;
+    const el = scrollContainerRef.current;
+    el.addEventListener('scroll', onScroll);
+    return () => el.removeEventListener('scroll', onScroll);
+  }, [hasStickyColumns, scrollContainerRef, onScroll]);
+
   return (
     <div
-      className={clsx(classes.tbody, isFirefox && classes.firefoxNativeScrollbar)}
+      className={clsx(classes.tbody, isFirefox && !hasStickyColumns && classes.firefoxNativeScrollbar)}
       ref={parentRef}
-      onScroll={onScroll}
-      style={{
-        position: 'relative',
-        overflowY: 'auto',
-        height: `${tableBodyHeight}px`,
-        width: `${totalColumnsWidth}px`,
-      }}
+      onScroll={hasStickyColumns ? undefined : onScroll}
+      style={
+        hasStickyColumns
+          ? {
+              position: 'relative',
+              width: `${totalColumnsWidth}px`,
+            }
+          : {
+              position: 'relative',
+              overflowY: 'auto',
+              height: `${tableBodyHeight}px`,
+              width: `${totalColumnsWidth}px`,
+            }
+      }
       data-component-name="AnalyticalTableBody"
       tabIndex={-1}
       role="rowgroup"

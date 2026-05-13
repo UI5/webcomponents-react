@@ -722,3 +722,38 @@ export const EllipsisExamples: Story = {
     style: { width: 'min(100%, 300px)' },
   },
 };
+
+export const StickyColumns: Story = {
+  args: {
+    data: dataLarge,
+    selectionMode: AnalyticalTableSelectionMode.Multiple,
+    columns: [
+      {
+        Header: 'Name',
+        accessor: 'name',
+        sticky: 'start',
+      },
+      {
+        Header: 'Age',
+        accessor: 'age',
+        sticky: 'start',
+      },
+      {
+        Header: 'Friend Name',
+        accessor: 'friend.name',
+        // width: 200,
+      },
+      {
+        Header: 'Friend Age',
+        accessor: 'friend.age',
+        width: 700,
+      },
+      {
+        Header: 'Status',
+        accessor: 'status',
+        // width: 200,
+      },
+    ],
+    // style: { width: '600px' },
+  },
+};

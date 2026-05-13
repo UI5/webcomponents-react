@@ -686,6 +686,16 @@ export interface AnalyticalTableColumnDefinition {
    */
   popinDisplay?: AnalyticalTablePopinDisplay | keyof typeof AnalyticalTablePopinDisplay;
 
+  // useStickyColumns
+  /**
+   * If set, the column is "frozen" (pinned) and stays visible during horizontal scroll.
+   *
+   * - `'start'`: Column is pinned to the inline-start (left in LTR, right in RTL).
+   *
+   * __Note:__ Internal columns (selection, highlight) are automatically pinned when adjacent user columns are pinned.
+   */
+  sticky?: 'start';
+
   //use useDragAndDrop
   /**
    * Defines if the column is reorderable by dragging and dropping columns.

@@ -206,6 +206,8 @@ Use **yarn** (not pnpm). For tools, use project binaries via yarn (e.g., `yarn c
 
 **Run prettier on edited files after changes.**
 
+**CSS Modules:** The `.module.css.ts` files (containing `styleData` and `classNames`) are automatically regenerated when Storybook or the dev server is running. You do **not** need to manually rebuild them after editing a `.module.css` file — the bundler handles it.
+
 **Testing single files:** Try `yarn test` first. If that doesn't work, use `yarn cypress run --spec <path>`. If still stuck, ask.
 
 ```bash

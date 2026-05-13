@@ -38,6 +38,8 @@ export interface ColumnHeaderProps {
   columnId?: string;
   showVerticalEndBorder: boolean;
   classNames: ClassNames;
+  isStickyStart?: boolean;
+  isLastStickyStart?: boolean;
 
   //getHeaderProps()
   id: string;
@@ -84,6 +86,8 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
     'aria-sort': ariaSort,
     showVerticalEndBorder,
     classNames,
+    isStickyStart,
+    isLastStickyStart,
   } = props;
 
   const columnIndex = virtualColumn.index;
@@ -138,9 +142,14 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
     }
   };
 
-  const directionStyles = isRtl
-    ? { right: 0, transform: `translateX(-${virtualColumn.start}px)` }
-    : { left: 0, transform: `translateX(${virtualColumn.start}px)` };
+  const directionStyles = (() => {
+    if (isStickyStart) {
+      return isRtl ? { insetInlineStart: `${virtualColumn.start}px` } : { left: `${virtualColumn.start}px` };
+    }
+    return isRtl
+      ? { right: 0, transform: `translateX(-${virtualColumn.start}px)` }
+      : { left: 0, transform: `translateX(${virtualColumn.start}px)` };
+  })();
 
   const handleHeaderCellKeyDown = (e) => {
     if (typeof onKeyDown === 'function') {
@@ -180,12 +189,15 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
       ref={columnHeaderRef}
       className={clsx(classNames.thContainer, showVerticalEndBorder && classNames.verticalEndBorder)}
       style={{
-        position: 'absolute',
+        position: isStickyStart ? undefined : 'absolute',
         insetBlockStart: 0,
         width: `${virtualColumn.size}px`,
         ...directionStyles,
       }}
       data-component-name={`ATHeaderContainer-${columnId}`}
+      data-sticky-start={isStickyStart || undefined}
+      data-sticky-offset={isStickyStart ? virtualColumn.start : undefined}
+      data-sticky-start-last={isLastStickyStart || undefined}
     >
       <div
         ref={columnVirtualizer.measureElement}

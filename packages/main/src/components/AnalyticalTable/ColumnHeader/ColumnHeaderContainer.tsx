@@ -1,5 +1,5 @@
 import type { Virtualizer } from '@tanstack/react-virtual';
-import { forwardRef, Fragment } from 'react';
+import { forwardRef, Fragment, useMemo } from 'react';
 import type { ClassNames, DivWithCustomScrollProp } from '../types/index.js';
 import { RenderColumnTypes } from '../types/index.js';
 import { ColumnHeader } from './index.js';
@@ -14,6 +14,7 @@ interface ColumnHeaderContainerProps {
   columnVirtualizer: Virtualizer<DivWithCustomScrollProp, Element>;
   uniqueId: string;
   showVerticalEndBorder: boolean;
+  stickyStartIndices: number[];
 }
 
 export const ColumnHeaderContainer = forwardRef<HTMLDivElement, ColumnHeaderContainerProps>((props, ref) => {
@@ -26,8 +27,11 @@ export const ColumnHeaderContainer = forwardRef<HTMLDivElement, ColumnHeaderCont
     uniqueId,
     showVerticalEndBorder,
     classNames,
+    stickyStartIndices,
   } = props;
   const { key, ...reactTableHeaderProps } = headerProps;
+
+  const stickyStartSet = useMemo(() => new Set(stickyStartIndices), [stickyStartIndices]);
 
   return (
     <div
@@ -42,6 +46,7 @@ export const ColumnHeaderContainer = forwardRef<HTMLDivElement, ColumnHeaderCont
         if (!column) {
           return null;
         }
+        const isStickyStart = stickyStartSet.has(virtualColumn.index);
         const isLastColumn = !column.disableResizing && virtualColumn.index + 1 === headerGroup.headers.length;
         const resizerDirectionStyle = isRtl
           ? {
@@ -77,6 +82,8 @@ export const ColumnHeaderContainer = forwardRef<HTMLDivElement, ColumnHeaderCont
               columnVirtualizer={columnVirtualizer}
               isRtl={isRtl}
               classNames={classNames}
+              isStickyStart={isStickyStart}
+              isLastStickyStart={isStickyStart && !stickyStartSet.has(virtualColumn.index + 1)}
             >
               {column.render(RenderColumnTypes.Header)}
             </ColumnHeader>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useVirtualizer } from '@tanstack/react-virtual';
+import { defaultRangeExtractor, useVirtualizer } from '@tanstack/react-virtual';
 import { ARIA_LABEL_EMPTY_CELL } from '@ui5/webcomponents/dist/generated/i18n/i18n-defaults.js';
 import {
   debounce,
@@ -69,6 +69,7 @@ import { useRowSelectionColumn } from './hooks/useRowSelectionColumn.js';
 import { useScrollToRef } from './hooks/useScrollToRef.js';
 import { useSelectionChangeCallback } from './hooks/useSelectionChangeCallback.js';
 import { useSingleRowStateSelection } from './hooks/useSingleRowStateSelection.js';
+import { useStickyColumns } from './hooks/useStickyColumns.js';
 import { useStyling } from './hooks/useStyling.js';
 import { useSyncScroll } from './hooks/useSyncScroll.js';
 import { useToggleRowExpand } from './hooks/useToggleRowExpand.js';
@@ -327,6 +328,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     useToggleRowExpand,
     useA11y,
     usePopIn,
+    useStickyColumns,
     useVisibleColumnsWidth,
     useKeyboardNavigation,
     useColumnDragAndDrop,
@@ -345,6 +347,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     visibleColumnsWidth,
     setGroupBy,
     setGlobalFilter,
+    stickyStartIndices = [],
   } = tableInstanceRef.current;
 
   useEffect(() => {
@@ -369,6 +372,18 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   // @ts-expect-error: is HTMLElement
   const isRtl = useIsRTL(analyticalTableRef);
 
+  const stickyRangeExtractor = useCallback(
+    (range) => {
+      if (stickyStartIndices.length === 0) {
+        return defaultRangeExtractor(range);
+      }
+      const defaultRange = defaultRangeExtractor(range);
+      const combined = new Set([...stickyStartIndices, ...defaultRange]);
+      return [...combined].sort((a, b) => a - b);
+    },
+    [stickyStartIndices],
+  );
+
   const columnVirtualizer = useVirtualizer({
     count: visibleColumnsWidth.length,
     getScrollElement: () => tableRef.current,
@@ -378,6 +393,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     indexAttribute: 'data-column-index',
     // necessary as otherwise values are rounded which leads to wrong total width calculation leading to unnecessary scrollbar
     measureElement: !scaleXFactor || scaleXFactor === 1 ? (el) => el.getBoundingClientRect().width : undefined,
+    rangeExtractor: stickyRangeExtractor,
   });
   // force re-measure if `visibleColumns` change
   useEffect(() => {
@@ -407,6 +423,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       }
     }
   }, [columnVirtualizer, triggerScroll]);
+
+  const hasStickyColumns = stickyStartIndices.length > 0;
 
   const includeSubCompRowHeight =
     !!renderRowSubComponent &&
@@ -452,13 +470,13 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         type: 'TABLE_RESIZE',
         payload: {
           tableClientWidth:
-            !scaleXFactor || scaleXFactor === 1
-              ? tableRef.current.getBoundingClientRect().width
-              : tableRef.current.clientWidth,
+            hasStickyColumns || (scaleXFactor && scaleXFactor !== 1)
+              ? tableRef.current.clientWidth
+              : tableRef.current.getBoundingClientRect().width,
         },
       });
     }
-  }, [dispatch, scaleXFactor]);
+  }, [dispatch, scaleXFactor, hasStickyColumns]);
 
   const updateRowsCount = useCallback(() => {
     if (
@@ -671,7 +689,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     }
   }, [tableState.columnResizing, retainColumnWidth, tableState.tableColResized]);
 
-  useSyncScroll(parentRef, verticalScrollBarRef, tableState.isScrollable, isFirefox);
+  useSyncScroll(hasStickyColumns ? tableRef : parentRef, verticalScrollBarRef, tableState.isScrollable, isFirefox);
 
   useEffect(() => {
     columnVirtualizer.measure();
@@ -690,6 +708,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     classNames.table,
     withNavigationHighlight && classNames.hasNavigationIndicator,
     showVerticalEndBorder && classNames.showVerticalEndBorder,
+    hasStickyColumns && classNames.stickyColumnsMode,
   );
 
   const handleOnLoadMore = (e) => {
@@ -714,7 +733,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
 
   const rowVirtualizer = useVirtualizer({
     count: itemCount,
-    getScrollElement: () => parentRef.current,
+    getScrollElement: () => (hasStickyColumns ? tableRef.current : parentRef.current),
     estimateSize: useCallback(
       (index) => {
         if (
@@ -799,6 +818,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
             data-component-name="AnalyticalTableContainer"
             ref={tableRef}
             className={tableClasses}
+            style={hasStickyColumns ? { height: `${internalHeaderRowHeight + tableBodyHeight}px` } : undefined}
           >
             <div className={classNames.tableHeaderBackgroundElement} aria-hidden="true" />
             <div className={classNames.tableBodyBackgroundElement} aria-hidden="true" />
@@ -820,6 +840,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                     uniqueId={uniqueId}
                     showVerticalEndBorder={showVerticalEndBorder}
                     classNames={classNames}
+                    stickyStartIndices={stickyStartIndices}
                   />
                 )
               );
@@ -869,6 +890,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                 visibleRows={internalVisibleRowCount}
                 isGrouped={isGrouped}
                 isFirefox={isFirefox}
+                hasStickyColumns={hasStickyColumns}
+                scrollContainerRef={hasStickyColumns ? tableRef : undefined}
               >
                 <VirtualTableBody
                   scrollContainerRef={scrollContainerRef}
@@ -891,11 +914,12 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                   subRowsKey={subRowsKey}
                   triggerScroll={tableState.triggerScroll}
                   rowVirtualizer={rowVirtualizer}
+                  stickyStartIndices={stickyStartIndices}
                 />
               </VirtualTableBodyContainer>
             )}
           </div>
-          {!isFirefox && (additionalEmptyRowsCount || tableState.isScrollable) && (
+          {!isFirefox && !hasStickyColumns && (additionalEmptyRowsCount || tableState.isScrollable) && (
             <VerticalScrollbar
               tableBodyHeight={tableBodyHeight}
               internalRowHeight={internalHeaderRowHeight}

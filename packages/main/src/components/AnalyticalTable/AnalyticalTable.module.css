@@ -145,7 +145,7 @@
 
 .tbody {
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
   overflow-y: auto;
   scrollbar-width: none;
   box-sizing: border-box;
@@ -654,6 +654,98 @@
   background-color: var(--sapList_FooterBackground);
   box-sizing: border-box;
   border-inline-end: var(--_ui5wcr-AnalyticalTable-OuterBorderInline);
+}
+
+/* ==========================================================================
+   Sticky column styles
+   ========================================================================== */
+
+/* When sticky columns are active, .table becomes the single scroll container
+   (both horizontal and vertical). The header row is sticky at top:0, and
+   sticky column cells use native position:sticky with left offsets.
+   This eliminates wobble since the compositor handles sticky natively. */
+
+.stickyColumnsMode {
+  overflow: auto;
+  overscroll-behavior: contain;
+
+  & > .tableHeaderBackgroundElement {
+    display: none;
+  }
+
+  & > .tableBodyBackgroundElement {
+    display: none;
+  }
+}
+
+.stickyColumnsMode > .tableHeaderRow {
+  display: flex;
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 4;
+}
+
+.stickyColumnsMode > .tbody {
+  overflow: visible;
+  scrollbar-width: initial;
+}
+
+.thContainer[data-sticky-start] {
+  position: sticky;
+  z-index: 5;
+
+  & > [role='columnheader'] {
+    background-color: var(--sapList_HeaderBackground);
+
+    &:hover {
+      background-color: var(--sapList_Hover_Background);
+    }
+
+    &:active {
+      background-color: var(--sapList_Active_Background);
+    }
+  }
+}
+
+.thContainer[data-sticky-start-last]::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: -3px;
+  width: 3px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.tableCell[data-sticky-start] {
+  position: sticky;
+  z-index: 2;
+  background-color: var(--sapList_Background);
+}
+
+.tr[data-is-selected] > .tableCell[data-sticky-start] {
+  background-color: var(--sapList_SelectionBackgroundColor);
+}
+
+.trActive:hover:not([data-empty-row]) > .tableCell[data-sticky-start] {
+  background-color: var(--sapList_Hover_Background);
+}
+
+.trActive[data-is-selected]:hover > .tableCell[data-sticky-start] {
+  background-color: var(--sapList_Hover_SelectionBackground);
+}
+
+.trActive:active:not([data-empty-row]) > .tableCell[data-sticky-start] {
+  background-color: var(--sapList_Active_Background);
+}
+
+.tableGroupHeader > .tableCell[data-sticky-start] {
+  background-color: var(--sapList_TableGroupHeaderBackground);
+}
+
+.alternateRowColor .tableCell[data-sticky-start] {
+  background-color: var(--sapList_AlternatingBackground);
 }
 
 /* ==========================================================================
