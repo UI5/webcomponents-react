@@ -766,7 +766,7 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   /**
    * Component or text rendered in the header section of the `AnalyticalTable`.
    *
-   * __Note:__ If not set, it will be hidden.
+   * __Note:__ If not set, the header section is not rendered. When set, its text is automatically used as the table's accessible name. To provide a different accessible name, use `accessibleName` or `accessibleNameRef` instead.
    */
   header?: ReactNode;
   /**
