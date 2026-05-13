@@ -38,6 +38,7 @@ import { FlexBox } from '../../FlexBox/index.js';
 import { ObjectStatus } from '../../ObjectStatus/index.js';
 import type { AnalyticalTableColumnDefinition, AnalyticalTablePropTypes } from '../index.js';
 import { AnalyticalTable } from '../index.js';
+import { useAnnounceEmptyCells } from '../pluginHooks/AnalyticalTableHooks.js';
 
 const kitchenSinkArgs: AnalyticalTablePropTypes = {
   data: dataLarge,
@@ -676,6 +677,53 @@ export const ContextMenu: Story = {
           </Toast>
         )}
       </>
+    );
+  },
+};
+
+export const Accessibility: Story = {
+  render() {
+    const tableHooks = useMemo(() => [useAnnounceEmptyCells], []);
+    const columns = useMemo<AnalyticalTableColumnDefinition[]>(
+      () => [
+        {
+          Header: 'Name',
+          accessor: 'name',
+        },
+        {
+          Header: 'Age',
+          accessor: 'age',
+          hAlign: 'End',
+        },
+        {
+          Header: '',
+          headerLabel: 'Actions',
+          id: 'actions',
+          disableFilters: true,
+          disableSortBy: true,
+          disableGroupBy: true,
+          disableDragAndDrop: true,
+          Cell: () => (
+            <FlexBox>
+              <Button icon={editIcon} accessibleName="Edit" tooltip="Edit" />
+              <Button icon={deleteIcon} accessibleName="Delete" tooltip="Delete" />
+            </FlexBox>
+          ),
+          cellLabel: () => 'Actions: Edit, Delete',
+        },
+      ],
+      [],
+    );
+    const data = useMemo(() => [{ name: undefined, age: 80 }, ...dataLarge.slice(0, 4)], []);
+    return (
+      <AnalyticalTable
+        columns={columns}
+        data={data}
+        header="Friends"
+        accessibleName="Friends Table"
+        selectionMode={AnalyticalTableSelectionMode.Multiple}
+        tableHooks={tableHooks}
+      />
     );
   },
 };
