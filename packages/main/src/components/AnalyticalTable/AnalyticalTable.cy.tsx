@@ -3170,7 +3170,7 @@ describe('AnalyticalTable', () => {
     cy.get('[data-component-name="AnalyticalTableContainer"]')
       .should('have.attr', 'aria-labelledby')
       .then((labelledby) => {
-        cy.get(`#${labelledby}`).should('exist');
+        cy.get(`[id="${labelledby}"]`).should('exist');
       });
 
     // accessibleName: aria-label on the grid and removes the header connection
