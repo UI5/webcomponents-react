@@ -1,5 +1,6 @@
 {
   "name": "vite-ts",
+  "description": "UI5 Web Components for React - Vite + TypeScript example",
   "private": true,
   "version": "0.0.0",
   "type": "module",
