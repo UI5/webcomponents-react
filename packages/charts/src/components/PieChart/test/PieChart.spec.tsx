@@ -1,0 +1,154 @@
+import { expect, test } from '@playwright/experimental-ct-react';
+import { simpleDataSet } from '../../../resources/DemoProps.js';
+import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
+import { PieChart } from '../index.js';
+import {
+  PieChartClickTest,
+  PieChartCustomLabelTest,
+  PieChartLegendConfigTest,
+  PieChartSectorFocusActiveTest,
+  PieChartSectorFocusEmptyTest,
+  PieChartSectorFocusHandlersTest,
+  PieChartSectorFocusTest,
+} from './PieChartTestComponents.js';
+
+const dimension = { accessor: 'name' };
+const measure = { accessor: 'users' };
+
+test.describe('PieChart', () => {
+  test('Basic', async ({ mount, page }) => {
+    await mount(<PieChart dataset={simpleDataSet} dimension={dimension} measure={measure} />);
+    await expect(page.locator('.recharts-responsive-container')).toBeVisible();
+    await expect(page.locator('.recharts-pie')).toHaveCount(1);
+    await expect(page.locator('.recharts-pie-sector')).toHaveCount(12);
+  });
+
+  test('click handlers', async ({ mount, page }) => {
+    await mount(<PieChartClickTest />);
+
+    await page.locator('[name="January"]').first().click({ force: true });
+    await expect(page.getByTestId('click-count')).toHaveText('1');
+    await expect(page.getByTestId('last-payload')).toHaveText(JSON.stringify(simpleDataSet[0]));
+
+    await page.locator('.recharts-legend-item-text').filter({ hasText: 'January' }).click();
+    await expect(page.getByTestId('legend-click-count')).toHaveText('1');
+    await expect(page.getByTestId('last-legend-datakey')).toHaveText('users');
+  });
+
+  test('Loading Placeholder', async ({ mount, page }) => {
+    await mount(<PieChart dataset={[]} dimension={dimension} measure={measure} />);
+    await expect(page.locator('.recharts-pie')).not.toBeAttached();
+    await expect(page.getByText('Loading...')).toBeAttached();
+  });
+
+  test('Pass Through HTML Standard Props', async ({ mount, page }) => {
+    await mount(<PieChart {...passThroughProps({ dimension: {}, measure: {} })} />);
+    await assertPassThroughProps(page);
+  });
+
+  test('custom label', async ({ mount, page }) => {
+    await mount(<PieChartCustomLabelTest />);
+    await expect(page.getByText('CustomLabel')).toHaveCount(12);
+  });
+
+  test('legendConfig', async ({ mount, page }) => {
+    await mount(<PieChartLegendConfigTest />);
+    await expect(page.getByTestId('catval').first()).toBeVisible();
+  });
+
+  test.describe('Sector Focus - keyboard navigation', () => {
+    test('Tab, arrows, Enter', async ({ mount, page }) => {
+      await mount(<PieChartSectorFocusTest />);
+
+      // Focus "before" button then Tab into chart container
+      await page.getByText('before').focus();
+      await page.keyboard.press('Tab');
+      // Should focus the chart container
+      await expect(page.locator(':focus')).toHaveAttribute('aria-roledescription', 'chart');
+
+      // Tab again to enter sector mode - focuses first sector
+      await page.keyboard.press('Tab');
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '0');
+
+      // ArrowLeft moves to next sector (index increments)
+      await page.keyboard.press('ArrowLeft');
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '1');
+
+      // ArrowLeft again
+      await page.keyboard.press('ArrowLeft');
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '2');
+
+      // ArrowRight moves back (index decrements)
+      await page.keyboard.press('ArrowRight');
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '1');
+
+      // Enter activates the sector
+      await page.keyboard.press('Enter');
+      await expect(page.getByTestId('sector-click-count')).toHaveText('1');
+      await expect(page.getByTestId('sector-last-index')).toHaveText('1');
+
+      // Shift+Tab returns focus to the chart container
+      await page.keyboard.press('Shift+Tab');
+      await expect(page.locator(':focus')).toHaveAttribute('aria-roledescription', 'chart');
+    });
+
+    test('activeSegment configuration', async ({ mount, page }) => {
+      await mount(<PieChartSectorFocusActiveTest />);
+
+      // Initial activeSegment is 2
+      await expect(page.getByTestId('active-segment')).toHaveText('2');
+
+      // Focus "before" button then Tab into chart container
+      await page.getByText('before').focus();
+      await page.keyboard.press('Tab');
+      await expect(page.locator(':focus')).toHaveAttribute('aria-roledescription', 'chart');
+
+      // Tab into sectors - should start at activeSegment (index 2)
+      await page.keyboard.press('Tab');
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '2');
+
+      // Enter activates the current sector, updating activeSegment
+      await page.keyboard.press('Enter');
+      await expect(page.getByTestId('active-segment')).toHaveText('2');
+
+      // Navigate to a different sector and activate
+      await page.keyboard.press('ArrowLeft');
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '3');
+      await page.keyboard.press('Enter');
+      await expect(page.getByTestId('active-segment')).toHaveText('3');
+    });
+
+    test('empty dataset is non-interactive', async ({ mount, page }) => {
+      await mount(<PieChartSectorFocusEmptyTest />);
+
+      // The chart container should have tabindex 0 but no role="application"
+      const chartContainer = page.locator('[aria-roledescription="chart"]');
+      await expect(chartContainer).toHaveAttribute('tabindex', '0');
+      await expect(chartContainer).not.toHaveAttribute('role', 'application');
+    });
+
+    test.fixme('consumer event handlers are composed', async ({ mount, page }) => {
+      await mount(<PieChartSectorFocusHandlersTest />);
+
+      // Focus the chart container (triggers onFocus)
+      await page.getByText('before').focus();
+      await page.keyboard.press('Tab');
+      await expect(page.getByTestId('focus-count')).toHaveText('1');
+
+      // Tab into sector mode (triggers onKeyDownCapture)
+      await page.keyboard.press('Tab');
+      await expect(page.getByTestId('keydown-capture-count')).toHaveText('1');
+
+      // ArrowLeft fires another keydown capture
+      await page.keyboard.press('ArrowLeft');
+      await expect(page.getByTestId('keydown-capture-count')).toHaveText('2');
+
+      // Tab away from chart (triggers onBlur)
+      await page.keyboard.press('Shift+Tab');
+      // Shift+Tab goes back to container
+      await page.keyboard.press('Shift+Tab');
+      // Now we're on the "before" button - chart lost focus
+      await expect(page.getByTestId('blur-count')).toHaveText('1');
+    });
+  });
+});
