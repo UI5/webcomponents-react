@@ -8,6 +8,17 @@ const measures = [
   { accessor: 'volume', axis: 'z' as const },
 ];
 
+const scatterAccessibilitySingleDataset = [
+  {
+    label: 'Series A',
+    data: [
+      { users: 100, sessions: 200, volume: 300 },
+      { users: 50, sessions: 150, volume: 250 },
+      { users: 200, sessions: 400, volume: 500 },
+    ],
+  },
+];
+
 export function ScatterChartClickTest() {
   const [clickCount, setClickCount] = useState(0);
   const [lastPayload, setLastPayload] = useState<string>('');
@@ -44,17 +55,6 @@ export function ScatterChartAccessibilityTest() {
   const [focusCount, setFocusCount] = useState(0);
   const [keyDownCount, setKeyDownCount] = useState(0);
 
-  const singleDataset = [
-    {
-      label: 'Series A',
-      data: [
-        { users: 100, sessions: 200, volume: 300 },
-        { users: 50, sessions: 150, volume: 250 },
-        { users: 200, sessions: 400, volume: 500 },
-      ],
-    },
-  ];
-
   return (
     <>
       <button>before</button>
@@ -64,7 +64,7 @@ export function ScatterChartAccessibilityTest() {
       <span data-testid="focus-count">{focusCount}</span>
       <span data-testid="keydown-count">{keyDownCount}</span>
       <ScatterChart
-        dataset={singleDataset}
+        dataset={scatterAccessibilitySingleDataset}
         measures={measures}
         chartConfig={{ accessibilityLayer: true }}
         onDataPointClick={(e) => {

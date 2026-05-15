@@ -56,10 +56,7 @@ test.describe('ScatterChart', () => {
     await expect(page.getByText('Loading...')).toBeAttached();
   });
 
-  test.fixme('accessibilityLayer: keyboard navigation, Enter, blur/re-focus, consumer handlers', async ({
-    mount,
-    page,
-  }) => {
+  test('accessibilityLayer: keyboard navigation, Enter, blur/re-focus, consumer handlers', async ({ mount, page }) => {
     await mount(<ScatterChartAccessibilityTest />);
     const containerSelector = '[aria-roledescription="chart"]';
 
