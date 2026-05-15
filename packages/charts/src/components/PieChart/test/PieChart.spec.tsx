@@ -120,6 +120,7 @@ test.describe('PieChart', () => {
       // Enter activates the current sector, updating activeSegment
       await page.keyboard.press('Enter');
       await expect(page.getByTestId('active-segment')).toHaveText('2');
+      await expect(page.locator('.recharts-active-shape')).toBeAttached();
 
       // Navigate to a different sector and activate with Enter
       await page.keyboard.press('ArrowLeft');
@@ -132,6 +133,15 @@ test.describe('PieChart', () => {
       await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '4');
       await page.keyboard.press(' ');
       await expect(page.getByTestId('active-segment')).toHaveText('4');
+
+      // Hold Space, navigate to different sector, release — activates on keyup
+      await page.keyboard.press('ArrowLeft');
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '5');
+      await page.keyboard.down(' ');
+      await page.keyboard.press('ArrowLeft');
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '6');
+      await page.keyboard.up(' ');
+      await expect(page.getByTestId('active-segment')).toHaveText('6');
     });
 
     test('empty dataset is non-interactive', async ({ mount, page }) => {
