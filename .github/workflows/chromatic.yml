@@ -3,6 +3,10 @@ name: 'chromatic'
 on:
   push:
   workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: write # Chromatic posts PR comments
+  statuses: write # Chromatic posts commit statuses
 
 jobs:
   chromatic:

@@ -27,11 +27,15 @@ on:
 jobs:
   build:
     if: ${{ github.event.inputs.publish_only != 'true' }}
+    permissions:
+      contents: read
     uses: './.github/workflows/build.yml'
 
   test:
     if: ${{ github.event.inputs.publish_only != 'true' }}
     needs: ['build']
+    permissions:
+      contents: read
     uses: './.github/workflows/test.yml'
     with:
       reportCoverage: false
