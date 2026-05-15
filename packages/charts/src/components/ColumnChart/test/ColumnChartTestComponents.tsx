@@ -11,7 +11,12 @@ const dimensions = [{ accessor: 'name', interval: 0 }];
 
 const measures = [
   { accessor: 'users', label: 'Users', formatter: (val: number) => val.toLocaleString('en') },
-  { accessor: 'sessions', label: 'Active Sessions', formatter: (val) => `${val} sessions`, hideDataLabel: true },
+  {
+    accessor: 'sessions',
+    label: 'Active Sessions',
+    formatter: (val: number) => `${val} sessions`,
+    hideDataLabel: true,
+  },
   { accessor: 'volume', label: 'Vol.' },
 ];
 

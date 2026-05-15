@@ -13,7 +13,7 @@ const measures = [
   {
     accessor: 'sessions',
     label: 'Active Sessions',
-    formatter: (val) => `${val} sessions`,
+    formatter: (val: number) => `${val} sessions`,
     hideDataLabel: true,
     type: 'comparison' as const,
   },
