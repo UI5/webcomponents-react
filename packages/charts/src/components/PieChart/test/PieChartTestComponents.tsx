@@ -123,6 +123,24 @@ export function PieChartSectorFocusOutOfBoundsTest() {
   );
 }
 
+export function PieChartSectorFocusDatasetShrinkTest() {
+  const [ds, setDs] = useState(simpleDataSet);
+
+  return (
+    <>
+      <button>before</button>
+      <button onClick={() => setDs(simpleDataSet.slice(0, 3))}>shrink</button>
+      <PieChart
+        dataset={ds}
+        dimension={dimension}
+        measure={measure}
+        chartConfig={{ accessibilityLayer: true }}
+        noAnimation
+      />
+    </>
+  );
+}
+
 export function PieChartSectorFocusEmptyTest() {
   return (
     <>

@@ -7,8 +7,10 @@ import {
   PieChartCustomLabelTest,
   PieChartLegendConfigTest,
   PieChartSectorFocusActiveTest,
+  PieChartSectorFocusDatasetShrinkTest,
   PieChartSectorFocusEmptyTest,
   PieChartSectorFocusHandlersTest,
+  PieChartSectorFocusOutOfBoundsTest,
   PieChartSectorFocusTest,
 } from './PieChartTestComponents.js';
 
@@ -57,7 +59,7 @@ test.describe('PieChart', () => {
   });
 
   test.describe('Sector Focus - keyboard navigation', () => {
-    test('Tab, arrows, Enter', async ({ mount, page }) => {
+    test('Tab, arrows, Enter, wrap-around', async ({ mount, page }) => {
       await mount(<PieChartSectorFocusTest />);
 
       // Focus "before" button then Tab into chart container
@@ -68,6 +70,14 @@ test.describe('PieChart', () => {
 
       // Tab again to enter sector mode - focuses first sector
       await page.keyboard.press('Tab');
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '0');
+
+      // ArrowRight at first sector wraps to last
+      await page.keyboard.press('ArrowRight');
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', String(simpleDataSet.length - 1));
+
+      // ArrowLeft wraps back to first area then continues
+      await page.keyboard.press('ArrowLeft');
       await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '0');
 
       // ArrowLeft moves to next sector (index increments)
@@ -92,7 +102,7 @@ test.describe('PieChart', () => {
       await expect(page.locator(':focus')).toHaveAttribute('aria-roledescription', 'chart');
     });
 
-    test('activeSegment configuration', async ({ mount, page }) => {
+    test('activeSegment with Enter and Space', async ({ mount, page }) => {
       await mount(<PieChartSectorFocusActiveTest />);
 
       // Initial activeSegment is 2
@@ -111,11 +121,17 @@ test.describe('PieChart', () => {
       await page.keyboard.press('Enter');
       await expect(page.getByTestId('active-segment')).toHaveText('2');
 
-      // Navigate to a different sector and activate
+      // Navigate to a different sector and activate with Enter
       await page.keyboard.press('ArrowLeft');
       await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '3');
       await page.keyboard.press('Enter');
       await expect(page.getByTestId('active-segment')).toHaveText('3');
+
+      // Navigate and activate with Space
+      await page.keyboard.press('ArrowLeft');
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '4');
+      await page.keyboard.press(' ');
+      await expect(page.getByTestId('active-segment')).toHaveText('4');
     });
 
     test('empty dataset is non-interactive', async ({ mount, page }) => {
@@ -146,6 +162,41 @@ test.describe('PieChart', () => {
       // Blur the chart (triggers onBlur)
       await page.getByText('after').focus();
       await expect(page.getByTestId('blur-count')).not.toHaveText('0');
+    });
+
+    test('activeSegment out of bounds is clamped', async ({ mount, page }) => {
+      await mount(<PieChartSectorFocusOutOfBoundsTest />);
+
+      await page.getByText('before').focus();
+      await page.keyboard.press('Tab');
+      await page.keyboard.press('Tab');
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', String(simpleDataSet.length - 1));
+    });
+
+    test('dataset shrink resets keyboard state', async ({ mount, page }) => {
+      await mount(<PieChartSectorFocusDatasetShrinkTest />);
+
+      // Tab past "shrink" button into chart, then into sector mode
+      await page.getByText('before').focus();
+      await page.keyboard.press('Tab'); // → "shrink" button
+      await page.keyboard.press('Tab'); // → chart container
+      await page.keyboard.press('Tab'); // → sector 0
+      for (let i = 0; i < 5; i++) {
+        await page.keyboard.press('ArrowLeft');
+      }
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', '5');
+
+      // Shrink dataset to 3 items
+      await page.getByText('shrink').click();
+      const chartContainer = page.locator('[aria-roledescription="chart"]');
+      await expect(chartContainer).toHaveAttribute('tabindex', '0');
+
+      // Re-enter sector mode — should start from a valid index
+      await page.getByText('before').focus();
+      await page.keyboard.press('Tab'); // → "shrink" button
+      await page.keyboard.press('Tab'); // → chart container
+      await page.keyboard.press('Tab'); // → sector
+      await expect(page.locator(':focus')).toHaveAttribute('data-sector-index');
     });
   });
 });

@@ -95,6 +95,39 @@ export function DonutChartSectorFocusActiveTest() {
   );
 }
 
+export function DonutChartSectorFocusOutOfBoundsTest() {
+  return (
+    <>
+      <button>before</button>
+      <DonutChart
+        dataset={simpleDataSet}
+        dimension={dimension}
+        measure={measure}
+        chartConfig={{ accessibilityLayer: true, activeSegment: 999 }}
+        noAnimation
+      />
+    </>
+  );
+}
+
+export function DonutChartSectorFocusDatasetShrinkTest() {
+  const [ds, setDs] = useState(simpleDataSet);
+
+  return (
+    <>
+      <button>before</button>
+      <button onClick={() => setDs(simpleDataSet.slice(0, 3))}>shrink</button>
+      <DonutChart
+        dataset={ds}
+        dimension={dimension}
+        measure={measure}
+        chartConfig={{ accessibilityLayer: true }}
+        noAnimation
+      />
+    </>
+  );
+}
+
 export function DonutChartSectorFocusEmptyTest() {
   return (
     <>

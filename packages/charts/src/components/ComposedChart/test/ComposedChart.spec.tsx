@@ -96,8 +96,12 @@ test.describe('ComposedChart', () => {
       // tooltip
       const wrapper = page.locator('.recharts-wrapper');
       await wrapper.hover({ position: { x: 200, y: 100 }, force: true });
-      await expect(page.locator('.recharts-tooltip-item').last()).toContainText('Total');
-      await expect(page.locator('.recharts-tooltip-item').last()).toHaveCSS('font-weight', '700');
+      const tooltipTotal = page.locator('.recharts-tooltip-item').last();
+      await expect(tooltipTotal).toContainText('Total');
+      await expect(tooltipTotal).toHaveCSS('font-weight', '700');
+      const tooltipText = await tooltipTotal.textContent();
+      const totalValue = Number(tooltipText.replace(/\D/g, ''));
+      expect(expectedTotals).toContain(totalValue);
     });
 
     test('disabled', async ({ mount, page }) => {
