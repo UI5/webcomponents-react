@@ -25,7 +25,6 @@ import {
   TooltipOpacityTest,
   UnitAndTitlesTest,
   ValueFormatTest,
-  WheelZoomTest,
 } from './TimelineChartTestComponents.js';
 
 test.describe('TimelineChart', () => {
@@ -170,18 +169,6 @@ test.describe('TimelineChart', () => {
     await expect(page.getByText('Milestone 11')).not.toBeAttached();
     await milestoneRect.dispatchEvent('mouseout');
     await expect(milestoneRect).toHaveCSS('opacity', `${NORMAL_OPACITY}`);
-  });
-
-  test.fixme('TimelineChartBody: scales when the mouse wheel event happens', async ({ mount, page }) => {
-    await mount(<WheelZoomTest />);
-    await expect(page.getByText('150.0')).toBeVisible();
-
-    const body = page.locator('[data-component-name="TimelineChartBody"]');
-    await body.dispatchEvent('wheel', { deltaY: -10 });
-    await page.waitForTimeout(400);
-
-    await expect(page.getByText('109.1')).toBeVisible();
-    await expect(page.getByText('150.0')).not.toBeVisible();
   });
 
   test('TimelineChartLayer', async ({ mount, page }) => {

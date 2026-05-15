@@ -12,14 +12,11 @@ test.describe('RadialChart', () => {
     await expect(page.getByText('67%')).toBeVisible();
   });
 
-  test.fixme('click handlers', async ({ mount, page }) => {
+  test('click handlers', async ({ mount, page }) => {
     await mount(<RadialChartClickTest />);
     const sector = page.locator('.recharts-radial-bar-sector');
     await expect(sector).toBeVisible();
-    const box = await sector.boundingBox();
-    if (box) {
-      await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
-    }
+    await sector.dispatchEvent('click');
     await expect(page.getByTestId('click-count')).toHaveText('1');
     await expect(page.getByTestId('last-payload-value')).toHaveText('67');
   });
