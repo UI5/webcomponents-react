@@ -1377,9 +1377,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cypress/request@npm:^3.0.10":
-  version: 3.0.10
-  resolution: "@cypress/request@npm:3.0.10"
+"@cypress/request@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@cypress/request@npm:4.0.0"
   dependencies:
     aws-sign2: "npm:~0.7.0"
     aws4: "npm:^1.8.0"
@@ -1398,8 +1398,7 @@ __metadata:
     safe-buffer: "npm:^5.1.2"
     tough-cookie: "npm:^5.0.0"
     tunnel-agent: "npm:^0.6.0"
-    uuid: "npm:^8.3.2"
-  checksum: 10c0/93da9754315261474deeefff235ed0397811d49f03f2dfcebd01aff12b75fd58e104b0c7fd3d720e1ebc51d73059e1f540db68c58bbda4612493610227ade710
+  checksum: 10c0/f85502209aa3a4097e598bdd85b9f1c728ee2758fdbee8cafd5fe22d46ab625082df2957c166f6320adbf7698afa2871005b3dfa3dbddc676bf056144e072ebe
   languageName: node
   linkType: hard
 
@@ -2230,9 +2229,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/compat@npm:2.0.5":
-  version: 2.0.5
-  resolution: "@eslint/compat@npm:2.0.5"
+"@eslint/compat@npm:2.1.0":
+  version: 2.1.0
+  resolution: "@eslint/compat@npm:2.1.0"
   dependencies:
     "@eslint/core": "npm:^1.2.1"
   peerDependencies:
@@ -2240,7 +2239,7 @@ __metadata:
   peerDependenciesMeta:
     eslint:
       optional: true
-  checksum: 10c0/c6e16c5bd826535dc84b6dfd4cfa8079ac564f6dc614b164e2f2e708e940d6efa9f3754fa6ddaace04b43d296c190aabbad4231c074f6269afab88d7e7b005a8
+  checksum: 10c0/05b9e54813f124c45a8142571dbc539ea06bfc70a21e28c5d39a145578a62c733a9029850b89e357ee5924b1ea19611bf4d7cfe894595028730f691b86e9815b
   languageName: node
   linkType: hard
 
@@ -3952,37 +3951,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/experimental-ct-core@npm:1.59.1":
-  version: 1.59.1
-  resolution: "@playwright/experimental-ct-core@npm:1.59.1"
+"@playwright/experimental-ct-core@npm:1.60.0":
+  version: 1.60.0
+  resolution: "@playwright/experimental-ct-core@npm:1.60.0"
   dependencies:
-    playwright: "npm:1.59.1"
-    playwright-core: "npm:1.59.1"
+    playwright: "npm:1.60.0"
+    playwright-core: "npm:1.60.0"
     vite: "npm:^6.4.1"
-  checksum: 10c0/085b3de8173bef25513c0ba571dc456017fe69844e8a5a0b3c746b6d3726c487129b998bf85dba9527e0f3b90fe924c050c07a21ddeac5f8d33b407950e75562
+  checksum: 10c0/3379980d77676eb6127afb329f806f722f59e87b7a51e639f4fc8e6907705fceb3153cf55fbc2aec9a7d1ed15c01d7130a823df8b94695e6f369ad36b3770d0c
   languageName: node
   linkType: hard
 
-"@playwright/experimental-ct-react@npm:1.59.1":
-  version: 1.59.1
-  resolution: "@playwright/experimental-ct-react@npm:1.59.1"
+"@playwright/experimental-ct-react@npm:1.60.0":
+  version: 1.60.0
+  resolution: "@playwright/experimental-ct-react@npm:1.60.0"
   dependencies:
-    "@playwright/experimental-ct-core": "npm:1.59.1"
+    "@playwright/experimental-ct-core": "npm:1.60.0"
     "@vitejs/plugin-react": "npm:^4.2.1"
   bin:
     playwright: cli.js
-  checksum: 10c0/af4429b252a4f6bb5d73db3bec11cedd63f708dacb14867672ff331412be6c7b90a2c9355ec93d49e45343365b55f3e81d2f9fc588816e01d944fb8081ab7929
+  checksum: 10c0/264b3276330a6a05e15a906d62e3f040eb8f3c989175ece439f9156efc2b9788af17eae66a74d6bb8438583b10ec4becb2102eafe103b91281a4adad4accf21c
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.59.1":
-  version: 1.59.1
-  resolution: "@playwright/test@npm:1.59.1"
+"@playwright/test@npm:1.60.0":
+  version: 1.60.0
+  resolution: "@playwright/test@npm:1.60.0"
   dependencies:
-    playwright: "npm:1.59.1"
+    playwright: "npm:1.60.0"
   bin:
     playwright: cli.js
-  checksum: 10c0/8c2d94a860d3c254a0b114df2f888ad0a0e9310f45b6059bd5d4da196d965cadf6922267cef0881cfa9784d4bef6d78363d2c2d94caa64be67ff644c41162137
+  checksum: 10c0/86b06e6437933e741c7cd43f362024e857e7bc28a55fcbb0553ef55e01a2a403c64f4786868de8af86a6e303fe99e98a18a42ba19489f43ae122e457f9e2d189
   languageName: node
   linkType: hard
 
@@ -8349,9 +8348,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromatic@npm:16.9.1":
-  version: 16.9.1
-  resolution: "chromatic@npm:16.9.1"
+"chromatic@npm:16.10.0":
+  version: 16.10.0
+  resolution: "chromatic@npm:16.10.0"
   dependencies:
     semver: "npm:^7.3.5"
   peerDependencies:
@@ -8369,7 +8368,7 @@ __metadata:
     chroma: dist/bin.cjs
     chromatic: dist/bin.cjs
     chromatic-cli: dist/bin.cjs
-  checksum: 10c0/b0badbfc71ca4eebbad86f43814c523afc42637fa342727e65a1b8c5f10271eb0bb91a3fbfd5e1412d62190bcacf612cf1ecc459f99cd03faba8bfe84a815fd9
+  checksum: 10c0/4867da7b0512c6c86b00b7e633908e90594b893801202577d76849d9b0ba61c716dfa7479dcb5c0786665b7fe6560ede262ad6a16696fc74c2240cc6d5bf485c
   languageName: node
   linkType: hard
 
@@ -9326,11 +9325,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:15.14.2":
-  version: 15.14.2
-  resolution: "cypress@npm:15.14.2"
+"cypress@npm:15.15.0":
+  version: 15.15.0
+  resolution: "cypress@npm:15.15.0"
   dependencies:
-    "@cypress/request": "npm:^3.0.10"
+    "@cypress/request": "npm:^4.0.0"
     "@cypress/xvfb": "npm:^1.2.4"
     "@types/sinonjs__fake-timers": "npm:8.1.1"
     "@types/sizzle": "npm:^2.3.2"
@@ -9372,7 +9371,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10c0/d68ddc88004739f3d08babb373c156c0c037f2ff4bf25ec2062755cdd77e62f653b4ceac97ee91e797fadc15597f3afdca834f984f34de35fcacf095e9b9c8a2
+  checksum: 10c0/991d19140f86dbe02fd52300eccb04d1b33ce646a0c4db10e2fb7c09e144aa67b26b12c67501305756c5220ff63cb927b845cb63a2346afeb86a03bf3265d979
   languageName: node
   linkType: hard
 
@@ -11108,15 +11107,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-storybook@npm:10.3.6":
-  version: 10.3.6
-  resolution: "eslint-plugin-storybook@npm:10.3.6"
+"eslint-plugin-storybook@npm:10.4.0":
+  version: 10.4.0
+  resolution: "eslint-plugin-storybook@npm:10.4.0"
   dependencies:
     "@typescript-eslint/utils": "npm:^8.48.0"
   peerDependencies:
     eslint: ">=8"
-    storybook: ^10.3.6
-  checksum: 10c0/2b9d8950a446b8177485f9fccaf8476aa3e83cb7e9ea5b5ba53785f679d6ba08c44bd0b1a172bc59254f3635d93cd5a78dc8b954b285ed55da51b5750f308695
+    storybook: ^10.4.0
+  checksum: 10c0/70391c7a8896990e091432cf58a90eaf01823d72b16fdf7c4c6e72a0466bc2ad45c24bad41b3da8e205a8db23a21f0c0b0d32ad7be01d1e7c26ee52b24bbcf99
   languageName: node
   linkType: hard
 
@@ -16962,7 +16961,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monocart-coverage-reports@npm:^2.12.10":
+"monocart-coverage-reports@npm:^2.12.11":
   version: 2.12.11
   resolution: "monocart-coverage-reports@npm:2.12.11"
   dependencies:
@@ -16991,21 +16990,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monocart-reporter@npm:2.10.1":
-  version: 2.10.1
-  resolution: "monocart-reporter@npm:2.10.1"
+"monocart-reporter@npm:2.11.2":
+  version: 2.11.2
+  resolution: "monocart-reporter@npm:2.11.2"
   dependencies:
     console-grid: "npm:^2.2.4"
     eight-colors: "npm:^1.3.3"
     koa: "npm:^3.2.0"
     koa-static-resolver: "npm:^1.0.6"
     lz-utils: "npm:^2.1.1"
-    monocart-coverage-reports: "npm:^2.12.10"
+    monocart-coverage-reports: "npm:^2.12.11"
     monocart-locator: "npm:^1.0.3"
-    nodemailer: "npm:^8.0.5"
+    nodemailer: "npm:^8.0.7"
   bin:
     monocart: lib/cli.js
-  checksum: 10c0/b27f0b2699843744bbe228883611210517c525118590559cfbb2c954395dec0164273bbabf5a1eadb365a49646a9321585172e9da6d4d7448691113463e0fb40
+  checksum: 10c0/14cf4c8a2e10647ae210953fb6bbd0207b240490818e8fcf84a5ad413370040ca7897f74ad898e05d1954e630f3a78ea2f2be69e02c8252807722df7fd58b966
   languageName: node
   linkType: hard
 
@@ -17197,7 +17196,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemailer@npm:^8.0.5":
+"nodemailer@npm:^8.0.7":
   version: 8.0.7
   resolution: "nodemailer@npm:8.0.7"
   checksum: 10c0/f1580263ad7fba64a493c47c4d78f06679c0da9cc3becbe6b628311a16474c07286fc4e530006ea262537594ccc475dc569fd519275222fd01f99c315976aeac
@@ -18744,27 +18743,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.59.1":
-  version: 1.59.1
-  resolution: "playwright-core@npm:1.59.1"
+"playwright-core@npm:1.60.0":
+  version: 1.60.0
+  resolution: "playwright-core@npm:1.60.0"
   bin:
     playwright-core: cli.js
-  checksum: 10c0/d41a74d9681ce3beb3d5239e9ed577710b4ad099a6ca2476219c6599d51e9cb4b80bd72ed82c528da6a5d929c18ae3b872cf02bb83f78fa1c2cb9199c501abee
+  checksum: 10c0/99ccd43923b6e9355e0723b7fe221e6326efd4687f8dafff951313662aea11db51f542a9c2122c704c445fb9baae1c9ec9fa6f895126bbddd9fe92313f6942c9
   languageName: node
   linkType: hard
 
-"playwright@npm:1.59.1":
-  version: 1.59.1
-  resolution: "playwright@npm:1.59.1"
+"playwright@npm:1.60.0":
+  version: 1.60.0
+  resolution: "playwright@npm:1.60.0"
   dependencies:
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.59.1"
+    playwright-core: "npm:1.60.0"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 10c0/dfe38396e616e5c4f98825ce90037bb96e477c5a2bd9258a24854f8ce72a8a41427b19098863866f85aa0216e70287dd537c4438d761aca93995e31ae099c533
+  checksum: 10c0/714ad76d85b4865d7e43c0012f9039800c1485373388973ed39d79339cee5ad467052d1e2f1eaeca107a1cb6e65342186a8578a4c3504853d84c3a691250d5db
   languageName: node
   linkType: hard
 
@@ -22531,10 +22530,10 @@ __metadata:
     "@babel/preset-react": "npm:7.28.5"
     "@babel/preset-typescript": "npm:7.28.5"
     "@cypress/code-coverage": "npm:4.0.3"
-    "@eslint/compat": "npm:2.0.5"
+    "@eslint/compat": "npm:2.1.0"
     "@eslint/js": "npm:9.39.4"
-    "@playwright/experimental-ct-react": "npm:1.59.1"
-    "@playwright/test": "npm:1.59.1"
+    "@playwright/experimental-ct-react": "npm:1.60.0"
+    "@playwright/test": "npm:1.60.0"
     "@semantic-release/github": "npm:12.0.8"
     "@stackblitz/sdk": "npm:1.11.0"
     "@storybook/addon-a11y": "npm:10.4.0"
@@ -22552,9 +22551,9 @@ __metadata:
     "@ui5/webcomponents-icons": "npm:2.22.0"
     "@ui5/webcomponents-tools": "npm:2.22.0"
     "@vitejs/plugin-react": "npm:6.0.2"
-    chromatic: "npm:16.9.1"
+    chromatic: "npm:16.10.0"
     cssnano: "npm:8.0.1"
-    cypress: "npm:15.14.2"
+    cypress: "npm:15.15.0"
     cypress-real-events: "npm:1.15.0"
     dedent: "npm:1.7.2"
     documentation: "npm:14.0.3"
@@ -22566,13 +22565,13 @@ __metadata:
     eslint-plugin-prettier: "npm:5.5.5"
     eslint-plugin-react: "npm:7.37.5"
     eslint-plugin-react-hooks: "npm:7.1.1"
-    eslint-plugin-storybook: "npm:10.3.6"
+    eslint-plugin-storybook: "npm:10.4.0"
     glob: "npm:13.0.6"
     globals: "npm:17.6.0"
     husky: "npm:9.1.7"
     lerna: "npm:9.0.7"
     lint-staged: "npm:17.0.4"
-    monocart-reporter: "npm:2.10.1"
+    monocart-reporter: "npm:2.11.2"
     npm-run-all2: "npm:8.0.4"
     pagefind: "npm:1.5.2"
     postcss: "npm:8.5.14"
