@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.1",
+    "@vitejs/plugin-react": "6.0.2",
     "@ui5/webcomponents-cypress-commands": "2.22.0",
     "cypress": "15.14.2",
     "eslint": "9.39.4",
@@ -31,7 +31,7 @@
     "eslint-plugin-react-refresh": "0.5.2",
     "globals": "17.6.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.59.2",
-    "vite": "8.0.11"
+    "typescript-eslint": "8.59.3",
+    "vite": "8.0.13"
   }
 }
