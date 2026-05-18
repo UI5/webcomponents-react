@@ -1,7 +1,10 @@
 import { complexDataSet } from '../../../resources/DemoProps.js';
 import {
   createClickTestComponent,
+  createDataPointClickTestComponent,
+  createHighlightColorTestComponent,
   createLegendConfigTestComponent,
+  createSecondYAxisTestComponent,
   createStackTotalsTestComponents,
   createZoomingTestComponents,
 } from '../../../test-utils/componentFactories.js';
@@ -41,3 +44,17 @@ export const {
   { accessor: 'users', stackId: 'A', label: 'Users' },
   { accessor: 'sessions', stackId: 'A', label: 'Active Sessions' },
 ]);
+
+export const ColumnChartDataPointClickTest = createDataPointClickTestComponent(ColumnChart, baseProps);
+
+export const ColumnChartHighlightColorTest = createHighlightColorTestComponent(ColumnChart, baseProps, [
+  {
+    accessor: 'users',
+    label: 'Users',
+    highlightColor: (value: number) => (value > 200 ? 'red' : 'green'),
+  },
+  { accessor: 'sessions', label: 'Active Sessions' },
+  { accessor: 'volume', label: 'Vol.' },
+]);
+
+export const ColumnChartSecondYAxisTest = createSecondYAxisTestComponent(ColumnChart, baseProps, 'volume');

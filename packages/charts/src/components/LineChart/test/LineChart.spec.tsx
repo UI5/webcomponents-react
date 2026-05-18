@@ -4,6 +4,7 @@ import { assertPassThroughProps, passThroughProps } from '../../../test-utils/sh
 import { LineChart } from '../index.js';
 import {
   LineChartClickTest,
+  LineChartDataPointClickTest,
   LineChartLegendConfigTest,
   LineChartZoomingCustomTest,
   LineChartZoomingDisabledTest,
@@ -73,5 +74,18 @@ test.describe('LineChart', () => {
   test('Pass Through HTML Standard Props', async ({ mount, page }) => {
     await mount(<LineChart {...passThroughProps({ dimensions: [], measures: [] })} />);
     await assertPassThroughProps(page);
+  });
+
+  test('onDataPointClick', async ({ mount, page }) => {
+    await mount(<LineChartDataPointClickTest />);
+
+    // LineChart fires onDataPointClick via activeDot — hover to trigger the active dot, then click it
+    const firstDot = page.locator('.recharts-line-dot[name="Users"]').first();
+    await firstDot.hover();
+    const activeDot = page.locator('.recharts-active-dot').first();
+    await activeDot.click({ force: true });
+    await expect(page.getByTestId('dp-click-count')).toHaveText('1');
+    await expect(page.getByTestId('dp-last-datakey')).not.toHaveText('');
+    await expect(page.getByTestId('dp-last-payload')).toHaveText(JSON.stringify(complexDataSet[0]));
   });
 });

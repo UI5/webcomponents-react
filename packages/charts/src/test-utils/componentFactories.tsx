@@ -96,3 +96,88 @@ export function createStackTotalsTestComponents(
   );
   return { StackTotalsEnabled, StackTotalsDisabled };
 }
+
+/**
+ * Factory for onDataPointClick test component.
+ * Tracks: click count, dataKey, value, dataIndex, payload.
+ */
+export function createDataPointClickTestComponent(
+  Chart: ComponentType<any>,
+  baseProps: Record<string, any>,
+  options?: { noAnimation?: boolean },
+) {
+  const { noAnimation = true } = options || {};
+
+  return function DataPointClickTestComponent() {
+    const [clickCount, setClickCount] = useState(0);
+    const [lastDataKey, setLastDataKey] = useState('');
+    const [lastValue, setLastValue] = useState('');
+    const [lastDataIndex, setLastDataIndex] = useState(-1);
+    const [lastPayload, setLastPayload] = useState('');
+
+    return (
+      <>
+        <span data-testid="dp-click-count">{clickCount}</span>
+        <span data-testid="dp-last-datakey">{lastDataKey}</span>
+        <span data-testid="dp-last-value">{lastValue}</span>
+        <span data-testid="dp-last-data-index">{lastDataIndex}</span>
+        <span data-testid="dp-last-payload">{lastPayload}</span>
+        <Chart
+          {...baseProps}
+          {...(noAnimation ? { noAnimation: true } : {})}
+          onDataPointClick={(e: any) => {
+            setClickCount((c) => c + 1);
+            setLastDataKey(e.detail?.dataKey || '');
+            setLastValue(String(e.detail?.value ?? ''));
+            setLastDataIndex(e.detail?.dataIndex ?? -1);
+            setLastPayload(JSON.stringify(e.detail?.payload));
+          }}
+        />
+      </>
+    );
+  };
+}
+
+/**
+ * Factory for highlightColor test component.
+ */
+export function createHighlightColorTestComponent(
+  Chart: ComponentType<any>,
+  baseProps: Record<string, any>,
+  highlightMeasures: any[],
+) {
+  return function HighlightColorTestComponent() {
+    return <Chart {...baseProps} measures={highlightMeasures} noAnimation />;
+  };
+}
+
+/**
+ * Factory for loading overlay test component (loading=true with data present).
+ */
+export function createLoadingOverlayTestComponent(Chart: ComponentType<any>, baseProps: Record<string, any>) {
+  return function LoadingOverlayTestComponent() {
+    return <Chart {...baseProps} loading />;
+  };
+}
+
+/**
+ * Factory for secondYAxis test component.
+ */
+export function createSecondYAxisTestComponent(
+  Chart: ComponentType<any>,
+  baseProps: Record<string, any>,
+  secondYAxisDataKey: string,
+) {
+  return function SecondYAxisTestComponent() {
+    return <Chart {...baseProps} chartConfig={{ secondYAxis: { dataKey: secondYAxisDataKey } }} />;
+  };
+}
+
+/**
+ * Factory for vertical layout test component.
+ */
+export function createVerticalLayoutTestComponent(Chart: ComponentType<any>, baseProps: Record<string, any>) {
+  return function VerticalLayoutTestComponent() {
+    return <Chart {...baseProps} layout="vertical" />;
+  };
+}

@@ -4,7 +4,9 @@ import { assertPassThroughProps, passThroughProps } from '../../../test-utils/sh
 import { BulletChart } from '../index.js';
 import {
   BulletChartClickTest,
+  BulletChartDataPointClickTest,
   BulletChartLegendConfigTest,
+  BulletChartVerticalLayoutTest,
   BulletChartZoomingCustomTest,
   BulletChartZoomingDisabledTest,
   BulletChartZoomingEnabledTest,
@@ -78,5 +80,28 @@ test.describe('BulletChart', () => {
   test('Pass Through HTML Standard Props', async ({ mount, page }) => {
     await mount(<BulletChart {...passThroughProps({ dimensions: [], measures: [] })} />);
     await assertPassThroughProps(page);
+  });
+
+  test('onDataPointClick', async ({ mount, page }) => {
+    await mount(<BulletChartDataPointClickTest />);
+
+    // Wait for chart to render
+    await expect(page.locator('.recharts-bar-rectangles')).toHaveCount(3);
+    // BulletChart fires onDataPointClick via Bar.onClick — click within the chart area at the first bar position
+    const wrapper = page.locator('.recharts-wrapper');
+    const box = await wrapper.boundingBox();
+    // Click in the upper-left area of the chart where the first bar should be
+    await wrapper.click({ position: { x: box.width * 0.08, y: box.height * 0.3 }, force: true });
+    await expect(page.getByTestId('dp-click-count')).toHaveText('1');
+    await expect(page.getByTestId('dp-last-datakey')).not.toHaveText('');
+    await expect(page.getByTestId('dp-last-payload')).not.toHaveText('');
+  });
+
+  test('layout="vertical"', async ({ mount, page }) => {
+    await mount(<BulletChartVerticalLayoutTest />);
+    await expect(page.locator('.recharts-responsive-container')).toBeVisible();
+    // Vertical layout renders bars along Y axis and uses XAxis for values
+    await expect(page.locator('.recharts-bar')).toHaveCount(3);
+    await expect(page.locator('.recharts-xAxis')).toBeAttached();
   });
 });

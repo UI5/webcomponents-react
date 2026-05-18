@@ -4,9 +4,12 @@ import { assertPassThroughProps, passThroughProps } from '../../../test-utils/sh
 import { ComposedChart } from '../index.js';
 import {
   ComposedChartClickTest,
+  ComposedChartDataPointClickTest,
   ComposedChartLegendConfigTest,
+  ComposedChartSecondYAxisTest,
   ComposedChartStackTotalsDisabledTest,
   ComposedChartStackTotalsEnabledTest,
+  ComposedChartVerticalLayoutTest,
   ComposedChartZoomingCustomTest,
   ComposedChartZoomingDisabledTest,
   ComposedChartZoomingEnabledTest,
@@ -109,5 +112,34 @@ test.describe('ComposedChart', () => {
       await expect(page.locator('.recharts-bar-rectangles').first()).toBeAttached();
       await expect(page.locator('text[font-weight="bold"]')).not.toBeAttached();
     });
+  });
+
+  test('layout="vertical"', async ({ mount, page }) => {
+    await mount(<ComposedChartVerticalLayoutTest />);
+    await expect(page.locator('.recharts-responsive-container')).toBeVisible();
+    // Vertical layout swaps axes: measure axis becomes XAxis (type=number)
+    await expect(page.locator('.recharts-xAxis')).toBeAttached();
+    // Chart elements should still render
+    await expect(page.locator('.recharts-bar')).toHaveCount(1);
+    await expect(page.locator('.recharts-line')).toHaveCount(1);
+    await expect(page.locator('.recharts-area')).toHaveCount(1);
+  });
+
+  test('onDataPointClick', async ({ mount, page }) => {
+    await mount(<ComposedChartDataPointClickTest />);
+
+    await page.locator('[name="January"]').first().click();
+    await expect(page.getByTestId('dp-click-count')).toHaveText('1');
+    await expect(page.getByTestId('dp-last-datakey')).not.toHaveText('');
+    await expect(page.getByTestId('dp-last-value')).not.toHaveText('');
+    await expect(page.getByTestId('dp-last-data-index')).not.toHaveText('-1');
+    await expect(page.getByTestId('dp-last-payload')).toHaveText(JSON.stringify(complexDataSet[0]));
+  });
+
+  test('secondYAxis', async ({ mount, page }) => {
+    await mount(<ComposedChartSecondYAxisTest />);
+
+    // ComposedChart renders secondYAxis as an additional YAxis
+    await expect(page.locator('.recharts-yAxis')).toHaveCount(2);
   });
 });

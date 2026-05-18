@@ -4,7 +4,10 @@ import { assertPassThroughProps, passThroughProps } from '../../../test-utils/sh
 import { ColumnChart } from '../index.js';
 import {
   ColumnChartClickTest,
+  ColumnChartDataPointClickTest,
+  ColumnChartHighlightColorTest,
   ColumnChartLegendConfigTest,
+  ColumnChartSecondYAxisTest,
   ColumnChartStackTotalsDisabledTest,
   ColumnChartStackTotalsEnabledTest,
   ColumnChartZoomingCustomTest,
@@ -108,5 +111,33 @@ test.describe('ColumnChart', () => {
       await expect(page.locator('.recharts-bar-rectangles').first()).toBeAttached();
       await expect(page.locator('text[font-weight="bold"]')).not.toBeAttached();
     });
+  });
+
+  test('onDataPointClick', async ({ mount, page }) => {
+    await mount(<ColumnChartDataPointClickTest />);
+
+    await page.locator('[name="January"]').first().click();
+    await expect(page.getByTestId('dp-click-count')).toHaveText('1');
+    await expect(page.getByTestId('dp-last-datakey')).not.toHaveText('');
+    await expect(page.getByTestId('dp-last-value')).not.toHaveText('');
+    await expect(page.getByTestId('dp-last-data-index')).not.toHaveText('-1');
+    await expect(page.getByTestId('dp-last-payload')).toHaveText(JSON.stringify(complexDataSet[0]));
+  });
+
+  test('highlightColor', async ({ mount, page }) => {
+    await mount(<ColumnChartHighlightColorTest />);
+
+    // January has users=100 (<=200 → green), February has users=230 (>200 → red)
+    const greenCells = page.locator('.recharts-bar-rectangle [fill="green"]');
+    const redCells = page.locator('.recharts-bar-rectangle [fill="red"]');
+    await expect(greenCells.first()).toBeAttached();
+    await expect(redCells.first()).toBeAttached();
+  });
+
+  test('secondYAxis', async ({ mount, page }) => {
+    await mount(<ColumnChartSecondYAxisTest />);
+
+    // ColumnChart is vertical so secondYAxis renders as an additional YAxis
+    await expect(page.locator('.recharts-yAxis')).toHaveCount(2);
   });
 });

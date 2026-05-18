@@ -4,7 +4,11 @@ import { assertPassThroughProps, passThroughProps } from '../../../test-utils/sh
 import { BarChart } from '../index.js';
 import {
   BarChartClickTest,
+  BarChartDataPointClickTest,
+  BarChartHighlightColorTest,
   BarChartLegendConfigTest,
+  BarChartLoadingOverlayTest,
+  BarChartSecondYAxisTest,
   BarChartStackTotalsDisabledTest,
   BarChartStackTotalsEnabledTest,
   BarChartZoomingCustomTest,
@@ -108,5 +112,42 @@ test.describe('BarChart', () => {
       await expect(page.locator('.recharts-bar-rectangles').first()).toBeAttached();
       await expect(page.locator('text[font-weight="bold"]')).not.toBeAttached();
     });
+  });
+
+  test('onDataPointClick', async ({ mount, page }) => {
+    await mount(<BarChartDataPointClickTest />);
+
+    await page.locator('[name="January"]').first().click();
+    await expect(page.getByTestId('dp-click-count')).toHaveText('1');
+    await expect(page.getByTestId('dp-last-datakey')).not.toHaveText('');
+    await expect(page.getByTestId('dp-last-value')).not.toHaveText('');
+    await expect(page.getByTestId('dp-last-data-index')).not.toHaveText('-1');
+    await expect(page.getByTestId('dp-last-payload')).toHaveText(JSON.stringify(complexDataSet[0]));
+  });
+
+  test('highlightColor', async ({ mount, page }) => {
+    await mount(<BarChartHighlightColorTest />);
+
+    // January has users=100 (<=200 → green), February has users=230 (>200 → red)
+    const greenCells = page.locator('.recharts-bar-rectangle [fill="green"]');
+    const redCells = page.locator('.recharts-bar-rectangle [fill="red"]');
+    await expect(greenCells.first()).toBeAttached();
+    await expect(redCells.first()).toBeAttached();
+  });
+
+  test('loading overlay with data', async ({ mount, page }) => {
+    await mount(<BarChartLoadingOverlayTest />);
+
+    // Chart should still render
+    await expect(page.locator('.recharts-bar')).toHaveCount(3);
+    // BusyIndicator overlay should be present
+    await expect(page.locator('[data-component-name="ChartContainerBusyIndicator"]')).toBeAttached();
+  });
+
+  test('secondYAxis', async ({ mount, page }) => {
+    await mount(<BarChartSecondYAxisTest />);
+
+    // BarChart is horizontal so the secondary "Y" axis renders as an additional XAxis
+    await expect(page.locator('.recharts-xAxis')).toHaveCount(2);
   });
 });

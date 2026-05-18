@@ -1,8 +1,11 @@
 import { complexDataSet } from '../../../resources/DemoProps.js';
 import {
   createClickTestComponent,
+  createDataPointClickTestComponent,
   createLegendConfigTestComponent,
+  createSecondYAxisTestComponent,
   createStackTotalsTestComponents,
+  createVerticalLayoutTestComponent,
   createZoomingTestComponents,
 } from '../../../test-utils/componentFactories.js';
 import { ComposedChart } from '../index.js';
@@ -34,3 +37,9 @@ export const {
   { accessor: 'users', stackId: 'A', label: 'Users', type: 'bar' as const },
   { accessor: 'sessions', stackId: 'A', label: 'Active Sessions', type: 'bar' as const },
 ]);
+
+export const ComposedChartVerticalLayoutTest = createVerticalLayoutTestComponent(ComposedChart, baseProps);
+
+export const ComposedChartDataPointClickTest = createDataPointClickTestComponent(ComposedChart, baseProps);
+
+export const ComposedChartSecondYAxisTest = createSecondYAxisTestComponent(ComposedChart, baseProps, 'volume');

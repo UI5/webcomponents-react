@@ -1,5 +1,9 @@
 import { complexDataSet } from '../../../resources/DemoProps.js';
-import { createClickTestComponent, createLegendConfigTestComponent } from '../../../test-utils/componentFactories.js';
+import {
+  createClickTestComponent,
+  createDataPointClickTestComponent,
+  createLegendConfigTestComponent,
+} from '../../../test-utils/componentFactories.js';
 import { RadarChart } from '../index.js';
 
 const dimensions = [{ accessor: 'name', interval: 0 }];
@@ -22,3 +26,5 @@ export const RadarChartClickTest = createClickTestComponent(RadarChart, baseProp
 });
 
 export const RadarChartLegendConfigTest = createLegendConfigTestComponent(RadarChart, baseProps);
+
+export const RadarChartDataPointClickTest = createDataPointClickTestComponent(RadarChart, baseProps);

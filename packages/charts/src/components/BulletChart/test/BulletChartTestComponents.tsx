@@ -1,7 +1,9 @@
 import { complexDataSet } from '../../../resources/DemoProps.js';
 import {
   createClickTestComponent,
+  createDataPointClickTestComponent,
   createLegendConfigTestComponent,
+  createVerticalLayoutTestComponent,
   createZoomingTestComponents,
 } from '../../../test-utils/componentFactories.js';
 import { BulletChart } from '../index.js';
@@ -34,3 +36,7 @@ export const {
   ZoomingDisabled: BulletChartZoomingDisabledTest,
   ZoomingCustom: BulletChartZoomingCustomTest,
 } = createZoomingTestComponents(BulletChart, baseProps);
+
+export const BulletChartDataPointClickTest = createDataPointClickTestComponent(BulletChart, baseProps);
+
+export const BulletChartVerticalLayoutTest = createVerticalLayoutTestComponent(BulletChart, baseProps);

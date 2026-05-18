@@ -2,7 +2,11 @@ import { expect, test } from '@playwright/experimental-ct-react';
 import { complexDataSet } from '../../../resources/DemoProps.js';
 import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
 import { RadarChart } from '../index.js';
-import { RadarChartClickTest, RadarChartLegendConfigTest } from './RadarChartTestComponents.js';
+import {
+  RadarChartClickTest,
+  RadarChartDataPointClickTest,
+  RadarChartLegendConfigTest,
+} from './RadarChartTestComponents.js';
 
 test.describe('RadarChart', () => {
   test('Basic', async ({ mount, page }) => {
@@ -50,5 +54,28 @@ test.describe('RadarChart', () => {
   test('Pass Through HTML Standard Props', async ({ mount, page }) => {
     await mount(<RadarChart {...passThroughProps({ dimensions: [], measures: [] })} />);
     await assertPassThroughProps(page);
+  });
+
+  test('onDataPointClick', async ({ mount, page }) => {
+    await mount(<RadarChartDataPointClickTest />);
+
+    // RadarChart fires onDataPointClick via activeDot on <Radar>.
+    // Hover the chart to activate a data index, making the active dot appear.
+    const wrapper = page.locator('.recharts-wrapper');
+    const box = await wrapper.boundingBox();
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height * 0.35);
+    const activeDot = page.locator('.recharts-active-dot');
+    await expect(activeDot.first()).toBeAttached();
+    // Use dispatchEvent because Playwright clicks on SVG circles don't reliably trigger React synthetic events in recharts
+    await page.evaluate(() => {
+      const dot =
+        document.querySelector('.recharts-active-dot circle') || document.querySelector('.recharts-active-dot');
+      if (dot) {
+        dot.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+      }
+    });
+    await expect(page.getByTestId('dp-click-count')).toHaveText('1');
+    await expect(page.getByTestId('dp-last-datakey')).not.toHaveText('');
+    await expect(page.getByTestId('dp-last-payload')).not.toHaveText('');
   });
 });

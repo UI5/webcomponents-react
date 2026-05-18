@@ -1,6 +1,7 @@
 import { complexDataSet } from '../../../resources/DemoProps.js';
 import {
   createClickTestComponent,
+  createDataPointClickTestComponent,
   createLegendConfigTestComponent,
   createZoomingTestComponents,
 } from '../../../test-utils/componentFactories.js';
@@ -32,3 +33,5 @@ export const {
   ZoomingDisabled: LineChartZoomingDisabledTest,
   ZoomingCustom: LineChartZoomingCustomTest,
 } = createZoomingTestComponents(LineChart, baseProps);
+
+export const LineChartDataPointClickTest = createDataPointClickTestComponent(LineChart, baseProps);
