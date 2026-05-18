@@ -57,7 +57,7 @@
     "react-dom": "19.2.6",
     "remark-gfm": "4.0.1",
     "storybook": "10.3.6",
-    "tocbot": "4.36.6"
+    "tocbot": "4.36.8"
   },
   "devDependencies": {
     "@babel/cli": "7.28.6",
@@ -70,16 +70,16 @@
     "@eslint/js": "9.39.4",
     "@playwright/experimental-ct-react": "1.59.1",
     "@playwright/test": "1.59.1",
-    "@semantic-release/github": "12.0.6",
+    "@semantic-release/github": "12.0.8",
     "@testing-library/cypress": "10.1.3",
     "@types/jscodeshift": "17.3.0",
-    "@types/node": "24.12.3",
+    "@types/node": "24.12.4",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@ui5/webcomponents-tools": "2.22.0",
-    "@vitejs/plugin-react": "6.0.1",
+    "@vitejs/plugin-react": "6.0.2",
     "chromatic": "16.9.1",
-    "cssnano": "8.0.0",
+    "cssnano": "8.0.1",
     "cypress": "15.14.2",
     "cypress-real-events": "1.15.0",
     "dedent": "1.7.2",
@@ -97,7 +97,7 @@
     "globals": "17.6.0",
     "husky": "9.1.7",
     "lerna": "9.0.7",
-    "lint-staged": "17.0.2",
+    "lint-staged": "17.0.4",
     "monocart-reporter": "2.10.1",
     "npm-run-all2": "8.0.4",
     "pagefind": "1.5.2",
@@ -106,11 +106,11 @@
     "postcss-import": "16.1.1",
     "postcss-modules": "6.0.1",
     "prettier": "3.8.3",
-    "publint": "0.3.19",
+    "publint": "0.3.21",
     "rimraf": "6.1.3",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.59.2",
-    "vite": "8.0.11",
+    "typescript-eslint": "8.59.3",
+    "vite": "8.0.13",
     "vite-plugin-istanbul": "8.0.0",
     "vite-tsconfig-paths": "6.1.1"
   },
@@ -124,7 +124,7 @@
     ]
   },
   "resolutions": {
-    "tocbot": "4.36.6",
+    "tocbot": "4.36.8",
     "react-is": "19.2.6"
   },
   "type": "module",
