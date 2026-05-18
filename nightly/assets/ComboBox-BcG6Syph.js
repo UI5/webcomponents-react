@@ -1,0 +1,22 @@
+import{i as e}from"./preload-helper-DbRxMUml.js";import{Ao as t,Cl as n,Do as r,Fm as i,Oo as a,ko as o,n as s,r as c}from"./iframe-f5N-Mn2G.js";import{K as l,_ as u,d,o as f,r as p,u as m}from"./blocks-J8DEzHf5.js";import{_ as h,m as g,o as _,p as v,s as y,t as b}from"./components-DaF7kCmf.js";import{n as x,t as S}from"./SubcomponentsSection-B_Fcxgn5.js";import{Default as C,FilterTypes as w,WithGroups as T,n as E,t as D}from"./ComboBox.stories-W-YrenjN.js";function O(e){let t={code:`code`,h1:`h1`,h2:`h2`,p:`p`,...l(),...e.components};return(0,A.jsxs)(A.Fragment,{children:[(0,A.jsx)(d,{of:D}),`
+`,(0,A.jsx)(y,{of:D,since:`0.9.0`}),`
+`,(0,A.jsx)(`br`,{}),`
+`,(0,A.jsx)(t.h2,{id:`example`,children:`Example`}),`
+`,(0,A.jsx)(p,{of:C}),`
+`,(0,A.jsx)(t.h2,{id:`properties`,children:`Properties`}),`
+`,(0,A.jsx)(v,{of:C}),`
+`,(0,A.jsx)(t.h1,{id:`more-examples`,children:`More Examples`}),`
+`,(0,A.jsx)(`br`,{}),`
+`,(0,A.jsx)(t.h2,{id:`filter-types`,children:`Filter types`}),`
+`,(0,A.jsxs)(t.p,{children:[`All available filter types controlled by the `,(0,A.jsx)(t.code,{children:`filter`}),` prop.`]}),`
+`,(0,A.jsx)(p,{of:w}),`
+`,(0,A.jsx)(t.h2,{id:`combobox-with-comboboxitemgroups`,children:`ComboBox with ComboBoxItemGroups`}),`
+`,(0,A.jsx)(p,{of:T}),`
+`,(0,A.jsx)(m,{children:S}),`
+`,(0,A.jsx)(t.h2,{id:`comboboxitem`,children:`ComboBoxItem`}),`
+`,(0,A.jsx)(f,{of:o}),`
+`,(0,A.jsx)(g,{metaOf:D,hideHTMLPropsNote:!0,exclude:s,of:o}),`
+`,(0,A.jsx)(t.h2,{id:`comboboxitemgroup`,children:`ComboBoxItemGroup`}),`
+`,(0,A.jsx)(f,{of:r}),`
+`,(0,A.jsx)(g,{metaOf:D,hideHTMLPropsNote:!0,exclude:s,of:r}),`
+`,(0,A.jsx)(_,{})]})}function k(e={}){let{wrapper:t}={...l(),...e.components};return t?(0,A.jsx)(t,{...e,children:(0,A.jsx)(O,{...e})}):O(e)}var A;e((()=>{A=i(),h(),b(),x(),u(),n(),a(),t(),E(),c()}))();export{k as default};

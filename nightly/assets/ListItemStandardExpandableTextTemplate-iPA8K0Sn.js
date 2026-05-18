@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-DbRxMUml.js";import{$a as t,Rp as n,eo as r,zp as i}from"./iframe-f5N-Mn2G.js";function a(e){let{className:n,text:r,maxCharacters:a,part:o}=e;return i(t,{part:o,class:n,text:r,maxCharacters:a})}e((()=>{n(),r()}))();export{a as default};

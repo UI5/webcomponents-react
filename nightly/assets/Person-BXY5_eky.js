@@ -1,1 +1,0 @@
-import{n as e}from"./chunk-jRWAZmH_.js";var t,n=e((()=>{t=``+new URL(`Person-B7wHqdJw.png`,import.meta.url).href}));export{n,t};
