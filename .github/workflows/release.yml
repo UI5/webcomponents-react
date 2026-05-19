@@ -36,6 +36,8 @@ jobs:
     needs: ['build']
     permissions:
       contents: read
+      pull-requests: write
+      checks: write
     uses: './.github/workflows/test.yml'
     with:
       reportCoverage: false
