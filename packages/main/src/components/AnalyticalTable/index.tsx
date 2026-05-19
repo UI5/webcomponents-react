@@ -69,7 +69,6 @@ import { useRowSelectionColumn } from './hooks/useRowSelectionColumn.js';
 import { useScrollToRef } from './hooks/useScrollToRef.js';
 import { useSelectionChangeCallback } from './hooks/useSelectionChangeCallback.js';
 import { useSingleRowStateSelection } from './hooks/useSingleRowStateSelection.js';
-import { useStickyColumns } from './hooks/useStickyColumns.js';
 import { useStyling } from './hooks/useStyling.js';
 import { useSyncScroll } from './hooks/useSyncScroll.js';
 import { useToggleRowExpand } from './hooks/useToggleRowExpand.js';
@@ -328,7 +327,6 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     useToggleRowExpand,
     useA11y,
     usePopIn,
-    useStickyColumns,
     useVisibleColumnsWidth,
     useKeyboardNavigation,
     useColumnDragAndDrop,
@@ -393,7 +391,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     indexAttribute: 'data-column-index',
     // necessary as otherwise values are rounded which leads to wrong total width calculation leading to unnecessary scrollbar
     measureElement: !scaleXFactor || scaleXFactor === 1 ? (el) => el.getBoundingClientRect().width : undefined,
-    rangeExtractor: stickyRangeExtractor,
+    rangeExtractor: stickyStartIndices.length > 0 ? stickyRangeExtractor : undefined,
   });
   // force re-measure if `visibleColumns` change
   useEffect(() => {

@@ -36,6 +36,7 @@ import type { ToggleButtonPropTypes } from '../../../webComponents/ToggleButton/
 import { ToggleButton } from '../../../webComponents/ToggleButton/index.js';
 import { FlexBox } from '../../FlexBox/index.js';
 import { ObjectStatus } from '../../ObjectStatus/index.js';
+import { useStickyColumns } from '../hooks/useStickyColumns.js';
 import type { AnalyticalTableColumnDefinition, AnalyticalTablePropTypes } from '../index.js';
 import { AnalyticalTable } from '../index.js';
 
@@ -723,6 +724,8 @@ export const EllipsisExamples: Story = {
   },
 };
 
+const stickyColumnsHooks = [useStickyColumns];
+
 export const StickyColumns: Story = {
   args: {
     data: dataLarge,
@@ -741,19 +744,22 @@ export const StickyColumns: Story = {
       {
         Header: 'Friend Name',
         accessor: 'friend.name',
-        // width: 200,
+        width: 200,
       },
       {
         Header: 'Friend Age',
         accessor: 'friend.age',
-        width: 700,
+        width: 200,
       },
       {
         Header: 'Status',
         accessor: 'status',
-        // width: 200,
+        width: 200,
       },
     ],
-    // style: { width: '600px' },
+    style: { width: '600px' },
+  },
+  render(args) {
+    return <AnalyticalTable {...args} tableHooks={stickyColumnsHooks} />;
   },
 };

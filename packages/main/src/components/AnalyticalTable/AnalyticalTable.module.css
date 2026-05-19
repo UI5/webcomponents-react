@@ -667,7 +667,8 @@
 
 .stickyColumnsMode {
   overflow: auto;
-  overscroll-behavior: contain;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: contain;
 
   & > .tableHeaderBackgroundElement {
     display: none;

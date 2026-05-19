@@ -24,6 +24,11 @@ const visibleColumns = (currentVisibleColumns: ColumnType[], { instance: _instan
   return [...stickyStart, ...nonSticky];
 };
 
+// TODO: Drag-and-drop interaction with sticky columns is unconstrained. A user can drag a sticky
+// column out of the start region (snaps back on next render via re-sort) or drag a non-sticky
+// column into it (gets pushed back out). No UX feedback either way. Either disable drag for
+// sticky columns, or constrain drag boundaries at the sticky/non-sticky boundary.
+
 const computeStickyMetadata = (instance: TableInstance) => {
   const { visibleColumns: visCols } = instance;
 
@@ -49,6 +54,25 @@ const computeStickyMetadata = (instance: TableInstance) => {
   Object.assign(instance, { stickyStartIndices, totalStickyStartWidth });
 };
 
+/**
+ * Plugin hook that pins columns marked with `sticky: 'start'` to the inline-start of the table,
+ * keeping them visible while the user scrolls horizontally. Internal columns rendered before
+ * the sticky region (selection, highlight) are auto-pinned alongside.
+ *
+ * Pass via `tableHooks` to opt in:
+ *
+ * ```tsx
+ * import { AnalyticalTable, AnalyticalTableHooks } from '@ui5/webcomponents-react';
+ *
+ * const tableHooks = [AnalyticalTableHooks.useStickyColumns];
+ *
+ * <AnalyticalTable tableHooks={tableHooks} columns={columns} data={data} />
+ * ```
+ *
+ * Mark columns with `sticky: 'start'` in the column definition.
+ *
+ * @experimental The API and behavior may change without notice.
+ */
 export const useStickyColumns = (hooks: ReactTableHooks) => {
   hooks.visibleColumns.push(visibleColumns);
   hooks.useInstance.push(computeStickyMetadata);

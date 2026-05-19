@@ -264,6 +264,18 @@ export interface TableInstance {
     string,
     { width: number | undefined; minWidth: number | undefined; maxWidth: number | undefined }
   >;
+  /**
+   * Sorted indices of sticky-start columns within `visibleColumns`. Set by `useStickyColumns`.
+   *
+   * @experimental
+   */
+  stickyStartIndices?: number[];
+  /**
+   * Sum of `totalWidth` for all sticky-start columns. Set by `useStickyColumns`.
+   *
+   * @experimental
+   */
+  totalStickyStartWidth?: number;
   [key: string]: any;
 }
 
@@ -692,7 +704,9 @@ export interface AnalyticalTableColumnDefinition {
    *
    * - `'start'`: Column is pinned to the inline-start (left in LTR, right in RTL).
    *
-   * __Note:__ Internal columns (selection, highlight) are automatically pinned when adjacent user columns are pinned.
+   * __Note:__ Requires opting in via `tableHooks={[AnalyticalTableHooks.useStickyColumns]}`. Internal columns (selection, highlight) are automatically pinned when adjacent user columns are pinned.
+   *
+   * @experimental The API and behavior may change without notice.
    */
   sticky?: 'start';
 
