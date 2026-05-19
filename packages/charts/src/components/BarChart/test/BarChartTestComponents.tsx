@@ -5,8 +5,6 @@ import {
   createHighlightColorTestComponent,
   createLegendConfigTestComponent,
   createSecondYAxisTestComponent,
-  createStackTotalsTestComponents,
-  createZoomingTestComponents,
 } from '../../../test-utils/componentFactories.js';
 import { BarChart } from '../index.js';
 
@@ -34,20 +32,6 @@ export const BarChartClickTest = createClickTestComponent(BarChart, baseProps, {
 });
 
 export const BarChartLegendConfigTest = createLegendConfigTestComponent(BarChart, baseProps);
-
-export const {
-  ZoomingEnabled: BarChartZoomingEnabledTest,
-  ZoomingDisabled: BarChartZoomingDisabledTest,
-  ZoomingCustom: BarChartZoomingCustomTest,
-} = createZoomingTestComponents(BarChart, baseProps);
-
-export const {
-  StackTotalsEnabled: BarChartStackTotalsEnabledTest,
-  StackTotalsDisabled: BarChartStackTotalsDisabledTest,
-} = createStackTotalsTestComponents(BarChart, { dataset: complexDataSet.slice(0, 3), dimensions }, [
-  { accessor: 'users', stackId: 'A', label: 'Users' },
-  { accessor: 'sessions', stackId: 'A', label: 'Active Sessions' },
-]);
 
 export const BarChartDataPointClickTest = createDataPointClickTestComponent(BarChart, baseProps);
 

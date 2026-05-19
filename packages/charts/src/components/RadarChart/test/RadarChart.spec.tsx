@@ -1,7 +1,6 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
-import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
-import { testLoadingStates } from '../../../test-utils/sharedTests.js';
+import { testLoadingStates, testPassThroughProps } from '../../../test-utils/sharedTests.js';
 import { RadarChart } from '../index.js';
 import {
   RadarChartClickTest,
@@ -57,10 +56,7 @@ test.describe('RadarChart', () => {
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
-  test('Pass Through HTML Standard Props', async ({ mount, page }) => {
-    await mount(<RadarChart {...passThroughProps({ dimensions: [], measures: [] })} />);
-    await assertPassThroughProps(page);
-  });
+  testPassThroughProps(RadarChart, { dimensions: [], measures: [] });
 
   test('onDataPointClick', async ({ mount, page }) => {
     await mount(<RadarChartDataPointClickTest />);

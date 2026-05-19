@@ -1,8 +1,7 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import type { Page } from '@playwright/test';
 import { scatterComplexDataSet } from '../../../resources/DemoProps.js';
-import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
-import { testLoadingStates } from '../../../test-utils/sharedTests.js';
+import { testLoadingStates, testPassThroughProps } from '../../../test-utils/sharedTests.js';
 import { ScatterChart } from '../index.js';
 import {
   ScatterChartAccessibilityTest,
@@ -169,8 +168,5 @@ test.describe('ScatterChart', () => {
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
-  test('Pass Through HTML Standard Props', async ({ mount, page }) => {
-    await mount(<ScatterChart {...passThroughProps({ measures: [] })} />);
-    await assertPassThroughProps(page);
-  });
+  testPassThroughProps(ScatterChart, { measures: [] });
 });

@@ -1,7 +1,6 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { simpleDataSet } from '../../../resources/DemoProps.js';
-import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
-import { testLoadingStates } from '../../../test-utils/sharedTests.js';
+import { testLoadingStates, testPassThroughProps } from '../../../test-utils/sharedTests.js';
 import { DonutChart } from '../index.js';
 import {
   DonutChartClickTest,
@@ -44,10 +43,7 @@ test.describe('DonutChart', () => {
     '.recharts-pie',
   );
 
-  test('Pass Through HTML Standard Props', async ({ mount, page }) => {
-    await mount(<DonutChart {...passThroughProps({ dimension: {}, measure: {} })} />);
-    await assertPassThroughProps(page);
-  });
+  testPassThroughProps(DonutChart, { dimension: {}, measure: {} });
 
   test('legendConfig', async ({ mount, page }) => {
     await mount(<DonutChartLegendConfigTest />);

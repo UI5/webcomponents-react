@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { complexDataSet } from '../../../resources/DemoProps.js';
-import {
-  createLegendConfigTestComponent,
-  createZoomingTestComponents,
-} from '../../../test-utils/componentFactories.js';
+import { createLegendConfigTestComponent } from '../../../test-utils/componentFactories.js';
 import { ColumnChartWithTrend } from '../index.js';
 
 const dimensions = [{ accessor: 'name', interval: 0 }];
@@ -70,9 +67,3 @@ export function ColumnChartWithTrendGridTest() {
 }
 
 export const ColumnChartWithTrendLegendConfigTest = createLegendConfigTestComponent(ColumnChartWithTrend, baseProps);
-
-export const {
-  ZoomingEnabled: ColumnChartWithTrendZoomingEnabledTest,
-  ZoomingDisabled: ColumnChartWithTrendZoomingDisabledTest,
-  ZoomingCustom: ColumnChartWithTrendZoomingCustomTest,
-} = createZoomingTestComponents(ColumnChartWithTrend, baseProps);

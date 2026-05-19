@@ -1,17 +1,21 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
-import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
-import { testLoadingStates } from '../../../test-utils/sharedTests.js';
+import { testLoadingStates, testPassThroughProps, testZoomingTool } from '../../../test-utils/sharedTests.js';
 import { BulletChart } from '../index.js';
 import {
   BulletChartClickTest,
   BulletChartDataPointClickTest,
   BulletChartLegendConfigTest,
   BulletChartVerticalLayoutTest,
-  BulletChartZoomingCustomTest,
-  BulletChartZoomingDisabledTest,
-  BulletChartZoomingEnabledTest,
 } from './BulletChartTestComponents.js';
+
+const dimensions = [{ accessor: 'name', interval: 0 }];
+const measures = [
+  { accessor: 'users', label: 'Users', type: 'primary' as const },
+  { accessor: 'sessions', label: 'Active Sessions', type: 'comparison' as const },
+  { accessor: 'volume', label: 'Vol.', type: 'additional' as const },
+];
+const baseProps = { dataset: complexDataSet, dimensions, measures };
 
 test.describe('BulletChart', () => {
   test('Basic', async ({ mount, page }) => {
@@ -65,28 +69,9 @@ test.describe('BulletChart', () => {
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
-  test.describe('zoomingTool', () => {
-    test('enabled', async ({ mount, page }) => {
-      await mount(<BulletChartZoomingEnabledTest />);
-      await expect(page.locator('.recharts-brush')).toBeVisible();
-    });
+  testZoomingTool(BulletChart, baseProps);
 
-    test('disabled', async ({ mount, page }) => {
-      await mount(<BulletChartZoomingDisabledTest />);
-      await expect(page.locator('.recharts-brush')).not.toBeAttached();
-    });
-
-    test('custom config', async ({ mount, page }) => {
-      await mount(<BulletChartZoomingCustomTest />);
-      await expect(page.locator('.recharts-brush')).toBeVisible();
-      await expect(page.locator('.recharts-brush [stroke="red"]')).toBeVisible();
-    });
-  });
-
-  test('Pass Through HTML Standard Props', async ({ mount, page }) => {
-    await mount(<BulletChart {...passThroughProps({ dimensions: [], measures: [] })} />);
-    await assertPassThroughProps(page);
-  });
+  testPassThroughProps(BulletChart, { dimensions: [], measures: [] });
 
   test('onDataPointClick', async ({ mount, page }) => {
     await mount(<BulletChartDataPointClickTest />);

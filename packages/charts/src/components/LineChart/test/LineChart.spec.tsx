@@ -1,16 +1,20 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
-import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
-import { testLoadingStates } from '../../../test-utils/sharedTests.js';
+import { testLoadingStates, testPassThroughProps, testZoomingTool } from '../../../test-utils/sharedTests.js';
 import { LineChart } from '../index.js';
 import {
   LineChartClickTest,
   LineChartDataPointClickTest,
   LineChartLegendConfigTest,
-  LineChartZoomingCustomTest,
-  LineChartZoomingDisabledTest,
-  LineChartZoomingEnabledTest,
 } from './LineChartTestComponents.js';
+
+const dimensions = [{ accessor: 'name', interval: 0 }];
+const measures = [
+  { accessor: 'users', label: 'Users' },
+  { accessor: 'sessions', label: 'Active Sessions' },
+  { accessor: 'volume', label: 'Vol.' },
+];
+const baseProps = { dataset: complexDataSet, dimensions, measures };
 
 test.describe('LineChart', () => {
   test('Basic', async ({ mount, page }) => {
@@ -59,28 +63,9 @@ test.describe('LineChart', () => {
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
-  test.describe('zoomingTool', () => {
-    test('enabled', async ({ mount, page }) => {
-      await mount(<LineChartZoomingEnabledTest />);
-      await expect(page.locator('.recharts-brush')).toBeVisible();
-    });
+  testZoomingTool(LineChart, baseProps);
 
-    test('disabled', async ({ mount, page }) => {
-      await mount(<LineChartZoomingDisabledTest />);
-      await expect(page.locator('.recharts-brush')).not.toBeAttached();
-    });
-
-    test('custom config', async ({ mount, page }) => {
-      await mount(<LineChartZoomingCustomTest />);
-      await expect(page.locator('.recharts-brush')).toBeVisible();
-      await expect(page.locator('.recharts-brush [stroke="red"]')).toBeVisible();
-    });
-  });
-
-  test('Pass Through HTML Standard Props', async ({ mount, page }) => {
-    await mount(<LineChart {...passThroughProps({ dimensions: [], measures: [] })} />);
-    await assertPassThroughProps(page);
-  });
+  testPassThroughProps(LineChart, { dimensions: [], measures: [] });
 
   test('onDataPointClick', async ({ mount, page }) => {
     await mount(<LineChartDataPointClickTest />);

@@ -1,15 +1,11 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
-import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
-import { testLoadingStates } from '../../../test-utils/sharedTests.js';
+import { testLoadingStates, testPassThroughProps, testZoomingTool } from '../../../test-utils/sharedTests.js';
 import { ColumnChartWithTrend } from '../index.js';
 import {
   ColumnChartWithTrendClickTest,
   ColumnChartWithTrendGridTest,
   ColumnChartWithTrendLegendConfigTest,
-  ColumnChartWithTrendZoomingCustomTest,
-  ColumnChartWithTrendZoomingDisabledTest,
-  ColumnChartWithTrendZoomingEnabledTest,
 } from './ColumnChartWithTrendTestComponents.js';
 
 const dimensions = [{ accessor: 'name', interval: 0 }];
@@ -17,6 +13,7 @@ const measures = [
   { accessor: 'users', label: 'Users', type: 'line' as const },
   { accessor: 'sessions', label: 'Active Sessions', type: 'bar' as const },
 ];
+const baseProps = { dataset: complexDataSet, dimensions, measures };
 
 test.describe('ColumnChartWithTrend', () => {
   test('Basic', async ({ mount, page }) => {
@@ -73,26 +70,7 @@ test.describe('ColumnChartWithTrend', () => {
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
-  test.describe('zoomingTool', () => {
-    test('enabled', async ({ mount, page }) => {
-      await mount(<ColumnChartWithTrendZoomingEnabledTest />);
-      await expect(page.locator('.recharts-brush')).toBeVisible();
-    });
+  testZoomingTool(ColumnChartWithTrend, baseProps);
 
-    test('disabled', async ({ mount, page }) => {
-      await mount(<ColumnChartWithTrendZoomingDisabledTest />);
-      await expect(page.locator('.recharts-brush')).not.toBeAttached();
-    });
-
-    test('custom config', async ({ mount, page }) => {
-      await mount(<ColumnChartWithTrendZoomingCustomTest />);
-      await expect(page.locator('.recharts-brush')).toBeVisible();
-      await expect(page.locator('.recharts-brush [stroke="red"]')).toBeVisible();
-    });
-  });
-
-  test('Pass Through HTML Standard Props', async ({ mount, page }) => {
-    await mount(<ColumnChartWithTrend {...passThroughProps({ dimensions: [], measures: [] })} />);
-    await assertPassThroughProps(page);
-  });
+  testPassThroughProps(ColumnChartWithTrend, { dimensions: [], measures: [] });
 });

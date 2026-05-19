@@ -1,20 +1,27 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
-import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
-import { testLoadingStates } from '../../../test-utils/sharedTests.js';
+import {
+  testLoadingStates,
+  testPassThroughProps,
+  testStackAggregateTotals,
+  testZoomingTool,
+} from '../../../test-utils/sharedTests.js';
 import { ComposedChart } from '../index.js';
 import {
   ComposedChartClickTest,
   ComposedChartDataPointClickTest,
   ComposedChartLegendConfigTest,
   ComposedChartSecondYAxisTest,
-  ComposedChartStackTotalsDisabledTest,
-  ComposedChartStackTotalsEnabledTest,
   ComposedChartVerticalLayoutTest,
-  ComposedChartZoomingCustomTest,
-  ComposedChartZoomingDisabledTest,
-  ComposedChartZoomingEnabledTest,
 } from './ComposedChartTestComponents.js';
+
+const dimensions = [{ accessor: 'name', interval: 0 }];
+const measures = [
+  { accessor: 'users', label: 'Users', type: 'line' as const },
+  { accessor: 'sessions', label: 'Active Sessions', type: 'bar' as const },
+  { accessor: 'volume', label: 'Vol.', type: 'area' as const },
+];
+const baseProps = { dataset: complexDataSet, dimensions, measures };
 
 test.describe('ComposedChart', () => {
   test('Basic', async ({ mount, page }) => {
@@ -69,56 +76,14 @@ test.describe('ComposedChart', () => {
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
-  test.describe('zoomingTool', () => {
-    test('enabled', async ({ mount, page }) => {
-      await mount(<ComposedChartZoomingEnabledTest />);
-      await expect(page.locator('.recharts-brush')).toBeVisible();
-    });
+  testZoomingTool(ComposedChart, baseProps);
 
-    test('disabled', async ({ mount, page }) => {
-      await mount(<ComposedChartZoomingDisabledTest />);
-      await expect(page.locator('.recharts-brush')).not.toBeAttached();
-    });
+  testPassThroughProps(ComposedChart, { dimensions: [], measures: [] });
 
-    test('custom config', async ({ mount, page }) => {
-      await mount(<ComposedChartZoomingCustomTest />);
-      await expect(page.locator('.recharts-brush')).toBeVisible();
-      await expect(page.locator('.recharts-brush [stroke="red"]')).toBeVisible();
-    });
-  });
-
-  test('Pass Through HTML Standard Props', async ({ mount, page }) => {
-    await mount(<ComposedChart {...passThroughProps({ dimensions: [], measures: [] })} />);
-    await assertPassThroughProps(page);
-  });
-
-  test.describe('showStackAggregateTotals', () => {
-    test('enabled', async ({ mount, page }) => {
-      const expectedTotals = complexDataSet.slice(0, 3).map((entry) => entry.users + entry.sessions);
-
-      await mount(<ComposedChartStackTotalsEnabledTest />);
-
-      for (const total of expectedTotals) {
-        await expect(page.locator(`text[font-weight="bold"]`).filter({ hasText: String(total) })).toBeAttached();
-      }
-
-      // tooltip
-      const wrapper = page.locator('.recharts-wrapper');
-      await wrapper.hover({ position: { x: 200, y: 100 }, force: true });
-      const tooltipTotal = page.locator('.recharts-tooltip-item').last();
-      await expect(tooltipTotal).toContainText('Total');
-      await expect(tooltipTotal).toHaveCSS('font-weight', '700');
-      const tooltipText = await tooltipTotal.textContent();
-      const totalValue = Number(tooltipText.replace(/\D/g, ''));
-      expect(expectedTotals).toContain(totalValue);
-    });
-
-    test('disabled', async ({ mount, page }) => {
-      await mount(<ComposedChartStackTotalsDisabledTest />);
-      await expect(page.locator('.recharts-bar-rectangles').first()).toBeAttached();
-      await expect(page.locator('text[font-weight="bold"]')).not.toBeAttached();
-    });
-  });
+  testStackAggregateTotals(ComposedChart, { dataset: complexDataSet.slice(0, 3), dimensions }, [
+    { accessor: 'users', stackId: 'A', label: 'Users', type: 'bar' as const },
+    { accessor: 'sessions', stackId: 'A', label: 'Active Sessions', type: 'bar' as const },
+  ]);
 
   test('layout="vertical"', async ({ mount, page }) => {
     await mount(<ComposedChartVerticalLayoutTest />);

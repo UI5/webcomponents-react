@@ -4,9 +4,7 @@ import {
   createDataPointClickTestComponent,
   createLegendConfigTestComponent,
   createSecondYAxisTestComponent,
-  createStackTotalsTestComponents,
   createVerticalLayoutTestComponent,
-  createZoomingTestComponents,
 } from '../../../test-utils/componentFactories.js';
 import { ComposedChart } from '../index.js';
 
@@ -23,20 +21,6 @@ const baseProps = { dataset: complexDataSet, dimensions, measures };
 export const ComposedChartClickTest = createClickTestComponent(ComposedChart, baseProps);
 
 export const ComposedChartLegendConfigTest = createLegendConfigTestComponent(ComposedChart, baseProps);
-
-export const {
-  ZoomingEnabled: ComposedChartZoomingEnabledTest,
-  ZoomingDisabled: ComposedChartZoomingDisabledTest,
-  ZoomingCustom: ComposedChartZoomingCustomTest,
-} = createZoomingTestComponents(ComposedChart, baseProps);
-
-export const {
-  StackTotalsEnabled: ComposedChartStackTotalsEnabledTest,
-  StackTotalsDisabled: ComposedChartStackTotalsDisabledTest,
-} = createStackTotalsTestComponents(ComposedChart, { dataset: complexDataSet.slice(0, 3), dimensions }, [
-  { accessor: 'users', stackId: 'A', label: 'Users', type: 'bar' as const },
-  { accessor: 'sessions', stackId: 'A', label: 'Active Sessions', type: 'bar' as const },
-]);
 
 export const ComposedChartVerticalLayoutTest = createVerticalLayoutTestComponent(ComposedChart, baseProps);
 

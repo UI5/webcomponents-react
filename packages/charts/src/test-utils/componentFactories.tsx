@@ -71,33 +71,6 @@ export function createLegendConfigTestComponent(Chart: ComponentType<any>, baseP
 }
 
 /**
- * Factory for zooming tool test components. Returns { ZoomingEnabled, ZoomingDisabled, ZoomingCustom }.
- */
-export function createZoomingTestComponents(Chart: ComponentType<any>, baseProps: Record<string, any>) {
-  const ZoomingEnabled = () => <Chart {...baseProps} chartConfig={{ zoomingTool: true }} />;
-  const ZoomingDisabled = () => <Chart {...baseProps} chartConfig={{ zoomingTool: false }} />;
-  const ZoomingCustom = () => <Chart {...baseProps} chartConfig={{ zoomingTool: { stroke: 'red' } }} />;
-  return { ZoomingEnabled, ZoomingDisabled, ZoomingCustom };
-}
-
-/**
- * Factory for stack aggregate totals test components. Returns { StackTotalsEnabled, StackTotalsDisabled }.
- */
-export function createStackTotalsTestComponents(
-  Chart: ComponentType<any>,
-  baseProps: Record<string, any>,
-  stackMeasures: any[],
-) {
-  const StackTotalsEnabled = () => (
-    <Chart {...baseProps} measures={stackMeasures} chartConfig={{ showStackAggregateTotals: true }} />
-  );
-  const StackTotalsDisabled = () => (
-    <Chart {...baseProps} measures={stackMeasures} chartConfig={{ showStackAggregateTotals: false }} />
-  );
-  return { StackTotalsEnabled, StackTotalsDisabled };
-}
-
-/**
  * Factory for onDataPointClick test component.
  * Tracks: click count, dataKey, value, dataIndex, payload.
  */

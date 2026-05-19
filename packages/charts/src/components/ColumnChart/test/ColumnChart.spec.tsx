@@ -1,7 +1,11 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
-import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
-import { testLoadingStates } from '../../../test-utils/sharedTests.js';
+import {
+  testLoadingStates,
+  testPassThroughProps,
+  testStackAggregateTotals,
+  testZoomingTool,
+} from '../../../test-utils/sharedTests.js';
 import { ColumnChart } from '../index.js';
 import {
   ColumnChartClickTest,
@@ -9,12 +13,15 @@ import {
   ColumnChartHighlightColorTest,
   ColumnChartLegendConfigTest,
   ColumnChartSecondYAxisTest,
-  ColumnChartStackTotalsDisabledTest,
-  ColumnChartStackTotalsEnabledTest,
-  ColumnChartZoomingCustomTest,
-  ColumnChartZoomingDisabledTest,
-  ColumnChartZoomingEnabledTest,
 } from './ColumnChartTestComponents.js';
+
+const dimensions = [{ accessor: 'name', interval: 0 }];
+const measures = [
+  { accessor: 'users', label: 'Users' },
+  { accessor: 'sessions', label: 'Active Sessions' },
+  { accessor: 'volume', label: 'Vol.' },
+];
+const baseProps = { dataset: complexDataSet, dimensions, measures };
 
 test.describe('ColumnChart', () => {
   test('Basic', async ({ mount, page }) => {
@@ -68,56 +75,14 @@ test.describe('ColumnChart', () => {
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
-  test.describe('zoomingTool', () => {
-    test('enabled', async ({ mount, page }) => {
-      await mount(<ColumnChartZoomingEnabledTest />);
-      await expect(page.locator('.recharts-brush')).toBeVisible();
-    });
+  testZoomingTool(ColumnChart, baseProps);
 
-    test('disabled', async ({ mount, page }) => {
-      await mount(<ColumnChartZoomingDisabledTest />);
-      await expect(page.locator('.recharts-brush')).not.toBeAttached();
-    });
+  testPassThroughProps(ColumnChart, { dimensions: [], measures: [] });
 
-    test('custom config', async ({ mount, page }) => {
-      await mount(<ColumnChartZoomingCustomTest />);
-      await expect(page.locator('.recharts-brush')).toBeVisible();
-      await expect(page.locator('.recharts-brush [stroke="red"]')).toBeVisible();
-    });
-  });
-
-  test('Pass Through HTML Standard Props', async ({ mount, page }) => {
-    await mount(<ColumnChart {...passThroughProps({ dimensions: [], measures: [] })} />);
-    await assertPassThroughProps(page);
-  });
-
-  test.describe('showStackAggregateTotals', () => {
-    test('enabled', async ({ mount, page }) => {
-      const expectedTotals = complexDataSet.slice(0, 3).map((entry) => entry.users + entry.sessions);
-
-      await mount(<ColumnChartStackTotalsEnabledTest />);
-
-      for (const total of expectedTotals) {
-        await expect(page.locator(`text[font-weight="bold"]`).filter({ hasText: String(total) })).toBeAttached();
-      }
-
-      // tooltip
-      const wrapper = page.locator('.recharts-wrapper');
-      await wrapper.hover({ position: { x: 200, y: 100 }, force: true });
-      const tooltipTotal = page.locator('.recharts-tooltip-item').last();
-      await expect(tooltipTotal).toContainText('Total');
-      await expect(tooltipTotal).toHaveCSS('font-weight', '700');
-      const tooltipText = await tooltipTotal.textContent();
-      const totalValue = Number(tooltipText.replace(/\D/g, ''));
-      expect(expectedTotals).toContain(totalValue);
-    });
-
-    test('disabled', async ({ mount, page }) => {
-      await mount(<ColumnChartStackTotalsDisabledTest />);
-      await expect(page.locator('.recharts-bar-rectangles').first()).toBeAttached();
-      await expect(page.locator('text[font-weight="bold"]')).not.toBeAttached();
-    });
-  });
+  testStackAggregateTotals(ColumnChart, { dataset: complexDataSet.slice(0, 3), dimensions }, [
+    { accessor: 'users', stackId: 'A', label: 'Users' },
+    { accessor: 'sessions', stackId: 'A', label: 'Active Sessions' },
+  ]);
 
   test('onDataPointClick', async ({ mount, page }) => {
     await mount(<ColumnChartDataPointClickTest />);

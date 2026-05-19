@@ -5,8 +5,6 @@ import {
   createHighlightColorTestComponent,
   createLegendConfigTestComponent,
   createSecondYAxisTestComponent,
-  createStackTotalsTestComponents,
-  createZoomingTestComponents,
 } from '../../../test-utils/componentFactories.js';
 import { ColumnChart } from '../index.js';
 
@@ -30,20 +28,6 @@ export const ColumnChartClickTest = createClickTestComponent(ColumnChart, basePr
 });
 
 export const ColumnChartLegendConfigTest = createLegendConfigTestComponent(ColumnChart, baseProps);
-
-export const {
-  ZoomingEnabled: ColumnChartZoomingEnabledTest,
-  ZoomingDisabled: ColumnChartZoomingDisabledTest,
-  ZoomingCustom: ColumnChartZoomingCustomTest,
-} = createZoomingTestComponents(ColumnChart, baseProps);
-
-export const {
-  StackTotalsEnabled: ColumnChartStackTotalsEnabledTest,
-  StackTotalsDisabled: ColumnChartStackTotalsDisabledTest,
-} = createStackTotalsTestComponents(ColumnChart, { dataset: complexDataSet.slice(0, 3), dimensions }, [
-  { accessor: 'users', stackId: 'A', label: 'Users' },
-  { accessor: 'sessions', stackId: 'A', label: 'Active Sessions' },
-]);
 
 export const ColumnChartDataPointClickTest = createDataPointClickTestComponent(ColumnChart, baseProps);
 

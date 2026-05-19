@@ -4,7 +4,6 @@ import {
   createDataPointClickTestComponent,
   createLegendConfigTestComponent,
   createVerticalLayoutTestComponent,
-  createZoomingTestComponents,
 } from '../../../test-utils/componentFactories.js';
 import { BulletChart } from '../index.js';
 
@@ -30,12 +29,6 @@ export const BulletChartClickTest = createClickTestComponent(BulletChart, basePr
 });
 
 export const BulletChartLegendConfigTest = createLegendConfigTestComponent(BulletChart, baseProps);
-
-export const {
-  ZoomingEnabled: BulletChartZoomingEnabledTest,
-  ZoomingDisabled: BulletChartZoomingDisabledTest,
-  ZoomingCustom: BulletChartZoomingCustomTest,
-} = createZoomingTestComponents(BulletChart, baseProps);
 
 export const BulletChartDataPointClickTest = createDataPointClickTestComponent(BulletChart, baseProps);
 

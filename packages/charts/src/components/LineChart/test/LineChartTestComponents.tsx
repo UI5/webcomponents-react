@@ -3,7 +3,6 @@ import {
   createClickTestComponent,
   createDataPointClickTestComponent,
   createLegendConfigTestComponent,
-  createZoomingTestComponents,
 } from '../../../test-utils/componentFactories.js';
 import { LineChart } from '../index.js';
 
@@ -27,11 +26,5 @@ export const LineChartClickTest = createClickTestComponent(LineChart, baseProps,
 });
 
 export const LineChartLegendConfigTest = createLegendConfigTestComponent(LineChart, baseProps);
-
-export const {
-  ZoomingEnabled: LineChartZoomingEnabledTest,
-  ZoomingDisabled: LineChartZoomingDisabledTest,
-  ZoomingCustom: LineChartZoomingCustomTest,
-} = createZoomingTestComponents(LineChart, baseProps);
 
 export const LineChartDataPointClickTest = createDataPointClickTestComponent(LineChart, baseProps);
