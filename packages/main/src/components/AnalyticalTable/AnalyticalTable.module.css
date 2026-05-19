@@ -464,15 +464,29 @@
    Resizer styles
    ========================================================================== */
 
+/* Absolute layer for resizers, escaping the header row's flex flow so resizers don't
+   take up flex space that would shift column headers. The layer is sized to the full
+   content width, allowing per-resizer absolute (non-sticky cols) or sticky (sticky cols)
+   positioning to work uniformly inside it. */
+.resizerLayer {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  height: 100%;
+  pointer-events: none;
+}
+
 .resizer {
   display: inline-block;
   width: 5px;
-  height: 100%;
+  height: var(--_ui5wcr_AnalyticalTable_ContentHeight, 100%);
   position: absolute;
-  inset-block-end: 0;
   inset-block-start: 0;
-  z-index: 1;
+  /* Must paint above .thContainer[data-sticky-start] (z-index 5), so the resizer's overhang
+     into the next column is not covered by adjacent sticky/non-sticky column headers. */
+  z-index: 6;
   cursor: col-resize;
+  pointer-events: auto;
 
   &:hover {
     background-color: var(--sapContent_DragAndDropActiveColor);

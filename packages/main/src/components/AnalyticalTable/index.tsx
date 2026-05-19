@@ -816,7 +816,12 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
             data-component-name="AnalyticalTableContainer"
             ref={tableRef}
             className={tableClasses}
-            style={hasStickyColumns ? { height: `${internalHeaderRowHeight + tableBodyHeight}px` } : undefined}
+            style={
+              {
+                '--_ui5wcr_AnalyticalTable_ContentHeight': `${internalHeaderRowHeight + tableBodyHeight}px`,
+                ...(hasStickyColumns ? { height: `${internalHeaderRowHeight + tableBodyHeight}px` } : {}),
+              } as CSSProperties
+            }
           >
             <div className={classNames.tableHeaderBackgroundElement} aria-hidden="true" />
             <div className={classNames.tableBodyBackgroundElement} aria-hidden="true" />
