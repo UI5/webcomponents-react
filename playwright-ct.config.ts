@@ -26,11 +26,24 @@ export default defineConfig({
             name: 'Playwright Coverage Report',
             outputFile: 'temp/playwright-coverage/report.html',
             coverage: {
-              sourceFilter: (sourcePath: string) =>
-                (sourcePath.includes('packages/main/src/components/SelectDialog') ||
-                  sourcePath.includes('packages/main/src/components/Splitter')) &&
-                !sourcePath.includes('node_modules') &&
-                !sourcePath.includes('/test/'),
+              sourceFilter: (sourcePath: string) => {
+                const included =
+                  sourcePath.includes('packages/main/src/components/SelectDialog') ||
+                  sourcePath.includes('packages/main/src/components/Splitter') ||
+                  (sourcePath.includes('packages/charts/src/') &&
+                    !sourcePath.includes('packages/charts/src/resources/') &&
+                    !sourcePath.includes('packages/charts/src/test-utils/') &&
+                    !sourcePath.includes('packages/charts/src/interfaces/') &&
+                    !sourcePath.includes('packages/charts/src/enums/'));
+                return (
+                  included &&
+                  !sourcePath.includes('node_modules') &&
+                  !sourcePath.includes('/dist/') &&
+                  !sourcePath.includes('/test/') &&
+                  !sourcePath.endsWith('.stories.tsx') &&
+                  !sourcePath.endsWith('/index.ts')
+                );
+              },
               reports: ['lcovonly'],
               outputDir: 'temp/playwright-coverage',
             },
