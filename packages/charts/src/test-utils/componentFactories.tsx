@@ -32,7 +32,7 @@ export function createClickTestComponent(
         <span data-testid="last-legend-datakey">{lastLegendDataKey}</span>
         <Chart
           {...baseProps}
-          {...(noAnimation ? { noAnimation: true } : {})}
+          noAnimation={noAnimation || undefined}
           onClick={(e: any) => {
             setClickCount((c) => c + 1);
             if (trackPayload) {
@@ -124,7 +124,7 @@ export function createDataPointClickTestComponent(
         <span data-testid="dp-last-payload">{lastPayload}</span>
         <Chart
           {...baseProps}
-          {...(noAnimation ? { noAnimation: true } : {})}
+          noAnimation={noAnimation || undefined}
           onDataPointClick={(e: any) => {
             setClickCount((c) => c + 1);
             setLastDataKey(e.detail?.dataKey || '');
