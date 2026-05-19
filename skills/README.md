@@ -6,9 +6,10 @@ This directory contains agent skills for working with this repository.
 
 Currently, only **internal skills** for maintainers of this repository are offered.
 
-| Skill           | Description                                                                                                                                                                                         | Invocation              |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| `ui5wc-upgrade` | Guides a complete `@ui5/webcomponents` version upgrade — updates dependencies, regenerates wrappers, syncs theming parameters, detects new components and breaking changes, and verifies the build. | `/ui5wc-upgrade 2.25.0` |
+| Skill              | Description                                                                                                                                                                                                                                          | Invocation                                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `ui5wc-upgrade`    | Guides a complete `@ui5/webcomponents` version upgrade — updates dependencies, regenerates wrappers, syncs theming parameters, detects new components and breaking changes, and verifies the build.                                                  | `/ui5wc-upgrade 2.25.0`                                                                           |
+| `analytical-table` | Deep expertise on AnalyticalTable internals: vendored react-table v7 plugin pipeline, hook architecture, performance traps, state machine, and accessibility wiring. Closes the gap that the public ui5wc MCP `get_component_api` tool cannot cover. | Auto-triggers when reading or editing files under `packages/main/src/components/AnalyticalTable/` |
 
 ### Installing Internal Skills
 
@@ -23,6 +24,10 @@ Alternatively, install from a local checkout:
 ```bash
 INSTALL_INTERNAL_SKILLS=1 npx skills add ./skills --skill ui5wc-upgrade
 ```
+
+### Evaluating Skills
+
+The `analytical-table` skill ships an `evals/evals.json` file with behavioral test prompts. To run those evaluations against the skill, use the [`skill-creator` skill from Anthropic](https://www.skills.sh/anthropics/skills/skill-creator) (referred to internally as `skill-validator` after a local rename).
 
 ## Requesting New Skills
 
