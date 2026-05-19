@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/experimental-ct-react';
+import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { simpleDataSet } from '../../../resources/DemoProps.js';
 import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
 import { DonutChart } from '../index.js';

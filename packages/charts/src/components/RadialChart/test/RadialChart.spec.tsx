@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/experimental-ct-react';
+import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
 import { RadialChart } from '../index.js';
 import { RadialChartClickTest } from './RadialChartTestComponents.js';

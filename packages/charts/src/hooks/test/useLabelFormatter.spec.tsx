@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/experimental-ct-react';
+import { expect, test } from '../../../../../playwright/fixtures/main-fixtures.js';
 import { LabelFormatterInvalid, LabelFormatterNull, LabelFormatterValid } from './HookTestComponents.js';
 
 test.describe('useLabelFormatter', () => {

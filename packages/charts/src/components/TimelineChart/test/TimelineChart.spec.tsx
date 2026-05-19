@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/experimental-ct-react';
+import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { TimelineChart } from '../index.js';
 import {
   HOVER_OPACITY,
