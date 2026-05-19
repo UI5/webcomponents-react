@@ -1,5 +1,6 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
+import { testLoadingStates } from '../../../test-utils/sharedTests.js';
 import { RadialChart } from '../index.js';
 import { RadialChartClickTest } from './RadialChartTestComponents.js';
 
@@ -25,4 +26,6 @@ test.describe('RadialChart', () => {
     await mount(<RadialChart {...passThroughProps({ value: 67, displayValue: '67%' })} />);
     await assertPassThroughProps(page);
   });
+
+  testLoadingStates(RadialChart, { value: 67, displayValue: '67%' }, {}, '.recharts-radial-bar-sectors');
 });

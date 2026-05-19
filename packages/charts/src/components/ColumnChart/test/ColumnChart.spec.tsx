@@ -1,6 +1,7 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
 import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
+import { testLoadingStates } from '../../../test-utils/sharedTests.js';
 import { ColumnChart } from '../index.js';
 import {
   ColumnChartClickTest,
@@ -51,11 +52,16 @@ test.describe('ColumnChart', () => {
     await expect(page.getByTestId('last-legend-datakey')).toHaveText('volume');
   });
 
-  test('Loading Placeholder', async ({ mount, page }) => {
-    await mount(<ColumnChart dataset={[]} dimensions={[]} measures={[]} />);
-    await expect(page.locator('.recharts-bar')).not.toBeAttached();
-    await expect(page.getByText('Loading...')).toBeAttached();
-  });
+  testLoadingStates(
+    ColumnChart,
+    {
+      dataset: complexDataSet,
+      dimensions: [{ accessor: 'name', interval: 0 }],
+      measures: [{ accessor: 'users', label: 'Users' }],
+    },
+    { dimensions: [], measures: [] },
+    '.recharts-bar',
+  );
 
   test('legendConfig', async ({ mount, page }) => {
     await mount(<ColumnChartLegendConfigTest />);

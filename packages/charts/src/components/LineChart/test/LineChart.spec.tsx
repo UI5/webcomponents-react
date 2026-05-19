@@ -1,6 +1,7 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
 import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
+import { testLoadingStates } from '../../../test-utils/sharedTests.js';
 import { LineChart } from '../index.js';
 import {
   LineChartClickTest,
@@ -42,11 +43,16 @@ test.describe('LineChart', () => {
     await expect(page.getByTestId('last-legend-datakey')).toHaveText('users');
   });
 
-  test('Loading Placeholder', async ({ mount, page }) => {
-    await mount(<LineChart dataset={[]} dimensions={[]} measures={[]} />);
-    await expect(page.locator('.recharts-line')).not.toBeAttached();
-    await expect(page.getByText('Loading...')).toBeAttached();
-  });
+  testLoadingStates(
+    LineChart,
+    {
+      dataset: complexDataSet,
+      dimensions: [{ accessor: 'name', interval: 0 }],
+      measures: [{ accessor: 'users', label: 'Users' }],
+    },
+    { dimensions: [], measures: [] },
+    '.recharts-line',
+  );
 
   test('legendConfig', async ({ mount, page }) => {
     await mount(<LineChartLegendConfigTest />);

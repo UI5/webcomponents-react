@@ -2,6 +2,7 @@ import { expect, test } from '../../../../../../playwright/fixtures/main-fixture
 import type { Page } from '@playwright/test';
 import { scatterComplexDataSet } from '../../../resources/DemoProps.js';
 import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
+import { testLoadingStates } from '../../../test-utils/sharedTests.js';
 import { ScatterChart } from '../index.js';
 import {
   ScatterChartAccessibilityTest,
@@ -50,11 +51,7 @@ test.describe('ScatterChart', () => {
     await expect(page.getByTestId('last-legend-value')).toHaveText('Users');
   });
 
-  test('Loading Placeholder', async ({ mount, page }) => {
-    await mount(<ScatterChartEmptyTest />);
-    await expect(page.locator('.recharts-scatter')).not.toBeAttached();
-    await expect(page.getByText('Loading...')).toBeAttached();
-  });
+  testLoadingStates(ScatterChart, { dataset: scatterComplexDataSet, measures }, { measures: [] }, '.recharts-scatter');
 
   test('accessibilityLayer: keyboard navigation, Enter, blur/re-focus, consumer handlers', async ({ mount, page }) => {
     await mount(<ScatterChartAccessibilityTest />);

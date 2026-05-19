@@ -4,7 +4,6 @@ import {
   createDataPointClickTestComponent,
   createHighlightColorTestComponent,
   createLegendConfigTestComponent,
-  createLoadingOverlayTestComponent,
   createSecondYAxisTestComponent,
   createStackTotalsTestComponents,
   createZoomingTestComponents,
@@ -61,7 +60,5 @@ export const BarChartHighlightColorTest = createHighlightColorTestComponent(BarC
   { accessor: 'sessions', label: 'Active Sessions' },
   { accessor: 'volume', label: 'Vol.' },
 ]);
-
-export const BarChartLoadingOverlayTest = createLoadingOverlayTestComponent(BarChart, baseProps);
 
 export const BarChartSecondYAxisTest = createSecondYAxisTestComponent(BarChart, baseProps, 'volume');

@@ -1,6 +1,7 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { simpleDataSet } from '../../../resources/DemoProps.js';
 import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
+import { testLoadingStates } from '../../../test-utils/sharedTests.js';
 import { DonutChart } from '../index.js';
 import {
   DonutChartClickTest,
@@ -36,11 +37,12 @@ test.describe('DonutChart', () => {
     await expect(page.getByTestId('last-legend-datakey')).toHaveText('users');
   });
 
-  test('Loading Placeholder', async ({ mount, page }) => {
-    await mount(<DonutChart dataset={[]} dimension={dimension} measure={measure} />);
-    await expect(page.locator('.recharts-pie')).not.toBeAttached();
-    await expect(page.getByText('Loading...')).toBeAttached();
-  });
+  testLoadingStates(
+    DonutChart,
+    { dataset: simpleDataSet, dimension, measure },
+    { dimension: {}, measure: {} },
+    '.recharts-pie',
+  );
 
   test('Pass Through HTML Standard Props', async ({ mount, page }) => {
     await mount(<DonutChart {...passThroughProps({ dimension: {}, measure: {} })} />);

@@ -1,17 +1,10 @@
 import { useState } from 'react';
 import { Text as RechartsText } from 'recharts';
 import { complexDataSet, simpleDataSet } from '../../../resources/DemoProps.js';
-import { createLoadingOverlayTestComponent } from '../../../test-utils/componentFactories.js';
 import { PieChart } from '../index.js';
 
 const dimension = { accessor: 'name' };
 const measure = { accessor: 'users' };
-
-export const PieChartLoadingOverlayTest = createLoadingOverlayTestComponent(PieChart, {
-  dataset: simpleDataSet,
-  dimension,
-  measure,
-});
 
 export function PieChartClickTest() {
   const [clickCount, setClickCount] = useState(0);

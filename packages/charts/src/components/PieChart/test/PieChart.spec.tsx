@@ -1,12 +1,12 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { simpleDataSet } from '../../../resources/DemoProps.js';
 import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
+import { testLoadingStates } from '../../../test-utils/sharedTests.js';
 import { PieChart } from '../index.js';
 import {
   PieChartClickTest,
   PieChartCustomLabelTest,
   PieChartLegendConfigTest,
-  PieChartLoadingOverlayTest,
   PieChartSectorFocusActiveTest,
   PieChartSectorFocusDatasetShrinkTest,
   PieChartSectorFocusEmptyTest,
@@ -38,20 +38,12 @@ test.describe('PieChart', () => {
     await expect(page.getByTestId('last-legend-datakey')).toHaveText('users');
   });
 
-  test('Loading Placeholder', async ({ mount, page }) => {
-    await mount(<PieChart dataset={[]} dimension={dimension} measure={measure} />);
-    await expect(page.locator('.recharts-pie')).not.toBeAttached();
-    await expect(page.getByText('Loading...')).toBeAttached();
-  });
-
-  test('loading overlay with data', async ({ mount, page }) => {
-    await mount(<PieChartLoadingOverlayTest />);
-
-    // Chart should still render
-    await expect(page.locator('.recharts-pie')).toBeAttached();
-    // BusyIndicator overlay should be present
-    await expect(page.locator('[data-component-name="ChartContainerBusyIndicator"]')).toBeAttached();
-  });
+  testLoadingStates(
+    PieChart,
+    { dataset: simpleDataSet, dimension, measure },
+    { dimension: {}, measure: {} },
+    '.recharts-pie',
+  );
 
   test('Pass Through HTML Standard Props', async ({ mount, page }) => {
     await mount(<PieChart {...passThroughProps({ dimension: {}, measure: {} })} />);

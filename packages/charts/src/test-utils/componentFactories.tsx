@@ -152,15 +152,6 @@ export function createHighlightColorTestComponent(
 }
 
 /**
- * Factory for loading overlay test component (loading=true with data present).
- */
-export function createLoadingOverlayTestComponent(Chart: ComponentType<any>, baseProps: Record<string, any>) {
-  return function LoadingOverlayTestComponent() {
-    return <Chart {...baseProps} loading />;
-  };
-}
-
-/**
  * Factory for secondYAxis test component.
  */
 export function createSecondYAxisTestComponent(

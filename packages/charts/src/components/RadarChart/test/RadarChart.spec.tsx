@@ -1,6 +1,7 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
 import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
+import { testLoadingStates } from '../../../test-utils/sharedTests.js';
 import { RadarChart } from '../index.js';
 import {
   RadarChartClickTest,
@@ -40,11 +41,16 @@ test.describe('RadarChart', () => {
     await expect(page.getByTestId('last-legend-datakey')).toHaveText('users');
   });
 
-  test('Loading Placeholder', async ({ mount, page }) => {
-    await mount(<RadarChart dataset={[]} dimensions={[]} measures={[]} />);
-    await expect(page.locator('.recharts-radar')).not.toBeAttached();
-    await expect(page.getByText('Loading...')).toBeAttached();
-  });
+  testLoadingStates(
+    RadarChart,
+    {
+      dataset: complexDataSet,
+      dimensions: [{ accessor: 'name', interval: 0 }],
+      measures: [{ accessor: 'users', label: 'Users' }],
+    },
+    { dimensions: [], measures: [] },
+    '.recharts-radar',
+  );
 
   test('legendConfig', async ({ mount, page }) => {
     await mount(<RadarChartLegendConfigTest />);

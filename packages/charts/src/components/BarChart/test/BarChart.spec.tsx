@@ -1,13 +1,13 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
 import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
+import { testLoadingStates } from '../../../test-utils/sharedTests.js';
 import { BarChart } from '../index.js';
 import {
   BarChartClickTest,
   BarChartDataPointClickTest,
   BarChartHighlightColorTest,
   BarChartLegendConfigTest,
-  BarChartLoadingOverlayTest,
   BarChartSecondYAxisTest,
   BarChartStackTotalsDisabledTest,
   BarChartStackTotalsEnabledTest,
@@ -55,8 +55,18 @@ test.describe('BarChart', () => {
   test('Loading Placeholder', async ({ mount, page }) => {
     await mount(<BarChart dataset={[]} dimensions={[]} measures={[]} />);
     await expect(page.locator('.recharts-bar')).not.toBeAttached();
-    await expect(page.getByText('Loading...')).toBeAttached();
   });
+
+  testLoadingStates(
+    BarChart,
+    {
+      dataset: complexDataSet,
+      dimensions: [{ accessor: 'name', interval: 0 }],
+      measures: [{ accessor: 'users', label: 'Users' }],
+    },
+    { dimensions: [], measures: [] },
+    '.recharts-bar',
+  );
 
   test('legendConfig', async ({ mount, page }) => {
     await mount(<BarChartLegendConfigTest />);
@@ -133,15 +143,6 @@ test.describe('BarChart', () => {
     const redCells = page.locator('.recharts-bar-rectangle [fill="red"]');
     await expect(greenCells.first()).toBeAttached();
     await expect(redCells.first()).toBeAttached();
-  });
-
-  test('loading overlay with data', async ({ mount, page }) => {
-    await mount(<BarChartLoadingOverlayTest />);
-
-    // Chart should still render
-    await expect(page.locator('.recharts-bar')).toHaveCount(3);
-    // BusyIndicator overlay should be present
-    await expect(page.locator('[data-component-name="ChartContainerBusyIndicator"]')).toBeAttached();
   });
 
   test('secondYAxis', async ({ mount, page }) => {

@@ -1,6 +1,7 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
 import { assertPassThroughProps, passThroughProps } from '../../../test-utils/shared.js';
+import { testLoadingStates } from '../../../test-utils/sharedTests.js';
 import { ColumnChartWithTrend } from '../index.js';
 import {
   ColumnChartWithTrendClickTest,
@@ -44,12 +45,19 @@ test.describe('ColumnChartWithTrend', () => {
     await expect(page.getByTestId('last-legend-datakey')).toHaveText('users');
   });
 
-  test('Loading Placeholder', async ({ mount, page }) => {
-    await mount(<ColumnChartWithTrend dataset={[]} dimensions={[]} measures={[]} />);
-    await expect(page.locator('.recharts-bar')).not.toBeAttached();
-    await expect(page.locator('.recharts-line')).not.toBeAttached();
-    await expect(page.getByText('Loading...')).toBeAttached();
-  });
+  testLoadingStates(
+    ColumnChartWithTrend,
+    {
+      dataset: complexDataSet,
+      dimensions: [{ accessor: 'name', interval: 0 }],
+      measures: [
+        { accessor: 'users', label: 'Users', type: 'line' as const },
+        { accessor: 'sessions', label: 'Active Sessions', type: 'bar' as const },
+      ],
+    },
+    { dimensions: [], measures: [] },
+    '.recharts-bar',
+  );
 
   test('in Grid', async ({ mount, page }) => {
     await mount(<ColumnChartWithTrendGridTest />);
