@@ -85,13 +85,12 @@ test.describe('BulletChart', () => {
   test('onDataPointClick', async ({ mount, page }) => {
     await mount(<BulletChartDataPointClickTest />);
 
-    // Wait for chart to render
-    await expect(page.locator('.recharts-bar-rectangles')).toHaveCount(3);
-    // BulletChart fires onDataPointClick via Bar.onClick — click within the chart area at the first bar position
-    const wrapper = page.locator('.recharts-wrapper');
-    const box = await wrapper.boundingBox();
-    // Click in the upper-left area of the chart where the first bar should be
-    await wrapper.click({ position: { x: box.width * 0.08, y: box.height * 0.3 }, force: true });
+    // BulletChart renders the data label as a <text> element on top of the bar (insideTop).
+    // A real user click on the label doesn't fire onDataPointClick (only clicks on the bar
+    // shape do). Click near the bottom edge of the bar to land on the rect, not the label.
+    const firstBar = page.locator('.recharts-bar-rectangle path').first();
+    const box = await firstBar.boundingBox();
+    await page.mouse.click(box.x + box.width / 2, box.y + box.height - 3);
     await expect(page.getByTestId('dp-click-count')).toHaveText('1');
     await expect(page.getByTestId('dp-last-datakey')).not.toHaveText('');
     await expect(page.getByTestId('dp-last-payload')).not.toHaveText('');
