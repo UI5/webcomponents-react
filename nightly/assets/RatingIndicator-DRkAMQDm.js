@@ -1,0 +1,12 @@
+import{i as e}from"./preload-helper-DbRxMUml.js";import{Fm as t}from"./iframe-BH-uDZZZ.js";import{J as n,_ as r,d as i,r as a}from"./blocks-CeZxiqkW.js";import{_ as o,o as s,p as c,s as l,t as u}from"./components-Bks4bT-L.js";import{CustomIcons as d,Default as f,n as p,t as m}from"./RatingIndicator.stories-B5GfS2CY.js";function h(e){let t={code:`code`,h2:`h2`,p:`p`,...n(),...e.components};return(0,_.jsxs)(_.Fragment,{children:[(0,_.jsx)(i,{of:m}),`
+`,(0,_.jsx)(l,{of:m,since:`0.10.0`}),`
+`,(0,_.jsx)(`br`,{}),`
+`,(0,_.jsx)(t.h2,{id:`example`,children:`Example`}),`
+`,(0,_.jsx)(a,{of:f}),`
+`,(0,_.jsx)(t.h2,{id:`properties`,children:`Properties`}),`
+`,(0,_.jsx)(c,{of:f}),`
+`,(0,_.jsx)(t.h2,{id:`more-examples`,children:`More Examples`}),`
+`,(0,_.jsx)(t.h2,{id:`custom-icons`,children:`Custom Icons`}),`
+`,(0,_.jsxs)(t.p,{children:[`The RatingIndicator supports custom icons for both selected and unselected states using the `,(0,_.jsx)(t.code,{children:`ratedIcon`}),` and `,(0,_.jsx)(t.code,{children:`unratedIcon`}),` props.`]}),`
+`,(0,_.jsx)(a,{of:d}),`
+`,(0,_.jsx)(s,{})]})}function g(e={}){let{wrapper:t}={...n(),...e.components};return t?(0,_.jsx)(t,{...e,children:(0,_.jsx)(h,{...e})}):h(e)}var _;e((()=>{_=t(),o(),u(),r(),p()}))();export{g as default};
