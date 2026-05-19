@@ -1,1 +1,0 @@
-import{n as e}from"./chunk-jRWAZmH_.js";import{n as t,r as n}from"./jsx-runtime-DsQBolPk.js";import{n as r,t as i}from"./ExpandableText-D5E0wClj.js";function a(e){let{className:t,text:r,maxCharacters:a,part:o}=e;return n(i,{part:o,class:t,text:r,maxCharacters:a})}e((()=>{t(),r()}))();export{a as default};
