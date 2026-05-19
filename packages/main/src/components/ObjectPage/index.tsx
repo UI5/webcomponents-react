@@ -317,11 +317,16 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     debouncedOnSectionChange.cancel();
     setSelectedSubSectionId(undefined);
     setInternalSelectedSectionId((prevSelectedSection) => {
-      if (prevSelectedSection === newSelectionSectionId) {
+      if (prevSelectedSection === newSelectionSectionId && mode !== ObjectPageMode.IconTabBar) {
         scrollToSection(newSelectionSectionId);
       }
       return newSelectionSectionId;
     });
+    // Reset scroll for section swap; scrollTimeout preserves current header collapsed/expanded state.
+    if (mode === ObjectPageMode.IconTabBar) {
+      scrollTimeout.current = performance.now() + 500;
+      objectPageRef.current?.scrollTo({ top: 0 });
+    }
     setTabSelectId(newSelectionSectionId);
     scrollEvent.current = targetEvent;
     if (isMounted && mode === ObjectPageMode.Default) {
@@ -344,6 +349,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
         }
       };
       if (mode === ObjectPageMode.IconTabBar) {
+        scrollTimeout.current = performance.now() + 500;
         setInternalSelectedSectionId(selectedSectionId);
         getSectionElementById(objectPageContentRef.current, false, selectedSectionId)?.focus({
           preventScroll: true,
@@ -890,7 +896,9 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
           <div
             style={{
               height:
-                ((headerCollapsed && !headerPinned) || scrolledHeaderExpanded) && !toggledCollapsedHeaderWasVisible
+                ((headerCollapsed && !headerPinned) || scrolledHeaderExpanded) &&
+                !toggledCollapsedHeaderWasVisible &&
+                !(mode === ObjectPageMode.IconTabBar && scrollTimeout.current >= performance.now())
                   ? `${headerContentHeight}px`
                   : 0,
             }}

@@ -265,6 +265,7 @@ const ObjectPageSection = forwardRef<HTMLElement, ObjectPageSectionPropTypes>((p
           {children}
         </div>
       </div>
+      <div className={classNames.outlineSpacerDiv} aria-hidden="true" />
     </section>
   );
 });

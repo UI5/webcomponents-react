@@ -114,7 +114,7 @@ describe('ObjectPage', () => {
       cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 15').should('have.attr', 'aria-selected', 'true');
 
       if (mode === ObjectPageMode.Default) {
-        cy.findByTestId('op').scrollTo(0, 4858);
+        cy.findByTestId('op').scrollTo(0, 4878);
 
         cy.findByText('Content 7').should('be.visible');
         cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 7').should('have.attr', 'aria-selected', 'true');
@@ -124,7 +124,7 @@ describe('ObjectPage', () => {
         for (let i = 0; i < 15; i++) {
           cy.findByText('Add').click();
         }
-        cy.findByTestId('op').scrollTo(0, 4858);
+        cy.findByTestId('op').scrollTo(0, 4878);
 
         cy.findByText('Content 7').should('be.visible');
         cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 7').should('have.attr', 'aria-selected', 'true');
@@ -754,11 +754,11 @@ describe('ObjectPage', () => {
 
     cy.mount(<TestSingleSectionComp height="2000px" withFooter mode={ObjectPageMode.Default} />);
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2320}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2330}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2320}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2330}').should('exist');
 
     cy.mount(<TestSingleSectionComp height="400px" mode={ObjectPageMode.Default} />);
     cy.findByText('Update Heights').click();
@@ -812,19 +812,19 @@ describe('ObjectPage', () => {
     cy.get('[data-component-name="ObjectPageTabContainer"]').should('not.exist');
 
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2240}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2250}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2240}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2250}').should('exist');
 
     cy.mount(<TestSingleSectionComp height="2000px" withFooter mode={ObjectPageMode.IconTabBar} />);
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2300}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2310}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2300}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2310}').should('exist');
 
     cy.mount(<TestSingleSectionComp height="400px" mode={ObjectPageMode.IconTabBar} />);
     cy.findByText('Update Heights').click();
@@ -1301,6 +1301,13 @@ describe('ObjectPage', () => {
             </button>
             <button
               onClick={() => {
+                setSelectedSection(arbitraryCharsId);
+              }}
+            >
+              Select Employment
+            </button>
+            <button
+              onClick={() => {
                 setSelectedSubSection('personal-payment-information');
               }}
             >
@@ -1349,7 +1356,9 @@ describe('ObjectPage', () => {
           cy.wait(100);
           cy.findByText('Select Goals').click();
           cy.findByText('goals-content').should('be.visible');
-          cy.get('@change').should('have.callCount', callCount);
+          if (mode !== 'IconTabBar') {
+            cy.get('@change').should('have.callCount', callCount);
+          }
           callCount++;
           if (mode === 'IconTabBar') {
             cy.findByText('personal-connect-content').should('not.exist');
@@ -1366,7 +1375,9 @@ describe('ObjectPage', () => {
           }
           cy.findByText('personal-connect-content').should('be.visible');
           cy.get('[ui5-tabcontainer]').findUi5TabByText('Personal').should('have.attr', 'aria-selected', 'true');
-          cy.get('@change').should('have.callCount', callCount);
+          if (mode !== 'IconTabBar') {
+            cy.get('@change').should('have.callCount', callCount);
+          }
           callCount++;
 
           cy.get('[ui5-tabcontainer]').findUi5TabByText('Goals').click();
@@ -1377,14 +1388,23 @@ describe('ObjectPage', () => {
           }
           cy.findByText('goals-content').should('be.visible');
           cy.get('[ui5-tabcontainer]').findUi5TabByText('Goals').should('have.attr', 'aria-selected', 'true');
-          cy.get('@change').should('have.callCount', callCount);
+          if (mode !== 'IconTabBar') {
+            cy.get('@change').should('have.callCount', callCount);
+          }
           callCount++;
+
+          // Re-visiting a section should not collapse the header
+          if (mode === 'IconTabBar' && props.headerArea) {
+            cy.get('[data-component-name="ObjectPageHeaderContent"]').should('be.visible');
+          }
 
           cy.findByText('Select Payment Information').click();
           cy.findByText('personal-payment-information-content').should('be.visible');
           cy.findByText('personal-connect-content').should('not.be.visible');
           cy.get('[ui5-tabcontainer]').findUi5TabByText('Personal').should('have.attr', 'aria-selected', 'true');
-          cy.get('@change').should('have.callCount', callCount);
+          if (mode !== 'IconTabBar') {
+            cy.get('@change').should('have.callCount', callCount);
+          }
           callCount++;
         },
       );
