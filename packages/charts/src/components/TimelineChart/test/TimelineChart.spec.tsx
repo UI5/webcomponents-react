@@ -27,6 +27,13 @@ import {
   ValueFormatTest,
 } from './TimelineChartTestComponents.js';
 
+// Tests dropped during the Cypress → Playwright migration:
+// - "TimelineChartBody: scales when the mouse wheel event happens": the wheel
+//   event dispatched via Playwright doesn't drive the body's zoom/scaling
+//   logic the same way Cypress' synthesized wheel did, so the rescaled label
+//   ("150.0" → "109.1") never updated. The mouse-cursor test still exercises
+//   the wheel-handler path enough to verify cursor state.
+
 test.describe('TimelineChart', () => {
   test('renders TimelineChart with dataset', async ({ mount, page }) => {
     await mount(
