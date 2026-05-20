@@ -15,6 +15,7 @@
   "platformAutomerge": true,
   "prHourlyLimit": 5,
   "addLabels": ["dependencies"],
+  "postUpdateOptions": ["yarnDedupeHighest"],
   "ignorePaths": [
     "**/node_modules/**",
     "**/bower_components/**",
