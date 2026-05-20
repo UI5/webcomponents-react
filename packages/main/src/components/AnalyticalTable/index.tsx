@@ -816,6 +816,10 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
             data-component-name="AnalyticalTableContainer"
             ref={tableRef}
             className={tableClasses}
+            // TODO: In sticky mode the horizontal scrollbar (inside .table) reduces clientHeight,
+            // so fewer than `visibleRows` body rows fit. Investigate using @tanstack/react-virtual
+            // options (e.g., scrollMargin, paddingStart/End, getScrollElement override) to
+            // compensate without a runtime scrollbar measurement.
             style={
               {
                 '--_ui5wcr_AnalyticalTable_ContentHeight': `${internalHeaderRowHeight + tableBodyHeight}px`,
