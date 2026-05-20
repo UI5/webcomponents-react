@@ -1,1 +1,0 @@
-import{c as e,i as t}from"./preload-helper-DbRxMUml.js";import{Im as n,Lm as r,ng as i}from"./iframe-BaquDKMO.js";var a,o,s=t((()=>{r(),a=e(i(),1),o=e=>(0,a.useCallback)((t,r)=>{typeof e==`function`&&e(n(r,{payload:t?.activePayload?.[0]?.payload,activePayloads:t?.activePayload}))},[e])}));export{o as n,s as t};
