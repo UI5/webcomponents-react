@@ -469,18 +469,16 @@
    Resizer styles
    ========================================================================== */
 
-/* Absolute layer for resizers, escaping the header row's flex flow so resizers don't
-   take up flex space that would shift column headers. The layer is sized to the full
-   content width, allowing per-resizer absolute (non-sticky cols) or sticky (sticky cols)
-   positioning to work uniformly inside it. */
+/* Absolute layer for resizers, escaping the header row's flex flow. */
 .resizerLayer {
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;
   height: 100%;
   pointer-events: none;
-  /* `contain: layout` isolates sticky resizers' overflow so they don't add to .table's scrollHeight,
-     preventing a spurious vertical scrollbar. Visual rendering of the resizer line is unaffected. */
+  /* Paint above body cells (backgrounds, borders, selection states). */
+  z-index: 1;
+  /* Isolate sticky resizers' overflow from .table's scrollHeight (prevents spurious vertical scrollbar). */
   contain: layout;
 }
 
