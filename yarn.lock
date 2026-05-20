@@ -1324,6 +1324,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cto.af/wtf8@npm:0.0.5":
+  version: 0.0.5
+  resolution: "@cto.af/wtf8@npm:0.0.5"
+  checksum: 10c0/b73ebb301b0f1ff0a3b127b5200f0c87deaa69ea0c1cbf5a035ac35d8ff533749e4963b41375c7fcb29d9443990407e864ac009d6c5242d0e0bf9676ab4ae83c
+  languageName: node
+  linkType: hard
+
 "@custom-elements-manifest/analyzer@npm:^0.10.10":
   version: 0.10.10
   resolution: "@custom-elements-manifest/analyzer@npm:0.10.10"
@@ -6003,7 +6010,7 @@ __metadata:
   dependencies:
     "@modelcontextprotocol/sdk": "npm:1.29.0"
     "@ui5/webcomponents-react": "workspace:~"
-    ava: "npm:8.0.0"
+    ava: "npm:8.0.1"
     react-docgen-typescript: "npm:2.4.0"
     tsx: "npm:4.22.1"
     zod: "npm:4.4.3"
@@ -7421,9 +7428,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ava@npm:8.0.0":
-  version: 8.0.0
-  resolution: "ava@npm:8.0.0"
+"ava@npm:8.0.1":
+  version: 8.0.1
+  resolution: "ava@npm:8.0.1"
   dependencies:
     "@vercel/nft": "npm:^1.5.0"
     acorn: "npm:^8.16.0"
@@ -7432,7 +7439,7 @@ __metadata:
     arrgv: "npm:^1.0.2"
     arrify: "npm:^3.0.0"
     callsites: "npm:^4.2.0"
-    cbor: "npm:^10.0.12"
+    cbor2: "npm:^2.3.0"
     chalk: "npm:^5.6.2"
     chunkd: "npm:^2.0.1"
     ci-info: "npm:^4.4.0"
@@ -7472,7 +7479,7 @@ __metadata:
       optional: true
   bin:
     ava: entrypoints/cli.js
-  checksum: 10c0/510bd02cd9192c3da3ec47da5122c3748711c481bdfe6d8ff97e89ba3500f2f1e0edc59fa39c3b291cf4b29b66da55626cd1dea1b13cd5cd1aad3e9873a2d57b
+  checksum: 10c0/2edaede2e47aeaf4e1ed5744380d308a1e0ea7aba7f39ce6a96635a463857020826071e1e7ad5c2f79582244aa5c51ed3bab1fa818cc74a5249c8d3f00e4a4d6
   languageName: node
   linkType: hard
 
@@ -8051,12 +8058,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cbor@npm:^10.0.12":
-  version: 10.0.12
-  resolution: "cbor@npm:10.0.12"
+"cbor2@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "cbor2@npm:2.3.0"
   dependencies:
-    nofilter: "npm:^3.0.2"
-  checksum: 10c0/4c197d783415cade31565725a5e6b2b967d856285eacdb0b5f5ec0687d93c12f2ee9c6cc05aa7be02e8bbf0fe3ba40d22be69b56bd2ab1be2cc0a59370f14246
+    "@cto.af/wtf8": "npm:0.0.5"
+  checksum: 10c0/373e528163e58d1b7f74ae6bc201a2c1e4e3d780b9244caa42e5bb14a7c7b5a862b27e01c45ae9371ac9cfd375d9d6c936e38d547ed170ace2e808c26380176e
   languageName: node
   linkType: hard
 
@@ -17114,13 +17121,6 @@ __metadata:
   version: 8.0.7
   resolution: "nodemailer@npm:8.0.7"
   checksum: 10c0/f1580263ad7fba64a493c47c4d78f06679c0da9cc3becbe6b628311a16474c07286fc4e530006ea262537594ccc475dc569fd519275222fd01f99c315976aeac
-  languageName: node
-  linkType: hard
-
-"nofilter@npm:^3.0.2":
-  version: 3.1.0
-  resolution: "nofilter@npm:3.1.0"
-  checksum: 10c0/92459f3864a067b347032263f0b536223cbfc98153913b5dce350cb39c8470bc1813366e41993f22c33cc6400c0f392aa324a4b51e24c22040635c1cdb046499
   languageName: node
   linkType: hard
 
