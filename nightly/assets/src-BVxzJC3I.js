@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-DbRxMUml.js";import{n as t}from"./LineChart--Qkaho9g.js";var n,r=e((()=>{n={version:`2.22.1`,major:2,minor:22,patch:1,suffix:``,isNext:!1,buildTime:1779271291},n.version})),i=e((()=>{t(),r(),n.version}));export{i as t};
