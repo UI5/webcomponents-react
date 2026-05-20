@@ -78,6 +78,7 @@ test.describe('BulletChart', () => {
 
     // make sure not to click the label, as currently the event is only fired when the actual bar is clicked.
     const firstBar = page.locator('.recharts-bar-rectangle path').first();
+    await firstBar.waitFor();
     const box = await firstBar.boundingBox();
     await page.mouse.click(box.x + box.width / 2, box.y + box.height - 3);
     await expect(page.getByTestId('dp-click-count')).toHaveText('1');

@@ -56,6 +56,10 @@ jobs:
       - name: Install
         run: yarn install --immutable
 
+      - name: Override react-is for charts
+        if: ${{ matrix.react == '18' }}
+        run: jq '.resolutions["react-is"] = "18"' package.json > tmp.json && mv tmp.json package.json
+
       - name: Install React 18
         if: ${{ matrix.react == '18' }}
         run: |
