@@ -13,6 +13,8 @@ on:
       - 'examples/**/*'
       - 'templates/**/*'
       - 'patterns/navigation-layout/**/*'
+permissions:
+  contents: read
 
 jobs:
   examples:

@@ -17,6 +17,8 @@ on:
 jobs:
   reuse-compliance:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -26,6 +28,9 @@ jobs:
   check-bundle-size:
     if: ${{ github.base_ref == 'main' }} # only for PRs targeting main branch
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # compressed-size-action posts PR comments
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -37,14 +42,22 @@ jobs:
           clean-script: 'clean:remove-modules'
 
   build:
+    permissions:
+      contents: read
     uses: './.github/workflows/build.yml'
 
   test:
     needs: ['build']
+    permissions:
+      contents: read
+      pull-requests: write # coveralls posts coverage status
+      checks: write # coveralls creates check runs
     uses: './.github/workflows/test.yml'
 
   lint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       CYPRESS_INSTALL_BINARY: 0
     steps:
@@ -66,6 +79,8 @@ jobs:
   deploy-next-docs:
     needs: ['build']
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # pushes to gh-pages branch
     env:
       CYPRESS_INSTALL_BINARY: 0
     steps:

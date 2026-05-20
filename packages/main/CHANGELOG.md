@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.22.1](https://github.com/UI5/webcomponents-react/compare/v2.22.0...v2.22.1) (2026-05-19)
+
+### Bug Fixes
+
+- **ObjectPage:** prevent header collapse on IconTabBar tab switch ([#8587](https://github.com/UI5/webcomponents-react/issues/8587)) ([d086e13](https://github.com/UI5/webcomponents-react/commit/d086e139c11f808d77029c123a96152f16088be2)), closes [#8582](https://github.com/UI5/webcomponents-react/issues/8582)
+
 # [2.22.0](https://github.com/UI5/webcomponents-react/compare/v2.21.3...v2.22.0) (2026-05-12)
 
 ### Bug Fixes

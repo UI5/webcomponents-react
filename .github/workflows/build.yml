@@ -2,6 +2,8 @@ name: 'Build w/ React18 & 19'
 
 on:
   workflow_call:
+permissions:
+  contents: read
 
 jobs:
   build:

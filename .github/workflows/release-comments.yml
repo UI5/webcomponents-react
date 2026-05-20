@@ -2,6 +2,9 @@ name: 'Issue Comments'
 
 on:
   workflow_dispatch:
+# All write operations use secrets.ACCESS_TOKEN (PAT), not GITHUB_TOKEN
+permissions:
+  contents: read
 
 jobs:
   issue-comment:
