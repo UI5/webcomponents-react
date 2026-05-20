@@ -24,11 +24,6 @@ const visibleColumns = (currentVisibleColumns: ColumnType[], { instance: _instan
   return [...stickyStart, ...nonSticky];
 };
 
-// TODO: Drag-and-drop interaction with sticky columns is unconstrained. A user can drag a sticky
-// column out of the start region (snaps back on next render via re-sort) or drag a non-sticky
-// column into it (gets pushed back out). No UX feedback either way. Either disable drag for
-// sticky columns, or constrain drag boundaries at the sticky/non-sticky boundary.
-
 const computeStickyMetadata = (instance: TableInstance) => {
   const { visibleColumns: visCols } = instance;
 

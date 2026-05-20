@@ -3,10 +3,14 @@ import type { ColumnType, ReactTableHooks, TableInstance } from '../types/index.
 
 function getHeaderProps(
   props: Record<string, unknown>,
-  { instance: { dispatch, state, columns, setColumnOrder, webComponentsReactProperties } }: { instance: TableInstance },
+  {
+    instance: { dispatch, state, columns, setColumnOrder, webComponentsReactProperties },
+    column,
+  }: { instance: TableInstance; column: ColumnType },
 ) {
   const { columnOrder, columnResizing, isRtl, dndColumn } = state;
   const { onColumnsReorder } = webComponentsReactProperties;
+  const isStickyTarget = column?.sticky === 'start';
 
   const handleDragStart = (e) => {
     if (columnResizing.isResizingColumn || !e.target.draggable) {
@@ -17,10 +21,16 @@ function getHeaderProps(
   };
 
   const handleDragOver = (e) => {
+    if (isStickyTarget) {
+      return;
+    }
     e.preventDefault();
   };
 
   const handleDragEnter = (e) => {
+    if (isStickyTarget) {
+      return;
+    }
     dispatch({ type: 'COLUMN_DND_START', payload: e.currentTarget.dataset.columnId });
   };
 
@@ -30,6 +40,9 @@ function getHeaderProps(
 
   const handleOnDrop = (e) => {
     dispatch({ type: 'COLUMN_DND_END' });
+    if (isStickyTarget) {
+      return;
+    }
 
     const droppedColId = e.currentTarget.dataset.columnId;
     const draggedColId = e.dataTransfer.getData('text');
