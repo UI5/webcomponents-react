@@ -830,6 +830,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
             style={
               {
                 '--_ui5wcr_AnalyticalTable_ContentHeight': `${internalHeaderRowHeight + tableBodyHeight}px`,
+                '--_ui5wcr_AnalyticalTable_ContentWidth': `${totalSize}px`,
                 ...(hasStickyColumns
                   ? { height: `${internalHeaderRowHeight + tableBodyHeight + horizontalScrollbarReserved}px` }
                   : {}),

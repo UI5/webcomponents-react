@@ -51,6 +51,7 @@
     position: sticky;
     inset-block-end: 0;
     height: var(--_ui5wcr-AnalyticalTable-HeaderBorderWidth);
+    width: var(--_ui5wcr_AnalyticalTable_ContentWidth, 100%);
     margin-block-start: calc(-1 * var(--_ui5wcr-AnalyticalTable-HeaderBorderWidth));
     background: var(--sapList_HeaderBorderColor);
     pointer-events: none;
