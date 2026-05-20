@@ -44,6 +44,7 @@ import {
   UNSELECT_ALL_PRESS_SPACE,
   UNSELECT_PRESS_SPACE,
 } from '../../i18n/i18n-defaults.js';
+import { useScrollbarSize } from '../../internal/useScrollbarSize.js';
 import { BusyIndicator } from '../../webComponents/BusyIndicator/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { classNames, styleData } from './AnalyticalTable.module.css.js';
@@ -424,6 +425,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
 
   const hasStickyColumns = stickyStartIndices.length > 0;
 
+  const scrollbarSize = useScrollbarSize();
+
   const includeSubCompRowHeight =
     !!renderRowSubComponent &&
     (subComponentsBehavior === AnalyticalTableSubComponentsBehavior.IncludeHeight ||
@@ -701,6 +704,10 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
 
   const totalSize = columnVirtualizer.getTotalSize();
   const showVerticalEndBorder = tableState.tableClientWidth > totalSize;
+  const horizontalScrollbarReserved =
+    hasStickyColumns && scrollbarSize > 0 && tableState.tableClientWidth > 0 && tableState.tableClientWidth < totalSize
+      ? scrollbarSize
+      : 0;
 
   const tableClasses = clsx(
     classNames.table,
@@ -823,7 +830,9 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
             style={
               {
                 '--_ui5wcr_AnalyticalTable_ContentHeight': `${internalHeaderRowHeight + tableBodyHeight}px`,
-                ...(hasStickyColumns ? { height: `${internalHeaderRowHeight + tableBodyHeight}px` } : {}),
+                ...(hasStickyColumns
+                  ? { height: `${internalHeaderRowHeight + tableBodyHeight + horizontalScrollbarReserved}px` }
+                  : {}),
               } as CSSProperties
             }
           >

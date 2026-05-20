@@ -478,6 +478,9 @@
   inset-inline-start: 0;
   height: 100%;
   pointer-events: none;
+  /* `contain: layout` isolates sticky resizers' overflow so they don't add to .table's scrollHeight,
+     preventing a spurious vertical scrollbar. Visual rendering of the resizer line is unaffected. */
+  contain: layout;
 }
 
 .resizer {
