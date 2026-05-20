@@ -41,15 +41,19 @@
   font-weight: normal;
   background-color: var(--sapList_Background);
 
-  /*  bottom border*/
+  /* TODO: In sticky mode the bottom border briefly scrolls away with content before re-pinning.
+     position: sticky avoids the absolute-scrolls-with-content issue but introduces a flicker.
+     Negative margin compensates the flow space; full fix likely needs a different approach
+     (e.g., separate non-scrolling element above the horizontal scrollbar, or container restructure). */
   &::after {
     content: '';
-    position: absolute;
+    display: block;
+    position: sticky;
     inset-block-end: 0;
-    inset-inline-start: 0;
     height: var(--_ui5wcr-AnalyticalTable-HeaderBorderWidth);
-    width: 100%;
+    margin-block-start: calc(-1 * var(--_ui5wcr-AnalyticalTable-HeaderBorderWidth));
     background: var(--sapList_HeaderBorderColor);
+    pointer-events: none;
   }
 }
 
