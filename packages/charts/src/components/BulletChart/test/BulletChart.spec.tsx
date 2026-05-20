@@ -76,9 +76,7 @@ test.describe('BulletChart', () => {
   test('onDataPointClick', async ({ mount, page }) => {
     await mount(<BulletChartDataPointClickTest />);
 
-    // BulletChart renders the data label as a <text> element on top of the bar (insideTop).
-    // A real user click on the label doesn't fire onDataPointClick (only clicks on the bar
-    // shape do). Click near the bottom edge of the bar to land on the rect, not the label.
+    // make sure not to click the label, as currently the event is only fired when the actual bar is clicked.
     const firstBar = page.locator('.recharts-bar-rectangle path').first();
     const box = await firstBar.boundingBox();
     await page.mouse.click(box.x + box.width / 2, box.y + box.height - 3);
