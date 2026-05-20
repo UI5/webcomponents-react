@@ -41,7 +41,8 @@ export default defineConfig({
                   !sourcePath.includes('/dist/') &&
                   !sourcePath.includes('/test/') &&
                   !sourcePath.endsWith('.stories.tsx') &&
-                  !sourcePath.endsWith('/index.ts')
+                  !sourcePath.endsWith('.module.css.ts') &&
+                  !/packages\/[^/]+\/src\/index\.ts$/.test(sourcePath)
                 );
               },
               reports: ['lcovonly'],
