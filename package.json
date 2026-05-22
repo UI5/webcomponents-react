@@ -99,7 +99,7 @@
     "lerna": "9.0.7",
     "lint-staged": "17.0.5",
     "monocart-reporter": "2.11.2",
-    "npm-run-all2": "8.0.4",
+    "npm-run-all2": "9.0.0",
     "pagefind": "1.5.2",
     "postcss": "8.5.14",
     "postcss-cli": "11.0.1",
