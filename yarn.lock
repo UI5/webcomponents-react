@@ -8272,9 +8272,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromatic@npm:16.10.1":
-  version: 16.10.1
-  resolution: "chromatic@npm:16.10.1"
+"chromatic@npm:17.0.0":
+  version: 17.0.0
+  resolution: "chromatic@npm:17.0.0"
   dependencies:
     semver: "npm:^7.3.5"
   peerDependencies:
@@ -8292,7 +8292,7 @@ __metadata:
     chroma: dist/bin.cjs
     chromatic: dist/bin.cjs
     chromatic-cli: dist/bin.cjs
-  checksum: 10c0/5cab90a48a4709e930dc864a06f707ec63e1a32211f19c8e1a7237687cc3398f5a1a01427bf35116df76e78164b9e9d57927d641216a6c48f1a588cff770dee4
+  checksum: 10c0/962c86feec17b12757fa3327b7e98abff272a048c03227bb21ecb51c7f1d7ec3589386611ece8e2c413ac4049f26d71e9c9226a5fb7628fdcbb47e87905863a0
   languageName: node
   linkType: hard
 
@@ -22479,7 +22479,7 @@ __metadata:
     "@ui5/webcomponents-icons": "npm:2.22.0"
     "@ui5/webcomponents-tools": "npm:2.22.0"
     "@vitejs/plugin-react": "npm:6.0.2"
-    chromatic: "npm:16.10.1"
+    chromatic: "npm:17.0.0"
     cssnano: "npm:8.0.1"
     cypress: "npm:15.15.0"
     cypress-real-events: "npm:1.15.0"
