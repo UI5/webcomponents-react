@@ -14,7 +14,7 @@
     "@ui5/webcomponents-fiori": "2.22.0",
     "@ui5/webcomponents-react": "2.22.1",
     "@types/node": "24.12.4",
-    "@types/react": "19.2.14",
+    "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
     "eslint": "9.39.4",
     "eslint-config-next": "16.2.6",
@@ -24,7 +24,7 @@
     "typescript": "5.9.3"
   },
   "overrides": {
-    "@types/react": "19.2.14",
+    "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3"
   }
 }

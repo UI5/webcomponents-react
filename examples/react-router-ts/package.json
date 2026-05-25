@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@react-router/dev": "7.15.1",
-    "@types/react": "19.2.14",
+    "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
     "eslint": "9.39.4",
     "eslint-import-resolver-typescript": "4.4.4",
@@ -35,8 +35,8 @@
     "eslint-plugin-react-hooks": "7.1.1",
     "globals": "17.6.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.59.3",
-    "vite": "8.0.13",
+    "typescript-eslint": "8.59.4",
+    "vite": "8.0.14",
     "vite-tsconfig-paths": "6.1.1"
   },
   "engines": {
