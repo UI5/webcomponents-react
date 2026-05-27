@@ -114,10 +114,15 @@ export const SelectDialogSearchTestComp = () => {
   const [searchCount, setSearchCount] = useState(0);
   const [inputCount, setInputCount] = useState(0);
   const [resetCount, setResetCount] = useState(0);
+  const [searchPlaceholder, setSearchPlaceholder] = useState<SelectDialogPropTypes['searchPlaceholder']>(undefined);
 
   return (
     <>
+      <Button data-testid="set-placeholder" onClick={() => setSearchPlaceholder('Hello')}>
+        Set Placeholder
+      </Button>
       <SelectDialog
+        searchPlaceholder={searchPlaceholder}
         onSearch={(e) => {
           setSearchVal(e.detail.value);
           setSearchCount((c) => c + 1);
