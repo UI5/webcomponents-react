@@ -155,7 +155,9 @@ test.describe('SelectDialog', () => {
     await expect(page.getByTestId('reset-count')).toHaveText('1');
     await expect(page.locator('[accessible-name="Reset"][ui5-icon]')).not.toBeVisible();
 
+    await ui5wc.closePopupWithEsc();
     await page.getByTestId('set-placeholder').click();
+    await page.getByTestId('open-btn').click();
     await expect(input).toHaveAttribute('placeholder', 'Hello');
     await expect(input).toHaveAttribute('accessible-name', 'Hello');
   });
