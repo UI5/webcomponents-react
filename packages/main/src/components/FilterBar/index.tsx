@@ -235,15 +235,14 @@ const FilterBar = forwardRef<HTMLDivElement, FilterBarPropTypes>((props, ref) =>
   const filtersButtonText = `${filtersText}${
     activeFiltersCount && parseInt(activeFiltersCount as string, 10) ? ` (${activeFiltersCount})` : ''
   }`;
+  const goButton = showGoOnFB && (
+    <Button onClick={handleGoOnFb} design={ButtonDesign.Emphasized} accessibleDescription={goDescription}>
+      {goText}
+    </Button>
+  );
   const FBButtons = (
     <>
-      {showGoOnFB && (
-        <ToolbarItem>
-          <Button onClick={handleGoOnFb} design={ButtonDesign.Emphasized} accessibleDescription={goDescription}>
-            {goText}
-          </Button>
-        </ToolbarItem>
-      )}
+      {showGoOnFB && (hideToolbar ? goButton : <ToolbarItem>{goButton}</ToolbarItem>)}
       {!hideToggleFiltersButton && !hideToolbar && !isPhone && (
         <ToolbarButton
           text={showFilters ? hideFilterBarText : showFilterBarText}
