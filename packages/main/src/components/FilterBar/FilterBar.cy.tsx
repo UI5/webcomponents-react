@@ -426,6 +426,7 @@ describe('FilterBar.cy.tsx', () => {
 
     cy.findByText('Go').should('be.visible');
     cy.get('[ui5-toolbar-item]').should('exist');
+    cy.get('[ui5-toolbar-item] [ui5-button]').should('have.attr', 'accessible-description', 'Show Results');
     cy.findToolbarButtonByText('Filters').should('be.visible');
     cy.findToolbarButtonByText('Adapt Filters').should('not.exist');
     cy.findToolbarButtonByText('Hide Filter Bar').should('be.visible');
@@ -447,6 +448,7 @@ describe('FilterBar.cy.tsx', () => {
 
     cy.findByText('Go').should('be.visible');
     cy.get('[ui5-toolbar-item]').should('not.exist');
+    cy.get('[ui5-button]').should('have.attr', 'accessible-description', 'Show Results');
     cy.findByText('Filters').should('not.exist');
     cy.findByText('Adapt Filters').should('be.visible');
     cy.findByText('Hide Filter Bar').should('not.exist');
