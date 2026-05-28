@@ -1609,6 +1609,55 @@ describe('AnalyticalTable', () => {
     cy.get('[data-column-id="age"]').should('not.exist', { timeout: 100 });
   });
 
+  it('first virtual row offset matches scrollTop after loading cycle', () => {
+    // Guards the layout-effect in `AnalyticalTable/index.tsx` that re-syncs the virtualizer' cached `scrollOffset` with the DOM after a data swap clamps `scrollTop` (dispatching scroll event).
+    // Without it, the first row renders at a stale `translateY` and leaves a whitespace gap at the top.
+    const filterData = new Array(500).fill('').map((_, index) => ({ name: `Row-${index}`, age: index }));
+    const TestComp = () => {
+      const [tableData, setTableData] = useState(filterData);
+      const [loading, setLoading] = useState(false);
+      const reactTableOptions = useMemo(() => ({ manualFilters: true }), []);
+      const triggerFilter = () => {
+        setTableData([]);
+        setLoading(true);
+        setTimeout(() => {
+          setTableData(filterData.filter((item) => item.age >= 100));
+          setLoading(false);
+        }, 100);
+      };
+      return (
+        <>
+          <Button data-testid="filter" onClick={triggerFilter}>
+            Filter
+          </Button>
+          <AnalyticalTable
+            data={tableData}
+            columns={columns}
+            loading={loading}
+            reactTableOptions={reactTableOptions}
+            visibleRows={15}
+          />
+        </>
+      );
+    };
+    cy.mount(<TestComp />);
+    cy.get('[data-component-name="AnalyticalTableBody"]').as('body');
+    cy.get('@body').scrollTo(0, 4000);
+    cy.findByTestId('filter').click();
+    // `.should(callback)` retries until both assertions pass — implicitly waits for the loading cycle to finish and rows to be rendered.
+    cy.get('@body').should(($body) => {
+      const scrollTop = $body[0].scrollTop;
+      const scrollContainer = $body[0].querySelector('[data-component-name="AnalyticalTableBodyScrollableContainer"]');
+      const firstRow = scrollContainer?.children?.[0] as HTMLElement | undefined;
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(firstRow, 'first body row should exist').to.exist;
+      const match = firstRow.style.transform?.match(/translateY\(([\d.]+)px\)/);
+      const translateY = match ? parseFloat(match[1]) : 0;
+      // Bounded by the overscan window when in sync; far off (~3000+px) when stale.
+      expect(Math.abs(translateY - scrollTop), 'first row translateY should be close to scrollTop').to.be.lessThan(500);
+    });
+  });
+
   it('InfiniteScroll', () => {
     const data = new Array(500).fill('').map((_, index) => ({ name: `Name${index}` }));
     const TestComp = (props: Omit<AnalyticalTablePropTypes, 'data' | 'columns'>) => {

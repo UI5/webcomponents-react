@@ -133,6 +133,20 @@
     "temp-dir": "temp/.nyc_output",
     "reporter": [
       "lcov"
+    ],
+    "exclude": [
+      "cypress/**",
+      "**/src/interfaces/*",
+      "**/src/enums/*",
+      "**/*.stories.tsx",
+      "**/*.test.{ts,tsx}",
+      "**/*.module.css.ts",
+      "**/node_modules/**",
+      "**/dist/**",
+      "packages/*/src/index.ts",
+      "packages/main/src/components/AnalyticalTable/types/*",
+      "packages/main/src/webComponents/**",
+      "packages/charts/src/resources/**"
     ]
   },
   "packageManager": "yarn@4.15.0"
