@@ -2,24 +2,6 @@ import codeCoverageTask from '@cypress/code-coverage/task';
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
-  env: {
-    codeCoverage: {
-      exclude: [
-        'cypress/**',
-        '**/src/interfaces/*',
-        '**/src/enums/*',
-        '**/*.stories.tsx',
-        '**/*.test.{ts,tsx}',
-        '**/*.module.css.ts',
-        '**/node_modules/**',
-        '**/dist/**',
-        'packages/*/src/index.ts',
-        'packages/main/src/components/AnalyticalTable/types/*',
-        'packages/main/src/webComponents/**',
-        'packages/charts/src/resources/**',
-      ],
-    },
-  },
   component: {
     setupNodeEvents(on, config) {
       codeCoverageTask(on, config);

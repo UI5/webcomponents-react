@@ -733,6 +733,20 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     indexAttribute: 'data-virtual-row-index',
     useAnimationFrameWithResizeObserver: true,
   });
+
+  // Re-sync the virtualizer's cached `scrollOffset` with the DOM after data swaps that clamp `scrollTop` without firing a scroll event in the same React batch.
+  useIsomorphicLayoutEffect(() => {
+    const scrollElement = parentRef.current;
+    if (
+      scrollElement &&
+      rowVirtualizer.scrollOffset !== null &&
+      rowVirtualizer.scrollOffset !== scrollElement.scrollTop
+    ) {
+      // Defer to a microtask so the scroll listener's `flushSync(rerender)` doesn't run inside this commit.
+      queueMicrotask(() => scrollElement.dispatchEvent(new Event('scroll')));
+    }
+  }, [itemCount]);
+
   // add range to instance for `useAutoResize` plugin hook
   tableInstanceRef.current.virtualRowsRange = rowVirtualizer.range;
 
