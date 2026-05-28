@@ -1,1 +1,0 @@
-import{c as e,i as t}from"./preload-helper-DbRxMUml.js";import{Bm as n,Lm as r,ng as i}from"./iframe-C0NX5zi9.js";var a,o,s=t((()=>{r(),a=e(i(),1),o=e=>{let[t,r]=(0,a.useState)(!0),i=(0,a.useRef)(n(()=>{r(!1),r(!0)},1500)).current;return{isMounted:t,handleBarAnimationStart:()=>{e||i()},handleBarAnimationEnd:()=>{e||i.cancel()}}}}));export{o as n,s as t};
