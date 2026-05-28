@@ -2486,131 +2486,176 @@ describe('AnalyticalTable', () => {
     cy.findByText('A').shouldNotBeClickable(done);
   });
 
-  it('render subcomponents', () => {
-    const renderRowSubComponentLarge = (row) => {
-      return (
-        <div title="subcomponent" style={{ height: '200px', width: '100%', display: 'flex', alignItems: 'end' }}>
-          {`SubComponent ${row.index}`}
-        </div>
-      );
-    };
-    const renderRowSubComponent = () => {
-      return <div title="subcomponent">SubComponent</div>;
-    };
+  // `describe` is used to clean-up zoom level after test
+  describe('render subcomponents', () => {
+    let originalZoom: string;
+    before(() => {
+      originalZoom = document.documentElement.style.zoom;
+    });
+    after(() => {
+      document.documentElement.style.zoom = originalZoom;
+    });
 
-    const onlyFirstRowWithSubcomponent = (row) => {
-      if (row.id === '0') {
-        return <div title="subcomponent">SingleSubComponent</div>;
-      }
-    };
-    cy.mount(<AnalyticalTable data={data} columns={columns} renderRowSubComponent={renderRowSubComponent} />);
+    // ~700 callback invocations per mount at default zoom; broken fractional-zoom loop produces 5000+
+    const LOOP_BUDGET_PER_MOUNT = 2000;
 
-    cy.findAllByTitle('Expand Node').should('have.length', 4);
-    cy.findAllByTitle('Collapse Node').should('not.exist');
+    [
+      { zoom: '1', label: 'default zoom' },
+      { zoom: '1.1', label: 'fractional zoom (1.1)' },
+    ].forEach(({ zoom, label }) => {
+      it(label, () => {
+        document.documentElement.style.zoom = zoom;
 
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
+        let renderCallCount = 0;
+        const countCalls = (fn) => (row) => {
+          renderCallCount++;
+          return fn(row);
+        };
+        const expectBoundedAndReset = () => {
+          cy.then(() => {
+            expect(renderCallCount).to.be.lessThan(LOOP_BUDGET_PER_MOUNT);
+            renderCallCount = 0;
+          });
+        };
 
-    cy.findAllByTitle('Expand Node').should('have.length', 3);
-    cy.findAllByTitle('Collapse Node').should('have.length', 1);
-    cy.findByText('SubComponent').should('be.visible');
+        const renderRowSubComponentLarge = countCalls((row) => {
+          return (
+            <div title="subcomponent" style={{ height: '200px', width: '100%', display: 'flex', alignItems: 'end' }}>
+              {`SubComponent ${row.index}`}
+            </div>
+          );
+        });
+        const renderRowSubComponent = countCalls(() => {
+          return <div title="subcomponent">SubComponent</div>;
+        });
+        const onlyFirstRowWithSubcomponent = countCalls((row) => {
+          if (row.id === '0') {
+            return <div title="subcomponent">SingleSubComponent</div>;
+          }
+        });
 
-    cy.get('[aria-rowindex="3"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
+        cy.mount(<AnalyticalTable data={data} columns={columns} renderRowSubComponent={renderRowSubComponent} />);
 
-    cy.findAllByTitle('Expand Node').should('have.length', 2);
-    cy.findAllByTitle('Collapse Node').should('have.length', 2);
-    cy.findAllByText('SubComponent').should('be.visible').should('have.length', 2);
+        cy.findAllByTitle('Expand Node').should('have.length', 4);
+        cy.findAllByTitle('Collapse Node').should('not.exist');
 
-    cy.mount(<AnalyticalTable data={data} columns={columns} renderRowSubComponent={onlyFirstRowWithSubcomponent} />);
+        cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
 
-    cy.findAllByTitle('Expand Node').should('have.length', 1);
-    cy.findAllByTitle('Collapse Node').should('not.exist');
+        cy.findAllByTitle('Expand Node').should('have.length', 3);
+        cy.findAllByTitle('Collapse Node').should('have.length', 1);
+        cy.findByText('SubComponent').should('be.visible');
 
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
+        cy.get('[aria-rowindex="3"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
 
-    cy.findAllByTitle('Expand Node').should('not.exist');
-    cy.findAllByTitle('Collapse Node').should('have.length', 1);
-    cy.findByText('SingleSubComponent').should('be.visible');
-    cy.get('[aria-rowindex="3"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').should('not.exist');
+        cy.findAllByTitle('Expand Node').should('have.length', 2);
+        cy.findAllByTitle('Collapse Node').should('have.length', 2);
+        cy.findAllByText('SubComponent').should('be.visible').should('have.length', 2);
+        expectBoundedAndReset();
 
-    cy.mount(
-      <AnalyticalTable
-        data={data}
-        columns={columns}
-        renderRowSubComponent={renderRowSubComponent}
-        subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Visible}
-      />,
-    );
-    cy.findAllByText('SubComponent').should('be.visible').should('have.length', 4);
-    cy.findByTitle('Expand Node').should('not.exist');
-    cy.findByTitle('Collapse Node').should('not.exist');
+        cy.mount(
+          <AnalyticalTable data={data} columns={columns} renderRowSubComponent={onlyFirstRowWithSubcomponent} />,
+        );
 
-    cy.mount(
-      <AnalyticalTable
-        data={data}
-        columns={columns}
-        renderRowSubComponent={onlyFirstRowWithSubcomponent}
-        subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Visible}
-      />,
-    );
-    cy.findByText('SingleSubComponent').should('be.visible').should('have.length', 1);
-    cy.findByTitle('Expand Node').should('not.exist');
-    cy.findByTitle('Collapse Node').should('not.exist');
+        cy.findAllByTitle('Expand Node').should('have.length', 1);
+        cy.findAllByTitle('Collapse Node').should('not.exist');
 
-    cy.mount(
-      <AnalyticalTable
-        data={data}
-        columns={columns}
-        renderRowSubComponent={renderRowSubComponentLarge}
-        visibleRows={3}
-        subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Visible}
-      />,
-    );
-    cy.wait(300);
+        cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
 
-    cy.findByText('SubComponent 1').should('exist').and('not.be.visible');
-    cy.findByTitle('Expand Node').should('not.exist');
-    cy.findByTitle('Collapse Node').should('not.exist');
+        cy.findAllByTitle('Expand Node').should('not.exist');
+        cy.findAllByTitle('Collapse Node').should('have.length', 1);
+        cy.findByText('SingleSubComponent').should('be.visible');
+        cy.get('[aria-rowindex="3"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').should('not.exist');
+        expectBoundedAndReset();
 
-    cy.mount(
-      <AnalyticalTable
-        data={data}
-        columns={columns}
-        renderRowSubComponent={renderRowSubComponentLarge}
-        visibleRows={3}
-        subComponentsBehavior={AnalyticalTableSubComponentsBehavior.IncludeHeight}
-      />,
-    );
-    cy.findByText('SubComponent 1').should('be.visible');
-    cy.findByText('SubComponent 2').should('be.visible');
-    cy.findByTitle('Expand Node').should('not.exist');
-    cy.findByTitle('Collapse Node').should('not.exist');
+        cy.mount(
+          <AnalyticalTable
+            data={data}
+            columns={columns}
+            renderRowSubComponent={renderRowSubComponent}
+            subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Visible}
+          />,
+        );
+        cy.findAllByText('SubComponent').should('be.visible').should('have.length', 4);
+        cy.findByTitle('Expand Node').should('not.exist');
+        cy.findByTitle('Collapse Node').should('not.exist');
+        expectBoundedAndReset();
 
-    const loadMore = cy.spy().as('more');
-    cy.mount(
-      <AnalyticalTable
-        onLoadMore={loadMore}
-        infiniteScroll={true}
-        infiniteScrollThreshold={0}
-        data={data}
-        columns={columns}
-        renderRowSubComponent={renderRowSubComponentLarge}
-        visibleRows={3}
-        subComponentsBehavior={AnalyticalTableSubComponentsBehavior.IncludeHeightExpandable}
-      />,
-    );
-    cy.findByText('A').should('be.visible');
-    cy.findByText('X').should('be.visible');
-    cy.findByText('C').should('not.be.visible');
-    cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
-    cy.findByText('A').should('be.visible');
-    cy.findByText('X').should('be.visible');
-    cy.findByText('C').should('not.be.visible');
-    cy.get('[aria-rowindex="3"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
-    cy.findByText('A').should('be.visible');
-    cy.findByText('X').should('be.visible');
-    cy.findByText('C').should('not.be.visible');
-    cy.get('[data-component-name="AnalyticalTableBody"]').scrollTo('bottom');
-    cy.get('@more').should('have.been.calledOnce');
+        cy.mount(
+          <AnalyticalTable
+            data={data}
+            columns={columns}
+            renderRowSubComponent={onlyFirstRowWithSubcomponent}
+            subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Visible}
+          />,
+        );
+        cy.findByText('SingleSubComponent').should('be.visible').should('have.length', 1);
+        cy.findByTitle('Expand Node').should('not.exist');
+        cy.findByTitle('Collapse Node').should('not.exist');
+        expectBoundedAndReset();
+
+        cy.mount(
+          <AnalyticalTable
+            data={data}
+            columns={columns}
+            renderRowSubComponent={renderRowSubComponentLarge}
+            visibleRows={3}
+            subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Visible}
+          />,
+        );
+        cy.wait(300);
+
+        cy.findByText('SubComponent 1').should('exist').and('not.be.visible');
+        cy.findByTitle('Expand Node').should('not.exist');
+        cy.findByTitle('Collapse Node').should('not.exist');
+        expectBoundedAndReset();
+
+        cy.mount(
+          <AnalyticalTable
+            data={data}
+            columns={columns}
+            renderRowSubComponent={renderRowSubComponentLarge}
+            visibleRows={3}
+            subComponentsBehavior={AnalyticalTableSubComponentsBehavior.IncludeHeight}
+          />,
+        );
+        cy.findByText('SubComponent 1').should('be.visible');
+        cy.findByText('SubComponent 2').should('be.visible');
+        cy.findByTitle('Expand Node').should('not.exist');
+        cy.findByTitle('Collapse Node').should('not.exist');
+        expectBoundedAndReset();
+
+        const loadMore = cy.spy().as('more');
+        cy.mount(
+          <AnalyticalTable
+            onLoadMore={loadMore}
+            infiniteScroll={true}
+            infiniteScrollThreshold={0}
+            data={data}
+            columns={columns}
+            renderRowSubComponent={renderRowSubComponentLarge}
+            visibleRows={3}
+            subComponentsBehavior={AnalyticalTableSubComponentsBehavior.IncludeHeightExpandable}
+          />,
+        );
+        cy.findByText('A').should('be.visible');
+        cy.findByText('X').should('be.visible');
+        cy.findByText('C').should('not.be.visible');
+        cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
+        cy.findByText('A').should('be.visible');
+        cy.findByText('X').should('be.visible');
+        cy.findByText('C').should('not.be.visible');
+        cy.get('[aria-rowindex="3"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
+        cy.findByText('A').should('be.visible');
+        cy.findByText('X').should('be.visible');
+        cy.findByText('C').should('not.be.visible');
+        if (zoom === '1') {
+          // Cypress' scrollTo('bottom') uses BCR-style coords and doesn't fire onLoadMore reliably under CSS zoom; verified at zoom=1 only
+          cy.get('[data-component-name="AnalyticalTableBody"]').scrollTo('bottom');
+          cy.get('@more').should('have.been.calledOnce');
+        }
+        expectBoundedAndReset();
+      });
+    });
   });
 
   if (reactVersion.startsWith('19')) {
