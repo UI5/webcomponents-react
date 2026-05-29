@@ -1,0 +1,70 @@
+import{i as e}from"./preload-helper-usAeo7Bx.js";import{Jd as t,Zi as n,lh as r,u as i}from"./iframe-B05hXFda.js";import{J as a,_ as o,d as s,n as c,o as l,r as u,u as d}from"./blocks-C3rTUnbU.js";import{E as f,b as p,f as m,t as h,u as g}from"./components-CbRn0xLK.js";import{n as _,t as v}from"./SubcomponentsSection-Da9yr5rF.js";import{a as y,d as b,f as x,l as S,o as C,u as w}from"./Table-2IH8L-Kp.js";import{n as T,t as E}from"./TableGroupRow-DkjTuVqO.js";import{Default as D,GrowingTable as O,n as k,t as A}from"./Table.stories-wAKwlI2D.js";function j(e){let r={code:`code`,h1:`h1`,h2:`h2`,h3:`h3`,p:`p`,pre:`pre`,...a(),...e.components};return(0,N.jsxs)(N.Fragment,{children:[(0,N.jsx)(s,{of:A}),`
+`,(0,N.jsx)(m,{of:A}),`
+`,(0,N.jsx)(n,{children:(0,N.jsxs)(t,{children:[`Using the Table from the `,(0,N.jsx)(r.code,{children:`compat`}),` package and the `,(0,N.jsx)(r.code,{children:`main`}),` package in the same application is not supported without scoping the compat package.`]}),design:`Critical`,hideCloseButton:!0}),`
+`,(0,N.jsx)(`br`,{}),`
+`,(0,N.jsx)(`br`,{}),`
+`,(0,N.jsx)(r.h2,{id:`example`,children:`Example`}),`
+`,(0,N.jsx)(u,{of:D}),`
+`,(0,N.jsx)(r.h2,{id:`properties`,children:`Properties`}),`
+`,(0,N.jsx)(p,{of:D}),`
+`,(0,N.jsx)(`br`,{}),`
+`,(0,N.jsx)(r.h1,{id:`more-examples`,children:`More Examples`}),`
+`,(0,N.jsx)(`br`,{}),`
+`,(0,N.jsx)(r.h2,{id:`growing-table`,children:`Growing Table`}),`
+`,(0,N.jsxs)(r.p,{children:[(0,N.jsx)(r.code,{children:`Table`}),` with `,(0,N.jsx)(r.code,{children:`growing={TableGrowingMode.Scroll}`}),`.`]}),`
+`,(0,N.jsx)(u,{of:O}),`
+`,(0,N.jsx)(r.h3,{id:`code`,children:`Code`}),`
+`,(0,N.jsx)(r.pre,{children:(0,N.jsx)(r.code,{className:`language-jsx`,children:`const createRows = (indexOffset) => {
+  return new Array(25).fill('').map((_, index) => (
+    <TableRow key={\`\${index + indexOffset} - row\`}>
+      <TableCell>
+        <Label>{index + indexOffset}</Label>
+      </TableCell>
+      <TableCell>
+        <Label>Placeholder</Label>
+      </TableCell>
+    </TableRow>
+  ));
+};
+
+const GrowingTable = () => {
+  const [rows, setRows] = useState(createRows(1));
+  const onLoadMore = () => {
+    setRows((prev) => [...prev, ...createRows(prev.length + 1)]);
+  };
+  return (
+    <div style={{ height: '250px', overflow: 'auto' }}>
+      <Table
+        onLoadMore={onLoadMore}
+        growing={TableGrowingMode.Scroll}
+        columns={
+          <>
+            <TableColumn>
+              <Label>Column 1</Label>
+            </TableColumn>
+            <TableColumn>
+              <Label>Column 2</Label>
+            </TableColumn>
+          </>
+        }
+      >
+        {rows}
+      </Table>
+    </div>
+  );
+};
+`})}),`
+`,(0,N.jsx)(d,{children:v}),`
+`,(0,N.jsx)(r.h2,{id:`tablecolumn`,children:`TableColumn`}),`
+`,(0,N.jsx)(l,{of:S}),`
+`,(0,N.jsx)(c,{of:S}),`
+`,(0,N.jsx)(r.h2,{id:`tablerow`,children:`TableRow`}),`
+`,(0,N.jsx)(l,{of:y}),`
+`,(0,N.jsx)(c,{of:y}),`
+`,(0,N.jsx)(r.h2,{id:`tablegrouprow`,children:`TableGroupRow`}),`
+`,(0,N.jsx)(l,{of:E}),`
+`,(0,N.jsx)(c,{of:E}),`
+`,(0,N.jsx)(r.h2,{id:`tablecell`,children:`TableCell`}),`
+`,(0,N.jsx)(l,{of:b}),`
+`,(0,N.jsx)(c,{of:b}),`
+`,(0,N.jsx)(g,{})]})}function M(e={}){let{wrapper:t}={...a(),...e.components};return t?(0,N.jsx)(t,{...e,children:(0,N.jsx)(j,{...e})}):j(e)}var N;e((()=>{N=r(),f(),h(),_(),o(),i(),x(),w(),T(),C(),k()}))();export{M as default};
