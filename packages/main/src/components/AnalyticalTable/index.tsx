@@ -94,6 +94,7 @@ import type {
   AnalyticalTableState,
   CellInstance,
   DivWithCustomScrollProp,
+  ReactTableHooks,
   TableInstance,
 } from './types/index.js';
 import {
@@ -966,4 +967,5 @@ export type {
   DivWithCustomScrollProp,
   TableInstance as AnalyticalTableInstance,
   CellInstance as AnalyticalTableCellInstance,
+  ReactTableHooks,
 };
