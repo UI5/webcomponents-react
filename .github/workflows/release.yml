@@ -117,8 +117,8 @@ jobs:
       - name: Setup Git User
         if: ${{ github.event.inputs.publish_only != 'true' }}
         run: |
-          git config user.email ${{ secrets.BOT_GIT_EMAIL }}
-          git config user.name ${{ secrets.BOT_GIT_USERNAME }}
+          git config user.email ${{ vars.BOT_GIT_EMAIL }}
+          git config user.name ${{ vars.BOT_GIT_USERNAME }}
 
       - name: version - Release
         if: ${{ github.event.inputs.publish_only != 'true' && github.event.inputs.snapshot == 'false' }}
