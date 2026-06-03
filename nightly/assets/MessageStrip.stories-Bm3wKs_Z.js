@@ -1,0 +1,5 @@
+import{a as e,i as t}from"./preload-helper-usAeo7Bx.js";import{$i as n,Cf as r,Ol as i,Qi as a,Zi as o,ea as s,kl as c,lh as l,wf as u}from"./iframe-D_tjSvIY.js";var d=e({Default:()=>m,WithIcon:()=>h,__namedExportsOrder:()=>g,default:()=>p}),f,p,m,h,g,_=t((()=>{s(),c(),u(),a(),f=l(),p={title:`Data Display / MessageStrip`,component:o,argTypes:{children:{control:`text`},icon:{control:{disable:!0}}},args:{design:n.Information,children:`MessageStrip Text`},tags:[`package:@ui5/webcomponents`]},m={},h={args:{icon:(0,f.jsx)(r,{name:i})}},m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`{}`,...m.parameters?.docs?.source}}},h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`{
+  args: {
+    icon: <Icon name={employeeIcon} />
+  }
+}`,...h.parameters?.docs?.source}}},g=[`Default`,`WithIcon`]}));_();export{m as Default,h as WithIcon,g as __namedExportsOrder,p as default,_ as n,d as t};
