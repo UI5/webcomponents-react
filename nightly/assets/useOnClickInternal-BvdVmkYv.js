@@ -1,1 +1,0 @@
-import{c as e,i as t}from"./preload-helper-usAeo7Bx.js";import{dh as n,uh as r,zg as i}from"./iframe-1XGul_S2.js";var a,o,s=t((()=>{n(),a=e(i(),1),o=e=>(0,a.useCallback)((t,n)=>{typeof e==`function`&&e(r(n,{payload:t?.activePayload?.[0]?.payload,activePayloads:t?.activePayload}))},[e])}));export{o as n,s as t};
