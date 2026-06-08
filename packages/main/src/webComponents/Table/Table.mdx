@@ -2,6 +2,7 @@ import { ControlsWithNote, DocsHeader, Footer } from '@sb/components';
 import SubcomponentsSection from '@sb/docs/SubcomponentsSection.md?raw';
 import { ArgTypes, Canvas, Description, Markdown, Meta } from '@storybook/addon-docs/blocks';
 import { TableCell } from '../TableCell';
+import { TableGroupRow } from '../TableGroupRow';
 import { TableHeaderRow } from '../TableHeaderRow';
 import { TableHeaderCell } from '../TableHeaderCell';
 import { TableRow } from '../TableRow';
@@ -331,6 +332,14 @@ Enable drag-and-drop by using the `onMoveOver` and `onMove` event in combination
 
 </details>
 
+## Table with group rows
+
+Use the `TableGroupRow` component to visually group related rows. Place a `TableGroupRow` between `TableRow` elements to create a header that spans across all visible columns.
+
+**Note:** `TableGroupRow` does not currently support cells, row actions, navigation, interactivity, selection, or virtualization.
+
+<Canvas of={ComponentStories.withGroupRows} />
+
 <Markdown>{SubcomponentsSection}</Markdown>
 
 ## TableHeaderRow
@@ -357,6 +366,11 @@ Enable drag-and-drop by using the `onMoveOver` and `onMove` event in combination
 
 <Description of={TableCell} />
 <ArgTypes of={TableCell} />
+
+## TableGroupRow
+
+<Description of={TableGroupRow} />
+<ArgTypes of={TableGroupRow} />
 
 ## TableRowAction
 

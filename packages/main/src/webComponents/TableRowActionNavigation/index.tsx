@@ -11,7 +11,7 @@ interface TableRowActionNavigationAttributes {
 * @deprecated As of version 2.20.0, the navigation icon is deprecated.
 For better accessibility, the interactive mode which renders a button, must be used instead. To handle the action, attach a listener to the `click` event.
 If the navigation should be triggered when a row is pressed, set the row's `interactive` property and use the `row-click` event of the `ui5-table`.
-This property will be removed in a future release.
+This property will be removed in the next major version.
 */
   interactive?: boolean;
 

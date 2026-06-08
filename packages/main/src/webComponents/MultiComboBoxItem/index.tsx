@@ -1,8 +1,9 @@
 'use client';
 
 import '@ui5/webcomponents/dist/MultiComboBoxItem.js';
+import type { ListItemBaseClickEventDetail } from '@ui5/webcomponents/dist/ListItemBase.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
+import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 interface MultiComboBoxItemAttributes {
   /**
@@ -40,7 +41,20 @@ interface MultiComboBoxItemAttributes {
 interface MultiComboBoxItemDomRef extends Required<MultiComboBoxItemAttributes>, Ui5DomRef {}
 
 interface MultiComboBoxItemPropTypes
-  extends MultiComboBoxItemAttributes, Omit<CommonProps, keyof MultiComboBoxItemAttributes> {}
+  extends MultiComboBoxItemAttributes, Omit<CommonProps, keyof MultiComboBoxItemAttributes | 'onClick'> {
+  /**
+   * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** The event will not be fired if the `disabled` property is set to `true`.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<MultiComboBoxItemDomRef, ListItemBaseClickEventDetail>) => void;
+}
 
 /**
  * The `MultiComboBoxItem` represents the item for a `MultiComboBox`.
@@ -52,7 +66,7 @@ const MultiComboBoxItem = withWebComponent<MultiComboBoxItemPropTypes, MultiComb
   ['additionalText', 'text', 'value'],
   ['selected'],
   [],
-  [],
+  ['click'],
 );
 
 MultiComboBoxItem.displayName = 'MultiComboBoxItem';

@@ -2,7 +2,9 @@
 
 import '@ui5/webcomponents/dist/ListItemStandard.js';
 import type { ListItemAccessibilityAttributes } from '@ui5/webcomponents/dist/ListItem.js';
+import type { ListItemBaseClickEventDetail } from '@ui5/webcomponents/dist/ListItemBase.js';
 import type Highlight from '@ui5/webcomponents/dist/types/Highlight.js';
+import type ListItemAccessibleRole from '@ui5/webcomponents/dist/types/ListItemAccessibleRole.js';
 import type ListItemType from '@ui5/webcomponents/dist/types/ListItemType.js';
 import type WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
 import type ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
@@ -32,6 +34,18 @@ interface ListItemStandardAttributes {
    * @default undefined
    */
   accessibleName?: string | undefined;
+
+  /**
+   * Used to define the role of the list item.
+   *
+   * **Note:** If not set, the role is automatically inherited from the parent `List` based on its `accessible-role` property
+   * (e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).
+   * An explicitly set `accessible-role` on the list item takes precedence over the inherited role.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleRole?: ListItemAccessibleRole | undefined | keyof typeof ListItemAccessibleRole;
 
   /**
    * Defines the `additionalText`, displayed in the end of the list item.
@@ -151,7 +165,10 @@ interface ListItemStandardDomRef extends Required<ListItemStandardAttributes>, U
 interface ListItemStandardPropTypes
   extends
     ListItemStandardAttributes,
-    Omit<CommonProps, keyof ListItemStandardAttributes | 'children' | 'deleteButton' | 'image' | 'onDetailClick'> {
+    Omit<
+      CommonProps,
+      keyof ListItemStandardAttributes | 'children' | 'deleteButton' | 'image' | 'onClick' | 'onDetailClick'
+    > {
   /**
    * Defines the custom formatted text of the component.
    *
@@ -203,6 +220,19 @@ interface ListItemStandardPropTypes
    */
   image?: UI5WCSlotsNode;
   /**
+   * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** The event will not be fired if the `disabled` property is set to `true`.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<ListItemStandardDomRef, ListItemBaseClickEventDetail>) => void;
+
+  /**
    * Fired when the user clicks on the detail button when type is `Detail`.
    *
    * | cancelable | bubbles |
@@ -226,6 +256,7 @@ const ListItemStandard = withWebComponent<ListItemStandardPropTypes, ListItemSta
   [
     'accessibilityAttributes',
     'accessibleName',
+    'accessibleRole',
     'additionalText',
     'additionalTextState',
     'description',
@@ -238,7 +269,7 @@ const ListItemStandard = withWebComponent<ListItemStandardPropTypes, ListItemSta
   ],
   ['iconEnd', 'movable', 'navigated', 'selected'],
   ['deleteButton', 'image'],
-  ['detail-click'],
+  ['click', 'detail-click'],
 );
 
 ListItemStandard.displayName = 'ListItemStandard';

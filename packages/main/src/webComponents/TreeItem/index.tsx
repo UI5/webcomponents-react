@@ -2,11 +2,13 @@
 
 import '@ui5/webcomponents/dist/TreeItem.js';
 import type { ListItemAccessibilityAttributes } from '@ui5/webcomponents/dist/ListItem.js';
+import type { ListItemBaseClickEventDetail } from '@ui5/webcomponents/dist/ListItemBase.js';
 import type Highlight from '@ui5/webcomponents/dist/types/Highlight.js';
+import type ListItemAccessibleRole from '@ui5/webcomponents/dist/types/ListItemAccessibleRole.js';
 import type ListItemType from '@ui5/webcomponents/dist/types/ListItemType.js';
 import type ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
-import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
+import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
 
 interface TreeItemAttributes {
@@ -32,6 +34,18 @@ interface TreeItemAttributes {
    * @default undefined
    */
   accessibleName?: string | undefined;
+
+  /**
+   * Used to define the role of the list item.
+   *
+   * **Note:** If not set, the role is automatically inherited from the parent `List` based on its `accessible-role` property
+   * (e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).
+   * An explicitly set `accessible-role` on the list item takes precedence over the inherited role.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleRole?: ListItemAccessibleRole | undefined | keyof typeof ListItemAccessibleRole;
 
   /**
    * Defines the `additionalText`, displayed in the end of the tree item.
@@ -155,7 +169,7 @@ interface TreeItemDomRef extends Required<TreeItemAttributes>, Ui5DomRef {
 interface TreeItemPropTypes
   extends
     TreeItemAttributes,
-    Omit<CommonProps, keyof TreeItemAttributes | 'children' | 'deleteButton' | 'image' | 'onDetailClick'> {
+    Omit<CommonProps, keyof TreeItemAttributes | 'children' | 'deleteButton' | 'image' | 'onClick' | 'onDetailClick'> {
   /**
    * Defines the items of the component.
    *
@@ -202,6 +216,19 @@ interface TreeItemPropTypes
    */
   image?: UI5WCSlotsNode;
   /**
+   * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** The event will not be fired if the `disabled` property is set to `true`.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<TreeItemDomRef, ListItemBaseClickEventDetail>) => void;
+
+  /**
    * Fired when the user clicks on the detail button when type is `Detail`.
    *
    * | cancelable | bubbles |
@@ -226,6 +253,7 @@ const TreeItem = withWebComponent<TreeItemPropTypes, TreeItemDomRef>(
   [
     'accessibilityAttributes',
     'accessibleName',
+    'accessibleRole',
     'additionalText',
     'additionalTextState',
     'highlight',
@@ -236,7 +264,7 @@ const TreeItem = withWebComponent<TreeItemPropTypes, TreeItemDomRef>(
   ],
   ['expanded', 'hasChildren', 'indeterminate', 'movable', 'navigated', 'selected'],
   ['deleteButton', 'image'],
-  ['detail-click'],
+  ['click', 'detail-click'],
 );
 
 TreeItem.displayName = 'TreeItem';

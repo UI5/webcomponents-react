@@ -319,6 +319,10 @@
       "types": "./dist/webComponents/GroupItem/index.d.ts",
       "default": "./dist/webComponents/GroupItem/index.js"
     },
+    "./HeroBanner": {
+      "types": "./dist/webComponents/HeroBanner/index.d.ts",
+      "default": "./dist/webComponents/HeroBanner/index.js"
+    },
     "./Icon": {
       "types": "./dist/webComponents/Icon/index.d.ts",
       "default": "./dist/webComponents/Icon/index.js"
@@ -591,6 +595,10 @@
       "types": "./dist/webComponents/TableCell/index.d.ts",
       "default": "./dist/webComponents/TableCell/index.js"
     },
+    "./TableGroupRow": {
+      "types": "./dist/webComponents/TableGroupRow/index.d.ts",
+      "default": "./dist/webComponents/TableGroupRow/index.js"
+    },
     "./TableGrowing": {
       "types": "./dist/webComponents/TableGrowing/index.d.ts",
       "default": "./dist/webComponents/TableGrowing/index.js"
@@ -823,10 +831,10 @@
   "peerDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@ui5/webcomponents": "~2.22.0",
-    "@ui5/webcomponents-base": "~2.22.0",
-    "@ui5/webcomponents-fiori": "~2.22.0",
-    "@ui5/webcomponents-icons": "~2.22.0",
+    "@ui5/webcomponents": "~2.23.0",
+    "@ui5/webcomponents-base": "~2.23.0",
+    "@ui5/webcomponents-fiori": "~2.23.0",
+    "@ui5/webcomponents-icons": "~2.23.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
   },

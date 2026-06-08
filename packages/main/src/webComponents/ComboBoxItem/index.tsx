@@ -1,8 +1,9 @@
 'use client';
 
 import '@ui5/webcomponents/dist/ComboBoxItem.js';
+import type { ListItemBaseClickEventDetail } from '@ui5/webcomponents/dist/ListItemBase.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
+import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 interface ComboBoxItemAttributes {
   /**
@@ -46,7 +47,21 @@ interface ComboBoxItemAttributes {
 
 interface ComboBoxItemDomRef extends Required<ComboBoxItemAttributes>, Ui5DomRef {}
 
-interface ComboBoxItemPropTypes extends ComboBoxItemAttributes, Omit<CommonProps, keyof ComboBoxItemAttributes> {}
+interface ComboBoxItemPropTypes
+  extends ComboBoxItemAttributes, Omit<CommonProps, keyof ComboBoxItemAttributes | 'onClick'> {
+  /**
+   * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** The event will not be fired if the `disabled` property is set to `true`.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<ComboBoxItemDomRef, ListItemBaseClickEventDetail>) => void;
+}
 
 /**
  * The `ComboBoxItem` represents the item for a `ComboBox`.
@@ -58,7 +73,7 @@ const ComboBoxItem = withWebComponent<ComboBoxItemPropTypes, ComboBoxItemDomRef>
   ['additionalText', 'text', 'value'],
   [],
   [],
-  [],
+  ['click'],
 );
 
 ComboBoxItem.displayName = 'ComboBoxItem';
