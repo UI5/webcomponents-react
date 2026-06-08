@@ -55,7 +55,7 @@ jobs:
       name: 'npm'
       url: 'https://www.npmjs.com/package/@ui5/webcomponents-react'
     permissions:
-      contents: read
+      contents: write
       id-token: write
       issues: write
       pull-requests: write
@@ -149,7 +149,7 @@ jobs:
       name: 'npm'
       url: 'https://www.npmjs.com/package/@ui5/webcomponents-react'
     permissions:
-      contents: read
+      contents: write
       id-token: write
       issues: write
       pull-requests: write
