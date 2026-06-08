@@ -94,6 +94,7 @@ import type {
   AnalyticalTableState,
   CellInstance,
   DivWithCustomScrollProp,
+  ReactTableHooks,
   TableInstance,
 } from './types/index.js';
 import {
@@ -134,6 +135,8 @@ const measureElement = (el: HTMLElement) => {
  */
 const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTypes>((props, ref) => {
   const {
+    accessibleName,
+    accessibleNameRef,
     adjustTableHeightOnPopIn,
     alternateRowColor,
     alwaysShowBusyIndicator,
@@ -794,7 +797,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
               </span>
               <div
                 tabIndex={0}
-                aria-labelledby={`${titleBarId} ${invalidTableTextId}`}
+                aria-labelledby={`${accessibleNameRef ?? titleBarId} ${invalidTableTextId}`}
                 role="region"
                 data-component-name="AnalyticalTableOverlay"
                 className={classNames.overlay}
@@ -802,7 +805,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
             </>
           )}
           <div
-            aria-labelledby={titleBarId}
+            aria-label={accessibleName}
+            aria-labelledby={accessibleNameRef ?? (header && !accessibleName ? titleBarId : undefined)}
             {...getTableProps()}
             tabIndex={loading || showOverlay ? -1 : 0}
             role={isTreeTable ? 'treegrid' : 'grid'}
@@ -966,4 +970,5 @@ export type {
   DivWithCustomScrollProp,
   TableInstance as AnalyticalTableInstance,
   CellInstance as AnalyticalTableCellInstance,
+  ReactTableHooks,
 };

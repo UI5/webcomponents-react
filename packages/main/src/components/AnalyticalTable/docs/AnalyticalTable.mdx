@@ -549,6 +549,22 @@ function ContextMenuExample() {
 
 </details>
 
+## Accessibility
+
+This example demonstrates possible accessibility configuration for the `AnalyticalTable`:
+
+- **`accessibleName`**: Sets a concise `aria-label` on the table grid, giving screen readers a meaningful table name.
+- **`accessibleNameRef`**: References the ID of an external labelling element via `aria-labelledby`. When either `accessibleName` or `accessibleNameRef` is set, the automatic connection to the `header` prop is removed.
+- **`headerLabel`** (column option): Provides a screen-reader-accessible label for column headers that have no textual content.
+- **`cellLabel`** (column option): Returns a descriptive `aria-label` for cells whose visual content is not self-explanatory.
+
+**Note:**
+
+- The example also includes the [useAnnounceEmptyCells](?path=/docs/data-display-analyticaltable-plugin-hooks--docs#announce-empty-cells) plugin hook, which adds explicit empty-cell announcements for screen readers that do not detect them on their own. As this could lead to duplicate screen reader announcement, use with caution.
+- When the `header` prop is set, its text is automatically used as the table's accessible name. To provide a different accessible name, use `accessibleName` or `accessibleNameRef` instead.
+
+<Canvas of={ComponentStories.Accessibility}/>
+
 ## Kitchen Sink
 
 A comprehensive example combining many AnalyticalTable features: sorting, filtering, grouping, custom cells, row and navigation highlighting, infinite scrolling, column reordering, vertical alignment, `scaleWidthModeOptions` for custom renderers, `retainColumnWidth`, `sortDescFirst`, and more.

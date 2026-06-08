@@ -109,15 +109,24 @@ export const SelectDialogSelectionWithToggleTestComp = () => {
 
 // Tracks search/input/reset values and counts via DOM
 export const SelectDialogSearchTestComp = () => {
+  const [open, setOpen] = useState(true);
   const [inputVal, setInputVal] = useState('');
   const [searchVal, setSearchVal] = useState('');
   const [searchCount, setSearchCount] = useState(0);
   const [inputCount, setInputCount] = useState(0);
   const [resetCount, setResetCount] = useState(0);
+  const [searchPlaceholder, setSearchPlaceholder] = useState<SelectDialogPropTypes['searchPlaceholder']>(undefined);
 
   return (
     <>
+      <Button data-testid="open-btn" onClick={() => setOpen(true)}>
+        Open
+      </Button>
+      <Button data-testid="set-placeholder" onClick={() => setSearchPlaceholder('Hello')}>
+        Set Placeholder
+      </Button>
       <SelectDialog
+        searchPlaceholder={searchPlaceholder}
         onSearch={(e) => {
           setSearchVal(e.detail.value);
           setSearchCount((c) => c + 1);
@@ -127,7 +136,8 @@ export const SelectDialogSearchTestComp = () => {
           setInputCount((c) => c + 1);
         }}
         onSearchReset={() => setResetCount((c) => c + 1)}
-        open
+        onClose={() => setOpen(false)}
+        open={open}
       >
         {listItems}
       </SelectDialog>

@@ -3253,6 +3253,35 @@ describe('AnalyticalTable', () => {
     );
   });
 
+  it('a11y: accessibleName and accessibleNameRef', () => {
+    // no aria-labelledby
+    cy.mount(<AnalyticalTable columns={columns} data={data} />);
+    cy.get('[data-component-name="AnalyticalTableContainer"]').should('not.have.attr', 'aria-labelledby');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').should('not.have.attr', 'aria-label');
+
+    // with header: aria-labelledby points to the title bar
+    cy.mount(<AnalyticalTable columns={columns} data={data} header="Items Table" />);
+    cy.get('[data-component-name="AnalyticalTableContainer"]')
+      .should('have.attr', 'aria-labelledby')
+      .then((labelledby) => {
+        cy.get(`[id="${labelledby}"]`).should('exist');
+      });
+
+    // accessibleName: aria-label on the grid and removes the header connection
+    cy.mount(<AnalyticalTable columns={columns} data={data} header="Items Table" accessibleName="Financing Details" />);
+    cy.get('[data-component-name="AnalyticalTableContainer"]').should('have.attr', 'aria-label', 'Financing Details');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').should('not.have.attr', 'aria-labelledby');
+
+    // accessibleNameRef: overrides the header connection
+    cy.mount(
+      <>
+        <span id="custom-label">Custom Table Label</span>
+        <AnalyticalTable columns={columns} data={data} header="Items Table" accessibleNameRef="custom-label" />
+      </>,
+    );
+    cy.get('[data-component-name="AnalyticalTableContainer"]').should('have.attr', 'aria-labelledby', 'custom-label');
+  });
+
   it("Expandable: don't scroll when expanded/collapsed", () => {
     const TestComp = () => {
       const tableInstanceRef = useRef<{ toggleRowExpanded?: (e: string) => void }>({});
