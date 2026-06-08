@@ -49,7 +49,7 @@ jobs:
 
   publish:
     needs: release-please
-    if: github.event_name == 'push' && needs.release-please.outputs.releases_created == 'true'
+    if: needs.release-please.outputs.releases_created == 'true'
     runs-on: ubuntu-latest
     environment:
       name: 'npm'
@@ -119,6 +119,7 @@ jobs:
           npm install -g npm
           yarn install --immutable
 
+      # Mutates package.json in the runner only; no commit, no tag — snapshot is ephemeral.
       - name: version - Snapshot
         run: |
           git_hash=$(git rev-parse --short "${{ github.sha }}")
@@ -188,6 +189,7 @@ jobs:
 
             await addIssueComments({ github, context })
 
+  # snapshots intentionally excluded (not main; no production release).
   publish-mcp-registry:
     needs: [publish, publish-only]
     if: |
