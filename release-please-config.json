@@ -7,42 +7,41 @@
     {
       "type": "linked-versions",
       "groupName": "ui5wcr",
-      "components": [
-        "@ui5/webcomponents-react",
-        "@ui5/webcomponents-react-base",
-        "@ui5/webcomponents-react-charts",
-        "@ui5/webcomponents-react-cli",
-        "@ui5/webcomponents-react-compat",
-        "@ui5/webcomponents-ai-react",
-        "@ui5/webcomponents-cypress-commands",
-        "@ui5/webcomponents-react-mcp"
-      ]
+      "components": ["main", "base", "charts", "cli", "compat", "ai", "cypress-commands", "mcp-server"]
     }
   ],
   "packages": {
     "packages/main": {
-      "package-name": "@ui5/webcomponents-react"
+      "package-name": "@ui5/webcomponents-react",
+      "component": "main"
     },
     "packages/base": {
-      "package-name": "@ui5/webcomponents-react-base"
+      "package-name": "@ui5/webcomponents-react-base",
+      "component": "base"
     },
     "packages/charts": {
-      "package-name": "@ui5/webcomponents-react-charts"
+      "package-name": "@ui5/webcomponents-react-charts",
+      "component": "charts"
     },
     "packages/cli": {
-      "package-name": "@ui5/webcomponents-react-cli"
+      "package-name": "@ui5/webcomponents-react-cli",
+      "component": "cli"
     },
     "packages/compat": {
-      "package-name": "@ui5/webcomponents-react-compat"
+      "package-name": "@ui5/webcomponents-react-compat",
+      "component": "compat"
     },
     "packages/ai": {
-      "package-name": "@ui5/webcomponents-ai-react"
+      "package-name": "@ui5/webcomponents-ai-react",
+      "component": "ai"
     },
     "packages/cypress-commands": {
-      "package-name": "@ui5/webcomponents-cypress-commands"
+      "package-name": "@ui5/webcomponents-cypress-commands",
+      "component": "cypress-commands"
     },
     "packages/mcp-server": {
       "package-name": "@ui5/webcomponents-react-mcp",
+      "component": "mcp-server",
       "extra-files": [
         { "type": "json", "path": "server.json", "jsonpath": "$.version" },
         { "type": "json", "path": "server.json", "jsonpath": "$.packages[0].version" }
