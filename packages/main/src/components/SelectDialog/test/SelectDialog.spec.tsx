@@ -129,6 +129,8 @@ test.describe('SelectDialog', () => {
     await expect(page.locator('[accessible-name="Reset"][ui5-icon]')).not.toBeVisible();
 
     const input = page.locator('[ui5-input]');
+    await expect(input).toHaveAttribute('placeholder', 'Search');
+    await expect(input).toHaveAttribute('accessible-name', 'Search');
     await ui5wc.typeIntoInput(input, 'Test');
     await expect(page.getByTestId('input-val')).toHaveText('input: Test');
     await expect(page.getByTestId('search-count')).toHaveText('0');
@@ -152,6 +154,12 @@ test.describe('SelectDialog', () => {
     await expect(page.getByTestId('input-count')).toHaveText('2');
     await expect(page.getByTestId('reset-count')).toHaveText('1');
     await expect(page.locator('[accessible-name="Reset"][ui5-icon]')).not.toBeVisible();
+
+    await ui5wc.closePopupWithEsc();
+    await page.getByTestId('set-placeholder').click();
+    await page.getByTestId('open-btn').click();
+    await expect(input).toHaveAttribute('placeholder', 'Hello');
+    await expect(input).toHaveAttribute('accessible-name', 'Hello');
   });
 
   test('confirmButtonText', async ({ mount, page }) => {

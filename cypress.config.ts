@@ -12,7 +12,7 @@ export default defineConfig({
       bundler: 'vite',
     },
     experimentalRunAllSpecs: true,
-    excludeSpecPattern: ['**/e2e/**', ...(process.env.CI ? ['**/SelectDialog/**'] : [])],
+    excludeSpecPattern: ['**/e2e/**'],
   },
   includeShadowDom: true,
   viewportWidth: 1920,

@@ -119,6 +119,13 @@ export interface SelectDialogPropTypes
    */
   confirmButtonProps?: Omit<ButtonPropTypes, 'onClick' | 'design'>;
   /**
+   *
+   * Allows overriding the SearchField's default placeholder text. If not set, the word "Search" in the current local language or English will be used as a placeholder.
+   *
+   * __Note:__ The placeholder is used as accessible-name of the input for screen reader support.
+   */
+  searchPlaceholder?: string;
+  /**
    * This event will be fired when the value of the search field is changed by a user - e.g. at each key press
    */
   onSearchInput?: (event: Ui5CustomEvent<InputDomRef, { value: string }>) => void;
@@ -169,6 +176,7 @@ const SelectDialog = forwardRef<DialogDomRef, SelectDialogPropTypes>((props, ref
     selectionMode = ListSelectionMode.Single,
     numberOfSelectedItems,
     rememberSelections,
+    searchPlaceholder,
     showClearButton,
     onClose,
     onClear,
@@ -341,9 +349,9 @@ const SelectDialog = forwardRef<DialogDomRef, SelectDialogPropTypes>((props, ref
         )}
         <Input
           className={classNames.input}
-          accessibleName={i18nBundle.getText(SEARCH)}
+          accessibleName={searchPlaceholder ?? i18nBundle.getText(SEARCH)}
           value={searchValue}
-          placeholder={i18nBundle.getText(SEARCH)}
+          placeholder={searchPlaceholder ?? i18nBundle.getText(SEARCH)}
           onInput={handleSearchInput}
           onKeyUp={handleSearchSubmit}
           type={InputType.Search}
