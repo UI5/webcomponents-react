@@ -1,0 +1,52 @@
+{
+  "release-type": "node",
+  "bump-minor-pre-major": false,
+  "include-component-in-tag": false,
+  "separate-pull-requests": false,
+  "plugins": [
+    {
+      "type": "linked-versions",
+      "groupName": "ui5wcr",
+      "components": [
+        "@ui5/webcomponents-react",
+        "@ui5/webcomponents-react-base",
+        "@ui5/webcomponents-react-charts",
+        "@ui5/webcomponents-react-cli",
+        "@ui5/webcomponents-react-compat",
+        "@ui5/webcomponents-ai-react",
+        "@ui5/webcomponents-cypress-commands",
+        "@ui5/webcomponents-react-mcp"
+      ]
+    }
+  ],
+  "packages": {
+    "packages/main": {
+      "package-name": "@ui5/webcomponents-react"
+    },
+    "packages/base": {
+      "package-name": "@ui5/webcomponents-react-base"
+    },
+    "packages/charts": {
+      "package-name": "@ui5/webcomponents-react-charts"
+    },
+    "packages/cli": {
+      "package-name": "@ui5/webcomponents-react-cli"
+    },
+    "packages/compat": {
+      "package-name": "@ui5/webcomponents-react-compat"
+    },
+    "packages/ai": {
+      "package-name": "@ui5/webcomponents-ai-react"
+    },
+    "packages/cypress-commands": {
+      "package-name": "@ui5/webcomponents-cypress-commands"
+    },
+    "packages/mcp-server": {
+      "package-name": "@ui5/webcomponents-react-mcp",
+      "extra-files": [
+        { "type": "json", "path": "server.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "server.json", "jsonpath": "$.packages[0].version" }
+      ]
+    }
+  }
+}

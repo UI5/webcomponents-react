@@ -1,52 +1,64 @@
 name: 'Release'
 
+# This workflow handles all release flows for the monorepo.
+#
+# Auto release (push to main):
+#   Release Please opens/updates a release PR with version bumps + changelog.
+#   When a maintainer merges that PR, the publish job ships every package to
+#   npm via OIDC trusted publishing, then the MCP registry publish chains.
+#
+# Manual dispatch:
+#   - mode = snapshot      → bump to 0.0.0-<sha>, publish to npm dist-tag `dev`. Any branch.
+#   - mode = publish-only  → publish current packages/*/package.json versions as-is.
+#                            Recovery for a stable release whose publish job died after
+#                            Release Please created the tag. Restricted to main.
+
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
-      release_type:
-        type: string
-        description: 'Release Type: Lerna Auto Versioning if empty.'
-        required: false
-        default: ''
-      prerelease:
-        type: boolean
-        description: 'pre-release'
-        required: false
-        default: false
-      snapshot:
-        type: boolean
-        description: 'Release as snapshot. This setting has precedence over all other inputs.'
-        required: false
-        default: false
-      publish_only:
-        type: boolean
-        description: 'Skip versioning and only publish existing tags to npm. Use when a previous release failed during publish.'
-        required: false
-        default: false
+      mode:
+        type: choice
+        description: 'What to publish'
+        options:
+          - snapshot
+          - publish-only
+        default: snapshot
+
+permissions: {}
 
 jobs:
-  build:
-    if: ${{ github.event.inputs.publish_only != 'true' }}
-    permissions:
-      contents: read
-    uses: './.github/workflows/build.yml'
-
-  test:
-    if: ${{ github.event.inputs.publish_only != 'true' }}
-    needs: ['build']
-    permissions:
-      contents: read
-      pull-requests: write
-      checks: write
-    uses: './.github/workflows/test.yml'
-    with:
-      reportCoverage: false
-
-  release-dryrun:
-    if: ${{ github.event.inputs.publish_only != 'true' }}
+  release-please:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    outputs:
+      releases_created: ${{ steps.rp.outputs.releases_created }}
+      tag_name: ${{ steps.rp.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        id: rp
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  publish:
+    needs: release-please
+    if: github.event_name == 'push' && needs.release-please.outputs.releases_created == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: 'npm'
+      url: 'https://www.npmjs.com/package/@ui5/webcomponents-react'
+    permissions:
       contents: read
+      id-token: write
+      issues: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
@@ -63,40 +75,37 @@ jobs:
           npm install -g npm
           yarn install --immutable
 
-      - name: version - Release
-        if: ${{ github.event.inputs.snapshot == 'false' }}
-        run: |
-          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version ${{ github.event.inputs.release_type }} \
-            ${{ (github.event.inputs.prerelease == 'true' && '--conventional-prerelease') || '--conventional-graduate' }} \
-            --no-push \
-            --no-git-tag-version
+      - name: build
+        run: yarn build
 
-      - name: version - Snapshot
-        if: ${{ github.event.inputs.snapshot == 'true' }}
-        run: |
-          git_hash=$(git rev-parse --short "${{ github.sha }}")
+      - name: build mcp-server data
+        run: yarn build:mcp
 
-          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version "0.0.0-${git_hash}" \
-            --exact \
-            --no-push \
-            --no-git-tag-version \
-            --allow-branch ${{ github.ref_name }}
+      - name: publish to npm
+        run: ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-package --yes
+        env:
+          NPM_CONFIG_PROVENANCE: true
 
-  build-and-release:
-    if: ${{ !cancelled() && (github.event.inputs.publish_only == 'true' || (needs.test.result == 'success' && needs.release-dryrun.result == 'success')) }}
-    needs: ['test', 'release-dryrun']
+      - name: Add release comments to issues and PRs
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { default: addIssueComments } = await import('${{ github.workspace }}/.github/createIssueCommentsForRelease.mjs');
+
+            await addIssueComments({ github, context })
+
+  snapshot:
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'snapshot'
     runs-on: ubuntu-latest
     environment:
       name: 'npm'
-      url: 'https://www.npmjs.com/package/@ui5/webcomponents-react'
     permissions:
-      contents: write
+      contents: read
       id-token: write
-      issues: write
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
           fetch-depth: 0
 
       - name: Setup Node.js environment
@@ -105,38 +114,20 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
 
-      - name: Install and build
+      - name: Install
         run: |
           npm install -g npm
           yarn install --immutable
 
-      - name: List packages to publish
-        if: ${{ github.event.inputs.publish_only == 'true' }}
-        run: ${GITHUB_WORKSPACE}/node_modules/.bin/lerna ls --json
-
-      - name: Setup Git User
-        if: ${{ github.event.inputs.publish_only != 'true' }}
-        run: |
-          git config user.email ${{ vars.BOT_GIT_EMAIL }}
-          git config user.name ${{ vars.BOT_GIT_USERNAME }}
-
-      - name: version - Release
-        if: ${{ github.event.inputs.publish_only != 'true' && github.event.inputs.snapshot == 'false' }}
-        run: |
-          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version ${{ github.event.inputs.release_type }} \
-            ${{ (github.event.inputs.prerelease == 'true' && '--conventional-prerelease') || '--conventional-graduate' }} \
-            --create-release github
-        env:
-          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-
       - name: version - Snapshot
-        if: ${{ github.event.inputs.publish_only != 'true' && github.event.inputs.snapshot == 'true' }}
         run: |
           git_hash=$(git rev-parse --short "${{ github.sha }}")
 
           ${GITHUB_WORKSPACE}/node_modules/.bin/lerna version "0.0.0-${git_hash}" \
             --exact \
             --no-push \
+            --no-git-tag-version \
+            --yes \
             --allow-branch ${{ github.ref_name }}
 
       - name: build
@@ -146,37 +137,62 @@ jobs:
         run: yarn build:mcp
 
       - name: publish to npm
-        if: ${{ github.event.inputs.publish_only != 'true' }}
-        run: |
-          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-git ${{ (github.event.inputs.snapshot == 'true' && '--pre-dist-tag dev') || '' }}
+        run: ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-package --yes --dist-tag dev
         env:
-          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
-      - name: publish to npm (from-package)
-        if: ${{ github.event.inputs.publish_only == 'true' }}
+  publish-only:
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'publish-only' && github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    environment:
+      name: 'npm'
+      url: 'https://www.npmjs.com/package/@ui5/webcomponents-react'
+    permissions:
+      contents: read
+      id-token: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: Install
         run: |
-          ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-package
+          npm install -g npm
+          yarn install --immutable
+
+      - name: build
+        run: yarn build
+
+      - name: build mcp-server data
+        run: yarn build:mcp
+
+      - name: publish to npm
+        run: ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-package --yes
         env:
-          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
-      ### Semantic Release Bot comments for issues and PRs ###
       - name: Add release comments to issues and PRs
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        if: ${{ github.event.inputs.snapshot == 'false' }}
-        env:
-          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
-          github-token: ${{ secrets.ACCESS_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { default: addIssueComments } = await import('${{ github.workspace }}/.github/createIssueCommentsForRelease.mjs');
 
             await addIssueComments({ github, context })
 
   publish-mcp-registry:
-    needs: ['build-and-release']
-    if: ${{ github.event.inputs.snapshot == 'false' && github.event.inputs.prerelease == 'false' }}
+    needs: [publish, publish-only]
+    if: |
+      always() && github.ref_name == 'main' &&
+      (needs.publish.result == 'success' || needs.publish-only.result == 'success')
     uses: './.github/workflows/publish-mcp-registry.yml'
     permissions:
       id-token: write
