@@ -1,5 +1,7 @@
 # Change Log
 
+> **This file is preserved as a historical archive up to v2.22.2.** From v2.22.3 onwards, all release notes are aggregated in the [project-root `CHANGELOG.md`](../../CHANGELOG.md) and on the [GitHub Releases page](https://github.com/UI5/webcomponents-react/releases).
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

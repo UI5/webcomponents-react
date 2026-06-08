@@ -3,48 +3,20 @@
   "bump-minor-pre-major": false,
   "include-component-in-tag": false,
   "separate-pull-requests": false,
-  "plugins": [
-    {
-      "type": "linked-versions",
-      "groupName": "ui5wcr",
-      "components": ["main", "base", "charts", "cli", "compat", "ai", "cypress-commands", "mcp-server"]
-    }
-  ],
   "packages": {
-    "packages/main": {
+    ".": {
       "package-name": "@ui5/webcomponents-react",
-      "component": "main"
-    },
-    "packages/base": {
-      "package-name": "@ui5/webcomponents-react-base",
-      "component": "base"
-    },
-    "packages/charts": {
-      "package-name": "@ui5/webcomponents-react-charts",
-      "component": "charts"
-    },
-    "packages/cli": {
-      "package-name": "@ui5/webcomponents-react-cli",
-      "component": "cli"
-    },
-    "packages/compat": {
-      "package-name": "@ui5/webcomponents-react-compat",
-      "component": "compat"
-    },
-    "packages/ai": {
-      "package-name": "@ui5/webcomponents-ai-react",
-      "component": "ai"
-    },
-    "packages/cypress-commands": {
-      "package-name": "@ui5/webcomponents-cypress-commands",
-      "component": "cypress-commands"
-    },
-    "packages/mcp-server": {
-      "package-name": "@ui5/webcomponents-react-mcp",
-      "component": "mcp-server",
       "extra-files": [
-        { "type": "json", "path": "server.json", "jsonpath": "$.version" },
-        { "type": "json", "path": "server.json", "jsonpath": "$.packages[0].version" }
+        { "type": "json", "path": "/packages/main/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/base/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/charts/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/cli/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/compat/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/ai/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/cypress-commands/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/mcp-server/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/mcp-server/server.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/mcp-server/server.json", "jsonpath": "$.packages[0].version" }
       ]
     }
   }

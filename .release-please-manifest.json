@@ -1,10 +1,3 @@
 {
-  "packages/main": "2.22.2",
-  "packages/base": "2.22.2",
-  "packages/charts": "2.22.2",
-  "packages/cli": "2.22.2",
-  "packages/compat": "2.22.2",
-  "packages/ai": "2.22.2",
-  "packages/cypress-commands": "2.22.2",
-  "packages/mcp-server": "2.22.2"
+  ".": "2.22.2"
 }
