@@ -1,0 +1,1 @@
+import{c as e,i as t}from"./preload-helper-usAeo7Bx.js";import{Wg as n,gh as r,hh as i}from"./iframe-2aOx3Cwb.js";var a,o,s=t((()=>{r(),a=e(n(),1),o=e=>(0,a.useCallback)((t,n)=>{typeof e==`function`&&e(i(n,{payload:t?.activePayload?.[0]?.payload,activePayloads:t?.activePayload}))},[e])}));export{o as n,s as t};
