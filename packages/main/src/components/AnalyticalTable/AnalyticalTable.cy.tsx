@@ -1610,8 +1610,9 @@ describe('AnalyticalTable', () => {
   });
 
   it('first virtual row offset matches scrollTop after loading cycle', () => {
-    // Guards the layout-effect in `AnalyticalTable/index.tsx` that re-syncs the virtualizer' cached `scrollOffset` with the DOM after a data swap clamps `scrollTop` (dispatching scroll event).
+    // Guards the layout-effect in `AnalyticalTable/index.tsx` that re-syncs the virtualizer's cached `scrollOffset` with the DOM after a data swap clamps `scrollTop` (dispatching a scroll event).
     // Without it, the first row renders at a stale `translateY` and leaves a whitespace gap at the top.
+    // `minRows={20}` + a filter result smaller than `minRows` keeps `itemCount = Math.max(minRows, rows.length, ...)` constant across the empty-then-refilled cycle, so the effect can only re-fire via the `rows.length` dep — guarding both deps in one shot.
     const filterData = new Array(500).fill('').map((_, index) => ({ name: `Row-${index}`, age: index }));
     const TestComp = () => {
       const [tableData, setTableData] = useState(filterData);
@@ -1621,7 +1622,7 @@ describe('AnalyticalTable', () => {
         setTableData([]);
         setLoading(true);
         setTimeout(() => {
-          setTableData(filterData.filter((item) => item.age >= 100));
+          setTableData(filterData.filter((item) => item.age < 5));
           setLoading(false);
         }, 100);
       };
@@ -1636,6 +1637,7 @@ describe('AnalyticalTable', () => {
             loading={loading}
             reactTableOptions={reactTableOptions}
             visibleRows={15}
+            minRows={20}
           />
         </>
       );
