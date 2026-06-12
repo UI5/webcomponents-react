@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.23.1](https://github.com/UI5/webcomponents-react/compare/v2.23.0...v2.23.1) (2026-06-12)
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** prevent stale `scrollOffset` after filtering ([#8685](https://github.com/UI5/webcomponents-react/issues/8685)) ([4c8e33d](https://github.com/UI5/webcomponents-react/commit/4c8e33daa3e2d07e8c87c08cf6a9ddf08d900bf3))
+
 ## [2.23.0](https://github.com/UI5/webcomponents-react/compare/v2.22.2...v2.23.0) (2026-06-08)
 
 
