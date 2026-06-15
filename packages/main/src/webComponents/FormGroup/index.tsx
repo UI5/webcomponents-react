@@ -24,8 +24,20 @@ interface FormGroupAttributes {
   accessibleNameRef?: string | undefined;
 
   /**
+   * Defines the number of columns to distribute the form content by breakpoint (S1 M2 L3 XL4 for example).
+   *
+   * **Note:** This property is ignored if `columnSpan` is set, as it is expected that the column span is defined.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  colSpan?: string | undefined;
+
+  /**
    * Defines column span of the component,
    * e.g how many columns the group should span to.
+   *
+   * **Note:** If this property is set, it has higher priority than `colSpan` and `colSpan` will be ignored.
    * @default undefined
    */
   columnSpan?: number | undefined;
@@ -80,7 +92,7 @@ interface FormGroupPropTypes extends FormGroupAttributes, Omit<CommonProps, keyo
  */
 const FormGroup = withWebComponent<FormGroupPropTypes, FormGroupDomRef>(
   'ui5-form-group',
-  ['accessibleName', 'accessibleNameRef', 'columnSpan', 'headerLevel', 'headerText'],
+  ['accessibleName', 'accessibleNameRef', 'colSpan', 'columnSpan', 'headerLevel', 'headerText'],
   [],
   [],
   [],

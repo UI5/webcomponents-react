@@ -1,14 +1,28 @@
 'use client';
 
 import '@ui5/webcomponents/dist/MenuSeparator.js';
+import type { ListItemBaseClickEventDetail } from '@ui5/webcomponents/dist/ListItemBase.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
+import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 interface MenuSeparatorAttributes {}
 
 interface MenuSeparatorDomRef extends Required<MenuSeparatorAttributes>, Ui5DomRef {}
 
-interface MenuSeparatorPropTypes extends MenuSeparatorAttributes, CommonProps {}
+interface MenuSeparatorPropTypes extends MenuSeparatorAttributes, Omit<CommonProps, 'onClick'> {
+  /**
+   * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** The event will not be fired if the `disabled` property is set to `true`.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<MenuSeparatorDomRef, ListItemBaseClickEventDetail>) => void;
+}
 
 /**
  * The `MenuSeparator` represents a horizontal line to separate menu items inside a `Menu`.
@@ -22,7 +36,7 @@ const MenuSeparator = withWebComponent<MenuSeparatorPropTypes, MenuSeparatorDomR
   [],
   [],
   [],
-  [],
+  ['click'],
 );
 
 MenuSeparator.displayName = 'MenuSeparator';

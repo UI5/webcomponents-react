@@ -1,0 +1,35 @@
+{
+  "skill_name": "analytical-table",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our AnalyticalTable freezes the dev tab when we feed it ~1500 rows. The columns and data props are both memoized with useMemo. Profiling shows the table re-rendering many thousands of times during scroll. Where should we look first, and what is the most likely cause?",
+      "expected_output": "Identifies that returning new objects from hooks.columns triggers the cascading react-table pipeline (the #1 perf trap). References the two-hook sandwich pattern (capture in hooks.columns, mutate in hooks.useInstanceBeforeDimensions) used by useDynamicColumnWidths. Mentions the safe mutation pattern in REACT-TABLE-PIPELINE.md.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I want to add a custom plugin hook that fires a callback whenever a column's filter changes, similar to useOnColumnResize. How do I register it via tableHooks, and what's the minimum I need to know about the AnalyticalTable plugin architecture to do this safely? Use AnalyticalTableHooks where appropriate.",
+      "expected_output": "Explains AnalyticalTableHooks namespace import, the factory pattern for plugin hooks, where to register (hooks.stateReducers vs hooks.useInstance), pluginName requirement, ensurePluginOrder for ordering against built-in useFilters, and that user tableHooks run last so they can clobber prior hooks. Should NOT duplicate prop docs from get_component_api.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We have selectionMode='SingleSelect' on our AnalyticalTable and onRowClick prevents default. But onRowSelect still fires sometimes and not other times. Re-clicking the already-selected row never calls onRowSelect. What's going on?",
+      "expected_output": "Explains that onRowSelect is deferred via instance.pendingSelectEvent and consumed by useSelectionChangeCallback's useEffect after selectedRowIds actually changes. Two consequences: (1) preventDefault/stopPropagation in onRowClick does NOT suppress onRowSelect; (2) onRowSelect is skipped if selectedRowIds didn't actually change. References hooks/useSingleRowStateSelection.ts and hooks/useSelectionChangeCallback.ts.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm authoring a custom Cell renderer for an AnalyticalTable column. It needs to render a UI5 Input for inline editing, and the input must be reachable via F2 from keyboard navigation. What do I need to wire up so F2 actually works?",
+      "expected_output": "Mentions: (1) opt into useF2CellEdit via tableHooks; (2) set interactiveElementName on the column definition; (3) use AnalyticalTableHooks.useF2CellEdit.useCallbackRef on the Input element directly (not on a wrapper div); (4) caveat that interactiveElementName overrides aria-label and drops aria-labelledby; (5) onKeyDown is short-circuited during F2 edit mode. Cites pluginHooks/useF2CellEdit.ts:214-244.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "After adding scaleWidthMode='Smart' to our AnalyticalTable, I'm noticing the horizontal scrollbar shows but column virtualization seems to be off — every column renders even when 30+ are off-screen. Is this a bug in our setup or expected behavior?",
+      "expected_output": "Identifies this as expected behavior: index.tsx:377 sets overscan: Infinity when scaleWidthMode !== Default OR isRtl, so all columns render. The 'default 10' overscan only applies to Default scaleWidthMode in LTR. References the High-Impact Gotchas section.",
+      "files": []
+    }
+  ]
+}

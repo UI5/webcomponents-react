@@ -1,23 +1,5 @@
 {
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
-  "version": "2.22.2",
-  "npmClient": "yarn",
-  "command": {
-    "version": {
-      "allowBranch": "main",
-      "conventionalCommits": true,
-      "yes": true,
-      "preid": "rc",
-      "message": "chore(release): publish %s [ci skip]",
-      "forceConventionalGraduate": true
-    },
-    "publish": {
-      "allowBranch": "main",
-      "conventionalCommits": true,
-      "yes": true,
-      "preid": "rc",
-      "preDistTag": "next",
-      "message": "chore(release): publish %s [ci skip]"
-    }
-  }
+  "version": "independent",
+  "npmClient": "yarn"
 }

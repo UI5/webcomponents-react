@@ -16,7 +16,11 @@ import { SelectDialog } from './index.js';
 const meta = {
   title: 'Modals & Popovers / SelectDialog',
   component: SelectDialog,
-  argTypes: { children: { control: { disable: true } } },
+  argTypes: {
+    children: { control: { disable: true } },
+    onSearch: { control: { disable: true } },
+    onCancel: { control: { disable: true } },
+  },
   args: { headerText: 'Select Product', open: isChromatic },
   parameters: {
     chromatic: { delay: 1000 },

@@ -1,6 +1,7 @@
 'use client';
 
 import '@ui5/webcomponents-fiori/dist/NotificationListGroupItem.js';
+import type { ListItemBaseClickEventDetail } from '@ui5/webcomponents/dist/ListItemBase.js';
 import type NotificationListGrowingMode from '@ui5/webcomponents/dist/types/NotificationListGrowingMode.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
@@ -55,7 +56,7 @@ interface NotificationListGroupItemDomRef extends Required<NotificationListGroup
 interface NotificationListGroupItemPropTypes
   extends
     NotificationListGroupItemAttributes,
-    Omit<CommonProps, keyof NotificationListGroupItemAttributes | 'children' | 'onLoadMore' | 'onToggle'> {
+    Omit<CommonProps, keyof NotificationListGroupItemAttributes | 'children' | 'onClick' | 'onLoadMore' | 'onToggle'> {
   /**
    * Defines the items of the `NotificationListGroupItem`,
    * usually `NotificationListItem` items.
@@ -63,6 +64,19 @@ interface NotificationListGroupItemPropTypes
    * __Supported Node Type/s:__ `Array<NotificationListItem>`
    */
   children?: ReactNode | ReactNode[];
+  /**
+   * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** The event will not be fired if the `disabled` property is set to `true`.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents-fiori**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<NotificationListGroupItemDomRef, ListItemBaseClickEventDetail>) => void;
+
   /**
    * Fired when additional items are requested.
    *
@@ -116,7 +130,7 @@ const NotificationListGroupItem = withWebComponent<NotificationListGroupItemProp
   ['growing', 'loadingDelay', 'titleText'],
   ['collapsed', 'loading', 'read'],
   [],
-  ['load-more', 'toggle'],
+  ['click', 'load-more', 'toggle'],
 );
 
 NotificationListGroupItem.displayName = 'NotificationListGroupItem';

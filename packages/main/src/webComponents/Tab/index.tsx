@@ -1,9 +1,10 @@
 'use client';
 
 import '@ui5/webcomponents/dist/Tab.js';
+import type { TabClickEventDetail } from '@ui5/webcomponents/dist/Tab.js';
 import type SemanticColor from '@ui5/webcomponents/dist/types/SemanticColor.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { CommonProps, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
+import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
 
 interface TabAttributes {
@@ -76,7 +77,8 @@ interface TabDomRef extends Required<TabAttributes>, Ui5DomRef {
   getDomRefInStrip: () => HTMLElement | undefined;
 }
 
-interface TabPropTypes extends TabAttributes, Omit<CommonProps, keyof TabAttributes | 'children' | 'items'> {
+interface TabPropTypes
+  extends TabAttributes, Omit<CommonProps, keyof TabAttributes | 'children' | 'items' | 'onClick'> {
   /**
    * Holds the content associated with this tab.
    *
@@ -98,6 +100,16 @@ interface TabPropTypes extends TabAttributes, Omit<CommonProps, keyof TabAttribu
    * __Supported Node Type/s:__ `Array<ITab>`
    */
   items?: UI5WCSlotsNode;
+  /**
+   * Fired when the tab is selected either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<TabDomRef, TabClickEventDetail>) => void;
 }
 
 /**
@@ -113,7 +125,7 @@ const Tab = withWebComponent<TabPropTypes, TabDomRef>(
   ['additionalText', 'design', 'icon', 'text'],
   ['disabled', 'movable', 'selected'],
   ['items'],
-  [],
+  ['click'],
 );
 
 Tab.displayName = 'Tab';

@@ -1,8 +1,9 @@
 'use client';
 
 import '@ui5/webcomponents/dist/Option.js';
+import type { ListItemBaseClickEventDetail } from '@ui5/webcomponents/dist/ListItemBase.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
+import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
 
 interface OptionAttributes {
@@ -47,7 +48,7 @@ interface OptionAttributes {
 
 interface OptionDomRef extends Required<OptionAttributes>, Ui5DomRef {}
 
-interface OptionPropTypes extends OptionAttributes, Omit<CommonProps, keyof OptionAttributes | 'children'> {
+interface OptionPropTypes extends OptionAttributes, Omit<CommonProps, keyof OptionAttributes | 'children' | 'onClick'> {
   /**
    * Defines the text of the component.
    *
@@ -56,6 +57,18 @@ interface OptionPropTypes extends OptionAttributes, Omit<CommonProps, keyof Opti
    * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
+  /**
+   * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** The event will not be fired if the `disabled` property is set to `true`.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<OptionDomRef, ListItemBaseClickEventDetail>) => void;
 }
 
 /**
@@ -70,7 +83,7 @@ const Option = withWebComponent<OptionPropTypes, OptionDomRef>(
   ['additionalText', 'icon', 'tooltip', 'value'],
   ['selected'],
   [],
-  [],
+  ['click'],
 );
 
 Option.displayName = 'Option';

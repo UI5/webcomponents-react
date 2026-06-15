@@ -643,7 +643,7 @@
                 ]
               },
               "default": "{}",
-              "description": "Defines additional accessibility attributes on different areas of the component.\n\nThe accessibilityAttributes object has the following fields:\n\n - **mainContent**: `mainContent.ariaLabel` defines the aria-label of the main content area. Accepts any string.\n - **sideContent**: `sideContent.ariaLabel` defines the aria-label of the side content area. Accepts any string.",
+              "description": "Defines additional accessibility attributes on different areas of the component.\n\nThe accessibilityAttributes object has the following fields:\n\n- **mainContent**:\n  - **ariaLabel**: defines the aria-label of the main content area. Accepts any string.\n  - **role**: defines the role of the main content area. When not set, defaults to `\"main\"`. Set to `undefined` to remove the role attribute.\n\n- **sideContent**:\n  - **ariaLabel**: defines the aria-label of the side content area. Accepts any string.\n  - **role**: defines the role of the side content area. When not set, defaults to `\"complementary\"`. Set to `undefined` to remove the role attribute.",
               "privacy": "public",
               "_ui5since": "2.6.0"
             },
@@ -796,7 +796,7 @@
           ],
           "attributes": [
             {
-              "description": "Defines additional accessibility attributes on different areas of the component.\n\nThe accessibilityAttributes object has the following fields:\n\n - **mainContent**: `mainContent.ariaLabel` defines the aria-label of the main content area. Accepts any string.\n - **sideContent**: `sideContent.ariaLabel` defines the aria-label of the side content area. Accepts any string.",
+              "description": "Defines additional accessibility attributes on different areas of the component.\n\nThe accessibilityAttributes object has the following fields:\n\n- **mainContent**:\n  - **ariaLabel**: defines the aria-label of the main content area. Accepts any string.\n  - **role**: defines the role of the main content area. When not set, defaults to `\"main\"`. Set to `undefined` to remove the role attribute.\n\n- **sideContent**:\n  - **ariaLabel**: defines the aria-label of the side content area. Accepts any string.\n  - **role**: defines the role of the side content area. When not set, defaults to `\"complementary\"`. Set to `undefined` to remove the role attribute.",
               "name": "accessibility-attributes",
               "default": "{}",
               "fieldName": "accessibilityAttributes",
@@ -1564,6 +1564,214 @@
           "declaration": {
             "name": "GroupItem",
             "module": "dist/GroupItem.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/HeroBanner.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-hero-banner` is a flexible, full-width banner designed for placement at the top of a page.\nIt provides a personalized greeting and quick access to key information or actions.\n\n### Structure\n\nThe HeroBanner consists of the following building blocks:\n\n- **Banner Canvas** - the visual base with a background color, optional background image and shadow.\n- **Overline** (optional) - contextual text at the top, e.g. the current date or a status message.\n- **Header** (optional) - the main greeting header below the overline, e.g. \"Hello, John\".\n- **Free Slots** (optional) - customizable content areas that can contain KPI cards, search components, text, buttons, etc.\n\nThe banner is not sticky — it scrolls away with the page content when the user scrolls down.\n\n### Usage\n\nPlace the `ui5-hero-banner` at the top of a page to welcome the user and surface relevant\ninformation or shortcuts at a glance.\n\nThe hero banner itself is non-interactive. However, interactive elements such as buttons, cards,\nor search fields can be placed inside the free content slots and will follow their own\ninteractive states.\n\n### Responsive Behavior\n\nThe hero banner adapts to different screen sizes:\n- On smaller screens, split layouts (Equal, FirstWider) collapse to a single stacked column.\n- The heading text wraps to multiple lines as needed.\n- Buttons in the headerAction slot will wrap.\n- On screens ≤1024px, the header text is wrapped to a maximum of 3 lines.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/HeroBanner.js\";`",
+          "name": "HeroBanner",
+          "cssParts": [
+            {
+              "description": "Used to style the banner canvas container",
+              "name": "canvas"
+            },
+            {
+              "description": "Used to style the content area of the banner",
+              "name": "content"
+            },
+            {
+              "description": "Used to style the end content block",
+              "name": "endContent"
+            },
+            {
+              "description": "Used to style the header area (salutation, date, header actions)",
+              "name": "header"
+            },
+            {
+              "description": "Used to style the start (default) content block",
+              "name": "startContent"
+            }
+          ],
+          "slots": [
+            {
+              "name": "actions",
+              "description": "Defines action buttons displayed to the right of the header area.\nTypically used to display actions buttons in the top right corner.\n\nCan contain buttons, links, or other interactive elements that provide\nquick access to relevant actions directly from the hero banner header.",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public"
+            },
+            {
+              "name": "default",
+              "description": "Defines the first (default) free content block of the hero banner.\n\nThis is the default slot — content placed directly inside `<ui5-hero-banner>`\nwithout a slot attribute lands here.\nCan contain KPI cards, search input fields, text, buttons, and more.",
+              "_ui5propertyName": "startContent",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public"
+            },
+            {
+              "name": "endContent",
+              "description": "Defines the second free content block of the hero banner.\n\nUsed alongside `startContent` when `columnsRatio` is set (`Equal`, `FirstWider`).\nCan contain cards, buttons, and other interactive elements.",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "actionsPlacement",
+              "type": {
+                "text": "HeroBannerActionsPlacement",
+                "references": [
+                  {
+                    "name": "HeroBannerActionsPlacement",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/types/HeroBannerActionsPlacement.js"
+                  }
+                ]
+              },
+              "default": "\"TopEnd\"",
+              "description": "Defines the placement of the actions slot within the hero banner header.\n\n- **TopEnd** (default) - Actions are displayed to the right of the header text, at the top of the header row.\n- **BottomStart** - Actions are displayed below the header text, left-aligned, regardless of `columnsRatio` or slot usage.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "columnsRatio",
+              "type": {
+                "text": "HeroBannerColumnsRatio",
+                "references": [
+                  {
+                    "name": "HeroBannerColumnsRatio",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/types/HeroBannerColumnsRatio.js"
+                  }
+                ]
+              },
+              "default": "\"FirstWider\"",
+              "description": "Defines the ratio between the two content columns inside the hero banner.\n\nTakes effect only when `endContent` is provided. When no `endContent` is present, the content spans the full width (single column).\n\n- **Equal** - Two equal columns. Both content blocks share the available width equally.\n  On smaller screens, both slots stack vertically.\n- **FirstWider** - Two unequal columns. The start content takes two-thirds of the width, the end content one-third.\n  On smaller screens, both slots stack vertically.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "headerBlockPlacement",
+              "type": {
+                "text": "HeroBannerHeaderBlockPlacement",
+                "references": [
+                  {
+                    "name": "HeroBannerHeaderBlockPlacement",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/types/HeroBannerHeaderBlockPlacement.js"
+                  }
+                ]
+              },
+              "default": "\"Top\"",
+              "description": "Defines the vertical placement of the header block within the content area.\n\n- **Top** (default) - Header block is placed at the top of the content area.\n- **Bottom** - Header block is pushed to the bottom of column 1. Only takes effect when `columnsRatio`\n  is `Equal` or `FirstWider` and only `endContent` is provided (no default slot content).\n  When `actionsPlacement` is also `BottomStart`, the `endContent` slot spans the full height.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "headerText",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the header text displayed in the hero banner.\n\nThis is the main greeting header, typically a personalized message\nsuch as \"Hello, John\".",
+              "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "overlineText",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines text displayed above the heading as an overline.\nCan be used to show the current date, a status message, or any other relevant contextual information.",
+              "default": "undefined",
+              "privacy": "public"
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines the placement of the actions slot within the hero banner header.\n\n- **TopEnd** (default) - Actions are displayed to the right of the header text, at the top of the header row.\n- **BottomStart** - Actions are displayed below the header text, left-aligned, regardless of `columnsRatio` or slot usage.",
+              "name": "actions-placement",
+              "default": "\"TopEnd\"",
+              "fieldName": "actionsPlacement",
+              "type": {
+                "text": "\"TopEnd\" | \"BottomStart\""
+              }
+            },
+            {
+              "description": "Defines the ratio between the two content columns inside the hero banner.\n\nTakes effect only when `endContent` is provided. When no `endContent` is present, the content spans the full width (single column).\n\n- **Equal** - Two equal columns. Both content blocks share the available width equally.\n  On smaller screens, both slots stack vertically.\n- **FirstWider** - Two unequal columns. The start content takes two-thirds of the width, the end content one-third.\n  On smaller screens, both slots stack vertically.",
+              "name": "columns-ratio",
+              "default": "\"FirstWider\"",
+              "fieldName": "columnsRatio",
+              "type": {
+                "text": "\"Equal\" | \"FirstWider\""
+              }
+            },
+            {
+              "description": "Defines the vertical placement of the header block within the content area.\n\n- **Top** (default) - Header block is placed at the top of the content area.\n- **Bottom** - Header block is pushed to the bottom of column 1. Only takes effect when `columnsRatio`\n  is `Equal` or `FirstWider` and only `endContent` is provided (no default slot content).\n  When `actionsPlacement` is also `BottomStart`, the `endContent` slot spans the full height.",
+              "name": "header-block-placement",
+              "default": "\"Top\"",
+              "fieldName": "headerBlockPlacement",
+              "type": {
+                "text": "\"Top\" | \"Bottom\""
+              }
+            },
+            {
+              "description": "Defines the header text displayed in the hero banner.\n\nThis is the main greeting header, typically a personalized message\nsuch as \"Hello, John\".",
+              "name": "header-text",
+              "default": "undefined",
+              "fieldName": "headerText",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines text displayed above the heading as an overline.\nCan be used to show the current date, a status message, or any other relevant contextual information.",
+              "name": "overline-text",
+              "default": "undefined",
+              "fieldName": "overlineText",
+              "type": {
+                "text": "string | undefined"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "UI5Element",
+            "package": "@ui5/webcomponents-base",
+            "module": "dist/UI5Element.js"
+          },
+          "tagName": "ui5-hero-banner",
+          "customElement": true,
+          "_ui5experimental": true,
+          "_ui5since": "2.23.0",
+          "_ui5privacy": "public"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "HeroBanner",
+            "module": "dist/HeroBanner.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-hero-banner",
+          "declaration": {
+            "name": "HeroBanner",
+            "module": "dist/HeroBanner.js"
           }
         }
       ]
@@ -2649,6 +2857,24 @@
             },
             {
               "kind": "field",
+              "name": "accessibleRole",
+              "type": {
+                "text": "ListItemAccessibleRole | undefined",
+                "references": [
+                  {
+                    "name": "ListItemAccessibleRole",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/ListItemAccessibleRole.js"
+                  }
+                ]
+              },
+              "description": "Used to define the role of the list item.\n\n**Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property\n(e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).\nAn explicitly set `accessible-role` on the list item takes precedence over the inherited role.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.23.0"
+            },
+            {
+              "kind": "field",
               "name": "additionalText",
               "type": {
                 "text": "string | undefined"
@@ -2824,6 +3050,15 @@
               "fieldName": "accessibleName",
               "type": {
                 "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Used to define the role of the list item.\n\n**Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property\n(e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).\nAn explicitly set `accessible-role` on the list item takes precedence over the inherited role.",
+              "name": "accessible-role",
+              "default": "undefined",
+              "fieldName": "accessibleRole",
+              "type": {
+                "text": "\"None\" | \"ListItem\" | \"MenuItem\" | \"TreeItem\" | \"Option\" | undefined"
               }
             },
             {
@@ -3057,6 +3292,35 @@
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": true,
               "_ui5since": "2.12.0"
+            },
+            {
+              "name": "click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ListItemBaseClickEventDetail>",
+                "references": [
+                  {
+                    "name": "ListItemBaseClickEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemBase.js"
+                  }
+                ]
+              },
+              "description": "Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.\n\n**Note:** The event will not be fired if the `disabled` property is set to `true`.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.23.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "Event"
+                  },
+                  "name": "originalEvent",
+                  "_ui5privacy": "public",
+                  "description": "The original event from the user interaction."
+                }
+              ]
             },
             {
               "name": "close",
@@ -3399,6 +3663,35 @@
               "_ui5Cancelable": false,
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": true
+            },
+            {
+              "name": "click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ListItemBaseClickEventDetail>",
+                "references": [
+                  {
+                    "name": "ListItemBaseClickEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemBase.js"
+                  }
+                ]
+              },
+              "description": "Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.\n\n**Note:** The event will not be fired if the `disabled` property is set to `true`.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.23.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "Event"
+                  },
+                  "name": "originalEvent",
+                  "_ui5privacy": "public",
+                  "description": "The original event from the user interaction."
+                }
+              ]
             }
           ],
           "attributes": [
@@ -3418,6 +3711,42 @@
               "fieldName": "growing",
               "type": {
                 "text": "\"Button\" | \"None\""
+              }
+            },
+            {
+              "description": "Defines if a busy indicator would be displayed over the item.",
+              "name": "loading",
+              "default": "false",
+              "fieldName": "loading",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the delay in milliseconds, after which the busy indicator will show up for this component.",
+              "name": "loading-delay",
+              "default": "1000",
+              "fieldName": "loadingDelay",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "description": "Defines if the `notification` is new or has been already read.\n\n**Note:** if set to `false` the `titleText` has bold font,\nif set to true - it has a normal font.",
+              "name": "read",
+              "default": "false",
+              "fieldName": "read",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the `titleText` of the item.",
+              "name": "title-text",
+              "default": "undefined",
+              "fieldName": "titleText",
+              "type": {
+                "text": "string | undefined"
               }
             }
           ],
@@ -5041,6 +5370,35 @@
           ],
           "events": [
             {
+              "name": "click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<NotificationListItemClickEventDetail>",
+                "references": [
+                  {
+                    "name": "NotificationListItemClickEventDetail",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/NotificationListItem.js"
+                  }
+                ]
+              },
+              "description": "Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.23.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "Event"
+                  },
+                  "name": "originalEvent",
+                  "_ui5privacy": "public",
+                  "description": "The original event from the user interaction."
+                }
+              ]
+            },
+            {
               "name": "close",
               "_ui5privacy": "public",
               "type": {
@@ -5080,6 +5438,33 @@
               }
             },
             {
+              "description": "Defines if a busy indicator would be displayed over the item.",
+              "name": "loading",
+              "default": "false",
+              "fieldName": "loading",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the delay in milliseconds, after which the busy indicator will show up for this component.",
+              "name": "loading-delay",
+              "default": "1000",
+              "fieldName": "loadingDelay",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "description": "Defines if the `notification` is new or has been already read.\n\n**Note:** if set to `false` the `titleText` has bold font,\nif set to true - it has a normal font.",
+              "name": "read",
+              "default": "false",
+              "fieldName": "read",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
               "description": "Defines if the `Close` button would be displayed.",
               "name": "show-close",
               "default": "false",
@@ -5095,6 +5480,15 @@
               "fieldName": "state",
               "type": {
                 "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
+              }
+            },
+            {
+              "description": "Defines the `titleText` of the item.",
+              "name": "title-text",
+              "default": "undefined",
+              "fieldName": "titleText",
+              "type": {
+                "text": "string | undefined"
               }
             },
             {
@@ -5188,13 +5582,83 @@
               "privacy": "public"
             }
           ],
+          "attributes": [
+            {
+              "description": "Defines if a busy indicator would be displayed over the item.",
+              "name": "loading",
+              "default": "false",
+              "fieldName": "loading",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the delay in milliseconds, after which the busy indicator will show up for this component.",
+              "name": "loading-delay",
+              "default": "1000",
+              "fieldName": "loadingDelay",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "description": "Defines if the `notification` is new or has been already read.\n\n**Note:** if set to `false` the `titleText` has bold font,\nif set to true - it has a normal font.",
+              "name": "read",
+              "default": "false",
+              "fieldName": "read",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the `titleText` of the item.",
+              "name": "title-text",
+              "default": "undefined",
+              "fieldName": "titleText",
+              "type": {
+                "text": "string | undefined"
+              }
+            }
+          ],
           "superclass": {
             "name": "ListItemBase",
             "package": "@ui5/webcomponents",
             "module": "dist/ListItemBase.js"
           },
+          "customElement": true,
           "_ui5since": "1.0.0-rc.8",
-          "_ui5privacy": "public"
+          "_ui5privacy": "public",
+          "events": [
+            {
+              "name": "click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ListItemBaseClickEventDetail>",
+                "references": [
+                  {
+                    "name": "ListItemBaseClickEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemBase.js"
+                  }
+                ]
+              },
+              "description": "Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.\n\n**Note:** The event will not be fired if the `disabled` property is set to `true`.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.23.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "Event"
+                  },
+                  "name": "originalEvent",
+                  "_ui5privacy": "public",
+                  "description": "The original event from the user interaction."
+                }
+              ]
+            }
+          ]
         }
       ],
       "exports": [
@@ -6364,6 +6828,35 @@
               "_ui5Cancelable": false,
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": false
+            },
+            {
+              "name": "click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ListItemBaseClickEventDetail>",
+                "references": [
+                  {
+                    "name": "ListItemBaseClickEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemBase.js"
+                  }
+                ]
+              },
+              "description": "Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.\n\n**Note:** The event will not be fired if the `disabled` property is set to `true`.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.23.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "Event"
+                  },
+                  "name": "originalEvent",
+                  "_ui5privacy": "public",
+                  "description": "The original event from the user interaction."
+                }
+              ]
             }
           ],
           "attributes": [
@@ -8827,6 +9320,15 @@
                 ]
               },
               "_ui5privacy": "public"
+            },
+            {
+              "name": "tag",
+              "description": "Defines the tag to be displayed.\n\n**Note:** Tags are visible when the <code>NavigationList</code> is in expanded mode,\nand hidden when collapsed, but they are visible in the overflow of the collapsed mode.\n\n**Note:** Only one `ui5-tag` is allowed. The tag should use `design=\"Set2\"`, `hide-state-icon`,\nand `colorScheme` values 5-10 to avoid confusion with semantic colors (1-4).\n\n**Note:** It is recommended to limit tag width to 64px (4rem). If tag text exceeds this,\nuse shortened forms or abbreviations (e.g., \"Experimental\" → \"Exp\").\n\n**Important:** The <code>ui5-tag</code> must never be interactive (i.e., <code>active</code> must not be set to <code>true</code>),\nas this would lead to nesting of interactive elements, which is not allowed.",
+              "_ui5since": "2.23.0",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public"
             }
           ],
           "members": [
@@ -9608,6 +10110,17 @@
           "kind": "class",
           "description": "### Overview\nRepresents a single navigation action within `ui5-side-navigation-item`.\nThe `ui5-side-navigation-sub-item` is intended to be used inside a `ui5-side-navigation-item` only.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/SideNavigationSubItem.js\";`",
           "name": "SideNavigationSubItem",
+          "slots": [
+            {
+              "name": "tag",
+              "description": "Defines the tag to be displayed.\n\n**Note:** Tags are visible when the <code>NavigationList</code> is in expanded mode,\nand hidden when collapsed, but they are visible in the overflow of the collapsed mode.\n\n**Note:** Only one `ui5-tag` is allowed. The tag should use `design=\"Set2\"`, `hide-state-icon`,\nand `colorScheme` values 5-10 to avoid confusion with semantic colors (1-4).\n\n**Note:** It is recommended to limit tag width to 64px (4rem). If tag text exceeds this,\nuse shortened forms or abbreviations (e.g., \"Experimental\" → \"Exp\").\n\n**Important:** The <code>ui5-tag</code> must never be interactive (i.e., <code>active</code> must not be set to <code>true</code>),\nas this would lead to nesting of interactive elements, which is not allowed.",
+              "_ui5since": "2.23.0",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public"
+            }
+          ],
           "members": [
             {
               "kind": "field",
@@ -10951,6 +11464,24 @@
             },
             {
               "kind": "field",
+              "name": "accessibleRole",
+              "type": {
+                "text": "ListItemAccessibleRole | undefined",
+                "references": [
+                  {
+                    "name": "ListItemAccessibleRole",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/ListItemAccessibleRole.js"
+                  }
+                ]
+              },
+              "description": "Used to define the role of the list item.\n\n**Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property\n(e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).\nAn explicitly set `accessible-role` on the list item takes precedence over the inherited role.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.23.0"
+            },
+            {
+              "kind": "field",
               "name": "highlight",
               "type": {
                 "text": "Highlight",
@@ -11063,6 +11594,35 @@
               "_ui5Bubbles": true
             },
             {
+              "name": "click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ListItemBaseClickEventDetail>",
+                "references": [
+                  {
+                    "name": "ListItemBaseClickEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemBase.js"
+                  }
+                ]
+              },
+              "description": "Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.\n\n**Note:** The event will not be fired if the `disabled` property is set to `true`.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.23.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "Event"
+                  },
+                  "name": "originalEvent",
+                  "_ui5privacy": "public",
+                  "description": "The original event from the user interaction."
+                }
+              ]
+            },
+            {
               "name": "detail-click",
               "_ui5privacy": "public",
               "type": {
@@ -11163,6 +11723,15 @@
               "fieldName": "accessibilityAttributes",
               "type": {
                 "text": "ListItemAccessibilityAttributes"
+              }
+            },
+            {
+              "description": "Used to define the role of the list item.\n\n**Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property\n(e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).\nAn explicitly set `accessible-role` on the list item takes precedence over the inherited role.",
+              "name": "accessible-role",
+              "default": "undefined",
+              "fieldName": "accessibleRole",
+              "type": {
+                "text": "\"None\" | \"ListItem\" | \"MenuItem\" | \"TreeItem\" | \"Option\" | undefined"
               }
             },
             {
@@ -11911,6 +12480,24 @@
             },
             {
               "kind": "field",
+              "name": "accessibleRole",
+              "type": {
+                "text": "ListItemAccessibleRole | undefined",
+                "references": [
+                  {
+                    "name": "ListItemAccessibleRole",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/ListItemAccessibleRole.js"
+                  }
+                ]
+              },
+              "description": "Used to define the role of the list item.\n\n**Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property\n(e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).\nAn explicitly set `accessible-role` on the list item takes precedence over the inherited role.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.23.0"
+            },
+            {
+              "kind": "field",
               "name": "additionalText",
               "type": {
                 "text": "string | undefined"
@@ -12077,6 +12664,15 @@
               "fieldName": "accessibleName",
               "type": {
                 "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Used to define the role of the list item.\n\n**Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property\n(e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).\nAn explicitly set `accessible-role` on the list item takes precedence over the inherited role.",
+              "name": "accessible-role",
+              "default": "undefined",
+              "fieldName": "accessibleRole",
+              "type": {
+                "text": "\"None\" | \"ListItem\" | \"MenuItem\" | \"TreeItem\" | \"Option\" | undefined"
               }
             },
             {
@@ -12267,6 +12863,35 @@
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": true,
               "_ui5since": "2.12.0"
+            },
+            {
+              "name": "click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ListItemBaseClickEventDetail>",
+                "references": [
+                  {
+                    "name": "ListItemBaseClickEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemBase.js"
+                  }
+                ]
+              },
+              "description": "Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.\n\n**Note:** The event will not be fired if the `disabled` property is set to `true`.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.23.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "Event"
+                  },
+                  "name": "originalEvent",
+                  "_ui5privacy": "public",
+                  "description": "The original event from the user interaction."
+                }
+              ]
             },
             {
               "name": "close",
@@ -13039,6 +13664,24 @@
             },
             {
               "kind": "field",
+              "name": "accessibleRole",
+              "type": {
+                "text": "ListItemAccessibleRole | undefined",
+                "references": [
+                  {
+                    "name": "ListItemAccessibleRole",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/ListItemAccessibleRole.js"
+                  }
+                ]
+              },
+              "description": "Used to define the role of the list item.\n\n**Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property\n(e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).\nAn explicitly set `accessible-role` on the list item takes precedence over the inherited role.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.23.0"
+            },
+            {
+              "kind": "field",
               "name": "highlight",
               "type": {
                 "text": "Highlight",
@@ -13172,6 +13815,15 @@
               }
             },
             {
+              "description": "Used to define the role of the list item.\n\n**Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property\n(e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).\nAn explicitly set `accessible-role` on the list item takes precedence over the inherited role.",
+              "name": "accessible-role",
+              "default": "undefined",
+              "fieldName": "accessibleRole",
+              "type": {
+                "text": "\"None\" | \"ListItem\" | \"MenuItem\" | \"TreeItem\" | \"Option\" | undefined"
+              }
+            },
+            {
               "description": "Defines the highlight state of the list items.\nAvailable options are: `\"None\"` (by default), `\"Positive\"`, `\"Critical\"`, `\"Information\"` and `\"Negative\"`.",
               "name": "highlight",
               "default": "\"None\"",
@@ -13288,6 +13940,35 @@
             }
           ],
           "events": [
+            {
+              "name": "click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ListItemBaseClickEventDetail>",
+                "references": [
+                  {
+                    "name": "ListItemBaseClickEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemBase.js"
+                  }
+                ]
+              },
+              "description": "Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.\n\n**Note:** The event will not be fired if the `disabled` property is set to `true`.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.23.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "Event"
+                  },
+                  "name": "originalEvent",
+                  "_ui5privacy": "public",
+                  "description": "The original event from the user interaction."
+                }
+              ]
+            },
             {
               "name": "detail-click",
               "_ui5privacy": "public",
@@ -15098,6 +15779,135 @@
           "declaration": {
             "name": "FCLLayout",
             "module": "dist/types/FCLLayout.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/HeroBannerActionsPlacement.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "HeroBannerActionsPlacement",
+          "description": "Available HeroBanner actions placement options.\n\nDefines where the actions slot is rendered within the hero banner header area.",
+          "_ui5privacy": "public",
+          "_ui5since": "2.23.0",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Places the actions below the header text, aligned to the start.",
+              "default": "BottomStart",
+              "name": "BottomStart",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Places the actions to the right of the header text, aligned to the top of the header row.",
+              "default": "TopEnd",
+              "name": "TopEnd",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "HeroBannerActionsPlacement",
+            "module": "dist/types/HeroBannerActionsPlacement.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/HeroBannerColumnsRatio.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "HeroBannerColumnsRatio",
+          "description": "Available HeroBanner columns ratio options.\n\nDefines how the two content blocks are sized relative to each other within the hero banner.\nWhen no value is set, the content renders in a single column.",
+          "_ui5privacy": "public",
+          "_ui5since": "2.23.0",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Two equal columns. Both content blocks share the available width equally.",
+              "default": "Equal",
+              "name": "Equal",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Two unequal columns. The first content block takes two-thirds of the width, the second takes one-third.",
+              "default": "FirstWider",
+              "name": "FirstWider",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "HeroBannerColumnsRatio",
+            "module": "dist/types/HeroBannerColumnsRatio.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/types/HeroBannerHeaderBlockPlacement.js",
+      "declarations": [
+        {
+          "kind": "enum",
+          "name": "HeroBannerHeaderBlockPlacement",
+          "description": "Available HeroBanner header text block placement options.\n\nDefines the vertical placement of the header text block within the banner header area.",
+          "_ui5privacy": "public",
+          "_ui5since": "2.23.0",
+          "members": [
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Places the header text block at the bottom of the header area.",
+              "default": "Bottom",
+              "name": "Bottom",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "static": true,
+              "privacy": "public",
+              "description": "Places the header text block at the top of the header area.",
+              "default": "Top",
+              "name": "Top",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "HeroBannerHeaderBlockPlacement",
+            "module": "dist/types/HeroBannerHeaderBlockPlacement.js"
           }
         }
       ]

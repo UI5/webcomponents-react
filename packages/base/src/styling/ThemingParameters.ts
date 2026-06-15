@@ -1543,4 +1543,5 @@ export const ThemingParameters = {
   sapHighlightTextColor: 'var(--sapHighlightTextColor)',
   sapButton_Emphasized_FontWeight: 'var(--sapButton_Emphasized_FontWeight)',
   sapShell_BackgroundGradient: 'var(--sapShell_BackgroundGradient)',
+  sapAt: 'var(--sapAt)',
 };

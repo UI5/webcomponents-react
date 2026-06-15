@@ -1,6 +1,7 @@
 'use client';
 
 import '@ui5/webcomponents/dist/Slider.js';
+import type { Tickmark } from '@ui5/webcomponents/dist/SliderScale.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
 
@@ -35,6 +36,9 @@ interface SliderAttributes {
    * **Note:** The step and tickmarks properties must be enabled.
    * Example - if the step value is set to 2 and the label interval is also specified to 2 - then every second
    * tickmark will be labelled, which means every 4th value number.
+   *
+   * **Note:** This property is ignored when the `tickmarks` property is used.
+   * In that case every custom tickmark is labelled with its own `label`.
    * @default 0
    */
   labelInterval?: number;
@@ -82,6 +86,25 @@ interface SliderAttributes {
    * @default 1
    */
   step?: number;
+
+  /**
+   * Defines custom tickmarks with labels on the slider scale.
+   * Each tickmark object has a numeric `value` and an optional `label` string.
+   * Tickmarks are purely visual — they display labeled markers at specific positions
+   * but do not affect the slider's movement behavior. The slider still moves
+   * according to `min`, `max`, and `step`.
+   *
+   * When the current value matches a tickmark value, the tickmark's label
+   * is shown in the tooltip and announced via `aria-valuetext`.
+   *
+   * **Note:** When `tickmarks` is provided, the scale is automatically shown
+   * (equivalent to `showTickmarks`), and `labelInterval` is ignored - every
+   * custom tickmark is rendered with its own `label`.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   * @default []
+   */
+  tickmarks?: Array<Tickmark> | keyof typeof Array<Tickmark>;
 
   /**
    * Current value of the slider
@@ -158,7 +181,7 @@ interface SliderPropTypes extends SliderAttributes, Omit<CommonProps, keyof Slid
  */
 const Slider = withWebComponent<SliderPropTypes, SliderDomRef>(
   'ui5-slider',
-  ['accessibleName', 'labelInterval', 'max', 'min', 'name', 'step', 'value'],
+  ['accessibleName', 'labelInterval', 'max', 'min', 'name', 'step', 'tickmarks', 'value'],
   ['disabled', 'editableTooltip', 'showTickmarks', 'showTooltip'],
   [],
   ['change', 'input'],

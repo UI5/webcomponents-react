@@ -1,0 +1,49 @@
+import { ControlsWithNote, DocsHeader, Footer } from '@sb/components';
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as ComponentStories from './HeroBanner.stories';
+
+<Meta of={ComponentStories} />
+
+<DocsHeader of={ComponentStories} experimental />
+
+<br />
+
+## Example
+
+<Canvas of={ComponentStories.Default} />
+
+## Properties
+
+<ControlsWithNote of={ComponentStories.Default} />
+
+<br />
+
+# More Examples
+
+<br />
+
+## Background Image
+
+Apply a custom background image via the `style` prop.
+
+<Canvas of={ComponentStories.BackgroundImage} />
+
+## Columns Ratio
+
+The `columnsRatio` prop controls how the start (default slot) and end (`endContent`) columns share the available width. When `endContent` is not provided, the start content spans the full width.
+
+<Canvas of={ComponentStories.ColumnsRatio} />
+
+## Header Block and Actions Placement
+
+Combine `headerBlockPlacement="Bottom"` with `actionsPlacement="BottomStart"` and `columnsRatio="Equal"` to push the header below the start column and align the actions to the left under it.
+
+<Canvas of={ComponentStories.HeaderBlockAndActionsPlacement} />
+
+## Use Cases
+
+A few practical layouts using a single Hero Banner: search, header actions only, content with actions, actions below header, and header at the bottom.
+
+<Canvas of={ComponentStories.UseCases} />
+
+<Footer />

@@ -57,6 +57,7 @@ interface TableVirtualizerPropTypes
  * This allows large numbers of rows to exist, but maintain high performance by only paying the cost for those that are currently visible.
  *
  * **Note:** The maximum number of virtualized rows is limited by browser constraints, specifically the maximum supported height for a DOM element.
+ * **Note:** The `TableGroupRow` component is not supported by the virtualizer. Only `TableRow` elements can be virtualized.
  *
  *
  *

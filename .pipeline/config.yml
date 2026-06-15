@@ -4,7 +4,7 @@ general:
   buildTool: yarn
 steps:
   artifactPrepareVersion:
-    filePath: 'lerna.json'
+    filePath: 'packages/main/package.json'
     versioningType: 'library'
     customVersionField: 'version'
 

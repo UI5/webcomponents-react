@@ -3,7 +3,10 @@
 import '@ui5/webcomponents-fiori/dist/NotificationListItem.js';
 import type WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
 import type ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
-import type { NotificationListItemCloseEventDetail } from '@ui5/webcomponents-fiori/dist/NotificationListItem.js';
+import type {
+  NotificationListItemClickEventDetail,
+  NotificationListItemCloseEventDetail,
+} from '@ui5/webcomponents-fiori/dist/NotificationListItem.js';
 import type NotificationListItemImportance from '@ui5/webcomponents-fiori/dist/types/NotificationListItemImportance.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
@@ -71,7 +74,10 @@ interface NotificationListItemDomRef extends Required<NotificationListItemAttrib
 interface NotificationListItemPropTypes
   extends
     NotificationListItemAttributes,
-    Omit<CommonProps, keyof NotificationListItemAttributes | 'avatar' | 'children' | 'footnotes' | 'menu' | 'onClose'> {
+    Omit<
+      CommonProps,
+      keyof NotificationListItemAttributes | 'avatar' | 'children' | 'footnotes' | 'menu' | 'onClick' | 'onClose'
+    > {
   /**
    * Defines the avatar, displayed in the `NotificationListItem`.
    *
@@ -131,6 +137,17 @@ interface NotificationListItemPropTypes
    */
   menu?: UI5WCSlotsNode;
   /**
+   * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents-fiori**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<NotificationListItemDomRef, NotificationListItemClickEventDetail>) => void;
+
+  /**
    * Fired when the `Close` button is pressed.
    *
    * | cancelable | bubbles |
@@ -181,7 +198,7 @@ const NotificationListItem = withWebComponent<NotificationListItemPropTypes, Not
   ['importance', 'loadingDelay', 'state', 'titleText', 'wrappingType'],
   ['loading', 'read', 'showClose'],
   ['avatar', 'footnotes', 'menu'],
-  ['close'],
+  ['click', 'close'],
 );
 
 NotificationListItem.displayName = 'NotificationListItem';

@@ -1610,8 +1610,9 @@ describe('AnalyticalTable', () => {
   });
 
   it('first virtual row offset matches scrollTop after loading cycle', () => {
-    // Guards the layout-effect in `AnalyticalTable/index.tsx` that re-syncs the virtualizer' cached `scrollOffset` with the DOM after a data swap clamps `scrollTop` (dispatching scroll event).
+    // Guards the layout-effect in `AnalyticalTable/index.tsx` that re-syncs the virtualizer's cached `scrollOffset` with the DOM after a data swap clamps `scrollTop` (dispatching a scroll event).
     // Without it, the first row renders at a stale `translateY` and leaves a whitespace gap at the top.
+    // `minRows={20}` + a filter result smaller than `minRows` keeps `itemCount = Math.max(minRows, rows.length, ...)` constant across the empty-then-refilled cycle, so the effect can only re-fire via the `rows.length` dep — guarding both deps in one shot.
     const filterData = new Array(500).fill('').map((_, index) => ({ name: `Row-${index}`, age: index }));
     const TestComp = () => {
       const [tableData, setTableData] = useState(filterData);
@@ -1621,7 +1622,7 @@ describe('AnalyticalTable', () => {
         setTableData([]);
         setLoading(true);
         setTimeout(() => {
-          setTableData(filterData.filter((item) => item.age >= 100));
+          setTableData(filterData.filter((item) => item.age < 5));
           setLoading(false);
         }, 100);
       };
@@ -1636,6 +1637,7 @@ describe('AnalyticalTable', () => {
             loading={loading}
             reactTableOptions={reactTableOptions}
             visibleRows={15}
+            minRows={20}
           />
         </>
       );
@@ -3251,6 +3253,35 @@ describe('AnalyticalTable', () => {
       'aria-label',
       'Custom  custom aria-label',
     );
+  });
+
+  it('a11y: accessibleName and accessibleNameRef', () => {
+    // no aria-labelledby
+    cy.mount(<AnalyticalTable columns={columns} data={data} />);
+    cy.get('[data-component-name="AnalyticalTableContainer"]').should('not.have.attr', 'aria-labelledby');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').should('not.have.attr', 'aria-label');
+
+    // with header: aria-labelledby points to the title bar
+    cy.mount(<AnalyticalTable columns={columns} data={data} header="Items Table" />);
+    cy.get('[data-component-name="AnalyticalTableContainer"]')
+      .should('have.attr', 'aria-labelledby')
+      .then((labelledby) => {
+        cy.get(`[id="${labelledby}"]`).should('exist');
+      });
+
+    // accessibleName: aria-label on the grid and removes the header connection
+    cy.mount(<AnalyticalTable columns={columns} data={data} header="Items Table" accessibleName="Financing Details" />);
+    cy.get('[data-component-name="AnalyticalTableContainer"]').should('have.attr', 'aria-label', 'Financing Details');
+    cy.get('[data-component-name="AnalyticalTableContainer"]').should('not.have.attr', 'aria-labelledby');
+
+    // accessibleNameRef: overrides the header connection
+    cy.mount(
+      <>
+        <span id="custom-label">Custom Table Label</span>
+        <AnalyticalTable columns={columns} data={data} header="Items Table" accessibleNameRef="custom-label" />
+      </>,
+    );
+    cy.get('[data-component-name="AnalyticalTableContainer"]').should('have.attr', 'aria-labelledby', 'custom-label');
   });
 
   it("Expandable: don't scroll when expanded/collapsed", () => {

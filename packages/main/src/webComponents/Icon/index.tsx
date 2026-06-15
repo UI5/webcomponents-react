@@ -4,7 +4,7 @@ import '@ui5/webcomponents/dist/Icon.js';
 import type IconDesign from '@ui5/webcomponents/dist/types/IconDesign.js';
 import type IconMode from '@ui5/webcomponents/dist/types/IconMode.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
+import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 
 interface IconAttributes {
   /**
@@ -70,7 +70,32 @@ interface IconAttributes {
 
 interface IconDomRef extends Required<IconAttributes>, Ui5DomRef {}
 
-interface IconPropTypes extends IconAttributes, Omit<CommonProps, keyof IconAttributes | 'onClick'> {
+interface IconPropTypes extends IconAttributes, Omit<CommonProps, keyof IconAttributes | 'fontIcon' | 'onClick'> {
+  /**
+   * Defines the font icon to be used as an icon.
+   * Intended for font-based icon libraries where
+   * the application loads the font and provides a slotted element with the unicode character.
+   * When this slot is used, the component renders a `<span>` instead of an `<svg>`.
+   * Accessibility is fully delegated to the application — set `accessible-name` and `mode` explicitly.
+   *
+   * **Example:**
+   * ```html
+   * <Icon mode="Image" accessible-name="Home">
+   *   <i class="fa fa-home" slot="fontIcon"></i>
+   * </Icon>
+   * ```
+   *
+   * __Note:__ The content of the prop will be rendered into a [&lt;slot&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) by assigning the respective [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) attribute (`slot="fontIcon"`).
+   * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
+   *
+   * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
+   */
+  fontIcon?: UI5WCSlotsNode;
   /**
    * Fired when the component is activated by mouse/touch, keyboard (Enter or Space),
    * or screen reader virtual cursor activation.
@@ -151,7 +176,7 @@ const Icon = withWebComponent<IconPropTypes, IconDomRef>(
   'ui5-icon',
   ['accessibleName', 'design', 'mode', 'name'],
   ['showTooltip'],
-  [],
+  ['fontIcon'],
   ['click'],
 );
 

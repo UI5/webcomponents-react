@@ -766,9 +766,21 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   /**
    * Component or text rendered in the header section of the `AnalyticalTable`.
    *
-   * __Note:__ If not set, it will be hidden.
+   * __Note:__ If not set, the header section is not rendered. When set, its text is automatically used as the table's accessible name. To provide a different accessible name, use `accessibleName` or `accessibleNameRef` instead.
    */
   header?: ReactNode;
+  /**
+   * Defines the accessible name of the table.
+   *
+   * __Note:__ If set, the `aria-labelledby` derived from the `header` prop will not be applied to the table grid.
+   */
+  accessibleName?: string;
+  /**
+   * Defines the IDs of the elements that label the table.
+   *
+   * __Note:__ If set, the `aria-labelledby` derived from the `header` prop will not be applied to the table grid.
+   */
+  accessibleNameRef?: string;
   /**
    * Extension section of the Table. If not set, no extension area will be rendered
    */

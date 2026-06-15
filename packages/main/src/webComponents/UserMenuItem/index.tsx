@@ -1,12 +1,14 @@
 'use client';
 
 import '@ui5/webcomponents-fiori/dist/UserMenuItem.js';
+import type { ListItemBaseClickEventDetail } from '@ui5/webcomponents/dist/ListItemBase.js';
 import type {
   MenuBeforeCloseEventDetail,
   MenuBeforeOpenEventDetail,
   MenuItemAccessibilityAttributes,
 } from '@ui5/webcomponents/dist/MenuItem.js';
 import type Highlight from '@ui5/webcomponents/dist/types/Highlight.js';
+import type ListItemAccessibleRole from '@ui5/webcomponents/dist/types/ListItemAccessibleRole.js';
 import type ListItemType from '@ui5/webcomponents/dist/types/ListItemType.js';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
@@ -33,6 +35,18 @@ interface UserMenuItemAttributes {
    * @default undefined
    */
   accessibleName?: string | undefined;
+
+  /**
+   * Used to define the role of the list item.
+   *
+   * **Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property
+   * (e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).
+   * An explicitly set `accessible-role` on the list item takes precedence over the inherited role.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents-fiori**.
+   * @default undefined
+   */
+  accessibleRole?: ListItemAccessibleRole | undefined | keyof typeof ListItemAccessibleRole;
 
   /**
    * Defines the `additionalText`, displayed in the end of the menu item.
@@ -173,6 +187,7 @@ interface UserMenuItemPropTypes
       | 'onBeforeClose'
       | 'onBeforeOpen'
       | 'onCheck'
+      | 'onClick'
       | 'onClose'
       | 'onDetailClick'
       | 'onOpen'
@@ -270,6 +285,19 @@ interface UserMenuItemPropTypes
   onCheck?: (event: Ui5CustomEvent<UserMenuItemDomRef>) => void;
 
   /**
+   * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** The event will not be fired if the `disabled` property is set to `true`.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents-fiori**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<UserMenuItemDomRef, ListItemBaseClickEventDetail>) => void;
+
+  /**
    * Fired after the menu is closed.
    *
    * **Note:** Available since [v1.10.0](https://github.com/UI5/webcomponents/releases/tag/v1.10.0) of **@ui5/webcomponents-fiori**.
@@ -320,6 +348,7 @@ const UserMenuItem = withWebComponent<UserMenuItemPropTypes, UserMenuItemDomRef>
   [
     'accessibilityAttributes',
     'accessibleName',
+    'accessibleRole',
     'additionalText',
     'highlight',
     'icon',
@@ -330,7 +359,7 @@ const UserMenuItem = withWebComponent<UserMenuItemPropTypes, UserMenuItemDomRef>
   ],
   ['checked', 'disabled', 'loading', 'navigated', 'selected', 'showSelection'],
   ['deleteButton', 'endContent'],
-  ['before-close', 'before-open', 'check', 'close', 'detail-click', 'open'],
+  ['before-close', 'before-open', 'check', 'click', 'close', 'detail-click', 'open'],
 );
 
 UserMenuItem.displayName = 'UserMenuItem';
