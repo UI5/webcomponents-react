@@ -21,14 +21,14 @@
     "react-dom": "19.2.7"
   },
   "devDependencies": {
-    "@types/react": "19.2.16",
+    "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.2",
     "@ui5/webcomponents-cypress-commands": "2.23.1",
     "cypress": "15.16.0",
     "eslint": "9.39.4",
     "eslint-plugin-react-hooks": "7.1.1",
-    "eslint-plugin-react-refresh": "0.5.2",
+    "eslint-plugin-react-refresh": "0.5.3",
     "globals": "17.6.0",
     "typescript": "5.9.3",
     "typescript-eslint": "8.60.1",
