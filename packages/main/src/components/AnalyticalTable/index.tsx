@@ -748,7 +748,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       // Defer to a microtask so the scroll listener's `flushSync(rerender)` doesn't run inside this commit.
       queueMicrotask(() => scrollElement.dispatchEvent(new Event('scroll')));
     }
-  }, [itemCount]);
+  }, [itemCount, rows.length]);
 
   // add range to instance for `useAutoResize` plugin hook
   tableInstanceRef.current.virtualRowsRange = rowVirtualizer.range;

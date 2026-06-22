@@ -1,6 +1,6 @@
 {
   "name": "ui5-webcomponents-react",
-  "version": "2.23.0",
+  "version": "2.23.1",
   "workspaces": [
     "packages/*"
   ],
@@ -48,11 +48,11 @@
     "@storybook/addon-a11y": "10.4.1",
     "@storybook/addon-docs": "10.4.1",
     "@storybook/react-vite": "10.4.1",
-    "@ui5/webcomponents": "2.23.0",
-    "@ui5/webcomponents-ai": "2.23.0",
-    "@ui5/webcomponents-compat": "2.23.0",
-    "@ui5/webcomponents-fiori": "2.23.0",
-    "@ui5/webcomponents-icons": "2.23.0",
+    "@ui5/webcomponents": "2.23.1",
+    "@ui5/webcomponents-ai": "2.23.1",
+    "@ui5/webcomponents-compat": "2.23.1",
+    "@ui5/webcomponents-fiori": "2.23.1",
+    "@ui5/webcomponents-icons": "2.23.1",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "remark-gfm": "4.0.1",
@@ -76,7 +76,7 @@
     "@types/node": "24.12.4",
     "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
-    "@ui5/webcomponents-tools": "2.23.0",
+    "@ui5/webcomponents-tools": "2.23.1",
     "@vitejs/plugin-react": "6.0.2",
     "chromatic": "17.1.0",
     "cssnano": "8.0.1",
@@ -110,7 +110,7 @@
     "rimraf": "6.1.3",
     "typescript": "5.9.3",
     "typescript-eslint": "8.60.0",
-    "vite": "8.0.14",
+    "vite": "8.0.16",
     "vite-plugin-istanbul": "9.0.1",
     "vite-tsconfig-paths": "6.1.1"
   },

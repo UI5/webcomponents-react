@@ -38,10 +38,6 @@
       "minimumReleaseAge": null
     },
     {
-      "groupName": "vite & plugins",
-      "matchPackageNames": ["/vite/", "!@storybook/react-vite"]
-    },
-    {
       "extends": ["schedule:weekly"],
       "groupName": "storybook monorepo",
       "matchSourceUrls": ["https://github.com/storybookjs/storybook"],
@@ -73,7 +69,7 @@
       "groupName": "all non-major dependencies (examples, templates & patterns)",
       "groupSlug": "examples-all-minor-patch",
       "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["*", "!/^@ui5//"]
+      "matchPackageNames": ["!/^@ui5//"]
     },
     {
       "description": "UI5 Web Components (for React) in all examples, templates & patterns",
@@ -98,13 +94,16 @@
     },
     {
       "description": "MCP server dependencies",
+      "extends": ["schedule:weekly"],
+      "groupName": "MCP server dependencies",
       "matchFileNames": ["packages/mcp-server/**"],
       "semanticCommitType": "chore"
     },
     {
       "groupName": "Typescript",
       "description": "Typescript dependency update",
-      "matchPackageNames": ["typescript"]
+      "matchPackageNames": ["typescript"],
+      "semanticCommitType": "chore"
     }
   ]
 }
