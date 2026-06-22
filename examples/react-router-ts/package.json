@@ -18,14 +18,14 @@
     "@ui5/webcomponents-fiori": "2.23.1",
     "@ui5/webcomponents-react": "2.23.1",
     "cross-env": "10.1.0",
-    "isbot": "5.1.40",
+    "isbot": "5.1.43",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-router": "7.16.0"
   },
   "devDependencies": {
     "@react-router/dev": "7.16.0",
-    "@types/react": "19.2.16",
+    "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "eslint": "9.39.4",
     "eslint-import-resolver-typescript": "4.4.5",
