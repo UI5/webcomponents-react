@@ -1,3 +1,4 @@
+import { cypressPassThroughTestsFactory, mountWithCustomTagName } from '@/cypress/support/utils';
 import { useId, useState } from 'react';
 import {
   Input,
@@ -15,7 +16,6 @@ import { VariantItem } from '../VariantItem/index.js';
 import { VariantManagement } from '../VariantManagement/index.js';
 import type { FilterBarPropTypes } from './index.js';
 import { FilterBar } from './index.js';
-import { cypressPassThroughTestsFactory, mountWithCustomTagName } from '@/cypress/support/utils';
 
 const variants = (
   <VariantManagement data-testid="variantManagement">
