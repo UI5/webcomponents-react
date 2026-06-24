@@ -5,7 +5,6 @@
     "target": "ES2021",
     "lib": ["ESNext", "dom"],
     "jsx": "react-jsx",
-    "baseUrl": "${configDir}/src",
     "rootDir": "${configDir}/src",
     "composite": true,
     "paths": {
@@ -28,6 +27,7 @@
     "skipLibCheck": true,
     "outDir": "${configDir}/dist",
     "declarationDir": "${configDir}/dist",
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "types": ["node"]
   }
 }
