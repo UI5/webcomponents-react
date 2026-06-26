@@ -1,1 +1,0 @@
-import{i as e}from"./preload-helper-usAeo7Bx.js";import{n as t,r as n}from"./jsx-runtime-Huy5Gj8X.js";import{n as r,t as i}from"./ExpandableText-akzR3KDZ.js";function a(e){let{className:t,text:r,maxCharacters:a,part:o}=e;return n(i,{part:o,class:t,text:r,maxCharacters:a})}e((()=>{t(),r()}))();export{a as default};

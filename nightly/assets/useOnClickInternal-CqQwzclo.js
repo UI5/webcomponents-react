@@ -1,0 +1,1 @@
+import{c as e,i as t}from"./preload-helper-usAeo7Bx.js";import{t as n}from"./react-IGKVQItS.js";import{i as r,r as i}from"./utils-BWCwXwCJ.js";var a,o,s=t((()=>{r(),a=e(n(),1),o=e=>(0,a.useCallback)((t,n)=>{typeof e==`function`&&e(i(n,{payload:t?.activePayload?.[0]?.payload,activePayloads:t?.activePayload}))},[e])}));export{o as n,s as t};
