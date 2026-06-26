@@ -1,6 +1,13 @@
+import { isDesktop } from '@ui5/webcomponents-react-base/Device';
+import { useScrollbarSize } from '../../../internal/useScrollbarSize.js';
+import { DEFAULT_COLUMN_WIDTH } from '../defaults/Column/index.js';
 import type { ColumnType, ReactTableHooks, TableInstance } from '../types/index.js';
 
 const INTERNAL_START_COLUMNS = new Set(['__ui5wcr__internal_highlight_column', '__ui5wcr__internal_selection_column']);
+
+// Mimics sap.ui.table (48 desktop / 88 mobile).
+const MOBILE_MIN_NON_STICKY_COL_WIDTH = 88;
+const getMinNonStickyColWidth = () => (isDesktop() ? DEFAULT_COLUMN_WIDTH : MOBILE_MIN_NON_STICKY_COL_WIDTH);
 
 const visibleColumns = (currentVisibleColumns: ColumnType[], { instance: _instance }: { instance: TableInstance }) => {
   const hasStickyStart = currentVisibleColumns.some(
@@ -24,8 +31,11 @@ const visibleColumns = (currentVisibleColumns: ColumnType[], { instance: _instan
   return [...stickyStart, ...nonSticky];
 };
 
-const computeStickyMetadata = (instance: TableInstance) => {
-  const { visibleColumns: visCols } = instance;
+const useStickyMetadata = (instance: TableInstance) => {
+  const scrollbarSize = useScrollbarSize();
+  Object.assign(instance, { scrollbarSize });
+
+  const { visibleColumns: visCols, state } = instance;
 
   const hasStickyStart = visCols.some((col) => col.sticky === 'start' && !INTERNAL_START_COLUMNS.has(col.id));
   if (!hasStickyStart) {
@@ -43,6 +53,17 @@ const computeStickyMetadata = (instance: TableInstance) => {
       totalStickyStartWidth += col.totalWidth ?? 0;
     } else {
       break;
+    }
+  }
+
+  // Disable sticky when columns no longer fit. Skipped on first render before measurement.
+  const tableClientWidth = state?.tableClientWidth ?? 0;
+  if (tableClientWidth > 0) {
+    const reservedScrollable = getMinNonStickyColWidth() + scrollbarSize;
+    const fits = tableClientWidth - reservedScrollable > totalStickyStartWidth;
+    if (!fits) {
+      Object.assign(instance, { stickyStartIndices: [], totalStickyStartWidth: 0 });
+      return;
     }
   }
 
@@ -66,10 +87,13 @@ const computeStickyMetadata = (instance: TableInstance) => {
  *
  * Mark columns with `sticky: 'start'` in the column definition.
  *
+ * Auto-disables when the container is too narrow to fit the sticky columns plus a usable
+ * scrollable area; re-enables when the container grows again.
+ *
  * @experimental The API and behavior may change without notice.
  */
 export const useStickyColumns = (hooks: ReactTableHooks) => {
   hooks.visibleColumns.push(visibleColumns);
-  hooks.useInstance.push(computeStickyMetadata);
+  hooks.useInstance.push(useStickyMetadata);
 };
 useStickyColumns.pluginName = 'useStickyColumns';

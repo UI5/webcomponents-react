@@ -728,8 +728,9 @@ const stickyColumnsHooks = [useStickyColumns];
 
 export const StickyColumns: Story = {
   args: {
-    data: dataLarge,
+    data: dataLarge.slice(0, 5),
     selectionMode: AnalyticalTableSelectionMode.Multiple,
+    alternateRowColor: true,
     columns: [
       {
         Header: 'Name',

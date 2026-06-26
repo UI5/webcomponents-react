@@ -276,6 +276,12 @@ export interface TableInstance {
    * @experimental
    */
   totalStickyStartWidth?: number;
+  /**
+   * Measured system scrollbar size in pixels. Set by `useStickyColumns`.
+   *
+   * @experimental
+   */
+  scrollbarSize?: number;
   [key: string]: any;
 }
 
