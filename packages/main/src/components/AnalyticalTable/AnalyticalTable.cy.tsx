@@ -5537,6 +5537,20 @@ describe('AnalyticalTable', () => {
       .should('not.match', /stickyColumnsMode/);
   });
 
+  it('sticky column headers carry "Fixed Column" aria-label', () => {
+    const cols: AnalyticalTableColumnDefinition[] = [
+      { Header: 'Name', accessor: 'name', sticky: 'start' },
+      { Header: 'Age', accessor: 'age' },
+      { Header: 'Friend Name', accessor: 'friend.name' },
+    ];
+    cy.mount(<AnalyticalTable data={data} columns={cols} tableHooks={stickyTableHooks} />);
+    cy.get('[data-column-id="name"]')
+      .should('have.attr', 'aria-label')
+      .and('match', /Fixed Column/);
+    cy.get('[data-column-id="age"]').should('not.have.attr', 'aria-label');
+    cy.get('[data-column-id="friend.name"]').should('not.have.attr', 'aria-label');
+  });
+
   cypressPassThroughTestsFactory(AnalyticalTable, { data, columns });
 });
 

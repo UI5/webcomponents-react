@@ -312,6 +312,7 @@ export interface WCRPropertiesType {
     selectionHeaderCellText: string;
     highlightHeaderCellText: string;
     navigationHeaderCellText: string;
+    fixedColumnText: string;
   };
   tagNamesWhichShouldNotSelectARow: Set<string>;
   tableRef: MutableRefObject<DivWithCustomScrollProp>;

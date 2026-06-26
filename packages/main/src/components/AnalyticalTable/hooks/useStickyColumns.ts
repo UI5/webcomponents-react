@@ -70,6 +70,22 @@ const useStickyMetadata = (instance: TableInstance) => {
   Object.assign(instance, { stickyStartIndices, totalStickyStartWidth });
 };
 
+const setHeaderProps = (
+  headerProps,
+  { column, instance }: { column: TableInstance['column']; instance: TableInstance },
+) => {
+  const stickyActive = (instance.stickyStartIndices?.length ?? 0) > 0;
+  if (!stickyActive || !column || column.sticky !== 'start') {
+    return headerProps;
+  }
+  const fixedColumnText = instance.webComponentsReactProperties?.translatableTexts?.fixedColumnText;
+  if (!fixedColumnText) {
+    return headerProps;
+  }
+  const existingLabel = headerProps?.['aria-label'] ?? '';
+  return [headerProps, { 'aria-label': existingLabel ? `${existingLabel} ${fixedColumnText}` : fixedColumnText }];
+};
+
 /**
  * Plugin hook that pins columns marked with `sticky: 'start'` to the inline-start of the table,
  * keeping them visible while the user scrolls horizontally. Internal columns rendered before
@@ -95,5 +111,6 @@ const useStickyMetadata = (instance: TableInstance) => {
 export const useStickyColumns = (hooks: ReactTableHooks) => {
   hooks.visibleColumns.push(visibleColumns);
   hooks.useInstance.push(useStickyMetadata);
+  hooks.getHeaderProps.push(setHeaderProps);
 };
 useStickyColumns.pluginName = 'useStickyColumns';
