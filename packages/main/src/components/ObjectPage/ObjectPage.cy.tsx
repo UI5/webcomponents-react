@@ -1,5 +1,6 @@
 import '@ui5/webcomponents-icons/dist/AllIcons.js';
 import '@ui5/webcomponents-fiori/dist/illustrations/NoData.js';
+import { cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import BarDesign from '@ui5/webcomponents/dist/types/BarDesign.js';
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import InputType from '@ui5/webcomponents/dist/types/InputType.js';
@@ -50,7 +51,6 @@ import {
   TableRow,
 } from '../..';
 import type { TabDomRef } from '../../webComponents/Tab/index.js';
-import { cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 
 const arbitraryCharsId = `~\`!1@#$%^&*()-_+={}[]:;"'z,<.>/?|♥`;
 

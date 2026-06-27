@@ -1,3 +1,4 @@
+import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import NoDataIllustration from '@ui5/webcomponents-fiori/dist/illustrations/NoData.js';
 import NoFilterResults from '@ui5/webcomponents-fiori/dist/illustrations/NoFilterResults.js';
@@ -82,7 +83,6 @@ import {
 import { useF2CellEdit } from './pluginHooks/useF2CellEdit.js';
 import { useManualRowSelect } from './pluginHooks/useManualRowSelect';
 import { useRowDisableSelection } from './pluginHooks/useRowDisableSelection';
-import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import type { RowType } from '@/packages/main/src/components/AnalyticalTable/types/index.js';
 import { getUi5TagWithSuffix } from '@/packages/main/src/internal/utils.js';
 
