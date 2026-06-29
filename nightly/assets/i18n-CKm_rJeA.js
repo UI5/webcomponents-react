@@ -1,1 +1,0 @@
-import{i as e}from"./preload-helper-usAeo7Bx.js";var t,n=e((()=>{t=e=>(t,n)=>{t.metadata.i18n||(t.metadata.i18n={}),Object.defineProperty(t,n,{get(){return t.i18nBundles[e]},set(){}}),t.metadata.i18n[n]={bundleName:e,target:t}}}));export{n,t};

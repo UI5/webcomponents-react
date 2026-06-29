@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-B45gAKPr.js";var t,n=e((()=>{t=e=>{let t=e;return e.shadowRoot&&e.shadowRoot.activeElement&&(t=e.shadowRoot.activeElement),t}}));export{t as n,n as t};

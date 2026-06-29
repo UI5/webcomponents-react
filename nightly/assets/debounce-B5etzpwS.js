@@ -1,1 +1,0 @@
-import{i as e}from"./preload-helper-usAeo7Bx.js";var t,n,r=e((()=>{t=null,n=(e,n)=>{t&&clearTimeout(t),t=setTimeout(()=>{t=null,e()},n)}}));export{n,r as t};

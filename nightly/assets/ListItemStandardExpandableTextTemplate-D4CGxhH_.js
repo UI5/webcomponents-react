@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-B45gAKPr.js";import{a as t,i as n}from"./parameters-bundle.css-DXPaaUmA.js";import{n as r,t as i}from"./ExpandableText-CA2o6cb2.js";function a(e){let{className:n,text:r,maxCharacters:a,part:o}=e;return t(i,{part:o,class:n,text:r,maxCharacters:a})}e((()=>{n(),r()}))();export{a as default};
