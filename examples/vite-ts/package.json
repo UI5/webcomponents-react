@@ -19,7 +19,7 @@
     "@ui5/webcomponents-base": "2.23.2",
     "@ui5/webcomponents-fiori": "2.23.2",
     "@ui5/webcomponents-icons": "2.23.2",
-    "@ui5/webcomponents-react": "2.23.1",
+    "@ui5/webcomponents-react": "2.23.2",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-router": "8.0.1"
@@ -27,7 +27,7 @@
   "devDependencies": {
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
-    "@ui5/webcomponents-cypress-commands": "2.23.1",
+    "@ui5/webcomponents-cypress-commands": "2.23.2",
     "@vitejs/plugin-react": "6.0.3",
     "cypress": "15.18.0",
     "eslint": "9.39.4",
