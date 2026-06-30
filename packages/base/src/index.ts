@@ -1,5 +1,4 @@
 import * as Device from './Device/index.js';
-import VersionInfo from './generated/VersionInfo.js';
 import * as hooks from './hooks/index.js';
 import { I18nStore } from './internal/stores/I18nStore.js';
 import { StyleStore } from './internal/stores/StyleStore.js';
@@ -16,4 +15,4 @@ export type * from './types/index.js';
 
 export { I18nStore, StyleStore, ThemingParameters, Device, hooks, withWebComponent };
 export type { WithWebComponentPropTypes };
-export const version = VersionInfo.version;
+export { version } from './generated/VersionInfo.js';

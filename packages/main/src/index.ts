@@ -1,5 +1,4 @@
 import * as AnalyticalTableHooks from './components/AnalyticalTable/pluginHooks/AnalyticalTableHooks.js';
-import VersionInfo from './generated/VersionInfo.js';
 
 export * from './components/ActionSheet/index.js';
 export * from './components/AnalyticalCardHeader/index.js';
@@ -37,4 +36,4 @@ export type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from './t
 export * from './webComponents/index.js';
 
 export { AnalyticalTableHooks };
-export const version = VersionInfo.version;
+export { version } from './generated/VersionInfo.js';

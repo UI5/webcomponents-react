@@ -1,5 +1,3 @@
-import VersionInfo from './generated/VersionInfo.js';
-
 export * from './components/Loader/index.js';
 export * from './components/OverflowToolbarButton/index.js';
 export * from './components/OverflowToolbarToggleButton/index.js';
@@ -15,4 +13,4 @@ export * from './components/ToolbarSpacer/index.js';
 export { LoaderType } from './enums/LoaderType.js';
 export { ToolbarDesign } from './enums/ToolbarDesign.js';
 export { ToolbarStyle } from './enums/ToolbarStyle.js';
-export const version = VersionInfo.version;
+export { version } from './generated/VersionInfo.js';

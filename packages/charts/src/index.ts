@@ -20,7 +20,6 @@ import { ScatterChartPlaceholder } from './components/ScatterChart/Placeholder.j
 import { TimelineChart } from './components/TimelineChart/index.js';
 import { TimelineChartPlaceholder } from './components/TimelineChart/Placeholder.js';
 import { TimelineChartAnnotation } from './components/TimelineChart/TimelineChartAnnotation.js';
-import VersionInfo from './generated/VersionInfo.js';
 
 export {
   BarChart,
@@ -46,4 +45,4 @@ export {
   ColumnChartWithTrendPlaceholder,
   TimelineChartPlaceholder,
 };
-export const version = VersionInfo.version;
+export { version } from './generated/VersionInfo.js';
