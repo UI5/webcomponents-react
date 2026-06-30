@@ -5136,6 +5136,48 @@ describe('AnalyticalTable', () => {
     cy.get('[data-column-id="qty"]').invoke('outerWidth').should('be.gt', 150);
   });
 
+  it('column className & classNameHeader', () => {
+    const columnsWithClassNames: AnalyticalTableColumnDefinition[] = [
+      {
+        Header: 'Name',
+        accessor: 'name',
+        className: 'cy-body-cell',
+        classNameHeader: 'cy-header-cell',
+      },
+      {
+        Header: 'Age',
+        accessor: 'age',
+      },
+    ];
+    cy.mount(
+      <>
+        <style>{`
+          .cy-body-cell { background-color: lightblue; }
+          .cy-header-cell { background-color: lightgrey; }
+        `}</style>
+        <AnalyticalTable data={data} columns={columnsWithClassNames} />
+      </>,
+    );
+
+    cy.get('[data-column-id="name"][role="columnheader"]')
+      .should('have.class', 'cy-header-cell')
+      .and('not.have.class', 'cy-body-cell')
+      .and('have.css', 'background-color', 'rgb(211, 211, 211)');
+
+    cy.get('[data-column-id="age"][role="columnheader"]')
+      .should('not.have.class', 'cy-header-cell')
+      .and('not.have.class', 'cy-body-cell');
+
+    cy.get('[data-row-index="1"][data-column-index="0"]')
+      .should('have.class', 'cy-body-cell')
+      .and('not.have.class', 'cy-header-cell')
+      .and('have.css', 'background-color', 'rgb(173, 216, 230)');
+
+    cy.get('[data-row-index="1"][data-column-index="1"]')
+      .should('not.have.class', 'cy-body-cell')
+      .and('not.have.class', 'cy-header-cell');
+  });
+
   cypressPassThroughTestsFactory(AnalyticalTable, { data, columns });
 });
 

@@ -1005,4 +1005,32 @@ const columns = [
 />
 ```
 
+## Custom Column Class Names
+
+Use the `className` and `classNameHeader` column options to apply custom classes to a column's body cells and its header cell respectively. The two are independent — `className` only affects body cells, `classNameHeader` only the header cell.
+
+**Note:** Custom classes are merged with the table's internal classes and can therefore override internal styles. Use with caution!
+
+<Canvas sourceState="none" of={FeatureStories.ColumnClassName} />
+
+### Code
+
+```jsx
+const columns = [
+  {
+    Header: 'Name',
+    accessor: 'name',
+    className: 'body-cell',
+    classNameHeader: 'header-cell'
+  },
+  { Header: 'Age', accessor: 'age' }
+];
+
+// styles.css
+// .header-cell { background-color: lightgrey; }
+// .body-cell { background-color: lightblue; }
+
+<AnalyticalTable data={data} columns={columns} />
+```
+
 <Footer />

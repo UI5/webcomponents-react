@@ -35,7 +35,7 @@ const getHeaderProps = (columnProps, { instance, column }: { instance: TableInst
   return [
     columnProps,
     {
-      className: classes.th,
+      className: clsx(classes.th, column.classNameHeader),
       column,
       style: style,
       id: column.id,
