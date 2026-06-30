@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.23.3](https://github.com/UI5/webcomponents-react/compare/v2.23.2...v2.23.3) (2026-06-30)
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** show expand icon in Quartz theme ([#8716](https://github.com/UI5/webcomponents-react/issues/8716)) ([bd15575](https://github.com/UI5/webcomponents-react/commit/bd155755c06b8090d69fbc2111ccb98e03fc7e74)), closes [#8689](https://github.com/UI5/webcomponents-react/issues/8689)
+* **MessageView:** reset filter and details when children change ([#8717](https://github.com/UI5/webcomponents-react/issues/8717)) ([dfa4e06](https://github.com/UI5/webcomponents-react/commit/dfa4e06c3346e8daf7e8f34e51bdacad33b0b39b)), closes [#8707](https://github.com/UI5/webcomponents-react/issues/8707)
+
 ## [2.23.2](https://github.com/UI5/webcomponents-react/compare/v2.23.1...v2.23.2) (2026-06-29)
 
 
