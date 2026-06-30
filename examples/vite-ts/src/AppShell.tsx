@@ -42,7 +42,7 @@ function AppShell() {
   const [currentTheme, setCurrentTheme] = useState(getTheme);
   const detailViewMatch = matches.find((match) => Boolean(match.handle));
   const detailViewMatchHandle = detailViewMatch?.handle as SingleTodoHandle;
-  const detailViewMatchData = detailViewMatch?.data as Todo;
+  const detailViewMatchData = detailViewMatch?.loaderData as Todo;
 
   const handleLogoClick = () => {
     navigate('/');

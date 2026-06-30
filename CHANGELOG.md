@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.23.2](https://github.com/UI5/webcomponents-react/compare/v2.23.1...v2.23.2) (2026-06-29)
+
+
+### Bug Fixes
+
+* **charts:** round x-axis bbox height to avoid subpixel re-render loop ([#8741](https://github.com/UI5/webcomponents-react/issues/8741)) ([c7c9393](https://github.com/UI5/webcomponents-react/commit/c7c9393b72efa507b1c11c3eb643b2fd10cb1721))
+* **deps:** update tanstack-virtual monorepo to v3.14.3 ([#8709](https://github.com/UI5/webcomponents-react/issues/8709)) ([066fe70](https://github.com/UI5/webcomponents-react/commit/066fe7077fd4a897489b80977e7ad2a073e9ff03))
+* **renovate:** resolve invalid matchPackageNames and clean up rules ([#8691](https://github.com/UI5/webcomponents-react/issues/8691)) ([499b651](https://github.com/UI5/webcomponents-react/commit/499b6518c0f72cd07b6cd9570374ef1307b0bdc5))
+
 ## [2.23.1](https://github.com/UI5/webcomponents-react/compare/v2.23.0...v2.23.1) (2026-06-12)
 
 
