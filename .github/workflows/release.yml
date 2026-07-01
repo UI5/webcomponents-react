@@ -203,3 +203,14 @@ jobs:
     permissions:
       id-token: write
       contents: read
+
+  deploy-docs-stable:
+    needs: [publish, publish-only]
+    if: |
+      github.ref_name == 'main' &&
+      (needs.publish.result == 'success' || needs.publish-only.result == 'success')
+    uses: './.github/workflows/docs-stable.yml'
+    permissions:
+      pages: write
+      id-token: write
+      contents: write
