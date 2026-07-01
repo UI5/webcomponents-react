@@ -639,6 +639,14 @@ export interface AnalyticalTableColumnDefinition {
   autoResizable?: boolean;
   // ui5 web components react properties
   /**
+   * Defines a `className` that is applied to each body cell of the column.
+   */
+  className?: string;
+  /**
+   * Defines a `className` that is applied to the header cell of the column.
+   */
+  classNameHeader?: string;
+  /**
    * Horizontal alignment of the cell.
    */
   hAlign?: TextAlign | keyof typeof TextAlign;
