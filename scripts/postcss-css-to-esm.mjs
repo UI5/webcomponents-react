@@ -44,8 +44,12 @@ function cssToEsmPostcssPlugin(opts) {
       // it seems slower to read the old content, but writing the same content with no real changes
       // (as in initial build and then watch mode) will cause an unnecessary dev server refresh
       let oldContent = '';
-      if (fs.existsSync(filePath)) {
-        oldContent = fs.readFileSync(filePath).toString();
+      try {
+        oldContent = fs.readFileSync(filePath, 'utf8');
+      } catch (e) {
+        if (e.code !== 'ENOENT') {
+          throw e;
+        }
       }
 
       const content = getTSContent(targetFile, packageName, css, exportTokens);
