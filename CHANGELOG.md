@@ -5,36 +5,32 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [2.23.2](https://github.com/UI5/webcomponents-react/compare/v2.23.1...v2.23.2) (2026-06-29)
 
-
 ### Bug Fixes
 
-* **charts:** round x-axis bbox height to avoid subpixel re-render loop ([#8741](https://github.com/UI5/webcomponents-react/issues/8741)) ([c7c9393](https://github.com/UI5/webcomponents-react/commit/c7c9393b72efa507b1c11c3eb643b2fd10cb1721))
-* **deps:** update tanstack-virtual monorepo to v3.14.3 ([#8709](https://github.com/UI5/webcomponents-react/issues/8709)) ([066fe70](https://github.com/UI5/webcomponents-react/commit/066fe7077fd4a897489b80977e7ad2a073e9ff03))
-* **renovate:** resolve invalid matchPackageNames and clean up rules ([#8691](https://github.com/UI5/webcomponents-react/issues/8691)) ([499b651](https://github.com/UI5/webcomponents-react/commit/499b6518c0f72cd07b6cd9570374ef1307b0bdc5))
+- **charts:** round x-axis bbox height to avoid subpixel re-render loop ([#8741](https://github.com/UI5/webcomponents-react/issues/8741)) ([c7c9393](https://github.com/UI5/webcomponents-react/commit/c7c9393b72efa507b1c11c3eb643b2fd10cb1721))
+- **deps:** update tanstack-virtual monorepo to v3.14.3 ([#8709](https://github.com/UI5/webcomponents-react/issues/8709)) ([066fe70](https://github.com/UI5/webcomponents-react/commit/066fe7077fd4a897489b80977e7ad2a073e9ff03))
+- **renovate:** resolve invalid matchPackageNames and clean up rules ([#8691](https://github.com/UI5/webcomponents-react/issues/8691)) ([499b651](https://github.com/UI5/webcomponents-react/commit/499b6518c0f72cd07b6cd9570374ef1307b0bdc5))
 
 ## [2.23.1](https://github.com/UI5/webcomponents-react/compare/v2.23.0...v2.23.1) (2026-06-12)
 
-
 ### Bug Fixes
 
-* **AnalyticalTable:** prevent stale `scrollOffset` after filtering ([#8685](https://github.com/UI5/webcomponents-react/issues/8685)) ([4c8e33d](https://github.com/UI5/webcomponents-react/commit/4c8e33daa3e2d07e8c87c08cf6a9ddf08d900bf3))
+- **AnalyticalTable:** prevent stale `scrollOffset` after filtering ([#8685](https://github.com/UI5/webcomponents-react/issues/8685)) ([4c8e33d](https://github.com/UI5/webcomponents-react/commit/4c8e33daa3e2d07e8c87c08cf6a9ddf08d900bf3))
 
 ## [2.23.0](https://github.com/UI5/webcomponents-react/compare/v2.22.2...v2.23.0) (2026-06-08)
 
-
 ### Features
 
-* **AnalyticalTable - TypeScript:** export `ReactTableHooks` type ([#8656](https://github.com/UI5/webcomponents-react/issues/8656)) ([16fce8c](https://github.com/UI5/webcomponents-react/commit/16fce8c5b7289168b9b088b265a6eac3962a654e))
-* **AnalyticalTable:** add `accessibleName` & `accessibleNameRef` props ([#8592](https://github.com/UI5/webcomponents-react/issues/8592)) ([2fe532c](https://github.com/UI5/webcomponents-react/commit/2fe532c3af9747385128d0ca52d26a406f8bb3d8)), closes [#8590](https://github.com/UI5/webcomponents-react/issues/8590)
-* **SelectDialog:** add `searchPlaceholder` prop ([#8644](https://github.com/UI5/webcomponents-react/issues/8644)) ([3435925](https://github.com/UI5/webcomponents-react/commit/34359259ba124676b7cc4d9fb0e093c509ea5012)), closes [#8637](https://github.com/UI5/webcomponents-react/issues/8637)
-* update to UI5 Web Components 2.23.0 ([#8676](https://github.com/UI5/webcomponents-react/issues/8676)) ([0dc8e8a](https://github.com/UI5/webcomponents-react/commit/0dc8e8a63d66dc7ad540930cf00025f09e9665f6))
-
+- **AnalyticalTable - TypeScript:** export `ReactTableHooks` type ([#8656](https://github.com/UI5/webcomponents-react/issues/8656)) ([16fce8c](https://github.com/UI5/webcomponents-react/commit/16fce8c5b7289168b9b088b265a6eac3962a654e))
+- **AnalyticalTable:** add `accessibleName` & `accessibleNameRef` props ([#8592](https://github.com/UI5/webcomponents-react/issues/8592)) ([2fe532c](https://github.com/UI5/webcomponents-react/commit/2fe532c3af9747385128d0ca52d26a406f8bb3d8)), closes [#8590](https://github.com/UI5/webcomponents-react/issues/8590)
+- **SelectDialog:** add `searchPlaceholder` prop ([#8644](https://github.com/UI5/webcomponents-react/issues/8644)) ([3435925](https://github.com/UI5/webcomponents-react/commit/34359259ba124676b7cc4d9fb0e093c509ea5012)), closes [#8637](https://github.com/UI5/webcomponents-react/issues/8637)
+- update to UI5 Web Components 2.23.0 ([#8676](https://github.com/UI5/webcomponents-react/issues/8676)) ([0dc8e8a](https://github.com/UI5/webcomponents-react/commit/0dc8e8a63d66dc7ad540930cf00025f09e9665f6))
 
 ### Bug Fixes
 
-* **deps:** update dependency @tanstack/react-virtual to v3.13.26 ([#8648](https://github.com/UI5/webcomponents-react/issues/8648)) ([b2cdfa0](https://github.com/UI5/webcomponents-react/commit/b2cdfa02b565d084402bc19fbb4ac25b92c8805f))
-* **deps:** update react monorepo to v19.2.7 ([#8667](https://github.com/UI5/webcomponents-react/issues/8667)) ([ca7dc87](https://github.com/UI5/webcomponents-react/commit/ca7dc874f339c407e72d03d93ebb56126ea16c8a))
-* **deps:** update tanstack-virtual monorepo to v3.14.2 ([#8666](https://github.com/UI5/webcomponents-react/issues/8666)) ([6c17d65](https://github.com/UI5/webcomponents-react/commit/6c17d6526236f84dba51ea11575636299490f235))
+- **deps:** update dependency @tanstack/react-virtual to v3.13.26 ([#8648](https://github.com/UI5/webcomponents-react/issues/8648)) ([b2cdfa0](https://github.com/UI5/webcomponents-react/commit/b2cdfa02b565d084402bc19fbb4ac25b92c8805f))
+- **deps:** update react monorepo to v19.2.7 ([#8667](https://github.com/UI5/webcomponents-react/issues/8667)) ([ca7dc87](https://github.com/UI5/webcomponents-react/commit/ca7dc874f339c407e72d03d93ebb56126ea16c8a))
+- **deps:** update tanstack-virtual monorepo to v3.14.2 ([#8666](https://github.com/UI5/webcomponents-react/issues/8666)) ([6c17d65](https://github.com/UI5/webcomponents-react/commit/6c17d6526236f84dba51ea11575636299490f235))
 
 ## [2.22.2](https://github.com/UI5/webcomponents-react/compare/v2.22.1...v2.22.2) (2026-05-28)
 

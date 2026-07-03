@@ -1,5 +1,5 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import type { Page } from '@playwright/test';
+import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { scatterComplexDataSet } from '../../../resources/DemoProps.js';
 import { testLoadingStates, testPassThroughProps } from '../../../test-utils/sharedTests.js';
 import { ScatterChart } from '../index.js';

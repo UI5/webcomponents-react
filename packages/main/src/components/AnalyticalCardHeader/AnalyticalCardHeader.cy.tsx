@@ -1,3 +1,4 @@
+import { cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import { getRGBColor } from '@ui5/webcomponents-base/dist/util/ColorConversion';
 import { ThemingParameters } from '@ui5/webcomponents-react-base';
 import { DeviationIndicator, ValueColor } from '../../enums';
@@ -7,7 +8,6 @@ import { Text } from '../../webComponents/Text/index.js';
 import { NumericSideIndicator } from '../NumericSideIndicator';
 import type { AnalyticalCardHeaderPropTypes } from './index';
 import { AnalyticalCardHeader } from './index';
-import { cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 
 const TestComp = (props: Omit<CardPropTypes, 'children'>) => {
   return (

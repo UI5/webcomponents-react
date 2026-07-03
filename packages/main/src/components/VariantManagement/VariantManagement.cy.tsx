@@ -1,3 +1,4 @@
+import { cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { useState } from 'react';
@@ -6,7 +7,6 @@ import { VariantItem } from '../VariantItem/index.js';
 import { WithCustomValidation as WithCustomValidationStory } from './VariantManagement.stories';
 import type { VariantManagementPropTypes } from './index.js';
 import { VariantManagement } from './index.js';
-import { cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 
 const WithCustomValidation = WithCustomValidationStory.render;
 
