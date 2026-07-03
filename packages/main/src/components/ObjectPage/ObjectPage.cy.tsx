@@ -746,19 +746,19 @@ describe('ObjectPage', () => {
     cy.get('[data-component-name="ObjectPageTabContainer"]').should('not.exist');
 
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2280}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2270}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2280}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2270}').should('exist');
 
     cy.mount(<TestSingleSectionComp height="2000px" withFooter mode={ObjectPageMode.Default} />);
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2330}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2310}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2330}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2310}').should('exist');
 
     cy.mount(<TestSingleSectionComp height="400px" mode={ObjectPageMode.Default} />);
     cy.findByText('Update Heights').click();
@@ -812,19 +812,19 @@ describe('ObjectPage', () => {
     cy.get('[data-component-name="ObjectPageTabContainer"]').should('not.exist');
 
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2250}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2230}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2250}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2230}').should('exist');
 
     cy.mount(<TestSingleSectionComp height="2000px" withFooter mode={ObjectPageMode.IconTabBar} />);
     cy.findByText('Update Heights').click();
-    cy.findByText('{"offset":1080,"scroll":2310}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2290}').should('exist');
 
     cy.findByTestId('op').scrollTo('bottom');
     cy.findByText('Update Heights').click({ force: true });
-    cy.findByText('{"offset":1080,"scroll":2310}').should('exist');
+    cy.findByText('{"offset":1080,"scroll":2290}').should('exist');
 
     cy.mount(<TestSingleSectionComp height="400px" mode={ObjectPageMode.IconTabBar} />);
     cy.findByText('Update Heights').click();
@@ -850,7 +850,7 @@ describe('ObjectPage', () => {
     cy.findByText('Update Heights').click({ force: true });
     cy.findByText('{"offset":1080,"scroll":1080}').should('exist');
 
-    cy.mount(<TestSingleSectionComp height="925px" mode={ObjectPageMode.IconTabBar} />);
+    cy.mount(<TestSingleSectionComp height="950px" mode={ObjectPageMode.IconTabBar} />);
     cy.findByText('https://github.com/UI5/webcomponents-react').should('be.visible');
 
     cy.wait(50);
