@@ -10,70 +10,27 @@ import * as ComponentStories from './AnalyticalTable.stories';
 
 <TableOfContent />
 
-## Why is the AnalyticalTable slow in development mode?
+## Why is the AnalyticalTable slower in development mode?
 
-When using the `AnalyticalTable` (or other virtualized components) in development mode, you may experience noticeable performance degradation compared to production builds. This is expected behavior caused by the combination of **React's dev mode overhead** and **browser debugger instrumentation**.
+The `AnalyticalTable` (and other virtualized components) run somewhat slower in development mode than in production builds. This gap has been reduced significantly over time and is usually a minor annoyance rather than a blocker, but on slower machines or with very large datasets you may still notice it.
 
-### Why Dev Mode is Slower
+If the difference is bothering you, the following tend to help:
 
-#### React Dev Mode Overhead
+1. **Test with production builds** when working on performance-sensitive features — this also gives you accurate performance metrics.
+2. **Try Firefox or Safari for development** — they have lighter debugger overhead in dev mode than Chromium-based browsers.
+3. **Close DevTools when not actively debugging**, and consider disabling the React DevTools browser extension — both add overhead even when DevTools is closed.
 
-React's development build includes significant overhead:
-
-- **Strict Mode double-rendering**: Components, `useEffect`, and callback refs render an additional time to help detect side effects
-- **Validation checks**: Hooks order, prop types, deprecated API usage
-- **Extended error messages**: Component stack traces for better debugging
-- **Extra code paths**: Development-only warnings and diagnostics
-
-For a virtualized table that frequently mounts and unmounts cells during scrolling, this overhead compounds quickly.
-
-#### Browser Debugger Instrumentation
-
-Chromium-based browsers (Chrome, Edge, Brave, etc.) instrument async operations heavily in dev mode via the V8 engine - even when DevTools is closed. Firefox and Safari have significantly lighter debugger overhead in dev mode for example.
-
-### Recommendations
-
-#### High Impact
-
-1. **Use Firefox or Safari for development**: These browsers have significantly lighter debugger overhead in dev mode.
-
-2. **Test with production builds**: When working on performance-sensitive features, test with a production build to get accurate performance metrics.
-
-3. **Disable React Strict Mode** (temporarily): If dev mode performance is severely impacting your workflow, you can temporarily disable Strict Mode in development. Note that Strict Mode helps catch bugs, so re-enable it periodically.
-
-4. **Memoize props that require it**: Props marked with "Must be memoized" (e.g., `columns`) need a stable reference. Define them outside the component or use `useMemo`/`useCallback` to prevent unnecessary recalculations.
-
-#### Medium Impact
-
-5. **Disable React DevTools extension**: The React DevTools browser extension adds performance overhead and has been observed to cause small memory leaks.
-
-6. **Consider memoizing expensive Cell components**: If you have custom `Cell` renderers with expensive computations or deep component trees, wrapping them with `React.memo()` can help by creating render boundaries. However, avoid over-memoization - for simple cells, the overhead of memoization may outweigh the benefits.
-
-7. **Use [direct imports](?path=/docs/knowledge-base-faq--docs#why-use-direct-imports-via-package-export-maps)**: Since tree shaking is not available for most bundlers in dev mode, use direct imports to reduce initial load.
-
-#### Lower Impact
-
-8. **Keep DevTools closed**: When not actively debugging, keep DevTools closed to reduce overhead from source map parsing, DOM mutation observers, and memory tracking.
-
-9. **Deactivate UI5 Web Components animations in dev mode**: Animations cause components to recalculate multiple times. While we debounce frequent state changes, disabling animations can help.
-
-### Summary
-
-Dev mode slowness for virtualized components is expected behavior, not a bug. In production builds, the `AnalyticalTable` performs well. For the best development experience with heavy tables, consider using Firefox or Safari, or testing with production builds when performance is critical.
+Beyond dev mode itself, general `AnalyticalTable` performance practices (memoizing `columns`, `data`, custom `Cell` components, etc.) apply equally in dev and prod — see the relevant sections in this FAQ and in the main documentation.
 
 <details>
-<summary>Example: Performance Trace Comparison</summary>
+<summary>Why dev mode is slower</summary>
 
-The following table shows a performance trace comparison from an investigation into dev mode performance ([GitHub issue #8234](https://github.com/SAP/ui5-webcomponents-react/issues/8234)). Your results may vary depending on your implementation, but the general pattern holds:
+Two main factors contribute:
 
-| Metric          | Chrome DEV | Chrome PROD | Firefox DEV |
-| --------------- | ---------- | ----------- | ----------- |
-| Trace file size | 561 MB     | 3.3 MB      | 6.3 MB      |
-| Event count     | ~millions  | ~14,600     | ~3,700      |
+- **React's development build** adds Strict Mode double-rendering, validation checks (hooks order, prop types, deprecated APIs), extended error messages, and development-only warnings. For a virtualized table that frequently mounts and unmounts cells while scrolling, this overhead adds up.
+- **Browser debugger instrumentation** in Chromium-based browsers (Chrome, Edge, Brave, etc.) instruments async operations via the V8 engine even when DevTools is closed. Firefox and Safari tend to be lighter in this regard.
 
-Firefox in dev mode has similar overhead to Chrome in prod mode - both are lightweight. Chromium-based browsers in dev mode are the outlier with massive V8 debugger instrumentation.
-
-For more context, see the [detailed findings comment](https://github.com/SAP/ui5-webcomponents-react/issues/8234#issuecomment-3971742068) and [production environment performance videos](https://github.com/SAP/ui5-webcomponents-react/issues/8234#issuecomment-3960465202) showing table performance (inside a complex container) on high-end, medium-range, and low-end devices.
+For the original investigation and detailed findings, see [GitHub issue #8234](https://github.com/SAP/ui5-webcomponents-react/issues/8234) — note that the numbers in that issue predate the performance improvements and should be read as historical context, not current behavior.
 
 </details>
 

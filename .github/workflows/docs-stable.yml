@@ -1,9 +1,7 @@
 name: Deploy Docs (Stable)
 
 on:
-  release:
-    types:
-      - 'released'
+  workflow_call:
   workflow_dispatch:
 
 jobs:
