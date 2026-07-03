@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   chromatic:
-    if: ${{ github.actor != 'dependabot[bot]' && github.ref == 'refs/heads/main' || contains(github.event.head_commit.message, '[ci chromatic]') }}
+    if: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[ci chromatic]') || (github.actor != 'dependabot[bot]' && github.ref == 'refs/heads/main') }}
     runs-on: ubuntu-latest
     env:
       CYPRESS_INSTALL_BINARY: 0
