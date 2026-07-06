@@ -1,0 +1,65 @@
+import{i as e}from"./preload-helper-B45gAKPr.js";import{t}from"./jsx-runtime-BBQGix-2.js";import{n,t as r}from"./Token-C7wjijYk.js";import{A as i,_ as a,d as o,o as s,r as c,u as l}from"./blocks-BKs256UO.js";import{E as u,S as d,b as f,f as p,t as m,u as h}from"./components-lwgcoEYR.js";import{n as g,t as _}from"./SubcomponentsSection-CcVV1-ds.js";import{Default as v,WithLogic as y,n as b,t as x}from"./Tokenizer.stories-BrMTybhe.js";function S(e){let t={code:`code`,h2:`h2`,pre:`pre`,...i(),...e.components};return(0,w.jsxs)(w.Fragment,{children:[(0,w.jsx)(o,{of:x}),`
+`,(0,w.jsx)(p,{of:x,subComponents:[`Token`],experimental:!0}),`
+`,(0,w.jsx)(`br`,{}),`
+`,(0,w.jsx)(t.h2,{id:`example`,children:`Example`}),`
+`,(0,w.jsx)(c,{of:v}),`
+`,(0,w.jsx)(t.h2,{id:`properties`,children:`Properties`}),`
+`,(0,w.jsx)(f,{of:v}),`
+`,(0,w.jsx)(t.h2,{id:`more-examples`,children:`More examples`}),`
+`,(0,w.jsx)(t.h2,{id:`tokenizer-with-selection--delete-logic`,children:`Tokenizer with selection & delete logic`}),`
+`,(0,w.jsx)(c,{of:y}),`
+`,(0,w.jsxs)(`details`,{children:[(0,w.jsx)(`summary`,{children:`Show Code`}),(0,w.jsx)(t.pre,{children:(0,w.jsx)(t.code,{className:`language-tsx`,children:`function TokenizerComponent(props) {
+  const [countries, setCountries] = useState([
+    'Andorra',
+    'Bulgaria',
+    'Canada',
+    'Denmark',
+    'Estonia',
+    'Fiji',
+    'Ghana',
+    'India',
+    'Japan',
+    'Kenya',
+    'Luxembourg',
+    'Mexico',
+    'Nepal',
+    'Qatar',
+    'Uganda'
+  ]);
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+  const handleTokenDelete: TokenizerPropTypes['onTokenDelete'] = (e) => {
+    const { tokens } = e.detail;
+    if (tokens) {
+      const tokensToDelete = tokens.map((token) => token.text);
+      setCountries((prev) => prev.filter((country) => !tokensToDelete.includes(country)));
+      setSelectedCountries([]);
+    }
+  };
+  const handleSelectionChange: TokenizerPropTypes['onSelectionChange'] = (e) => {
+    const { tokens } = e.detail;
+    if (tokens) {
+      const selectedTokens = tokens.map((token) => token.text);
+      setSelectedCountries(selectedTokens);
+    }
+  };
+  return (
+    <>
+      <Tokenizer {...props} onTokenDelete={handleTokenDelete} onSelectionChange={handleSelectionChange}>
+        {countries.map((country) => (
+          <Token key={country} text={country} />
+        ))}
+      </Tokenizer>
+      <br />
+      <div style={{ display: 'flex', gap: '0.2rem' }}>
+        <Label showColon>Selected countries</Label>
+        <Text>{selectedCountries.join(', ')}</Text>
+      </div>
+    </>
+  );
+}
+`})})]}),`
+`,(0,w.jsx)(l,{children:_}),`
+`,(0,w.jsx)(t.h2,{id:`token`,children:`Token`}),`
+`,(0,w.jsx)(s,{of:r}),`
+`,(0,w.jsx)(d,{metaOf:x,of:r}),`
+`,(0,w.jsx)(h,{})]})}function C(e={}){let{wrapper:t}={...i(),...e.components};return t?(0,w.jsx)(t,{...e,children:(0,w.jsx)(S,{...e})}):S(e)}var w;e((()=>{w=t(),u(),m(),a(),b(),n(),g()}))();export{C as default};
