@@ -4,6 +4,7 @@ import employeeIcon from '@ui5/webcomponents-icons/dist/employee.js';
 import { FlexBox } from '../../components/FlexBox/index.js';
 import { FlexBoxDirection, FlexBoxJustifyContent } from '../../enums/index.js';
 import { ComboBoxItem } from '../ComboBoxItem/index.js';
+import { ComboBoxItemCustom } from '../ComboBoxItemCustom/index.js';
 import { ComboBoxItemGroup } from '../ComboBoxItemGroup/index.js';
 import { Icon } from '../Icon/index.js';
 import { Label } from '../Label/index.js';
@@ -55,6 +56,34 @@ export const WithGroups: Story = {
           <ComboBoxItem text="ComboBox Entry 4" />
           <ComboBoxItem text="ComboBox Entry 5" />
         </ComboBoxItemGroup>
+      </ComboBox>
+    );
+  },
+};
+
+export const WithCustomItems: Story = {
+  name: 'ComboBoxItemCustom',
+  render(args) {
+    return (
+      <ComboBox {...args}>
+        <ComboBoxItemCustom text="Austria">
+          <FlexBox justifyContent={FlexBoxJustifyContent.SpaceBetween} style={{ width: '100%' }}>
+            <Label>Austria</Label>
+            <Label>AT</Label>
+          </FlexBox>
+        </ComboBoxItemCustom>
+        <ComboBoxItemCustom text="Germany">
+          <FlexBox justifyContent={FlexBoxJustifyContent.SpaceBetween} style={{ width: '100%' }}>
+            <Label>Germany</Label>
+            <Label>DE</Label>
+          </FlexBox>
+        </ComboBoxItemCustom>
+        <ComboBoxItemCustom text="Switzerland">
+          <FlexBox justifyContent={FlexBoxJustifyContent.SpaceBetween} style={{ width: '100%' }}>
+            <Label>Switzerland</Label>
+            <Label>CH</Label>
+          </FlexBox>
+        </ComboBoxItemCustom>
       </ComboBox>
     );
   },

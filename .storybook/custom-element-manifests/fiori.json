@@ -115,11 +115,19 @@
                   }
                 ]
               },
-              "description": "Fires when the scan is completed successfuuly.",
+              "description": "Fires when the scan is completed successfully.",
               "_ui5Cancelable": false,
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": true,
               "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "string"
+                  },
+                  "name": "format",
+                  "_ui5privacy": "public",
+                  "description": "the format of the scanned barcode (e.g. \"QR_CODE\", \"EAN_13\", \"CODE_128\")"
+                },
                 {
                   "type": {
                     "text": "Object"
@@ -254,6 +262,24 @@
           "members": [
             {
               "kind": "field",
+              "name": "accessibilityAttributes",
+              "type": {
+                "text": "DynamicPageAccessibilityAttributes",
+                "references": [
+                  {
+                    "name": "DynamicPageAccessibilityAttributes",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/DynamicPage.js"
+                  }
+                ]
+              },
+              "default": "{}",
+              "description": "Defines additional accessibility attributes on different areas of the component.\n\nThe accessibilityAttributes object has the following fields,\nwhere each field is an object supporting one or more accessibility attributes:\n\n - **root**: `root.role` and `root.name`.\n - **header**: `header.role` and `header.name`.\n - **content**: `content.role` and `content.name`.\n - **footer**: `footer.role` and `footer.name`.\n\nThe accessibility attributes support the following values:\n\n- **role**: Defines the accessible ARIA landmark role of the area.\nAccepts the following values per section:\n`root` — `none`, `main`, `region`;\n`header` — `none`, `banner`, `region`;\n`content` — `none`, `main`, `region`, `form`;\n`footer` — `none`, `contentinfo`, `region`.\n\n- **name**: Defines the accessible ARIA name of the area.\nAccepts any string.",
+              "privacy": "public",
+              "_ui5since": "2.24.0"
+            },
+            {
+              "kind": "field",
               "name": "headerPinned",
               "type": {
                 "text": "boolean"
@@ -318,6 +344,15 @@
             }
           ],
           "attributes": [
+            {
+              "description": "Defines additional accessibility attributes on different areas of the component.\n\nThe accessibilityAttributes object has the following fields,\nwhere each field is an object supporting one or more accessibility attributes:\n\n - **root**: `root.role` and `root.name`.\n - **header**: `header.role` and `header.name`.\n - **content**: `content.role` and `content.name`.\n - **footer**: `footer.role` and `footer.name`.\n\nThe accessibility attributes support the following values:\n\n- **role**: Defines the accessible ARIA landmark role of the area.\nAccepts the following values per section:\n`root` — `none`, `main`, `region`;\n`header` — `none`, `banner`, `region`;\n`content` — `none`, `main`, `region`, `form`;\n`footer` — `none`, `contentinfo`, `region`.\n\n- **name**: Defines the accessible ARIA name of the area.\nAccepts any string.",
+              "name": "accessibility-attributes",
+              "default": "{}",
+              "fieldName": "accessibilityAttributes",
+              "type": {
+                "text": "DynamicPageAccessibilityAttributes"
+              }
+            },
             {
               "description": "Defines if the header is pinned.",
               "name": "header-pinned",
@@ -404,6 +439,30 @@
               "_ui5privacy": "public"
             }
           ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible ARIA label for the header region.\nOverrides the default \"Header Expanded\" / \"Header Snapped\" text.",
+              "privacy": "public",
+              "default": "undefined",
+              "_ui5since": "2.24.0"
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines the accessible ARIA label for the header region.\nOverrides the default \"Header Expanded\" / \"Header Snapped\" text.",
+              "name": "accessible-name",
+              "default": "undefined",
+              "fieldName": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              }
+            }
+          ],
           "superclass": {
             "name": "UI5Element",
             "package": "@ui5/webcomponents-base",
@@ -412,8 +471,7 @@
           "tagName": "ui5-dynamic-page-header",
           "customElement": true,
           "_ui5since": "2.0.0",
-          "_ui5privacy": "public",
-          "members": []
+          "_ui5privacy": "public"
         }
       ],
       "exports": [
@@ -6071,6 +6129,12 @@
           "kind": "class",
           "description": "### Overview\n\nA `ui5-search` is an input with suggestions, used for user search.\n\nThe `ui5-search` consists of several elements parts:\n- Scope - displays a select in the beggining of the component, used for filtering results by their scope.\n- Input field - for user input value\n- Clear button - gives the possibility for deleting the entered value\n- Search button - a primary button for performing search, when the user has entered a search term\n- Suggestions - a list with available search suggestions\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents-fiori/dist/Search.js\";`",
           "name": "Search",
+          "cssParts": [
+            {
+              "description": "Used to style the suggestions popup",
+              "name": "popover"
+            }
+          ],
           "slots": [
             {
               "name": "action",
@@ -8719,6 +8783,12 @@
           "_ui5experimental": true,
           "_ui5since": "2.10.0",
           "_ui5privacy": "public",
+          "cssParts": [
+            {
+              "description": "Used to style the suggestions popup",
+              "name": "popover"
+            }
+          ],
           "slots": [
             {
               "name": "action",
@@ -10534,7 +10604,7 @@
         },
         {
           "kind": "class",
-          "description": "### Overview\n\nThe `ui5-timeline` component shows entries (such as objects, events, or posts) in chronological order.\nA common use case is to provide information about changes to an object, or events related to an object.\nThese entries can be generated by the system (for example, value XY changed from A to B), or added manually.\nThere are two distinct variants of the timeline: basic and social. The basic timeline is read-only,\nwhile the social timeline offers a high level of interaction and collaboration, and is integrated within SAP Jam.",
+          "description": "### Overview\n\nThe `ui5-timeline` component shows entries (such as objects, events, or posts) in chronological order.\nA common use case is to provide information about changes to an object, or events related to an object.\nThese entries can be generated by the system (for example, value XY changed from A to B), or added manually.\nThere are two distinct variants of the timeline: basic and social. The basic timeline is read-only,\nwhile the social timeline offers a high level of interaction and collaboration, and is integrated within SAP Jam.\n\n### Header and Info Bar Slots\n\nThe Timeline exposes two named slots above the items area:\n\n- `header` — for a controls bar (search field, filter trigger, sort toggle, etc.).\nThe most common pattern is to place a `ui5-toolbar` containing a search input and buttons that open\na filter dialog or toggle sort direction. The Timeline itself performs no filtering, sorting, or\nsearching — the application listens for events from its own controls and reorders, hides, or\nadds items in the default slot accordingly.\n\n- `infoBar` — for a status bar that reflects the result of the controls (active filters,\napplied sort, current search query). Typically contains tokens, labels, or a `ui5-bar`.\n\nThe Timeline itself does not filter, sort, or search — the application owns that logic.\nUse `stickyHeader` to pin both bars while the Timeline's items scroll. Give the Timeline\na constrained height in this mode so it owns its scrollbar.",
           "name": "Timeline",
           "slots": [
             {
@@ -10550,6 +10620,24 @@
                     "module": "dist/Timeline.js"
                   }
                 ]
+              },
+              "_ui5privacy": "public"
+            },
+            {
+              "name": "header",
+              "description": "Defines the content of the Timeline's header area, displayed above the items.\nTypically a `ui5-toolbar` with search, sort, and filter controls.",
+              "_ui5since": "2.24.0",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public"
+            },
+            {
+              "name": "infoBar",
+              "description": "Defines the content of the Timeline's info bar area, displayed below the header\nand above the items. Use for status display (applied filters, sort direction, counts).",
+              "_ui5since": "2.24.0",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
               },
               "_ui5privacy": "public"
             }
@@ -10622,6 +10710,17 @@
               "default": "1000",
               "description": "Defines the delay in milliseconds, after which the loading indicator will show up for this component.",
               "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "stickyHeader",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the content of the `header` and `infoBar` slots remains visible when the user scrolls the Timeline.\n\n**Note:** The bars pin to the Timeline's own scrollport. Give the Timeline a\nconstrained height (for example `style=\"height: 32rem\"`) so its items scroll\ninside it. Placing the Timeline inside an externally scrolling ancestor while\nleaving the Timeline itself unsized is not supported in this mode — the bars\nwill scroll away with the ancestor.",
+              "privacy": "public",
+              "_ui5since": "2.24.0"
             }
           ],
           "events": [
@@ -10682,6 +10781,15 @@
               "fieldName": "loadingDelay",
               "type": {
                 "text": "number"
+              }
+            },
+            {
+              "description": "Defines whether the content of the `header` and `infoBar` slots remains visible when the user scrolls the Timeline.\n\n**Note:** The bars pin to the Timeline's own scrollport. Give the Timeline a\nconstrained height (for example `style=\"height: 32rem\"`) so its items scroll\ninside it. Placing the Timeline inside an externally scrolling ancestor while\nleaving the Timeline itself unsized is not supported in this mode — the bars\nwill scroll away with the ancestor.",
+              "name": "sticky-header",
+              "default": "false",
+              "fieldName": "stickyHeader",
+              "type": {
+                "text": "boolean"
               }
             }
           ],
@@ -11858,9 +11966,29 @@
                 "text": "Array<HTMLElement>"
               },
               "_ui5privacy": "public"
+            },
+            {
+              "name": "infoArea",
+              "description": "Defines the content of the info area inside the User Menu's account block.\n\n**Note:** When empty, the User Menu renders unchanged.",
+              "_ui5since": "2.24.0",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public"
             }
           ],
           "members": [
+            {
+              "kind": "field",
+              "name": "avatarInteractive",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the avatar of the selected account is interactive (focusable and pressable).\n\nWhen `false` (default), the avatar is rendered as a non-interactive image\nand is not announced as a button by screen readers.\n\n**Note:** When `showEditButton` is set to `true`, the avatar is treated as interactive\nregardless of this property's value, to preserve the edit affordance.",
+              "privacy": "public",
+              "_ui5since": "2.25.0"
+            },
             {
               "kind": "field",
               "name": "open",
@@ -12080,6 +12208,15 @@
             }
           ],
           "attributes": [
+            {
+              "description": "Defines whether the avatar of the selected account is interactive (focusable and pressable).\n\nWhen `false` (default), the avatar is rendered as a non-interactive image\nand is not announced as a button by screen readers.\n\n**Note:** When `showEditButton` is set to `true`, the avatar is treated as interactive\nregardless of this property's value, to preserve the edit affordance.",
+              "name": "avatar-interactive",
+              "default": "false",
+              "fieldName": "avatarInteractive",
+              "type": {
+                "text": "boolean"
+              }
+            },
             {
               "description": "Defines if the User Menu is opened.",
               "name": "open",

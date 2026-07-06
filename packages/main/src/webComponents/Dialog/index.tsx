@@ -259,14 +259,14 @@ interface DialogPropTypes
  * ### Keyboard Handling
  *
  * #### Basic Navigation
- * When the `Dialog` has the `draggable` property set to `true` and the header is focused, the user can move the dialog
+ * When the `Dialog` has the `draggable` property set to `true`, the user can move the dialog
  * with the following keyboard shortcuts:
  *
  * - [Up] or [Down] arrow keys - Move the dialog up/down.
  * - [Left] or [Right] arrow keys - Move the dialog left/right.
  *
  * #### Resizing
- * When the `Dialog` has the `resizable` property set to `true` and the header is focused, the user can change the size of the dialog
+ * When the `Dialog` has the `resizable` property set to `true`, the user can change the size of the dialog
  * with the following keyboard shortcuts:
  *
  * - [Shift] + [Up] or [Down] - Decrease/Increase the height of the dialog.

@@ -243,6 +243,10 @@
       "types": "./dist/webComponents/ComboBoxItem/index.d.ts",
       "default": "./dist/webComponents/ComboBoxItem/index.js"
     },
+    "./ComboBoxItemCustom": {
+      "types": "./dist/webComponents/ComboBoxItemCustom/index.d.ts",
+      "default": "./dist/webComponents/ComboBoxItemCustom/index.js"
+    },
     "./ComboBoxItemGroup": {
       "types": "./dist/webComponents/ComboBoxItemGroup/index.d.ts",
       "default": "./dist/webComponents/ComboBoxItemGroup/index.js"
@@ -394,6 +398,10 @@
     "./MultiComboBoxItem": {
       "types": "./dist/webComponents/MultiComboBoxItem/index.d.ts",
       "default": "./dist/webComponents/MultiComboBoxItem/index.js"
+    },
+    "./MultiComboBoxItemCustom": {
+      "types": "./dist/webComponents/MultiComboBoxItemCustom/index.d.ts",
+      "default": "./dist/webComponents/MultiComboBoxItemCustom/index.js"
     },
     "./MultiComboBoxItemGroup": {
       "types": "./dist/webComponents/MultiComboBoxItemGroup/index.d.ts",
@@ -831,10 +839,10 @@
   "peerDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@ui5/webcomponents": "~2.23.0",
-    "@ui5/webcomponents-base": "~2.23.0",
-    "@ui5/webcomponents-fiori": "~2.23.0",
-    "@ui5/webcomponents-icons": "~2.23.0",
+    "@ui5/webcomponents": "~2.24.0",
+    "@ui5/webcomponents-base": "~2.24.0",
+    "@ui5/webcomponents-fiori": "~2.24.0",
+    "@ui5/webcomponents-icons": "~2.24.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
   },
