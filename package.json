@@ -104,7 +104,7 @@
     "postcss": "8.5.16",
     "postcss-cli": "11.0.1",
     "postcss-import": "16.1.1",
-    "postcss-modules": "6.0.1",
+    "postcss-modules": "9.0.0",
     "prettier": "3.8.5",
     "publint": "0.3.21",
     "rimraf": "6.1.3",
