@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.24.0](https://github.com/UI5/webcomponents-react/compare/v2.23.2...v2.24.0) (2026-07-06)
+
+
+### Features
+
+* **AnalyticalTable:** expose `className` & `classNameHeader` column options ([#8747](https://github.com/UI5/webcomponents-react/issues/8747)) ([e3dc256](https://github.com/UI5/webcomponents-react/commit/e3dc256218fe17ad418d4185f5a3e9688a5eeb2c))
+* update to UI5 Web Components 2.24.0 ([#8765](https://github.com/UI5/webcomponents-react/issues/8765)) ([d0315a4](https://github.com/UI5/webcomponents-react/commit/d0315a48582e581ac87a0f8e0bbc8be75af3ebc3))
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** show expand icon in Quartz theme ([#8716](https://github.com/UI5/webcomponents-react/issues/8716)) ([bd15575](https://github.com/UI5/webcomponents-react/commit/bd155755c06b8090d69fbc2111ccb98e03fc7e74)), closes [#8689](https://github.com/UI5/webcomponents-react/issues/8689)
+* **deps:** update dependency @tanstack/react-virtual to v3.14.5 ([#8742](https://github.com/UI5/webcomponents-react/issues/8742)) ([1e6f92d](https://github.com/UI5/webcomponents-react/commit/1e6f92dbb11432e2cf95f0937d4e09a29d5192d0))
+* **MessageView:** reset filter and details when children change ([#8717](https://github.com/UI5/webcomponents-react/issues/8717)) ([dfa4e06](https://github.com/UI5/webcomponents-react/commit/dfa4e06c3346e8daf7e8f34e51bdacad33b0b39b)), closes [#8707](https://github.com/UI5/webcomponents-react/issues/8707)
+* **ObjectPageTitle:** correct screen reader reading order ([#8753](https://github.com/UI5/webcomponents-react/issues/8753)) ([cbdf944](https://github.com/UI5/webcomponents-react/commit/cbdf944bf404b0262abf83612459c89a29a44ddd)), closes [#8752](https://github.com/UI5/webcomponents-react/issues/8752)
+
 ## [2.23.2](https://github.com/UI5/webcomponents-react/compare/v2.23.1...v2.23.2) (2026-06-29)
 
 ### Bug Fixes
