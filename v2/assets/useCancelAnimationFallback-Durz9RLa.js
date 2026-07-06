@@ -1,0 +1,1 @@
+import{c as e,i as t}from"./preload-helper-B45gAKPr.js";import{t as n}from"./react-CymAsZIc.js";import{f as r,i}from"./utils-QEP5tPvY.js";var a,o,s=t((()=>{i(),a=e(n(),1),o=e=>{let[t,n]=(0,a.useState)(!0),i=(0,a.useRef)(r(()=>{n(!1),n(!0)},1500)).current;return{isMounted:t,handleBarAnimationStart:()=>{e||i()},handleBarAnimationEnd:()=>{e||i.cancel()}}}}));export{o as n,s as t};
