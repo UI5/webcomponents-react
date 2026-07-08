@@ -9,7 +9,10 @@
     ":semanticCommits",
     ":pinAllExceptPeerDependencies",
     ":maintainLockFilesWeekly",
-    "security:minimumReleaseAgeNpm"
+    "security:minimumReleaseAgeNpm",
+    "monorepo:babel",
+    "group:linters",
+    "group:vite"
   ],
   "automerge": true,
   "platformAutomerge": true,
@@ -56,10 +59,34 @@
         "!react-dom",
         "!storybook",
         "!rimraf",
+        "!chromatic",
+        "!prettier",
+        "!vite",
+        "!cypress",
+        "!cypress-real-events",
+        "!@testing-library/cypress",
         "!@joshwooding/vite-plugin-react-docgen-typescript",
+        "!/^@babel//",
+        "!/^eslint/",
+        "!/^@vitejs//",
+        "!/vite-plugin/",
         "!/^@storybook//",
         "!/^@ui5//"
       ]
+    },
+    {
+      "description": "Chromatic CLI and GitHub Action",
+      "extends": ["schedule:weekly"],
+      "groupName": "Chromatic",
+      "semanticCommitType": "chore",
+      "matchPackageNames": ["chromatic", "chromaui/action"]
+    },
+    {
+      "description": "Cypress ecosystem",
+      "extends": ["schedule:weekly"],
+      "groupName": "Cypress",
+      "semanticCommitType": "chore",
+      "matchPackageNames": ["cypress", "cypress-real-events", "@testing-library/cypress", "cypress-io/github-action"]
     },
     {
       "description": "Example,Template & Pattern dependencies",
@@ -69,7 +96,15 @@
       "groupName": "all non-major dependencies (examples, templates & patterns)",
       "groupSlug": "examples-all-minor-patch",
       "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["!/^@ui5//"]
+      "matchPackageNames": [
+        "!vite",
+        "!cypress",
+        "!/^@babel//",
+        "!/^eslint/",
+        "!/^@vitejs//",
+        "!/vite-plugin/",
+        "!/^@ui5//"
+      ]
     },
     {
       "description": "UI5 Web Components (for React) in all examples, templates & patterns",
