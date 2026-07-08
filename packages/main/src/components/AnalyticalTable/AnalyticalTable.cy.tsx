@@ -3493,12 +3493,18 @@ describe('AnalyticalTable', () => {
     cy.get('[data-visible-column-index="0"][data-visible-row-index="0"]')
       .as('selAll')
       .should('have.attr', 'title', 'Select All')
-      .and('have.attr', 'aria-label', 'To select all rows, press the spacebar. Selection Column')
-      .click();
+      .and('have.attr', 'aria-label', ' Selection Column');
+    cy.get('@selAll')
+      .invoke('attr', 'aria-describedby')
+      .should('match', /^header-select-all-/);
+    cy.get('@selAll').click();
 
     cy.get('@selAll').should('have.text', 'Select All');
     cy.get('@selAll').contains('Select All').should('not.be.visible');
-    cy.get('@selAll').should('have.attr', 'aria-label', 'To deselect all rows, press the spacebar. Selection Column');
+    cy.get('@selAll').should('have.attr', 'aria-label', ' Selection Column');
+    cy.get('@selAll')
+      .invoke('attr', 'aria-describedby')
+      .should('match', /^header-deselect-all-/);
 
     cy.get('@selectSpy').should('have.been.calledOnce');
     cy.get('@selAll').should('have.attr', 'title', 'Deselect All');
