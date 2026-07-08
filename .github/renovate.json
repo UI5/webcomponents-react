@@ -87,7 +87,7 @@
       "groupName": "all non-major dependencies (examples, templates & patterns)",
       "groupSlug": "examples-all-minor-patch",
       "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["!cypress", "!/^@ui5//"]
+      "matchPackageNames": ["!/^@ui5//"]
     },
     {
       "description": "UI5 Web Components (for React) in all examples, templates & patterns",
