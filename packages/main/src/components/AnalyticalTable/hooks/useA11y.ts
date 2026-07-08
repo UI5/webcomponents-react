@@ -103,14 +103,19 @@ const setHeaderProps = (
   headerProps,
   { column, instance }: { column: TableInstance['column']; instance: TableInstance },
 ) => {
-  const { translatableTexts, selectionMode } = instance.webComponentsReactProperties;
+  const { translatableTexts, selectionMode, a11yElementIds } = instance.webComponentsReactProperties;
 
   if (!column) {
     return headerProps;
   }
   const isFiltered = column?.filterValue && column?.filterValue.length > 0;
 
-  const updatedProps = {};
+  const updatedProps: {
+    'aria-label'?: string;
+    'aria-sort'?: string;
+    'aria-describedby'?: string;
+    isFiltered?: boolean;
+  } = {};
   updatedProps['aria-label'] = column.headerLabel ??= '';
 
   if (updatedProps['aria-label']) {
@@ -132,9 +137,10 @@ const setHeaderProps = (
   }
 
   if (selectionMode === AnalyticalTableSelectionMode.Multiple && column.id === '__ui5wcr__internal_selection_column') {
-    updatedProps['aria-label'] += instance.isAllRowsSelected
-      ? translatableTexts.deselectAllA11yText
-      : translatableTexts.selectAllA11yText;
+    // aria-describedby so body cells don't inherit it via aria-labelledby
+    updatedProps['aria-describedby'] = instance.isAllRowsSelected
+      ? a11yElementIds.headerDeselectAllDescId
+      : a11yElementIds.headerSelectAllDescId;
   }
 
   if (column.id === '__ui5wcr__internal_selection_column') {

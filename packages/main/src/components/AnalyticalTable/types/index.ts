@@ -279,6 +279,8 @@ export interface WCRPropertiesType {
     cellExpandDescId: string;
     cellCollapseDescId: string;
     cellEmptyDescId: string;
+    headerSelectAllDescId: string;
+    headerDeselectAllDescId: string;
   };
   translatableTexts: {
     selectAllText: string;
