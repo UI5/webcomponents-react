@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-B45gAKPr.js";import{n as t}from"./LineChart-CIPYm8_T.js";var n,r=e((()=>{n={version:`2.24.1`,major:2,minor:24,patch:1,suffix:``,isNext:!1,buildTime:1783597440},n.version})),i=e((()=>{t(),r(),n.version}));export{i as t};
