@@ -79,9 +79,8 @@ const useInstance = (instance: TableInstance) => {
             selectedRowIds: payload.selectedRowIds,
           }) as OnRowSelectEvent,
         );
-        const allSelected = instance.selectedFlatRows.length > 0;
         let allRowsMsgKey;
-        if (allSelected) {
+        if (instance.isAllRowsSelected) {
           allRowsMsgKey = isFiltered ? ALL_ROWS_SELECTED_FILTERED : ALL_ROWS_SELECTED;
         } else {
           allRowsMsgKey = isFiltered ? ALL_ROWS_DESELECTED_FILTERED : ALL_ROWS_DESELECTED;

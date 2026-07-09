@@ -2996,7 +2996,7 @@ describe('AnalyticalTable', () => {
     cy.get('[data-column-id="__ui5wcr__internal_selection_column"][role="columnheader"]').should(
       'have.attr',
       'aria-label',
-      ' Selection Column',
+      'Selection Column',
     );
 
     let selectCalled = 0;
@@ -3493,7 +3493,7 @@ describe('AnalyticalTable', () => {
     cy.get('[data-visible-column-index="0"][data-visible-row-index="0"]')
       .as('selAll')
       .should('have.attr', 'title', 'Select All')
-      .and('have.attr', 'aria-label', ' Selection Column');
+      .and('have.attr', 'aria-label', 'Selection Column');
     cy.get('@selAll')
       .invoke('attr', 'aria-describedby')
       .should('match', /^header-select-all-/);
@@ -3501,7 +3501,7 @@ describe('AnalyticalTable', () => {
 
     cy.get('@selAll').should('have.text', 'Select All');
     cy.get('@selAll').contains('Select All').should('not.be.visible');
-    cy.get('@selAll').should('have.attr', 'aria-label', ' Selection Column');
+    cy.get('@selAll').should('have.attr', 'aria-label', 'Selection Column');
     cy.get('@selAll')
       .invoke('attr', 'aria-describedby')
       .should('match', /^header-deselect-all-/);

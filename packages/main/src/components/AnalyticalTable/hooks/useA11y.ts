@@ -144,15 +144,15 @@ const setHeaderProps = (
   }
 
   if (column.id === '__ui5wcr__internal_selection_column') {
-    updatedProps['aria-label'] += ' ' + translatableTexts.selectionHeaderCellText;
+    updatedProps['aria-label'] += (updatedProps['aria-label'] ? ' ' : '') + translatableTexts.selectionHeaderCellText;
   }
 
   if (column.id === '__ui5wcr__internal_highlight_column') {
-    updatedProps['aria-label'] += ' ' + translatableTexts.highlightHeaderCellText;
+    updatedProps['aria-label'] += (updatedProps['aria-label'] ? ' ' : '') + translatableTexts.highlightHeaderCellText;
   }
 
   if (column.id === '__ui5wcr__internal_navigation_column') {
-    updatedProps['aria-label'] += ' ' + translatableTexts.navigationHeaderCellText;
+    updatedProps['aria-label'] += (updatedProps['aria-label'] ? ' ' : '') + translatableTexts.navigationHeaderCellText;
   }
 
   updatedProps['aria-label'] ||= undefined;
