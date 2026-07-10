@@ -112,6 +112,7 @@ EXAMPLE INPUT: { "componentName": "Dialog" }
     name: string,                      // Use as: componentSelector::part(name) { ... }
     description: string
   }>,
+  isAbstract?: boolean,                // true = abstract component: renders into its PARENT's DOM, not its own shadow root. For testing, target the node from getDomRef() (parent-owned), not the host placeholder. See the "Testing" knowledge-base section (get_documentation).
   subTypeDocs?: string                 // Markdown docs for complex prop types (e.g. column definition properties)
   docUrl?: string                      // Upstream docs link for complex behavioral concepts
 }
@@ -137,6 +138,12 @@ EXAMPLE INPUT: { "componentName": "Dialog" }
       .array(z.object({ name: z.string(), description: z.string() }))
       .optional()
       .describe('CSS ::part() selectors for shadow DOM styling'),
+    isAbstract: z
+      .boolean()
+      .optional()
+      .describe(
+        'True for abstract components (marked @abstract): they render into a parent’s DOM, not their own shadow root. When interacting in a real browser (tests), target the node returned by getDomRef() rather than the host placeholder. See the "Testing" knowledge-base section.',
+      ),
     subTypeDocs: z
       .string()
       .optional()

@@ -204,6 +204,42 @@
           "localPath": "docs--knowledge-base--Styling.mdx"
         },
         {
+          "name": "Testing",
+          "description": "Particularities of testing UI5 Web Components for React in a real browser (Cypress, Playwright, etc. — not JSDOM): setup, selectors, async readiness, abstract components, and overlays.",
+          "link": "https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-testing--docs",
+          "sourcePath": "docs/knowledge-base/Testing.mdx",
+          "content": [
+            "Real browser required (not JSDOM/virtual DOM)",
+            "Component-test setup: wrap in ThemeProvider (outermost), import Assets for i18n/theming",
+            "Setup applies to component testing, not E2E (app already provides it)",
+            "Attribute selectors [ui5-*] over tag names (scoping-safe)",
+            "Shadow DOM is pierceable (Cypress includeShadowDom, Playwright by default); prefer public surface",
+            "Web components are async: custom element definition + internal rendering",
+            "Wait via retrying assertions on the element/state, not fixed delays",
+            "Abstract components render into their parent (isAbstract flag)",
+            "getDomRef() / getFocusDomRef() for reaching rendered nodes",
+            "Popovers/menus/dialogs: wait for open/visible state (slotted items may exist in DOM while hidden)",
+            "Real coordinate-based click vs synthetic element.click()"
+          ],
+          "tags": [
+            "testing",
+            "cypress",
+            "playwright",
+            "e2e",
+            "component-testing",
+            "themeprovider",
+            "assets",
+            "i18n",
+            "async",
+            "flaky-tests",
+            "shadow-dom",
+            "abstract-components",
+            "getdomref",
+            "popovers"
+          ],
+          "localPath": "docs--knowledge-base--Testing.mdx"
+        },
+        {
           "name": "Accessibility",
           "description": "How to make UI5 Web Components applications accessible. Covers accessibility APIs (accessibleName, accessibleNameRef, accessibleDescription, accessibleRole, accessibilityAttributes), label-input relationships, invisible messaging, keyboard handling, and high contrast themes.",
           "link": "https://ui5.github.io/webcomponents/docs/advanced/accessibility/",
