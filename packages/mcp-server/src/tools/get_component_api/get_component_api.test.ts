@@ -70,3 +70,15 @@ test('handler: Dialog has applyFocus method extracted from DomRef', (t) => {
   const applyFocus = result.methods.find((m: { name: string }) => m.name === 'applyFocus');
   t.truthy(applyFocus, 'Dialog should have applyFocus method');
 });
+
+test('handler: abstract component is flagged with isAbstract', (t) => {
+  // Tab is marked @abstract (_ui5abstract in the CEM) -> isAbstract set in enrichWithCem
+  const result = getStructured(handler({ componentName: 'Tab' }));
+  t.true(result.isAbstract, 'Tab should be flagged isAbstract: true');
+});
+
+test('handler: non-abstract component does not set isAbstract', (t) => {
+  // Button is a regular self-rendering component -> flag should be absent/falsy
+  const result = getStructured(handler({ componentName: 'Button' }));
+  t.falsy(result.isAbstract, 'Button should not be flagged as abstract');
+});
