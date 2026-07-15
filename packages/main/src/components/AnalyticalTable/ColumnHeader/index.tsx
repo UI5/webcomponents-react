@@ -52,6 +52,7 @@ export interface ColumnHeaderProps {
   title?: string;
   ['aria-sort']?: AriaAttributes['aria-sort'];
   ['aria-label']?: AriaAttributes['aria-label'];
+  ['aria-describedby']?: AriaAttributes['aria-describedby'];
 }
 
 export const ColumnHeader = (props: ColumnHeaderProps) => {
@@ -82,6 +83,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
     title,
     'aria-label': ariaLabel,
     'aria-sort': ariaSort,
+    'aria-describedby': ariaDescribedBy,
     showVerticalEndBorder,
     classNames,
   } = props;
@@ -216,6 +218,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
         onKeyUp={handleHeaderCellKeyUp}
         aria-label={ariaLabel}
         aria-sort={ariaSort}
+        aria-describedby={ariaDescribedBy}
         title={title}
       >
         <div

@@ -1,4 +1,3 @@
-import { Badge } from '@sb/components/Badge';
 import type { Controls } from '@storybook/addon-docs/blocks';
 import { Description, Subtitle, Title, useOf } from '@storybook/addon-docs/blocks';
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
@@ -22,6 +21,7 @@ import classes from './DocsHeader.module.css';
 import { GitHubLogo } from './GitHub-Mark';
 import { Import } from './Import';
 import { TableOfContent } from './TableOfContent';
+import { Badge } from '@sb/components/Badge';
 
 const Links = ({ isChart }: { isChart?: boolean }) => {
   const githubUrl = `https://github.com/UI5/webcomponents-react`;

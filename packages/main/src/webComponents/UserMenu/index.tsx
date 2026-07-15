@@ -11,6 +11,20 @@ import type { ReactNode } from 'react';
 
 interface UserMenuAttributes {
   /**
+   * Defines whether the avatar of the selected account is interactive (focusable and pressable).
+   *
+   * When `false` (default), the avatar is rendered as a non-interactive image
+   * and is not announced as a button by screen readers.
+   *
+   * **Note:** When `showEditButton` is set to `true`, the avatar is treated as interactive
+   * regardless of this property's value, to preserve the edit affordance.
+   *
+   * **Note:** Available since [v2.25.0](https://github.com/UI5/webcomponents/releases/tag/v2.25.0) of **@ui5/webcomponents-fiori**.
+   * @default false
+   */
+  avatarInteractive?: boolean;
+
+  /**
    * Defines if the User Menu is opened.
    * @default false
    */
@@ -62,6 +76,7 @@ interface UserMenuPropTypes
       | 'accounts'
       | 'children'
       | 'footer'
+      | 'infoArea'
       | 'onAvatarClick'
       | 'onChangeAccount'
       | 'onClose'
@@ -110,6 +125,23 @@ interface UserMenuPropTypes
    * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   footer?: UI5WCSlotsNode;
+
+  /**
+   * Defines the content of the info area inside the User Menu's account block.
+   *
+   * **Note:** When empty, the User Menu renders unchanged.
+   *
+   * __Note:__ The content of the prop will be rendered into a [&lt;slot&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) by assigning the respective [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) attribute (`slot="infoArea"`).
+   * Since you can't change the DOM order of slots when declaring them within a prop, it might prove beneficial to manually mount them as part of the component's children, especially when facing problems with the reading order of screen readers.
+   *
+   * __Note:__ When passing a custom React component to this prop, you have to make sure your component reads the `slot` prop and appends it to the most outer element of your component.
+   * Learn more about it [here](https://ui5.github.io/webcomponents-react/v2/?path=/docs/knowledge-base-handling-slots--docs).
+   *
+   * **Note:** Available since [v2.24.0](https://github.com/UI5/webcomponents/releases/tag/v2.24.0) of **@ui5/webcomponents-fiori**.
+   *
+   * __Supported Node Type/s:__ `Array<HTMLElement>`
+   */
+  infoArea?: UI5WCSlotsNode;
   /**
    * Fired when the account avatar is selected.
    *
@@ -210,8 +242,8 @@ interface UserMenuPropTypes
 const UserMenu = withWebComponent<UserMenuPropTypes, UserMenuDomRef>(
   'ui5-user-menu',
   ['opener'],
-  ['open', 'showEditAccounts', 'showEditButton', 'showManageAccount', 'showOtherAccounts'],
-  ['accounts', 'footer'],
+  ['avatarInteractive', 'open', 'showEditAccounts', 'showEditButton', 'showManageAccount', 'showOtherAccounts'],
+  ['accounts', 'footer', 'infoArea'],
   [
     'avatar-click',
     'change-account',

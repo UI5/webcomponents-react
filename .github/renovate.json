@@ -56,10 +56,28 @@
         "!react-dom",
         "!storybook",
         "!rimraf",
+        "!chromatic",
+        "!cypress",
+        "!cypress-real-events",
+        "!@testing-library/cypress",
         "!@joshwooding/vite-plugin-react-docgen-typescript",
         "!/^@storybook//",
         "!/^@ui5//"
       ]
+    },
+    {
+      "description": "Chromatic CLI and GitHub Action",
+      "extends": ["schedule:weekly"],
+      "groupName": "Chromatic",
+      "semanticCommitType": "chore",
+      "matchPackageNames": ["chromatic", "chromaui/action"]
+    },
+    {
+      "description": "Cypress ecosystem",
+      "extends": ["schedule:weekly"],
+      "groupName": "Cypress",
+      "semanticCommitType": "chore",
+      "matchPackageNames": ["cypress", "cypress-real-events", "@testing-library/cypress", "cypress-io/github-action"]
     },
     {
       "description": "Example,Template & Pattern dependencies",

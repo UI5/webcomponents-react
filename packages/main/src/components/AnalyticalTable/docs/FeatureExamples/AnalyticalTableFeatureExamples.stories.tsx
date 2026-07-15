@@ -1280,3 +1280,29 @@ export const AutoResizeColumns: Story = {
     );
   },
 };
+
+const columnClassNameColumns: AnalyticalTableColumnDefinition[] = [
+  {
+    Header: 'Name',
+    accessor: 'name',
+    className: 'feature-example-body-cell',
+    classNameHeader: 'feature-example-header-cell',
+  },
+  { Header: 'Age', accessor: 'age' },
+  { Header: 'Friend Name', accessor: 'friend.name' },
+  { Header: 'Friend Age', accessor: 'friend.age' },
+];
+
+export const ColumnClassName: Story = {
+  render(args) {
+    return (
+      <>
+        <style>{`
+          .feature-example-header-cell { background-color: lightgrey; }
+          .feature-example-body-cell { background-color: lightblue; }
+        `}</style>
+        <AnalyticalTable {...args} data={dataSmall} columns={columnClassNameColumns} visibleRows={5} />
+      </>
+    );
+  },
+};

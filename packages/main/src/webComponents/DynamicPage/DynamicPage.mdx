@@ -29,7 +29,7 @@ This example shows how you could achieve this behavior by applying custom CSS an
 These are the key points of this implementation:
 
 - Using the `part` pseudo-element selector to set the `fit-content` part to use `position: static;`.
-- Adding a `ResizeObserver` to measure the `header` element inside the shadow root of the component.
+- Adding a `ResizeObserver` to measure the title/header wrapper (`.ui5-dynamic-page-title-header-wrapper`) inside the shadow root of the component.
 - Waiting for the custom element to be defined and for the `shadowRoot` to be populated.
 
 ### Code
@@ -41,6 +41,8 @@ These are the key points of this implementation:
 ```
 
 ```tsx
+const HEADER_SELECTOR = '.ui5-dynamic-page-title-header-wrapper';
+
 const useGetHeaderHeight = (dynamicPageRef: RefObject<DynamicPageDomRef & { shadowRoot: ShadowRoot }>) => {
   const [headerHeight, setHeaderHeight] = useState<undefined | number>(undefined);
   useEffect(() => {
@@ -54,7 +56,7 @@ const useGetHeaderHeight = (dynamicPageRef: RefObject<DynamicPageDomRef & { shad
 
         // wait for the shadowRoot to be populated
         const shadowRootObserver = new MutationObserver(() => {
-          const header = shadowRoot.querySelector('header');
+          const header = shadowRoot.querySelector(HEADER_SELECTOR);
           if (header) {
             shadowRootObserver.disconnect();
             headerObserver.observe(header);
@@ -62,7 +64,7 @@ const useGetHeaderHeight = (dynamicPageRef: RefObject<DynamicPageDomRef & { shad
         });
 
         if (shadowRoot && shadowRoot.childElementCount) {
-          headerObserver.observe(shadowRoot.querySelector('header'));
+          headerObserver.observe(shadowRoot.querySelector(HEADER_SELECTOR));
         } else {
           shadowRootObserver.observe(shadowRoot, { childList: true });
         }

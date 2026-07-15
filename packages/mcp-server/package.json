@@ -3,7 +3,7 @@
   "description": "MCP server for UI5 Web Components for React - Developer documentation and API assistance",
   "author": "SAP SE (https://www.sap.com)",
   "license": "Apache-2.0",
-  "version": "2.23.1",
+  "version": "2.24.1",
   "type": "module",
   "mcpName": "io.github.UI5/webcomponents-react-mcp-server",
   "types": "./dist/index.d.ts",
@@ -53,6 +53,6 @@
     "@ui5/webcomponents-react": "workspace:~",
     "ava": "8.0.1",
     "react-docgen-typescript": "2.4.0",
-    "tsx": "4.22.4"
+    "tsx": "4.22.5"
   }
 }

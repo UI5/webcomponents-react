@@ -219,6 +219,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   const cellExpandDescId = `cell-expand-${uniqueId}`;
   const cellCollapseDescId = `cell-collapse-${uniqueId}`;
   const cellEmptyDescId = `cell-empty-${uniqueId}`;
+  const headerSelectAllDescId = `header-select-all-${uniqueId}`;
+  const headerDeselectAllDescId = `header-deselect-all-${uniqueId}`;
 
   const tableRef = useRef<DivWithCustomScrollProp>(null);
   const parentRef = useRef<DivWithCustomScrollProp>(null);
@@ -261,6 +263,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
           cellExpandDescId,
           cellCollapseDescId,
           cellEmptyDescId,
+          headerSelectAllDescId,
+          headerDeselectAllDescId,
         },
         translatableTexts: {
           selectAllText: i18nBundle.getText(SELECT_ALL),
@@ -944,6 +948,12 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       </span>
       <span id={cellUnselectDescId} className={classNames.hiddenA11yText}>
         {i18nBundle.getText(UNSELECT_PRESS_SPACE)}
+      </span>
+      <span id={headerSelectAllDescId} className={classNames.hiddenA11yText}>
+        {i18nBundle.getText(SELECT_ALL_PRESS_SPACE)}
+      </span>
+      <span id={headerDeselectAllDescId} className={classNames.hiddenA11yText}>
+        {i18nBundle.getText(UNSELECT_ALL_PRESS_SPACE)}
       </span>
       {/* expand */}
       <span id={cellExpandDescId} className={classNames.hiddenA11yText}>

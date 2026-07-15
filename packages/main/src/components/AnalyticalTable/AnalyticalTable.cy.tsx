@@ -1,3 +1,4 @@
+import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import NoDataIllustration from '@ui5/webcomponents-fiori/dist/illustrations/NoData.js';
 import NoFilterResults from '@ui5/webcomponents-fiori/dist/illustrations/NoFilterResults.js';
@@ -82,7 +83,6 @@ import {
 import { useF2CellEdit } from './pluginHooks/useF2CellEdit.js';
 import { useManualRowSelect } from './pluginHooks/useManualRowSelect';
 import { useRowDisableSelection } from './pluginHooks/useRowDisableSelection';
-import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import type { RowType } from '@/packages/main/src/components/AnalyticalTable/types/index.js';
 import { getUi5TagWithSuffix } from '@/packages/main/src/internal/utils.js';
 
@@ -2996,7 +2996,7 @@ describe('AnalyticalTable', () => {
     cy.get('[data-column-id="__ui5wcr__internal_selection_column"][role="columnheader"]').should(
       'have.attr',
       'aria-label',
-      ' Selection Column',
+      'Selection Column',
     );
 
     let selectCalled = 0;
@@ -3493,12 +3493,18 @@ describe('AnalyticalTable', () => {
     cy.get('[data-visible-column-index="0"][data-visible-row-index="0"]')
       .as('selAll')
       .should('have.attr', 'title', 'Select All')
-      .and('have.attr', 'aria-label', 'To select all rows, press the spacebar. Selection Column')
-      .click();
+      .and('have.attr', 'aria-label', 'Selection Column');
+    cy.get('@selAll')
+      .invoke('attr', 'aria-describedby')
+      .should('match', /^header-select-all-/);
+    cy.get('@selAll').click();
 
     cy.get('@selAll').should('have.text', 'Select All');
     cy.get('@selAll').contains('Select All').should('not.be.visible');
-    cy.get('@selAll').should('have.attr', 'aria-label', 'To deselect all rows, press the spacebar. Selection Column');
+    cy.get('@selAll').should('have.attr', 'aria-label', 'Selection Column');
+    cy.get('@selAll')
+      .invoke('attr', 'aria-describedby')
+      .should('match', /^header-deselect-all-/);
 
     cy.get('@selectSpy').should('have.been.calledOnce');
     cy.get('@selAll').should('have.attr', 'title', 'Deselect All');
@@ -5134,6 +5140,48 @@ describe('AnalyticalTable', () => {
     cy.get('[data-column-id="product"]').invoke('outerWidth').should('be.gt', 150);
     cy.get('[data-column-id="price"]').invoke('outerWidth').should('be.gt', 150);
     cy.get('[data-column-id="qty"]').invoke('outerWidth').should('be.gt', 150);
+  });
+
+  it('column className & classNameHeader', () => {
+    const columnsWithClassNames: AnalyticalTableColumnDefinition[] = [
+      {
+        Header: 'Name',
+        accessor: 'name',
+        className: 'cy-body-cell',
+        classNameHeader: 'cy-header-cell',
+      },
+      {
+        Header: 'Age',
+        accessor: 'age',
+      },
+    ];
+    cy.mount(
+      <>
+        <style>{`
+          .cy-body-cell { background-color: lightblue; }
+          .cy-header-cell { background-color: lightgrey; }
+        `}</style>
+        <AnalyticalTable data={data} columns={columnsWithClassNames} />
+      </>,
+    );
+
+    cy.get('[data-column-id="name"][role="columnheader"]')
+      .should('have.class', 'cy-header-cell')
+      .and('not.have.class', 'cy-body-cell')
+      .and('have.css', 'background-color', 'rgb(211, 211, 211)');
+
+    cy.get('[data-column-id="age"][role="columnheader"]')
+      .should('not.have.class', 'cy-header-cell')
+      .and('not.have.class', 'cy-body-cell');
+
+    cy.get('[data-row-index="1"][data-column-index="0"]')
+      .should('have.class', 'cy-body-cell')
+      .and('not.have.class', 'cy-header-cell')
+      .and('have.css', 'background-color', 'rgb(173, 216, 230)');
+
+    cy.get('[data-row-index="1"][data-column-index="1"]')
+      .should('not.have.class', 'cy-body-cell')
+      .and('not.have.class', 'cy-header-cell');
   });
 
   cypressPassThroughTestsFactory(AnalyticalTable, { data, columns });
