@@ -832,7 +832,7 @@
     "watch:css": "yarn build:css --watch"
   },
   "dependencies": {
-    "@tanstack/react-virtual": "3.14.5",
+    "@tanstack/react-virtual": "3.14.6",
     "@ui5/webcomponents-react-base": "workspace:~",
     "clsx": "2.1.1"
   },
