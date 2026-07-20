@@ -10832,16 +10832,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-storybook@npm:10.5.0":
-  version: 10.5.0
-  resolution: "eslint-plugin-storybook@npm:10.5.0"
+"eslint-plugin-storybook@npm:10.5.2":
+  version: 10.5.2
+  resolution: "eslint-plugin-storybook@npm:10.5.2"
   dependencies:
     "@typescript-eslint/types": "npm:^8.48.0"
     "@typescript-eslint/utils": "npm:^8.48.0"
   peerDependencies:
     eslint: ">=8"
-    storybook: ^10.5.0
-  checksum: 10c0/c6ae8a9ea203604adab39672743335e7e1bdda7b8943994e33c322b1dea75b7f52ed9b4327fc3f584b56706b57817d7aeda687495c22778840ced22f7174eb06
+    storybook: ^10.5.2
+  checksum: 10c0/d5c098e969319ed735d78a5de5cfa3415beb3d5da2513fa3b2922c2423e6ab5f513b7c7cfa0bce12ac30ca0f2211e9925b3c49ea50ce2bb265f4cafef97f902a
   languageName: node
   linkType: hard
 
@@ -18878,14 +18878,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.5.16, postcss@npm:^8.4.43, postcss@npm:^8.4.5, postcss@npm:^8.5.15, postcss@npm:^8.5.16, postcss@npm:^8.5.3":
-  version: 8.5.16
-  resolution: "postcss@npm:8.5.16"
+"postcss@npm:8.5.19, postcss@npm:^8.4.43, postcss@npm:^8.4.5, postcss@npm:^8.5.15, postcss@npm:^8.5.17, postcss@npm:^8.5.3":
+  version: 8.5.19
+  resolution: "postcss@npm:8.5.19"
   dependencies:
     nanoid: "npm:^3.3.12"
     picocolors: "npm:^1.1.1"
     source-map-js: "npm:^1.2.1"
-  checksum: 10c0/625de7a02f662f3a340964d14b487bd5097adf16f5f171e257d19005ba37aea8768ee446557500e88e91ca46b4d14d6cb4a0bf033c6ec0c8c0b660d85719f1ef
+  checksum: 10c0/302af9e4dfa8cce4f43af1798576b3a77ab7b23abac5522328c6c7a830d49b31281cba9d6071e478e6970a05ef82346d1570b8fbffae912f26a4f1a1a07f0a44
   languageName: node
   linkType: hard
 
@@ -20104,7 +20104,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rolldown@npm:~1.1.4":
+"rolldown@npm:~1.1.5":
   version: 1.1.5
   resolution: "rolldown@npm:1.1.5"
   dependencies:
@@ -22176,7 +22176,7 @@ __metadata:
     eslint-plugin-prettier: "npm:5.5.6"
     eslint-plugin-react: "npm:7.37.5"
     eslint-plugin-react-hooks: "npm:7.1.1"
-    eslint-plugin-storybook: "npm:10.5.0"
+    eslint-plugin-storybook: "npm:10.5.2"
     glob: "npm:13.0.6"
     globals: "npm:17.7.0"
     husky: "npm:9.1.7"
@@ -22185,7 +22185,7 @@ __metadata:
     monocart-reporter: "npm:2.12.2"
     npm-run-all2: "npm:9.0.2"
     pagefind: "npm:1.5.2"
-    postcss: "npm:8.5.16"
+    postcss: "npm:8.5.19"
     postcss-cli: "npm:11.0.1"
     postcss-import: "npm:16.1.1"
     postcss-modules: "npm:9.0.1"
@@ -22199,7 +22199,7 @@ __metadata:
     tocbot: "npm:4.36.8"
     typescript: "npm:6.0.3"
     typescript-eslint: "npm:8.63.0"
-    vite: "npm:8.1.4"
+    vite: "npm:8.1.5"
     vite-plugin-istanbul: "npm:9.0.1"
     vite-tsconfig-paths: "npm:6.1.1"
   languageName: unknown
@@ -22852,15 +22852,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:8.1.4":
-  version: 8.1.4
-  resolution: "vite@npm:8.1.4"
+"vite@npm:8.1.5":
+  version: 8.1.5
+  resolution: "vite@npm:8.1.5"
   dependencies:
     fsevents: "npm:~2.3.3"
     lightningcss: "npm:^1.32.0"
     picomatch: "npm:^4.0.5"
-    postcss: "npm:^8.5.16"
-    rolldown: "npm:~1.1.4"
+    postcss: "npm:^8.5.17"
+    rolldown: "npm:~1.1.5"
     tinyglobby: "npm:^0.2.17"
   peerDependencies:
     "@types/node": ^20.19.0 || >=22.12.0
@@ -22905,7 +22905,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/4262cdd0dd00ca99b00a8aef91fc00e58b66e80b54adbef49353bfbbae7342c2d6ddf1180351956086ff53ad186bec03784f57b96e36ab4dad1246547236d79b
+  checksum: 10c0/3231e24dd4394d0bc8b4f0f5d6d6a2eda8737e5053042892b4163564456a03d67f953c4c7498621f9517eebc30a492ea136c728a767a122eb84bf6d7cf60e1e6
   languageName: node
   linkType: hard
 
