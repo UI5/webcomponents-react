@@ -1931,6 +1931,36 @@ describe('ObjectPage', () => {
     cy.findByText('Custom Header Section Two').should('not.be.visible');
     cy.findByText('Subsection1').should('be.visible');
   });
+
+  it('IconTabBar: header re-expands after tab switch when header was collapsed by scrolling', () => {
+    cy.viewport(1440, 900);
+    cy.mount(
+      <ObjectPage
+        data-testid="op"
+        titleArea={DPTitle}
+        headerArea={DPContent}
+        mode={ObjectPageMode.IconTabBar}
+        style={{ height: '100vh', scrollBehavior: 'auto' }}
+      >
+        <ObjectPageSection key="s1" id="s1" titleText="Section 1">
+          <div style={{ height: '2000px', background: 'lightblue' }}>section 1 content</div>
+        </ObjectPageSection>
+        <ObjectPageSection key="s2" id="s2" titleText="Section 2">
+          <div style={{ height: '2000px', background: 'lightyellow' }}>section 2 content</div>
+        </ObjectPageSection>
+      </ObjectPage>,
+    );
+    cy.wait(50);
+
+    // scroll down far enough to collapse the header
+    cy.findByTestId('op').scrollTo(0, 800);
+    cy.get('[data-component-name="ObjectPageHeaderContent"]').should('not.be.visible');
+
+    // switch tabs — header should re-expand and scroll should reset to top
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 2').click();
+    cy.wait(600);
+    cy.get('[data-component-name="ObjectPageHeaderContent"]').should('be.visible');
+  });
 });
 
 const DPTitle = (
