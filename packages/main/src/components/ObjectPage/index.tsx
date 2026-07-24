@@ -322,9 +322,9 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       }
       return newSelectionSectionId;
     });
-    // Reset scroll for section swap; scrollTimeout preserves current header collapsed/expanded state.
     if (mode === ObjectPageMode.IconTabBar) {
       scrollTimeout.current = performance.now() + 500;
+      setHeaderCollapsedInternal(false);
       objectPageRef.current?.scrollTo({ top: 0 });
     }
     setTabSelectId(newSelectionSectionId);
@@ -897,8 +897,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
             style={{
               height:
                 ((headerCollapsed && !headerPinned) || scrolledHeaderExpanded) &&
-                !toggledCollapsedHeaderWasVisible &&
-                !(mode === ObjectPageMode.IconTabBar && scrollTimeout.current >= performance.now())
+                !toggledCollapsedHeaderWasVisible
                   ? `${headerContentHeight}px`
                   : 0,
             }}
