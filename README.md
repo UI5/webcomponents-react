@@ -1,3 +1,5 @@
+[![MCP Toplist](https://mcptoplist.com/badge/io.github.UI5%2Fwebcomponents-react-mcp-server.svg)](https://mcptoplist.com/server/io.github.UI5%2Fwebcomponents-react-mcp-server)
+
 <a name="top"></a>
 
 <p align="center">
