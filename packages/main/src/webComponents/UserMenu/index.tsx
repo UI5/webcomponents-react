@@ -19,7 +19,7 @@ interface UserMenuAttributes {
    * **Note:** When `showEditButton` is set to `true`, the avatar is treated as interactive
    * regardless of this property's value, to preserve the edit affordance.
    *
-   * **Note:** Available since [v2.25.0](https://github.com/UI5/webcomponents/releases/tag/v2.25.0) of **@ui5/webcomponents-fiori**.
+   * **Note:** Available since [v2.24.0](https://github.com/UI5/webcomponents/releases/tag/v2.24.0) of **@ui5/webcomponents-fiori**.
    * @default false
    */
   avatarInteractive?: boolean;

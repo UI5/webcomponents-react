@@ -339,6 +339,10 @@
       "types": "./dist/webComponents/Input/index.d.ts",
       "default": "./dist/webComponents/Input/index.js"
     },
+    "./InputIcon": {
+      "types": "./dist/webComponents/InputIcon/index.d.ts",
+      "default": "./dist/webComponents/InputIcon/index.js"
+    },
     "./Label": {
       "types": "./dist/webComponents/Label/index.d.ts",
       "default": "./dist/webComponents/Label/index.js"
@@ -839,10 +843,10 @@
   "peerDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@ui5/webcomponents": "~2.24.0",
-    "@ui5/webcomponents-base": "~2.24.0",
-    "@ui5/webcomponents-fiori": "~2.24.0",
-    "@ui5/webcomponents-icons": "~2.24.0",
+    "@ui5/webcomponents": "~2.25.0",
+    "@ui5/webcomponents-base": "~2.25.0",
+    "@ui5/webcomponents-fiori": "~2.25.0",
+    "@ui5/webcomponents-icons": "~2.25.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
   },

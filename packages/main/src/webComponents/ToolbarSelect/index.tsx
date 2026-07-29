@@ -103,6 +103,8 @@ interface ToolbarSelectPropTypes
    *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
    *
+   * **Note:** Available since [v2.25.0](https://github.com/UI5/webcomponents/releases/tag/v2.25.0) of **@ui5/webcomponents**.
+   *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
    * | ✅|✅|

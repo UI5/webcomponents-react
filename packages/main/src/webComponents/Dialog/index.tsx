@@ -113,6 +113,20 @@ interface DialogAttributes {
   resizable?: boolean;
 
   /**
+   * Defines whether a fullscreen toggle button is shown in the dialog header.
+   * When pressed, it toggles the `stretch` property.
+   * The fullscreen button is not available on phone devices.
+   *
+   * **Note:** The fullscreen button is not available on phone devices,
+   * nor when a custom header slot is provided — the application is expected
+   * to render its own toggle inside the custom header in those cases.
+   *
+   * **Note:** Available since [v2.25.0](https://github.com/UI5/webcomponents/releases/tag/v2.25.0) of **@ui5/webcomponents**.
+   * @default false
+   */
+  showFullscreenButton?: boolean;
+
+  /**
    * Defines the state of the `Dialog`.
    *
    * **Note:** If `"Negative"` and `"Critical"` states is set, it will change the
@@ -272,6 +286,12 @@ interface DialogPropTypes
  * - [Shift] + [Up] or [Down] - Decrease/Increase the height of the dialog.
  * - [Shift] + [Left] or [Right] - Decrease/Increase the width of the dialog.
  *
+ * #### Fullscreen
+ * When the `Dialog` has the `showFullscreenButton` property set to `true`, the user can toggle fullscreen mode
+ * with the following keyboard shortcut:
+ *
+ * - [Shift] + [Ctrl] + [F] - Toggle fullscreen mode.
+ *
  *
  *
  * __Note:__ This is a UI5 Web Component! [Dialog UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/Dialog) | [Repository](https://github.com/UI5/webcomponents)
@@ -288,7 +308,7 @@ const Dialog = withWebComponent<DialogPropTypes, DialogDomRef>(
     'initialFocus',
     'state',
   ],
-  ['draggable', 'open', 'preventFocusRestore', 'preventInitialFocus', 'resizable', 'stretch'],
+  ['draggable', 'open', 'preventFocusRestore', 'preventInitialFocus', 'resizable', 'showFullscreenButton', 'stretch'],
   ['footer', 'header'],
   ['before-close', 'before-open', 'close', 'open'],
 );

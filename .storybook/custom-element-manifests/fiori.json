@@ -11987,7 +11987,7 @@
               "default": "false",
               "description": "Defines whether the avatar of the selected account is interactive (focusable and pressable).\n\nWhen `false` (default), the avatar is rendered as a non-interactive image\nand is not announced as a button by screen readers.\n\n**Note:** When `showEditButton` is set to `true`, the avatar is treated as interactive\nregardless of this property's value, to preserve the edit affordance.",
               "privacy": "public",
-              "_ui5since": "2.25.0"
+              "_ui5since": "2.24.0"
             },
             {
               "kind": "field",
@@ -14203,6 +14203,16 @@
             },
             {
               "kind": "field",
+              "name": "saveMode",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the dialog offers Save and Cancel actions in its footer.\n\nWhen true, the footer renders a Save (Emphasized) and a Cancel button\ninstead of the default Close button. Save and Cancel each fire a\ncorresponding event; the application is responsible for closing the\ndialog (typically after persisting or discarding the changes).",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
               "name": "showSearchField",
               "type": {
                 "text": "boolean"
@@ -14219,9 +14229,20 @@
               "type": {
                 "text": "CustomEvent"
               },
-              "description": "Fired before the settings dialog is closed.",
+              "description": "Fired before the settings dialog is closed.\n\n**Note:** This event is cancelable via `preventDefault()`, allowing the application to keep the\ndialog open — for example, to prompt the user about unsaved changes before dismissal.",
               "_ui5Cancelable": true,
               "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": false
+            },
+            {
+              "name": "cancel",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the Cancel button in the footer is clicked.\nThe dialog does not close automatically — the application is responsible\nfor closing it after discarding the changes.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
               "_ui5Bubbles": false
             },
             {
@@ -14230,7 +14251,7 @@
               "type": {
                 "text": "CustomEvent"
               },
-              "description": "Fired when a settings dialog is closed.",
+              "description": "Fired when the settings dialog is closed.",
               "_ui5Cancelable": false,
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": false
@@ -14241,7 +14262,18 @@
               "type": {
                 "text": "CustomEvent"
               },
-              "description": "Fired when a settings dialog is open.",
+              "description": "Fired when the settings dialog is opened.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false
+            },
+            {
+              "name": "save",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the Save button in the footer is clicked.\nThe dialog does not close automatically — the application is responsible\nfor closing it after persisting the changes.",
               "_ui5Cancelable": false,
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": false
@@ -14297,6 +14329,15 @@
               "name": "open",
               "default": "false",
               "fieldName": "open",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines whether the dialog offers Save and Cancel actions in its footer.\n\nWhen true, the footer renders a Save (Emphasized) and a Cancel button\ninstead of the default Close button. Save and Cancel each fire a\ncorresponding event; the application is responsible for closing the\ndialog (typically after persisting or discarding the changes).",
+              "name": "save-mode",
+              "default": "false",
+              "fieldName": "saveMode",
               "type": {
                 "text": "boolean"
               }

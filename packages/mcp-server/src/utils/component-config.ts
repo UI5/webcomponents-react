@@ -96,6 +96,7 @@ export const WEB_COMPONENT_CATEGORIES = {
     'DynamicDateRange',
     'FileUploader',
     'Input',
+    'InputIcon',
     'MultiComboBox',
     'MultiComboBoxItem',
     'MultiComboBoxItemCustom',
