@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.25.0](https://github.com/UI5/webcomponents-react/compare/v2.24.1...v2.25.0) (2026-07-30)
+
+
+### Features
+
+* **mcp-server:** add web component testing docs + isAbstract flag ([#8773](https://github.com/UI5/webcomponents-react/issues/8773)) ([dad25c7](https://github.com/UI5/webcomponents-react/commit/dad25c77facedca4f5d03947e252e38fdab18c8a))
+* update to UI5 Web Components 2.25.0 ([#8828](https://github.com/UI5/webcomponents-react/issues/8828)) ([1550c8b](https://github.com/UI5/webcomponents-react/commit/1550c8bd3d8d1c5fb0c89d9bc35760ec1cbbb216))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @tanstack/react-virtual to v3.14.6 ([#8783](https://github.com/UI5/webcomponents-react/issues/8783)) ([7e99a22](https://github.com/UI5/webcomponents-react/commit/7e99a22bfda9550869fa924f22dcaad41fc67a47))
+* **deps:** update react monorepo to v19.2.8 ([#8816](https://github.com/UI5/webcomponents-react/issues/8816)) ([b3a041e](https://github.com/UI5/webcomponents-react/commit/b3a041e580f3a2344ee4ce2c08a60e4374f5dc82))
+
 ## [2.24.1](https://github.com/UI5/webcomponents-react/compare/v2.24.0...v2.24.1) (2026-07-09)
 
 
