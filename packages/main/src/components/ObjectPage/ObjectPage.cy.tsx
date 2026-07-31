@@ -2027,6 +2027,86 @@ describe('ObjectPage', () => {
     cy.findByText('subsection 2 content').should('be.visible');
     cy.findByText('ObjectPageHeader').should('not.be.visible');
   });
+
+  [ObjectPageMode.Default, ObjectPageMode.IconTabBar].forEach((mode) => {
+    it(`manually collapsed header stays flush (no white-space band) and re-expands at the top (mode: ${mode})`, () => {
+      cy.viewport(1440, 900);
+      cy.mount(
+        <ObjectPage
+          data-testid="op"
+          titleArea={DPTitle}
+          headerArea={
+            <ObjectPageHeader>
+              <div style={{ height: '250px', width: '100%', background: 'lightyellow' }}>ObjectPageHeader</div>
+            </ObjectPageHeader>
+          }
+          mode={mode}
+          style={{ height: '95vh', scrollBehavior: 'auto' }}
+        >
+          <ObjectPageSection key="s1" id="s1" titleText="Section 1">
+            <div style={{ height: '2000px', background: 'lightblue' }}>section 1 content</div>
+          </ObjectPageSection>
+          <ObjectPageSection key="s2" id="s2" titleText="Section 2">
+            <div style={{ height: '2000px', background: 'lightgreen' }}>section 2 content</div>
+          </ObjectPageSection>
+        </ObjectPage>,
+      );
+
+      const spacerHeight = ($op: JQuery<HTMLElement>) =>
+        Math.round(
+          (
+            $op[0].querySelector('[data-component-name="ObjectPageContent"]')?.firstElementChild as HTMLElement
+          ).getBoundingClientRect().height,
+        );
+
+      const assertManualCollapseStaysFlush = () => {
+        // collapse manually while scrolled down: must stay flush, no spacer
+        cy.findByTestId('op').scrollTo(0, 700);
+        cy.findByText('ObjectPageHeader').should('not.be.visible');
+        cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
+        cy.findByText('ObjectPageHeader').should('be.visible');
+        cy.wait(600); // scrollTimeout
+        cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
+        cy.findByText('ObjectPageHeader').should('not.be.visible');
+        cy.wait(600);
+        cy.findByTestId('op').should(($op) => {
+          expect(spacerHeight($op)).to.equal(0);
+        });
+
+        // collapse manually at the top, then scroll down: header stays collapsed and flush (no spacer)
+        cy.findByTestId('op').scrollTo(0, 0);
+        cy.findByText('ObjectPageHeader').should('be.visible');
+        cy.wait(600);
+        cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
+        cy.findByText('ObjectPageHeader').should('not.be.visible');
+        cy.wait(600);
+        cy.findByTestId('op').should(($op) => {
+          expect($op[0].scrollTop).to.equal(0);
+          expect(spacerHeight($op)).to.equal(0);
+        });
+        cy.findByTestId('op').scrollTo(0, 400);
+        cy.wait(300);
+        cy.findByTestId('op').should(($op) => {
+          expect(spacerHeight($op)).to.equal(0);
+        });
+        cy.findByText('ObjectPageHeader').should('not.be.visible');
+
+        // scrolling back up to the top re-expands the header
+        cy.findByTestId('op').scrollTo(0, 0);
+        cy.findByText('ObjectPageHeader').should('be.visible');
+      };
+
+      // Default mode only renders the first section at the top, so the behavior applies there.
+      assertManualCollapseStaysFlush();
+
+      // IconTabBar mode renders every section at the top, so it must work after switching tabs too.
+      if (mode === ObjectPageMode.IconTabBar) {
+        cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 2').click();
+        cy.wait(600);
+        assertManualCollapseStaysFlush();
+      }
+    });
+  });
 });
 
 const DPTitle = (
