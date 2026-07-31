@@ -1931,6 +1931,102 @@ describe('ObjectPage', () => {
     cy.findByText('Custom Header Section Two').should('not.be.visible');
     cy.findByText('Subsection1').should('be.visible');
   });
+
+  it('IconTabBar: tab switch preserves header collapsed/expanded state and stays scroll-expandable', () => {
+    cy.viewport(1440, 900);
+    cy.mount(
+      <ObjectPage
+        data-testid="op"
+        titleArea={DPTitle}
+        headerArea={
+          <ObjectPageHeader>
+            <div style={{ height: '250px', width: '100%', background: 'lightyellow' }}>ObjectPageHeader</div>
+          </ObjectPageHeader>
+        }
+        mode={ObjectPageMode.IconTabBar}
+        style={{ height: '95vh', scrollBehavior: 'auto' }}
+      >
+        <ObjectPageSection key="s1" id="s1" titleText="Section 1">
+          <div style={{ height: '2000px', background: 'lightblue' }}>section 1 content</div>
+        </ObjectPageSection>
+        <ObjectPageSection key="s2" id="s2" titleText="Section 2">
+          <div style={{ height: '2000px', background: 'lightgreen' }}>section 2 content</div>
+        </ObjectPageSection>
+      </ObjectPage>,
+    );
+
+    // switching tabs while the header is expanded keeps it expanded and scrolled to the top
+    cy.findByText('ObjectPageHeader').should('be.visible');
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 2').click();
+    cy.wait(600);
+    cy.findByText('ObjectPageHeader').should('be.visible');
+    cy.findByTestId('op').then(($op) => {
+      expect($op[0].scrollTop).to.equal(0);
+    });
+
+    // scroll down far enough to collapse the header
+    cy.findByTestId('op').scrollTo(0, 800);
+    cy.findByText('ObjectPageHeader').should('not.be.visible');
+
+    // switching tabs while collapsed must preserve the collapsed state (no auto-expand)
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 1').click();
+    cy.wait(600); // let the scrollTimeout window pass
+    cy.findByText('ObjectPageHeader').should('not.be.visible');
+    // ...and must not reset scroll to the very top, otherwise there is no room to scroll up and re-expand
+    cy.findByTestId('op').then(($op) => {
+      expect($op[0].scrollTop).to.be.greaterThan(0);
+    });
+
+    // scrolling up on the new tab re-expands the header without scrolling down first
+    cy.findByTestId('op').scrollTo(0, 0);
+    cy.findByText('ObjectPageHeader').should('be.visible');
+  });
+
+  it('IconTabBar: subsection navigation while the header is collapsed keeps it collapsed', () => {
+    cy.viewport(1440, 900);
+    cy.mount(
+      <ObjectPage
+        data-testid="op"
+        titleArea={DPTitle}
+        headerArea={
+          <ObjectPageHeader>
+            <div style={{ height: '250px', width: '100%', background: 'lightyellow' }}>ObjectPageHeader</div>
+          </ObjectPageHeader>
+        }
+        mode={ObjectPageMode.IconTabBar}
+        style={{ height: '95vh', scrollBehavior: 'auto' }}
+      >
+        <ObjectPageSection key="s1" id="s1" titleText="Section 1">
+          <ObjectPageSubSection id="s1-sub1" titleText="Subsection 1" aria-label="Subsection 1">
+            <div style={{ height: '1500px', background: 'lightblue' }}>subsection 1 content</div>
+          </ObjectPageSubSection>
+          <ObjectPageSubSection id="s1-sub2" titleText="Subsection 2" aria-label="Subsection 2">
+            <div style={{ height: '1500px', background: 'lightgreen' }}>subsection 2 content</div>
+          </ObjectPageSubSection>
+        </ObjectPageSection>
+        <ObjectPageSection key="s2" id="s2" titleText="Section 2">
+          <div style={{ height: '2000px', background: 'lightyellow' }}>section 2 content</div>
+        </ObjectPageSection>
+      </ObjectPage>,
+    );
+
+    // collapse the header by scrolling
+    cy.findByTestId('op').scrollTo(0, 800);
+    cy.findByText('ObjectPageHeader').should('not.be.visible');
+
+    // navigate to the second subsection via the tab popover while collapsed
+    cy.get('[ui5-tabcontainer]').findUi5TabOpenPopoverButtonByText('Section 1').click();
+    cy.get('[ui5-list]').should('be.visible');
+    cy.wait(200);
+    cy.realPress('ArrowDown');
+    cy.realPress('ArrowDown');
+    cy.realPress('Enter');
+    cy.wait(500);
+
+    // header stays collapsed and the target subsection is shown
+    cy.findByText('subsection 2 content').should('be.visible');
+    cy.findByText('ObjectPageHeader').should('not.be.visible');
+  });
 });
 
 const DPTitle = (
