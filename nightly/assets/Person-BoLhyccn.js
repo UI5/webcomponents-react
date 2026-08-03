@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";var t;function n(){return(n=e((()=>{t=``+new URL(`Person-B7wHqdJw.png`,import.meta.url).href})))()}export{n,t};

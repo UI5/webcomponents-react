@@ -1,1 +1,0 @@
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";var t,n=e((()=>{t=function(e){return e.Left=`Left`,e.Center=`Center`,e.Right=`Right`,e}({})}));export{n,t};
