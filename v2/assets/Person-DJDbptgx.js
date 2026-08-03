@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";var t,n=e((()=>{t=``+new URL(`Person-B7wHqdJw.png`,import.meta.url).href}));export{n,t};

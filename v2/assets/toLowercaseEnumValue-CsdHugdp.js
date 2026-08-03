@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";function t(e){return e.toLowerCase()}var n=e((()=>{}));export{t as n,n as t};
