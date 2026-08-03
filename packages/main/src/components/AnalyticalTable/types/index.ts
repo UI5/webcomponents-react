@@ -1179,12 +1179,13 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    */
   onFilter?: (e: OnFilterParam) => void;
   /**
-   * Component that will be rendered when the table is not loading and has no data.
+   * Component that will be rendered when the table has no data.
    *
    * __Note:__
    * - Although this prop accepts all React components, it is strongly recommended that you use `IllustratedMessage` with `design="Auto"` to preserve the intended design.
    * - For `visibleRowCountMode`s "Auto" and "AutoWithEmptyRows", the `NoDataComponent` spreads to the available space below the header row, otherwise the `minRows` prop defines the minimum height of the table body.
    * - To prevent overflow, ensure the table body is at least **60 px** tall when displaying an `IllustratedMessage`.
+   * - While loading, it's only rendered if `alwaysShowBusyIndicator` is set. To hide the custom NoDataComponent during loading, guard it: `NoDataComponent={loading ? undefined : MyNoDataComponent}`.
    *
    * @default DefaultNoDataComponent
    */
