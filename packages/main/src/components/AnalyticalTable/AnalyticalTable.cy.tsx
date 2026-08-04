@@ -403,6 +403,56 @@ describe('AnalyticalTable', () => {
     cy.findByText('Name-3').should('not.be.visible');
   });
 
+  it('Auto row count: no double vertical scrollbar when horizontally scrollable', () => {
+    const wideColumns = [
+      { Header: 'Name', accessor: 'name', minWidth: 280 },
+      { Header: 'Type', accessor: 'type', minWidth: 180 },
+      { Header: 'Description', accessor: 'description', minWidth: 220 },
+      { Header: 'Location', accessor: 'location', minWidth: 180 },
+      { Header: 'Published', accessor: 'published', minWidth: 220 },
+    ];
+    const wideData = Array.from({ length: 50 }, (_, index) => ({
+      name: `Item ${index}`,
+      type: 'Type',
+      description: 'Long description',
+      location: 'Folder',
+      published: 'Jun 5, 2026',
+    }));
+
+    [AnalyticalTableVisibleRowCountMode.Auto, AnalyticalTableVisibleRowCountMode.AutoWithEmptyRows].forEach(
+      (visibleRowCountMode) => {
+        cy.mount(
+          <div style={{ height: 528, width: 592, display: 'flex', flexDirection: 'column' }}>
+            <AnalyticalTable
+              columns={wideColumns}
+              data={wideData}
+              visibleRowCountMode={visibleRowCountMode}
+              rowHeight={38}
+              headerRowHeight={32}
+              selectionMode={AnalyticalTableSelectionMode.None}
+            />
+          </div>,
+        );
+
+        // the container must be horizontally scrollable for the scenario to apply
+        cy.get('[data-component-name="AnalyticalTableContainer"]').then(($container) => {
+          const container = $container[0];
+          expect(container.scrollWidth, 'container is horizontally scrollable').to.be.greaterThan(
+            container.clientWidth,
+          );
+        });
+
+        // the outer table root must NOT gain an additional vertical scroll range
+        cy.get('[data-component-name="AnalyticalTableContainerWithScrollbar"]')
+          .parent()
+          .then(($root) => {
+            const root = $root[0];
+            expect(root.scrollHeight, 'table root is not vertically scrollable').to.be.at.most(root.clientHeight + 1);
+          });
+      },
+    );
+  });
+
   it('autoResize', () => {
     function doubleClickResizer(selector: string, columnName: string, outerWidth: number) {
       cy.get(selector)
