@@ -434,19 +434,15 @@ describe('AnalyticalTable', () => {
           </div>,
         );
 
-        // the container must be horizontally scrollable for the scenario to apply
-        cy.get('[data-component-name="AnalyticalTableContainer"]').then(($container) => {
-          const container = $container[0];
-          expect(container.scrollWidth, 'container is horizontally scrollable').to.be.greaterThan(
-            container.clientWidth,
-          );
-        });
-
-        // the outer table root must NOT gain an additional vertical scroll range
+        // `should` retries until the auto row count settles (React 18 commits the corrected render later)
         cy.get('[data-component-name="AnalyticalTableContainerWithScrollbar"]')
           .parent()
-          .then(($root) => {
+          .should(($root) => {
             const root = $root[0];
+            const container = root.querySelector<HTMLElement>('[data-component-name="AnalyticalTableContainer"]');
+            expect(container!.scrollWidth, 'container is horizontally scrollable').to.be.greaterThan(
+              container!.clientWidth,
+            );
             expect(root.scrollHeight, 'table root is not vertically scrollable').to.be.at.most(root.clientHeight + 1);
           });
       },
