@@ -1,0 +1,1 @@
+import{t as e}from"./iframe-BnBCAXd6.js";e();
