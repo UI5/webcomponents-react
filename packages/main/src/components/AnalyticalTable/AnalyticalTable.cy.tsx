@@ -2097,7 +2097,20 @@ describe('AnalyticalTable', () => {
         getData: () => {
           return colId;
         },
+        types: ['text', 'application/x-ui5wcr-columndnd'],
       });
+
+      // only real column drags may highlight a header.
+      const borderSide = dir === 'rtl' ? 'border-right-width' : 'border-left-width';
+      // Foreign (file) drag must NOT highlight the header.
+      cy.get('[data-column-id="age"]').trigger('dragenter', { dataTransfer: { getData: () => '', types: ['Files'] } });
+      cy.get('[data-column-id="age"]').should('have.css', borderSide, '0px');
+      // A real column drag highlights the header it enters...
+      cy.get('[data-column-id="age"]').trigger('dragenter', { dataTransfer: dataTransfereById('name') });
+      cy.get('[data-column-id="age"]').should('have.css', borderSide, '3px');
+      // ...and leaving the header (relatedTarget outside) clears the highlight again.
+      cy.get('[data-column-id="age"]').trigger('dragleave', { relatedTarget: null });
+      cy.get('[data-column-id="age"]').should('have.css', borderSide, '0px');
 
       cy.get('[data-column-id="name"]')
         .trigger('dragstart')
@@ -2137,6 +2150,7 @@ describe('AnalyticalTable', () => {
 
     const dataTransferById = (colId) => ({
       getData: () => colId,
+      types: ['text', 'application/x-ui5wcr-columndnd'],
     });
 
     cy.mount(<TestComp />);
