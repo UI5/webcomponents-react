@@ -6,6 +6,16 @@ import { TimelineChartAnnotation } from '../TimelineChartAnnotation.js';
 
 // --- Basic rendering tests (no state needed, used directly in spec) ---
 
+export function BasicDatasetTest() {
+  return (
+    <TimelineChart
+      dataset={[{ label: 'Row 0', tasks: [{ start: 5, duration: 10 }] }]}
+      totalDuration={150}
+      data-testid="tlc"
+    />
+  );
+}
+
 // --- Connection layer toggle ---
 export function ConnectionLayerToggle() {
   const [showConn, toggleShowConn] = useReducer((prev) => !prev, undefined);

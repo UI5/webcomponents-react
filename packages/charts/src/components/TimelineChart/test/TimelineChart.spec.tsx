@@ -1,5 +1,4 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
-import { TimelineChart } from '../index.js';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 import {
   HOVER_OPACITY,
   MOUSE_CURSOR_AUTO,
@@ -7,25 +6,6 @@ import {
   MOUSE_CURSOR_GRABBING,
   NORMAL_OPACITY,
 } from '../util/constants.js';
-import {
-  AnnotationLayerToggle,
-  AnnotationPositionTest,
-  ColumnLabelsContinuousTest,
-  ColumnLabelsDiscreteTest,
-  ColumnLabelsDiscreteWithLabelsTest,
-  ConnectionLayerToggle,
-  IllegalConnectionTest1,
-  IllegalConnectionTest2,
-  InvalidDiscreteLabelTest,
-  LayerStructureTest,
-  MouseCursorTest,
-  RowHeightTest,
-  StartPropTest,
-  TooltipHiddenTest,
-  TooltipOpacityTest,
-  UnitAndTitlesTest,
-  ValueFormatTest,
-} from './TimelineChartTestComponents.js';
 
 // Tests dropped during the Cypress → Playwright migration:
 // - "TimelineChartBody: scales when the mouse wheel event happens": the wheel
@@ -36,13 +16,7 @@ import {
 
 test.describe('TimelineChart', () => {
   test('renders TimelineChart with dataset', async ({ mount, page }) => {
-    await mount(
-      <TimelineChart
-        dataset={[{ label: 'Row 0', tasks: [{ start: 5, duration: 10 }] }]}
-        totalDuration={150}
-        data-testid="tlc"
-      />,
-    );
+    await mount('TimelineChart/BasicDatasetTest');
     const tlc = page.getByTestId('tlc');
     await expect(tlc).toBeVisible();
     const tagName = await tlc.evaluate((el) => el.tagName);
@@ -50,21 +24,21 @@ test.describe('TimelineChart', () => {
   });
 
   test('calls the valueFormat callback & renders labels', async ({ mount, page }) => {
-    await mount(<ValueFormatTest />);
+    await mount('TimelineChart/ValueFormatTest');
     for (let i = 0; i <= 150; i += 30) {
       await expect(page.getByText(`${i}-formatted`, { exact: true })).toBeVisible();
     }
   });
 
   test('render connection layer', async ({ mount, page }) => {
-    await mount(<ConnectionLayerToggle />);
+    await mount('TimelineChart/ConnectionLayerToggle');
     await expect(page.locator('[data-component-name="TimelineChartConnectionLayer"]')).not.toBeAttached();
     await page.getByText('Toggle Connection').click();
     await expect(page.locator('[data-component-name="TimelineChartConnectionLayer"]')).toBeVisible();
   });
 
   test('render annotation layer', async ({ mount, page }) => {
-    await mount(<AnnotationLayerToggle />);
+    await mount('TimelineChart/AnnotationLayerToggle');
     await expect(page.locator('[data-component-name="TimelineChartAnnotationLayer"]')).not.toBeAttached();
     await page.getByText('Toggle Annotations', { exact: true }).click();
     await expect(page.locator('[data-component-name="TimelineChartAnnotationLayer"]')).not.toBeAttached();
@@ -79,7 +53,7 @@ test.describe('TimelineChart', () => {
   test('throws InvalidDiscreteLabelError', async ({ mount, page }) => {
     const errors: Error[] = [];
     page.on('pageerror', (err) => errors.push(err));
-    await mount(<InvalidDiscreteLabelTest />);
+    await mount('TimelineChart/InvalidDiscreteLabelTest');
     await expect
       .poll(() => errors.some((e) => e.name === 'InvalidDiscreteLabelError' || e.message.includes('discreteLabels')))
       .toBe(true);
@@ -88,7 +62,7 @@ test.describe('TimelineChart', () => {
   test('throws IllegalConnectionError (1)', async ({ mount, page }) => {
     const errors: Error[] = [];
     page.on('pageerror', (err) => errors.push(err));
-    await mount(<IllegalConnectionTest1 />);
+    await mount('TimelineChart/IllegalConnectionTest1');
     await expect
       .poll(() => errors.some((e) => e.name === 'IllegalConnectionError' || e.message.includes('connection')))
       .toBe(true);
@@ -97,14 +71,14 @@ test.describe('TimelineChart', () => {
   test('throws IllegalConnectionError (2)', async ({ mount, page }) => {
     const errors: Error[] = [];
     page.on('pageerror', (err) => errors.push(err));
-    await mount(<IllegalConnectionTest2 />);
+    await mount('TimelineChart/IllegalConnectionTest2');
     await expect
       .poll(() => errors.some((e) => e.name === 'IllegalConnectionError' || e.message.includes('connection')))
       .toBe(true);
   });
 
   test('shows the right mouse cursor', async ({ mount, page }) => {
-    await mount(<MouseCursorTest />);
+    await mount('TimelineChart/MouseCursorTest');
 
     const bodyContainer = page.locator('[data-component-name="TimelineChartBodyContainer"]');
     await expect(bodyContainer).toHaveCSS('cursor', MOUSE_CURSOR_AUTO);
@@ -124,7 +98,7 @@ test.describe('TimelineChart', () => {
   });
 
   test('TimelineChartAnnotation: positions itself correctly in the parent', async ({ mount, page }) => {
-    await mount(<AnnotationPositionTest />);
+    await mount('TimelineChart/AnnotationPositionTest');
     await expect(page.locator('[data-component-name="TimelineChartAnnotation"]')).toHaveCSS(
       'inset-block-start',
       '40px',
@@ -132,7 +106,7 @@ test.describe('TimelineChart', () => {
   });
 
   test('TimelineChartRow: tooltip & opacity for tasks', async ({ mount, page }) => {
-    await mount(<TooltipOpacityTest />);
+    await mount('TimelineChart/TooltipOpacityTest');
 
     const task = page.locator('[data-component-name="TimelineChartTask"]').first();
     await expect(task).toHaveCSS('opacity', `${NORMAL_OPACITY}`);
@@ -146,7 +120,7 @@ test.describe('TimelineChart', () => {
   });
 
   test('TimelineChartRow: tooltip & opacity for milestones', async ({ mount, page }) => {
-    await mount(<TooltipOpacityTest />);
+    await mount('TimelineChart/TooltipOpacityTest');
 
     const milestoneRect = page.locator('[data-component-name="TimelineChartMilestone"] > rect');
     await expect(milestoneRect).toHaveCSS('opacity', `${NORMAL_OPACITY}`);
@@ -159,7 +133,7 @@ test.describe('TimelineChart', () => {
   });
 
   test('TimelineChartRow: hideTooltip still changes opacity', async ({ mount, page }) => {
-    await mount(<TooltipHiddenTest />);
+    await mount('TimelineChart/TooltipHiddenTest');
 
     const task = page.locator('[data-component-name="TimelineChartTask"]').first();
     await expect(task).toHaveCSS('opacity', `${NORMAL_OPACITY}`);
@@ -179,7 +153,7 @@ test.describe('TimelineChart', () => {
   });
 
   test('TimelineChartLayer', async ({ mount, page }) => {
-    await mount(<LayerStructureTest />);
+    await mount('TimelineChart/LayerStructureTest');
 
     const gridLayer = page.locator('[data-component-name="TimelineChartGridLayer"]');
     await expect(gridLayer).toHaveCSS('pointer-events', 'none');
@@ -203,7 +177,7 @@ test.describe('TimelineChart', () => {
   });
 
   test('TimelineChartHeaders: ColumnLabels continuous', async ({ mount, page }) => {
-    await mount(<ColumnLabelsContinuousTest />);
+    await mount('TimelineChart/ColumnLabelsContinuousTest');
     for (let i = 0; i <= 10; i += 2) {
       await expect(page.getByText(`${i}`, { exact: true })).toBeVisible();
     }
@@ -211,7 +185,7 @@ test.describe('TimelineChart', () => {
   });
 
   test('TimelineChartHeaders: ColumnLabels discrete', async ({ mount, page }) => {
-    await mount(<ColumnLabelsDiscreteTest />);
+    await mount('TimelineChart/ColumnLabelsDiscreteTest');
     for (let i = 0; i <= 9; i++) {
       await expect(page.getByText(`${i}`, { exact: true })).toBeVisible();
     }
@@ -219,19 +193,19 @@ test.describe('TimelineChart', () => {
   });
 
   test('TimelineChartHeaders: ColumnLabels discrete with labels', async ({ mount, page }) => {
-    await mount(<ColumnLabelsDiscreteWithLabelsTest />);
+    await mount('TimelineChart/ColumnLabelsDiscreteWithLabelsTest');
     await expect(page.getByText('label')).toHaveCount(8);
     await expect(page.getByText('one')).toBeVisible();
     await expect(page.getByText('two')).toBeVisible();
   });
 
   test('rowHeight', async ({ mount, page }) => {
-    await mount(<RowHeightTest />);
+    await mount('TimelineChart/RowHeightTest');
     await expect(page.locator('[data-component-name="TimelineChartRow"]').first()).toHaveAttribute('height', '200');
   });
 
   test('unit and titles', async ({ mount, page }) => {
-    await mount(<UnitAndTitlesTest />);
+    await mount('TimelineChart/UnitAndTitlesTest');
     await expect(page.getByText('Activities')).not.toBeAttached();
     await expect(page.getByText('Duration')).not.toBeAttached();
     await expect(page.getByText('columnTitle (unit)')).toBeVisible();
@@ -239,7 +213,7 @@ test.describe('TimelineChart', () => {
   });
 
   test('start', async ({ mount, page }) => {
-    await mount(<StartPropTest />);
+    await mount('TimelineChart/StartPropTest');
     for (let i = 5; i <= 15; i += 2) {
       await expect(page.getByText(`${i}`, { exact: true })).toBeVisible();
     }

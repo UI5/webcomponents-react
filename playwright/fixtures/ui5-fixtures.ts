@@ -1,4 +1,4 @@
-import { test as base, expect } from '@playwright/experimental-ct-react';
+import { test as base, expect } from '@playwright/test';
 import type { Page, Locator } from '@playwright/test';
 
 export interface UI5WCFixtures {
