@@ -53,7 +53,9 @@ test.describe('TimelineChart', () => {
   test('throws InvalidDiscreteLabelError', async ({ mount, page }) => {
     const errors: Error[] = [];
     page.on('pageerror', (err) => errors.push(err));
-    await mount('TimelineChart/InvalidDiscreteLabelTest');
+    // The component throws in an effect; with flushSync that can reject mount() too — the error
+    // still reaches `pageerror`, which is what we assert on, so ignore the mount rejection.
+    await mount('TimelineChart/InvalidDiscreteLabelTest').catch(() => undefined);
     await expect
       .poll(() => errors.some((e) => e.name === 'InvalidDiscreteLabelError' || e.message.includes('discreteLabels')))
       .toBe(true);
@@ -62,7 +64,7 @@ test.describe('TimelineChart', () => {
   test('throws IllegalConnectionError (1)', async ({ mount, page }) => {
     const errors: Error[] = [];
     page.on('pageerror', (err) => errors.push(err));
-    await mount('TimelineChart/IllegalConnectionTest1');
+    await mount('TimelineChart/IllegalConnectionTest1').catch(() => undefined);
     await expect
       .poll(() => errors.some((e) => e.name === 'IllegalConnectionError' || e.message.includes('connection')))
       .toBe(true);
@@ -71,7 +73,7 @@ test.describe('TimelineChart', () => {
   test('throws IllegalConnectionError (2)', async ({ mount, page }) => {
     const errors: Error[] = [];
     page.on('pageerror', (err) => errors.push(err));
-    await mount('TimelineChart/IllegalConnectionTest2');
+    await mount('TimelineChart/IllegalConnectionTest2').catch(() => undefined);
     await expect
       .poll(() => errors.some((e) => e.name === 'IllegalConnectionError' || e.message.includes('connection')))
       .toBe(true);
