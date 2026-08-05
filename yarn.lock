@@ -16418,7 +16418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nyc@npm:^18.0.0":
+"nyc@npm:18.0.0, nyc@npm:^18.0.0":
   version: 18.0.0
   resolution: "nyc@npm:18.0.0"
   dependencies:
@@ -21047,6 +21047,7 @@ __metadata:
     lerna: "npm:10.0.0"
     lint-staged: "npm:17.2.0"
     npm-run-all2: "npm:9.0.3"
+    nyc: "npm:18.0.0"
     pagefind: "npm:1.5.2"
     postcss: "npm:8.5.25"
     postcss-cli: "npm:11.0.1"
