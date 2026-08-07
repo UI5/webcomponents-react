@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.25.1](https://github.com/UI5/webcomponents-react/compare/v2.25.0...v2.25.1) (2026-08-07)
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** use native scrollbar for macOS overlay scrollbar modes ([#8834](https://github.com/UI5/webcomponents-react/issues/8834)) ([228cea8](https://github.com/UI5/webcomponents-react/commit/228cea8223beef677249ecfea26cc902a3173903)), closes [#8802](https://github.com/UI5/webcomponents-react/issues/8802)
+* **deps:** update dependency @tanstack/react-virtual to v3.14.9 ([#8812](https://github.com/UI5/webcomponents-react/issues/8812)) ([6fdbf43](https://github.com/UI5/webcomponents-react/commit/6fdbf434439f25a8b0e40ef5ee2d6278042cf1ac))
+
 ## [2.25.0](https://github.com/UI5/webcomponents-react/compare/v2.24.1...v2.25.0) (2026-07-30)
 
 
