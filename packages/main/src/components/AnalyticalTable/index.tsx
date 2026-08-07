@@ -483,7 +483,11 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
           : 0;
       const parentHeight = parentElement?.getBoundingClientRect().height;
       const tableHeight = parentHeight ? parentHeight - tableYPosition : 0;
-      const bodyHeight = tableHeight - extensionsHeight;
+      // a horizontal scrollbar in the container consumes vertical space that must not count towards the rows
+      const tableContainer = tableRef.current;
+      const horizontalScrollbarHeight =
+        tableContainer && tableContainer.scrollWidth > tableContainer.clientWidth ? scrollbarWidth : 0;
+      const bodyHeight = tableHeight - extensionsHeight - horizontalScrollbarHeight;
       let subCompsRowCount = 0;
       if (includeSubCompRowHeight) {
         let localBodyHeight = 0;
@@ -514,7 +518,14 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         });
       }
     }
-  }, [extensionsHeight, popInRowHeight, visibleRowCountMode, includeSubCompRowHeight, tableState.subComponentsHeight]);
+  }, [
+    extensionsHeight,
+    popInRowHeight,
+    visibleRowCountMode,
+    includeSubCompRowHeight,
+    tableState.subComponentsHeight,
+    scrollbarWidth,
+  ]);
 
   useEffect(() => {
     setGlobalFilter(globalFilterValue);

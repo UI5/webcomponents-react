@@ -403,6 +403,52 @@ describe('AnalyticalTable', () => {
     cy.findByText('Name-3').should('not.be.visible');
   });
 
+  it('Auto row count: no double vertical scrollbar when horizontally scrollable', () => {
+    const wideColumns = [
+      { Header: 'Name', accessor: 'name', minWidth: 280 },
+      { Header: 'Type', accessor: 'type', minWidth: 180 },
+      { Header: 'Description', accessor: 'description', minWidth: 220 },
+      { Header: 'Location', accessor: 'location', minWidth: 180 },
+      { Header: 'Published', accessor: 'published', minWidth: 220 },
+    ];
+    const wideData = Array.from({ length: 50 }, (_, index) => ({
+      name: `Item ${index}`,
+      type: 'Type',
+      description: 'Long description',
+      location: 'Folder',
+      published: 'Jun 5, 2026',
+    }));
+
+    [AnalyticalTableVisibleRowCountMode.Auto, AnalyticalTableVisibleRowCountMode.AutoWithEmptyRows].forEach(
+      (visibleRowCountMode) => {
+        cy.mount(
+          <div style={{ height: 528, width: 592, display: 'flex', flexDirection: 'column' }}>
+            <AnalyticalTable
+              columns={wideColumns}
+              data={wideData}
+              visibleRowCountMode={visibleRowCountMode}
+              rowHeight={38}
+              headerRowHeight={32}
+              selectionMode={AnalyticalTableSelectionMode.None}
+            />
+          </div>,
+        );
+
+        // `should` retries until the auto row count settles (React 18 commits the corrected render later)
+        cy.get('[data-component-name="AnalyticalTableContainerWithScrollbar"]')
+          .parent()
+          .should(($root) => {
+            const root = $root[0];
+            const container = root.querySelector<HTMLElement>('[data-component-name="AnalyticalTableContainer"]');
+            expect(container!.scrollWidth, 'container is horizontally scrollable').to.be.greaterThan(
+              container!.clientWidth,
+            );
+            expect(root.scrollHeight, 'table root is not vertically scrollable').to.be.at.most(root.clientHeight + 1);
+          });
+      },
+    );
+  });
+
   it('autoResize', () => {
     function doubleClickResizer(selector: string, columnName: string, outerWidth: number) {
       cy.get(selector)
