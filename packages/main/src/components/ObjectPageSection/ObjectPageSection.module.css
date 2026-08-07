@@ -83,6 +83,33 @@
   box-sizing: border-box;
 }
 
+.fitContent {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+
+  .sectionContent {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sectionContentInner {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* fitContent sections with subsections scroll themselves; reset the header offset so sticky subsection headers stick to the section top */
+.fitContentScroll {
+  --_ui5wcr_ObjectPage_header_height: 0px;
+  overflow: auto;
+}
+
 @container (max-width: 599px) {
   .section {
     padding-inline: 1rem;
