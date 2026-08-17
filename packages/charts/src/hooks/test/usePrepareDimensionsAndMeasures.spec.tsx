@@ -1,13 +1,8 @@
-import { expect, test } from '../../../../../playwright/fixtures/main-fixtures.js';
-import {
-  PrepareDimensionsDefault,
-  PrepareDimensionsNoOverwrite,
-  PrepareDimensionsWithDefaults,
-} from './HookTestComponents.js';
+import { expect, test } from '../../../../../playwright/fixtures/gallery-fixtures.js';
 
 test.describe('usePrepareDimensionsAndMeasures', () => {
   test('should not throw an error when no defaults are passed', async ({ mount, page }) => {
-    await mount(<PrepareDimensionsDefault />);
+    await mount('HookTestComponents/PrepareDimensionsDefault');
     const resultText = await page.getByTestId('result').textContent();
     const result = JSON.parse(resultText);
     expect(result).toEqual({
@@ -19,7 +14,7 @@ test.describe('usePrepareDimensionsAndMeasures', () => {
   });
 
   test('should merge defaults', async ({ mount, page }) => {
-    await mount(<PrepareDimensionsWithDefaults />);
+    await mount('HookTestComponents/PrepareDimensionsWithDefaults');
     const resultText = await page.getByTestId('result').textContent();
     const result = JSON.parse(resultText);
     expect(result).toEqual({
@@ -31,7 +26,7 @@ test.describe('usePrepareDimensionsAndMeasures', () => {
   });
 
   test('should merge defaults but not overwrite existing properties', async ({ mount, page }) => {
-    await mount(<PrepareDimensionsNoOverwrite />);
+    await mount('HookTestComponents/PrepareDimensionsNoOverwrite');
     const resultText = await page.getByTestId('result').textContent();
     const result = JSON.parse(resultText);
     expect(result).toEqual({
