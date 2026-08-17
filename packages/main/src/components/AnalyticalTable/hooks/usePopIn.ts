@@ -7,11 +7,10 @@ const popInVisibleColumnsDeps: ReactTableHooks['visibleColumnsDeps'][0] = (deps,
 ];
 
 const popInVisibleColumns: ReactTableHooks['visibleColumns'][0] = (cols, { instance }) => {
-  const { state, dispatch } = instance;
+  const { state, dispatch, webComponentsReactProperties } = instance;
+  const { scrollbarWidth } = webComponentsReactProperties;
 
-  const tableClientWidth = state.isScrollable
-    ? state?.tableClientWidth + 13 /*scrollbar width*/
-    : state?.tableClientWidth;
+  const tableClientWidth = state.isScrollable ? state?.tableClientWidth + scrollbarWidth : state?.tableClientWidth;
 
   const popInColumns: AnalyticalTableState['popInColumns'] = cols
     .filter((item) => {

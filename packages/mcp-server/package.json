@@ -46,13 +46,13 @@
     "README.md"
   ],
   "dependencies": {
-    "@modelcontextprotocol/sdk": "1.29.0",
+    "@modelcontextprotocol/sdk": "1.30.0",
     "zod": "4.4.3"
   },
   "devDependencies": {
     "@ui5/webcomponents-react": "workspace:~",
     "ava": "8.0.1",
     "react-docgen-typescript": "2.4.0",
-    "tsx": "4.23.1"
+    "tsx": "4.23.12"
   }
 }

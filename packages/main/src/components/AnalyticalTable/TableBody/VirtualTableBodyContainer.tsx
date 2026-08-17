@@ -21,7 +21,7 @@ interface VirtualTableBodyContainerProps {
   rowCollapsedFlag?: boolean;
   dispatch: (e: { type: string; payload?: any }) => void;
   isGrouped: boolean;
-  isFirefox: boolean;
+  nativeScrollbar: boolean;
 }
 
 export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps) => {
@@ -41,7 +41,7 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
     popInRowHeight,
     rowCollapsedFlag,
     isGrouped,
-    isFirefox,
+    nativeScrollbar,
     dispatch,
   } = props;
   const [isMounted, setIsMounted] = useState(false);
@@ -119,7 +119,7 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
 
   return (
     <div
-      className={clsx(classes.tbody, isFirefox && classes.firefoxNativeScrollbar)}
+      className={clsx(classes.tbody, nativeScrollbar && classes.nativeScrollbar)}
       ref={parentRef}
       onScroll={onScroll}
       style={{

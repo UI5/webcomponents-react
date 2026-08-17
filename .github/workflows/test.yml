@@ -77,7 +77,7 @@ jobs:
       - name: Run Playwright tests
         run: yarn test:pw:ci
 
-      - uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
+      - uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2.3.8
         if: ${{ inputs.reportCoverage && matrix.react == '19' }}
         with:
           file: temp/playwright-coverage/lcov.info
@@ -127,14 +127,14 @@ jobs:
         run: npx cypress install
 
       - name: Cypress run
-        uses: cypress-io/github-action@fa4a118725a8f001170d49631ea89e5d66fee626 # v7.4.1
+        uses: cypress-io/github-action@c32f12761482a282d24ca0fd7466d8ae86f54ba8 # v7.4.2
         with:
           browser: chrome
           component: true
           spec: packages/${{ matrix.spec }}
           install: false
 
-      - uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
+      - uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2.3.8
         if: ${{ inputs.reportCoverage && matrix.react == '19' }}
         with:
           file: temp/cypress-coverage/lcov.info
@@ -149,7 +149,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Coveralls
-        uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
+        uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2.3.8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
