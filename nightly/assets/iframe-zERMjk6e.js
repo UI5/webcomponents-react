@@ -1,0 +1,1 @@
+import{t as e}from"./iframe-BSJs_UD6.js";e();
