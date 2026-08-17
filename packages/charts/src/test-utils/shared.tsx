@@ -1,4 +1,4 @@
-import { expect } from '@playwright/experimental-ct-react';
+import { expect } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
 export async function assertPassThroughProps(page: Page) {

@@ -40,27 +40,25 @@ export const SplitterMoveResetTestComp = ({
   );
 };
 
-export const SplitterMultipleElementsTestComp = ({
-  vertical,
-  onBtnClick,
-}: {
-  vertical: boolean;
-  onBtnClick?: () => void;
-}) => {
+export const SplitterMultipleElementsTestComp = ({ vertical }: { vertical: boolean }) => {
+  const [clickCount, setClickCount] = useState(0);
   return (
-    <SplitterLayout vertical={vertical} style={{ width: '800px', height: '800px' }} data-testid="sl">
-      <SplitterElement size="200px" data-testid="se1">
-        <Button data-testid="btn" onClick={onBtnClick}>
-          Button 1
-        </Button>
-      </SplitterElement>
-      <SplitterElement minSize={300} size={400} data-testid="se2">
-        <Button>Button 2</Button>
-      </SplitterElement>
-      <SplitterElement resizable={false} data-testid="se3">
-        <Button>Button 3</Button>
-      </SplitterElement>
-    </SplitterLayout>
+    <>
+      <SplitterLayout vertical={vertical} style={{ width: '800px', height: '800px' }} data-testid="sl">
+        <SplitterElement size="200px" data-testid="se1">
+          <Button data-testid="btn" onClick={() => setClickCount((c) => c + 1)}>
+            Button 1
+          </Button>
+        </SplitterElement>
+        <SplitterElement minSize={300} size={400} data-testid="se2">
+          <Button>Button 2</Button>
+        </SplitterElement>
+        <SplitterElement resizable={false} data-testid="se3">
+          <Button>Button 3</Button>
+        </SplitterElement>
+      </SplitterLayout>
+      <span data-testid="btn-click-count">{clickCount}</span>
+    </>
   );
 };
 
