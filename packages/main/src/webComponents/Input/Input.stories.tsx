@@ -2,8 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import InputType from '@ui5/webcomponents/dist/types/InputType.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import employeeIcon from '@ui5/webcomponents-icons/dist/employee.js';
+import searchIcon from '@ui5/webcomponents-icons/dist/search.js';
 import { useState } from 'react';
 import { Icon } from '../Icon/index.js';
+import { InputIcon } from '../InputIcon/index.js';
 import { SuggestionItem } from '../SuggestionItem/index.js';
 import { SuggestionItemGroup } from '../SuggestionItemGroup/index.js';
 import { Input } from './index.js';
@@ -72,5 +74,19 @@ export const WithSuggestionItem: Story = {
         </SuggestionItemGroup>
       </Input>
     );
+  },
+};
+
+export const WithInputIcon: Story = {
+  name: 'with InputIcon',
+  argTypes: {
+    icon: { control: { disable: true } },
+  },
+  args: {
+    placeholder: 'Search',
+    icon: <InputIcon name={searchIcon} accessibleName="Search" />,
+  },
+  render: (args) => {
+    return <Input {...args} />;
   },
 };

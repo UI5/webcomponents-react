@@ -8,5 +8,13 @@
       "path": "../main/tsconfig.build.json"
     }
   ],
-  "exclude": ["node_modules", "**/*.cy.ts", "**/*.cy.tsx", "**/*.stories.tsx"]
+  "exclude": [
+    "node_modules",
+    "**/*.cy.ts",
+    "**/*.cy.tsx",
+    "**/*.spec.tsx",
+    "**/*.stories.tsx",
+    "**/test",
+    "src/test-utils"
+  ]
 }

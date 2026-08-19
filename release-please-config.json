@@ -1,0 +1,23 @@
+{
+  "release-type": "node",
+  "bump-minor-pre-major": false,
+  "include-component-in-tag": false,
+  "pull-request-title-pattern": "chore: release ${version}",
+  "packages": {
+    ".": {
+      "package-name": "@ui5/webcomponents-react",
+      "extra-files": [
+        { "type": "json", "path": "/packages/main/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/base/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/charts/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/cli/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/compat/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/ai/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/cypress-commands/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/mcp-server/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/mcp-server/server.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "/packages/mcp-server/server.json", "jsonpath": "$.packages[0].version" }
+      ]
+    }
+  }
+}

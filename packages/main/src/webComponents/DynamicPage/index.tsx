@@ -1,11 +1,40 @@
 'use client';
 
 import '@ui5/webcomponents-fiori/dist/DynamicPage.js';
+import type { DynamicPageAccessibilityAttributes } from '@ui5/webcomponents-fiori/dist/DynamicPage.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
 
 interface DynamicPageAttributes {
+  /**
+   * Defines additional accessibility attributes on different areas of the component.
+   *
+   * The accessibilityAttributes object has the following fields,
+   * where each field is an object supporting one or more accessibility attributes:
+   *
+   *  - **root**: `root.role` and `root.name`.
+   *  - **header**: `header.role` and `header.name`.
+   *  - **content**: `content.role` and `content.name`.
+   *  - **footer**: `footer.role` and `footer.name`.
+   *
+   * The accessibility attributes support the following values:
+   *
+   * - **role**: Defines the accessible ARIA landmark role of the area.
+   * Accepts the following values per section:
+   * `root` — `none`, `main`, `region`;
+   * `header` — `none`, `banner`, `region`;
+   * `content` — `none`, `main`, `region`, `form`;
+   * `footer` — `none`, `contentinfo`, `region`.
+   *
+   * - **name**: Defines the accessible ARIA name of the area.
+   * Accepts any string.
+   *
+   * **Note:** Available since [v2.24.0](https://github.com/UI5/webcomponents/releases/tag/v2.24.0) of **@ui5/webcomponents-fiori**.
+   * @default {}
+   */
+  accessibilityAttributes?: DynamicPageAccessibilityAttributes;
+
   /**
    * Defines if the header is pinned.
    * @default false
@@ -163,7 +192,7 @@ interface DynamicPagePropTypes
  */
 const DynamicPage = withWebComponent<DynamicPagePropTypes, DynamicPageDomRef>(
   'ui5-dynamic-page',
-  [],
+  ['accessibilityAttributes'],
   ['headerPinned', 'headerSnapped', 'hidePinButton', 'showFooter'],
   ['footerArea', 'headerArea', 'titleArea'],
   ['pin-button-toggle', 'title-toggle'],

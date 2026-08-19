@@ -2,7 +2,9 @@
 
 import '@ui5/webcomponents/dist/ListItemCustom.js';
 import type { ListItemAccessibilityAttributes } from '@ui5/webcomponents/dist/ListItem.js';
+import type { ListItemBaseClickEventDetail } from '@ui5/webcomponents/dist/ListItemBase.js';
 import type Highlight from '@ui5/webcomponents/dist/types/Highlight.js';
+import type ListItemAccessibleRole from '@ui5/webcomponents/dist/types/ListItemAccessibleRole.js';
 import type ListItemType from '@ui5/webcomponents/dist/types/ListItemType.js';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
@@ -31,6 +33,18 @@ interface ListItemCustomAttributes {
    * @default undefined
    */
   accessibleName?: string | undefined;
+
+  /**
+   * Used to define the role of the list item.
+   *
+   * **Note:** If not set, the role is automatically inherited from the parent `List` based on its `accessible-role` property
+   * (e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).
+   * An explicitly set `accessible-role` on the list item takes precedence over the inherited role.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleRole?: ListItemAccessibleRole | undefined | keyof typeof ListItemAccessibleRole;
 
   /**
    * Defines the highlight state of the list items.
@@ -88,7 +102,7 @@ interface ListItemCustomDomRef extends Required<ListItemCustomAttributes>, Ui5Do
 interface ListItemCustomPropTypes
   extends
     ListItemCustomAttributes,
-    Omit<CommonProps, keyof ListItemCustomAttributes | 'children' | 'deleteButton' | 'onDetailClick'> {
+    Omit<CommonProps, keyof ListItemCustomAttributes | 'children' | 'deleteButton' | 'onClick' | 'onDetailClick'> {
   /**
    * Defines the content of the component.
    *
@@ -114,6 +128,19 @@ interface ListItemCustomPropTypes
    */
   deleteButton?: UI5WCSlotsNode;
   /**
+   * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** The event will not be fired if the `disabled` property is set to `true`.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<ListItemCustomDomRef, ListItemBaseClickEventDetail>) => void;
+
+  /**
    * Fired when the user clicks on the detail button when type is `Detail`.
    *
    * | cancelable | bubbles |
@@ -133,10 +160,10 @@ interface ListItemCustomPropTypes
  */
 const ListItemCustom = withWebComponent<ListItemCustomPropTypes, ListItemCustomDomRef>(
   'ui5-li-custom',
-  ['accessibilityAttributes', 'accessibleName', 'highlight', 'tooltip', 'type'],
+  ['accessibilityAttributes', 'accessibleName', 'accessibleRole', 'highlight', 'tooltip', 'type'],
   ['movable', 'navigated', 'selected'],
   ['deleteButton'],
-  ['detail-click'],
+  ['click', 'detail-click'],
 );
 
 ListItemCustom.displayName = 'ListItemCustom';

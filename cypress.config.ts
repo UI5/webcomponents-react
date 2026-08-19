@@ -2,23 +2,6 @@ import codeCoverageTask from '@cypress/code-coverage/task';
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
-  env: {
-    codeCoverage: {
-      exclude: [
-        'cypress/**',
-        '**/src/interfaces/*',
-        '**/src/enums/*',
-        '**/*.stories.tsx',
-        '**/*.test.{ts,tsx}',
-        '**/node_modules/**',
-        '**/dist/**',
-        'packages/*/src/index.ts',
-        'packages/main/src/components/AnalyticalTable/types/*',
-        'packages/main/src/webComponents/**',
-        'packages/charts/src/resources/**',
-      ],
-    },
-  },
   component: {
     setupNodeEvents(on, config) {
       codeCoverageTask(on, config);
@@ -29,7 +12,7 @@ export default defineConfig({
       bundler: 'vite',
     },
     experimentalRunAllSpecs: true,
-    excludeSpecPattern: ['**/e2e/**', ...(process.env.CI ? ['**/SelectDialog/**'] : [])],
+    excludeSpecPattern: ['**/e2e/**'],
   },
   includeShadowDom: true,
   viewportWidth: 1920,

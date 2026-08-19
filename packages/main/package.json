@@ -1,6 +1,6 @@
 {
   "name": "@ui5/webcomponents-react",
-  "version": "2.22.1",
+  "version": "2.25.1",
   "description": "React Wrapper for UI5 Web Components and additional components",
   "type": "module",
   "main": "dist/index.js",
@@ -243,6 +243,10 @@
       "types": "./dist/webComponents/ComboBoxItem/index.d.ts",
       "default": "./dist/webComponents/ComboBoxItem/index.js"
     },
+    "./ComboBoxItemCustom": {
+      "types": "./dist/webComponents/ComboBoxItemCustom/index.d.ts",
+      "default": "./dist/webComponents/ComboBoxItemCustom/index.js"
+    },
     "./ComboBoxItemGroup": {
       "types": "./dist/webComponents/ComboBoxItemGroup/index.d.ts",
       "default": "./dist/webComponents/ComboBoxItemGroup/index.js"
@@ -319,6 +323,10 @@
       "types": "./dist/webComponents/GroupItem/index.d.ts",
       "default": "./dist/webComponents/GroupItem/index.js"
     },
+    "./HeroBanner": {
+      "types": "./dist/webComponents/HeroBanner/index.d.ts",
+      "default": "./dist/webComponents/HeroBanner/index.js"
+    },
     "./Icon": {
       "types": "./dist/webComponents/Icon/index.d.ts",
       "default": "./dist/webComponents/Icon/index.js"
@@ -330,6 +338,10 @@
     "./Input": {
       "types": "./dist/webComponents/Input/index.d.ts",
       "default": "./dist/webComponents/Input/index.js"
+    },
+    "./InputIcon": {
+      "types": "./dist/webComponents/InputIcon/index.d.ts",
+      "default": "./dist/webComponents/InputIcon/index.js"
     },
     "./Label": {
       "types": "./dist/webComponents/Label/index.d.ts",
@@ -390,6 +402,10 @@
     "./MultiComboBoxItem": {
       "types": "./dist/webComponents/MultiComboBoxItem/index.d.ts",
       "default": "./dist/webComponents/MultiComboBoxItem/index.js"
+    },
+    "./MultiComboBoxItemCustom": {
+      "types": "./dist/webComponents/MultiComboBoxItemCustom/index.d.ts",
+      "default": "./dist/webComponents/MultiComboBoxItemCustom/index.js"
     },
     "./MultiComboBoxItemGroup": {
       "types": "./dist/webComponents/MultiComboBoxItemGroup/index.d.ts",
@@ -590,6 +606,10 @@
     "./TableCell": {
       "types": "./dist/webComponents/TableCell/index.d.ts",
       "default": "./dist/webComponents/TableCell/index.js"
+    },
+    "./TableGroupRow": {
+      "types": "./dist/webComponents/TableGroupRow/index.d.ts",
+      "default": "./dist/webComponents/TableGroupRow/index.js"
     },
     "./TableGrowing": {
       "types": "./dist/webComponents/TableGrowing/index.d.ts",
@@ -816,17 +836,17 @@
     "watch:css": "yarn build:css --watch"
   },
   "dependencies": {
-    "@tanstack/react-virtual": "3.13.24",
+    "@tanstack/react-virtual": "3.14.9",
     "@ui5/webcomponents-react-base": "workspace:~",
     "clsx": "2.1.1"
   },
   "peerDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@ui5/webcomponents": "~2.22.0",
-    "@ui5/webcomponents-base": "~2.22.0",
-    "@ui5/webcomponents-fiori": "~2.22.0",
-    "@ui5/webcomponents-icons": "~2.22.0",
+    "@ui5/webcomponents": "~2.25.0",
+    "@ui5/webcomponents-base": "~2.25.0",
+    "@ui5/webcomponents-fiori": "~2.25.0",
+    "@ui5/webcomponents-icons": "~2.25.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
   },

@@ -2,11 +2,13 @@
 
 import '@ui5/webcomponents-fiori/dist/UploadCollectionItem.js';
 import type { ListItemAccessibilityAttributes } from '@ui5/webcomponents/dist/ListItem.js';
+import type { ListItemBaseClickEventDetail } from '@ui5/webcomponents/dist/ListItemBase.js';
 import type Highlight from '@ui5/webcomponents/dist/types/Highlight.js';
+import type ListItemAccessibleRole from '@ui5/webcomponents/dist/types/ListItemAccessibleRole.js';
 import type ListItemType from '@ui5/webcomponents/dist/types/ListItemType.js';
 import type UploadState from '@ui5/webcomponents-fiori/dist/types/UploadState.js';
-import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
+import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
 
 interface UploadCollectionItemAttributes {
@@ -24,6 +26,18 @@ interface UploadCollectionItemAttributes {
    * @default {}
    */
   accessibilityAttributes?: ListItemAccessibilityAttributes;
+
+  /**
+   * Used to define the role of the list item.
+   *
+   * **Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property
+   * (e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).
+   * An explicitly set `accessible-role` on the list item takes precedence over the inherited role.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents-fiori**.
+   * @default undefined
+   */
+  accessibleRole?: ListItemAccessibleRole | undefined | keyof typeof ListItemAccessibleRole;
 
   /**
    * Disables the delete button.
@@ -141,6 +155,7 @@ interface UploadCollectionItemPropTypes
       | 'children'
       | 'deleteButton'
       | 'thumbnail'
+      | 'onClick'
       | 'onDetailClick'
       | 'onFileNameClick'
       | 'onRename'
@@ -186,6 +201,19 @@ interface UploadCollectionItemPropTypes
    * __Supported Node Type/s:__ `Array<HTMLElement>`
    */
   thumbnail?: UI5WCSlotsNode;
+  /**
+   * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** The event will not be fired if the `disabled` property is set to `true`.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents-fiori**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<UploadCollectionItemDomRef, ListItemBaseClickEventDetail>) => void;
+
   /**
    * Fired when the user clicks on the detail button when type is `Detail`.
    *
@@ -250,7 +278,17 @@ interface UploadCollectionItemPropTypes
  */
 const UploadCollectionItem = withWebComponent<UploadCollectionItemPropTypes, UploadCollectionItemDomRef>(
   'ui5-upload-collection-item',
-  ['accessibilityAttributes', 'file', 'fileName', 'highlight', 'progress', 'tooltip', 'type', 'uploadState'],
+  [
+    'accessibilityAttributes',
+    'accessibleRole',
+    'file',
+    'fileName',
+    'highlight',
+    'progress',
+    'tooltip',
+    'type',
+    'uploadState',
+  ],
   [
     'disableDeleteButton',
     'fileNameClickable',
@@ -261,7 +299,7 @@ const UploadCollectionItem = withWebComponent<UploadCollectionItemPropTypes, Upl
     'selected',
   ],
   ['deleteButton', 'thumbnail'],
-  ['detail-click', 'file-name-click', 'rename', 'retry', 'terminate'],
+  ['click', 'detail-click', 'file-name-click', 'rename', 'retry', 'terminate'],
 );
 
 UploadCollectionItem.displayName = 'UploadCollectionItem';

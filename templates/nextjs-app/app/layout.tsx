@@ -1,4 +1,4 @@
-import './clientAssetsImport.ts';
+import './clientAssetsImport';
 import '@ui5/webcomponents-react/styles.css';
 import './globals.css';
 import { ThemeProvider } from '@ui5/webcomponents-react';

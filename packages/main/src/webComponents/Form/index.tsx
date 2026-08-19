@@ -117,6 +117,9 @@ interface FormPropTypes extends FormAttributes, Omit<CommonProps, keyof FormAttr
    * **Note:** Mixing FormGroups and standalone FormItems (not belonging to a group) is not supported.
    * Either use FormGroups and make sure all FormItems are part of a FormGroup, or use just FormItems without any FormGroups.
    *
+   * **Note:** As of version 2.23.0 the support for standalone FormItems (not belonging to a group) is deprecated.
+   * We recommend using FormGroups, as they provide better accessibility and layout options.
+   *
    * __Supported Node Type/s:__ `Array<IFormItem>`
    */
   children?: ReactNode | ReactNode[];
@@ -162,10 +165,10 @@ interface FormPropTypes extends FormAttributes, Omit<CommonProps, keyof FormAttr
  *
  * The Form component reacts and changes its layout on predefined breakpoints.
  * Depending on its size, the Form content (FormGroups and FormItems) gets divided into one or more columns as follows:
- * - **S** (< 600px) – 1 column is recommended (default: 1)
- * - **M** (600px - 1022px) – up to 2 columns are recommended (default: 1)
- * - **L** (1023px - 1439px) - up to 3 columns are recommended (default: 2)
- * - **XL** (> 1439px) – up to 6 columns are recommended (default: 3)
+ * - **S** (0 - 599px) – 1 column is recommended (default: 1)
+ * - **M** (600px - 1023px) – up to 2 columns are recommended (default: 1)
+ * - **L** (1024px - 1439px) - up to 3 columns are recommended (default: 2)
+ * - **XL** (>= 1440px) – up to 6 columns are recommended (default: 3)
  *
  * To change the layout, use the `layout` property - f.e. layout="S1 M2 L3 XL6".
  *
@@ -226,23 +229,7 @@ interface FormPropTypes extends FormAttributes, Omit<CommonProps, keyof FormAttr
  *
  * ### Navigation flow
  *
- * The Form component supports two layout options for keyboard navigation:
- *
- * #### Simple form
- *
- * In this "simple form" layout, each `FormItem` acts as a standalone group
- * with one item, so focus moves horizontally across the grid from one `FormItem` to the next.
- * This layout is ideal for simpler forms and supports custom arrangements, e.g.,
- *
- * ```
- * | 1 | 2 |
- * |   3   |
- * | 4 | 5 |
- * ```
- *
- * #### Complex form
- *
- * In this layout, items are grouped into `FormGroup` elements, allowing more complex configurations:
+ * Items are grouped into `FormGroup` elements, allowing the following navigation:
  *
  * - **Single-Column Group**: Focus moves vertically down from one item to the next.
  *   ```

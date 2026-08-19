@@ -15,6 +15,7 @@
   "platformAutomerge": true,
   "prHourlyLimit": 5,
   "addLabels": ["dependencies"],
+  "postUpdateOptions": ["yarnDedupeHighest"],
   "ignorePaths": [
     "**/node_modules/**",
     "**/bower_components/**",
@@ -37,10 +38,6 @@
       "minimumReleaseAge": null
     },
     {
-      "groupName": "vite & plugins",
-      "matchPackageNames": ["/vite/", "!@storybook/react-vite"]
-    },
-    {
       "extends": ["schedule:weekly"],
       "groupName": "storybook monorepo",
       "matchSourceUrls": ["https://github.com/storybookjs/storybook"],
@@ -59,10 +56,28 @@
         "!react-dom",
         "!storybook",
         "!rimraf",
+        "!chromatic",
+        "!cypress",
+        "!cypress-real-events",
+        "!@testing-library/cypress",
         "!@joshwooding/vite-plugin-react-docgen-typescript",
         "!/^@storybook//",
         "!/^@ui5//"
       ]
+    },
+    {
+      "description": "Chromatic CLI and GitHub Action",
+      "extends": ["schedule:weekly"],
+      "groupName": "Chromatic",
+      "semanticCommitType": "chore",
+      "matchPackageNames": ["chromatic", "chromaui/action"]
+    },
+    {
+      "description": "Cypress ecosystem",
+      "extends": ["schedule:weekly"],
+      "groupName": "Cypress",
+      "semanticCommitType": "chore",
+      "matchPackageNames": ["cypress", "cypress-real-events", "@testing-library/cypress", "cypress-io/github-action"]
     },
     {
       "description": "Example,Template & Pattern dependencies",
@@ -72,7 +87,7 @@
       "groupName": "all non-major dependencies (examples, templates & patterns)",
       "groupSlug": "examples-all-minor-patch",
       "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["*", "!/^@ui5//"]
+      "matchPackageNames": ["!/^@ui5//"]
     },
     {
       "description": "UI5 Web Components (for React) in all examples, templates & patterns",
@@ -97,13 +112,16 @@
     },
     {
       "description": "MCP server dependencies",
+      "extends": ["schedule:weekly"],
+      "groupName": "MCP server dependencies",
       "matchFileNames": ["packages/mcp-server/**"],
       "semanticCommitType": "chore"
     },
     {
       "groupName": "Typescript",
       "description": "Typescript dependency update",
-      "matchPackageNames": ["typescript"]
+      "matchPackageNames": ["typescript"],
+      "semanticCommitType": "chore"
     }
   ]
 }

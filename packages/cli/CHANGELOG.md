@@ -1,7 +1,15 @@
 # Change Log
 
+> **This file is preserved as a historical archive up to v2.22.2.** From v2.22.3 onwards, all release notes are aggregated in the [project-root `CHANGELOG.md`](../../CHANGELOG.md) and on the [GitHub Releases page](https://github.com/UI5/webcomponents-react/releases).
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.22.2](https://github.com/UI5/webcomponents-react/compare/v2.22.1...v2.22.2) (2026-05-28)
+
+### Bug Fixes
+
+- **cli:** remove deprecated `patch-compat-table` command ([#8638](https://github.com/UI5/webcomponents-react/issues/8638)) ([4218131](https://github.com/UI5/webcomponents-react/commit/4218131745476cd6ba88525f882c7e79a4bf08ca))
 
 ## [2.22.1](https://github.com/UI5/webcomponents-react/compare/v2.22.0...v2.22.1) (2026-05-19)
 

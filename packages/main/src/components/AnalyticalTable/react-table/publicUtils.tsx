@@ -27,7 +27,7 @@ function mergeProps(...propList: Record<string, any>[]): Record<string, any> {
     };
 
     if (style) {
-      props.style = props.style ? { ...(props.style || {}), ...(style || {}) } : style;
+      props.style = props.style ? { ...props.style, ...style } : style;
     }
 
     if (className) {

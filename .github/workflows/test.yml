@@ -18,9 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
@@ -46,15 +46,19 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
 
       - name: Install
         run: yarn install --immutable
+
+      - name: Override react-is for charts
+        if: ${{ matrix.react == '18' }}
+        run: jq '.resolutions["react-is"] = "18"' package.json > tmp.json && mv tmp.json package.json
 
       - name: Install React 18
         if: ${{ matrix.react == '18' }}
@@ -73,7 +77,7 @@ jobs:
       - name: Run Playwright tests
         run: yarn test:pw:ci
 
-      - uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
+      - uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2.3.8
         if: ${{ inputs.reportCoverage && matrix.react == '19' }}
         with:
           file: temp/playwright-coverage/lcov.info
@@ -88,7 +92,6 @@ jobs:
       matrix:
         spec:
           - base
-          - charts
           - cypress-commands
           - main/src/components
           - main/src/webComponents
@@ -98,19 +101,15 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
 
       - name: Install
         run: yarn install --immutable
-
-      - name: Override react-is for charts
-        if: ${{ matrix.react == '18' && matrix.spec == 'charts' }}
-        run: jq '.resolutions["react-is"] = "18"' package.json > tmp.json && mv tmp.json package.json
 
       - name: Install 18
         if: ${{ matrix.react == '18' }}
@@ -128,14 +127,14 @@ jobs:
         run: npx cypress install
 
       - name: Cypress run
-        uses: cypress-io/github-action@dace029018fcdf86e0df89a31bc3cfa5b32570d8 # v7.3.0
+        uses: cypress-io/github-action@c32f12761482a282d24ca0fd7466d8ae86f54ba8 # v7.4.2
         with:
           browser: chrome
           component: true
           spec: packages/${{ matrix.spec }}
           install: false
 
-      - uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
+      - uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2.3.8
         if: ${{ inputs.reportCoverage && matrix.react == '19' }}
         with:
           file: temp/cypress-coverage/lcov.info
@@ -150,8 +149,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Coveralls
-        uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
+        uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2.3.8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
-          carryforward: 'base,charts,cypress-commands,main/src/components,main/src/internal,playwright'
+          carryforward: 'base,cypress-commands,main/src/components,main/src/internal,playwright'

@@ -288,7 +288,8 @@ export interface TableInstance {
 export interface WCRPropertiesType {
   canUseVoiceOver: boolean;
   fontsReady: boolean;
-  isFirefox: boolean;
+  nativeScrollbar: boolean;
+  scrollbarWidth: number;
   selectionMode: AnalyticalTablePropTypes['selectionMode'];
   onRowSelect?: AnalyticalTablePropTypes['onRowSelect'];
   a11yElementIds: {
@@ -297,6 +298,8 @@ export interface WCRPropertiesType {
     cellExpandDescId: string;
     cellCollapseDescId: string;
     cellEmptyDescId: string;
+    headerSelectAllDescId: string;
+    headerDeselectAllDescId: string;
   };
   translatableTexts: {
     selectAllText: string;
@@ -658,6 +661,14 @@ export interface AnalyticalTableColumnDefinition {
   autoResizable?: boolean;
   // ui5 web components react properties
   /**
+   * Defines a `className` that is applied to each body cell of the column.
+   */
+  className?: string;
+  /**
+   * Defines a `className` that is applied to the header cell of the column.
+   */
+  classNameHeader?: string;
+  /**
    * Horizontal alignment of the cell.
    */
   hAlign?: TextAlign | keyof typeof TextAlign;
@@ -797,9 +808,21 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
   /**
    * Component or text rendered in the header section of the `AnalyticalTable`.
    *
-   * __Note:__ If not set, it will be hidden.
+   * __Note:__ If not set, the header section is not rendered. When set, its text is automatically used as the table's accessible name. To provide a different accessible name, use `accessibleName` or `accessibleNameRef` instead.
    */
   header?: ReactNode;
+  /**
+   * Defines the accessible name of the table.
+   *
+   * __Note:__ If set, the `aria-labelledby` derived from the `header` prop will not be applied to the table grid.
+   */
+  accessibleName?: string;
+  /**
+   * Defines the IDs of the elements that label the table.
+   *
+   * __Note:__ If set, the `aria-labelledby` derived from the `header` prop will not be applied to the table grid.
+   */
+  accessibleNameRef?: string;
   /**
    * Extension section of the Table. If not set, no extension area will be rendered
    */
@@ -1188,12 +1211,13 @@ export interface AnalyticalTablePropTypes extends Omit<CommonProps, 'title'> {
    */
   onFilter?: (e: OnFilterParam) => void;
   /**
-   * Component that will be rendered when the table is not loading and has no data.
+   * Component that will be rendered when the table has no data.
    *
    * __Note:__
    * - Although this prop accepts all React components, it is strongly recommended that you use `IllustratedMessage` with `design="Auto"` to preserve the intended design.
    * - For `visibleRowCountMode`s "Auto" and "AutoWithEmptyRows", the `NoDataComponent` spreads to the available space below the header row, otherwise the `minRows` prop defines the minimum height of the table body.
    * - To prevent overflow, ensure the table body is at least **60 px** tall when displaying an `IllustratedMessage`.
+   * - While loading, it's only rendered if `alwaysShowBusyIndicator` is set. To hide the custom NoDataComponent during loading, guard it: `NoDataComponent={loading ? undefined : MyNoDataComponent}`.
    *
    * @default DefaultNoDataComponent
    */

@@ -7,6 +7,14 @@ import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-
 
 interface DynamicDateRangeAttributes {
   /**
+   * Receives id(or many ids) of the elements that label the component.
+   *
+   * **Note:** Available since [v2.25.0](https://github.com/UI5/webcomponents/releases/tag/v2.25.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleNameRef?: string | undefined;
+
+  /**
    * Defines the options listed as a string, separated by commas and using capital case.
    * Example: "TODAY, YESTERDAY, DATERANGE"
    */
@@ -84,7 +92,7 @@ interface DynamicDateRangePropTypes
  */
 const DynamicDateRange = withWebComponent<DynamicDateRangePropTypes, DynamicDateRangeDomRef>(
   'ui5-dynamic-date-range',
-  ['options', 'value'],
+  ['accessibleNameRef', 'options', 'value'],
   [],
   [],
   ['change'],

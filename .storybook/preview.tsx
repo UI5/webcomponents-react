@@ -26,12 +26,6 @@ const preview: Preview = {
     ref: {
       table: { disable: true },
     },
-    dataset: {
-      control: { disable: true },
-    },
-    ChartPlaceholder: {
-      control: { disable: true },
-    },
   },
   decorators: [
     (Story, { globals, viewMode }) => {
@@ -184,6 +178,14 @@ const preview: Preview = {
           argType.type = { name: 'boolean' };
         }
       });
+      if (context.tags?.includes('package:@ui5/webcomponents-react-charts')) {
+        if (argTypes.dataset) {
+          argTypes.dataset.control = { disable: true };
+        }
+        if (argTypes.ChartPlaceholder) {
+          argTypes.ChartPlaceholder.control = { disable: true };
+        }
+      }
       return argTypes;
     },
   ],

@@ -35,6 +35,11 @@
   }
 }
 
+.titleAndSubHeader {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .titleMainSection {
   overflow-x: hidden;
   flex: 1 1 auto;

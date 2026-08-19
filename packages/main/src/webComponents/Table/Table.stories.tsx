@@ -8,6 +8,7 @@ import { Label } from '../Label/index.js';
 import { SegmentedButton } from '../SegmentedButton/index.js';
 import { SegmentedButtonItem } from '../SegmentedButtonItem/index.js';
 import { TableCell } from '../TableCell/index.js';
+import { TableGroupRow } from '../TableGroupRow/index.js';
 import type { TableGrowingPropTypes } from '../TableGrowing/index.js';
 import { TableGrowing } from '../TableGrowing/index.js';
 import { TableHeaderCell } from '../TableHeaderCell/index.js';
@@ -397,6 +398,68 @@ export const dragAndDropRows: Story = {
             </TableCell>
           </TableRow>
         ))}
+      </Table>
+    );
+  },
+};
+
+export const withGroupRows: Story = {
+  render: (args) => {
+    return (
+      <Table {...args} headerRow={popInColumns}>
+        <TableGroupRow>Supplier: Very Best Screens</TableGroupRow>
+        <TableRow rowKey={'0'}>
+          <TableCell>
+            <span>Notebook Basic</span>
+          </TableCell>
+          <TableCell>
+            <span>Very Best Screens</span>
+          </TableCell>
+          <TableCell>
+            <span>30 x 18 x 3cm</span>
+          </TableCell>
+          <TableCell>
+            <span>4.2KG</span>
+          </TableCell>
+          <TableCell>
+            <span>956EUR</span>
+          </TableCell>
+        </TableRow>
+        <TableRow rowKey={'1'}>
+          <TableCell>
+            <span>Notebook Basic 17HT-1001</span>
+          </TableCell>
+          <TableCell>
+            <span>Very Best Screens</span>
+          </TableCell>
+          <TableCell>
+            <span>29 x 17 x 3.1cm</span>
+          </TableCell>
+          <TableCell>
+            <span>4.5KG</span>
+          </TableCell>
+          <TableCell>
+            <span>1249EUR</span>
+          </TableCell>
+        </TableRow>
+        <TableGroupRow>Supplier: Smartcards</TableGroupRow>
+        <TableRow rowKey={'2'}>
+          <TableCell>
+            <span>ITelO Vault</span>
+          </TableCell>
+          <TableCell>
+            <span>Smartcards</span>
+          </TableCell>
+          <TableCell>
+            <span>32 x 21 x 4cm</span>
+          </TableCell>
+          <TableCell>
+            <span>5.1KG</span>
+          </TableCell>
+          <TableCell>
+            <span>299EUR</span>
+          </TableCell>
+        </TableRow>
       </Table>
     );
   },

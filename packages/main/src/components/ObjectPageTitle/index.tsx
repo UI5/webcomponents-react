@@ -158,15 +158,25 @@ const ObjectPageTitle = forwardRef<HTMLDivElement, ObjectPageTitlePropTypes>((pr
             className={classNames.middleSection}
             data-component-name="ObjectPageTitleMiddleSection"
           >
-            <FlexBox className={classNames.titleMainSection} onClick={onHeaderClick}>
-              {_header && (
-                <div className={classNames.title} data-component-name="ObjectPageTitleHeader">
-                  {_header}
-                </div>
-              )}
-              {children && (
-                <div className={classNames.content} data-component-name="ObjectPageTitleContent">
-                  {children}
+            <FlexBox direction={FlexBoxDirection.Column} className={classNames.titleAndSubHeader}>
+              <FlexBox className={classNames.titleMainSection} onClick={onHeaderClick}>
+                {_header && (
+                  <div className={classNames.title} data-component-name="ObjectPageTitleHeader">
+                    {_header}
+                  </div>
+                )}
+                {children && (
+                  <div className={classNames.content} data-component-name="ObjectPageTitleContent">
+                    {children}
+                  </div>
+                )}
+              </FlexBox>
+              {_subHeader && (
+                <div
+                  className={clsx(classNames.subTitle, classNames.subTitleBottom)}
+                  data-component-name="ObjectPageTitleSubHeader"
+                >
+                  {_subHeader}
                 </div>
               )}
             </FlexBox>
@@ -184,16 +194,6 @@ const ObjectPageTitle = forwardRef<HTMLDivElement, ObjectPageTitlePropTypes>((pr
               </div>
             )}
           </FlexBox>
-          {_subHeader && (
-            <FlexBox id="sub">
-              <div
-                className={clsx(classNames.subTitle, classNames.subTitleBottom)}
-                data-component-name="ObjectPageTitleSubHeader"
-              >
-                {_subHeader}
-              </div>
-            </FlexBox>
-          )}
         </FlexBox>
       </FlexBox>
       {props?.['data-header-content-visible'] ? expandedContent : snappedContent}

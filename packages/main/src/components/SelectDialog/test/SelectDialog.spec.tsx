@@ -1,19 +1,8 @@
-import { expect } from '@playwright/experimental-ct-react';
-import { test } from '../../../../../../playwright/fixtures/main-fixtures.js';
-import {
-  SelectDialogBasicTestComp,
-  SelectDialogHeaderTestComp,
-  SelectDialogSelectionWithToggleTestComp,
-  SelectDialogSearchTestComp,
-  SelectDialogConfirmButtonTextTestComp,
-  SelectDialogNumberOfSelectedItemsTestComp,
-  SelectDialogCancelWithToggleTestComp,
-  SelectDialogConfirmButtonPropsTestComp,
-} from './SelectDialogTestComponents.js';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 
 test.describe('SelectDialog', () => {
   test('Basic', async ({ mount, page }) => {
-    await mount(<SelectDialogBasicTestComp />);
+    await mount('SelectDialog/SelectDialogBasicTestComp');
     await expect(page.locator('[ui5-dialog]')).toBeVisible();
     await expect(page.locator('[ui5-input][placeholder="Search"]')).toBeVisible();
     await page.getByText('Cancel').click();
@@ -21,7 +10,7 @@ test.describe('SelectDialog', () => {
   });
 
   test('with headerText', async ({ mount, page, ui5wc }) => {
-    await mount(<SelectDialogHeaderTestComp />);
+    await mount('SelectDialog/SelectDialogHeaderTestComp');
     const header = page.getByText('Select Dialog');
     await expect(header).toHaveCSS('grid-column-start', 'titleStart');
     await expect(header).toHaveCSS('grid-column-end', 'titleCenter');
@@ -40,7 +29,7 @@ test.describe('SelectDialog', () => {
   });
 
   test('selection', async ({ mount, page, ui5wc }) => {
-    await mount(<SelectDialogSelectionWithToggleTestComp />);
+    await mount('SelectDialog/SelectDialogSelectionWithToggleTestComp');
     const list = page.locator('[ui5-list]');
 
     // Single mode - no rememberSelections
@@ -125,10 +114,12 @@ test.describe('SelectDialog', () => {
   });
 
   test('Search', async ({ mount, page, ui5wc }) => {
-    await mount(<SelectDialogSearchTestComp />);
+    await mount('SelectDialog/SelectDialogSearchTestComp');
     await expect(page.locator('[accessible-name="Reset"][ui5-icon]')).not.toBeVisible();
 
     const input = page.locator('[ui5-input]');
+    await expect(input).toHaveAttribute('placeholder', 'Search');
+    await expect(input).toHaveAttribute('accessible-name', 'Search');
     await ui5wc.typeIntoInput(input, 'Test');
     await expect(page.getByTestId('input-val')).toHaveText('input: Test');
     await expect(page.getByTestId('search-count')).toHaveText('0');
@@ -152,10 +143,16 @@ test.describe('SelectDialog', () => {
     await expect(page.getByTestId('input-count')).toHaveText('2');
     await expect(page.getByTestId('reset-count')).toHaveText('1');
     await expect(page.locator('[accessible-name="Reset"][ui5-icon]')).not.toBeVisible();
+
+    await ui5wc.closePopupWithEsc();
+    await page.getByTestId('set-placeholder').click();
+    await page.getByTestId('open-btn').click();
+    await expect(input).toHaveAttribute('placeholder', 'Hello');
+    await expect(input).toHaveAttribute('accessible-name', 'Hello');
   });
 
   test('confirmButtonText', async ({ mount, page }) => {
-    await mount(<SelectDialogConfirmButtonTextTestComp />);
+    await mount('SelectDialog/SelectDialogConfirmButtonTextTestComp');
     await expect(page.locator('[ui5-dialog]')).toBeVisible();
     await page.getByText('Exterminate').click();
     await expect(page.getByTestId('confirm-count')).toHaveText('1');
@@ -163,12 +160,12 @@ test.describe('SelectDialog', () => {
   });
 
   test('numberOfSelectedItems', async ({ mount, page }) => {
-    await mount(<SelectDialogNumberOfSelectedItemsTestComp />);
+    await mount('SelectDialog/SelectDialogNumberOfSelectedItemsTestComp');
     await expect(page.getByText('Selected: 1337')).toBeVisible();
   });
 
   test('onCancel', async ({ mount, page, ui5wc }) => {
-    await mount(<SelectDialogCancelWithToggleTestComp />);
+    await mount('SelectDialog/SelectDialogCancelWithToggleTestComp');
 
     // Single mode
     await page.getByTestId('open-btn').click();
@@ -193,7 +190,7 @@ test.describe('SelectDialog', () => {
   });
 
   test('confirmButtonProps', async ({ mount, page }) => {
-    await mount(<SelectDialogConfirmButtonPropsTestComp />);
+    await mount('SelectDialog/SelectDialogConfirmButtonPropsTestComp');
     const btn = page.getByTestId('confirmBtn');
     await expect(btn).toBeVisible();
     await expect(btn).toHaveAttribute('disabled');

@@ -1,3 +1,4 @@
+import { cssVarToRgb, cypressPassThroughTestsFactory, mountWithCustomTagName } from '@/cypress/support/utils';
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import PopupAccessibleRole from '@ui5/webcomponents/dist/types/PopupAccessibleRole.js';
 import { setTheme } from '@ui5/webcomponents-base/dist/config/Theme.js';
@@ -17,7 +18,6 @@ import { ToolbarSeparator } from '../ToolbarSeparator/index.js';
 import { ToolbarSpacer } from '../ToolbarSpacer/index.js';
 import type { ToolbarPropTypes } from './index.js';
 import { Toolbar } from './index.js';
-import { cssVarToRgb, cypressPassThroughTestsFactory, mountWithCustomTagName } from '@/cypress/support/utils';
 
 interface PropTypes {
   onOverflowChange: (event: {

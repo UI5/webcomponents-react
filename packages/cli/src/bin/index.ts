@@ -1,9 +1,7 @@
 #!/usr/bin/env node
-import { relative, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import * as process from 'process';
-import { $ } from 'execa';
 
 const { positionals } = parseArgs({ allowPositionals: true, strict: false });
 
@@ -123,21 +121,6 @@ switch (command) {
     break;
   }
 
-  case 'patch-compat-table': {
-    const patchesPath = relative(process.cwd(), fileURLToPath(new URL('../../patches', import.meta.url)));
-    console.warn(
-      'This command is deprecated and will be removed in the future. Please apply scoping to the "compat" table and its subcomponents manually: https://ui5.github.io/webcomponents-react/v2/?path=/docs/legacy-components-docs--docs#using-the-compat-v1-table-together-with-the-v2-table-in-one-application',
-    );
-    try {
-      await $`patch-package --patch-dir ${patchesPath}`;
-      console.log('Patches applied successfully!');
-    } catch (error) {
-      console.error('Failed to apply patches:', error);
-      process.exit(1);
-    }
-
-    break;
-  }
   default:
     console.warn('Unknown command', command);
     process.exit(1);

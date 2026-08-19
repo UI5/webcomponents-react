@@ -2,7 +2,9 @@
 
 import '@ui5/webcomponents-fiori/dist/UserSettingsAppearanceViewItem.js';
 import type { ListItemAccessibilityAttributes } from '@ui5/webcomponents/dist/ListItem.js';
+import type { ListItemBaseClickEventDetail } from '@ui5/webcomponents/dist/ListItemBase.js';
 import type Highlight from '@ui5/webcomponents/dist/types/Highlight.js';
+import type ListItemAccessibleRole from '@ui5/webcomponents/dist/types/ListItemAccessibleRole.js';
 import type ListItemType from '@ui5/webcomponents/dist/types/ListItemType.js';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
@@ -31,6 +33,18 @@ interface UserSettingsAppearanceViewItemAttributes {
    * @default undefined
    */
   accessibleName?: string | undefined;
+
+  /**
+   * Used to define the role of the list item.
+   *
+   * **Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property
+   * (e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).
+   * An explicitly set `accessible-role` on the list item takes precedence over the inherited role.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents-fiori**.
+   * @default undefined
+   */
+  accessibleRole?: ListItemAccessibleRole | undefined | keyof typeof ListItemAccessibleRole;
 
   /**
    * Defines the color scheme of the avatar.
@@ -110,7 +124,10 @@ interface UserSettingsAppearanceViewItemDomRef extends Required<UserSettingsAppe
 interface UserSettingsAppearanceViewItemPropTypes
   extends
     UserSettingsAppearanceViewItemAttributes,
-    Omit<CommonProps, keyof UserSettingsAppearanceViewItemAttributes | 'children' | 'deleteButton' | 'onDetailClick'> {
+    Omit<
+      CommonProps,
+      keyof UserSettingsAppearanceViewItemAttributes | 'children' | 'deleteButton' | 'onClick' | 'onDetailClick'
+    > {
   /**
    * Defines the content of the component.
    *
@@ -135,6 +152,19 @@ interface UserSettingsAppearanceViewItemPropTypes
    * __Supported Node Type/s:__ `Array<IButton>`
    */
   deleteButton?: UI5WCSlotsNode;
+  /**
+   * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
+   *
+   * **Note:** The event will not be fired if the `disabled` property is set to `true`.
+   *
+   * **Note:** Available since [v2.23.0](https://github.com/UI5/webcomponents/releases/tag/v2.23.0) of **@ui5/webcomponents-fiori**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|✅|
+   */
+  onClick?: (event: Ui5CustomEvent<UserSettingsAppearanceViewItemDomRef, ListItemBaseClickEventDetail>) => void;
+
   /**
    * Fired when the user clicks on the detail button when type is `Detail`.
    *
@@ -165,6 +195,7 @@ const UserSettingsAppearanceViewItem = withWebComponent<
   [
     'accessibilityAttributes',
     'accessibleName',
+    'accessibleRole',
     'colorScheme',
     'highlight',
     'icon',
@@ -175,7 +206,7 @@ const UserSettingsAppearanceViewItem = withWebComponent<
   ],
   ['movable', 'navigated', 'selected'],
   ['deleteButton'],
-  ['detail-click'],
+  ['click', 'detail-click'],
 );
 
 UserSettingsAppearanceViewItem.displayName = 'UserSettingsAppearanceViewItem';

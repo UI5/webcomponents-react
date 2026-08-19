@@ -18,8 +18,13 @@ interface DynamicSideContentAttributes {
    *
    * The accessibilityAttributes object has the following fields:
    *
-   *  - **mainContent**: `mainContent.ariaLabel` defines the aria-label of the main content area. Accepts any string.
-   *  - **sideContent**: `sideContent.ariaLabel` defines the aria-label of the side content area. Accepts any string.
+   * - **mainContent**:
+   *   - **ariaLabel**: defines the aria-label of the main content area. Accepts any string.
+   *   - **role**: defines the role of the main content area. When not set, defaults to `"main"`. Set to `undefined` to remove the role attribute.
+   *
+   * - **sideContent**:
+   *   - **ariaLabel**: defines the aria-label of the side content area. Accepts any string.
+   *   - **role**: defines the role of the side content area. When not set, defaults to `"complementary"`. Set to `undefined` to remove the role attribute.
    *
    * **Note:** Available since [v2.6.0](https://github.com/UI5/webcomponents/releases/tag/v2.6.0) of **@ui5/webcomponents-fiori**.
    * @default {}

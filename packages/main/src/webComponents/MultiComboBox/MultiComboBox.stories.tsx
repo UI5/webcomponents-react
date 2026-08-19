@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
+import { FlexBox } from '../../components/FlexBox/index.js';
+import { FlexBoxJustifyContent } from '../../enums/index.js';
+import { Label } from '../Label/index.js';
 import { MultiComboBoxItem } from '../MultiComboBoxItem/index.js';
+import { MultiComboBoxItemCustom } from '../MultiComboBoxItemCustom/index.js';
 import { MultiComboBoxItemGroup } from '../MultiComboBoxItemGroup/index.js';
 import { MultiComboBox } from './index.js';
 
@@ -30,6 +34,34 @@ export const Default: Story = {
         <MultiComboBoxItem text="Item 3" />
         <MultiComboBoxItem text="Item 4" />
         <MultiComboBoxItem text="Item 5" />
+      </MultiComboBox>
+    );
+  },
+};
+
+export const WithCustomItems: Story = {
+  name: 'MultiComboBoxItemCustom',
+  render: (args) => {
+    return (
+      <MultiComboBox {...args}>
+        <MultiComboBoxItemCustom text="Austria">
+          <FlexBox justifyContent={FlexBoxJustifyContent.SpaceBetween} style={{ width: '100%' }}>
+            <Label>Austria</Label>
+            <Label>AT</Label>
+          </FlexBox>
+        </MultiComboBoxItemCustom>
+        <MultiComboBoxItemCustom text="Germany">
+          <FlexBox justifyContent={FlexBoxJustifyContent.SpaceBetween} style={{ width: '100%' }}>
+            <Label>Germany</Label>
+            <Label>DE</Label>
+          </FlexBox>
+        </MultiComboBoxItemCustom>
+        <MultiComboBoxItemCustom text="Switzerland">
+          <FlexBox justifyContent={FlexBoxJustifyContent.SpaceBetween} style={{ width: '100%' }}>
+            <Label>Switzerland</Label>
+            <Label>CH</Label>
+          </FlexBox>
+        </MultiComboBoxItemCustom>
       </MultiComboBox>
     );
   },

@@ -40,7 +40,9 @@ export function RowSubComponent(props: RowSubComponentProps) {
       return;
     }
 
-    const measureAndDispatch = (height: number) => {
+    const measureAndDispatch = (rawHeight: number) => {
+      // ceil: avoid under-estimation (would overlap next row) and absorb sub-px precision diff between getComputedStyle and borderBoxSize
+      const height = Math.ceil(rawHeight);
       const prev: { rowId?: string; subComponentHeight?: number } = subComponentsHeight?.[virtualRow.index] ?? {};
       if (height === 0 || (prev.subComponentHeight === height && prev.rowId === row.id)) {
         return;
@@ -72,7 +74,8 @@ export function RowSubComponent(props: RowSubComponentProps) {
       }
     };
 
-    measureAndDispatch(subComponentElement.getBoundingClientRect().height);
+    // sync initial read for first-paint correctness; blockSize matches borderBoxSize coords (getBoundingClientRect returns zoom-applied)
+    measureAndDispatch(parseFloat(getComputedStyle(subComponentElement).blockSize));
 
     const observer = new ResizeObserver(([entry]) => {
       measureAndDispatch(entry.borderBoxSize[0].blockSize);
