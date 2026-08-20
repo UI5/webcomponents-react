@@ -376,3 +376,50 @@ export const F2CellEdit: Story = {
     );
   },
 };
+
+// Wide columns force horizontal overflow so the frozen-start columns visibly stay pinned while scrolling.
+const stickyColumns: AnalyticalTableColumnDefinition[] = [
+  { Header: 'Name', accessor: 'name', sticky: 'start', width: 200 },
+  { Header: 'Age', accessor: 'age', width: 300 },
+  { Header: 'Friend Name', accessor: 'friend.name', width: 300 },
+  { Header: 'Friend Age', accessor: 'friend.age', width: 300 },
+];
+
+export const StickyColumns: Story = {
+  args: {
+    data: dataSmall,
+    sortable: true,
+    filterable: true,
+    groupable: true,
+  },
+  render(args) {
+    const [lastChange, setLastChange] = useState('');
+    // Fired only when a column is frozen/unfrozen via the header popover, not on programmatic toggling.
+    const tableHooksSticky = useMemo(
+      () => [
+        AnalyticalTableHooks.useStickyColumns((detail) => {
+          setLastChange(`${detail.column.id}: sticky=${detail.sticky} → [${detail.stickyColumns.join(', ')}]`);
+        }),
+      ],
+      [],
+    );
+    return (
+      <>
+        <AnalyticalTable
+          data={args.data}
+          columns={stickyColumns}
+          sortable={args.sortable}
+          filterable={args.filterable}
+          groupable={args.groupable}
+          tableHooks={tableHooksSticky}
+        />
+        {!!lastChange && (
+          <FlexBox alignItems={FlexBoxAlignItems.Center}>
+            <Label>Last freeze/unfreeze:</Label>
+            <Text>{lastChange}</Text>
+          </FlexBox>
+        )}
+      </>
+    );
+  },
+};
