@@ -4,8 +4,8 @@ import {
   AnalyticalTableHooks,
   AnalyticalTableScaleWidthMode,
   AnalyticalTableSelectionMode,
-} from '../..';
-import type { AnalyticalTableColumnDefinition, AnalyticalTableInstance } from '../..';
+} from '../../..';
+import type { AnalyticalTableColumnDefinition, AnalyticalTableInstance } from '../../..';
 
 // Behavioral tests for the sticky-columns feature across modes. Every layout test forces horizontal
 // overflow (columns wider than the container) and asserts the real invariant: the sticky column keeps
