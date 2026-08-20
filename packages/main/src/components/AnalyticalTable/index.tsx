@@ -384,8 +384,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     horizontal: true,
     overscan: isRtl || scaleWidthMode !== AnalyticalTableScaleWidthMode.Default ? Infinity : overscanCountHorizontal,
     indexAttribute: 'data-column-index',
-    // necessary as otherwise values are rounded which leads to wrong total width calculation leading to unnecessary scrollbar
-    measureElement: !scaleXFactor || scaleXFactor === 1 ? (el) => el.getBoundingClientRect().width : undefined,
+    // tanstack/virtual uses rounded values per default, leading to unnecessary scrollbars
+    measureElement: (el) => el.getBoundingClientRect().width / (scaleXFactor || 1),
   });
   // force re-measure if `visibleColumns` change
   useEffect(() => {
