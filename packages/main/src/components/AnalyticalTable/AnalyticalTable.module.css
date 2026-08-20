@@ -41,7 +41,6 @@
   font-weight: normal;
   background-color: var(--sapList_Background);
 
-  /* TODO: in sticky mode the bottom border briefly scrolls away before re-pinning; needs a different approach. */
   &::after {
     content: '';
     display: block;
@@ -695,6 +694,20 @@
   & > .tableBodyBackgroundElement {
     display: none;
   }
+
+  /* Bottom border is rendered by the non-scrolling .stickyBottomBorder sibling instead. */
+  &::after {
+    display: none;
+  }
+}
+
+/* Bottom border anchored to the non-scrolling container so it stays pinned during sticky-mode scrolling. */
+.stickyBottomBorder {
+  position: absolute;
+  inset-inline: 0;
+  height: var(--_ui5wcr-AnalyticalTable-HeaderBorderWidth);
+  background: var(--sapList_HeaderBorderColor);
+  pointer-events: none;
 }
 
 .stickyColumnsMode > .tableHeaderRow {

@@ -985,6 +985,13 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
               </VirtualTableBodyContainer>
             )}
           </div>
+          {hasStickyColumns && (
+            <div
+              className={classNames.stickyBottomBorder}
+              aria-hidden="true"
+              style={{ insetBlockEnd: horizontalScrollbarReserved }}
+            />
+          )}
           {!nativeScrollbar && !hasStickyColumns && (additionalEmptyRowsCount || tableState.isScrollable) && (
             <VerticalScrollbar
               tableBodyHeight={tableBodyHeight}
