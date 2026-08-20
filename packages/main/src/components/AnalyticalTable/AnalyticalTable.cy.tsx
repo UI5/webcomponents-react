@@ -39,7 +39,7 @@ import type {
   TimePickerDomRef,
   ToggleButtonDomRef,
   IconDomRef,
-} from '../../..';
+} from '../..';
 import {
   AnalyticalTable,
   AnalyticalTableHooks,
@@ -80,10 +80,10 @@ import {
   TextArea,
   TimePicker,
   ToggleButton,
-} from '../../..';
-import { useF2CellEdit } from '../pluginHooks/useF2CellEdit.js';
-import { useManualRowSelect } from '../pluginHooks/useManualRowSelect';
-import { useRowDisableSelection } from '../pluginHooks/useRowDisableSelection';
+} from '../..';
+import { useF2CellEdit } from './pluginHooks/useF2CellEdit.js';
+import { useManualRowSelect } from './pluginHooks/useManualRowSelect';
+import { useRowDisableSelection } from './pluginHooks/useRowDisableSelection';
 import type { RowType } from '@/packages/main/src/components/AnalyticalTable/types/index.js';
 import { getUi5TagWithSuffix } from '@/packages/main/src/internal/utils.js';
 

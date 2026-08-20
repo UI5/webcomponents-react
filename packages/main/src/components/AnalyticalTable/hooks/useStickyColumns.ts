@@ -246,6 +246,8 @@ const setHeaderProps = (
  * Auto-disables when the container is too narrow to fit the sticky columns plus a usable scrollable
  * area; re-enables when the container grows again.
  *
+ * Not combinable with `renderRowSubComponent` or `responsivePopIn`.
+ *
  * @param {OnStickyColumnsChange=} onStickyColumnsChange Fired when a column is frozen/unfrozen via the
  * column header popover. Programmatic pinning (`tableInstance.toggleStickyColumn`/`setStickyColumns`) does
  * not trigger it, since the app developer already controls those calls.
