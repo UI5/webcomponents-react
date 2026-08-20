@@ -12,6 +12,8 @@ import { fn } from 'storybook/test';
 import { Toolbar as LegacyToolbar, ToolbarSpacer as LegacyToolbarSpacer } from '../../../../compat/src/index.js';
 import type { ObjectPageDomRef } from '../../index.js';
 import {
+  AnalyticalTable,
+  AnalyticalTableVisibleRowCountMode,
   Bar,
   Breadcrumbs,
   BreadcrumbsItem,
@@ -33,6 +35,12 @@ import {
   ObjectPageMode,
   ObjectPageSection,
   ObjectPageSubSection,
+  Table,
+  TableCell,
+  TableGrowing,
+  TableHeaderCell,
+  TableHeaderRow,
+  TableRow,
   Text,
   Title,
   Toolbar,
@@ -40,6 +48,18 @@ import {
 } from '../../index.js';
 import { Tag } from '../../webComponents/Tag/index.js';
 import { ObjectPage } from './index.js';
+
+const tableRows = Array.from({ length: 60 }, (_, i) => ({
+  name: `Employee ${i + 1}`,
+  role: i % 2 ? 'Developer' : 'Designer',
+  location: i % 3 ? 'Walldorf' : 'San Jose',
+}));
+
+const tableColumns = [
+  { accessor: 'name', Header: 'Name' },
+  { accessor: 'role', Header: 'Role' },
+  { accessor: 'location', Header: 'Location' },
+];
 
 const meta = {
   title: 'Layouts & Floorplans / ObjectPage',
@@ -426,22 +446,87 @@ export const SectionWithCustomHeader: Story = {
 };
 
 export const FullScreenSingleSection: Story = {
-  args: { selectedSectionId: 'section1' },
   name: 'with fullscreen section',
   render(args) {
     return (
       <ObjectPage {...args} mode={ObjectPageMode.IconTabBar} onBeforeNavigate={args.onBeforeNavigate}>
-        <ObjectPageSection titleText="Section 1" id="section1" style={{ height: '100%' }}>
+        <ObjectPageSection titleText="Section 1" id="section1" fitContent>
           <div style={{ height: '100%', background: 'lightblue' }}>
-            It is recommended to only use fullscreen sections in TabBar mode, otherwise your layout will most probably
-            break!
+            It is recommended to only use fullscreen sections in `IconTabBar` mode, otherwise your layout will most
+            probably break!
           </div>
         </ObjectPageSection>
-        <ObjectPageSection titleText="Section 2" id="section2" style={{ height: '100%' }}>
-          <div style={{ height: '100%', background: 'lightgreen' }} />
+        <ObjectPageSection titleText="Analytical Table" id="analytical" fitContent>
+          <div style={{ flex: 1, minHeight: 0 }}>
+            <AnalyticalTable
+              columns={tableColumns}
+              data={tableRows}
+              visibleRowCountMode={AnalyticalTableVisibleRowCountMode.AutoWithEmptyRows}
+            />
+          </div>
         </ObjectPageSection>
-        <ObjectPageSection titleText="Section with Overflow" id="section3" style={{ height: '100%', overflow: 'auto' }}>
-          <div style={{ height: '300%', background: 'lightyellow' }} />
+        <ObjectPageSection titleText="Responsive Table" id="table" fitContent>
+          <Table
+            overflowMode="Scroll"
+            style={{ flex: 1, minHeight: 0 }}
+            headerRow={
+              <TableHeaderRow sticky>
+                <TableHeaderCell minWidth="200px">Name</TableHeaderCell>
+                <TableHeaderCell minWidth="150px">Role</TableHeaderCell>
+                <TableHeaderCell minWidth="150px">Location</TableHeaderCell>
+              </TableHeaderRow>
+            }
+            features={<TableGrowing mode="Scroll" />}
+          >
+            {tableRows.map((row, i) => (
+              <TableRow key={i} rowKey={String(i)}>
+                <TableCell>
+                  <span>{row.name}</span>
+                </TableCell>
+                <TableCell>
+                  <span>{row.role}</span>
+                </TableCell>
+                <TableCell>
+                  <span>{row.location}</span>
+                </TableCell>
+              </TableRow>
+            ))}
+          </Table>
+        </ObjectPageSection>
+        <ObjectPageSection titleText="Section with Overflow" id="section3" fitContent>
+          <div style={{ flex: 1, minHeight: 0, overflow: 'auto' }}>
+            <div style={{ height: '300%', background: 'lightyellow' }} />
+          </div>
+        </ObjectPageSection>
+        <ObjectPageSection titleText="Subsections" id="subsections" fitContent>
+          <ObjectPageSubSection titleText="Subsection 1" id="subsections-1">
+            <div style={{ background: 'lightblue', padding: '1rem' }}>
+              Fullscreen section with subsections. The content fits, so nothing scrolls.
+            </div>
+          </ObjectPageSubSection>
+          <ObjectPageSubSection titleText="Subsection 2" id="subsections-2">
+            <div style={{ background: 'lightgreen', padding: '1rem' }}>More content that still fits.</div>
+          </ObjectPageSubSection>
+        </ObjectPageSection>
+        <ObjectPageSection titleText="Subsections with Overflow" id="subsections-overflow" fitContent>
+          {Array.from({ length: 5 }, (_, i) => (
+            <ObjectPageSubSection key={i} titleText={`Subsection ${i + 1}`} id={`subsections-overflow-${i + 1}`}>
+              <div style={{ height: '60vh', background: i % 2 ? 'lightgreen' : 'lightblue' }}>
+                Tall subsection content — the section scrolls internally while the footer stays visible.
+              </div>
+            </ObjectPageSubSection>
+          ))}
+        </ObjectPageSection>
+        <ObjectPageSection titleText="Section without fullscreen" id="section4">
+          <div style={{ background: 'lightgreen' }}>
+            This section doesn&apos;t use `fitContent`, so it grows with its content and the page scrolls normally.
+          </div>
+        </ObjectPageSection>
+        <ObjectPageSection titleText="Section without fullscreen (overflow)" id="section5">
+          <div style={{ height: '150vh', background: 'lightsalmon' }}>
+            This section doesn&apos;t use `fitContent` and its content exceeds the viewport, so the standard page scroll
+            is visible.
+          </div>
         </ObjectPageSection>
       </ObjectPage>
     );
