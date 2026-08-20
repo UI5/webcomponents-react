@@ -734,9 +734,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
 
   const totalSize = columnVirtualizer.getTotalSize();
   const showVerticalEndBorder = tableState.tableClientWidth > totalSize;
-  // Sticky mode makes `.table` the single scroll container, so it always uses the *native* vertical
-  // scrollbar (even on browsers where non-sticky mode renders the custom VerticalScrollbar). Reserve its
-  // height for the horizontal scrollbar using the harmonized `scrollbarWidth` from `useNativeScrollbar`.
+  // Sticky mode uses the native vertical scrollbar; reserve its height for the horizontal scrollbar.
   const horizontalScrollbarReserved =
     hasStickyColumns && scrollbarWidth > 0 && tableState.tableClientWidth > 0 && tableState.tableClientWidth < totalSize
       ? scrollbarWidth
@@ -747,8 +745,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     withNavigationHighlight && classNames.hasNavigationIndicator,
     showVerticalEndBorder && classNames.showVerticalEndBorder,
     hasStickyColumns && classNames.stickyColumnsMode,
-    // Keep sticky active with no rows (avoids sticky↔non-sticky jump on data load), but limit the
-    // freeze-column line to the header so it doesn't dangle over the empty/no-data body.
+    // Keep sticky active with no rows, but limit the freeze line to the header (not the empty body).
     hasStickyColumns && rows?.length === 0 && classNames.stickyColumnsNoData,
   );
 
@@ -874,10 +871,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
             data-component-name="AnalyticalTableContainer"
             ref={tableRef}
             className={tableClasses}
-            // TODO: In sticky mode the horizontal scrollbar (inside .table) reduces clientHeight,
-            // so fewer than `visibleRows` body rows fit. Investigate using @tanstack/react-virtual
-            // options (e.g., scrollMargin, paddingStart/End, getScrollElement override) to
-            // compensate without a runtime scrollbar measurement.
+            // TODO: sticky horizontal scrollbar reduces clientHeight, so fewer than `visibleRows` rows fit.
             style={
               {
                 '--_ui5wcr_AnalyticalTable_ContentHeight': `${internalHeaderRowHeight + tableBodyHeight}px`,
@@ -885,8 +879,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                 ...(hasStickyColumns
                   ? {
                       height: `${internalHeaderRowHeight + tableBodyHeight + horizontalScrollbarReserved}px`,
-                      // Reserve the frozen-column band so scrollIntoView (arrow-key nav) lands cells
-                      // to the right of the sticky columns instead of behind them.
+                      // Reserve the frozen-column band so arrow-key scrollIntoView lands cells beside it.
                       scrollPaddingInlineStart: `${totalStickyStartWidth}px`,
                     }
                   : {}),

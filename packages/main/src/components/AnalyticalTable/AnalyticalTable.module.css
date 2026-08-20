@@ -41,10 +41,7 @@
   font-weight: normal;
   background-color: var(--sapList_Background);
 
-  /* TODO: In sticky mode the bottom border briefly scrolls away with content before re-pinning.
-     position: sticky avoids the absolute-scrolls-with-content issue but introduces a flicker.
-     Negative margin compensates the flow space; full fix likely needs a different approach
-     (e.g., separate non-scrolling element above the horizontal scrollbar, or container restructure). */
+  /* TODO: in sticky mode the bottom border briefly scrolls away before re-pinning; needs a different approach. */
   &::after {
     content: '';
     display: block;
@@ -476,10 +473,8 @@
   inset-inline-start: 0;
   height: 100%;
   pointer-events: none;
-  /* `contain: layout` makes this layer a stacking context, so this z-index (not the child
-     `.resizer`'s) governs where resizers paint relative to sibling headers. Must sit above
-     `.thContainer[data-sticky-start]` (z-index 5) so the last sticky column's resizer isn't
-     clipped by the adjacent header in its header region. Still paints above body cells. */
+  /* `contain: layout` makes this a stacking context; z-index must beat the sticky header (z 5)
+     so the last sticky column's resizer isn't clipped. */
   z-index: 6;
   /* Isolate sticky resizers' overflow from .table's scrollHeight (prevents spurious vertical scrollbar). */
   contain: layout;
@@ -491,7 +486,7 @@
   height: var(--_ui5wcr_AnalyticalTable_ContentHeight, 100%);
   position: absolute;
   inset-block-start: 0;
-  /* Ordering within `.resizerLayer` (which is the stacking context that escapes the headers). */
+  /* z-index within `.resizerLayer`'s stacking context. */
   z-index: 6;
   cursor: col-resize;
   pointer-events: auto;
@@ -686,10 +681,7 @@
    Sticky column styles
    ========================================================================== */
 
-/* When sticky columns are active, .table becomes the single scroll container
-   (both horizontal and vertical). The header row is sticky at top:0, and
-   sticky column cells use native position:sticky with left offsets.
-   This eliminates wobble since the compositor handles sticky natively. */
+/* Sticky mode: .table is the single scroll container; header sticky at top, cells use native position:sticky. */
 
 .stickyColumnsMode {
   overflow: auto;
@@ -734,9 +726,7 @@
   }
 }
 
-/* Freeze-column separator: a solid line marking where the frozen (sticky) columns end.
-   Per spec, only the LAST sticky column carries it. Spans the full table height (header + body)
-   via the shared content-height variable so the boundary is clear across the whole table. */
+/* Freeze-column separator marking where the frozen columns end (only the LAST sticky column carries it). */
 .thContainer[data-sticky-start-last]::after {
   content: '';
   position: absolute;
@@ -749,8 +739,7 @@
   pointer-events: none;
 }
 
-/* With no rows, sticky stays active (no header jump) but the freeze line must not extend into the
-   empty/no-data body — limit it to the header row height. */
+/* No rows: keep sticky active but limit the freeze line to the header row height. */
 .stickyColumnsNoData .thContainer[data-sticky-start-last]::after {
   height: 100%;
 }
@@ -759,8 +748,7 @@
   position: sticky;
   z-index: 2;
   background-color: var(--sapList_Background);
-  /* The opaque background covers the row's border-block-end; redraw it as an inset shadow so the
-     horizontal row separator stays visible in the sticky columns (no layout shift, unlike a border). */
+  /* Opaque bg hides the row border; redraw it as an inset shadow so the row separator stays visible. */
   box-shadow: inset 0 -1px 0 0 var(--sapList_BorderColor);
 }
 

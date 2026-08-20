@@ -71,9 +71,7 @@ export const ColumnHeaderContainer = forwardRef<HTMLDivElement, ColumnHeaderCont
           </ColumnHeader>
         );
       })}
-      {/* Resizers live in a separate absolute layer so they don't take up flex space.
-          Sticky columns get `position: sticky` (pinned at column right edge during scroll);
-          non-sticky columns get `position: absolute` (scroll naturally with content). */}
+      {/* Resizers live in a separate absolute layer so they don't take up flex space. */}
       <div className={classNames.resizerLayer} style={{ width: `${totalSize}px` }} aria-hidden="true">
         {columnVirtualizer.getVirtualItems().map((virtualColumn) => {
           const column = headerGroup.headers[virtualColumn.index];

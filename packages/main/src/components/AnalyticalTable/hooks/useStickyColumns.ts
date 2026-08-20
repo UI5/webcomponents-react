@@ -22,12 +22,7 @@ actions.setStickyColumns = 'setStickyColumns';
 actions.toggleStickyColumn = 'toggleStickyColumn';
 actions.resetStickyColumns = 'resetStickyColumns';
 
-/**
- * `state.stickyColumns` is the single source of truth for which columns are pinned. The `sticky: 'start'`
- * column option only seeds it at init (see the `init` branch below); it is not read at runtime. Changing
- * state (via the setters below) re-runs only the `visibleColumns`/`headerGroups` memos + the rendered rows —
- * never the row model — so runtime toggling is cheap (unlike changing the `columns` prop).
- */
+// `state.stickyColumns` is the source of truth; the `sticky: 'start'` column option only seeds it at init.
 function reducer(
   state: TableInstance['state'],
   action: {
@@ -40,9 +35,7 @@ function reducer(
   instance: TableInstance,
 ) {
   if (action.type === actions.init) {
-    // Seed from the `sticky: 'start'` column option (consumer-provided `initialState.stickyColumns` wins).
-    // `instance.columns` here are the raw, top-level column defs. Runs only when this plugin is registered,
-    // so the seed cost is never paid unless sticky columns are actually opted into.
+    // Seed from `sticky: 'start'` (consumer `initialState.stickyColumns` wins); `instance.columns` are raw defs.
     if (state.stickyColumns) {
       return state;
     }
@@ -75,8 +68,6 @@ function reducer(
 }
 
 // Effective sticky set = user-pinned columns (`state.stickyColumns`) ∪ grouped columns (`state.groupBy`).
-// When grouping is active, react-table's `useGroupBy` already moves grouped columns to the front; pinning
-// them keeps the grouping context visible while the rest of the table scrolls horizontally.
 const getStickySet = (state: TableInstance['state']) =>
   new Set<string>([...(state?.stickyColumns ?? []), ...(state?.groupBy ?? [])]);
 
@@ -108,9 +99,7 @@ const visibleColumns = (currentVisibleColumns: ColumnType[], { instance }: { ins
 
 const useStickyMetadata = (instance: TableInstance) => {
   const { visibleColumns: visCols, state, dispatch, flatHeaders } = instance;
-  // Harmonized scrollbar width (from `useNativeScrollbar`, shared via webComponentsReactProperties).
-  // In sticky mode the vertical scrollbar is always the native one, so reserve its width for the
-  // usable-scrollable-area fit check below. 0 on overlay-scrollbar systems.
+  // Native vertical-scrollbar width (0 on overlay systems); reserved in the fit check below.
   const scrollbarSize = instance.webComponentsReactProperties?.scrollbarWidth ?? 0;
 
   // Instance methods + per-column toggle (mirrors useColumnOrder / useColumnVisibility).

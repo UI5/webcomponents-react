@@ -470,8 +470,7 @@ export const NoData: Story = {
 
     const tableProps = {
       ...args,
-      // Sticky auto-disables in the no-data views and activates in the "With Data" view (demonstrates
-      // the empty-state behavior). `useStickyColumns` + the sticky Name column come from meta.
+      // Sticky auto-disables in the no-data views and activates in the "With Data" view.
       data: selected === 'data' ? args.data : [],
       globalFilterValue: filtered ? 'Non-existing text' : undefined,
       NoDataComponent: NoDataComponent,
@@ -828,9 +827,7 @@ export const StickyColumns: Story = {
     data: dataLarge.slice(0),
     selectionMode: AnalyticalTableSelectionMode.Multiple,
     alternateRowColor: true,
-    // Enables the header menu so the experimental "Freeze/Unfreeze Column" item (contributed by
-    // `useStickyColumns`) is reachable per column, alongside sort/filter/group. Grouped columns
-    // auto-pin, so the freeze item is intentionally hidden for them.
+    // Enables the header menu so the "Freeze/Unfreeze Column" item is reachable (hidden for grouped columns).
     sortable: true,
     filterable: true,
     groupable: true,
@@ -841,8 +838,7 @@ export const StickyColumns: Story = {
     const [stickyKeys, setStickyKeys] = useState<string[]>(() =>
       stickyDemoColumns.filter((col) => col.sticky === 'start').map(stickyColKey),
     );
-    // Popover-driven freeze/unfreeze reports the new sticky set here, keeping the checkbox mirror in
-    // sync. Programmatic toggling (the checkboxes below) does not fire this — it updates state directly.
+    // Popover-driven freeze/unfreeze reports the new set here to keep the checkbox mirror in sync.
     const stickyColumnsHooks = useMemo(
       () => [
         useStickyColumns((e) => {

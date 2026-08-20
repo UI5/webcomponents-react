@@ -63,10 +63,8 @@ const navigateFromActiveSubCompItem = (currentlyFocusedCell: MutableRefObject<HT
   setFocus(currentlyFocusedCell, recursiveSubComponentElementSearch(e.target as HTMLElement));
 };
 
-// Scrolls a newly-focused cell into view. In sticky mode the scroll container has a
-// `scroll-padding-inline-start` equal to the frozen-column width; `inline: 'nearest'` won't scroll a
-// cell that is only partially hidden behind that band, so force `inline: 'start'` when the cell's
-// start edge is behind the band. Non-sticky (pad = 0) keeps the original `nearest` behavior.
+// Scrolls a newly-focused cell into view. In sticky mode force `inline: 'start'` when the cell's start
+// edge is behind the frozen-column band (`scroll-padding-inline-start`); otherwise keep `nearest`.
 const scrollFocusedCellIntoView = (cell: HTMLElement, tableRef: MutableRefObject<HTMLElement>, isRtl: boolean) => {
   const container = tableRef.current;
   const pad = container ? parseFloat(getComputedStyle(container).scrollPaddingInlineStart) || 0 : 0;

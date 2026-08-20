@@ -17,8 +17,7 @@ const getHeaderGroupProps = (headerGroupProps, { instance }: { instance: TableIn
 };
 
 const getHeaderProps = (columnProps, { instance, column }: { instance: TableInstance; column: ColumnType }) => {
-  // Menu items contributed by plugins (e.g. useStickyColumns' freeze/unfreeze). Empty when no plugin
-  // registers any, so the popover gate below is unaffected for tables that don't use the extension.
+  // Menu items contributed by plugins (e.g. useStickyColumns' freeze/unfreeze); empty when none registered.
   const columnHeaderModalItems = reduceHooks(instance.getHooks().columnHeaderModalItems, [], { instance, column });
   const hasPopover = column.canGroupBy || column.canSort || column.canFilter || columnHeaderModalItems.length > 0;
   const { classes } = instance.webComponentsReactProperties;

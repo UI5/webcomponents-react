@@ -684,9 +684,8 @@ describe('AnalyticalTable', () => {
   });
 
   it('onTableScroll fires in sticky columns mode', () => {
-    // Regression: in sticky mode the scroll container is the outer table, and the virtualizer's own
-    // scroll listener triggers a synchronous re-render. A non-stable listener was removed mid-dispatch
-    // and never fired. The listener must stay attached across the scroll-driven re-render.
+    // Regression: in sticky mode the outer-table scroll listener must stay attached across the
+    // virtualizer's scroll-driven re-render (a non-stable listener was detached mid-dispatch).
     const scroll = cy.spy().as('scroll');
     const stickyCols = [
       { Header: 'Name', accessor: 'name', sticky: 'start' as const, width: 80 },
@@ -2330,9 +2329,7 @@ describe('AnalyticalTable', () => {
 
   it('initial column order', () => {
     stickyForEach('initial column order', (sticky) => {
-      // When sticky=true: 'name' (first column in source array) is marked sticky:'start'.
-      // columnOrder reorders to [age, friend.age, friend.name, name]; the sticky 'name'
-      // column is then pulled back to the start by useStickyColumns.visibleColumns.
+      // Sticky pins 'name' back to the start; non-sticky follows the reordered columnOrder.
       const expectedOrder = sticky
         ? ['Name', 'Age', 'Friend Age', 'Friend Name']
         : ['Age', 'Friend Age', 'Friend Name', 'Name'];
@@ -2918,8 +2915,7 @@ describe('AnalyticalTable', () => {
       const tableHooks = sticky ? stickyTableHooks : undefined;
       cy.mount(<AnalyticalTable data={data} columns={cols} tableHooks={tableHooks} />);
       if (sticky) {
-        // The useStickyColumns freeze/unfreeze item gives every eligible column a header popover,
-        // even without sort/filter/group enabled.
+        // The freeze/unfreeze item gives every eligible column a popover, even without sort/filter/group.
         cy.get('[data-column-id="name"]').should('have.attr', 'aria-haspopup', 'menu').click();
         cy.get('[ui5-popover]').should('be.visible');
         cy.realPress('Escape');
@@ -4487,9 +4483,8 @@ describe('AnalyticalTable', () => {
 
       cy.realPress('PageDown');
       cy.focused().should('have.attr', 'data-row-index', '1').should('have.attr', 'data-column-index', '0');
-      // Sticky-columns mode uses the outer container as the scroll viewport, which causes
-      // PageDown/PageUp to land at slightly different mid-range row indices vs the body-scrolled
-      // non-sticky case. Boundary cells (first/last) still match. See sticky-columns-findings/keyboard-navigation.md.
+      // Sticky mode scrolls the outer container, so PageDown/PageUp land at slightly different mid-range
+      // rows than the non-sticky body-scrolled case; boundary cells (first/last) still match.
       if (sticky) {
         cy.realPress('PageDown');
         cy.focused()
@@ -4797,8 +4792,7 @@ describe('AnalyticalTable', () => {
   });
 
   it('sticky columns: recalculates column widths after a runtime reorder', () => {
-    // Regression: the column virtualizer caches measured sizes by index. When a sticky toggle reorders
-    // columns, the moved column must not keep the previous column's cached width at its new index.
+    // Regression: the virtualizer caches sizes by index; a sticky reorder must not leave a column with a stale width.
     const cols = [
       { Header: 'Name', accessor: 'name', sticky: 'start' as const },
       { Header: 'Wide', accessor: 'age', width: 600 },

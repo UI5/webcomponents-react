@@ -84,8 +84,7 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
   const onScroll = useCallback(
     (event) => {
       if (typeof handleExternalScroll === 'function') {
-        // In sticky mode the scroll target is the outer table, so derive the row elements from
-        // the body container (parentRef) rather than event.target.
+        // In sticky mode the scroll target is the outer table, so read rows from parentRef, not event.target.
         handleExternalScroll(
           enrichEventWithDetails(event, { rows, rowElements: parentRef.current?.children[0]?.children }),
         );
@@ -134,10 +133,8 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
   useEffect(() => {
     if (!hasStickyColumns || !scrollContainerRef?.current) return;
     const el = scrollContainerRef.current;
-    // Stable listener that reads the latest onScroll via ref. Must NOT depend on `onScroll`:
-    // scrolling triggers the virtualizer's own listener → synchronous flushSync re-render → if this
-    // effect re-ran it would remove this listener mid-dispatch (DOM skips removed listeners), so it
-    // would never fire. Attaching once keeps it alive across the scroll-driven re-render.
+    // Stable listener reading the latest onScroll via ref — must NOT depend on `onScroll`: a scroll-driven
+    // flushSync re-render would detach it mid-dispatch and it would never fire.
     const handler = (e: Event) => onScrollRef.current(e);
     el.addEventListener('scroll', handler);
     return () => el.removeEventListener('scroll', handler);
