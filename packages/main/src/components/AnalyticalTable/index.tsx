@@ -33,6 +33,8 @@ import {
   INVALID_TABLE,
   LIST_NO_DATA,
   FIXED_COLUMN,
+  FREEZE_COLUMN,
+  UNFREEZE_COLUMN,
   NAVIGATION_COLUMN,
   NO_DATA_FILTERED,
   PLEASE_WAIT,
@@ -124,7 +126,7 @@ const measureElement = (el: HTMLElement) => {
  *| Function / Feature                    | Reason                                                                                                                                                                                                                                                   |
  *|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
  *| `useF2CellEdit` plugin hook           | To mimic the `sap.ui.table` edit-mode and tabbing behavior, use the `useF2CellEdit` plugin hook.                                                                                                                                                         |
- *| No sticky columns/rows                 | Not supported due to technical limitations.                                                                                                                                                                                                             |
+ *| Sticky (frozen-start) columns         | Supported **experimentally** via the `useStickyColumns` plugin hook (`sticky: 'start'` column option and/or `tableInstance.toggleStickyColumn`). Not combinable with `renderRowSubComponent` or `responsivePopIn`; grouped columns auto-pin. See the "Sticky Columns" docs section.                                            |
  *| Pop-in behavior                       | The `sap.ui.table` doesn’t support pop-in behavior (unlike `sap.m.Table`); it’s unclear whether this should be part of the design.                                                                                                                       |
  *| `visibleRowCountMode: "Auto"`         | `"AutoWithEmptyRows"` is preferred. `"Auto"` mode can lead to inconsistent table heights depending on the container.                                                                                                                                     |
  *| `alwaysShowBusyIndicator`             | Should generally be `true`, only if loading times are over 1 second, the default skeleton loading indicator is sufficient: [Fiori Skeleton Loading](https://www.sap.com/design-system/fiori-design-ios/ui-elements/patterns/skeleton-loading/?external). |
@@ -282,6 +284,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
           highlightHeaderCellText: i18nBundle.getText(HIGHLIGHT_COLUMN),
           navigationHeaderCellText: i18nBundle.getText(NAVIGATION_COLUMN),
           fixedColumnText: i18nBundle.getText(FIXED_COLUMN),
+          freezeColumnText: i18nBundle.getText(FREEZE_COLUMN),
+          unfreezeColumnText: i18nBundle.getText(UNFREEZE_COLUMN),
         },
         alternateRowColor,
         alwaysShowSubComponent,
@@ -356,6 +360,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     setGroupBy,
     setGlobalFilter,
     stickyStartIndices = [],
+    totalStickyStartWidth = 0,
   } = tableInstanceRef.current;
 
   useEffect(() => {
@@ -411,16 +416,16 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       isInitialized.current = true;
     }
   }, [visibleColumns.length]);
-  // force re-measure if `state.groupBy` or `state.columnOrder` changes
+  // force re-measure if `state.groupBy`, `state.columnOrder` or `state.stickyColumns` changes (all reorder columns)
   useEffect(() => {
-    if (isInitialized.current && (tableState.groupBy || tableState.columnOrder)) {
+    if (isInitialized.current && (tableState.groupBy || tableState.columnOrder || tableState.stickyColumns)) {
       setTimeout(() => {
         columnVirtualizer.measure();
       }, 100);
     } else {
       isInitialized.current = true;
     }
-  }, [tableState.groupBy, tableState.columnOrder]);
+  }, [tableState.groupBy, tableState.columnOrder, tableState.stickyColumns]);
 
   useEffect(() => {
     if (triggerScroll && triggerScroll.direction === 'horizontal') {
@@ -710,7 +715,12 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     }
   }, [tableState.columnResizing, retainColumnWidth, tableState.tableColResized]);
 
-  useSyncScroll(hasStickyColumns ? tableRef : parentRef, verticalScrollBarRef, tableState.isScrollable, nativeScrollbar);
+  useSyncScroll(
+    hasStickyColumns ? tableRef : parentRef,
+    verticalScrollBarRef,
+    tableState.isScrollable,
+    nativeScrollbar,
+  );
 
   useEffect(() => {
     columnVirtualizer.measure();
@@ -724,10 +734,12 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
 
   const totalSize = columnVirtualizer.getTotalSize();
   const showVerticalEndBorder = tableState.tableClientWidth > totalSize;
-  const scrollbarSize = tableInstanceRef.current.scrollbarSize ?? 0;
+  // Sticky mode makes `.table` the single scroll container, so it always uses the *native* vertical
+  // scrollbar (even on browsers where non-sticky mode renders the custom VerticalScrollbar). Reserve its
+  // height for the horizontal scrollbar using the harmonized `scrollbarWidth` from `useNativeScrollbar`.
   const horizontalScrollbarReserved =
-    hasStickyColumns && scrollbarSize > 0 && tableState.tableClientWidth > 0 && tableState.tableClientWidth < totalSize
-      ? scrollbarSize
+    hasStickyColumns && scrollbarWidth > 0 && tableState.tableClientWidth > 0 && tableState.tableClientWidth < totalSize
+      ? scrollbarWidth
       : 0;
 
   const tableClasses = clsx(
@@ -735,6 +747,9 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     withNavigationHighlight && classNames.hasNavigationIndicator,
     showVerticalEndBorder && classNames.showVerticalEndBorder,
     hasStickyColumns && classNames.stickyColumnsMode,
+    // Keep sticky active with no rows (avoids sticky↔non-sticky jump on data load), but limit the
+    // freeze-column line to the header so it doesn't dangle over the empty/no-data body.
+    hasStickyColumns && rows?.length === 0 && classNames.stickyColumnsNoData,
   );
 
   const handleOnLoadMore = (e) => {
@@ -868,7 +883,12 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                 '--_ui5wcr_AnalyticalTable_ContentHeight': `${internalHeaderRowHeight + tableBodyHeight}px`,
                 '--_ui5wcr_AnalyticalTable_ContentWidth': `${totalSize}px`,
                 ...(hasStickyColumns
-                  ? { height: `${internalHeaderRowHeight + tableBodyHeight + horizontalScrollbarReserved}px` }
+                  ? {
+                      height: `${internalHeaderRowHeight + tableBodyHeight + horizontalScrollbarReserved}px`,
+                      // Reserve the frozen-column band so scrollIntoView (arrow-key nav) lands cells
+                      // to the right of the sticky columns instead of behind them.
+                      scrollPaddingInlineStart: `${totalStickyStartWidth}px`,
+                    }
                   : {}),
               } as CSSProperties
             }

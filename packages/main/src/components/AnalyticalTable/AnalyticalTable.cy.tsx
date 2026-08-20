@@ -11,6 +11,7 @@ import type {
   AnalyticalTableCellInstance,
   AnalyticalTableColumnDefinition,
   AnalyticalTableDomRef,
+  AnalyticalTableInstance,
   AnalyticalTablePropTypes,
   InputDomRef,
   PopoverDomRef,
@@ -80,7 +81,6 @@ import {
   TimePicker,
   ToggleButton,
 } from '../..';
-import { useStickyColumns } from './hooks/useStickyColumns.js';
 import { useF2CellEdit } from './pluginHooks/useF2CellEdit.js';
 import { useManualRowSelect } from './pluginHooks/useManualRowSelect';
 import { useRowDisableSelection } from './pluginHooks/useRowDisableSelection';
@@ -123,7 +123,8 @@ function checkColumnWidthWithTolerance(
 type PropTypes = AnalyticalTablePropTypes['onRowSelect'];
 
 // Helper for sticky-column variants. Marks the first column as sticky and provides the hook.
-const stickyTableHooks = [useStickyColumns];
+// eslint-disable-next-line react-hooks/rules-of-hooks -- factory, not a React hook
+const stickyTableHooks = [AnalyticalTableHooks.useStickyColumns()];
 const withSticky = <T extends AnalyticalTableColumnDefinition>(cols: T[]): T[] =>
   cols.map((c, i) => (i === 0 ? { ...c, sticky: 'start' as const } : c));
 const stickyForEach = (label: string, fn: (sticky: boolean) => void) => {
@@ -679,6 +680,32 @@ describe('AnalyticalTable', () => {
     cy.findByText('Click').click();
     cy.findByRole('grid').invoke('scrollLeft').should('equal', 20);
 
+    cy.get('@scroll').should('have.been.called');
+  });
+
+  it('onTableScroll fires in sticky columns mode', () => {
+    // Regression: in sticky mode the scroll container is the outer table, and the virtualizer's own
+    // scroll listener triggers a synchronous re-render. A non-stable listener was removed mid-dispatch
+    // and never fired. The listener must stay attached across the scroll-driven re-render.
+    const scroll = cy.spy().as('scroll');
+    const stickyCols = [
+      { Header: 'Name', accessor: 'name', sticky: 'start' as const, width: 80 },
+      { Header: 'Age', accessor: 'age', width: 200 },
+      { Header: 'Friend Name', accessor: 'friend.name', width: 200 },
+      { Header: 'Friend Age', accessor: 'friend.age', width: 200 },
+    ];
+    cy.mount(
+      <AnalyticalTable
+        style={{ width: '300px' }}
+        data={data}
+        columns={stickyCols}
+        tableHooks={stickyTableHooks}
+        visibleRows={3}
+        onTableScroll={scroll}
+      />,
+    );
+    cy.findByRole('grid').should('exist');
+    cy.findByRole('grid').scrollTo(120, 0);
     cy.get('@scroll').should('have.been.called');
   });
 
@@ -2890,13 +2917,29 @@ describe('AnalyticalTable', () => {
       const cols = sticky ? withSticky(columns) : columns;
       const tableHooks = sticky ? stickyTableHooks : undefined;
       cy.mount(<AnalyticalTable data={data} columns={cols} tableHooks={tableHooks} />);
-      cy.get('[data-column-id="name"]').should('not.have.attr', 'aria-haspopup', 'menu').click();
+      if (sticky) {
+        // The useStickyColumns freeze/unfreeze item gives every eligible column a header popover,
+        // even without sort/filter/group enabled.
+        cy.get('[data-column-id="name"]').should('have.attr', 'aria-haspopup', 'menu').click();
+        cy.get('[ui5-popover]').should('be.visible');
+        cy.realPress('Escape');
+        cy.get('[ui5-popover]', { timeout: 100 }).should('not.exist');
+      } else {
+        cy.get('[data-column-id="name"]').should('not.have.attr', 'aria-haspopup', 'menu').click();
+      }
       cy.mount(<AnalyticalTable data={data} columns={cols} tableHooks={tableHooks} sortable />);
       cy.get('[data-column-id="name"]').should('have.attr', 'aria-haspopup', 'menu').click();
       cy.get('[ui5-popover]').should('be.visible');
-      cy.get('[data-column-id="age"]').should('not.have.attr', 'aria-haspopup');
-      cy.get('[data-column-id="age"]').click();
-      cy.get('[ui5-popover]', { timeout: 100 }).should('not.exist');
+      if (sticky) {
+        // `age` disables sort/filter/group, but the freeze item still gives it a popover in sticky mode.
+        cy.realPress('Escape');
+        cy.get('[data-column-id="age"]').should('have.attr', 'aria-haspopup', 'menu').click();
+        cy.get('[ui5-popover]').should('be.visible');
+      } else {
+        cy.get('[data-column-id="age"]').should('not.have.attr', 'aria-haspopup');
+        cy.get('[data-column-id="age"]').click();
+        cy.get('[ui5-popover]', { timeout: 100 }).should('not.exist');
+      }
     });
   });
 
@@ -4666,6 +4709,127 @@ describe('AnalyticalTable', () => {
             });
         });
     });
+  });
+
+  it('scrolls a keyboard-focused cell out from behind sticky columns', () => {
+    const stickyCols = [
+      { Header: 'Name', accessor: 'name', sticky: 'start' as const, width: 100 },
+      { Header: 'Age', accessor: 'age', width: 300 },
+      { Header: 'Friend Name', accessor: 'friend.name', width: 300 },
+      { Header: 'Friend Age', accessor: 'friend.age', width: 300 },
+    ];
+    cy.mount(
+      <AnalyticalTable
+        style={{ width: '400px' }}
+        data={generateMoreData(50)}
+        columns={stickyCols}
+        tableHooks={stickyTableHooks}
+      />,
+    );
+    cy.findByText('Name-0').should('be.visible');
+
+    cy.window().focus();
+    cy.realPress('Tab');
+    cy.realPress('ArrowDown'); // row 1, col 0 (sticky Name)
+    cy.realPress('ArrowRight'); // col 1 (Age)
+    cy.realPress('ArrowRight'); // col 2 (Friend Name) — grid scrolls right, Age slides behind sticky Name
+    cy.realPress('ArrowLeft'); // back to col 1 (Age) — must scroll into view, not stay behind sticky
+
+    cy.focused()
+      .should('have.attr', 'data-column-index', '1')
+      .then(($cell) => {
+        const cellLeft = $cell[0].getBoundingClientRect().left;
+        // the last sticky cell's right edge = where the frozen band ends
+        const stickyRight = Cypress.$('[data-sticky-start-last]')[0].getBoundingClientRect().right;
+        // focused cell must be at or right of the frozen band (fully visible), not behind it
+        expect(cellLeft).to.be.at.least(stickyRight - 1);
+      });
+  });
+
+  it('sticky columns: runtime toggle via tableInstance (state as source of truth)', () => {
+    const stickyCols = [
+      // seeds the initial sticky state; state is authoritative afterwards
+      { Header: 'Name', accessor: 'name', sticky: 'start' as const, width: 120 },
+      { Header: 'Age', accessor: 'age', width: 120 },
+      { Header: 'Friend Name', accessor: 'friend.name', width: 200 },
+    ];
+    const TestComp = () => {
+      const tableInstanceRef = useRef<AnalyticalTableInstance>(null);
+      return (
+        <>
+          <button type="button" onClick={() => tableInstanceRef.current?.toggleStickyColumn('age')}>
+            toggle-age
+          </button>
+          <button type="button" onClick={() => tableInstanceRef.current?.toggleStickyColumn('name')}>
+            toggle-name
+          </button>
+          <button type="button" onClick={() => tableInstanceRef.current?.setStickyColumns(['friend.name'])}>
+            set-friendname
+          </button>
+          <AnalyticalTable
+            tableInstance={tableInstanceRef}
+            style={{ width: '500px' }}
+            data={data}
+            columns={stickyCols}
+            tableHooks={stickyTableHooks}
+          />
+        </>
+      );
+    };
+    cy.mount(<TestComp />);
+
+    // seeded from the `sticky: 'start'` option
+    cy.get('[data-column-id="name"]').closest('[data-sticky-start]').should('exist');
+    cy.get('[data-column-id="age"]').closest('[data-sticky-start]').should('not.exist');
+
+    // toggleStickyColumn adds a column
+    cy.findByText('toggle-age').click();
+    cy.get('[data-column-id="age"]').closest('[data-sticky-start]').should('exist');
+
+    // state overrides the def seed: a `sticky: 'start'` column can be un-stuck at runtime
+    cy.findByText('toggle-name').click();
+    cy.get('[data-column-id="name"]').closest('[data-sticky-start]').should('not.exist');
+
+    // setStickyColumns replaces the whole set
+    cy.findByText('set-friendname').click();
+    cy.get('[data-column-id="friend.name"]').closest('[data-sticky-start]').should('exist');
+    cy.get('[data-column-id="age"]').closest('[data-sticky-start]').should('not.exist');
+  });
+
+  it('sticky columns: recalculates column widths after a runtime reorder', () => {
+    // Regression: the column virtualizer caches measured sizes by index. When a sticky toggle reorders
+    // columns, the moved column must not keep the previous column's cached width at its new index.
+    const cols = [
+      { Header: 'Name', accessor: 'name', sticky: 'start' as const },
+      { Header: 'Wide', accessor: 'age', width: 600 },
+      { Header: 'Narrow', accessor: 'friend.name' },
+    ];
+    const TestComp = () => {
+      const tableInstanceRef = useRef<AnalyticalTableInstance>(null);
+      return (
+        <>
+          <button type="button" onClick={() => tableInstanceRef.current?.toggleStickyColumn('friend.name')}>
+            stick-narrow
+          </button>
+          <AnalyticalTable
+            tableInstance={tableInstanceRef}
+            style={{ width: '900px' }}
+            data={data}
+            columns={cols}
+            tableHooks={stickyTableHooks}
+          />
+        </>
+      );
+    };
+    cy.mount(<TestComp />);
+    // 'Narrow' moves to the sticky group (index previously occupied by the 600px 'Wide' column).
+    cy.findByText('stick-narrow').click();
+    cy.get('[data-column-id="friend.name"]').closest('[data-sticky-start]').should('exist');
+    // It must keep its own (small) width, not inherit the 600px cached width from the old index.
+    cy.get('[data-column-id="friend.name"]')
+      .closest('[data-sticky-start]')
+      .invoke('outerWidth')
+      .should('be.lessThan', 300);
   });
 
   it('controlled bodyHeight', () => {

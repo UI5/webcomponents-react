@@ -2,6 +2,7 @@ import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { AnalyticalTableSelectionBehavior } from '../../../enums/AnalyticalTableSelectionBehavior.js';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
+import { reduceHooks } from '../react-table/index.js';
 import type { ColumnType, ReactTableHooks, RowType, TableInstance } from '../types/index.js';
 import { getSubRowsByString, resolveCellAlignment } from '../util/index.js';
 
@@ -16,7 +17,10 @@ const getHeaderGroupProps = (headerGroupProps, { instance }: { instance: TableIn
 };
 
 const getHeaderProps = (columnProps, { instance, column }: { instance: TableInstance; column: ColumnType }) => {
-  const hasPopover = column.canGroupBy || column.canSort || column.canFilter;
+  // Menu items contributed by plugins (e.g. useStickyColumns' freeze/unfreeze). Empty when no plugin
+  // registers any, so the popover gate below is unaffected for tables that don't use the extension.
+  const columnHeaderModalItems = reduceHooks(instance.getHooks().columnHeaderModalItems, [], { instance, column });
+  const hasPopover = column.canGroupBy || column.canSort || column.canFilter || columnHeaderModalItems.length > 0;
   const { classes } = instance.webComponentsReactProperties;
   const style: CSSProperties = {
     width: column.totalWidth,
@@ -37,6 +41,7 @@ const getHeaderProps = (columnProps, { instance, column }: { instance: TableInst
     {
       className: clsx(classes.th, column.classNameHeader),
       column,
+      columnHeaderModalItems,
       style: style,
       id: column.id,
     },

@@ -84,7 +84,11 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
   const onScroll = useCallback(
     (event) => {
       if (typeof handleExternalScroll === 'function') {
-        handleExternalScroll(enrichEventWithDetails(event, { rows, rowElements: event.target.children[0].children }));
+        // In sticky mode the scroll target is the outer table, so derive the row elements from
+        // the body container (parentRef) rather than event.target.
+        handleExternalScroll(
+          enrichEventWithDetails(event, { rows, rowElements: parentRef.current?.children[0]?.children }),
+        );
       }
       const scrollOffset = event.target.scrollTop;
       const isScrollingDown = lastScrollTop.current < scrollOffset;
@@ -121,12 +125,23 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
     ],
   );
 
+  // Keep the latest onScroll in a ref so the listener below can stay stable (see effect note).
+  const onScrollRef = useRef(onScroll);
+  useIsomorphicLayoutEffect(() => {
+    onScrollRef.current = onScroll;
+  }, [onScroll]);
+
   useEffect(() => {
     if (!hasStickyColumns || !scrollContainerRef?.current) return;
     const el = scrollContainerRef.current;
-    el.addEventListener('scroll', onScroll);
-    return () => el.removeEventListener('scroll', onScroll);
-  }, [hasStickyColumns, scrollContainerRef, onScroll]);
+    // Stable listener that reads the latest onScroll via ref. Must NOT depend on `onScroll`:
+    // scrolling triggers the virtualizer's own listener → synchronous flushSync re-render → if this
+    // effect re-ran it would remove this listener mid-dispatch (DOM skips removed listeners), so it
+    // would never fire. Attaching once keeps it alive across the scroll-driven re-render.
+    const handler = (e: Event) => onScrollRef.current(e);
+    el.addEventListener('scroll', handler);
+    return () => el.removeEventListener('scroll', handler);
+  }, [hasStickyColumns, scrollContainerRef]);
 
   return (
     <div

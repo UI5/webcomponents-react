@@ -18,7 +18,12 @@ import type {
 } from 'react';
 import { Icon } from '../../../webComponents/Icon/index.js';
 import { Text } from '../../../webComponents/Text/index.js';
-import type { ClassNames, ColumnType, DivWithCustomScrollProp } from '../types/index.js';
+import type {
+  ClassNames,
+  ColumnType,
+  DivWithCustomScrollProp,
+  AnalyticalTableColumnHeaderModalItem,
+} from '../types/index.js';
 import { RenderColumnTypes } from '../types/index.js';
 
 export interface ColumnHeaderProps {
@@ -41,6 +46,7 @@ export interface ColumnHeaderProps {
   classNames: ClassNames;
   isStickyStart?: boolean;
   isLastStickyStart?: boolean;
+  columnHeaderModalItems?: AnalyticalTableColumnHeaderModalItem[];
 
   //getHeaderProps()
   id: string;
@@ -92,6 +98,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
     classNames,
     isStickyStart,
     isLastStickyStart,
+    columnHeaderModalItems,
   } = props;
 
   const columnIndex = virtualColumn.index;
@@ -135,7 +142,8 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
     return style;
   })();
 
-  const hasPopover = column.canGroupBy || column.canSort || column.canFilter;
+  const hasPopover =
+    column.canGroupBy || column.canSort || column.canFilter || (columnHeaderModalItems?.length ?? 0) > 0;
 
   const handleHeaderCellClick = (e) => {
     if (typeof onClick === 'function') {
@@ -200,7 +208,6 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
       }}
       data-component-name={`ATHeaderContainer-${columnId}`}
       data-sticky-start={isStickyStart || undefined}
-      data-sticky-offset={isStickyStart ? virtualColumn.start : undefined}
       data-sticky-start-last={isLastStickyStart || undefined}
     >
       <div
@@ -306,6 +313,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
               openerId: `${id}-opener`,
               setOpen: setPopoverOpen,
             },
+            columnHeaderModalItems,
           })}
       </div>
     </div>

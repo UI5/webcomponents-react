@@ -92,6 +92,7 @@ export interface ColumnType extends Omit<AnalyticalTableColumnDefinition, 'id'> 
   sortDescFirst?: boolean;
   sortedIndex?: number;
   toggleHidden?: (hidden?: boolean) => void;
+  toggleSticky?: (sticky?: boolean) => void;
   totalFlexWidth?: number;
   totalLeft?: number;
   totalMaxWidth?: number;
@@ -150,6 +151,8 @@ export interface TableInstance {
     id?: string;
     multi?: boolean;
     sortBy?: AnalyticalTableState['sortBy'];
+    // `useStickyColumns` plugin (optional): only dispatched when the hook is registered.
+    stickyColumns?: string[] | ((old: string[]) => string[]);
     value?: boolean | string[] | ((old: string[]) => string[]);
   }) => void;
   expandedDepth?: number;
@@ -212,6 +215,22 @@ export interface TableInstance {
   selectedFlatRows?: RowType[];
   setAllFilters?: (filtersObjectArray: Record<string, any>[]) => void;
   setColumnOrder?: (columnOrder: AnalyticalTableState['columnOrder']) => void;
+  /**
+   * Replaces the set of sticky (frozen-start) columns with the given column ids.
+   *
+   * __Note:__ Only available when the `useStickyColumns` plugin hook is passed via `tableHooks`.
+   *
+   * @experimental
+   */
+  setStickyColumns?: (stickyColumns: string[] | ((old: string[]) => string[])) => void;
+  /**
+   * Toggles the sticky (frozen-start) state of a single column by its id. Pass `value` to force a state.
+   *
+   * __Note:__ Only available when the `useStickyColumns` plugin hook is passed via `tableHooks`.
+   *
+   * @experimental
+   */
+  toggleStickyColumn?: (columnId: string, value?: boolean) => void;
   /**
    * Set the filter value for the defined column.
    *
@@ -276,12 +295,6 @@ export interface TableInstance {
    * @experimental
    */
   totalStickyStartWidth?: number;
-  /**
-   * Measured system scrollbar size in pixels. Set by `useStickyColumns`.
-   *
-   * @experimental
-   */
-  scrollbarSize?: number;
   [key: string]: any;
 }
 
@@ -316,6 +329,8 @@ export interface WCRPropertiesType {
     highlightHeaderCellText: string;
     navigationHeaderCellText: string;
     fixedColumnText: string;
+    freezeColumnText: string;
+    unfreezeColumnText: string;
   };
   tagNamesWhichShouldNotSelectARow: Set<string>;
   tableRef: MutableRefObject<DivWithCustomScrollProp>;
@@ -401,6 +416,7 @@ export interface AnalyticalTableState {
   filters: Filter[];
   groupBy: string[];
   hiddenColumns: string[];
+  stickyColumns?: string[];
   selectedRowIds: Record<string | number, any>;
   sortBy: { id: string; desc: boolean }[];
   globalFilter?: string;
@@ -468,6 +484,7 @@ interface PopoverProps {
 
 export interface TableInstanceWithPopoverProps extends CellInstance {
   popoverProps: PopoverProps;
+  columnHeaderModalItems?: AnalyticalTableColumnHeaderModalItem[];
 }
 
 export interface FilterProps {
@@ -1249,6 +1266,17 @@ interface ConfigParam {
   instance: TableInstance;
 }
 
+export interface AnalyticalTableColumnHeaderModalItem {
+  /** Unique id; used as the list-item key and to dispatch the click. */
+  id: string;
+  /** Menu item label. */
+  text: string;
+  /** Optional icon name. */
+  icon?: string;
+  /** Invoked when the item is clicked. */
+  onClick: (meta: { instance: TableInstance; column: ColumnType; setOpen: (open: boolean) => void }) => void;
+}
+
 export interface ReactTableHooks {
   useOptions: any[];
   stateReducers: NonNullable<TableInstance['stateReducer']>[];
@@ -1277,6 +1305,10 @@ export interface ReactTableHooks {
   getRowProps: any[];
   getCellProps: any[];
   useFinalInstance: any[];
+  columnHeaderModalItems: ((
+    items: AnalyticalTableColumnHeaderModalItem[],
+    meta: { instance: TableInstance; column: ColumnType },
+  ) => AnalyticalTableColumnHeaderModalItem[])[];
   getToggleHiddenProps?: any[];
   getToggleHideAllColumnsProps?: any[];
   getGroupByToggleProps?: any[];

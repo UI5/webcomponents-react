@@ -21,6 +21,7 @@ import {
   VerticalAlign,
 } from '../../../enums/index.js';
 import { Button } from '../../../webComponents/Button/index.js';
+import { CheckBox } from '../../../webComponents/CheckBox/index.js';
 import { IllustratedMessage } from '../../../webComponents/IllustratedMessage/index.js';
 import { Label } from '../../../webComponents/Label/index.js';
 import { Menu } from '../../../webComponents/Menu/index.js';
@@ -37,7 +38,7 @@ import { ToggleButton } from '../../../webComponents/ToggleButton/index.js';
 import { FlexBox } from '../../FlexBox/index.js';
 import { ObjectStatus } from '../../ObjectStatus/index.js';
 import { useStickyColumns } from '../hooks/useStickyColumns.js';
-import type { AnalyticalTableColumnDefinition, AnalyticalTablePropTypes } from '../index.js';
+import type { AnalyticalTableColumnDefinition, AnalyticalTableInstance, AnalyticalTablePropTypes } from '../index.js';
 import { AnalyticalTable } from '../index.js';
 import { useAnnounceEmptyCells } from '../pluginHooks/AnalyticalTableHooks.js';
 
@@ -50,6 +51,7 @@ const kitchenSinkArgs: AnalyticalTablePropTypes = {
       headerTooltip: 'Full Name', // A more extensive description!
       accessor: 'name', // String-based value accessors!
       autoResizable: true, // Double clicking the resize bar auto resizes the column!
+      sticky: 'start', // Experimental frozen-start column (KitchenSink inherits `useStickyColumns` from meta).
     },
     {
       Header: 'Age',
@@ -187,6 +189,8 @@ const meta = {
       {
         Header: 'Name',
         accessor: 'name',
+        // Experimental sticky (frozen-start) column — active because `useStickyColumns` is in tableHooks below.
+        sticky: 'start',
       },
       {
         Header: 'Age',
@@ -206,6 +210,7 @@ const meta = {
     highlightField: 'status',
     subRowsKey: 'subRows',
     visibleRows: 5,
+    tableHooks: [useStickyColumns()],
     // sb actions has a huge impact on performance here.
     onTableScroll: undefined,
   },
@@ -465,6 +470,8 @@ export const NoData: Story = {
 
     const tableProps = {
       ...args,
+      // Sticky auto-disables in the no-data views and activates in the "With Data" view (demonstrates
+      // the empty-state behavior). `useStickyColumns` + the sticky Name column come from meta.
       data: selected === 'data' ? args.data : [],
       globalFilterValue: filtered ? 'Non-existing text' : undefined,
       NoDataComponent: NoDataComponent,
@@ -536,7 +543,12 @@ export const ContextMenu: Story = {
       };
     }, []);
 
-    const columns = useMemo(() => productColumns, []);
+    // Freeze the first product column (experimental sticky columns).
+    const columns = useMemo(
+      () => productColumns.map((col, i) => (i === 0 ? { ...col, sticky: 'start' as const } : col)),
+      [],
+    );
+    const stickyTableHooks = useMemo(() => [useStickyColumns()], []);
 
     const moveToSelected = (rows: Product[]) => {
       const ids = new Set(rows.map((r) => r.id));
@@ -611,6 +623,7 @@ export const ContextMenu: Story = {
           <AnalyticalTable
             header="Available Products"
             columns={columns}
+            tableHooks={stickyTableHooks}
             data={availableProducts}
             selectionMode={AnalyticalTableSelectionMode.Multiple}
             onRowContextMenu={handleContextMenu('available')}
@@ -642,6 +655,7 @@ export const ContextMenu: Story = {
           <AnalyticalTable
             header="Selected Products"
             columns={columns}
+            tableHooks={stickyTableHooks}
             data={selectedProducts}
             selectionMode={AnalyticalTableSelectionMode.Multiple}
             onRowContextMenu={handleContextMenu('selected')}
@@ -684,12 +698,13 @@ export const ContextMenu: Story = {
 
 export const Accessibility: Story = {
   render() {
-    const tableHooks = useMemo(() => [useAnnounceEmptyCells], []);
+    const tableHooks = useMemo(() => [useAnnounceEmptyCells, useStickyColumns()], []);
     const columns = useMemo<AnalyticalTableColumnDefinition[]>(
       () => [
         {
           Header: 'Name',
           accessor: 'name',
+          sticky: 'start',
         },
         {
           Header: 'Age',
@@ -772,43 +787,99 @@ export const EllipsisExamples: Story = {
   },
 };
 
-const stickyColumnsHooks = [useStickyColumns];
+const OBJECT_STATUS_STATES = ['Positive', 'Negative', 'Critical', 'Information', 'None'];
+// 5 different kinds of cell content, cycled across the demo columns.
+const STICKY_CONTENT_RENDERERS = [
+  { kind: 'Text', cell: ({ row }) => `Text ${row.index + 1}` },
+  { kind: 'Number', cell: ({ row }) => ((row.index + 1) * 137) % 1000 },
+  {
+    kind: 'Status',
+    cell: ({ row }) => {
+      const state = OBJECT_STATUS_STATES[row.index % OBJECT_STATUS_STATES.length];
+      return <ObjectStatus state={state}>{state}</ObjectStatus>;
+    },
+  },
+  { kind: 'Date', cell: ({ row }) => new Date(2020, row.index % 12, (row.index % 28) + 1).toLocaleDateString('en-US') },
+  { kind: 'Boolean', cell: ({ row }) => (row.index % 2 === 0 ? 'Yes' : 'No') },
+];
+
+const stickyDemoColumns: AnalyticalTableColumnDefinition[] = [
+  // `sticky: 'start'` seeds the initial sticky state; runtime toggling goes through the ref setter below.
+  { Header: 'Name', accessor: 'name', sticky: 'start' },
+  { Header: 'Age', accessor: 'age', sticky: 'start' },
+  { Header: 'Friend Name', accessor: 'friend.name', width: 700 },
+  { Header: 'Friend Age', accessor: 'friend.age' },
+  { Header: 'Status', id: 'status', Cell: STICKY_CONTENT_RENDERERS[2].cell },
+  // 20 additional non-sticky columns cycling through the 5 content kinds.
+  ...Array.from({ length: 20 }, (_, i) => {
+    const renderer = STICKY_CONTENT_RENDERERS[i % STICKY_CONTENT_RENDERERS.length];
+    return {
+      Header: `${renderer.kind} ${i + 1}`,
+      id: `extra-${i}`,
+      Cell: renderer.cell,
+    } as AnalyticalTableColumnDefinition;
+  }),
+];
+
+const stickyColKey = (col: AnalyticalTableColumnDefinition) => (col.id ?? col.accessor) as string;
 
 export const StickyColumns: Story = {
   args: {
-    data: dataLarge.slice(0, 5),
+    data: dataLarge.slice(0),
     selectionMode: AnalyticalTableSelectionMode.Multiple,
     alternateRowColor: true,
-    columns: [
-      {
-        Header: 'Name',
-        accessor: 'name',
-        sticky: 'start',
-      },
-      {
-        Header: 'Age',
-        accessor: 'age',
-        sticky: 'start',
-      },
-      {
-        Header: 'Friend Name',
-        accessor: 'friend.name',
-        width: 200,
-      },
-      {
-        Header: 'Friend Age',
-        accessor: 'friend.age',
-        width: 200,
-      },
-      {
-        Header: 'Status',
-        accessor: 'status',
-        width: 200,
-      },
-    ],
-    style: { width: '600px' },
+    // Enables the header menu so the experimental "Freeze/Unfreeze Column" item (contributed by
+    // `useStickyColumns`) is reachable per column, alongside sort/filter/group. Grouped columns
+    // auto-pin, so the freeze item is intentionally hidden for them.
+    sortable: true,
+    filterable: true,
+    groupable: true,
   },
   render(args) {
-    return <AnalyticalTable {...args} tableHooks={stickyColumnsHooks} />;
+    const tableInstanceRef = useRef<AnalyticalTableInstance>(null);
+    // Mirrors the table's internal sticky state purely so the checkboxes render checked/unchecked.
+    const [stickyKeys, setStickyKeys] = useState<string[]>(() =>
+      stickyDemoColumns.filter((col) => col.sticky === 'start').map(stickyColKey),
+    );
+    // Popover-driven freeze/unfreeze reports the new sticky set here, keeping the checkbox mirror in
+    // sync. Programmatic toggling (the checkboxes below) does not fire this — it updates state directly.
+    const stickyColumnsHooks = useMemo(
+      () => [
+        useStickyColumns((e) => {
+          console.log(e);
+          setStickyKeys(e.stickyColumns);
+        }),
+      ],
+      [],
+    );
+    const toggleSticky = (key: string) => {
+      // Cheap: dispatches a state change, no `columns` prop churn / row-model rebuild.
+      tableInstanceRef.current?.toggleStickyColumn?.(key);
+      setStickyKeys((prev) => (prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]));
+    };
+    return (
+      <>
+        {/* `columns` is a stable reference — toggling stickiness never recreates it. */}
+        <AnalyticalTable
+          {...args}
+          tableInstance={tableInstanceRef}
+          columns={stickyDemoColumns}
+          tableHooks={stickyColumnsHooks}
+        />
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBlockStart: '1rem' }}>
+          {stickyDemoColumns.map((col) => {
+            const key = stickyColKey(col);
+            return (
+              <CheckBox
+                key={key}
+                text={col.Header as string}
+                checked={stickyKeys.includes(key)}
+                onChange={() => toggleSticky(key)}
+              />
+            );
+          })}
+        </div>
+      </>
+    );
   },
 };

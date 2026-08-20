@@ -152,7 +152,6 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
                     key={`${visibleRowIndex}-${emptyRowCellProps.key}`}
                     data-empty-row-cell="true"
                     data-sticky-start={stickyStartSet.has(item.index) || undefined}
-                    data-sticky-offset={stickyStartSet.has(item.index) ? item.start : undefined}
                     tabIndex={-1}
                     aria-hidden="true"
                     style={{
@@ -236,7 +235,6 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
                 ['data-visible-row-index']: visibleRowIndex + 1,
                 ['data-row-index']: rowIndexWithHeader,
                 ['data-sticky-start']: isCellSticky || undefined,
-                ['data-sticky-offset']: isCellSticky ? virtualColumn.start : undefined,
                 style: {
                   ...cellProps.style,
                   width: `${virtualColumn.size}px`,

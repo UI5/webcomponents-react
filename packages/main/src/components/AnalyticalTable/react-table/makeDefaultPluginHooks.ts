@@ -75,5 +75,6 @@ export default function makeDefaultPluginHooks(): ReactTableHooks {
     getRowProps: [defaultGetRowProps],
     getCellProps: [defaultGetCellProps],
     useFinalInstance: [],
+    columnHeaderModalItems: [],
   };
 }

@@ -100,10 +100,10 @@ export const ColumnHeaderContainer = forwardRef<HTMLDivElement, ColumnHeaderCont
                   left: `${resizerEdgeOffset}px`,
                   transform: 'translateX(-50%)',
                 };
-          const { key: resizerKey, ...resizerProps } = column.getResizerProps();
+          const resizerProps = column.getResizerProps();
           return (
             <div
-              key={resizerKey}
+              key={`resizer-${column.id}`}
               {...resizerProps}
               data-resizer
               data-component-name="AnalyticalTableResizer"

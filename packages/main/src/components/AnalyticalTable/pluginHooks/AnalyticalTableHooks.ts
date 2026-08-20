@@ -1,3 +1,4 @@
+import { useStickyColumns } from '../hooks/useStickyColumns.js';
 import { useAnnounceEmptyCells } from './useAnnounceEmptyCells.js';
 import { useF2CellEdit } from './useF2CellEdit.js';
 import { useIndeterminateRowSelection } from './useIndeterminateRowSelection.js';
@@ -14,4 +15,5 @@ export {
   useOnColumnResize,
   useOrderedMultiSort,
   useRowDisableSelection,
+  useStickyColumns,
 };

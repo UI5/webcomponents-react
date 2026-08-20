@@ -40,7 +40,7 @@ import { RenderColumnTypes } from '../../types/index.js';
 
 export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
   const { id, setOpen, openerRef, openerId } = instance.popoverProps;
-  const { column, state, webComponentsReactProperties } = instance;
+  const { column, state, webComponentsReactProperties, columnHeaderModalItems } = instance;
   const { isRtl, groupBy } = state;
   const { onGroup, onSort, classes: classNames } = webComponentsReactProperties;
   const uniqueId = useId();
@@ -62,6 +62,14 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
   const filterText = i18nBundle.getText(FILTER);
 
   const handleSort = (e) => {
+    // Items contributed via the `columnHeaderModalItems` hook (e.g. freeze/unfreeze) dispatch their own onClick.
+    const modalItemId = e.detail.item.getAttribute('data-modal-item');
+    if (modalItemId) {
+      columnHeaderModalItems?.find((item) => item.id === modalItemId)?.onClick({ instance, column, setOpen });
+      setOpen(false);
+      return;
+    }
+
     const sortType = e.detail.item.getAttribute('data-sort');
 
     switch (sortType) {
@@ -261,6 +269,16 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
             accessible-role="MenuItem"
           />
         )}
+        {columnHeaderModalItems?.map((item) => (
+          <ListItemStandard
+            key={item.id}
+            type={ListItemType.Active}
+            icon={item.icon}
+            data-modal-item={item.id}
+            text={item.text}
+            accessible-role="MenuItem"
+          />
+        ))}
       </List>
     </Popover>
   );

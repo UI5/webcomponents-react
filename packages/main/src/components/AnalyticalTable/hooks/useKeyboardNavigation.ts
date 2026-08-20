@@ -63,6 +63,23 @@ const navigateFromActiveSubCompItem = (currentlyFocusedCell: MutableRefObject<HT
   setFocus(currentlyFocusedCell, recursiveSubComponentElementSearch(e.target as HTMLElement));
 };
 
+// Scrolls a newly-focused cell into view. In sticky mode the scroll container has a
+// `scroll-padding-inline-start` equal to the frozen-column width; `inline: 'nearest'` won't scroll a
+// cell that is only partially hidden behind that band, so force `inline: 'start'` when the cell's
+// start edge is behind the band. Non-sticky (pad = 0) keeps the original `nearest` behavior.
+const scrollFocusedCellIntoView = (cell: HTMLElement, tableRef: MutableRefObject<HTMLElement>, isRtl: boolean) => {
+  const container = tableRef.current;
+  const pad = container ? parseFloat(getComputedStyle(container).scrollPaddingInlineStart) || 0 : 0;
+  if (pad > 0) {
+    const c = container.getBoundingClientRect();
+    const r = cell.getBoundingClientRect();
+    const startInset = isRtl ? c.right - r.right : r.left - c.left;
+    cell.scrollIntoView({ block: 'nearest', inline: startInset < pad ? 'start' : 'nearest' });
+  } else {
+    cell.scrollIntoView({ block: 'nearest' });
+  }
+};
+
 const scrollToHorizontalEdgeAndFocus = (
   tableRef: MutableRefObject<HTMLElement>,
   scrollLeft: number,
@@ -268,7 +285,7 @@ const useGetTableProps = (
             if (newElement) {
               setFocus(currentlyFocusedCell, newElement);
               // scroll to show full cell if it's only partial visible
-              newElement.scrollIntoView({ block: 'nearest' });
+              scrollFocusedCellIntoView(newElement, tableRef, isRtl);
             }
             break;
           }
@@ -283,7 +300,7 @@ const useGetTableProps = (
             if (newElement) {
               setFocus(currentlyFocusedCell, newElement);
               // scroll to show full cell if it's only partial visible
-              newElement.scrollIntoView({ block: 'nearest' });
+              scrollFocusedCellIntoView(newElement, tableRef, isRtl);
             }
             break;
           }

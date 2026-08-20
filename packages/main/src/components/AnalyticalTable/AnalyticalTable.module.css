@@ -476,8 +476,11 @@
   inset-inline-start: 0;
   height: 100%;
   pointer-events: none;
-  /* Paint above body cells (backgrounds, borders, selection states). */
-  z-index: 1;
+  /* `contain: layout` makes this layer a stacking context, so this z-index (not the child
+     `.resizer`'s) governs where resizers paint relative to sibling headers. Must sit above
+     `.thContainer[data-sticky-start]` (z-index 5) so the last sticky column's resizer isn't
+     clipped by the adjacent header in its header region. Still paints above body cells. */
+  z-index: 6;
   /* Isolate sticky resizers' overflow from .table's scrollHeight (prevents spurious vertical scrollbar). */
   contain: layout;
 }
@@ -488,8 +491,7 @@
   height: var(--_ui5wcr_AnalyticalTable_ContentHeight, 100%);
   position: absolute;
   inset-block-start: 0;
-  /* Must paint above .thContainer[data-sticky-start] (z-index 5), so the resizer's overhang
-     into the next column is not covered by adjacent sticky/non-sticky column headers. */
+  /* Ordering within `.resizerLayer` (which is the stacking context that escapes the headers). */
   z-index: 6;
   cursor: col-resize;
   pointer-events: auto;
@@ -732,25 +734,39 @@
   }
 }
 
+/* Freeze-column separator: a solid line marking where the frozen (sticky) columns end.
+   Per spec, only the LAST sticky column carries it. Spans the full table height (header + body)
+   via the shared content-height variable so the boundary is clear across the whole table. */
 .thContainer[data-sticky-start-last]::after {
   content: '';
   position: absolute;
-  inset-block: 0;
-  inset-inline-end: -3px;
-  width: 3px;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent);
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  width: var(--sapList_TableFixedColumnBorderWidth, 0.0625rem);
+  height: var(--_ui5wcr_AnalyticalTable_ContentHeight, 100%);
+  background: var(--sapList_TableFixedBorderColor);
   z-index: 3;
   pointer-events: none;
+}
+
+/* With no rows, sticky stays active (no header jump) but the freeze line must not extend into the
+   empty/no-data body — limit it to the header row height. */
+.stickyColumnsNoData .thContainer[data-sticky-start-last]::after {
+  height: 100%;
 }
 
 .tableCell[data-sticky-start] {
   position: sticky;
   z-index: 2;
   background-color: var(--sapList_Background);
+  /* The opaque background covers the row's border-block-end; redraw it as an inset shadow so the
+     horizontal row separator stays visible in the sticky columns (no layout shift, unlike a border). */
+  box-shadow: inset 0 -1px 0 0 var(--sapList_BorderColor);
 }
 
 .tr[data-is-selected] > .tableCell[data-sticky-start] {
   background-color: var(--sapList_SelectionBackgroundColor);
+  box-shadow: inset 0 -1px 0 0 var(--sapList_SelectionBorderColor);
 }
 
 .trActive:hover:not([data-empty-row]) > .tableCell[data-sticky-start] {
@@ -767,6 +783,7 @@
 
 .tableGroupHeader > .tableCell[data-sticky-start] {
   background-color: var(--sapList_TableGroupHeaderBackground);
+  box-shadow: inset 0 -1px 0 0 var(--sapList_TableGroupHeaderBorderColor);
 }
 
 .alternateRowColor .tableCell[data-sticky-start] {
