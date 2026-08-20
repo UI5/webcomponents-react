@@ -115,6 +115,9 @@ const useStickyMetadata = (instance: TableInstance) => {
     [dispatch],
   );
   flatHeaders?.forEach((column: ColumnType) => {
+    if (column.disableSticky) {
+      return;
+    }
     column.toggleSticky = (value?: boolean) =>
       dispatch({ type: actions.toggleStickyColumn, columnId: column.id, value });
   });

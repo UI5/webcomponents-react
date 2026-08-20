@@ -326,4 +326,43 @@ describe('AnalyticalTable sticky columns — freeze/unfreeze popover item', () =
     cy.get('@onSticky').its('secondCall.args.0').should('deep.include', { sticky: true });
     cy.get('@onSticky').its('secondCall.args.0.stickyColumns').should('include', 'friend.name');
   });
+
+  it('disableSticky: a column with no other options offers no popover at all', () => {
+    const cols = plainCols.map((c) => (c.accessor === 'age' ? { ...c, disableSticky: true } : c));
+    cy.mount(<Harness columns={cols} />);
+    cy.findByText('Name-0').should('exist');
+    // disableSticky + no sort/filter/group → hasPopover is false, so clicking opens nothing
+    cy.findByText('Age').click();
+    cy.get('[data-component-name="ATHeaderPopover"]').should('not.exist');
+    // sibling columns still expose the freeze item (and therefore a popover)
+    cy.findByText('Name').click();
+    cy.get('[data-component-name="ATHeaderPopover"]').should('exist');
+    cy.get('[ui5-list] [ui5-li][text="Freeze Column"]').should('exist');
+  });
+
+  it('disableSticky: popover keeps other options but drops the freeze item; programmatic freeze still works', () => {
+    const cols = plainCols.map((c) => (c.accessor === 'age' ? { ...c, disableSticky: true } : c));
+    cy.mount(<Harness columns={cols} toggleId="age" sortable />);
+    cy.findByText('Name-0').should('exist');
+    cy.findByText('Age').click();
+    cy.get('[data-component-name="ATHeaderPopover"]').should('exist');
+    cy.get('[ui5-list] [ui5-li][text="Sort Ascending"]').should('exist');
+    cy.get('[ui5-list] [ui5-li][text="Freeze Column"]').should('not.exist');
+    cy.get('[ui5-list] [ui5-li][text="Unfreeze Column"]').should('not.exist');
+    cy.realPress('Escape');
+    // UI gate only: programmatic freeze still pins the column
+    cy.findByText('toggle').click();
+    cy.get('[data-column-id="age"]').closest('[data-sticky-start]').should('exist');
+  });
+
+  it('disableSticky + sticky:start: seeds as frozen but offers no unfreeze item (locked)', () => {
+    const cols = wideCols.map((c) => (c.accessor === 'name' ? { ...c, disableSticky: true } : c));
+    cy.mount(<Harness columns={cols} />);
+    cy.findByText('Name-0').should('exist');
+    // seeded sticky:'start' still pins it (state APIs are not gated) ...
+    cy.get('[data-column-id="name"]').closest('[data-sticky-start]').should('exist');
+    // ... but with no other popover option, there is no way to unfreeze it via the UI
+    cy.findByText('Name').click();
+    cy.get('[data-component-name="ATHeaderPopover"]').should('not.exist');
+  });
 });

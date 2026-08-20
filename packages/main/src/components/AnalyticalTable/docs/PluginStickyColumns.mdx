@@ -20,6 +20,8 @@ Set `sticky: 'start'` on a column to seed the initial frozen state. `state.stick
 
 Grouped columns are pinned automatically. The hook auto-disables when the container is too narrow to fit the frozen columns plus a usable scrollable area, and re-enables once the container grows again.
 
+Set `disableSticky: true` on a column to remove its "Freeze Column" / "Unfreeze Column" popover entry.
+
 **Limitations:** not combinable with `renderRowSubComponent` or `responsivePopIn`.
 
 The hook accepts an optional `onStickyColumnsChange` callback that fires **only** when a column is frozen/unfrozen via the header popover — programmatic pinning (`toggleStickyColumn`/`setStickyColumns`) does not trigger it, since the app already controls those calls. The callback receives a `detail` object:
@@ -44,7 +46,7 @@ const TableComponent = (props) => {
     () => [
       { Header: 'Name', accessor: 'name', sticky: 'start' }, // seeds the initial frozen state
       { Header: 'Age', accessor: 'age' },
-      { Header: 'Friend Name', accessor: 'friend.name' },
+      { Header: 'Friend Name', accessor: 'friend.name', disableSticky: true }, // cannot be frozen via the popover
     ],
     [],
   );

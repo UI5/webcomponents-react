@@ -739,11 +739,21 @@ export interface AnalyticalTableColumnDefinition {
    *
    * - `'start'`: Column is pinned to the inline-start (left in LTR, right in RTL).
    *
-   * __Note:__ Requires opting in via `tableHooks={[AnalyticalTableHooks.useStickyColumns]}`. Internal columns (selection, highlight) are automatically pinned when adjacent user columns are pinned.
+   * __Note:__
+   *   - Has no effect unless the `useStickyColumns` plugin hook is passed via `tableHooks`.
+   *   - Internal columns (selection, highlight) are automatically pinned when adjacent user columns are pinned.
    *
    * @experimental The API and behavior may change without notice.
    */
   sticky?: 'start';
+  /**
+   * If set to `true`, the user cannot freeze/unfreeze this column via the column header popover ("Freeze Column" is not offered).
+   *
+   * __Note:__ Has no effect unless the `useStickyColumns` plugin hook is passed via `tableHooks`.
+   *
+   * @experimental The API and behavior may change without notice.
+   */
+  disableSticky?: boolean;
 
   //use useDragAndDrop
   /**
