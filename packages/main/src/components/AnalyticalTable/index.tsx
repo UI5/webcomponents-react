@@ -871,13 +871,13 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
             data-component-name="AnalyticalTableContainer"
             ref={tableRef}
             className={tableClasses}
-            // TODO: sticky horizontal scrollbar reduces clientHeight, so fewer than `visibleRows` rows fit.
             style={
               {
                 '--_ui5wcr_AnalyticalTable_ContentHeight': `${internalHeaderRowHeight + tableBodyHeight}px`,
                 '--_ui5wcr_AnalyticalTable_ContentWidth': `${totalSize}px`,
                 ...(hasStickyColumns
                   ? {
+                      // The horizontal scrollbar sits inside .table and eats clientHeight; grow by its height so all `visibleRows` stay visible.
                       height: `${internalHeaderRowHeight + tableBodyHeight + horizontalScrollbarReserved}px`,
                       // Reserve the frozen-column band so arrow-key scrollIntoView lands cells beside it.
                       scrollPaddingInlineStart: `${totalStickyStartWidth}px`,
