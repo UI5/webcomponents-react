@@ -133,10 +133,6 @@
     border-inline-end: 1px solid transparent;
   }
 
-  &:last-child [data-resizer] {
-    transform: translateX(0px);
-  }
-
   &:focus {
     &[data-column-id='__ui5wcr__internal_selection_column'] {
       border-inline-start: 1px solid transparent;
@@ -486,8 +482,8 @@
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: var(--_ui5wcr_AnalyticalTable_ResizerOffset);
-  /* Center the 5px handle on the column boundary; flips in RTL via .resizerRtl. */
-  transform: translateX(-50%);
+  /* Center the 5px handle (5px/2 - 0.5 border) */
+  margin-inline-start: -3px;
   /* z-index within `.resizerLayer`'s stacking context. */
   z-index: 6;
   cursor: col-resize;
@@ -510,9 +506,6 @@
   position: sticky;
 }
 
-.resizerRtl {
-  transform: translateX(50%);
-}
 /* ==========================================================================
    ColumnHeaderModal styles
    ========================================================================== */

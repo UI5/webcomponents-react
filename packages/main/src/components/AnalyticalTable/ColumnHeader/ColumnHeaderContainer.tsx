@@ -90,11 +90,7 @@ export const ColumnHeaderContainer = forwardRef<HTMLDivElement, ColumnHeaderCont
               {...resizerProps}
               data-resizer
               data-component-name="AnalyticalTableResizer"
-              className={clsx(
-                classNames.resizer,
-                isStickyStart && classNames.resizerSticky,
-                isRtl && classNames.resizerRtl,
-              )}
+              className={clsx(classNames.resizer, isStickyStart && classNames.resizerSticky)}
               style={{ '--_ui5wcr_AnalyticalTable_ResizerOffset': `${resizerEdgeOffset}px` } as CSSProperties}
             />
           );
