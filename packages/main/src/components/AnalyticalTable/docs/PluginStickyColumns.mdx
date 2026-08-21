@@ -24,7 +24,12 @@ While auto-disabled, a frozen column that is not the first column stays hoisted 
 
 Set `disableSticky: true` on a column to remove its "Freeze Column" / "Unfreeze Column" popover entry.
 
-**Limitations:** not combinable with `renderRowSubComponent` or `responsivePopIn`.
+**Limitations:**
+
+- Not combinable with `renderRowSubComponent` (row sub-components) or `responsivePopIn` (pop-in columns) — those layouts don't have a meaningful frozen-column region.
+- When `responsivePopIn` collapses the table to a single visible column, there is no scrollable area, so sticky is inactive.
+- Sticky mode makes the table body the single scroll container, so it shows the **browser's native scrollbar** rather than the custom styled scrollbar used elsewhere.
+- Currently only `sticky: 'start'` is supported (no `'end'`).
 
 The hook accepts an options object with two optional callbacks:
 
