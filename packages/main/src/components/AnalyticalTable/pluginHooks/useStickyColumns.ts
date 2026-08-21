@@ -1,7 +1,7 @@
 import iconPushpinOff from '@ui5/webcomponents-icons/dist/pushpin-off.js';
 import iconPushpinOn from '@ui5/webcomponents-icons/dist/pushpin-on.js';
 import { isDesktop } from '@ui5/webcomponents-react-base/Device';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { DEFAULT_COLUMN_WIDTH } from '../defaults/Column/index.js';
 import { actions, functionalUpdate } from '../react-table/index.js';
 import type {
@@ -98,7 +98,7 @@ const visibleColumns = (currentVisibleColumns: ColumnType[], { instance }: { ins
   return [...stickyStart, ...nonSticky];
 };
 
-const useStickyMetadata = (instance: TableInstance) => {
+const useStickyMetadata = (instance: TableInstance, onAutoToggleSticky?: OnAutoToggleSticky) => {
   const { visibleColumns: visCols, state, dispatch, flatHeaders } = instance;
   // Native vertical-scrollbar width (0 on overlay systems); reserved in the fit check below.
   const scrollbarSize = instance.webComponentsReactProperties?.scrollbarWidth ?? 0;
@@ -123,38 +123,53 @@ const useStickyMetadata = (instance: TableInstance) => {
       dispatch({ type: actions.toggleStickyColumn, columnId: column.id, value });
   });
 
+  // No early returns: keep all hooks below unconditional (rules-of-hooks).
   const stickySet = getStickySet(state);
   const hasUserSticky = hasUserStickyColumn(visCols, stickySet);
-  if (!hasUserSticky) {
-    Object.assign(instance, { stickyStartIndices: [], totalStickyStartWidth: 0 });
-    return;
-  }
+  const measured = (state?.tableClientWidth ?? 0) > 0;
 
-  const stickyStartIndices: number[] = [];
+  let stickyStartIndices: number[] = [];
   let totalStickyStartWidth = 0;
+  let autoDisabled = false;
 
-  for (let i = 0; i < visCols.length; i++) {
-    const col = visCols[i];
-    if (isStickyStart(col, stickySet)) {
-      stickyStartIndices.push(i);
-      totalStickyStartWidth += col.totalWidth ?? 0;
-    } else {
-      break;
+  if (hasUserSticky) {
+    for (let i = 0; i < visCols.length; i++) {
+      const col = visCols[i];
+      if (isStickyStart(col, stickySet)) {
+        stickyStartIndices.push(i);
+        totalStickyStartWidth += col.totalWidth ?? 0;
+      } else {
+        break;
+      }
     }
-  }
 
-  // Disable sticky when columns no longer fit. Skipped on first render before measurement.
-  const tableClientWidth = state?.tableClientWidth ?? 0;
-  if (tableClientWidth > 0) {
-    const reservedScrollable = getMinNonStickyColWidth() + scrollbarSize;
-    const fits = tableClientWidth - reservedScrollable > totalStickyStartWidth;
-    if (!fits) {
-      Object.assign(instance, { stickyStartIndices: [], totalStickyStartWidth: 0 });
-      return;
+    // Disable sticky when columns no longer fit. Skipped on first render before measurement.
+    if (measured) {
+      const reservedScrollable = getMinNonStickyColWidth() + scrollbarSize;
+      const fits = state.tableClientWidth - reservedScrollable > totalStickyStartWidth;
+      if (!fits) {
+        autoDisabled = true;
+        stickyStartIndices = [];
+        totalStickyStartWidth = 0;
+      }
     }
   }
 
   Object.assign(instance, { stickyStartIndices, totalStickyStartWidth });
+
+  // Notify on width-driven enable/disable transitions (frozen-set config itself is untouched). The
+  // transition guard means a stable-vs-new callback identity never causes a spurious re-fire.
+  const prevDisabledRef = useRef(false);
+  useEffect(() => {
+    if (!hasUserSticky || !measured) {
+      prevDisabledRef.current = false;
+      return;
+    }
+    if (autoDisabled !== prevDisabledRef.current) {
+      prevDisabledRef.current = autoDisabled;
+      onAutoToggleSticky?.({ enabled: !autoDisabled, stickyColumns: state.stickyColumns ?? [] });
+    }
+  }, [autoDisabled, hasUserSticky, measured, state.stickyColumns, onAutoToggleSticky]);
 };
 
 const NAVIGATION_COLUMN = '__ui5wcr__internal_navigation_column';
@@ -170,6 +185,23 @@ export interface AnalyticalTableStickyColumnsChangeDetail {
 
 /** Fired only when a column is frozen/unfrozen via the popover; programmatic pinning does not trigger it. */
 type OnStickyColumnsChange = (detail: AnalyticalTableStickyColumnsChangeDetail) => void;
+
+export interface AnalyticalTableStickyAutoToggleDetail {
+  /** `true` if sticky rendering is now active (columns fit), `false` if auto-disabled (container too narrow). */
+  enabled: boolean;
+  /** Current user-frozen column ids. Unchanged by the auto-toggle — the frozen-set config persists. */
+  stickyColumns: string[];
+}
+
+/** Fired when sticky rendering auto-disables (too narrow) or re-enables (fits again); the frozen set is untouched. */
+type OnAutoToggleSticky = (detail: AnalyticalTableStickyAutoToggleDetail) => void;
+
+export interface UseStickyColumnsOptions {
+  /** Fired only when a column is frozen/unfrozen via the header popover (not on programmatic pinning). */
+  onStickyColumnsChange?: OnStickyColumnsChange;
+  /** Fired when sticky rendering auto-disables due to limited width, and again when it re-enables. */
+  onAutoToggleSticky?: OnAutoToggleSticky;
+}
 
 // Contributes a Freeze/Unfreeze menu item to the column header popover (generic `columnHeaderModalItems` hook).
 const getColumnHeaderModalItems = (
@@ -244,18 +276,27 @@ const setHeaderProps = (
  * `tableInstance.current.toggleStickyColumn(id)`). The `sticky: 'start'` option only seeds the initial
  * state; `state.stickyColumns` is authoritative.
  *
- * Auto-disables when the container is too narrow to fit the sticky columns plus a usable scrollable
- * area; re-enables when the container grows again.
+ * Auto-disables the sticky *rendering* when the container is too narrow to fit the frozen columns plus a
+ * usable scrollable area, and re-enables it when the container grows again. The frozen-set config
+ * (`state.stickyColumns`) is **kept** across auto-disable, so pins are not lost on resize — desirable for
+ * user-resizable containers (dialogs, splitters). While auto-disabled, a frozen column that is not first
+ * stays hoisted to the start as an ordinary (unfrozen) column; to revert its order when there is not
+ * enough room, toggle its sticky state off.
  *
  * Not combinable with `renderRowSubComponent` or `responsivePopIn`.
  *
- * @param {OnStickyColumnsChange=} onStickyColumnsChange Fired when a column is frozen/unfrozen via the
- * column header popover. Programmatic pinning (`tableInstance.toggleStickyColumn`/`setStickyColumns`) does
- * not trigger it, since the app developer already controls those calls.
+ * @param {UseStickyColumnsOptions=} options Optional callbacks.
+ * @param {OnStickyColumnsChange=} options.onStickyColumnsChange Fired when a column is frozen/unfrozen via
+ * the column header popover. Programmatic pinning (`tableInstance.toggleStickyColumn`/`setStickyColumns`)
+ * does not trigger it, since the app developer already controls those calls.
+ * @param {OnAutoToggleSticky=} options.onAutoToggleSticky Fired when sticky rendering auto-disables due to
+ * limited width (`{ enabled: false }`) and again when it re-enables (`{ enabled: true }`). The frozen set
+ * itself is unchanged; use this to reflect the state change in the UI (e.g. a toast).
  *
  * @experimental The API and behavior may change without notice.
  */
-export const useStickyColumns = (onStickyColumnsChange?: OnStickyColumnsChange) => {
+export const useStickyColumns = (options: UseStickyColumnsOptions = {}) => {
+  const { onStickyColumnsChange, onAutoToggleSticky } = options;
   const useStickyColumnsHooks = (hooks: ReactTableHooks) => {
     hooks.stateReducers.push(reducer);
     hooks.visibleColumnsDeps.push((deps, { instance }) => [
@@ -264,7 +305,10 @@ export const useStickyColumns = (onStickyColumnsChange?: OnStickyColumnsChange) 
       instance.state.groupBy,
     ]);
     hooks.visibleColumns.push(visibleColumns);
-    hooks.useInstance.push(useStickyMetadata);
+    // react-table calls each `useInstance` entry as a hook in stable order every render; the arrow only
+    // threads the option through, so this is not a conditional hook call.
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    hooks.useInstance.push((instance) => useStickyMetadata(instance, onAutoToggleSticky));
     hooks.getHeaderProps.push(setHeaderProps);
     hooks.columnHeaderModalItems.push((items, meta) => getColumnHeaderModalItems(items, meta, onStickyColumnsChange));
   };

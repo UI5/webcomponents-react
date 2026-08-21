@@ -737,11 +737,15 @@ tableInstance.current.setStickyColumns(['name', 'age']); // replace the whole se
 
 Internal columns (selection, highlight) auto-freeze alongside your sticky columns, and **grouped columns
 automatically become sticky** and move to the start. Sticky auto-disables when the container is too narrow
-to fit the frozen columns plus a usable scrollable area, and re-enables when it grows again. When the table
-has no rows, sticky stays active (so the header doesn't jump when data loads) but the freeze-column line is
-limited to the header — it doesn't extend into the empty body.
+to fit the frozen columns plus a usable scrollable area, and re-enables when it grows again. The frozen-set
+config is **kept** across auto-disable (pins are not lost on resize); pass an `onAutoToggleSticky` callback
+to `useStickyColumns` to react to that transition. When the table has no rows, sticky stays active (so the
+header doesn't jump when data loads) but the freeze-column line is limited to the header — it doesn't extend
+into the empty body.
 
 <Canvas of={ComponentStories.StickyColumns} />
+
+See the [`useStickyColumns` plugin page](?path=/docs/data-display-analyticaltable-plugin-hooks-usestickycolumns--docs) for the callbacks and a resizable-container example.
 
 ### Limitations
 

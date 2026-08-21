@@ -2,7 +2,10 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { AnalyticalTable } from '../index.js';
 import type { AnalyticalTableColumnDefinition, AnalyticalTableInstance, AnalyticalTablePropTypes } from '../index.js';
 import * as AnalyticalTableHooks from '../pluginHooks/AnalyticalTableHooks.js';
-import type { AnalyticalTableStickyColumnsChangeDetail } from '../pluginHooks/useStickyColumns.js';
+import type {
+  AnalyticalTableStickyAutoToggleDetail,
+  AnalyticalTableStickyColumnsChangeDetail,
+} from '../pluginHooks/useStickyColumns.js';
 
 const data = Array.from({ length: 12 }, (_, i) => ({
   name: `Name-${i}`,
@@ -40,6 +43,10 @@ interface StickyHarnessProps extends Pick<
   /** Include the `useStickyColumns` plugin (default `true`). */
   withHook?: boolean;
   containerWidth?: string;
+  /** When set, renders `set-narrow`/`set-wide` buttons that switch the container width at runtime. */
+  resizable?: boolean;
+  narrowWidth?: string;
+  wideWidth?: string;
   tree?: boolean;
   empty?: boolean;
 }
@@ -49,6 +56,9 @@ export const StickyHarness = ({
   toggleId,
   withHook = true,
   containerWidth = '500px',
+  resizable,
+  narrowWidth = '180px',
+  wideWidth = '600px',
   tree,
   empty,
   ...tableProps
@@ -57,21 +67,36 @@ export const StickyHarness = ({
   const [changeCount, setChangeCount] = useState(0);
   const [lastDetail, setLastDetail] = useState('');
   const [loadMoreCount, setLoadMoreCount] = useState(0);
+  const [autoToggleCount, setAutoToggleCount] = useState(0);
+  const [autoToggleLast, setAutoToggleLast] = useState('');
+  const [width, setWidth] = useState(containerWidth);
 
   const handleStickyChange = useCallback((detail: AnalyticalTableStickyColumnsChangeDetail) => {
     setChangeCount((c) => c + 1);
     setLastDetail(JSON.stringify({ sticky: detail.sticky, stickyColumns: detail.stickyColumns }));
+  }, []);
+  const handleAutoToggle = useCallback((detail: AnalyticalTableStickyAutoToggleDetail) => {
+    setAutoToggleCount((c) => c + 1);
+    setAutoToggleLast(JSON.stringify({ enabled: detail.enabled, stickyColumns: detail.stickyColumns }));
   }, []);
   const handleLoadMore = useCallback(() => {
     setLoadMoreCount((c) => c + 1);
   }, []);
 
   const tableHooks = useMemo(
-    // eslint-disable-next-line react-hooks/rules-of-hooks -- factory, not a React hook
-    () => (withHook ? [AnalyticalTableHooks.useStickyColumns(handleStickyChange)] : []),
-    [withHook, handleStickyChange],
+    () =>
+      withHook
+        ? [
+            // eslint-disable-next-line react-hooks/rules-of-hooks -- factory, not a React hook
+            AnalyticalTableHooks.useStickyColumns({
+              onStickyColumnsChange: handleStickyChange,
+              onAutoToggleSticky: handleAutoToggle,
+            }),
+          ]
+        : [],
+    [withHook, handleStickyChange, handleAutoToggle],
   );
-  const style = useMemo(() => ({ width: containerWidth }), [containerWidth]);
+  const style = useMemo(() => ({ width }), [width]);
 
   return (
     <>
@@ -83,6 +108,16 @@ export const StickyHarness = ({
         >
           toggle
         </button>
+      )}
+      {resizable && (
+        <>
+          <button type="button" data-testid="set-narrow" onClick={() => setWidth(narrowWidth)}>
+            narrow
+          </button>
+          <button type="button" data-testid="set-wide" onClick={() => setWidth(wideWidth)}>
+            wide
+          </button>
+        </>
       )}
       <AnalyticalTable
         tableInstance={tableInstanceRef}
@@ -96,6 +131,8 @@ export const StickyHarness = ({
       />
       <span data-testid="sticky-change-count">{changeCount}</span>
       <span data-testid="sticky-last">{lastDetail}</span>
+      <span data-testid="auto-toggle-count">{autoToggleCount}</span>
+      <span data-testid="auto-toggle-last">{autoToggleLast}</span>
       <span data-testid="load-more-count">{loadMoreCount}</span>
     </>
   );

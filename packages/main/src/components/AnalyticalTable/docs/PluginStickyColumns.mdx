@@ -18,17 +18,26 @@ Set `sticky: 'start'` on a column to seed the initial frozen state. `state.stick
 - `tableInstance.current.toggleStickyColumn(columnId)`
 - `tableInstance.current.setStickyColumns(columnIds | (old) => columnIds)`
 
-Grouped columns are pinned automatically. The hook auto-disables when the container is too narrow to fit the frozen columns plus a usable scrollable area, and re-enables once the container grows again.
+Grouped columns are pinned automatically. The hook auto-disables the sticky _rendering_ when the container is too narrow to fit the frozen columns plus a usable scrollable area, and re-enables it once the container grows again. The frozen-set config (`state.stickyColumns`) is **kept** across auto-disable, so pins are not lost on resize — this matters for user-resizable containers such as dialogs or splitters, where reverting the order on every threshold crossing would be jarring.
+
+While auto-disabled, a frozen column that is not the first column stays hoisted to the start as an ordinary (unfrozen) column. To revert its order when there is not enough room, toggle its sticky state off (via the popover or `toggleStickyColumn`).
 
 Set `disableSticky: true` on a column to remove its "Freeze Column" / "Unfreeze Column" popover entry.
 
 **Limitations:** not combinable with `renderRowSubComponent` or `responsivePopIn`.
 
-The hook accepts an optional `onStickyColumnsChange` callback that fires **only** when a column is frozen/unfrozen via the header popover — programmatic pinning (`toggleStickyColumn`/`setStickyColumns`) does not trigger it, since the app already controls those calls. The callback receives a `detail` object:
+The hook accepts an options object with two optional callbacks:
+
+`onStickyColumnsChange` fires **only** when a column is frozen/unfrozen via the header popover — programmatic pinning (`toggleStickyColumn`/`setStickyColumns`) does not trigger it, since the app already controls those calls. Its `detail` object:
 
 - `column`: the column that was frozen or unfrozen.
 - `sticky`: `true` if the column is now frozen, `false` if it was unfrozen.
 - `stickyColumns`: the resulting list of user-frozen column ids after the toggle.
+
+`onAutoToggleSticky` fires when the sticky rendering auto-disables because the container became too narrow, and again when it re-enables. The frozen set itself is unchanged; use it to reflect the state change in the UI (e.g. a toast). Its `detail` object:
+
+- `enabled`: `true` if sticky rendering is now active (columns fit), `false` if auto-disabled.
+- `stickyColumns`: the current user-frozen column ids (unchanged by the auto-toggle).
 
 ## Example
 
@@ -40,7 +49,10 @@ const TableComponent = (props) => {
     console.log(detail.column, detail.sticky, detail.stickyColumns);
   }, []);
 
-  const tableHooks = useMemo(() => [useStickyColumns(handleStickyColumnsChange)], [handleStickyColumnsChange]);
+  const tableHooks = useMemo(
+    () => [useStickyColumns({ onStickyColumnsChange: handleStickyColumnsChange })],
+    [handleStickyColumnsChange],
+  );
 
   const columns = useMemo(
     () => [
@@ -54,5 +66,111 @@ const TableComponent = (props) => {
   return <AnalyticalTable data={props.data} columns={columns} sortable tableHooks={tableHooks} />;
 };
 ```
+
+## Resizable container
+
+Sticky rendering auto-disables when the container is too narrow and re-enables when it grows; use `onAutoToggleSticky` to react to that transition (here, a toast). There are two strategies for the too-narrow case:
+
+- **Default — keep the frozen set.** The pins persist across auto-disable, so a non-first frozen column stays hoisted to the start (unfrozen) and re-freezes automatically when the container grows again. Best for user-resizable containers, where reverting the order on every threshold crossing would be jarring.
+- **Clear when too narrow.** Call `setStickyColumns([])` from the `onAutoToggleSticky` disabled branch to drop the pins and revert the column order. Re-freeze via the column header when there is room again.
+
+Toggle the button above the table in the example below to compare both.
+
+<Canvas sourceState="none" of={ComponentStories.StickyColumnsResizable} />
+
+<details>
+<summary>Show both strategies</summary>
+
+**Default — the frozen set is kept on auto-disable:**
+
+```jsx
+const TableComponentDefault = (props) => {
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastText, setToastText] = useState('');
+
+  const tableHooks = useMemo(
+    () => [
+      useStickyColumns({
+        onAutoToggleSticky: ({ enabled }) => {
+          setToastText(enabled ? 'Sticky columns re-enabled' : 'Sticky columns disabled — container too narrow');
+          setToastOpen(true);
+        },
+      }),
+    ],
+    [],
+  );
+
+  const columns = useMemo(
+    () => [
+      { Header: 'Name', accessor: 'name', width: 200 },
+      { Header: 'Age', accessor: 'age', width: 200 },
+      { Header: 'Friend Name', accessor: 'friend.name', sticky: 'start', width: 300 }, // a non-first frozen column
+      { Header: 'Friend Age', accessor: 'friend.age', width: 300 },
+    ],
+    [],
+  );
+
+  return (
+    <>
+      <div style={{ resize: 'horizontal', overflow: 'auto', width: 600, minWidth: 150, maxWidth: 900 }}>
+        <AnalyticalTable data={props.data} columns={columns} tableHooks={tableHooks} />
+      </div>
+      <Toast open={toastOpen} onClose={() => setToastOpen(false)}>
+        {toastText}
+      </Toast>
+    </>
+  );
+};
+```
+
+**Clear the sticky columns when too narrow (reverts the column order):**
+
+```jsx
+const TableComponentAutoClear = (props) => {
+  const tableInstanceRef = useRef(null);
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastText, setToastText] = useState('');
+
+  const tableHooks = useMemo(
+    () => [
+      useStickyColumns({
+        onAutoToggleSticky: ({ enabled }) => {
+          if (!enabled) {
+            tableInstanceRef.current?.setStickyColumns([]); // drop the pins → columns revert to defined order
+            setToastText('Not enough space — sticky columns cleared (re-freeze via the header)');
+          } else {
+            setToastText('Sticky columns re-enabled');
+          }
+          setToastOpen(true);
+        },
+      }),
+    ],
+    [],
+  );
+
+  const columns = useMemo(
+    () => [
+      { Header: 'Name', accessor: 'name', width: 200 },
+      { Header: 'Age', accessor: 'age', width: 200 },
+      { Header: 'Friend Name', accessor: 'friend.name', sticky: 'start', width: 300 },
+      { Header: 'Friend Age', accessor: 'friend.age', width: 300 },
+    ],
+    [],
+  );
+
+  return (
+    <>
+      <div style={{ resize: 'horizontal', overflow: 'auto', width: 600, minWidth: 150, maxWidth: 900 }}>
+        <AnalyticalTable tableInstance={tableInstanceRef} data={props.data} columns={columns} tableHooks={tableHooks} />
+      </div>
+      <Toast open={toastOpen} onClose={() => setToastOpen(false)}>
+        {toastText}
+      </Toast>
+    </>
+  );
+};
+```
+
+</details>
 
 <Footer />

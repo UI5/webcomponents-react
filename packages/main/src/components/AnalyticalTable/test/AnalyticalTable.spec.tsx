@@ -160,6 +160,34 @@ test.describe('AnalyticalTable sticky columns — behavior', () => {
     await grid.evaluate((el) => el.scrollTo(0, el.scrollHeight));
     await expect(page.getByTestId('load-more-count')).not.toHaveText('0');
   });
+
+  test('onAutoToggleSticky fires when sticky auto-disables (too narrow) and re-enables (fits again)', async ({
+    mount,
+    page,
+  }) => {
+    await mount<typeof StickyHarness>(STORY, {
+      columns: wideCols,
+      containerWidth: '600px',
+      resizable: true,
+      narrowWidth: '180px',
+      wideWidth: '600px',
+    });
+    // Fits at mount → no transition yet.
+    await expect(page.locator('[data-sticky-start]').first()).toBeAttached();
+    await expect(page.getByTestId('auto-toggle-count')).toHaveText('0');
+
+    // Narrow past the fit threshold → sticky auto-disables, callback fires with enabled:false.
+    await page.getByTestId('set-narrow').click();
+    await expect(page.locator('[data-sticky-start]')).toHaveCount(0);
+    await expect(page.getByTestId('auto-toggle-count')).toHaveText('1');
+    await expect(page.getByTestId('auto-toggle-last')).toContainText('"enabled":false');
+
+    // Widen again → sticky re-enables, callback fires with enabled:true.
+    await page.getByTestId('set-wide').click();
+    await expect(page.locator('[data-sticky-start]').first()).toBeAttached();
+    await expect(page.getByTestId('auto-toggle-count')).toHaveText('2');
+    await expect(page.getByTestId('auto-toggle-last')).toContainText('"enabled":true');
+  });
 });
 
 test.describe('AnalyticalTable sticky columns — freeze/unfreeze popover item', () => {
