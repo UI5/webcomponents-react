@@ -20,7 +20,6 @@ const getMinNonStickyColWidth = () => (isDesktop() ? DEFAULT_COLUMN_WIDTH : MOBI
 // Actions
 actions.setStickyColumns = 'setStickyColumns';
 actions.toggleStickyColumn = 'toggleStickyColumn';
-actions.resetStickyColumns = 'resetStickyColumns';
 
 // `state.stickyColumns` is the source of truth; the `sticky: 'start'` column option only seeds it at init.
 function reducer(
@@ -60,10 +59,6 @@ function reducer(
         : [...current, action.columnId]
       : current.filter((id: string) => id !== action.columnId);
     return { ...state, stickyColumns };
-  }
-
-  if (action.type === actions.resetStickyColumns) {
-    return { ...state, stickyColumns: instance.initialState.stickyColumns ?? [] };
   }
 }
 

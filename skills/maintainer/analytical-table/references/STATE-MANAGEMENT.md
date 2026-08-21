@@ -123,7 +123,6 @@ interface AnalyticalTableState {
 | -------------------- | ----------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `setStickyColumns`   | `{ stickyColumns: string[] }` | Replaces `state.stickyColumns` with the given id list.                                       | `instance.setStickyColumns(ids)` / `tableInstance.current.setStickyColumns(ids)`. Programmatic — does NOT fire `onStickyColumnsChange`.                         |
 | `toggleStickyColumn` | `{ columnId, sticky? }`       | Adds/removes `columnId` from `state.stickyColumns` (explicit `sticky` overrides the toggle). | `column.toggleSticky` / `tableInstance.current.toggleStickyColumn(id, value?)`. Popover freeze/unfreeze also dispatches this AND fires `onStickyColumnsChange`. |
-| `resetStickyColumns` | —                             | Resets `state.stickyColumns` to the initial seed.                                            |                                                                                                                                                                 |
 
 **`init` seed:** the reducer's `init` case seeds `state.stickyColumns` from `instance.columns` filtered by `sticky === 'start'` (raw defs). A consumer-supplied `initialState.stickyColumns` wins — `init` returns early if the slice is already set. There is **no** wrapper-built `initialState.stickyColumns` in `index.tsx`.
 
@@ -148,7 +147,7 @@ Reducers run in registration order (`useTable.ts:106-110`). The order in `index.
 4. **`useOrderedMultiSort`** reducer — Reorders `sortBy` by priority on `toggleSortBy`.
 5. **`useIndeterminateRowSelection`** reducer — Handles `INDETERMINATE_ROW_IDS`; mutates `selectedRowIds` to auto-select parents on `toggleRowSelected` when all siblings selected.
 6. **`useF2CellEdit`** reducer — Handles `CELL_CONTENT_TAB_INDEX`.
-7. **`useStickyColumns`** reducer (`pluginHooks/useStickyColumns.ts:21-67`) — Handles the `init` seed (from `sticky: 'start'` columns) plus `setStickyColumns` / `toggleStickyColumn` / `resetStickyColumns`.
+7. **`useStickyColumns`** reducer (`pluginHooks/useStickyColumns.ts:20-63`) — Handles the `init` seed (from `sticky: 'start'` columns) plus `setStickyColumns` / `toggleStickyColumn`.
 
 **Main table reducer (passed as the `useTable` `stateReducer` option, runs after all `hooks.stateReducers`):**
 
