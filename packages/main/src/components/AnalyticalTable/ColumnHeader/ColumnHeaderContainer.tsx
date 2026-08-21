@@ -1,4 +1,6 @@
 import type { Virtualizer } from '@tanstack/react-virtual';
+import { clsx } from 'clsx';
+import type { CSSProperties } from 'react';
 import { forwardRef, useMemo } from 'react';
 import type { ClassNames, DivWithCustomScrollProp } from '../types/index.js';
 import { RenderColumnTypes } from '../types/index.js';
@@ -81,23 +83,6 @@ export const ColumnHeaderContainer = forwardRef<HTMLDivElement, ColumnHeaderCont
           const isStickyStart = stickyStartSet.has(virtualColumn.index);
           const isLastColumn = !column.disableResizing && virtualColumn.index + 1 === headerGroup.headers.length;
           const resizerEdgeOffset = virtualColumn.start + virtualColumn.size - (isLastColumn ? 3 : 0);
-          const resizerPositionStyle = isStickyStart
-            ? {
-                position: 'sticky' as const,
-                insetInlineStart: `${resizerEdgeOffset}px`,
-                transform: isRtl ? 'translateX(50%)' : 'translateX(-50%)',
-              }
-            : isRtl
-              ? {
-                  position: 'absolute' as const,
-                  right: `${resizerEdgeOffset}px`,
-                  transform: 'translateX(50%)',
-                }
-              : {
-                  position: 'absolute' as const,
-                  left: `${resizerEdgeOffset}px`,
-                  transform: 'translateX(-50%)',
-                };
           const resizerProps = column.getResizerProps();
           return (
             <div
@@ -105,8 +90,12 @@ export const ColumnHeaderContainer = forwardRef<HTMLDivElement, ColumnHeaderCont
               {...resizerProps}
               data-resizer
               data-component-name="AnalyticalTableResizer"
-              className={classNames.resizer}
-              style={resizerPositionStyle}
+              className={clsx(
+                classNames.resizer,
+                isStickyStart && classNames.resizerSticky,
+                isRtl && classNames.resizerRtl,
+              )}
+              style={{ '--_ui5wcr_AnalyticalTable_ResizerOffset': `${resizerEdgeOffset}px` } as CSSProperties}
             />
           );
         })}

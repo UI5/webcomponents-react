@@ -485,6 +485,9 @@
   height: var(--_ui5wcr_AnalyticalTable_ContentHeight, 100%);
   position: absolute;
   inset-block-start: 0;
+  inset-inline-start: var(--_ui5wcr_AnalyticalTable_ResizerOffset);
+  /* Center the 5px handle on the column boundary; flips in RTL via .resizerRtl. */
+  transform: translateX(-50%);
   /* z-index within `.resizerLayer`'s stacking context. */
   z-index: 6;
   cursor: col-resize;
@@ -502,6 +505,14 @@
   }
 }
 
+/* Frozen-column resizer stays pinned to its column during horizontal scroll. */
+.resizerSticky {
+  position: sticky;
+}
+
+.resizerRtl {
+  transform: translateX(50%);
+}
 /* ==========================================================================
    ColumnHeaderModal styles
    ========================================================================== */
