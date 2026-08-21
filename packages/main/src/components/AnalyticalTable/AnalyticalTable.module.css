@@ -41,15 +41,16 @@
   font-weight: normal;
   background-color: var(--sapList_Background);
 
-  /*  bottom border*/
   &::after {
     content: '';
-    position: absolute;
+    display: block;
+    position: sticky;
     inset-block-end: 0;
-    inset-inline-start: 0;
     height: var(--_ui5wcr-AnalyticalTable-HeaderBorderWidth);
-    width: 100%;
+    width: var(--_ui5wcr_AnalyticalTable_ContentWidth, 100%);
+    margin-block-start: calc(-1 * var(--_ui5wcr-AnalyticalTable-HeaderBorderWidth));
     background: var(--sapList_HeaderBorderColor);
+    pointer-events: none;
   }
 }
 
@@ -132,10 +133,6 @@
     border-inline-end: 1px solid transparent;
   }
 
-  &:last-child [data-resizer] {
-    transform: translateX(0px);
-  }
-
   &:focus {
     &[data-column-id='__ui5wcr__internal_selection_column'] {
       border-inline-start: 1px solid transparent;
@@ -145,7 +142,7 @@
 
 .tbody {
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
   overflow-y: auto;
   scrollbar-width: none;
   box-sizing: border-box;
@@ -464,15 +461,33 @@
    Resizer styles
    ========================================================================== */
 
+/* Absolute layer for resizers, escaping the header row's flex flow. */
+.resizerLayer {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  height: 100%;
+  pointer-events: none;
+  /* `contain: layout` makes this a stacking context; z-index must beat the sticky header (z 5)
+     so the last sticky column's resizer isn't clipped. */
+  z-index: 6;
+  /* Isolate sticky resizers' overflow from .table's scrollHeight (prevents spurious vertical scrollbar). */
+  contain: layout;
+}
+
 .resizer {
   display: inline-block;
   width: 5px;
-  height: 100%;
+  height: var(--_ui5wcr_AnalyticalTable_ContentHeight, 100%);
   position: absolute;
-  inset-block-end: 0;
   inset-block-start: 0;
-  z-index: 1;
+  inset-inline-start: var(--_ui5wcr_AnalyticalTable_ResizerOffset);
+  /* Center the 5px handle (5px/2 - 0.5 border) */
+  margin-inline-start: -3px;
+  /* z-index within `.resizerLayer`'s stacking context. */
+  z-index: 6;
   cursor: col-resize;
+  pointer-events: auto;
 
   &:hover {
     background-color: var(--sapContent_DragAndDropActiveColor);
@@ -484,6 +499,11 @@
     background-color: var(--sapContent_DragAndDropActiveColor);
     opacity: 1;
   }
+}
+
+/* Frozen-column resizer stays pinned to its column during horizontal scroll. */
+.resizerSticky {
+  position: sticky;
 }
 
 /* ==========================================================================
@@ -658,6 +678,121 @@
   background-color: var(--sapList_FooterBackground);
   box-sizing: border-box;
   border-inline-end: var(--_ui5wcr-AnalyticalTable-OuterBorderInline);
+}
+
+/* ==========================================================================
+   Sticky column styles
+   ========================================================================== */
+
+/* Sticky mode: .table is the single scroll container; header sticky at top, cells use native position:sticky. */
+
+.stickyColumnsMode {
+  overflow: auto;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: contain;
+
+  & > .tableHeaderBackgroundElement {
+    display: none;
+  }
+
+  & > .tableBodyBackgroundElement {
+    display: none;
+  }
+
+  /* Bottom border is rendered by the non-scrolling .stickyBottomBorder sibling instead. */
+  &::after {
+    display: none;
+  }
+}
+
+/* Bottom border anchored to the non-scrolling container so it stays pinned during sticky-mode scrolling. */
+.stickyBottomBorder {
+  position: absolute;
+  inset-inline: 0;
+  height: var(--_ui5wcr-AnalyticalTable-HeaderBorderWidth);
+  background: var(--sapList_HeaderBorderColor);
+  pointer-events: none;
+}
+
+.stickyColumnsMode > .tableHeaderRow {
+  display: flex;
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 4;
+}
+
+.stickyColumnsMode > .tbody {
+  overflow: visible;
+  scrollbar-width: initial;
+}
+
+.thContainer[data-sticky-start] {
+  position: sticky;
+  z-index: 5;
+
+  & > [role='columnheader'] {
+    background-color: var(--sapList_HeaderBackground);
+
+    &:hover {
+      background-color: var(--sapList_Hover_Background);
+    }
+
+    &:active {
+      background-color: var(--sapList_Active_Background);
+    }
+  }
+}
+
+/* Freeze-column separator marking where the frozen columns end (only the LAST sticky column carries it). */
+.thContainer[data-sticky-start-last]::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  width: var(--sapList_TableFixedColumnBorderWidth, 0.0625rem);
+  height: var(--_ui5wcr_AnalyticalTable_ContentHeight, 100%);
+  background: var(--sapList_TableFixedBorderColor);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* No rows: keep sticky active but limit the freeze line to the header row height. */
+.stickyColumnsNoData .thContainer[data-sticky-start-last]::after {
+  height: 100%;
+}
+
+.tableCell[data-sticky-start] {
+  position: sticky;
+  z-index: 2;
+  background-color: var(--sapList_Background);
+  /* Opaque bg hides the row border; redraw it as an inset shadow so the row separator stays visible. */
+  box-shadow: inset 0 -1px 0 0 var(--sapList_BorderColor);
+}
+
+.tr[data-is-selected] > .tableCell[data-sticky-start] {
+  background-color: var(--sapList_SelectionBackgroundColor);
+  box-shadow: inset 0 -1px 0 0 var(--sapList_SelectionBorderColor);
+}
+
+.trActive:hover:not([data-empty-row]) > .tableCell[data-sticky-start] {
+  background-color: var(--sapList_Hover_Background);
+}
+
+.trActive[data-is-selected]:hover > .tableCell[data-sticky-start] {
+  background-color: var(--sapList_Hover_SelectionBackground);
+}
+
+.trActive:active:not([data-empty-row]) > .tableCell[data-sticky-start] {
+  background-color: var(--sapList_Active_Background);
+}
+
+.tableGroupHeader > .tableCell[data-sticky-start] {
+  background-color: var(--sapList_TableGroupHeaderBackground);
+  box-shadow: inset 0 -1px 0 0 var(--sapList_TableGroupHeaderBorderColor);
+}
+
+.alternateRowColor .tableCell[data-sticky-start] {
+  background-color: var(--sapList_AlternatingBackground);
 }
 
 /* ==========================================================================

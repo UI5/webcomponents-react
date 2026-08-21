@@ -35,15 +35,22 @@ interface VirtualTableBodyProps {
   scrollContainerRef?: MutableRefObject<HTMLDivElement>;
   triggerScroll?: TriggerScrollState;
   rowVirtualizer: Virtualizer<DivWithCustomScrollProp, HTMLElement>;
+  stickyStartIndices: number[];
 }
 
-function getDirectionStyles(isRtl: boolean, virtualColumn: VirtualItem) {
+function getDirectionStyles(isRtl: boolean, virtualColumn: VirtualItem, isStickyStart?: boolean) {
+  if (isStickyStart) {
+    return isRtl
+      ? { insetInlineStart: `${virtualColumn.start}px`, zIndex: 2 }
+      : { left: `${virtualColumn.start}px`, zIndex: 2 };
+  }
   return isRtl
     ? {
+        position: 'absolute' as const,
         transform: `translateX(-${virtualColumn.start}px)`,
-        insertInlineStart: 0,
+        insetInlineStart: 0,
       }
-    : { transform: `translateX(${virtualColumn.start}px)`, insertInlineStart: 0 };
+    : { position: 'absolute' as const, transform: `translateX(${virtualColumn.start}px)`, insetInlineStart: 0 };
 }
 
 export const VirtualTableBody = (props: VirtualTableBodyProps) => {
@@ -68,7 +75,10 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
     scrollContainerRef,
     triggerScroll,
     rowVirtualizer,
+    stickyStartIndices,
   } = props;
+
+  const stickyStartSet = useMemo(() => new Set(stickyStartIndices), [stickyStartIndices]);
 
   const rowHeight = popInRowHeight !== internalRowHeight ? popInRowHeight : internalRowHeight;
   const lastNonEmptyRow = useRef(null);
@@ -141,14 +151,14 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
                     {...emptyRowCellProps}
                     key={`${visibleRowIndex}-${emptyRowCellProps.key}`}
                     data-empty-row-cell="true"
+                    data-sticky-start={stickyStartSet.has(item.index) || undefined}
                     tabIndex={-1}
                     aria-hidden="true"
                     style={{
                       ...emptyRowCellProps.style,
                       cursor: 'unset',
-                      position: 'absolute',
                       width: `${item.size}px`,
-                      ...getDirectionStyles(isRtl, item),
+                      ...getDirectionStyles(isRtl, item, stickyStartSet.has(item.index)),
                     }}
                   />
                 );
@@ -217,19 +227,20 @@ export const VirtualTableBody = (props: VirtualTableBodyProps) => {
                 return null;
               }
               const { key, ...cellProps } = cell.getCellProps();
+              const isCellSticky = stickyStartSet.has(virtualColumn.index);
               const allCellProps = {
                 ...cellProps,
                 ['data-visible-column-index']: visibleColumnIndex,
                 ['data-column-index']: virtualColumn.index,
                 ['data-visible-row-index']: visibleRowIndex + 1,
                 ['data-row-index']: rowIndexWithHeader,
+                ['data-sticky-start']: isCellSticky || undefined,
                 style: {
                   ...cellProps.style,
-                  position: 'absolute',
                   width: `${virtualColumn.size}px`,
                   top: 0,
                   height: `${rowHeight}px`,
-                  ...getDirectionStyles(isRtl, virtualColumn),
+                  ...getDirectionStyles(isRtl, virtualColumn, isCellSticky),
                 },
               };
               let contentToRender: RenderColumnTypes;

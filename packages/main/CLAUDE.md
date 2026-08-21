@@ -408,16 +408,16 @@ const handleTableScroll = useCallback((e) => {
 
 The AnalyticalTable has features that do not have a defined UX design specification. To follow UXC guidelines:
 
-| Feature                        | Status                                                                                                     |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| No sticky columns/rows         | Not supported due to technical limitations                                                                 |
-| Pop-in behavior                | `sap.ui.table` doesn't support pop-in (unlike `sap.m.Table`); unclear if this should be part of design     |
-| `visibleRowCountMode: "Auto"`  | `"AutoWithEmptyRows"` is preferred. `"Auto"` can lead to inconsistent table heights depending on container |
-| `alwaysShowBusyIndicator`      | Should generally be `true`. Only if loading times are over 1 second is the default skeleton sufficient     |
-| `scaleWidthMode`               | Only default mode is available out of the box for `sap.m.Table`                                            |
-| `renderRowSubComponent`        | **No design/UX concept** for this functionality                                                            |
-| `useIndeterminateRowSelection` | **No design/UX concept** for this functionality                                                            |
-| `useRowDisableSelection`       | **Deprecated** - table rows should not be disabled                                                         |
+| Feature                        | Status                                                                                                                                                                                                                                                                                                     |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sticky (frozen-start) columns  | **Experimental** via `useStickyColumns` (`tableHooks`). `sticky: 'start'` seeds initial state; runtime toggle via `ref.toggleStickyColumn`/`setStickyColumns`. Grouped columns auto-pin. NOT combinable with `renderRowSubComponent` or `responsivePopIn`. Auto-disables when the container is too narrow. |
+| Pop-in behavior                | `sap.ui.table` doesn't support pop-in (unlike `sap.m.Table`); unclear if this should be part of design                                                                                                                                                                                                     |
+| `visibleRowCountMode: "Auto"`  | `"AutoWithEmptyRows"` is preferred. `"Auto"` can lead to inconsistent table heights depending on container                                                                                                                                                                                                 |
+| `alwaysShowBusyIndicator`      | Should generally be `true`. Only if loading times are over 1 second is the default skeleton sufficient                                                                                                                                                                                                     |
+| `scaleWidthMode`               | Only default mode is available out of the box for `sap.m.Table`                                                                                                                                                                                                                                            |
+| `renderRowSubComponent`        | **No design/UX concept** for this functionality                                                                                                                                                                                                                                                            |
+| `useIndeterminateRowSelection` | **No design/UX concept** for this functionality                                                                                                                                                                                                                                                            |
+| `useRowDisableSelection`       | **Deprecated** - table rows should not be disabled                                                                                                                                                                                                                                                         |
 
 #### Limitations
 

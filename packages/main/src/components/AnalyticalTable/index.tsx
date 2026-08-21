@@ -1,6 +1,6 @@
 'use client';
 
-import { useVirtualizer } from '@tanstack/react-virtual';
+import { defaultRangeExtractor, useVirtualizer } from '@tanstack/react-virtual';
 import { ARIA_LABEL_EMPTY_CELL } from '@ui5/webcomponents/dist/generated/i18n/i18n-defaults.js';
 import {
   debounce,
@@ -32,6 +32,9 @@ import {
   HIGHLIGHT_COLUMN,
   INVALID_TABLE,
   LIST_NO_DATA,
+  FIXED_COLUMN,
+  FREEZE_COLUMN,
+  UNFREEZE_COLUMN,
   NAVIGATION_COLUMN,
   NO_DATA_FILTERED,
   PLEASE_WAIT,
@@ -123,7 +126,7 @@ const measureElement = (el: HTMLElement) => {
  *| Function / Feature                    | Reason                                                                                                                                                                                                                                                   |
  *|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
  *| `useF2CellEdit` plugin hook           | To mimic the `sap.ui.table` edit-mode and tabbing behavior, use the `useF2CellEdit` plugin hook.                                                                                                                                                         |
- *| No sticky columns/rows                 | Not supported due to technical limitations.                                                                                                                                                                                                             |
+ *| Sticky (frozen-start) columns         | Supported **experimentally** via the `useStickyColumns` plugin hook (`sticky: 'start'` column option and/or `tableInstance.toggleStickyColumn`). Not combinable with `renderRowSubComponent` or `responsivePopIn`; grouped columns auto-pin. See the "Sticky Columns" docs section.                                            |
  *| Pop-in behavior                       | The `sap.ui.table` doesn’t support pop-in behavior (unlike `sap.m.Table`); it’s unclear whether this should be part of the design.                                                                                                                       |
  *| `visibleRowCountMode: "Auto"`         | `"AutoWithEmptyRows"` is preferred. `"Auto"` mode can lead to inconsistent table heights depending on the container.                                                                                                                                     |
  *| `alwaysShowBusyIndicator`             | Should generally be `true`, only if loading times are over 1 second, the default skeleton loading indicator is sufficient: [Fiori Skeleton Loading](https://www.sap.com/design-system/fiori-design-ios/ui-elements/patterns/skeleton-loading/?external). |
@@ -280,6 +283,9 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
           selectionHeaderCellText: i18nBundle.getText(SELECTION_COLUMN),
           highlightHeaderCellText: i18nBundle.getText(HIGHLIGHT_COLUMN),
           navigationHeaderCellText: i18nBundle.getText(NAVIGATION_COLUMN),
+          fixedColumnText: i18nBundle.getText(FIXED_COLUMN),
+          freezeColumnText: i18nBundle.getText(FREEZE_COLUMN),
+          unfreezeColumnText: i18nBundle.getText(UNFREEZE_COLUMN),
         },
         alternateRowColor,
         alwaysShowSubComponent,
@@ -353,6 +359,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     visibleColumnsWidth,
     setGroupBy,
     setGlobalFilter,
+    stickyStartIndices = [],
+    totalStickyStartWidth = 0,
   } = tableInstanceRef.current;
 
   useEffect(() => {
@@ -377,6 +385,18 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   // @ts-expect-error: is HTMLElement
   const isRtl = useIsRTL(analyticalTableRef);
 
+  const stickyRangeExtractor = useCallback(
+    (range) => {
+      if (stickyStartIndices.length === 0) {
+        return defaultRangeExtractor(range);
+      }
+      const defaultRange = defaultRangeExtractor(range);
+      const combined = new Set([...stickyStartIndices, ...defaultRange]);
+      return [...combined].sort((a, b) => a - b);
+    },
+    [stickyStartIndices],
+  );
+
   const columnVirtualizer = useVirtualizer({
     count: visibleColumnsWidth.length,
     getScrollElement: () => tableRef.current,
@@ -386,6 +406,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     indexAttribute: 'data-column-index',
     // necessary as otherwise values are rounded which leads to wrong total width calculation leading to unnecessary scrollbar
     measureElement: !scaleXFactor || scaleXFactor === 1 ? (el) => el.getBoundingClientRect().width : undefined,
+    rangeExtractor: stickyStartIndices.length > 0 ? stickyRangeExtractor : undefined,
   });
   // force re-measure if `visibleColumns` change
   useEffect(() => {
@@ -395,16 +416,16 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       isInitialized.current = true;
     }
   }, [visibleColumns.length]);
-  // force re-measure if `state.groupBy` or `state.columnOrder` changes
+  // force re-measure if `state.groupBy`, `state.columnOrder` or `state.stickyColumns` changes (all reorder columns)
   useEffect(() => {
-    if (isInitialized.current && (tableState.groupBy || tableState.columnOrder)) {
+    if (isInitialized.current && (tableState.groupBy || tableState.columnOrder || tableState.stickyColumns)) {
       setTimeout(() => {
         columnVirtualizer.measure();
       }, 100);
     } else {
       isInitialized.current = true;
     }
-  }, [tableState.groupBy, tableState.columnOrder]);
+  }, [tableState.groupBy, tableState.columnOrder, tableState.stickyColumns]);
 
   useEffect(() => {
     if (triggerScroll && triggerScroll.direction === 'horizontal') {
@@ -415,6 +436,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       }
     }
   }, [columnVirtualizer, triggerScroll]);
+
+  const hasStickyColumns = stickyStartIndices.length > 0;
 
   const includeSubCompRowHeight =
     !!renderRowSubComponent &&
@@ -460,13 +483,13 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         type: 'TABLE_RESIZE',
         payload: {
           tableClientWidth:
-            !scaleXFactor || scaleXFactor === 1
-              ? tableRef.current.getBoundingClientRect().width
-              : tableRef.current.clientWidth,
+            hasStickyColumns || (scaleXFactor && scaleXFactor !== 1)
+              ? tableRef.current.clientWidth
+              : tableRef.current.getBoundingClientRect().width,
         },
       });
     }
-  }, [dispatch, scaleXFactor]);
+  }, [dispatch, scaleXFactor, hasStickyColumns]);
 
   const updateRowsCount = useCallback(() => {
     if (
@@ -692,7 +715,12 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     }
   }, [tableState.columnResizing, retainColumnWidth, tableState.tableColResized]);
 
-  useSyncScroll(parentRef, verticalScrollBarRef, tableState.isScrollable, nativeScrollbar);
+  useSyncScroll(
+    hasStickyColumns ? tableRef : parentRef,
+    verticalScrollBarRef,
+    tableState.isScrollable,
+    nativeScrollbar,
+  );
 
   useEffect(() => {
     columnVirtualizer.measure();
@@ -706,11 +734,19 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
 
   const totalSize = columnVirtualizer.getTotalSize();
   const showVerticalEndBorder = tableState.tableClientWidth > totalSize;
+  // Sticky mode uses the native vertical scrollbar; reserve its height for the horizontal scrollbar.
+  const horizontalScrollbarReserved =
+    hasStickyColumns && scrollbarWidth > 0 && tableState.tableClientWidth > 0 && tableState.tableClientWidth < totalSize
+      ? scrollbarWidth
+      : 0;
 
   const tableClasses = clsx(
     classNames.table,
     withNavigationHighlight && classNames.hasNavigationIndicator,
     showVerticalEndBorder && classNames.showVerticalEndBorder,
+    hasStickyColumns && classNames.stickyColumnsMode,
+    // Keep sticky active with no rows, but limit the freeze line to the header (not the empty body).
+    hasStickyColumns && rows?.length === 0 && classNames.stickyColumnsNoData,
   );
 
   const handleOnLoadMore = (e) => {
@@ -735,7 +771,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
 
   const rowVirtualizer = useVirtualizer({
     count: itemCount,
-    getScrollElement: () => parentRef.current,
+    getScrollElement: () => (hasStickyColumns ? tableRef.current : parentRef.current),
     estimateSize: useCallback(
       (index) => {
         if (
@@ -835,6 +871,20 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
             data-component-name="AnalyticalTableContainer"
             ref={tableRef}
             className={tableClasses}
+            style={
+              {
+                '--_ui5wcr_AnalyticalTable_ContentHeight': `${internalHeaderRowHeight + tableBodyHeight}px`,
+                '--_ui5wcr_AnalyticalTable_ContentWidth': `${totalSize}px`,
+                ...(hasStickyColumns
+                  ? {
+                      // The horizontal scrollbar sits inside .table and eats clientHeight; grow by its height so all `visibleRows` stay visible.
+                      height: `${internalHeaderRowHeight + tableBodyHeight + horizontalScrollbarReserved}px`,
+                      // Reserve the frozen-column band so arrow-key scrollIntoView lands cells beside it.
+                      scrollPaddingInlineStart: `${totalStickyStartWidth}px`,
+                    }
+                  : {}),
+              } as CSSProperties
+            }
           >
             <div className={classNames.tableHeaderBackgroundElement} aria-hidden="true" />
             <div className={classNames.tableBodyBackgroundElement} aria-hidden="true" />
@@ -856,6 +906,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                     uniqueId={uniqueId}
                     showVerticalEndBorder={showVerticalEndBorder}
                     classNames={classNames}
+                    stickyStartIndices={stickyStartIndices}
                   />
                 )
               );
@@ -905,6 +956,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                 visibleRows={internalVisibleRowCount}
                 isGrouped={isGrouped}
                 nativeScrollbar={nativeScrollbar}
+                hasStickyColumns={hasStickyColumns}
+                scrollContainerRef={hasStickyColumns ? tableRef : undefined}
               >
                 <VirtualTableBody
                   scrollContainerRef={scrollContainerRef}
@@ -927,11 +980,19 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                   subRowsKey={subRowsKey}
                   triggerScroll={tableState.triggerScroll}
                   rowVirtualizer={rowVirtualizer}
+                  stickyStartIndices={stickyStartIndices}
                 />
               </VirtualTableBodyContainer>
             )}
           </div>
-          {!nativeScrollbar && (additionalEmptyRowsCount || tableState.isScrollable) && (
+          {hasStickyColumns && (
+            <div
+              className={classNames.stickyBottomBorder}
+              aria-hidden="true"
+              style={{ insetBlockEnd: horizontalScrollbarReserved }}
+            />
+          )}
+          {!nativeScrollbar && !hasStickyColumns && (additionalEmptyRowsCount || tableState.isScrollable) && (
             <VerticalScrollbar
               tableBodyHeight={tableBodyHeight}
               internalRowHeight={internalHeaderRowHeight}
