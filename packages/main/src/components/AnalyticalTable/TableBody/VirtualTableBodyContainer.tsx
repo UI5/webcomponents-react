@@ -152,19 +152,9 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
       className={clsx(classes.tbody, nativeScrollbar && !hasStickyColumns && classes.nativeScrollbar)}
       ref={parentRef}
       onScroll={hasStickyColumns ? undefined : onScroll}
-      style={
-        hasStickyColumns
-          ? {
-              position: 'relative',
-              width: `${totalColumnsWidth}px`,
-            }
-          : {
-              position: 'relative',
-              overflowY: 'auto',
-              height: `${tableBodyHeight}px`,
-              width: `${totalColumnsWidth}px`,
-            }
-      }
+      // position/overflow come from `.tbody` (+ `.stickyColumnsMode > .tbody`); only the dimensions are dynamic.
+      // In sticky mode the outer table is the scroller, so the body takes its content height (no fixed height).
+      style={{ width: `${totalColumnsWidth}px`, height: hasStickyColumns ? undefined : `${tableBodyHeight}px` }}
       data-component-name="AnalyticalTableBody"
       tabIndex={-1}
       role="rowgroup"

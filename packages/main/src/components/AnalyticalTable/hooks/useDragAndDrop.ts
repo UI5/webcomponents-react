@@ -23,6 +23,7 @@ function getHeaderProps(
   const { columnOrder, columnResizing, isRtl, dndColumn } = state;
   const { onColumnsReorder } = webComponentsReactProperties;
   // Live sticky state, not static `column.sticky` — stays in sync with the drag-source guard.
+  // TODO: when `sticky: 'end'` is added, also exclude `stickyEndIndices` here and in ColumnHeaderContainer's source guard.
   const isStickyTarget = (() => {
     const indices = stickyStartIndices ?? [];
     if (indices.length === 0) {
