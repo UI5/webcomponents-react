@@ -20,6 +20,17 @@ interface UserSettingsDialogAttributes {
   open?: boolean;
 
   /**
+   * Defines whether the dialog offers Save and Cancel actions in its footer.
+   *
+   * When true, the footer renders a Save (Emphasized) and a Cancel button
+   * instead of the default Close button. Save and Cancel each fire a
+   * corresponding event; the application is responsible for closing the
+   * dialog (typically after persisting or discarding the changes).
+   * @default false
+   */
+  saveMode?: boolean;
+
+  /**
    * Defines if the Search Field would be displayed.
    *
    * **Note:** By default the Search Field is not displayed.
@@ -39,8 +50,10 @@ interface UserSettingsDialogPropTypes
       | 'children'
       | 'fixedItems'
       | 'onBeforeClose'
+      | 'onCancel'
       | 'onClose'
       | 'onOpen'
+      | 'onSave'
       | 'onSelectionChange'
     > {
   /**
@@ -67,6 +80,9 @@ interface UserSettingsDialogPropTypes
   /**
    * Fired before the settings dialog is closed.
    *
+   * **Note:** This event is cancelable via `preventDefault()`, allowing the application to keep the
+   * dialog open — for example, to prompt the user about unsaved changes before dismissal.
+   *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
    *
    * | cancelable | bubbles |
@@ -76,7 +92,18 @@ interface UserSettingsDialogPropTypes
   onBeforeClose?: (event: Ui5CustomEvent<UserSettingsDialogDomRef>) => void;
 
   /**
-   * Fired when a settings dialog is closed.
+   * Fired when the Cancel button in the footer is clicked.
+   * The dialog does not close automatically — the application is responsible
+   * for closing it after discarding the changes.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|❌|
+   */
+  onCancel?: (event: Ui5CustomEvent<UserSettingsDialogDomRef>) => void;
+
+  /**
+   * Fired when the settings dialog is closed.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
@@ -85,13 +112,24 @@ interface UserSettingsDialogPropTypes
   onClose?: (event: Ui5CustomEvent<UserSettingsDialogDomRef>) => void;
 
   /**
-   * Fired when a settings dialog is open.
+   * Fired when the settings dialog is opened.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |
    * | ❌|❌|
    */
   onOpen?: (event: Ui5CustomEvent<UserSettingsDialogDomRef>) => void;
+
+  /**
+   * Fired when the Save button in the footer is clicked.
+   * The dialog does not close automatically — the application is responsible
+   * for closing it after persisting the changes.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|❌|
+   */
+  onSave?: (event: Ui5CustomEvent<UserSettingsDialogDomRef>) => void;
 
   /**
    * Fired when an item is selected.
@@ -118,9 +156,9 @@ interface UserSettingsDialogPropTypes
 const UserSettingsDialog = withWebComponent<UserSettingsDialogPropTypes, UserSettingsDialogDomRef>(
   'ui5-user-settings-dialog',
   ['headerText'],
-  ['open', 'showSearchField'],
+  ['open', 'saveMode', 'showSearchField'],
   ['fixedItems'],
-  ['before-close', 'close', 'open', 'selection-change'],
+  ['before-close', 'cancel', 'close', 'open', 'save', 'selection-change'],
 );
 
 UserSettingsDialog.displayName = 'UserSettingsDialog';

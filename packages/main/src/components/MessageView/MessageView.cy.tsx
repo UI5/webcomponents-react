@@ -1,7 +1,7 @@
 import WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { Link } from '@ui5/webcomponents-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Dialog } from '../../webComponents/Dialog/index.js';
 import { MessageItem } from '../MessageItem/index.js';
 import { MessageView } from './index.js';
@@ -182,6 +182,56 @@ describe('MessageView', () => {
     cy.get('[name="slim-arrow-right"]').should('be.visible').realClick();
     cy.findByText('SubtitleText').should('not.exist');
     cy.findByText('1337').should('not.exist');
+  });
+
+  it('remove MessageItems', () => {
+    const TestComp = () => {
+      const [showInfo, setShowInfo] = useState(true);
+      const [showNeg, setShowNeg] = useState(true);
+      return (
+        <>
+          <button data-testid="remove-info" onClick={() => setShowInfo(false)}>
+            remove info
+          </button>
+          <button data-testid="remove-neg" onClick={() => setShowNeg(false)}>
+            remove neg
+          </button>
+          <MessageView showDetailsPageHeader>
+            {showInfo && (
+              <MessageItem titleText="InfoTitle" type={ValueState.Information}>
+                Info Body
+              </MessageItem>
+            )}
+            {showNeg && (
+              <MessageItem titleText="NegTitle" type={ValueState.Negative}>
+                Neg Body
+              </MessageItem>
+            )}
+            <MessageItem titleText="Neg2Title" type={ValueState.Negative}>
+              Neg2 Body
+            </MessageItem>
+          </MessageView>
+        </>
+      );
+    };
+    cy.mount(<TestComp />);
+
+    cy.get('[icon="information"]').click();
+    cy.findByText('InfoTitle').click();
+    cy.findByText('Info Body').should('be.visible');
+    cy.get('[data-component-name="MessageViewDetailsNavBackBtn"]').should('exist');
+
+    // removing an unrelated item leaves both filter + details intact
+    cy.findByTestId('remove-neg').click();
+    cy.findByText('Info Body').should('be.visible');
+    cy.get('[data-component-name="MessageViewDetailsNavBackBtn"]').should('exist');
+
+    // removing the open + filtered-type item: details collapse, filter falls back, Bar unmounts
+    cy.findByTestId('remove-info').click();
+    cy.findByText('Info Body').should('not.exist');
+    cy.get('[data-component-name="MessageViewDetailsNavBackBtn"]').should('not.exist');
+    cy.findByText('Neg2Title').should('be.visible');
+    cy.get('[ui5-bar]').should('not.exist');
   });
 
   it('MessageItem - titleText overflow', () => {

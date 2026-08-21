@@ -32,7 +32,7 @@ import { Title } from '../../webComponents/Title/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import type { MessageItemPropTypes } from '../MessageItem/index.js';
 import { classNames, styleData } from './MessageView.module.css.js';
-import { getIconNameForType, getValueStateMap } from './utils.js';
+import { getIconNameForType, getValueStateMap, resolveTitleTextStr } from './utils.js';
 
 export interface MessageViewDomRef extends HTMLDivElement {
   /**
@@ -131,19 +131,37 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
   const childrenArray = Children.toArray(children);
   const messageTypes = resolveMessageTypes(childrenArray as ReactElement<MessageItemPropTypes>[]);
   const filledTypes = Object.values(messageTypes).filter((count) => count > 0).length;
+  // fallback to All if selected filter is removed
+  const effectiveListFilter: ValueState | 'All' =
+    listFilter !== 'All' && messageTypes[listFilter] === 0 ? 'All' : listFilter;
+
+  // collapse details pane if the open MessageItem is no longer in children
+  const effectiveSelectedMessage: SelectedMessage | null =
+    selectedMessage !== null &&
+    childrenArray.some((child) => {
+      if (!isValidElement<MessageItemPropTypes>(child)) {
+        return false;
+      }
+      return (
+        resolveTitleTextStr(child.props.titleText) === selectedMessage.titleTextStr &&
+        child.props.type === selectedMessage.type
+      );
+    })
+      ? selectedMessage
+      : null;
 
   const filteredChildren =
-    listFilter === 'All'
+    effectiveListFilter === 'All'
       ? childrenArray
       : childrenArray.filter((message) => {
           if (!isValidElement(message)) {
             return false;
           }
           const castMessage = message as ReactElement<MessageItemPropTypes>;
-          if (listFilter === ValueState.Information) {
+          if (effectiveListFilter === ValueState.Information) {
             return castMessage?.props?.type === ValueState.Information || castMessage?.props?.type === ValueState.None;
           }
-          return castMessage?.props?.type === listFilter;
+          return castMessage?.props?.type === effectiveListFilter;
         });
 
   const groupedMessages = resolveMessageGroups(filteredChildren as ReactElement<MessageItemPropTypes>[]);
@@ -194,7 +212,7 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
     }
   };
 
-  const outerClasses = clsx(classNames.container, className, selectedMessage && classNames.showDetails);
+  const outerClasses = clsx(classNames.container, className, effectiveSelectedMessage && classNames.showDetails);
   return (
     <div
       ref={componentRef}
@@ -209,10 +227,13 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
         }}
       >
         <div
-          style={{ visibility: selectedMessage ? 'hidden' : 'visible', opacity: selectedMessage ? 0.3 : 1 }}
+          style={{
+            visibility: effectiveSelectedMessage ? 'hidden' : 'visible',
+            opacity: effectiveSelectedMessage ? 0.3 : 1,
+          }}
           className={classNames.messagesContainer}
         >
-          {!selectedMessage && (
+          {!effectiveSelectedMessage && (
             <>
               {filledTypes > 1 && (
                 <Bar
@@ -221,7 +242,7 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
                       onSelectionChange={handleListFilterChange}
                       accessibleName={i18nBundle.getText(MESSAGE_TYPES)}
                     >
-                      <SegmentedButtonItem data-key="All" selected={listFilter === 'All'}>
+                      <SegmentedButtonItem data-key="All" selected={effectiveListFilter === 'All'}>
                         {i18nBundle.getText(ALL)}
                       </SegmentedButtonItem>
                       {/* @ts-expect-error: The key can't be typed, it's always `string`, but since the `ValueState` enum only contains strings it's fine to use here*/}
@@ -233,7 +254,7 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
                           <SegmentedButtonItem
                             key={valueState}
                             data-key={valueState}
-                            selected={listFilter === valueState}
+                            selected={effectiveListFilter === valueState}
                             icon={getIconNameForType(valueState)}
                             className={classNames.button}
                             tooltip={getValueStateMap(i18nBundle)[valueState]}
@@ -271,12 +292,12 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
         </div>
         <div
           className={classNames.detailsContainer}
-          style={{ opacity: selectedMessage ? 1 : 0.3 }}
+          style={{ opacity: effectiveSelectedMessage ? 1 : 0.3 }}
           data-component-name="MessageViewDetailsContainer"
         >
           {childrenArray.length > 0 ? (
             <>
-              {showDetailsPageHeader && selectedMessage && (
+              {showDetailsPageHeader && effectiveSelectedMessage && (
                 <Bar
                   startContent={
                     <Button
@@ -291,18 +312,18 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
                   }
                 />
               )}
-              {selectedMessage && (
+              {effectiveSelectedMessage && (
                 <FlexBox className={classNames.details}>
                   <Icon
-                    data-type={selectedMessage.type ?? ValueState.Negative}
-                    name={getIconNameForType(selectedMessage.type)}
+                    data-type={effectiveSelectedMessage.type ?? ValueState.Negative}
+                    name={getIconNameForType(effectiveSelectedMessage.type)}
                     className={classNames.detailsIcon}
                   />
                   <FlexBox direction={FlexBoxDirection.Column} className={classNames.detailsTextContainer}>
                     <Title level={TitleLevel.H5} className={classNames.detailsTitle} wrappingType={WrappingType.Normal}>
-                      {selectedMessage.titleText}
+                      {effectiveSelectedMessage.titleText}
                     </Title>
-                    <div className={classNames.detailsText}>{selectedMessage.children}</div>
+                    <div className={classNames.detailsText}>{effectiveSelectedMessage.children}</div>
                   </FlexBox>
                 </FlexBox>
               )}

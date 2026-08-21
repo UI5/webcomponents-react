@@ -1,4 +1,3 @@
-import TsLogo from '@sb/images/logo-ts.png';
 import LinkDesign from '@ui5/webcomponents/dist/types/LinkDesign.js';
 import MessageStripDesign from '@ui5/webcomponents/dist/types/MessageStripDesign.js';
 import {
@@ -17,6 +16,7 @@ import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
 import { useId, useState } from 'react';
 import classes from './ProjectTemplate.module.css';
+import TsLogo from '@sb/images/logo-ts.png';
 
 interface ProjectTemplatePropTypes {
   title: string;

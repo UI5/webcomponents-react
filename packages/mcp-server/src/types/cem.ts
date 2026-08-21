@@ -41,6 +41,8 @@ export interface CemDeclaration {
   members?: unknown[];
   slots?: unknown[];
   superclass?: { name: string; package: string; module: string } | null;
+  /** True when the component is marked `@abstract` (renders into a parent's DOM, not its own shadow root). */
+  _ui5abstract?: boolean;
 }
 
 export interface CemModule {

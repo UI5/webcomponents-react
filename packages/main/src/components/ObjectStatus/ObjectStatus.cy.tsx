@@ -1,3 +1,4 @@
+import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import {
   VALUE_STATE_ERROR,
   VALUE_STATE_INFORMATION,
@@ -19,7 +20,6 @@ import { TableRow } from '../../webComponents/TableRow/index.js';
 import { TableSelectionSingle } from '../../webComponents/TableSelectionSingle/index.js';
 import { AnalyticalTable } from '../AnalyticalTable/index.js';
 import { ObjectStatus } from './index.js';
-import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 
 const statesWithCSSVars: {
   state: ValueState | keyof typeof ValueState | IndicationColor | keyof typeof IndicationColor;

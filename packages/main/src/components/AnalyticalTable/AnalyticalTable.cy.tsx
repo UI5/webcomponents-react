@@ -1,4 +1,4 @@
-// Cypress equivalent — being migrated to Playwright in `./test/*.spec.tsx`. Will be removed once parity is reached.
+import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import NoDataIllustration from '@ui5/webcomponents-fiori/dist/illustrations/NoData.js';
 import NoFilterResults from '@ui5/webcomponents-fiori/dist/illustrations/NoFilterResults.js';
@@ -83,7 +83,6 @@ import {
 import { useF2CellEdit } from './pluginHooks/useF2CellEdit.js';
 import { useManualRowSelect } from './pluginHooks/useManualRowSelect';
 import { useRowDisableSelection } from './pluginHooks/useRowDisableSelection';
-import { cssVarToRgb, cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import type { RowType } from '@/packages/main/src/components/AnalyticalTable/types/index.js';
 import { getUi5TagWithSuffix } from '@/packages/main/src/internal/utils.js';
 
@@ -402,6 +401,52 @@ describe('AnalyticalTable', () => {
     cy.findByRole('grid').should('have.attr', 'data-per-page', '3');
     cy.findByText('Name-2').should('be.visible');
     cy.findByText('Name-3').should('not.be.visible');
+  });
+
+  it('Auto row count: no double vertical scrollbar when horizontally scrollable', () => {
+    const wideColumns = [
+      { Header: 'Name', accessor: 'name', minWidth: 280 },
+      { Header: 'Type', accessor: 'type', minWidth: 180 },
+      { Header: 'Description', accessor: 'description', minWidth: 220 },
+      { Header: 'Location', accessor: 'location', minWidth: 180 },
+      { Header: 'Published', accessor: 'published', minWidth: 220 },
+    ];
+    const wideData = Array.from({ length: 50 }, (_, index) => ({
+      name: `Item ${index}`,
+      type: 'Type',
+      description: 'Long description',
+      location: 'Folder',
+      published: 'Jun 5, 2026',
+    }));
+
+    [AnalyticalTableVisibleRowCountMode.Auto, AnalyticalTableVisibleRowCountMode.AutoWithEmptyRows].forEach(
+      (visibleRowCountMode) => {
+        cy.mount(
+          <div style={{ height: 528, width: 592, display: 'flex', flexDirection: 'column' }}>
+            <AnalyticalTable
+              columns={wideColumns}
+              data={wideData}
+              visibleRowCountMode={visibleRowCountMode}
+              rowHeight={38}
+              headerRowHeight={32}
+              selectionMode={AnalyticalTableSelectionMode.None}
+            />
+          </div>,
+        );
+
+        // `should` retries until the auto row count settles (React 18 commits the corrected render later)
+        cy.get('[data-component-name="AnalyticalTableContainerWithScrollbar"]')
+          .parent()
+          .should(($root) => {
+            const root = $root[0];
+            const container = root.querySelector<HTMLElement>('[data-component-name="AnalyticalTableContainer"]');
+            expect(container!.scrollWidth, 'container is horizontally scrollable').to.be.greaterThan(
+              container!.clientWidth,
+            );
+            expect(root.scrollHeight, 'table root is not vertically scrollable').to.be.at.most(root.clientHeight + 1);
+          });
+      },
+    );
   });
 
   it('autoResize', () => {
@@ -2098,7 +2143,20 @@ describe('AnalyticalTable', () => {
         getData: () => {
           return colId;
         },
+        types: ['text', 'application/x-ui5wcr-columndnd'],
       });
+
+      // only real column drags may highlight a header.
+      const borderSide = dir === 'rtl' ? 'border-right-width' : 'border-left-width';
+      // Foreign (file) drag must NOT highlight the header.
+      cy.get('[data-column-id="age"]').trigger('dragenter', { dataTransfer: { getData: () => '', types: ['Files'] } });
+      cy.get('[data-column-id="age"]').should('have.css', borderSide, '0px');
+      // A real column drag highlights the header it enters...
+      cy.get('[data-column-id="age"]').trigger('dragenter', { dataTransfer: dataTransfereById('name') });
+      cy.get('[data-column-id="age"]').should('have.css', borderSide, '3px');
+      // ...and leaving the header (relatedTarget outside) clears the highlight again.
+      cy.get('[data-column-id="age"]').trigger('dragleave', { relatedTarget: null });
+      cy.get('[data-column-id="age"]').should('have.css', borderSide, '0px');
 
       cy.get('[data-column-id="name"]')
         .trigger('dragstart')
@@ -2138,6 +2196,7 @@ describe('AnalyticalTable', () => {
 
     const dataTransferById = (colId) => ({
       getData: () => colId,
+      types: ['text', 'application/x-ui5wcr-columndnd'],
     });
 
     cy.mount(<TestComp />);
@@ -2997,7 +3056,7 @@ describe('AnalyticalTable', () => {
     cy.get('[data-column-id="__ui5wcr__internal_selection_column"][role="columnheader"]').should(
       'have.attr',
       'aria-label',
-      ' Selection Column',
+      'Selection Column',
     );
 
     let selectCalled = 0;
@@ -3494,12 +3553,18 @@ describe('AnalyticalTable', () => {
     cy.get('[data-visible-column-index="0"][data-visible-row-index="0"]')
       .as('selAll')
       .should('have.attr', 'title', 'Select All')
-      .and('have.attr', 'aria-label', 'To select all rows, press the spacebar. Selection Column')
-      .click();
+      .and('have.attr', 'aria-label', 'Selection Column');
+    cy.get('@selAll')
+      .invoke('attr', 'aria-describedby')
+      .should('match', /^header-select-all-/);
+    cy.get('@selAll').click();
 
     cy.get('@selAll').should('have.text', 'Select All');
     cy.get('@selAll').contains('Select All').should('not.be.visible');
-    cy.get('@selAll').should('have.attr', 'aria-label', 'To deselect all rows, press the spacebar. Selection Column');
+    cy.get('@selAll').should('have.attr', 'aria-label', 'Selection Column');
+    cy.get('@selAll')
+      .invoke('attr', 'aria-describedby')
+      .should('match', /^header-deselect-all-/);
 
     cy.get('@selectSpy').should('have.been.calledOnce');
     cy.get('@selAll').should('have.attr', 'title', 'Deselect All');
@@ -5135,6 +5200,48 @@ describe('AnalyticalTable', () => {
     cy.get('[data-column-id="product"]').invoke('outerWidth').should('be.gt', 150);
     cy.get('[data-column-id="price"]').invoke('outerWidth').should('be.gt', 150);
     cy.get('[data-column-id="qty"]').invoke('outerWidth').should('be.gt', 150);
+  });
+
+  it('column className & classNameHeader', () => {
+    const columnsWithClassNames: AnalyticalTableColumnDefinition[] = [
+      {
+        Header: 'Name',
+        accessor: 'name',
+        className: 'cy-body-cell',
+        classNameHeader: 'cy-header-cell',
+      },
+      {
+        Header: 'Age',
+        accessor: 'age',
+      },
+    ];
+    cy.mount(
+      <>
+        <style>{`
+          .cy-body-cell { background-color: lightblue; }
+          .cy-header-cell { background-color: lightgrey; }
+        `}</style>
+        <AnalyticalTable data={data} columns={columnsWithClassNames} />
+      </>,
+    );
+
+    cy.get('[data-column-id="name"][role="columnheader"]')
+      .should('have.class', 'cy-header-cell')
+      .and('not.have.class', 'cy-body-cell')
+      .and('have.css', 'background-color', 'rgb(211, 211, 211)');
+
+    cy.get('[data-column-id="age"][role="columnheader"]')
+      .should('not.have.class', 'cy-header-cell')
+      .and('not.have.class', 'cy-body-cell');
+
+    cy.get('[data-row-index="1"][data-column-index="0"]')
+      .should('have.class', 'cy-body-cell')
+      .and('not.have.class', 'cy-header-cell')
+      .and('have.css', 'background-color', 'rgb(173, 216, 230)');
+
+    cy.get('[data-row-index="1"][data-column-index="1"]')
+      .should('not.have.class', 'cy-body-cell')
+      .and('not.have.class', 'cy-header-cell');
   });
 
   cypressPassThroughTestsFactory(AnalyticalTable, { data, columns });

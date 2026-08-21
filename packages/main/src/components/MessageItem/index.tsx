@@ -7,7 +7,7 @@ import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import iconArrowRight from '@ui5/webcomponents-icons/dist/slim-arrow-right.js';
 import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
 import { clsx } from 'clsx';
-import { Children, isValidElement, forwardRef, useContext, useEffect, useRef, useState } from 'react';
+import { Children, forwardRef, useContext, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { FlexBoxAlignItems } from '../../enums/FlexBoxAlignItems.js';
 import { FlexBoxDirection } from '../../enums/FlexBoxDirection.js';
@@ -16,11 +16,10 @@ import { MessageViewContext } from '../../internal/MessageViewContext.js';
 import type { CommonProps } from '../../types/index.js';
 import { Icon } from '../../webComponents/Icon/index.js';
 import { Label } from '../../webComponents/Label/index.js';
-import type { LinkPropTypes } from '../../webComponents/Link/index.js';
 import type { ListItemCustomDomRef, ListItemCustomPropTypes } from '../../webComponents/ListItemCustom/index.js';
 import { ListItemCustom } from '../../webComponents/ListItemCustom/index.js';
 import { FlexBox } from '../FlexBox/index.js';
-import { getIconNameForType, getValueStateMap } from '../MessageView/utils.js';
+import { getIconNameForType, getValueStateMap, resolveTitleTextStr } from '../MessageView/utils.js';
 import { classNames, styleData } from './MessageItem.module.css.js';
 
 export interface MessageItemPropTypes
@@ -69,14 +68,7 @@ const MessageItem = forwardRef<ListItemCustomDomRef, MessageItemPropTypes>((prop
   const titleTextRef = useRef<HTMLSpanElement>(null);
   const hasDetails = !!(children || isTitleTextOverflowing);
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
-  const titleTextStr = (() => {
-    if (typeof titleText === 'string') {
-      return titleText;
-    } else if (isValidElement<LinkPropTypes>(titleText) && typeof titleText.props.children === 'string') {
-      return titleText.props.children;
-    }
-    return '';
-  })();
+  const titleTextStr = resolveTitleTextStr(titleText);
 
   useStylesheet(styleData, MessageItem.displayName);
 

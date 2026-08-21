@@ -1,38 +1,18 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 import { simpleDataSet } from '../../../resources/DemoProps.js';
-import { testPassThroughProps } from '../../../../../../playwright/test-factories/sharedComponentTests.js';
-import { testLoadingStates } from '../../../test-utils/sharedTests.js';
-import { PieChart } from '../index.js';
-import {
-  PieChartClickTest,
-  PieChartCustomLabelTest,
-  PieChartLegendConfigTest,
-  PieChartSectorFocusActiveTest,
-  PieChartSectorFocusDatasetShrinkTest,
-  PieChartSectorFocusEmptyTest,
-  PieChartSectorFocusHandlersTest,
-  PieChartSectorFocusOutOfBoundsTest,
-  PieChartSectorFocusTest,
-} from './PieChartTestComponents.js';
-
-const dimension = { accessor: 'name' };
-const measure = { accessor: 'users' };
+import { testLoadingStates, testPassThroughProps } from '../../../test-utils/chartGalleryTests.js';
+import type { Chart } from '../../../test-utils/ChartHarness.gallery.js';
 
 test.describe('PieChart', () => {
   test('Basic', async ({ mount, page }) => {
-    await mount(<PieChart dataset={simpleDataSet} dimension={dimension} measure={measure} />);
+    await mount<typeof Chart>('ChartHarness/Chart', { chart: 'PieChart' });
     await expect(page.locator('.recharts-responsive-container')).toBeVisible();
     await expect(page.locator('.recharts-pie')).toHaveCount(1);
     await expect(page.locator('.recharts-pie-sector')).toHaveCount(12);
   });
 
-  test('click handlers', async ({ mount, page, browserName }) => {
-    // TODO(cross-browser): label click hits the wrong sector on firefox/webkit (registers February instead of January).
-    test.fixme(
-      browserName === 'firefox' || browserName === 'webkit',
-      'recharts label click resolves to wrong sector on firefox/webkit',
-    );
-    await mount(<PieChartClickTest />);
+  test('click handlers', async ({ mount, page }) => {
+    await mount('PieChart/PieChartClickTest');
 
     await page.locator('[name="January"]').first().click({ force: true });
     await expect(page.getByTestId('click-count')).toHaveText('1');
@@ -43,28 +23,23 @@ test.describe('PieChart', () => {
     await expect(page.getByTestId('last-legend-datakey')).toHaveText('users');
   });
 
-  testLoadingStates(
-    PieChart,
-    { dataset: simpleDataSet, dimension, measure },
-    { dimension: {}, measure: {} },
-    '.recharts-pie',
-  );
+  testLoadingStates('PieChart', '.recharts-pie');
 
-  testPassThroughProps(PieChart, { dimension: {}, measure: {} });
+  testPassThroughProps('PieChart');
 
   test('custom label', async ({ mount, page }) => {
-    await mount(<PieChartCustomLabelTest />);
+    await mount('PieChart/PieChartCustomLabelTest');
     await expect(page.getByText('CustomLabel')).toHaveCount(12);
   });
 
   test('legendConfig', async ({ mount, page }) => {
-    await mount(<PieChartLegendConfigTest />);
+    await mount('PieChart/PieChartLegendConfigTest');
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
   test.describe('Sector Focus - keyboard navigation', () => {
     test('Tab, arrows, Enter, wrap-around', async ({ mount, page }) => {
-      await mount(<PieChartSectorFocusTest />);
+      await mount('PieChart/PieChartSectorFocusTest');
 
       // Focus "before" button then Tab into chart container
       await page.getByText('before').focus();
@@ -107,7 +82,7 @@ test.describe('PieChart', () => {
     });
 
     test('activeSegment with Enter and Space', async ({ mount, page }) => {
-      await mount(<PieChartSectorFocusActiveTest />);
+      await mount('PieChart/PieChartSectorFocusActiveTest');
 
       // Initial activeSegment is 2
       await expect(page.getByTestId('active-segment')).toHaveText('2');
@@ -149,7 +124,7 @@ test.describe('PieChart', () => {
     });
 
     test('empty dataset is non-interactive', async ({ mount, page }) => {
-      await mount(<PieChartSectorFocusEmptyTest />);
+      await mount('PieChart/PieChartSectorFocusEmptyTest');
 
       // The chart container should have tabindex 0 but no role="application"
       const chartContainer = page.locator('[aria-roledescription="chart"]');
@@ -158,7 +133,7 @@ test.describe('PieChart', () => {
     });
 
     test('consumer event handlers are composed', async ({ mount, page }) => {
-      await mount(<PieChartSectorFocusHandlersTest />);
+      await mount('PieChart/PieChartSectorFocusHandlersTest');
 
       // Focus the chart container directly (triggers onFocus)
       const chartContainer = page.locator('[aria-roledescription="chart"]');
@@ -179,7 +154,7 @@ test.describe('PieChart', () => {
     });
 
     test('activeSegment out of bounds is clamped', async ({ mount, page }) => {
-      await mount(<PieChartSectorFocusOutOfBoundsTest />);
+      await mount('PieChart/PieChartSectorFocusOutOfBoundsTest');
 
       await page.getByText('before').focus();
       await page.keyboard.press('Tab');
@@ -187,10 +162,8 @@ test.describe('PieChart', () => {
       await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', String(simpleDataSet.length - 1));
     });
 
-    test('dataset shrink resets keyboard state', async ({ mount, page, browserName }) => {
-      // TODO(cross-browser): Tab does not focus chart sectors on webkit (Safari requires alt+tab to focus non-form elements).
-      test.fixme(browserName === 'webkit', 'webkit Safari requires alt+tab for non-form focusables');
-      await mount(<PieChartSectorFocusDatasetShrinkTest />);
+    test('dataset shrink resets keyboard state', async ({ mount, page }) => {
+      await mount('PieChart/PieChartSectorFocusDatasetShrinkTest');
 
       // Tab past "shrink" button into chart, then into sector mode
       await page.getByText('before').focus();

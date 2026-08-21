@@ -11,7 +11,7 @@ const defaultAxisHeight = 30;
 function measure(container: Element | null, axisCount: number, prevHeightsRef: MutableRefObject<number[]>) {
   const heights = Array(axisCount).fill(defaultAxisHeight);
   container?.querySelectorAll<SVGGraphicsElement>('.xAxis').forEach((xAxis, index) => {
-    const height = xAxis?.getBBox()?.height;
+    const height = Math.ceil(xAxis?.getBBox()?.height ?? 0);
     if (height > defaultAxisHeight) {
       heights[index] = height;
     }
@@ -31,6 +31,7 @@ export const useObserveXAxisHeights = (chartRef: RefObject<SVGElement>, axisCoun
   const [xAxisHeights, setXAxisHeights] = useState(Array(axisCount).fill(defaultAxisHeight));
   const prevHeightsRef = useRef(xAxisHeights);
 
+  // TODO (v3): evaluate if ResizeObserver is better here for measuring, so it doesn't run on every component update
   // check on every render if height changed
   useIsomorphicLayoutEffect(() => {
     const result = measure(chartRef.current, axisCount, prevHeightsRef);

@@ -1,11 +1,10 @@
 import type { Page } from '@playwright/test';
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
-import {
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
+import type {
+  SplitterControlledTestComp,
   SplitterMoveResetTestComp,
   SplitterMultipleElementsTestComp,
-  SplitterEmptyTestComp,
-  SplitterControlledTestComp,
-} from './SplitterLayoutTestComponents.js';
+} from './SplitterLayout.gallery.js';
 
 /**
  * Move first separator 10 times via ArrowUp/ArrowLeft (RTL aware)
@@ -31,7 +30,7 @@ test.describe('SplitterLayout', () => {
     for (const vertical of [false, true]) {
       test(`Splitter Move & Reset - ${dir} - vertical: ${vertical}`, async ({ mount, page }) => {
         await page.setViewportSize({ width: 2000, height: 2000 });
-        await mount(<SplitterMoveResetTestComp vertical={vertical} dir={dir} />);
+        await mount<typeof SplitterMoveResetTestComp>('SplitterLayout/SplitterMoveResetTestComp', { vertical, dir });
 
         const se1 = page.getByTestId('se1');
         const se2 = page.getByTestId('se2');
@@ -69,18 +68,12 @@ test.describe('SplitterLayout', () => {
 
   for (const vertical of [false, true]) {
     test(`SplitterLayout w/ multiple SplitterElements - vertical: ${vertical}`, async ({ mount, page }) => {
-      let clickCount = 0;
-      await mount(
-        <SplitterMultipleElementsTestComp
-          vertical={vertical}
-          onBtnClick={() => {
-            clickCount++;
-          }}
-        />,
-      );
+      await mount<typeof SplitterMultipleElementsTestComp>('SplitterLayout/SplitterMultipleElementsTestComp', {
+        vertical,
+      });
 
       await page.getByTestId('btn').click();
-      expect(clickCount).toBe(1);
+      await expect(page.getByTestId('btn-click-count')).toHaveText('1');
 
       // only one separator (resizable=false for #2)
       const separators = page.locator('[role="separator"]');
@@ -103,20 +96,15 @@ test.describe('SplitterLayout', () => {
   }
 
   test('empty content', async ({ mount, page }) => {
-    await mount(<SplitterEmptyTestComp />);
+    await mount('SplitterLayout/SplitterEmptyTestComp');
     const sl = page.getByTestId('sl');
     await expect(sl).toBeAttached();
     await expect(sl).not.toBeVisible();
   });
 
   for (const vertical of [true, false]) {
-    test(`controlled width (${vertical ? 'vertical' : 'horizontal'})`, async ({ mount, page, browserName }) => {
-      // TODO(cross-browser): mouse drag math produces different pixel resolution on webkit for vertical split.
-      test.fixme(
-        browserName === 'webkit' && vertical,
-        'webkit mouse drag yields non-integer pixel sizes for vertical SplitterLayout',
-      );
-      await mount(<SplitterControlledTestComp vertical={vertical} />);
+    test(`controlled width (${vertical ? 'vertical' : 'horizontal'})`, async ({ mount, page }) => {
+      await mount<typeof SplitterControlledTestComp>('SplitterLayout/SplitterControlledTestComp', { vertical });
 
       await expect(page.getByTestId('resize-count')).toHaveText('0');
       await expect(page.getByTestId('0')).toHaveText('200px');

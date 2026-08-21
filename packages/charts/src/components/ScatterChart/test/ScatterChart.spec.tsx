@@ -1,24 +1,8 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import type { Page } from '@playwright/test';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 import { scatterComplexDataSet } from '../../../resources/DemoProps.js';
-import { testPassThroughProps } from '../../../../../../playwright/test-factories/sharedComponentTests.js';
-import { testLoadingStates } from '../../../test-utils/sharedTests.js';
-import { ScatterChart } from '../index.js';
-import {
-  ScatterChartAccessibilityTest,
-  ScatterChartClickTest,
-  ScatterChartEmptyAccessibilityTest,
-  ScatterChartEmptyTest,
-  ScatterChartLegendConfigTest,
-  ScatterChartMultiDatasetAccessibilityTest,
-  ScatterChartMultipleChartsTest,
-} from './ScatterChartTestComponents.js';
-
-const measures = [
-  { accessor: 'users', label: 'Number', axis: 'x' as const },
-  { accessor: 'sessions', label: 'Sessions', axis: 'y' as const },
-  { accessor: 'volume', axis: 'z' as const },
-];
+import { testLoadingStates, testPassThroughProps } from '../../../test-utils/chartGalleryTests.js';
+import type { Chart } from '../../../test-utils/ChartHarness.gallery.js';
 
 async function expectActivePointLabel(page: Page, containerSelector: string, ...matchers: string[]) {
   const container = page.locator(containerSelector).first();
@@ -33,14 +17,14 @@ async function expectActivePointLabel(page: Page, containerSelector: string, ...
 
 test.describe('ScatterChart', () => {
   test('Basic', async ({ mount, page }) => {
-    await mount(<ScatterChart dataset={scatterComplexDataSet} measures={measures} />);
+    await mount<typeof Chart>('ChartHarness/Chart', { chart: 'ScatterChart' });
     await expect(page.locator('.recharts-responsive-container')).toBeVisible();
     await expect(page.locator('.recharts-scatter')).toHaveCount(2);
     await expect(page.locator('.recharts-symbols[name="APJ"]')).toHaveCount(12);
   });
 
   test('click handlers', async ({ mount, page }) => {
-    await mount(<ScatterChartClickTest />);
+    await mount('ScatterChart/ScatterChartClickTest');
 
     await page.locator('[name="Users"]').first().click();
     await expect(page.getByTestId('click-count')).toHaveText('1');
@@ -51,10 +35,10 @@ test.describe('ScatterChart', () => {
     await expect(page.getByTestId('last-legend-value')).toHaveText('Users');
   });
 
-  testLoadingStates(ScatterChart, { dataset: scatterComplexDataSet, measures }, { measures: [] }, '.recharts-scatter');
+  testLoadingStates('ScatterChart', '.recharts-scatter');
 
   test('accessibilityLayer: keyboard navigation, Enter, blur/re-focus, consumer handlers', async ({ mount, page }) => {
-    await mount(<ScatterChartAccessibilityTest />);
+    await mount('ScatterChart/ScatterChartAccessibilityTest');
     const containerSelector = '[aria-roledescription="chart"]';
 
     await expect(page.locator('[role="img"][aria-label]')).toHaveCount(3);
@@ -115,7 +99,7 @@ test.describe('ScatterChart', () => {
   });
 
   test('accessibilityLayer: multi-dataset points sorted by X then datasetIndex', async ({ mount, page }) => {
-    await mount(<ScatterChartMultiDatasetAccessibilityTest />);
+    await mount('ScatterChart/ScatterChartMultiDatasetAccessibilityTest');
     const containerSelector = '[aria-roledescription="chart"]';
 
     await expect(page.locator('[role="img"][aria-label]')).toHaveCount(3);
@@ -131,7 +115,7 @@ test.describe('ScatterChart', () => {
   });
 
   test('accessibilityLayer: multiple charts', async ({ mount, page }) => {
-    await mount(<ScatterChartMultipleChartsTest />);
+    await mount('ScatterChart/ScatterChartMultipleChartsTest');
 
     // Verify unique IDs across all points
     const ids = await page.locator('[role="img"][id]').evaluateAll((els) => els.map((el) => el.id));
@@ -150,13 +134,13 @@ test.describe('ScatterChart', () => {
   });
 
   test('empty dataset (accessibilityLayer: false)', async ({ mount, page }) => {
-    await mount(<ScatterChartEmptyTest />);
+    await mount('ScatterChart/ScatterChartEmptyTest');
     await expect(page.locator('.recharts-scatter')).not.toBeAttached();
     await expect(page.getByText('Loading...')).toBeAttached();
   });
 
   test('empty dataset (accessibilityLayer: true)', async ({ mount, page }) => {
-    await mount(<ScatterChartEmptyAccessibilityTest />);
+    await mount('ScatterChart/ScatterChartEmptyAccessibilityTest');
     await expect(page.locator('.recharts-scatter')).not.toBeAttached();
     await expect(page.getByText('Loading...')).toBeAttached();
     const chart = page.locator('[aria-roledescription="chart"]');
@@ -165,9 +149,9 @@ test.describe('ScatterChart', () => {
   });
 
   test('legendConfig', async ({ mount, page }) => {
-    await mount(<ScatterChartLegendConfigTest />);
+    await mount('ScatterChart/ScatterChartLegendConfigTest');
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
-  testPassThroughProps(ScatterChart, { measures: [] });
+  testPassThroughProps('ScatterChart');
 });

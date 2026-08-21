@@ -10,12 +10,20 @@ import type { ReactNode } from 'react';
 interface ToolbarAttributes {
   /**
    * Defines the accessible ARIA name of the component.
+   *
+   * **Note:** It is strongly recommended to always set this property or `accessibleNameRef`
+   * when the toolbar has `role="toolbar"` (i.e. when it contains more than one interactive item).
+   * Without an accessible name, screen readers will announce the toolbar without any context,
+   * making it harder for keyboard-only and AT users to understand its purpose.
    * @default undefined
    */
   accessibleName?: string | undefined;
 
   /**
    * Receives id(or many ids) of the elements that label the input.
+   *
+   * **Note:** When the toolbar has `role="toolbar"`, at least one of `accessibleName` or
+   * `accessibleNameRef` should be provided to satisfy WCAG 2.1 success criterion 4.1.2.
    * @default undefined
    */
   accessibleNameRef?: string | undefined;
@@ -71,8 +79,9 @@ interface ToolbarPropTypes extends ToolbarAttributes, Omit<CommonProps, keyof To
  * ### Keyboard Handling
  * The `Toolbar` provides advanced keyboard handling.
  *
- * - The control is not interactive, but can contain of interactive elements
- * - [Tab] - iterates through elements
+ * - [Left]/[Right] - navigate among toolbar items
+ * - [Home]/[End] - move to first/last toolbar item
+ * - [Tab] / [Shift]+[Tab] - exit the toolbar
  *
  *
  *

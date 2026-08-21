@@ -1,48 +1,19 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
-import { testPassThroughProps } from '../../../../../../playwright/test-factories/sharedComponentTests.js';
-import { testLoadingStates, testZoomingTool } from '../../../test-utils/sharedTests.js';
-import { LineChart } from '../index.js';
-import {
-  LineChartClickTest,
-  LineChartDataPointClickTest,
-  LineChartLegendConfigTest,
-} from './LineChartTestComponents.js';
-
-const dimensions = [{ accessor: 'name', interval: 0 }];
-const measures = [
-  { accessor: 'users', label: 'Users' },
-  { accessor: 'sessions', label: 'Active Sessions' },
-  { accessor: 'volume', label: 'Vol.' },
-];
-const baseProps = { dataset: complexDataSet, dimensions, measures };
+import { testLoadingStates, testPassThroughProps, testZoomingTool } from '../../../test-utils/chartGalleryTests.js';
+import type { Chart } from '../../../test-utils/ChartHarness.gallery.js';
 
 test.describe('LineChart', () => {
   test('Basic', async ({ mount, page }) => {
-    await mount(
-      <LineChart
-        dataset={complexDataSet}
-        dimensions={[{ accessor: 'name', interval: 0 }]}
-        measures={[
-          { accessor: 'users', label: 'Users' },
-          { accessor: 'sessions', label: 'Active Sessions' },
-          { accessor: 'volume', label: 'Vol.' },
-        ]}
-      />,
-    );
+    await mount<typeof Chart>('ChartHarness/Chart', { chart: 'LineChart' });
     await expect(page.locator('.recharts-responsive-container')).toBeVisible();
     await expect(page.locator('.recharts-line')).toHaveCount(3);
     await expect(page.locator('.recharts-line-curve')).toHaveCount(3);
     await expect(page.locator('.recharts-brush')).not.toBeAttached();
   });
 
-  test('click handlers', async ({ mount, page, browserName }) => {
-    // TODO(cross-browser): click on .recharts-line-dot lands on wrong datum in firefox/webkit (registers index 1 instead of 0).
-    test.fixme(
-      browserName === 'firefox' || browserName === 'webkit',
-      'recharts dot click resolves to wrong datum on firefox/webkit',
-    );
-    await mount(<LineChartClickTest />);
+  test('click handlers', async ({ mount, page }) => {
+    await mount('LineChart/LineChartClickTest');
 
     await page.locator('.recharts-line-dot[name="Users"]').first().click({ force: true });
     await expect(page.getByTestId('click-count')).toHaveText('1');
@@ -53,28 +24,19 @@ test.describe('LineChart', () => {
     await expect(page.getByTestId('last-legend-datakey')).toHaveText('users');
   });
 
-  testLoadingStates(
-    LineChart,
-    {
-      dataset: complexDataSet,
-      dimensions: [{ accessor: 'name', interval: 0 }],
-      measures: [{ accessor: 'users', label: 'Users' }],
-    },
-    { dimensions: [], measures: [] },
-    '.recharts-line',
-  );
+  testLoadingStates('LineChart', '.recharts-line');
 
   test('legendConfig', async ({ mount, page }) => {
-    await mount(<LineChartLegendConfigTest />);
+    await mount('LineChart/LineChartLegendConfigTest');
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
-  testZoomingTool(LineChart, baseProps);
+  testZoomingTool('LineChart');
 
-  testPassThroughProps(LineChart, { dimensions: [], measures: [] });
+  testPassThroughProps('LineChart');
 
   test('onDataPointClick', async ({ mount, page }) => {
-    await mount(<LineChartDataPointClickTest />);
+    await mount('LineChart/LineChartDataPointClickTest');
 
     // LineChart fires onDataPointClick via activeDot — hover to trigger the active dot, then click it
     const firstDot = page.locator('.recharts-line-dot[name="Users"]').first();

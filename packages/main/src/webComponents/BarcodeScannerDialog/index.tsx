@@ -87,7 +87,7 @@ interface BarcodeScannerDialogPropTypes
   onScanError?: (event: Ui5CustomEvent<BarcodeScannerDialogDomRef, BarcodeScannerDialogScanErrorEventDetail>) => void;
 
   /**
-   * Fires when the scan is completed successfuuly.
+   * Fires when the scan is completed successfully.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |

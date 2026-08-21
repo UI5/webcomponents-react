@@ -1,6 +1,7 @@
 import dataSmall from '@sb/mockData/Friends50.json';
 import dataLarge from '@sb/mockData/Friends500.json';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import NoDataIllustration from '@ui5/webcomponents-fiori/dist/illustrations/NoData.js';
 import '@ui5/webcomponents-icons/dist/sort-ascending.js';
 import '@ui5/webcomponents-icons/dist/sort-descending.js';
 import '@ui5/webcomponents-icons/dist/reset.js';
@@ -18,6 +19,7 @@ import {
 } from '../../../../enums/index.js';
 import { Button } from '../../../../webComponents/Button/index.js';
 import { Dialog } from '../../../../webComponents/Dialog/index.js';
+import { IllustratedMessage } from '../../../../webComponents/IllustratedMessage/index.js';
 import { Input } from '../../../../webComponents/Input/index.js';
 import { MultiComboBox } from '../../../../webComponents/MultiComboBox/index.js';
 import { MultiComboBoxItem } from '../../../../webComponents/MultiComboBoxItem/index.js';
@@ -29,7 +31,7 @@ import { Text } from '../../../../webComponents/Text/index.js';
 import { ToggleButton } from '../../../../webComponents/ToggleButton/index.js';
 import { FlexBox } from '../../../FlexBox/index.js';
 import { ObjectStatus } from '../../../ObjectStatus/index.js';
-import type { AnalyticalTableColumnDefinition } from '../../index.js';
+import type { AnalyticalTableColumnDefinition, AnalyticalTablePropTypes } from '../../index.js';
 import { AnalyticalTable } from '../../index.js';
 import meta from '../AnalyticalTable.stories.js';
 
@@ -456,8 +458,15 @@ export const LoadingStates: Story = {
     const [loading, setLoading] = useState(false);
     const [showOverlay, setShowOverlay] = useState(false);
     const [alwaysShowBusyIndicator, setAlwaysShowBusyIndicator] = useState(false);
+    const [customNoData, setCustomNoData] = useState(false);
 
     const data = useMemo(() => (hasData ? dataSmall : []), [hasData]);
+
+    const NoDataComponent: AnalyticalTablePropTypes['NoDataComponent'] = !customNoData
+      ? undefined
+      : loading
+        ? undefined
+        : (props) => <IllustratedMessage role={props.accessibleRole} name={NoDataIllustration} />;
 
     return (
       <>
@@ -474,6 +483,9 @@ export const LoadingStates: Story = {
           <ToggleButton pressed={!hasData} onClick={() => setHasData((prev) => !prev)}>
             Empty data
           </ToggleButton>
+          <ToggleButton pressed={customNoData} onClick={() => setCustomNoData((prev) => !prev)}>
+            Custom NoDataComponent
+          </ToggleButton>
         </FlexBox>
         <AnalyticalTable
           {...args}
@@ -481,6 +493,7 @@ export const LoadingStates: Story = {
           loading={loading}
           showOverlay={showOverlay}
           alwaysShowBusyIndicator={alwaysShowBusyIndicator}
+          NoDataComponent={NoDataComponent}
           loadingDelay={500}
           header={`loading: ${loading} | showOverlay: ${showOverlay} | alwaysShowBusyIndicator: ${alwaysShowBusyIndicator} | data: ${hasData ? '50 rows' : 'empty'}`}
         />
@@ -1276,6 +1289,32 @@ export const AutoResizeColumns: Story = {
         <Text style={{ marginBlockStart: '0.5rem', display: 'block' }}>
           {lastResize || 'Double-click a column border to auto-resize.'}
         </Text>
+      </>
+    );
+  },
+};
+
+const columnClassNameColumns: AnalyticalTableColumnDefinition[] = [
+  {
+    Header: 'Name',
+    accessor: 'name',
+    className: 'feature-example-body-cell',
+    classNameHeader: 'feature-example-header-cell',
+  },
+  { Header: 'Age', accessor: 'age' },
+  { Header: 'Friend Name', accessor: 'friend.name' },
+  { Header: 'Friend Age', accessor: 'friend.age' },
+];
+
+export const ColumnClassName: Story = {
+  render(args) {
+    return (
+      <>
+        <style>{`
+          .feature-example-header-cell { background-color: lightgrey; }
+          .feature-example-body-cell { background-color: lightblue; }
+        `}</style>
+        <AnalyticalTable {...args} data={dataSmall} columns={columnClassNameColumns} visibleRows={5} />
       </>
     );
   },

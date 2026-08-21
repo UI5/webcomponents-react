@@ -1,0 +1,169 @@
+import { Footer, TableOfContent } from '@sb/components';
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing" />
+
+# Testing
+
+<TableOfContent />
+
+This guide covers the particularities of testing UI5 Web Components for React — the things that
+behave differently from plain React components because these are custom elements with Shadow DOM.
+It is **not tied to a specific test runner**: the advice applies to any tool that drives a
+**real browser** (for example Cypress, Playwright, or WebdriverIO).
+
+> **Use a real browser, not JSDOM.**
+> UI5 Web Components are custom elements that rely on the real DOM — Shadow DOM, custom-element
+> upgrades, slots, and CSS. Virtual-DOM environments such as JSDOM (the default for Jest and
+> Vitest) do not implement these, so components will not render or behave correctly. Choose a
+> runner that executes in an actual browser.
+
+## Component test setup
+
+When you mount a component in isolation (component testing), you have to provide the same runtime
+context the real app would. Two things are required:
+
+1. **Wrap the mounted component in `ThemeProvider`, as the outermost element.** Components read
+   theming and configuration from it, so it must sit above whatever you render.
+
+   ```tsx
+   mount(
+     <ThemeProvider>
+       <YourComponentUnderTest />
+     </ThemeProvider>,
+   );
+   ```
+
+   Set this up once in your runner's mount wrapper (e.g. a custom Cypress `mount` command, or
+   Playwright CT's `beforeMount` hook) so every test gets it automatically.
+
+2. **Import the assets** once in your test setup if the test depends on translations (i18n),
+   theming, or locale-specific (CLDR) formatting — otherwise components render with English text
+   only and theme switching won't work:
+
+   ```tsx
+   import '@ui5/webcomponents-react/dist/Assets.js';
+   ```
+
+> This setup applies to **component testing**. In **end-to-end** tests you drive the real
+> application, which already renders `ThemeProvider` and imports assets — so you don't add either
+> in the test itself.
+
+## Selecting elements
+
+Select the host element by its **attribute selector** — the tag name written as an attribute in
+square brackets, e.g. `[ui5-button]` for `<ui5-button>` — rather than by the tag name itself.
+This keeps selectors working when custom-element [scoping](https://ui5.github.io/webcomponents/docs/advanced/scoping/)
+adds a suffix to the tag name (e.g. `<ui5-button-a1b2c3>`).
+
+```js
+// ✅ attribute selector — robust against scoping
+get('[ui5-button]')
+
+// ❌ tag-name selector — breaks when scoping is enabled
+get('ui5-button')
+```
+
+Component internals live in the Shadow DOM. Real-browser runners can pierce it, so if a test
+genuinely needs an internal element you can query and assert on it — for example Cypress with
+`includeShadowDom: true`, or Playwright, whose locators pierce shadow roots by default. Prefer
+asserting on the component's public surface (props, attributes, emitted events) where you can;
+reach into the shadow tree only when there's no equivalent public signal, and expect such
+assertions to be more brittle since internal structure can change between versions.
+
+To identify which item fired a collection event (e.g. from `e.detail`), see
+[IDs via dataset](https://ui5.github.io/webcomponents-react/?path=/docs/knowledge-base-ids-via-dataset--docs).
+
+## Web components are asynchronous
+
+This is the pitfall behind most flaky UI5 tests. A UI5 Web Component is not fully usable the
+moment it appears in the DOM — it becomes ready in **two asynchronous stages**:
+
+1. **Custom element definition** — the browser has to register (define + upgrade) the custom
+   element before the host is anything more than an inert placeholder. This happens
+   asynchronously, especially when component modules are loaded on demand.
+2. **Internal rendering** — even after definition, the component renders its own Shadow DOM (and
+   sometimes nested sub-components) asynchronously. So the shadow parts, inner elements, and
+   final layout appear a tick _after_ the host exists.
+
+A test that queries an internal node, reads a computed style, or clicks a shadow element **too
+early** will intermittently fail — the target may not exist or may not be positioned yet.
+
+**Wait by asserting on the element, not with a fixed delay.** The reliable, framework-agnostic
+approach is to let the runner's retrying assertions wait for the actual state you care about —
+they keep re-checking until the async definition and rendering have completed:
+
+- Wait for the host to exist / be visible via its attribute selector (e.g. `[ui5-button]`).
+- For interactions with internals, assert on the specific target (a shadow part, an option, a
+  menu item) — prefer a visibility assertion over a mere existence check, since a node can be
+  present in the DOM before it is actually shown (see overlays below).
+- For overlays, wait on the state that indicates readiness (e.g. a popover's `open` attribute —
+  see the "Popovers, menus, and dialogs" section below).
+
+Avoid fixed timeouts (`wait(500)`) to "let the component settle" — they are both flaky and slow.
+Gate on a retrying assertion of the element or its state instead.
+
+## Abstract components render into their parent
+
+Some components are **abstract** (marked `@abstract`). Unlike a normal component, an abstract
+component does **not** render its own top-level shadow root — it renders into the DOM of its
+**parent**. Typical examples are slotted item components such as `SuggestionItem`, `Tab`,
+`ToolbarButton`, `WizardStep`, and `SideNavigationItem`.
+
+Abstract components are marked as such in their API documentation.
+
+This matters for testing because the host placeholder element you write in JSX is not the node
+that actually renders or carries the interaction handlers. To reach the real node, use the
+component's DOM utility methods:
+
+- **`getDomRef()`** — returns the DOM element that represents the component. For an abstract
+  component this is the **parent-owned** node that renders it, not a placeholder.
+- **`getFocusDomRef()`** — returns the element marked `data-sap-focus-ref` (the node that
+  receives focus by default).
+
+```js
+// For an abstract component, reach the rendered node via its instance handle,
+// by evaluating in the browser: element.getDomRef()
+rendered = get('[ui5-tab]').evaluate((el) => el.getDomRef())
+```
+
+For non-abstract components this is rarely necessary — the host element renders its own shadow
+DOM, and interacting with the host works directly (see the next section).
+
+## Popovers, menus, and dialogs: wait until open
+
+Overlay content — popovers, menus, dialogs, dropdowns — is only **visible and interactable while
+it is open**, and when open it is displayed in a top-layer/overlay container rather than inline in
+the page flow.
+
+Note that "in the DOM" and "interactable" are not the same thing here. Slotted content (for
+example a `Menu`'s `MenuItem`s) is authored by you as light-DOM children, so unless you render it
+conditionally it is **always** in the DOM — even while the overlay is closed. Querying for its
+existence therefore succeeds regardless of open state, yet the content is not visible or clickable
+until the overlay opens.
+
+Two consequences for tests:
+
+1. **Wait for the open state (or visibility), not just existence, before interacting.** Asserting
+   the overlay's `open` attribute — or that the target is _visible_ — waits for the state that
+   actually makes it interactable, whereas an existence check can pass while the item is still
+   hidden.
+
+   ```js
+   // open the menu, then wait for it to be open before interacting
+   click(opener)
+   expect('[ui5-menu]').toHaveAttribute('open')
+   click('[ui5-menu-item][text="New File"]')
+   ```
+
+2. **Prefer a real, coordinate-based click over a synthetic one.** A real click (what
+   browser-driving runners perform) hit-tests through the Shadow DOM and lands on the node that
+   actually carries the handler. A **synthetic** `element.click()` dispatched on the host element
+   fires on an ancestor of the handler node and may never reach it — so it can silently do
+   nothing. Let your runner perform its normal click on the element rather than calling
+   `element.click()` yourself in page-evaluated code.
+
+Because overlays open and animate asynchronously, always gate interactions on the open state (as
+above) rather than on fixed delays.
+
+<Footer />

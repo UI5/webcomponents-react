@@ -4,6 +4,7 @@ import { Canvas, Description, Markdown, Meta } from '@storybook/addon-docs/block
 import '@ui5/webcomponents-icons/dist/employee.js';
 import { ComboBoxItemGroup } from '../ComboBoxItemGroup';
 import { ComboBoxItem } from '../ComboBoxItem';
+import { ComboBoxItemCustom } from '../ComboBoxItemCustom';
 import * as ComponentStories from './ComboBox.stories';
 import { excludePropsForAbstract } from '@sb/utils';
 
@@ -35,12 +36,21 @@ All available filter types controlled by the `filter` prop.
 
 <Canvas of={ComponentStories.WithGroups} />
 
+## ComboBox with ComboBoxItemCustom
+
+<Canvas of={ComponentStories.WithCustomItems} />
+
 <Markdown>{SubcomponentsSection}</Markdown>
 
 ## ComboBoxItem
 
 <Description of={ComboBoxItem} />
 <ArgTypesWithNote metaOf={ComponentStories} hideHTMLPropsNote exclude={excludePropsForAbstract} of={ComboBoxItem} />
+
+## ComboBoxItemCustom
+
+<Description of={ComboBoxItemCustom} />
+<ArgTypesWithNote metaOf={ComponentStories} hideHTMLPropsNote exclude={excludePropsForAbstract} of={ComboBoxItemCustom} />
 
 ## ComboBoxItemGroup
 

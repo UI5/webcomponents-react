@@ -1,6 +1,6 @@
+import { cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 import { LoaderType } from '../../enums/LoaderType.js';
 import { Loader } from './index.js';
-import { cypressPassThroughTestsFactory } from '@/cypress/support/utils';
 
 describe('Loader', () => {
   it('indeterminate', () => {

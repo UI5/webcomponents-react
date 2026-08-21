@@ -123,6 +123,8 @@ export interface SelectDialogPropTypes
    * Allows overriding the SearchField's default placeholder text. If not set, the word "Search" in the current local language or English will be used as a placeholder.
    *
    * __Note:__ The placeholder is used as accessible-name of the input for screen reader support.
+   *
+   * @since 2.23.0
    */
   searchPlaceholder?: string;
   /**

@@ -1,24 +1,10 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
-import { complexDataSet } from '../../../resources/DemoProps.js';
-import { testPassThroughProps } from '../../../../../../playwright/test-factories/sharedComponentTests.js';
-import { testLoadingStates, testZoomingTool } from '../../../test-utils/sharedTests.js';
-import { ColumnChartWithTrend } from '../index.js';
-import {
-  ColumnChartWithTrendClickTest,
-  ColumnChartWithTrendGridTest,
-  ColumnChartWithTrendLegendConfigTest,
-} from './ColumnChartWithTrendTestComponents.js';
-
-const dimensions = [{ accessor: 'name', interval: 0 }];
-const measures = [
-  { accessor: 'users', label: 'Users', type: 'line' as const },
-  { accessor: 'sessions', label: 'Active Sessions', type: 'bar' as const },
-];
-const baseProps = { dataset: complexDataSet, dimensions, measures };
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
+import { testLoadingStates, testPassThroughProps, testZoomingTool } from '../../../test-utils/chartGalleryTests.js';
+import type { Chart } from '../../../test-utils/ChartHarness.gallery.js';
 
 test.describe('ColumnChartWithTrend', () => {
   test('Basic', async ({ mount, page }) => {
-    await mount(<ColumnChartWithTrend dataset={complexDataSet} dimensions={dimensions} measures={measures} />);
+    await mount<typeof Chart>('ChartHarness/Chart', { chart: 'ColumnChartWithTrend' });
     await expect(page.locator('.recharts-responsive-container').first()).toBeVisible();
     await expect(page.locator('.recharts-bar')).toHaveCount(1);
     await expect(page.locator('.recharts-line')).toHaveCount(1);
@@ -26,10 +12,8 @@ test.describe('ColumnChartWithTrend', () => {
     await expect(page.locator('.recharts-line-curve')).toHaveCount(1);
   });
 
-  test('click handlers', async ({ mount, page, browserName }) => {
-    // TODO(cross-browser): recharts click resolves to wrong datum on webkit.
-    test.fixme(browserName === 'webkit', 'recharts click resolves to wrong datum on webkit');
-    await mount(<ColumnChartWithTrendClickTest />);
+  test('click handlers', async ({ mount, page }) => {
+    await mount('ColumnChartWithTrend/ColumnChartWithTrendClickTest');
 
     await page.getByText('January').click();
     await expect(page.getByTestId('click-count')).toHaveText('1');
@@ -45,22 +29,10 @@ test.describe('ColumnChartWithTrend', () => {
     await expect(page.getByTestId('last-legend-datakey')).toHaveText('users');
   });
 
-  testLoadingStates(
-    ColumnChartWithTrend,
-    {
-      dataset: complexDataSet,
-      dimensions: [{ accessor: 'name', interval: 0 }],
-      measures: [
-        { accessor: 'users', label: 'Users', type: 'line' as const },
-        { accessor: 'sessions', label: 'Active Sessions', type: 'bar' as const },
-      ],
-    },
-    { dimensions: [], measures: [] },
-    '.recharts-bar',
-  );
+  testLoadingStates('ColumnChartWithTrend', '.recharts-bar');
 
   test('in Grid', async ({ mount, page }) => {
-    await mount(<ColumnChartWithTrendGridTest />);
+    await mount('ColumnChartWithTrend/ColumnChartWithTrendGridTest');
     const chart = page.getByTestId('ccwt');
     await expect(chart).toBeVisible();
     const box = await chart.boundingBox();
@@ -69,11 +41,11 @@ test.describe('ColumnChartWithTrend', () => {
   });
 
   test('legendConfig', async ({ mount, page }) => {
-    await mount(<ColumnChartWithTrendLegendConfigTest />);
+    await mount('ColumnChartWithTrend/ColumnChartWithTrendLegendConfigTest');
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
-  testZoomingTool(ColumnChartWithTrend, baseProps);
+  testZoomingTool('ColumnChartWithTrend');
 
-  testPassThroughProps(ColumnChartWithTrend, { dimensions: [], measures: [] });
+  testPassThroughProps('ColumnChartWithTrend');
 });

@@ -35,7 +35,7 @@ const getHeaderProps = (columnProps, { instance, column }: { instance: TableInst
   return [
     columnProps,
     {
-      className: classes.th,
+      className: clsx(classes.th, column.classNameHeader),
       column,
       style: style,
       id: column.id,
@@ -87,7 +87,7 @@ const getRowProps = (
 
 const getCellProps = (cellProps, { cell: { column }, instance }) => {
   const { webComponentsReactProperties, state } = instance;
-  const { classes, isFirefox } = webComponentsReactProperties;
+  const { classes, nativeScrollbar } = webComponentsReactProperties;
   const style: CSSProperties = { width: `${column.totalWidth}px`, ...resolveCellAlignment(column) };
 
   if (
@@ -105,7 +105,7 @@ const getCellProps = (cellProps, { cell: { column }, instance }) => {
         cellProps.className,
         classes.tableCell,
         column.className,
-        isFirefox && state.isScrollable && classes.firefoxCell,
+        nativeScrollbar && state.isScrollable && classes.nativeScrollbarCell,
       ),
       style,
       tabIndex: -1,

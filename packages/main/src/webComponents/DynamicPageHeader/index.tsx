@@ -5,11 +5,21 @@ import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
 
-interface DynamicPageHeaderAttributes {}
+interface DynamicPageHeaderAttributes {
+  /**
+   * Defines the accessible ARIA label for the header region.
+   * Overrides the default "Header Expanded" / "Header Snapped" text.
+   *
+   * **Note:** Available since [v2.24.0](https://github.com/UI5/webcomponents/releases/tag/v2.24.0) of **@ui5/webcomponents-fiori**.
+   * @default undefined
+   */
+  accessibleName?: string | undefined;
+}
 
 interface DynamicPageHeaderDomRef extends Required<DynamicPageHeaderAttributes>, Ui5DomRef {}
 
-interface DynamicPageHeaderPropTypes extends DynamicPageHeaderAttributes, Omit<CommonProps, 'children'> {
+interface DynamicPageHeaderPropTypes
+  extends DynamicPageHeaderAttributes, Omit<CommonProps, keyof DynamicPageHeaderAttributes | 'children'> {
   /**
    * Defines the content of the Dynamic Page Header.
    *
@@ -47,7 +57,7 @@ interface DynamicPageHeaderPropTypes extends DynamicPageHeaderAttributes, Omit<C
  */
 const DynamicPageHeader = withWebComponent<DynamicPageHeaderPropTypes, DynamicPageHeaderDomRef>(
   'ui5-dynamic-page-header',
-  [],
+  ['accessibleName'],
   [],
   [],
   [],

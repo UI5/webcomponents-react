@@ -1,36 +1,23 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
-import { testPassThroughProps } from '../../../../../../playwright/test-factories/sharedComponentTests.js';
-import { testLoadingStates, testStackAggregateTotals, testZoomingTool } from '../../../test-utils/sharedTests.js';
-import { BarChart } from '../index.js';
 import {
-  BarChartClickTest,
-  BarChartDataPointClickTest,
-  BarChartHighlightColorTest,
-  BarChartLegendConfigTest,
-  BarChartSecondYAxisTest,
-} from './BarChartTestComponents.js';
-
-const dimensions = [{ accessor: 'name', interval: 0 }];
-const measures = [
-  { accessor: 'users', label: 'Users' },
-  { accessor: 'sessions', label: 'Active Sessions' },
-  { accessor: 'volume', label: 'Vol.' },
-];
-const baseProps = { dataset: complexDataSet, dimensions, measures };
+  testLoadingStates,
+  testPassThroughProps,
+  testStackAggregateTotals,
+  testZoomingTool,
+} from '../../../test-utils/chartGalleryTests.js';
+import type { Chart } from '../../../test-utils/ChartHarness.gallery.js';
 
 test.describe('BarChart', () => {
   test('Basic', async ({ mount, page }) => {
-    await mount(<BarChart {...baseProps} />);
+    await mount<typeof Chart>('ChartHarness/Chart', { chart: 'BarChart' });
     await expect(page.locator('.recharts-responsive-container')).toBeVisible();
     await expect(page.locator('.recharts-bar')).toHaveCount(3);
     await expect(page.locator('.recharts-bar-rectangles')).toHaveCount(3);
   });
 
-  test('click handlers', async ({ mount, page, browserName }) => {
-    // TODO(cross-browser): recharts click resolves to wrong datum on webkit.
-    test.fixme(browserName === 'webkit', 'recharts click resolves to wrong datum on webkit');
-    await mount(<BarChartClickTest />);
+  test('click handlers', async ({ mount, page }) => {
+    await mount('BarChart/BarChartClickTest');
 
     await page.getByText('January').click();
     await expect(page.getByTestId('click-count')).toHaveText('1');
@@ -47,24 +34,21 @@ test.describe('BarChart', () => {
     await expect(page.getByTestId('last-legend-datakey')).toHaveText('volume');
   });
 
-  testLoadingStates(BarChart, baseProps, { dimensions: [], measures: [] }, '.recharts-bar');
+  testLoadingStates('BarChart', '.recharts-bar');
 
   test('legendConfig', async ({ mount, page }) => {
-    await mount(<BarChartLegendConfigTest />);
+    await mount('BarChart/BarChartLegendConfigTest');
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
-  testZoomingTool(BarChart, baseProps);
+  testZoomingTool('BarChart');
 
-  testPassThroughProps(BarChart, { dimensions: [], measures: [] });
+  testPassThroughProps('BarChart');
 
-  testStackAggregateTotals(BarChart, { dataset: complexDataSet.slice(0, 3), dimensions }, [
-    { accessor: 'users', stackId: 'A', label: 'Users' },
-    { accessor: 'sessions', stackId: 'A', label: 'Active Sessions' },
-  ]);
+  testStackAggregateTotals('BarChart');
 
   test('onDataPointClick', async ({ mount, page }) => {
-    await mount(<BarChartDataPointClickTest />);
+    await mount('BarChart/BarChartDataPointClickTest');
 
     await page.locator('[name="January"]').first().click();
     await expect(page.getByTestId('dp-click-count')).toHaveText('1');
@@ -75,7 +59,7 @@ test.describe('BarChart', () => {
   });
 
   test('highlightColor', async ({ mount, page }) => {
-    await mount(<BarChartHighlightColorTest />);
+    await mount('BarChart/BarChartHighlightColorTest');
 
     // January has users=100 (<=200 → green), February has users=230 (>200 → red)
     await expect(page.locator('.recharts-bar-rectangle [fill="green"]').first()).toBeAttached();
@@ -83,7 +67,7 @@ test.describe('BarChart', () => {
   });
 
   test('secondYAxis', async ({ mount, page }) => {
-    await mount(<BarChartSecondYAxisTest />);
+    await mount('BarChart/BarChartSecondYAxisTest');
     // BarChart is horizontal so the secondary "Y" axis renders as an additional XAxis
     await expect(page.locator('.recharts-xAxis')).toHaveCount(2);
   });

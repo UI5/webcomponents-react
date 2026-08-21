@@ -27,6 +27,7 @@ export interface ColumnHeaderProps {
   onDragOver: DragEventHandler<HTMLDivElement>;
   onDrop: DragEventHandler<HTMLDivElement>;
   onDragEnter: DragEventHandler<HTMLDivElement>;
+  onDragLeave: DragEventHandler<HTMLDivElement>;
   onDragEnd: DragEventHandler<HTMLDivElement>;
   dragOver: boolean;
   isDraggable: boolean;
@@ -52,6 +53,7 @@ export interface ColumnHeaderProps {
   title?: string;
   ['aria-sort']?: AriaAttributes['aria-sort'];
   ['aria-label']?: AriaAttributes['aria-label'];
+  ['aria-describedby']?: AriaAttributes['aria-describedby'];
 }
 
 export const ColumnHeader = (props: ColumnHeaderProps) => {
@@ -66,6 +68,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
     onDragOver,
     onDragStart,
     onDrop,
+    onDragLeave,
     onDragEnd,
     headerTooltip,
     isDraggable,
@@ -82,6 +85,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
     title,
     'aria-label': ariaLabel,
     'aria-sort': ariaSort,
+    'aria-describedby': ariaDescribedBy,
     showVerticalEndBorder,
     classNames,
   } = props;
@@ -209,6 +213,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
         onDragOver={onDragOver}
         onDragStart={onDragStart}
         onDrop={onDrop}
+        onDragLeave={onDragLeave}
         onDragEnd={onDragEnd}
         data-column-id={columnId}
         onClick={handleHeaderCellClick}
@@ -216,6 +221,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
         onKeyUp={handleHeaderCellKeyUp}
         aria-label={ariaLabel}
         aria-sort={ariaSort}
+        aria-describedby={ariaDescribedBy}
         title={title}
       >
         <div

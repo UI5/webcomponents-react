@@ -2,6 +2,8 @@ import type { RefObject } from 'react';
 import { useEffect, useState } from 'react';
 import type { DynamicPageDomRef } from './index.js';
 
+const HEADER_SELECTOR = '.ui5-dynamic-page-title-header-wrapper';
+
 export const useGetHeaderHeight = (dynamicPageRef: RefObject<DynamicPageDomRef & { shadowRoot: ShadowRoot }>) => {
   const [headerHeight, setHeaderHeight] = useState<undefined | number>(undefined);
   useEffect(() => {
@@ -15,7 +17,7 @@ export const useGetHeaderHeight = (dynamicPageRef: RefObject<DynamicPageDomRef &
 
         // wait for the shadowRoot to be populated
         const shadowRootObserver = new MutationObserver(() => {
-          const header = shadowRoot.querySelector('header');
+          const header = shadowRoot.querySelector(HEADER_SELECTOR);
           if (header) {
             shadowRootObserver.disconnect();
             headerObserver.observe(header);
@@ -23,7 +25,7 @@ export const useGetHeaderHeight = (dynamicPageRef: RefObject<DynamicPageDomRef &
         });
 
         if (shadowRoot && shadowRoot.childElementCount) {
-          headerObserver.observe(shadowRoot.querySelector('header'));
+          headerObserver.observe(shadowRoot.querySelector(HEADER_SELECTOR));
         } else {
           shadowRootObserver.observe(shadowRoot, { childList: true });
         }

@@ -10,6 +10,14 @@ import type { ReactNode } from 'react';
 
 interface BreadcrumbsAttributes {
   /**
+   * Defines the accessible name of the component.
+   *
+   * **Note:** Available since [v2.24.0](https://github.com/UI5/webcomponents/releases/tag/v2.24.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleName?: string | undefined;
+
+  /**
    * Defines the visual appearance of the last BreadcrumbsItem.
    *
    * The Breadcrumbs supports two visual appearances for the last BreadcrumbsItem:
@@ -78,7 +86,7 @@ interface BreadcrumbsPropTypes
  */
 const Breadcrumbs = withWebComponent<BreadcrumbsPropTypes, BreadcrumbsDomRef>(
   'ui5-breadcrumbs',
-  ['design', 'separators'],
+  ['accessibleName', 'design', 'separators'],
   [],
   [],
   ['item-click'],

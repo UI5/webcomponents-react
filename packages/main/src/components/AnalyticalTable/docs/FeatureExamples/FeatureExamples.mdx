@@ -378,7 +378,20 @@ const ServerSideTable = () => {
 
 The table supports multiple loading indicators: a skeleton placeholder (when `loading` is true and data is empty), a `BusyIndicator` overlay (when `loading` is true and data exists), and `showOverlay` which displays a semi-transparent overlay without a loading indicator. When `loading` is active, user interactions are blocked as well. Set `alwaysShowBusyIndicator` to always show the BusyIndicator instead of the skeleton.
 
-**Recommended:** Set `alwaysShowBusyIndicator` to `true` in most cases. The default skeleton loading indicator is only sufficient when loading times exceed 1 second. See [Fiori Skeleton Loading](https://www.sap.com/design-system/fiori-design-ios/ui-elements/patterns/skeleton-loading/?external) for design guidance.
+**Recommended:** Set `alwaysShowBusyIndicator` to `true` in most cases. The default skeleton loading indicator should only be used when loading times exceed 1 second. See [Fiori Skeleton Loading](https://www.sap.com/design-system/fiori-design-ios/v26-4/components/progress-indicators/skeleton-loading) for design guidance.
+
+The following table summarizes which indicator is rendered for the empty and non-empty states:
+
+| `loading` | `data` | `alwaysShowBusyIndicator` | Result                                                                    |
+| --------- | ------ | ------------------------- | ------------------------------------------------------------------------- |
+| `true`    | filled | `false`                   | `BusyIndicator` overlay on top of the existing rows                       |
+| `true`    | empty  | `false`                   | Skeleton loader (`TablePlaceholder`) — `NoDataComponent` is **not** shown |
+| `true`    | empty  | `true`                    | `BusyIndicator` overlay on top of the `NoDataComponent`                   |
+| `false`   | empty  | any                       | `NoDataComponent` only                                                    |
+
+The `BusyIndicator` is an overlay: it is layered on top of the table and dims the content beneath it, but it does not replace the normal render logic. This is why, with `alwaysShowBusyIndicator` and empty data, the `NoDataComponent` is rendered underneath the overlay while loading — there is no skeleton loader in this mode by design.
+
+For the default text `NoDataComponent` this is unobtrusive, but a richer custom empty state — like an `IllustratedMessage` — would flash beneath the overlay during the initial load, before any data has arrived. To avoid this, render the custom component only once loading has finished and fall back to the default "No data" placeholder in the meantime by returning `undefined`. Toggle **Custom NoDataComponent**, **loading**, and **alwaysShowBusyIndicator** in the example below to compare the patterns.
 
 <Canvas sourceState="none" of={FeatureStories.LoadingStates} />
 
@@ -396,6 +409,13 @@ The table supports multiple loading indicators: a skeleton placeholder (when `lo
 
 // Overlay without loading indicator
 <AnalyticalTable data={data} columns={columns} showOverlay />
+
+// Custom NoDataComponent (e.g. IllustratedMessage) with alwaysShowBusyIndicator:
+// guard it so the illustration doesn't flash beneath the overlay while loading.
+const NoDataComponent = loading
+  ? undefined // fall back to the default "No data" placeholder during loading
+  : (props) => <IllustratedMessage role={props.accessibleRole} name={NoDataIllustration} />;
+<AnalyticalTable data={[]} columns={columns} loading alwaysShowBusyIndicator NoDataComponent={NoDataComponent} />
 ```
 
 ## Controlled Selection
@@ -1003,6 +1023,34 @@ const columns = [
     console.log(`Column "${columnId}" resized to ${Math.round(width)}px`);
   }}
 />
+```
+
+## Custom Column Class Names
+
+Use the `className` and `classNameHeader` column options to apply custom classes to a column's body cells and its header cell respectively. The two are independent — `className` only affects body cells, `classNameHeader` only the header cell.
+
+**Note:** Custom classes are merged with the table's internal classes and can therefore override internal styles. Use with caution!
+
+<Canvas sourceState="none" of={FeatureStories.ColumnClassName} />
+
+### Code
+
+```jsx
+const columns = [
+  {
+    Header: 'Name',
+    accessor: 'name',
+    className: 'body-cell',
+    classNameHeader: 'header-cell'
+  },
+  { Header: 'Age', accessor: 'age' }
+];
+
+// styles.css
+// .header-cell { background-color: lightgrey; }
+// .body-cell { background-color: lightblue; }
+
+<AnalyticalTable data={data} columns={columns} />
 ```
 
 <Footer />

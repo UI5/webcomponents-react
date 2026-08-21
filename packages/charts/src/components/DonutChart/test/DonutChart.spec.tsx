@@ -1,32 +1,18 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 import { simpleDataSet } from '../../../resources/DemoProps.js';
-import { testPassThroughProps } from '../../../../../../playwright/test-factories/sharedComponentTests.js';
-import { testLoadingStates } from '../../../test-utils/sharedTests.js';
-import { DonutChart } from '../index.js';
-import {
-  DonutChartClickTest,
-  DonutChartLegendConfigTest,
-  DonutChartSectorFocusActiveTest,
-  DonutChartSectorFocusDatasetShrinkTest,
-  DonutChartSectorFocusEmptyTest,
-  DonutChartSectorFocusHandlersTest,
-  DonutChartSectorFocusOutOfBoundsTest,
-  DonutChartSectorFocusTest,
-} from './DonutChartTestComponents.js';
-
-const dimension = { accessor: 'name' };
-const measure = { accessor: 'users' };
+import { testLoadingStates, testPassThroughProps } from '../../../test-utils/chartGalleryTests.js';
+import type { Chart } from '../../../test-utils/ChartHarness.gallery.js';
 
 test.describe('DonutChart', () => {
   test('Basic', async ({ mount, page }) => {
-    await mount(<DonutChart dataset={simpleDataSet} dimension={dimension} measure={measure} />);
+    await mount<typeof Chart>('ChartHarness/Chart', { chart: 'DonutChart' });
     await expect(page.locator('.recharts-responsive-container')).toBeVisible();
     await expect(page.locator('.recharts-pie')).toHaveCount(1);
     await expect(page.locator('.recharts-pie-sector')).toHaveCount(12);
   });
 
   test('click handlers', async ({ mount, page }) => {
-    await mount(<DonutChartClickTest />);
+    await mount('DonutChart/DonutChartClickTest');
 
     await page.locator('[name="January"]').first().click({ force: true });
     await expect(page.getByTestId('click-count')).toHaveText('1');
@@ -37,23 +23,18 @@ test.describe('DonutChart', () => {
     await expect(page.getByTestId('last-legend-datakey')).toHaveText('users');
   });
 
-  testLoadingStates(
-    DonutChart,
-    { dataset: simpleDataSet, dimension, measure },
-    { dimension: {}, measure: {} },
-    '.recharts-pie',
-  );
+  testLoadingStates('DonutChart', '.recharts-pie');
 
-  testPassThroughProps(DonutChart, { dimension: {}, measure: {} });
+  testPassThroughProps('DonutChart');
 
   test('legendConfig', async ({ mount, page }) => {
-    await mount(<DonutChartLegendConfigTest />);
+    await mount('DonutChart/DonutChartLegendConfigTest');
     await expect(page.getByTestId('catval').first()).toBeVisible();
   });
 
   test.describe('Sector Focus - keyboard navigation', () => {
     test('Tab, arrows, Enter, wrap-around', async ({ mount, page }) => {
-      await mount(<DonutChartSectorFocusTest />);
+      await mount('DonutChart/DonutChartSectorFocusTest');
 
       // Focus "before" button then Tab into chart container
       await page.getByText('before').focus();
@@ -96,7 +77,7 @@ test.describe('DonutChart', () => {
     });
 
     test('activeSegment with Enter and Space', async ({ mount, page }) => {
-      await mount(<DonutChartSectorFocusActiveTest />);
+      await mount('DonutChart/DonutChartSectorFocusActiveTest');
 
       // Initial activeSegment is 2
       await expect(page.getByTestId('active-segment')).toHaveText('2');
@@ -138,7 +119,7 @@ test.describe('DonutChart', () => {
     });
 
     test('empty dataset is non-interactive', async ({ mount, page }) => {
-      await mount(<DonutChartSectorFocusEmptyTest />);
+      await mount('DonutChart/DonutChartSectorFocusEmptyTest');
 
       // The chart container should have tabindex 0 but no role="application"
       const chartContainer = page.locator('[aria-roledescription="chart"]');
@@ -147,7 +128,7 @@ test.describe('DonutChart', () => {
     });
 
     test('consumer event handlers are composed', async ({ mount, page }) => {
-      await mount(<DonutChartSectorFocusHandlersTest />);
+      await mount('DonutChart/DonutChartSectorFocusHandlersTest');
 
       // Focus the chart container directly (triggers onFocus)
       const chartContainer = page.locator('[aria-roledescription="chart"]');
@@ -168,7 +149,7 @@ test.describe('DonutChart', () => {
     });
 
     test('activeSegment out of bounds is clamped', async ({ mount, page }) => {
-      await mount(<DonutChartSectorFocusOutOfBoundsTest />);
+      await mount('DonutChart/DonutChartSectorFocusOutOfBoundsTest');
 
       await page.getByText('before').focus();
       await page.keyboard.press('Tab');
@@ -176,10 +157,8 @@ test.describe('DonutChart', () => {
       await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', String(simpleDataSet.length - 1));
     });
 
-    test('dataset shrink resets keyboard state', async ({ mount, page, browserName }) => {
-      // TODO(cross-browser): Tab does not focus chart sectors on webkit (Safari requires alt+tab to focus non-form elements).
-      test.fixme(browserName === 'webkit', 'webkit Safari requires alt+tab for non-form focusables');
-      await mount(<DonutChartSectorFocusDatasetShrinkTest />);
+    test('dataset shrink resets keyboard state', async ({ mount, page }) => {
+      await mount('DonutChart/DonutChartSectorFocusDatasetShrinkTest');
 
       // Tab past "shrink" button into chart, then into sector mode
       await page.getByText('before').focus();

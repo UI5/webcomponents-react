@@ -57,6 +57,12 @@ export interface ComponentApiData {
   props: Record<string, CleanedProp>;
   methods: MethodInfo[];
   cssParts?: CssPart[];
+  /**
+   * True when the component is abstract (marked `@abstract`): it renders into a parent's DOM
+   * rather than its own shadow root. Present (and `true`) only for abstract components.
+   * See the "Testing" knowledge-base section for how this affects interacting with it.
+   */
+  isAbstract?: boolean;
   /** Additional documentation for complex prop types (e.g. column definition shape). */
   subTypeDocs?: string;
   /** Link to upstream UI5 Web Components documentation for complex behavioral concepts. */
