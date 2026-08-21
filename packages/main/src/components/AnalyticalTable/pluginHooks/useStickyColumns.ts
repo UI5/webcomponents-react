@@ -223,7 +223,7 @@ const getColumnHeaderModalItems = (
       id: 'ui5wcr-sticky-toggle',
       text: isFrozen ? unfreezeColumnText : freezeColumnText,
       icon: isFrozen ? iconPushpinOff : iconPushpinOn,
-      onClick: ({ instance: inst, column: clickedColumn }) => {
+      run: ({ instance: inst, column: clickedColumn }) => {
         const current = inst.state?.stickyColumns ?? [];
         const sticky = !current.includes(clickedColumn.id);
         const stickyColumns = sticky

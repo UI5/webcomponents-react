@@ -61,16 +61,16 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
   const ungroupText = i18nBundle.getText(UNGROUP);
   const filterText = i18nBundle.getText(FILTER);
 
-  const handleSort = (e) => {
-    // Items contributed via the `columnHeaderModalItems` hook (e.g. freeze/unfreeze) dispatch their own onClick.
-    const modalItemId = e.detail.item.getAttribute('data-modal-item');
+  const handleModalItemClick = (e) => {
+    // Items contributed via the `columnHeaderModalItems` hook (e.g. freeze/unfreeze) run their own action.
+    const modalItemId = e.detail.item.dataset.modalItem;
     if (modalItemId) {
-      columnHeaderModalItems?.find((item) => item.id === modalItemId)?.onClick({ instance, column, setOpen });
+      columnHeaderModalItems?.find((item) => item.id === modalItemId)?.run({ instance, column, setOpen });
       setOpen(false);
       return;
     }
 
-    const sortType = e.detail.item.getAttribute('data-sort');
+    const sortType = e.detail.item.dataset.sort;
 
     switch (sortType) {
       case 'asc':
@@ -199,7 +199,7 @@ export const ColumnHeaderModal = (instance: TableInstanceWithPopoverProps) => {
       data-component-name="ATHeaderPopover"
     >
       <List
-        onItemClick={handleSort}
+        onItemClick={handleModalItemClick}
         ref={listRef}
         onKeyDown={handleListKeyDown}
         accessibleRole={ListAccessibleRole.Menu}

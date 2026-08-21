@@ -1277,14 +1277,14 @@ interface ConfigParam {
 }
 
 export interface AnalyticalTableColumnHeaderModalItem {
-  /** Unique id; used as the list-item key and to dispatch the click. */
+  /** Unique id; used as the list-item key and to dispatch the action when the item is selected. */
   id: string;
   /** Menu item label. */
   text: string;
   /** Optional icon name. */
   icon?: string;
-  /** Invoked when the item is clicked. */
-  onClick: (meta: { instance: TableInstance; column: ColumnType; setOpen: (open: boolean) => void }) => void;
+  /** Action run when the item is selected - Receives table context  */
+  run: (meta: { instance: TableInstance; column: ColumnType; setOpen: (open: boolean) => void }) => void;
 }
 
 export interface ReactTableHooks {
