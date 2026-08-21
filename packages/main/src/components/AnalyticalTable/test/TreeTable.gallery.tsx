@@ -67,21 +67,22 @@ type TreeSelectFilterPayload = {
   selectedRowIds?: Record<string, boolean>;
 };
 
-type TreeSelectFilterProps = {
-  onRowSelectSpy: (e: any) => void;
-  onFilterSpy: (e: any) => void;
-};
+type LastFilter = { value?: unknown; columnId?: unknown; filters?: unknown };
 
 /**
  * Tree table with `selectionMode="Multiple"` + `filterable` + a global filter
- * input. Captures the relevant slice of the `onRowSelect` event detail into
- * data-testid containers so the spec can assert against rendered text.
+ * input. Records the relevant slice of the `onRowSelect`/`onFilter` events into
+ * data-testid containers so the spec can assert against rendered text: the
+ * running select-call count, the last event's `isSelected`, and the last
+ * filter call's value/columnId/filters.
  *
  * Cypress: `tree selection & filtering` (AnalyticalTable.cy.tsx:617-733).
  */
-export const TreeSelectFilterTestComp = ({ onRowSelectSpy, onFilterSpy }: TreeSelectFilterProps) => {
+export const TreeSelectFilterTestComp = () => {
   const [filter, setFilter] = useState('');
   const [payload, setPayload] = useState<TreeSelectFilterPayload>({});
+  const [selectCount, setSelectCount] = useState(0);
+  const [lastFilter, setLastFilter] = useState<LastFilter>({});
 
   return (
     <>
@@ -93,7 +94,9 @@ export const TreeSelectFilterTestComp = ({ onRowSelectSpy, onFilterSpy }: TreeSe
         data={treeData}
         globalFilterValue={filter}
         selectionMode="Multiple"
-        onFilter={onFilterSpy}
+        onFilter={(e: any) => {
+          setLastFilter({ value: e?.value, columnId: e?.columnId, filters: e?.filters });
+        }}
         onRowSelect={(e) => {
           const { allRowsSelected, allVisibleRowsSelected, isSelected, row, rowsById, selectedRowIds } = e.detail;
           const selectedFlatRows = Object.keys(selectedRowIds).reduce<Array<{ id?: string }>>((acc, key) => {
@@ -110,7 +113,7 @@ export const TreeSelectFilterTestComp = ({ onRowSelectSpy, onFilterSpy }: TreeSe
             selectedFlatRows,
             selectedRowIds,
           });
-          onRowSelectSpy(e);
+          setSelectCount((c) => c + 1);
         }}
       />
       <div data-testid="payloadHelper">
@@ -119,6 +122,15 @@ export const TreeSelectFilterTestComp = ({ onRowSelectSpy, onFilterSpy }: TreeSe
       </div>
       <div data-testid="payloadAllRowsSelected">{`${payload?.allRowsSelected ?? false}`}</div>
       <div data-testid="payloadAllVisibleRowsSelected">{`${payload?.allVisibleRowsSelected ?? false}`}</div>
+      <span data-testid="select-count">{selectCount}</span>
+      <span data-testid="select-is-selected">{`${payload?.isSelected ?? ''}`}</span>
+      <span data-testid="filter-last">
+        {JSON.stringify({
+          value: lastFilter.value ?? null,
+          columnId: lastFilter.columnId ?? null,
+          filters: lastFilter.filters ?? null,
+        })}
+      </span>
     </>
   );
 };
@@ -131,26 +143,24 @@ const generateTreeInfiniteSubRows = (count: number) => {
   return new Array(count).fill('').map((_, index) => ({ name: `Name${index}` }));
 };
 
-type TreeInfiniteScrollProps = {
-  onLoadMoreSpy: (e: any) => void;
-};
-
 /**
  * Infinite-scroll tree harness: one root row with a growing list of subRows.
  * The user can scroll programmatically via the input and switch between
- * snapshot-like row counts via the two buttons.
+ * snapshot-like row counts via the two buttons. Records the running
+ * `onLoadMore` call count into a data-testid for the spec to assert against.
  *
  * Cypress: `InfiniteScroll: Tree` (AnalyticalTable.cy.tsx:1767-1857).
  */
-export const TreeInfiniteScrollTestComp = ({ onLoadMoreSpy }: TreeInfiniteScrollProps) => {
+export const TreeInfiniteScrollTestComp = () => {
   const subRows = generateTreeInfiniteSubRows(500);
   const rootData = { name: 'Root' };
   const tableRef = useRef<AnalyticalTableDomRef>(null);
   const [internalSubRows, setInternalSubRows] = useState(subRows.slice(0, 50));
+  const [loadMoreCount, setLoadMoreCount] = useState(0);
   const offset = useRef(50);
 
-  const onLoadMore = (e: any) => {
-    onLoadMoreSpy(e);
+  const onLoadMore = () => {
+    setLoadMoreCount((c) => c + 1);
     setInternalSubRows((prev) => [...prev, ...subRows.slice(offset.current, offset.current + 50)]);
     offset.current += 50;
   };
@@ -195,6 +205,7 @@ export const TreeInfiniteScrollTestComp = ({ onLoadMoreSpy }: TreeInfiniteScroll
         minRows={1}
       />
       <span data-testid="row-count">{`Rows: ${internalSubRows.length + 1}`}</span>
+      <span data-testid="load-more-count">{loadMoreCount}</span>
     </>
   );
 };

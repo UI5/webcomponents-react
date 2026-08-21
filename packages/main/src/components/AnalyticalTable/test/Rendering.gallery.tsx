@@ -9,6 +9,51 @@ import type { AnalyticalTableDomRef, AnalyticalTablePropTypes } from '../types/i
 import { columns, data } from './test-utils/data.js';
 
 /**
+ * Basic table mount used to verify the grid renders its header row and data rows.
+ */
+export const RenderingBasicTestComp = () => {
+  return <AnalyticalTable data={data} columns={columns} />;
+};
+
+/**
+ * Renders the table with the standard set of pass-through HTML props so the spec
+ * can assert they land on the outermost element (data-testid, data-*, aria-*, id,
+ * className, style.pointerEvents, title, custom attribute).
+ */
+export const RenderingPassThroughTestComp = () => {
+  return (
+    <AnalyticalTable
+      data={data}
+      columns={columns}
+      data-testid="component-to-be-tested"
+      data-special-test-prop="data-prop"
+      aria-labelledby="aria-prop"
+      id="element-id"
+      className="thisClassIsUsedForTestingPurposesOnly"
+      style={{ pointerEvents: 'none' }}
+      title="Tooltip"
+      customattribute="true"
+    />
+  );
+};
+
+/**
+ * Renders the table with a custom className and inline style to verify both are
+ * forwarded to the outermost element.
+ */
+export const RenderingClassNameStyleTestComp = () => {
+  return (
+    <AnalyticalTable
+      data={data}
+      columns={columns}
+      data-testid="at-root"
+      className="my-at-class"
+      style={{ marginTop: '17px' }}
+    />
+  );
+};
+
+/**
  * Mounts the table with two buttons that invoke methods on the forwarded ref.
  * Used to verify that the ref is attached and that the imperative scroll
  * methods are exposed on the DOM node.

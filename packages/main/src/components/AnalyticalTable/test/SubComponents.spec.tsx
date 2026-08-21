@@ -1,28 +1,18 @@
 import type { Locator } from '@playwright/test';
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
-import {
-  LazyLoadTreeSubCompTestComp,
-  ScrollPreserveGroupableTestComp,
-  ScrollPreserveProgrammaticToggleTestComp,
-  ScrollPreserveSubcomponentTestComp,
-  ScrollPreserveTreeTestComp,
-  SubCompExpandableFirstOnlyTestComp,
-  SubCompExpandableTestComp,
-  SubCompInfiniteScrollTestComp,
-  SubCompLargeIncludeHeightTestComp,
-  SubCompLargeVisibleTestComp,
-  SubCompVisibleAllTestComp,
-  SubCompVisibleFirstOnlyTestComp,
-  type RenderCountRef,
-} from './SubComponentsTestComponents.js';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 
 /**
- * Cypress sub-component-render budget per mount. Default zoom produces ~700
+ * Sub-component-render budget per mount. Default zoom produces ~700
  * `renderRowSubComponent` invocations; the (now-fixed) fractional-zoom
  * ResizeObserver loop produced 5000+. We keep the bound to guard against
- * regression.
+ * regression. The story records the running invocation count into the
+ * `render-count` node.
  */
 const LOOP_BUDGET_PER_MOUNT = 2000;
+
+async function readRenderCount(page: any) {
+  return Number((await page.getByTestId('render-count').textContent()) ?? '0');
+}
 
 /**
  * Dispatch a `keydown` event on the element resolved by `locator` with the
@@ -50,8 +40,7 @@ test.describe('AnalyticalTable - SubComponents', () => {
 
     test(`Expandable + all rows: expand chevrons toggle subcomponent rows (${label})`, async ({ mount, page }) => {
       await setZoom(page, zoom);
-      const countRef: RenderCountRef = { current: 0 };
-      await mount(<SubCompExpandableTestComp countRef={countRef} />);
+      await mount('SubComponents/SubCompExpandableTestComp');
 
       await expect(page.locator('[title="Expand Node"]')).toHaveCount(4);
       await expect(page.locator('[title="Collapse Node"]')).toHaveCount(0);
@@ -66,13 +55,12 @@ test.describe('AnalyticalTable - SubComponents', () => {
       await expect(page.locator('[title="Collapse Node"]')).toHaveCount(2);
       await expect(page.getByText('SubComponent', { exact: true })).toHaveCount(2);
 
-      expect(countRef.current).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
+      expect(await readRenderCount(page)).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
     });
 
     test(`Expandable + only-row-0 callback (${label})`, async ({ mount, page }) => {
       await setZoom(page, zoom);
-      const countRef: RenderCountRef = { current: 0 };
-      await mount(<SubCompExpandableFirstOnlyTestComp countRef={countRef} />);
+      await mount('SubComponents/SubCompExpandableFirstOnlyTestComp');
 
       await expect(page.locator('[title="Expand Node"]')).toHaveCount(1);
       await expect(page.locator('[title="Collapse Node"]')).toHaveCount(0);
@@ -85,37 +73,34 @@ test.describe('AnalyticalTable - SubComponents', () => {
         page.locator('[aria-rowindex="3"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]'),
       ).toHaveCount(0);
 
-      expect(countRef.current).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
+      expect(await readRenderCount(page)).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
     });
 
     test(`Visible + all rows: 4 subcomponents always rendered (${label})`, async ({ mount, page }) => {
       await setZoom(page, zoom);
-      const countRef: RenderCountRef = { current: 0 };
-      await mount(<SubCompVisibleAllTestComp countRef={countRef} />);
+      await mount('SubComponents/SubCompVisibleAllTestComp');
 
       await expect(page.getByText('SubComponent', { exact: true })).toHaveCount(4);
       await expect(page.locator('[title="Expand Node"]')).toHaveCount(0);
       await expect(page.locator('[title="Collapse Node"]')).toHaveCount(0);
 
-      expect(countRef.current).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
+      expect(await readRenderCount(page)).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
     });
 
     test(`Visible + only-row-0 callback (${label})`, async ({ mount, page }) => {
       await setZoom(page, zoom);
-      const countRef: RenderCountRef = { current: 0 };
-      await mount(<SubCompVisibleFirstOnlyTestComp countRef={countRef} />);
+      await mount('SubComponents/SubCompVisibleFirstOnlyTestComp');
 
       await expect(page.getByText('SingleSubComponent', { exact: true })).toHaveCount(1);
       await expect(page.locator('[title="Expand Node"]')).toHaveCount(0);
       await expect(page.locator('[title="Collapse Node"]')).toHaveCount(0);
 
-      expect(countRef.current).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
+      expect(await readRenderCount(page)).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
     });
 
     test(`Visible + large subcomponent + visibleRows=3 clips overflow (${label})`, async ({ mount, page }) => {
       await setZoom(page, zoom);
-      const countRef: RenderCountRef = { current: 0 };
-      await mount(<SubCompLargeVisibleTestComp countRef={countRef} />);
+      await mount('SubComponents/SubCompLargeVisibleTestComp');
       await page.waitForTimeout(300);
 
       const subComp1 = page.getByText('SubComponent 1', { exact: true });
@@ -124,30 +109,24 @@ test.describe('AnalyticalTable - SubComponents', () => {
       await expect(page.locator('[title="Expand Node"]')).toHaveCount(0);
       await expect(page.locator('[title="Collapse Node"]')).toHaveCount(0);
 
-      expect(countRef.current).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
+      expect(await readRenderCount(page)).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
     });
 
     test(`IncludeHeight + large subcomponent + visibleRows=3 grows row height (${label})`, async ({ mount, page }) => {
       await setZoom(page, zoom);
-      const countRef: RenderCountRef = { current: 0 };
-      await mount(<SubCompLargeIncludeHeightTestComp countRef={countRef} />);
+      await mount('SubComponents/SubCompLargeIncludeHeightTestComp');
 
       await expect(page.getByText('SubComponent 1', { exact: true })).toBeVisible();
       await expect(page.getByText('SubComponent 2', { exact: true })).toBeVisible();
       await expect(page.locator('[title="Expand Node"]')).toHaveCount(0);
       await expect(page.locator('[title="Collapse Node"]')).toHaveCount(0);
 
-      expect(countRef.current).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
+      expect(await readRenderCount(page)).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
     });
 
     test(`IncludeHeightExpandable + infiniteScroll (${label})`, async ({ mount, page }) => {
       await setZoom(page, zoom);
-      const countRef: RenderCountRef = { current: 0 };
-      const loadMoreCalls: any[] = [];
-      const onLoadMore = (e: any) => {
-        loadMoreCalls.push(e);
-      };
-      await mount(<SubCompInfiniteScrollTestComp countRef={countRef} onLoadMore={onLoadMore} />);
+      await mount('SubComponents/SubCompInfiniteScrollTestComp');
 
       await expect(page.getByText('A', { exact: true })).toBeVisible();
       await expect(page.getByText('X', { exact: true })).toBeVisible();
@@ -166,10 +145,10 @@ test.describe('AnalyticalTable - SubComponents', () => {
         // cypress only asserted this at zoom=1.
         const body = page.locator('[data-component-name="AnalyticalTableBody"]');
         await body.evaluate((el) => el.scrollTo({ top: el.scrollHeight }));
-        await expect.poll(() => loadMoreCalls.length).toBe(1);
+        await expect(page.getByTestId('load-more-count')).toHaveText('1');
       }
 
-      expect(countRef.current).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
+      expect(await readRenderCount(page)).toBeLessThan(LOOP_BUDGET_PER_MOUNT);
     });
   }
 
@@ -181,8 +160,11 @@ test.describe('AnalyticalTable - SubComponents', () => {
    * limitation; the shared semantic is `body.scrollTop !== 0` after toggle.
    * ---------------------------------------------------------------------- */
 
-  test('Expandable: tree-table keyboard expand preserves scrollTop', async ({ mount, page }) => {
-    await mount(<ScrollPreserveTreeTestComp />);
+  // SKIPPED (partial vs cypress): cypress expanded/collapsed via keyboard Enter on the rows; this
+  // test drives the chevron via click instead, so the keyboard expand path is not exercised.
+  // Retained by AnalyticalTable.cy.tsx `it("Expandable: don't scroll when expanded/collapsed")`.
+  test.skip('Expandable: tree-table keyboard expand preserves scrollTop', async ({ mount, page }) => {
+    await mount('SubComponents/ScrollPreserveTreeTestComp');
     const body = page.locator('[data-component-name="AnalyticalTableBody"]');
 
     // Cypress targeted the 2nd Katy Bradshaw (dataset is duplicated). Click
@@ -218,7 +200,7 @@ test.describe('AnalyticalTable - SubComponents', () => {
   });
 
   test('Expandable: groupable keyboard expand preserves scrollTop', async ({ mount, page }) => {
-    await mount(<ScrollPreserveGroupableTestComp />);
+    await mount('SubComponents/ScrollPreserveGroupableTestComp');
     const body = page.locator('[data-component-name="AnalyticalTableBody"]');
 
     await page.getByText('Name', { exact: true }).click();
@@ -239,7 +221,7 @@ test.describe('AnalyticalTable - SubComponents', () => {
   });
 
   test('Expandable: subcomponent keyboard expand preserves scrollTop', async ({ mount, page }) => {
-    await mount(<ScrollPreserveSubcomponentTestComp />);
+    await mount('SubComponents/ScrollPreserveSubcomponentTestComp');
     const body = page.locator('[data-component-name="AnalyticalTableBody"]');
 
     await dispatchKeydown(page.getByText('A', { exact: true }), 'Enter');
@@ -253,7 +235,7 @@ test.describe('AnalyticalTable - SubComponents', () => {
   });
 
   test('Expandable: programmatic toggleRowExpanded preserves scrollTop', async ({ mount, page }) => {
-    await mount(<ScrollPreserveProgrammaticToggleTestComp />);
+    await mount('SubComponents/ScrollPreserveProgrammaticToggleTestComp');
     const body = page.locator('[data-component-name="AnalyticalTableBody"]');
 
     await body.evaluate((el) => el.scrollTo({ top: el.scrollHeight / 2 }));
@@ -270,8 +252,11 @@ test.describe('AnalyticalTable - SubComponents', () => {
    * Cypress: "TreeTable + SubComps + lazy-load" (AnalyticalTable.cy.tsx:4268).
    * ---------------------------------------------------------------------- */
 
-  test('TreeTable + SubComps + lazy-load', async ({ mount, page }) => {
-    await mount(<LazyLoadTreeSubCompTestComp />);
+  // SKIPPED (partial vs cypress): cypress asserted the exact virtual offset `translateY(260)` on
+  // row 7; this test only asserts a non-zero translateY, so an offset regression could pass.
+  // Retained by AnalyticalTable.cy.tsx `it('TreeTable + SubComps + lazy-load')`.
+  test.skip('TreeTable + SubComps + lazy-load', async ({ mount, page }) => {
+    await mount('SubComponents/LazyLoadTreeSubCompTestComp');
 
     // Cypress: `cy.findByText('root1').siblings().click()` — clicks the row
     // sibling element next to "root1" text, i.e. the expand chevron cell.

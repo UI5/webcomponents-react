@@ -323,27 +323,24 @@ export const FirstVirtualRowOffsetTestComp = () => {
 const infiniteScrollData = new Array(500).fill('').map((_, index) => ({ name: `Name${index}` }));
 
 type InfiniteScrollProps = {
-  onLoadMoreSpy: (e: unknown) => void;
   additionalEmptyRowsCount?: number;
 };
 
 /**
- * Flat infinite-scroll harness — cypress `InfiniteScroll` (line 1664). Programmatic scroll via the
- * input + three buttons to mutate the data set externally.
+ * Flat infinite-scroll harness. Programmatic scroll via the input + three buttons to mutate the
+ * data set externally. The running `onLoadMore` call count is recorded into `load-more-count`.
  */
-export const InfiniteScrollTestComp = ({ onLoadMoreSpy, additionalEmptyRowsCount }: InfiniteScrollProps) => {
+export const InfiniteScrollTestComp = ({ additionalEmptyRowsCount }: InfiniteScrollProps) => {
   const tableRef = useRef<AnalyticalTableDomRef>(null);
   const [internalData, setInternalData] = useState(infiniteScrollData.slice(0, 50));
+  const [loadMoreCount, setLoadMoreCount] = useState(0);
   const offset = useRef(50);
 
-  const onLoadMore = useCallback(
-    (e: unknown) => {
-      onLoadMoreSpy(e);
-      setInternalData((prev) => [...prev, ...infiniteScrollData.slice(offset.current, offset.current + 50)]);
-      offset.current += 50;
-    },
-    [onLoadMoreSpy],
-  );
+  const onLoadMore = useCallback(() => {
+    setLoadMoreCount((c) => c + 1);
+    setInternalData((prev) => [...prev, ...infiniteScrollData.slice(offset.current, offset.current + 50)]);
+    offset.current += 50;
+  }, []);
 
   return (
     <>
@@ -391,6 +388,7 @@ export const InfiniteScrollTestComp = ({ onLoadMoreSpy, additionalEmptyRowsCount
         additionalEmptyRowsCount={additionalEmptyRowsCount}
       />
       <span data-testid="row-count">{`Rows: ${internalData.length}`}</span>
+      <span data-testid="load-more-count">{loadMoreCount}</span>
     </>
   );
 };
@@ -623,12 +621,7 @@ export const VerticalScrollSyncTestComp = () => {
 };
 
 type NoDataHeightMode =
-  | 'data-default'
-  | 'empty-default'
-  | 'data-auto'
-  | 'empty-auto'
-  | 'data-auto-with-empty'
-  | 'empty-auto-with-empty';
+  'data-default' | 'empty-default' | 'data-auto' | 'empty-auto' | 'data-auto-with-empty' | 'empty-auto-with-empty';
 
 const CustomNoDataComponent = (
   props: ComponentProps<Exclude<AnalyticalTablePropTypes['NoDataComponent'], ComponentClass<unknown>>>,
@@ -732,6 +725,30 @@ export const NoDataComponentHeightTestComp = () => {
 };
 
 /**
+ * Empty-data + Multiple selection mode: verifies the default no-data copy renders and no
+ * selection-column checkbox is present in the empty state.
+ */
+export const LoadingEmptyMultiSelectTestComp = () => {
+  return <AnalyticalTable data={[]} columns={columns} selectionMode={AnalyticalTableSelectionMode.Multiple} />;
+};
+
+/**
+ * Data + a non-matching `globalFilterValue`: the body renders the filter-no-results copy and drops
+ * the selection-column checkbox.
+ */
+export const LoadingFilteredNoResultsTestComp = () => {
+  return (
+    <AnalyticalTable
+      data={data}
+      columns={columns}
+      filterable
+      globalFilterValue="test123"
+      selectionMode={AnalyticalTableSelectionMode.Multiple}
+    />
+  );
+};
+
+/**
  * Cypress `Loading & No Data` (line 1919) — the filter-driven transition portion.
  * `filterable` + `selectionMode=Multiple`; the test types `test123` into the column-header default
  * filter input and asserts the body switches from rendering data rows to the filtered-empty state
@@ -746,22 +763,15 @@ export const FilteredEmptyStateTestComp = () => {
 interface HorizontalScrollToProps {
   scrollFn: 'horizontalScrollTo' | 'horizontalScrollToItem';
   args: Array<string | number>;
-  onTableScroll?: AnalyticalTablePropTypes['onTableScroll'];
 }
 
 /**
- * Mirrors the horizontal-scroll branches of cypress `scrollTo` (line 529). Used by the
- * Virtualization spec for the parts deferred from Rendering. `onTableScroll` is `useCallback`-wrapped
- * per CLAUDE.md memoization rules.
+ * Horizontal-scroll harness for the Virtualization spec. `scrollFn` + `args` are supplied as
+ * serializable mount props so the spec can exercise both `horizontalScrollTo` and
+ * `horizontalScrollToItem`.
  */
-export const HorizontalScrollToTestComp = ({ scrollFn, args, onTableScroll }: HorizontalScrollToProps) => {
+export const HorizontalScrollToTestComp = ({ scrollFn, args }: HorizontalScrollToProps) => {
   const tableRef = useRef<AnalyticalTableDomRef>(null);
-  const memoOnTableScroll = useCallback<NonNullable<AnalyticalTablePropTypes['onTableScroll']>>(
-    (e) => {
-      onTableScroll?.(e);
-    },
-    [onTableScroll],
-  );
   const handleScroll = () => {
     const ref = tableRef.current as unknown as Record<string, (...rest: Array<string | number>) => void> | null;
     ref?.[scrollFn](...args);
@@ -775,7 +785,6 @@ export const HorizontalScrollToTestComp = ({ scrollFn, args, onTableScroll }: Ho
         data-testid="table"
         style={{ width: '170px' }}
         ref={tableRef}
-        onTableScroll={memoOnTableScroll}
         header="Table Title"
         data={data}
         columns={columns}

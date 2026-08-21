@@ -7,11 +7,7 @@ import { Button } from '../../../webComponents/Button/index.js';
 import { Input } from '../../../webComponents/Input/index.js';
 import { AnalyticalTable } from '../index.js';
 import * as AnalyticalTableHooks from '../pluginHooks/AnalyticalTableHooks.js';
-import type {
-  AnalyticalTableColumnDefinition,
-  AnalyticalTablePropTypes,
-  AnalyticalTableDomRef,
-} from '../types/index.js';
+import type { AnalyticalTableColumnDefinition, AnalyticalTablePropTypes } from '../types/index.js';
 import { columns as defaultColumns, data as defaultData, generateMoreData } from './test-utils/data.js';
 
 /**
@@ -81,17 +77,11 @@ export const dataTree: TreeRow[] = [0, 1].map((rootIndex) => buildBranch([rootIn
 /* `programmatic and user selection + filtering` — cypress L735                                   */
 /* -------------------------------------------------------------------------------------------- */
 
-type ProgSelectFilterProps = {
-  onRowSelectSpy: (e: any) => void;
-  onFilterSpy: (e: any) => void;
-};
-
 /**
  * Wraps the table in a controlled `selectedRowIds` state with a button that programmatically
- * overrides the selection, a global-filter `<input>` (note: native HTML input, matching cypress),
- * and four payload mirrors rendered as `<span data-testid="...">` for the spec to assert on.
- *
- * Cypress: `programmatic and user selection + filtering` (L735).
+ * overrides the selection, a global-filter `<input>` (native HTML input), and payload mirrors
+ * rendered as `<span data-testid="...">` for the spec to assert on. The running `onRowSelect` /
+ * `onFilter` call counts (and the last filter payload) are recorded into DOM nodes too.
  */
 const progFilterData = [
   ...generateMoreData(20),
@@ -102,13 +92,16 @@ const progFilterData = [
   },
 ];
 
-export const ProgrammaticSelectionAndFilteringTestComp = ({ onRowSelectSpy, onFilterSpy }: ProgSelectFilterProps) => {
+export const ProgrammaticSelectionAndFilteringTestComp = () => {
   const [selectedRowIds, setSelectedRowIds] = useState<Record<string, boolean>>({});
   const [selectedFlatRows, setSelectedFlatRows] = useState<string[]>([]);
   const [selectedRowIdsCb, setSelectedRowIdsCb] = useState<Record<string, boolean>>({});
   const [allRowsSelected, setAllRowsSelected] = useState(false);
   const [allVisibleRowsSelected, setAllVisibleRowsSelected] = useState(false);
   const [globalFilterVal, setGlobalFilterVal] = useState('');
+  const [selectCount, setSelectCount] = useState(0);
+  const [filterCount, setFilterCount] = useState(0);
+  const [filterLast, setFilterLast] = useState('');
 
   const programmaticSelected = useMemo(() => ({ 2: true, 3: false }), []);
 
@@ -124,7 +117,12 @@ export const ProgrammaticSelectionAndFilteringTestComp = ({ onRowSelectSpy, onFi
     setSelectedRowIdsCb(e.detail.selectedRowIds);
     setAllRowsSelected(e.detail.allRowsSelected);
     setAllVisibleRowsSelected(e.detail.allVisibleRowsSelected);
-    onRowSelectSpy(e);
+    setSelectCount((c) => c + 1);
+  };
+
+  const onFilter: AnalyticalTablePropTypes['onFilter'] = (e: any) => {
+    setFilterLast(JSON.stringify({ value: e?.value, columnId: e?.columnId, filters: e?.filters }));
+    setFilterCount((c) => c + 1);
   };
 
   return (
@@ -143,7 +141,7 @@ export const ProgrammaticSelectionAndFilteringTestComp = ({ onRowSelectSpy, onFi
         columns={defaultColumns}
         globalFilterValue={globalFilterVal}
         onRowSelect={onRowSelect}
-        onFilter={onFilterSpy}
+        onFilter={onFilter}
         selectionMode={AnalyticalTableSelectionMode.Multiple}
         selectedRowIds={selectedRowIds}
       />
@@ -151,6 +149,9 @@ export const ProgrammaticSelectionAndFilteringTestComp = ({ onRowSelectSpy, onFi
       <span data-testid="payloadRowsById">{JSON.stringify(selectedRowIdsCb)}</span>
       <span data-testid="payloadAllRowsSelected">{`${allRowsSelected}`}</span>
       <span data-testid="payloadAllVisibleRowsSelected">{`${allVisibleRowsSelected}`}</span>
+      <span data-testid="select-count">{selectCount}</span>
+      <span data-testid="filter-count">{filterCount}</span>
+      <span data-testid="filter-last">{filterLast}</span>
     </>
   );
 };
@@ -170,27 +171,20 @@ const groupableData = [
   { name: 'GroupMe2', age: 55, friend: { name: 'ZXC', age: 42 } },
 ];
 
-type GroupBySelectionProps = {
-  onRowSelectSpy: (e: any) => void;
-};
-
 /**
- * Cypress: `GroupBy selection` (L1008). Uses `tableInstance` ref to call
- * `toggleAllRowsExpanded(true)` after mount, simulating the cypress strict-mode `useEffect` setup.
+ * Uses `tableInstance` ref to call `toggleAllRowsExpanded(true)` after mount. The running
+ * `onRowSelect` call count is recorded into `select-count`.
  */
-export const GroupBySelectionTestComp = ({ onRowSelectSpy }: GroupBySelectionProps) => {
+export const GroupBySelectionTestComp = () => {
   const tableInstance = useRef<any>(null);
-  const hasRun = useRef(false);
   const [payload, setPayload] = useState<Record<string, any>>({});
+  const [selectCount, setSelectCount] = useState(0);
 
   useEffect(() => {
-    if (tableInstance.current && !hasRun.current) {
-      const t = setTimeout(() => {
-        tableInstance.current.toggleAllRowsExpanded(true);
-      }, 100);
-      hasRun.current = true;
-      return () => clearTimeout(t);
-    }
+    const t = setTimeout(() => {
+      tableInstance.current?.toggleAllRowsExpanded(true);
+    }, 100);
+    return () => clearTimeout(t);
   }, []);
 
   const onRowSelect: AnalyticalTablePropTypes['onRowSelect'] = (e: any) => {
@@ -209,7 +203,7 @@ export const GroupBySelectionTestComp = ({ onRowSelectSpy }: GroupBySelectionPro
       selectedFlatRows: flatMapped.map((item) => ({ id: item?.id })),
       selectedRowIds,
     });
-    onRowSelectSpy(e);
+    setSelectCount((c) => c + 1);
   };
 
   const reactTableOptions = useMemo(() => ({ initialState: { groupBy: ['name'] } }), []);
@@ -232,6 +226,7 @@ export const GroupBySelectionTestComp = ({ onRowSelectSpy }: GroupBySelectionPro
       <div data-testid="isSelected">{`${payload.isSelected}`}</div>
       <div data-testid="allRowsSelected">{`${payload.allRowsSelected}`}</div>
       <div data-testid="allVisibleRowsSelected">{`${payload.allVisibleRowsSelected}`}</div>
+      <span data-testid="select-count">{selectCount}</span>
     </>
   );
 };
@@ -242,18 +237,21 @@ export const GroupBySelectionTestComp = ({ onRowSelectSpy }: GroupBySelectionPro
 /* -------------------------------------------------------------------------------------------- */
 
 type IndeterminateProps = {
-  onIndeterminateChange: (rowsById: any, instance: any) => void;
   selectSubRows: boolean;
 };
 
 /**
- * Tree table with `useIndeterminateRowSelection`. The `selectSubRows` prop toggles between the
- * two cypress variants:
- *  - true  → "useIndeterminateRowSelection - select subRows" (L1126): selecting a parent cascades.
- *  - false → "useIndeterminateRowSelection" (L1235): selecting a parent does NOT cascade.
+ * Tree table with `useIndeterminateRowSelection`. The `selectSubRows` mount prop toggles between the
+ * two variants (cascade on parent select vs not). The running `onIndeterminateChange` call count is
+ * recorded into `indeterminate-count`.
  */
-export const IndeterminateRowSelectionTestComp = ({ onIndeterminateChange, selectSubRows }: IndeterminateProps) => {
+export const IndeterminateRowSelectionTestComp = ({ selectSubRows }: IndeterminateProps) => {
   const [selectedRowIds, setSelectedRowIds] = useState<Record<string, boolean>>({});
+  const [indeterminateCount, setIndeterminateCount] = useState(0);
+
+  const onIndeterminateChange = useCallback(() => {
+    setIndeterminateCount((c) => c + 1);
+  }, []);
 
   // useIndeterminateRowSelection is a react-table plugin factory, not a React hook — memoizing per AnalyticalTable guidance.
   const tableHooks = useMemo(
@@ -279,6 +277,7 @@ export const IndeterminateRowSelectionTestComp = ({ onIndeterminateChange, selec
         onRowSelect={onRowSelect}
       />
       <p data-testid="selectedRows">{JSON.stringify(selectedRowIds)}</p>
+      <span data-testid="indeterminate-count">{indeterminateCount}</span>
     </>
   );
 };
@@ -347,50 +346,46 @@ export const CustomRowKeyTestComp = () => {
 /* `onRowClick` — cypress L2266                                                                   */
 /* -------------------------------------------------------------------------------------------- */
 
-type RowClickProps = {
-  onRowClick: AnalyticalTablePropTypes['onRowClick'];
-  onRowSelect: AnalyticalTablePropTypes['onRowSelect'];
-};
-
-/** Cypress: `onRowClick` (L2266) — phase 1 of 2 (default behavior). */
-export const RowClickDefaultTestComp = ({ onRowClick, onRowSelect }: RowClickProps) => {
-  return (
-    <AnalyticalTable
-      header="Table Title"
-      data={defaultData}
-      columns={defaultColumns}
-      selectionBehavior={AnalyticalTableSelectionBehavior.Row}
-      selectionMode={AnalyticalTableSelectionMode.Single}
-      onRowClick={onRowClick}
-      onRowSelect={onRowSelect}
-    />
-  );
-};
-
 /**
- * Cypress: `onRowClick` (L2266) — phase 2 of 2. The `onRowClick` wrapper checks
- * `e.target.dataset.selectionCell !== 'true'` and only forwards in that case, mimicking the
- * cypress test's filter that ignores selection-cell clicks.
+ * Combined onRowClick harness. Starts in "default" mode (every row click forwards to onRowClick);
+ * the `set-filter-mode` button switches to "filter-sel-cell" mode where selection-cell clicks are
+ * NOT counted as row clicks (onRowSelect still fires). The inner table is keyed by mode so
+ * react-table's selection state resets between phases, while the running click/select counters
+ * persist (mirroring the original spies shared across a remount).
  */
-export const RowClickFilterSelCellTestComp = ({ onRowClick, onRowSelect }: RowClickProps) => {
-  const wrappedRowClick: AnalyticalTablePropTypes['onRowClick'] = useCallback(
-    (e: any) => {
-      if (e.target.dataset.selectionCell !== 'true') {
-        onRowClick?.(e);
-      }
-    },
-    [onRowClick],
-  );
+export const RowClickTestComp = () => {
+  const [filterSelCell, setFilterSelCell] = useState(false);
+  const [rowClickCount, setRowClickCount] = useState(0);
+  const [rowSelectCount, setRowSelectCount] = useState(0);
+
+  const onRowClick: AnalyticalTablePropTypes['onRowClick'] = (e: any) => {
+    if (filterSelCell && e.target.dataset.selectionCell === 'true') {
+      return;
+    }
+    setRowClickCount((c) => c + 1);
+  };
+  const onRowSelect: AnalyticalTablePropTypes['onRowSelect'] = () => {
+    setRowSelectCount((c) => c + 1);
+  };
+
   return (
-    <AnalyticalTable
-      header="Table Title"
-      data={defaultData}
-      columns={defaultColumns}
-      selectionBehavior={AnalyticalTableSelectionBehavior.Row}
-      selectionMode={AnalyticalTableSelectionMode.Single}
-      onRowClick={wrappedRowClick}
-      onRowSelect={onRowSelect}
-    />
+    <>
+      <Button data-testid="set-filter-mode" onClick={() => setFilterSelCell(true)}>
+        Filter selection-cell clicks
+      </Button>
+      <AnalyticalTable
+        key={`${filterSelCell}`}
+        header="Table Title"
+        data={defaultData}
+        columns={defaultColumns}
+        selectionBehavior={AnalyticalTableSelectionBehavior.Row}
+        selectionMode={AnalyticalTableSelectionMode.Single}
+        onRowClick={onRowClick}
+        onRowSelect={onRowSelect}
+      />
+      <span data-testid="row-click-count">{rowClickCount}</span>
+      <span data-testid="row-select-count">{rowSelectCount}</span>
+    </>
   );
 };
 
@@ -398,12 +393,25 @@ export const RowClickFilterSelCellTestComp = ({ onRowClick, onRowSelect }: RowCl
 /* `onRowContextMenu` — cypress L2317                                                             */
 /* -------------------------------------------------------------------------------------------- */
 
-type RowContextMenuProps = {
-  onRowContextMenu: AnalyticalTablePropTypes['onRowContextMenu'];
-};
-
-export const RowContextMenuTestComp = ({ onRowContextMenu }: RowContextMenuProps) => {
-  return <AnalyticalTable data={defaultData} columns={defaultColumns} onRowContextMenu={onRowContextMenu} />;
+/**
+ * Records `onRowContextMenu` fires: the running count into `context-count` and the last event's
+ * row/column detail (name, age, columnId) into `context-last` as JSON.
+ */
+export const RowContextMenuTestComp = () => {
+  const [count, setCount] = useState(0);
+  const [last, setLast] = useState('');
+  const onRowContextMenu: AnalyticalTablePropTypes['onRowContextMenu'] = (e: any) => {
+    const original = e.detail.row.original;
+    setLast(JSON.stringify({ name: original.name, age: original.age, columnId: e.detail.column.id }));
+    setCount((c) => c + 1);
+  };
+  return (
+    <>
+      <AnalyticalTable data={defaultData} columns={defaultColumns} onRowContextMenu={onRowContextMenu} />
+      <span data-testid="context-count">{count}</span>
+      <span data-testid="context-last">{last}</span>
+    </>
+  );
 };
 
 /* -------------------------------------------------------------------------------------------- */
@@ -477,12 +485,9 @@ export const WithRowHighlightFnTestComp = () => {
 /* `select-all` — cypress L3455                                                                   */
 /* -------------------------------------------------------------------------------------------- */
 
-type SelectAllProps = {
-  onRowSelectSpy: (e: any) => void;
-};
-
-export const SelectAllTestComp = ({ onRowSelectSpy }: SelectAllProps) => {
+export const SelectAllTestComp = () => {
   const [stringifiedPl, setStringifiedPl] = useState('');
+  const [selectCount, setSelectCount] = useState(0);
   const handleSelect: AnalyticalTablePropTypes['onRowSelect'] = (e: any) => {
     const { allRowsSelected, allVisibleRowsSelected, rowsById, selectedRowIds } = e.detail;
     const flatMapped = Object.keys(selectedRowIds).reduce<any[]>((acc, key) => {
@@ -499,7 +504,7 @@ export const SelectAllTestComp = ({ onRowSelectSpy }: SelectAllProps) => {
         allVisibleRowsSelected,
       }),
     );
-    onRowSelectSpy(e);
+    setSelectCount((c) => c + 1);
   };
   return (
     <>
@@ -510,6 +515,7 @@ export const SelectAllTestComp = ({ onRowSelectSpy }: SelectAllProps) => {
         onRowSelect={handleSelect}
       />
       <span data-testid="payload">{stringifiedPl}</span>
+      <span data-testid="select-count">{selectCount}</span>
     </>
   );
 };
@@ -518,14 +524,10 @@ export const SelectAllTestComp = ({ onRowSelectSpy }: SelectAllProps) => {
 /* `select-all with filtered rows` — cypress L3530                                                */
 /* -------------------------------------------------------------------------------------------- */
 
-type SelectAllFilteredProps = {
-  onRowSelectSpy: (e: any) => void;
-};
-
 const filteredData = mockNames.map((name) => ({ name }));
 const filteredColumns: AnalyticalTableColumnDefinition[] = [{ Header: 'Name', accessor: 'name' }];
 
-export const SelectAllFilteredTestComp = ({ onRowSelectSpy }: SelectAllFilteredProps) => {
+export const SelectAllFilteredTestComp = () => {
   const [filter, setFilter] = useState('');
   const [payload, setPayload] = useState<{
     allRowsSelected?: boolean;
@@ -535,7 +537,6 @@ export const SelectAllFilteredTestComp = ({ onRowSelectSpy }: SelectAllFilteredP
   const handleRowSelect: AnalyticalTablePropTypes['onRowSelect'] = (e: any) => {
     const { allRowsSelected, allVisibleRowsSelected, selectedRowIds } = e.detail;
     setPayload({ allRowsSelected, allVisibleRowsSelected, selectedRowIds });
-    onRowSelectSpy(e);
   };
   return (
     <>
@@ -702,37 +703,41 @@ export const ManualGroupByBackendTestComp = () => {
 };
 
 /* -------------------------------------------------------------------------------------------- */
-/* `custom cell (with markerAllowTableRowSelection) & header` — cypress L1859                     */
+/* `custom cell (with markerAllowTableRowSelection) & header`                                     */
 /* -------------------------------------------------------------------------------------------- */
 
-type CustomCellHeaderProps = {
-  onCellClick: (e: any) => void;
-  onHeaderClick: (e: any) => void;
-  onRowSelect: AnalyticalTablePropTypes['onRowSelect'];
-};
-
 /**
- * Combined test component covering both phases of the cypress
- * `custom cell (with markerAllowTableRowSelection) & header` test (L1859). Exposes a
- * `set-marker` button on `data-testid="set-marker"` to flip into Phase 2, remounting the
- * table via `key={mode}` so react-table's internal state resets between phases.
+ * Combined test component covering both phases of the `custom cell (with
+ * markerAllowTableRowSelection) & header` scenario. The `set-marker` button flips into Phase 2,
+ * remounting the table via `key={markerAllow}` so react-table's internal state resets between
+ * phases while the running counters (`cell-click-count`, `header-click-count`, `select-count`)
+ * persist.
  *
  * Phase 1 (`markerAllow=false`): clicking the in-cell Button should NOT trigger row selection
  * (UI5 Button is on the blocklist). Header Button click is exempt.
  * Phase 2 (`markerAllow=true`): the cell click sets `e.markerAllowTableRowSelection = true`,
  * so clicking the in-cell Button DOES trigger row selection.
  */
-export const CustomCellHeaderTestComp = ({ onCellClick, onHeaderClick, onRowSelect }: CustomCellHeaderProps) => {
+export const CustomCellHeaderTestComp = () => {
   const [markerAllow, setMarkerAllow] = useState(false);
+  const [cellClickCount, setCellClickCount] = useState(0);
+  const [headerClickCount, setHeaderClickCount] = useState(0);
+  const [selectCount, setSelectCount] = useState(0);
   const cellClickHandler = useCallback(
     (e: any) => {
       if (markerAllow) {
         e.markerAllowTableRowSelection = true;
       }
-      onCellClick(e);
+      setCellClickCount((c) => c + 1);
     },
-    [markerAllow, onCellClick],
+    [markerAllow],
   );
+  const onHeaderClick = useCallback(() => {
+    setHeaderClickCount((c) => c + 1);
+  }, []);
+  const onRowSelect = useCallback<NonNullable<AnalyticalTablePropTypes['onRowSelect']>>(() => {
+    setSelectCount((c) => c + 1);
+  }, []);
   const columns: AnalyticalTableColumnDefinition[] = useMemo(
     () => [
       { Header: 'Name', accessor: 'name' },
@@ -761,9 +766,9 @@ export const CustomCellHeaderTestComp = ({ onCellClick, onHeaderClick, onRowSele
         columns={columns}
         onRowSelect={onRowSelect}
       />
+      <span data-testid="cell-click-count">{cellClickCount}</span>
+      <span data-testid="header-click-count">{headerClickCount}</span>
+      <span data-testid="select-count">{selectCount}</span>
     </>
   );
 };
-
-// Re-export AnalyticalTableDomRef so the spec doesn't need a separate import path. (eslint quiet.)
-export type { AnalyticalTableDomRef };

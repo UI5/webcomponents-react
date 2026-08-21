@@ -1,5 +1,5 @@
-import { expect } from '@playwright/experimental-ct-react';
 import type { Locator, Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 
 /**
  * Opens an AnalyticalTable column header menu by clicking the header label with the given exact

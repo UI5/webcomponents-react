@@ -1,9 +1,4 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
-import {
-  SortingMultiSortTestComp,
-  SortingOrderedMultiSortTestComp,
-  SortingSingleColumnTestComp,
-} from './SortingTestComponents.js';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 import { openColumnHeaderMenu } from './test-utils/helpers.js';
 
 test.describe('AnalyticalTable - Sorting', () => {
@@ -11,7 +6,7 @@ test.describe('AnalyticalTable - Sorting', () => {
     mount,
     page,
   }) => {
-    await mount(<SortingSingleColumnTestComp />);
+    await mount('Sorting/SortingSingleColumnTestComp');
 
     // Without `sortable`, clicking the column header should NOT open the popover.
     await page.getByText('Name', { exact: true }).click();
@@ -96,7 +91,7 @@ test.describe('AnalyticalTable - Sorting', () => {
     mount,
     page,
   }) => {
-    await mount(<SortingMultiSortTestComp />);
+    await mount('Sorting/SortingMultiSortTestComp');
 
     // Multi-sort: ascending Name, then ascending Age.
     await openColumnHeaderMenu(page, 'Name');
@@ -141,7 +136,7 @@ test.describe('AnalyticalTable - Sorting', () => {
     mount,
     page,
   }) => {
-    await mount(<SortingOrderedMultiSortTestComp />);
+    await mount('Sorting/SortingOrderedMultiSortTestComp');
 
     // Click Age first, then Name — `name` precedes `age` in orderedIds, so Name takes priority.
     await openColumnHeaderMenu(page, 'Age');

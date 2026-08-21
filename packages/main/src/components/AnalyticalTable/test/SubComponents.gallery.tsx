@@ -8,96 +8,104 @@ import { columns as defaultColumns, data as defaultData } from './test-utils/dat
 /* ----------------------------------------------------------------------------
  * Render-call counter shared between SubComponents render tests.
  *
- * Cypress used a closure variable to count how often `renderRowSubComponent`
- * was invoked per mount. Under fractional zoom (1.1) the broken
- * `RowSubComponent` ResizeObserver loop produced 5000+ calls per mount; the
- * default-zoom baseline is ~700. We expose the counter via a ref so the
- * spec can read/reset it across consecutive mounts inside one test.
+ * Counts how often `renderRowSubComponent` is invoked per mount. Under
+ * fractional zoom (1.1) the broken `RowSubComponent` ResizeObserver loop
+ * produced 5000+ calls; the default-zoom baseline is ~700. Because the spec
+ * only reads the total once at the end, the counter is a plain ref bumped
+ * inside the render callback and written imperatively to the `render-count`
+ * node — using state here would re-render on every subcomponent render.
  * ------------------------------------------------------------------------- */
 
-export type RenderCountRef = { current: number };
+const bumpRenderCount = (countRef: { current: number }) => {
+  countRef.current += 1;
+  const el = document.querySelector('[data-testid="render-count"]');
+  if (el) {
+    el.textContent = String(countRef.current);
+  }
+};
 
-/* ----------------------------------------------------------------------------
- * SubComponents – Expandable (default) and Visible/IncludeHeight modes
- *
- * One TestComp per cypress mount inside the parameterized
- * `describe('render subcomponents')` block (AnalyticalTable.cy.tsx:2493-2662).
- * Every render-row-subcomponent callback is wrapped in `useCallback` per the
- * AT memoization rules in `packages/main/CLAUDE.md`.
- * ------------------------------------------------------------------------- */
-
-interface SubCompProps {
-  countRef: RenderCountRef;
-}
-
-export const SubCompExpandableTestComp = ({ countRef }: SubCompProps) => {
+export const SubCompExpandableTestComp = () => {
   const columns = useMemo(() => defaultColumns, []);
   const data = useMemo(() => defaultData, []);
+  const countRef = useRef(0);
   const renderRowSubComponent = useCallback(() => {
-    countRef.current += 1;
+    bumpRenderCount(countRef);
     return <div title="subcomponent">SubComponent</div>;
-  }, [countRef]);
-  return <AnalyticalTable data={data} columns={columns} renderRowSubComponent={renderRowSubComponent} />;
-};
-
-export const SubCompExpandableFirstOnlyTestComp = ({ countRef }: SubCompProps) => {
-  const columns = useMemo(() => defaultColumns, []);
-  const data = useMemo(() => defaultData, []);
-  const renderRowSubComponent = useCallback(
-    (row: RowType) => {
-      countRef.current += 1;
-      if (row.id === '0') {
-        return <div title="subcomponent">SingleSubComponent</div>;
-      }
-      return undefined;
-    },
-    [countRef],
+  }, []);
+  return (
+    <>
+      <span data-testid="render-count" />
+      <AnalyticalTable data={data} columns={columns} renderRowSubComponent={renderRowSubComponent} />
+    </>
   );
-  return <AnalyticalTable data={data} columns={columns} renderRowSubComponent={renderRowSubComponent} />;
 };
 
-export const SubCompVisibleAllTestComp = ({ countRef }: SubCompProps) => {
+export const SubCompExpandableFirstOnlyTestComp = () => {
   const columns = useMemo(() => defaultColumns, []);
   const data = useMemo(() => defaultData, []);
+  const countRef = useRef(0);
+  const renderRowSubComponent = useCallback((row: RowType) => {
+    bumpRenderCount(countRef);
+    if (row.id === '0') {
+      return <div title="subcomponent">SingleSubComponent</div>;
+    }
+    return undefined;
+  }, []);
+  return (
+    <>
+      <span data-testid="render-count" />
+      <AnalyticalTable data={data} columns={columns} renderRowSubComponent={renderRowSubComponent} />
+    </>
+  );
+};
+
+export const SubCompVisibleAllTestComp = () => {
+  const columns = useMemo(() => defaultColumns, []);
+  const data = useMemo(() => defaultData, []);
+  const countRef = useRef(0);
   const renderRowSubComponent = useCallback(() => {
-    countRef.current += 1;
+    bumpRenderCount(countRef);
     return <div title="subcomponent">SubComponent</div>;
-  }, [countRef]);
+  }, []);
   return (
-    <AnalyticalTable
-      data={data}
-      columns={columns}
-      renderRowSubComponent={renderRowSubComponent}
-      subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Visible}
-    />
+    <>
+      <span data-testid="render-count" />
+      <AnalyticalTable
+        data={data}
+        columns={columns}
+        renderRowSubComponent={renderRowSubComponent}
+        subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Visible}
+      />
+    </>
   );
 };
 
-export const SubCompVisibleFirstOnlyTestComp = ({ countRef }: SubCompProps) => {
+export const SubCompVisibleFirstOnlyTestComp = () => {
   const columns = useMemo(() => defaultColumns, []);
   const data = useMemo(() => defaultData, []);
-  const renderRowSubComponent = useCallback(
-    (row: RowType) => {
-      countRef.current += 1;
-      if (row.id === '0') {
-        return <div title="subcomponent">SingleSubComponent</div>;
-      }
-      return undefined;
-    },
-    [countRef],
-  );
+  const countRef = useRef(0);
+  const renderRowSubComponent = useCallback((row: RowType) => {
+    bumpRenderCount(countRef);
+    if (row.id === '0') {
+      return <div title="subcomponent">SingleSubComponent</div>;
+    }
+    return undefined;
+  }, []);
   return (
-    <AnalyticalTable
-      data={data}
-      columns={columns}
-      renderRowSubComponent={renderRowSubComponent}
-      subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Visible}
-    />
+    <>
+      <span data-testid="render-count" />
+      <AnalyticalTable
+        data={data}
+        columns={columns}
+        renderRowSubComponent={renderRowSubComponent}
+        subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Visible}
+      />
+    </>
   );
 };
 
-const renderLarge = (row: RowType, count: RenderCountRef) => {
-  count.current += 1;
+const renderLarge = (row: RowType, countRef: { current: number }) => {
+  bumpRenderCount(countRef);
   return (
     <div title="subcomponent" style={{ height: '200px', width: '100%', display: 'flex', alignItems: 'end' }}>
       {`SubComponent ${row.index}`}
@@ -105,77 +113,84 @@ const renderLarge = (row: RowType, count: RenderCountRef) => {
   );
 };
 
-export const SubCompLargeVisibleTestComp = ({ countRef }: SubCompProps) => {
+export const SubCompLargeVisibleTestComp = () => {
   const columns = useMemo(() => defaultColumns, []);
   const data = useMemo(() => defaultData, []);
-  const renderRowSubComponent = useCallback((row: RowType) => renderLarge(row, countRef), [countRef]);
+  const countRef = useRef(0);
+  const renderRowSubComponent = useCallback((row: RowType) => renderLarge(row, countRef), []);
   return (
-    <AnalyticalTable
-      data={data}
-      columns={columns}
-      renderRowSubComponent={renderRowSubComponent}
-      visibleRows={3}
-      subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Visible}
-    />
+    <>
+      <span data-testid="render-count" />
+      <AnalyticalTable
+        data={data}
+        columns={columns}
+        renderRowSubComponent={renderRowSubComponent}
+        visibleRows={3}
+        subComponentsBehavior={AnalyticalTableSubComponentsBehavior.Visible}
+      />
+    </>
   );
 };
 
-export const SubCompLargeIncludeHeightTestComp = ({ countRef }: SubCompProps) => {
+export const SubCompLargeIncludeHeightTestComp = () => {
   const columns = useMemo(() => defaultColumns, []);
   const data = useMemo(() => defaultData, []);
-  const renderRowSubComponent = useCallback((row: RowType) => renderLarge(row, countRef), [countRef]);
+  const countRef = useRef(0);
+  const renderRowSubComponent = useCallback((row: RowType) => renderLarge(row, countRef), []);
   return (
-    <AnalyticalTable
-      data={data}
-      columns={columns}
-      renderRowSubComponent={renderRowSubComponent}
-      visibleRows={3}
-      subComponentsBehavior={AnalyticalTableSubComponentsBehavior.IncludeHeight}
-    />
+    <>
+      <span data-testid="render-count" />
+      <AnalyticalTable
+        data={data}
+        columns={columns}
+        renderRowSubComponent={renderRowSubComponent}
+        visibleRows={3}
+        subComponentsBehavior={AnalyticalTableSubComponentsBehavior.IncludeHeight}
+      />
+    </>
   );
 };
 
-interface SubCompInfiniteScrollProps extends SubCompProps {
-  onLoadMore: AnalyticalTablePropTypes['onLoadMore'];
-}
-
-export const SubCompInfiniteScrollTestComp = ({ countRef, onLoadMore }: SubCompInfiniteScrollProps) => {
+export const SubCompInfiniteScrollTestComp = () => {
   const columns = useMemo(() => defaultColumns, []);
   const data = useMemo(() => defaultData, []);
-  const renderRowSubComponent = useCallback((row: RowType) => renderLarge(row, countRef), [countRef]);
+  const countRef = useRef(0);
+  const [loadMoreCount, setLoadMoreCount] = useState(0);
+  const renderRowSubComponent = useCallback((row: RowType) => renderLarge(row, countRef), []);
+  const onLoadMore = useCallback<NonNullable<AnalyticalTablePropTypes['onLoadMore']>>(() => {
+    setLoadMoreCount((c) => c + 1);
+  }, []);
   return (
-    <AnalyticalTable
-      data={data}
-      columns={columns}
-      renderRowSubComponent={renderRowSubComponent}
-      visibleRows={3}
-      subComponentsBehavior={AnalyticalTableSubComponentsBehavior.IncludeHeightExpandable}
-      infiniteScroll
-      infiniteScrollThreshold={0}
-      onLoadMore={onLoadMore}
-    />
+    <>
+      <span data-testid="render-count" />
+      <span data-testid="load-more-count">{loadMoreCount}</span>
+      <AnalyticalTable
+        data={data}
+        columns={columns}
+        renderRowSubComponent={renderRowSubComponent}
+        visibleRows={3}
+        subComponentsBehavior={AnalyticalTableSubComponentsBehavior.IncludeHeightExpandable}
+        infiniteScroll
+        infiniteScrollThreshold={0}
+        onLoadMore={onLoadMore}
+      />
+    </>
   );
 };
 
 /* ----------------------------------------------------------------------------
  * Expandable: don't scroll when expanded/collapsed
  *
- * Cypress (AnalyticalTable.cy.tsx:3288-3387) mounted four different tables in
- * one `it()` to exercise: (1) tree-table keyboard expand, (2) groupable
- * keyboard expand, (3) subcomponent keyboard expand, and (4) programmatic
- * `toggleRowExpanded` via `tableInstance`. The common assertion is that
- * `body.scrollTop !== 0` after expanding/collapsing — i.e. the table does
- * not auto-reset scroll position. We keep the four mounts in TestComponents
- * to comply with the "no complex JSX in spec" rule and so the spec can
- * remount through them sequentially.
+ * Four different tables exercising: (1) tree-table keyboard expand, (2)
+ * groupable keyboard expand, (3) subcomponent keyboard expand, and (4)
+ * programmatic `toggleRowExpanded` via `tableInstance`. The common assertion
+ * is that `body.scrollTop !== 0` after expanding/collapsing — i.e. the table
+ * does not auto-reset scroll position.
  *
- * Note: the cypress test used the full `dataTree` fixture for the tree-table
- * mount. To keep the test fixture local and avoid touching `test-utils/`,
- * `treeExpandData` below is a hand-rolled minimal dataset that preserves the
- * required structure: two top-level expandable rows where the second's
- * subRows include another expandable row whose subRows themselves contain
- * leaves. The names match the cypress assertions (Katy Bradshaw and
- * Carol Perez).
+ * `treeExpandData` is a minimal dataset preserving the required structure: two
+ * top-level expandable rows where the second's subRows include another
+ * expandable row whose subRows themselves contain leaves. The names match the
+ * assertions (Katy Bradshaw and Carol Perez).
  * ------------------------------------------------------------------------- */
 
 const treeExpandLeaf = (name: string) => ({ name, age: 30, friend: { name: `${name}-friend`, age: 31 } });
@@ -230,12 +245,9 @@ export const ScrollPreserveSubcomponentTestComp = () => {
   return <AnalyticalTable data={data} columns={columns} renderRowSubComponent={renderRowSubComponent} />;
 };
 
-// Programmatic `toggleRowExpanded` via `tableInstance` ref.
-// Reuses `treeExpandData` to grow large enough for scroll. The "toggle row"
-// node is row id '6' in the cypress test — the deepest subrow inserted at
-// index 3 of the flattened pseudo-list. Using the same construction:
-// [...d, ...d, ...d, { toggle }, ...d, ...d] yields a sufficiently long
-// list and the "toggle" row's id resolves to '6'.
+// Programmatic `toggleRowExpanded` via `tableInstance` ref. Reuses
+// `treeExpandData` to grow large enough for scroll; the "toggle" row's id
+// resolves to '6' in the flattened list.
 export const ScrollPreserveProgrammaticToggleTestComp = () => {
   const columns = useMemo(() => defaultColumns, []);
   const data = useMemo(
@@ -268,18 +280,10 @@ export const ScrollPreserveProgrammaticToggleTestComp = () => {
 /* ----------------------------------------------------------------------------
  * TreeTable + SubComps + lazy-load
  *
- * Cypress (AnalyticalTable.cy.tsx:4268-4443): a tree table where children are
- * fetched lazily on expand and a "Load more" button is rendered as the
- * subcomponent of the row that is the *last* child of its parent. The
- * customTableHook forces `canExpand = true` so every row shows an expander.
- *
- * The cypress test embedded a *buggy* data-transform algorithm (each setRaw
- * triggered a useMemo pass that accumulated duplicate subRows). The
- * customer-reported bug was actually different from this duplication — the
- * comment in the cypress test acknowledged the algorithm was unrelated to
- * the bug, so we replace it with a clean implementation that produces the
- * same render outcome the assertion checks (row 7 has a non-zero translateY
- * after expansions add subcomponents).
+ * A tree table where children are fetched lazily on expand and a "Load more"
+ * button is rendered as the subcomponent of the row that is the *last* child
+ * of its parent. The customTableHook forces `canExpand = true` so every row
+ * shows an expander.
  * ------------------------------------------------------------------------- */
 
 const lazyLoadNames = ['John', 'Jane', 'Bob', 'Alice', 'Charlie', 'David', 'Eva', 'Frank'];

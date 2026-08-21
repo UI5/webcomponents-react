@@ -1,16 +1,9 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
-import { testPassThroughProps } from '../../../../../../playwright/test-factories/sharedComponentTests.js';
-import { AnalyticalTable } from '../index.js';
-import {
-  RenderingLoadingTestComp,
-  RenderingNoDataTestComp,
-  RenderingRefForwardingTestComp,
-} from './RenderingTestComponents.js';
-import { columns, data } from './test-utils/data.js';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
+import { data } from './test-utils/data.js';
 
 test.describe('AnalyticalTable - Rendering', () => {
   test('Basic mount renders grid with header row and data rows', async ({ mount, page }) => {
-    await mount(<AnalyticalTable data={data} columns={columns} />);
+    await mount('Rendering/RenderingBasicTestComp');
 
     const grid = page.locator('[data-component-name="AnalyticalTableContainer"]');
     await expect(grid).toHaveAttribute('role', 'grid');
@@ -27,10 +20,25 @@ test.describe('AnalyticalTable - Rendering', () => {
     await expect(body.getByText('Lorem', { exact: true })).toBeVisible();
   });
 
-  testPassThroughProps(AnalyticalTable, { data, columns });
+  test('Pass Through HTML Standard Props', async ({ mount, page }) => {
+    await mount('Rendering/RenderingPassThroughTestComp');
 
-  test('Forwards ref and exposes imperative scroll methods', async ({ mount, page }) => {
-    await mount(<RenderingRefForwardingTestComp />);
+    const el = page.getByTestId('component-to-be-tested');
+    await expect(el).toBeAttached();
+    await expect(el).toHaveClass(/thisClassIsUsedForTestingPurposesOnly/);
+    await expect(el).toHaveCSS('pointer-events', 'none');
+    await expect(el).toHaveAttribute('aria-labelledby', 'aria-prop');
+    await expect(el).toHaveAttribute('customattribute', 'true');
+    await expect(el).toHaveAttribute('data-special-test-prop', 'data-prop');
+    await expect(el).toHaveAttribute('id', 'element-id');
+    await expect(page.locator('[title="Tooltip"]')).toBeAttached();
+  });
+
+  // SKIPPED (partial vs cypress): does not cover the `onTableScroll` "should have been called" check
+  // nor the vertical `scrollToItem(1, 'start')` row-swap behavior (row "B" visible, "A" removed) —
+  // here scrollToItem is only checked for existence. Retained by AnalyticalTable.cy.tsx `it('scrollTo')`.
+  test.skip('Forwards ref and exposes imperative scroll methods', async ({ mount, page }) => {
+    await mount('Rendering/RenderingRefForwardingTestComp');
 
     // Click "report" to dump the ref shape; this verifies the ref is attached
     // and that the documented scroll methods exist on the DOM node.
@@ -46,8 +54,10 @@ test.describe('AnalyticalTable - Rendering', () => {
     await expect.poll(() => body.evaluate((el) => el.scrollTop)).toBe(50);
   });
 
-  test('Loading: skeleton, busy indicator and overlay opacity', async ({ mount, page }) => {
-    await mount(<RenderingLoadingTestComp />);
+  // SKIPPED (partial vs cypress): does not cover the empty+loading "content is NOT dimmed" assertion
+  // (opacity !== 0.4 during the skeleton phase). Retained by AnalyticalTable.cy.tsx `it('Loading & No Data')`.
+  test.skip('Loading: skeleton, busy indicator and overlay opacity', async ({ mount, page }) => {
+    await mount('Rendering/RenderingLoadingTestComp');
 
     const skeleton = page.locator('[data-component-name="AnalyticalTableLoadingPlaceholder"]');
     const busyArea = page.locator('.ui5-busy-indicator-busy-area');
@@ -82,7 +92,7 @@ test.describe('AnalyticalTable - Rendering', () => {
     mount,
     page,
   }) => {
-    await mount(<RenderingNoDataTestComp />);
+    await mount('Rendering/RenderingNoDataTestComp');
 
     // Default empty-state copy
     await page.getByTestId('mode-default-empty').click();
@@ -100,15 +110,8 @@ test.describe('AnalyticalTable - Rendering', () => {
   });
 
   test('Forwards custom className and style to the outermost element', async ({ mount, page }) => {
-    await mount(
-      <AnalyticalTable
-        data={data}
-        columns={columns}
-        data-testid="at-root"
-        className="my-at-class"
-        style={{ marginTop: '17px' }}
-      />,
-    );
+    await mount('Rendering/RenderingClassNameStyleTestComp');
+
     const root = page.getByTestId('at-root');
     await expect(root).toHaveClass(/my-at-class/);
     await expect(root).toHaveCSS('margin-top', '17px');

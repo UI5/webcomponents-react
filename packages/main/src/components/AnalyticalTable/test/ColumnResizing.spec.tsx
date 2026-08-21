@@ -1,57 +1,56 @@
 import type { Locator } from '@playwright/test';
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
-import {
-  AutoResizeHarness,
-  ColumnScalingHarness,
-  DragAndDropReorderTestComp,
-  DragAndDropStructureHarness,
-  InitialColumnOrderTestComp,
-  NoSelectionColumnHarness,
-  PopInDisplayHarness,
-  RetainColumnWidthHarness,
-  TableInstanceHarness,
-} from './ColumnResizingTestComponents.js';
-import { data } from './test-utils/data.js';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 
 /**
  * Rounded equivalent of cypress's `invoke('outerWidth')`. Inlined here — if a second spec needs
- * the same helper, promote to `test/test-utils/helpers.ts` (see hand-off).
+ * the same helper, promote to `test/test-utils/helpers.ts`.
  */
 const getOuterWidth = async (locator: Locator): Promise<number> => {
   return await locator.evaluate((el: HTMLElement) => Math.round(el.getBoundingClientRect().width));
 };
 
+// Marker that `useDragAndDrop` sets on the dataTransfer during dragstart to flag a column drag.
+// A real drag carries it through to drop; the synthetic drop below must include it so the table
+// treats the event as a column reorder rather than a foreign (file/text) drag.
+const COLUMN_DND_TYPE = 'application/x-ui5wcr-columndnd';
+
 test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
-  test('autoResize: double-click resizer fits column to content width', async ({ mount, page }) => {
-    // Mirrors cypress `autoResize` (line 407). Splits the original test into a single mount with a
-    // mode-switching harness; widths are asserted as ranges because exact pixel values drift with
-    // font metrics between cypress (Electron) and Playwright (chromium).
-    const resizeCalls: unknown[] = [];
-    await mount(<AutoResizeHarness resizeSpy={(e) => resizeCalls.push(e)} />);
+  // SKIPPED (partial vs cypress): the subcomponent auto-resize variant asserts only the onAutoResize
+  // call count, not the resulting width (cypress asserted name column width = 165). Retained by
+  // AnalyticalTable.cy.tsx `it('autoResize')`.
+  test.skip('autoResize: double-click resizer fits column to content width', async ({ mount, page }) => {
+    // Splits the original test into a single mount with a mode-switching harness; widths are
+    // asserted as ranges because exact pixel values drift with font metrics between browsers.
+    // `onAutoResize` fires are counted into `resize-count`, reset to 0 on each mode switch.
+    await mount('ColumnResizing/AutoResizeHarness');
+
+    const resizeCount = page.getByTestId('resize-count');
+    const expectResizeCountAtLeast = async (n: number) => {
+      await expect.poll(async () => Number(await resizeCount.textContent())).toBeGreaterThanOrEqual(n);
+    };
 
     const resizer1 = page.locator('[data-component-name="AnalyticalTableResizer"]').nth(0);
     const resizer2 = page.locator('[data-component-name="AnalyticalTableResizer"]').nth(1);
     const nameCol = page.locator('[data-column-id="name"]').first();
 
-    // Variant 1: onAutoResize -> preventDefault() suppresses the width change. Spy still fires.
+    // Variant 1: onAutoResize -> preventDefault() suppresses the width change. Count still increments.
     await page.getByTestId('mode-resizable-prevented').click();
     const beforePreventName = await getOuterWidth(nameCol);
     await resizer2.hover();
     await resizer2.dblclick();
     await resizer1.hover();
     await resizer1.dblclick();
-    expect(resizeCalls.length).toBeGreaterThanOrEqual(2);
+    await expectResizeCountAtLeast(2);
     // preventDefault keeps widths unchanged
     expect(await getOuterWidth(nameCol)).toBe(beforePreventName);
 
     // Variant 2: onAutoResize callback only — auto-resize is applied.
-    resizeCalls.length = 0;
     await page.getByTestId('mode-resizable').click();
     await page.locator('[data-component-name="AnalyticalTableResizer"]').nth(1).hover();
     await page.locator('[data-component-name="AnalyticalTableResizer"]').nth(1).dblclick();
     await page.locator('[data-component-name="AnalyticalTableResizer"]').nth(0).hover();
     await page.locator('[data-component-name="AnalyticalTableResizer"]').nth(0).dblclick();
-    expect(resizeCalls.length).toBeGreaterThanOrEqual(2);
+    await expectResizeCountAtLeast(2);
     // age column should fit its shortest content (~60px). name fits the "Longer Name Too" row.
     const ageWidth = await getOuterWidth(page.locator('[data-column-id="age"]').first());
     expect(ageWidth).toBeLessThan(120);
@@ -61,14 +60,13 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
 
     // Variant 3: infinite scroll. Scroll to bottom then auto-resize first column. We rely on
     // the on-screen "Short Name" rows so the autoresize result stays small.
-    resizeCalls.length = 0;
     await page.getByTestId('mode-infinite').click();
     const body = page.locator('[data-component-name="AnalyticalTableBody"]').first();
     await body.evaluate((el) => el.scrollTo(0, el.scrollHeight));
     await page.waitForTimeout(50);
     await page.locator('[data-component-name="AnalyticalTableResizer"]').nth(0).hover();
     await page.locator('[data-component-name="AnalyticalTableResizer"]').nth(0).dblclick();
-    expect(resizeCalls.length).toBeGreaterThanOrEqual(1);
+    await expectResizeCountAtLeast(1);
 
     // Variant 4: autoResizable: false on all columns -> no resize callback, widths stay default.
     await page.getByTestId('mode-not-resizable').click();
@@ -81,17 +79,15 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
     expect(await getOuterWidth(page.locator('[data-column-id="name"]').first())).toBe(beforeNoResize);
 
     // Variant 5: renderRowSubComponent + autoResize -> width includes sub-component cells.
-    resizeCalls.length = 0;
     await page.getByTestId('mode-subcomponent').click();
     await page.locator('[data-component-name="AnalyticalTableResizer"]').nth(1).hover();
     await page.locator('[data-component-name="AnalyticalTableResizer"]').nth(1).dblclick();
     await page.locator('[data-component-name="AnalyticalTableResizer"]').nth(0).hover();
     await page.locator('[data-component-name="AnalyticalTableResizer"]').nth(0).dblclick();
-    expect(resizeCalls.length).toBeGreaterThanOrEqual(2);
+    await expectResizeCountAtLeast(2);
 
     // Variant 6: tree table. Resize before and after expanding the first row — the expanded child
     // contributes a longer name, so the second resize should produce a wider column.
-    resizeCalls.length = 0;
     await page.getByTestId('mode-tree').click();
     await page.waitForTimeout(100);
     await page.locator('[data-component-name="AnalyticalTableResizer"]').nth(0).hover();
@@ -103,10 +99,13 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
     await page.locator('[data-component-name="AnalyticalTableResizer"]').nth(0).dblclick();
     const expandedWidth = await getOuterWidth(page.locator('[data-column-id="name"]').first());
     expect(expandedWidth).toBeGreaterThan(collapsedWidth);
-    expect(resizeCalls.length).toBeGreaterThanOrEqual(2);
+    await expectResizeCountAtLeast(2);
   });
 
-  test('Column Scaling: columns recompute width when columns array changes', async ({ mount, page }) => {
+  // SKIPPED (partial vs cypress): asserts only that the single-column width grows, not the exact
+  // 2× relationship cypress verified (single-column width == 2× two-column width). Retained by
+  // AnalyticalTable.cy.tsx `it('Column Scaling: programatically change cols')`.
+  test.skip('Column Scaling: columns recompute width when columns array changes', async ({ mount, page }) => {
     // Mirrors cypress `Column Scaling: programatically change cols` (line 1479). The cypress test
     // uses `forEach` over five selection/highlight prop combos with a fresh mount each time;
     // Playwright CT disallows multiple mounts so the harness switches modes via buttons (the table
@@ -120,7 +119,7 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
       'mode-single-with-both-highlights',
     ];
 
-    await mount(<ColumnScalingHarness data={data} />);
+    await mount('ColumnResizing/ColumnScalingHarness');
 
     for (const modeId of modeIds) {
       await page.getByTestId(modeId).click();
@@ -146,7 +145,7 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
 
   test('tableInstance: dispatch TABLE_RESIZE and toggleHideColumn re-flow widths', async ({ mount, page }) => {
     // Mirrors cypress `tableInstance: change state & hide cols` (line 1560).
-    await mount(<TableInstanceHarness />);
+    await mount('ColumnResizing/TableInstanceHarness');
     await page.waitForTimeout(200);
 
     await page.getByTestId('set-clientWidth').click();
@@ -174,7 +173,7 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
     // declared inside `columns`. The cypress assertion implicitly tested ordering, not text
     // rendering, which is fully covered by inspecting the `data-column-id` order.
     const expectedOrder = ['age', 'friend.age', 'friend.name', 'name'];
-    await mount(<InitialColumnOrderTestComp />);
+    await mount('ColumnResizing/InitialColumnOrderTestComp');
 
     const checkOrder = async () => {
       const ids = await page
@@ -197,18 +196,17 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
     });
   });
 
-  test('columns drag & drop: reorders by dragstart/drop dataTransfer', async ({ mount, page, browserName }) => {
-    // TODO(cross-browser): webkit does not render the header cells with data-column-id attributes
-    // when the AT is mounted with an inline function-`Header` column definition — document.querySelector
-    // returns null. Chromium/firefox render the attributes immediately after mount.
-    test.fixme(browserName === 'webkit', 'webkit: data-column-id attribute missing at initial dispatch time');
+  // SKIPPED (partial vs cypress): does not cover the drag-over header highlight (dragenter → 3px
+  // border, foreign drag → 0px, dragleave → 0px) nor the RTL pass (cypress ran ltr+rtl and asserted
+  // onColumnsReorder called twice). This test does LTR reorder + count only. Retained by
+  // AnalyticalTable.cy.tsx `it('columns drag & drop')`.
+  test.skip('columns drag & drop: reorders by dragstart/drop dataTransfer', async ({ mount, page }) => {
     // Mirrors cypress `columns drag & drop` (line 2090). Uses HTML5 `DragEvent`s with a real
     // `DataTransfer` payload — Playwright doesn't expose a built-in dataTransfer-aware drag, so we
     // dispatch native events directly. Assertions compare `data-column-id` order; cypress used
     // text content but Playwright CT cannot serialize function-`Header` props (see initial column
     // order test).
-    const reorderCalls: unknown[] = [];
-    await mount(<DragAndDropReorderTestComp onColumnsReorder={(e) => reorderCalls.push(e)} />);
+    await mount('ColumnResizing/DragAndDropReorderTestComp');
 
     // Mirrors cypress: dragstart at `sourceId`, drop ALSO at `sourceId` with a separate
     // `dataTransfer` whose `getData('text')` returns `targetId` (cypress wires this via
@@ -218,7 +216,7 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
     // instance would let dragstart overwrite our fake "dragged" id before drop reads it.
     const triggerDrop = async (sourceId: string, targetId: string) => {
       await page.evaluate(
-        ({ sourceId, targetId }) => {
+        ({ sourceId, targetId, dndType }) => {
           const source = document.querySelector(`[data-column-id="${sourceId}"]`);
           if (!source) {
             throw new Error(`missing source column ${sourceId}`);
@@ -229,9 +227,10 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
           );
           const dropDT = new DataTransfer();
           dropDT.setData('text', targetId);
+          dropDT.setData(dndType, '');
           source.dispatchEvent(new DragEvent('drop', { bubbles: true, cancelable: true, dataTransfer: dropDT }));
         },
-        { sourceId, targetId },
+        { sourceId, targetId, dndType: COLUMN_DND_TYPE },
       );
     };
 
@@ -240,19 +239,18 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
       .locator('[data-column-id]')
       .evaluateAll((els) => els.map((el) => el.getAttribute('data-column-id')));
     expect(ids).toEqual(['age', 'name', 'friend.name', 'friend.age']);
-    expect(reorderCalls.length).toBe(1);
+    await expect(page.getByTestId('reorder-count')).toHaveText('1');
   });
 
   test('columns drag & drop: reorder then add/remove column', async ({ mount, page, browserName }) => {
     // TODO(cross-browser): webkit — same missing data-column-id issue as the sibling drag/drop test.
     test.fixme(browserName === 'webkit', 'webkit: data-column-id attribute missing at initial dispatch time');
     // Mirrors cypress `columns drag & drop: reorder then add/remove column` (line 2114).
-    const reorderCalls: unknown[] = [];
-    await mount(<DragAndDropStructureHarness onColumnsReorder={(e) => reorderCalls.push(e)} />);
+    await mount('ColumnResizing/DragAndDropStructureHarness');
 
     const triggerDrop = async (sourceId: string, targetId: string) => {
       await page.evaluate(
-        ({ sourceId, targetId }) => {
+        ({ sourceId, targetId, dndType }) => {
           const source = document.querySelector(`[data-column-id="${sourceId}"]`);
           if (!source) {
             throw new Error(`missing source column ${sourceId}`);
@@ -263,9 +261,10 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
           );
           const dropDT = new DataTransfer();
           dropDT.setData('text', targetId);
+          dropDT.setData(dndType, '');
           source.dispatchEvent(new DragEvent('drop', { bubbles: true, cancelable: true, dataTransfer: dropDT }));
         },
-        { sourceId, targetId },
+        { sourceId, targetId, dndType: COLUMN_DND_TYPE },
       );
     };
 
@@ -298,7 +297,7 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
     await triggerDrop('age', 'friend.name');
     await expectOrder(['friend.name', 'age', 'name']);
 
-    expect(reorderCalls.length).toBe(3);
+    await expect(page.getByTestId('reorder-count')).toHaveText('3');
   });
 
   test('w/o selection column: RowOnly selection behaviour suppresses [data-selection-cell]', async ({
@@ -307,7 +306,7 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
   }) => {
     // Mirrors cypress `w/o selection column` (line 2186). Iterates over three configurations on a
     // single mount; the synthetic selection-cell column must not be rendered in any of them.
-    await mount(<NoSelectionColumnHarness />);
+    await mount('ColumnResizing/NoSelectionColumnHarness');
 
     for (const testid of ['mode-single-row-only', 'mode-multiple-row-only', 'mode-none']) {
       await page.getByTestId(testid).click();
@@ -317,7 +316,7 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
 
   test('retainColumnWidth: recalculates widths after columns reference changes', async ({ mount, page }) => {
     // Mirrors cypress `retainColumnWidth: recalculates widths after columns change` (line 5085).
-    await mount(<RetainColumnWidthHarness />);
+    await mount('ColumnResizing/RetainColumnWidthHarness');
 
     const nameCol = page.locator('[data-column-id="name"]').first();
     const initialWidth = await getOuterWidth(nameCol);
@@ -354,7 +353,7 @@ test.describe('AnalyticalTable - ColumnResizing & column structure', () => {
     // header is missing while the pop-in cell content stays visible, and that the table grows
     // taller because of the additional pop-in row height.
     await page.setViewportSize({ width: 800, height: 2000 });
-    await mount(<PopInDisplayHarness />);
+    await mount('ColumnResizing/PopInDisplayHarness');
 
     // Always-visible columns
     await expect(page.locator('[data-column-id="name"]').first()).toBeVisible();

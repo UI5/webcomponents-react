@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { AnalyticalTablePopinDisplay } from '../../../enums/AnalyticalTablePopinDisplay.js';
 import { AnalyticalTableScaleWidthMode } from '../../../enums/AnalyticalTableScaleWidthMode.js';
@@ -11,9 +10,10 @@ import type { AnalyticalTableColumnDefinition, AnalyticalTablePropTypes } from '
 import { columns, data, generateMoreData } from './test-utils/data.js';
 
 /**
- * Stateful harness for the cypress `autoResize` test. Lets a single Playwright `mount()` cycle
+ * Stateful harness for the `autoResize` test. Lets a single Playwright `mount()` cycle
  * through every sub-scenario by clicking buttons that switch the underlying table configuration.
- * `key={mode}` remounts the table between modes — equivalent to back-to-back cypress `cy.mount`s.
+ * `key={mode}` remounts the table between modes. The running `onAutoResize` call count is recorded
+ * into `resize-count` and reset to `0` on every mode switch, so each mode asserts only its own fires.
  */
 type AutoResizeMode =
   | 'resizable-onAutoResizePrevented'
@@ -57,15 +57,23 @@ const treeAutoResizeData = [
 
 const renderSubComponent = () => <div title="subcomponent">SubComponent</div>;
 
-interface AutoResizeHarnessProps {
-  resizeSpy: (e: unknown) => void;
-  loadMoreSpy?: (e: unknown) => void;
-}
-
-export const AutoResizeHarness = ({ resizeSpy, loadMoreSpy }: AutoResizeHarnessProps) => {
+export const AutoResizeHarness = () => {
   const [mode, setMode] = useState<AutoResizeMode>('resizable-onAutoResizePrevented');
-  const resizableCols: AnalyticalTableColumnDefinition[] = columns.map((el) => ({ ...el, autoResizable: true }));
-  const nonResizableCols: AnalyticalTableColumnDefinition[] = columns.map((el) => ({ ...el, autoResizable: false }));
+  const [resizeCount, setResizeCount] = useState(0);
+  const resizableCols = useMemo<AnalyticalTableColumnDefinition[]>(
+    () => columns.map((el) => ({ ...el, autoResizable: true })),
+    [],
+  );
+  const nonResizableCols = useMemo<AnalyticalTableColumnDefinition[]>(
+    () => columns.map((el) => ({ ...el, autoResizable: false })),
+    [],
+  );
+
+  const switchMode = (nextMode: AutoResizeMode) => {
+    setResizeCount(0);
+    setMode(nextMode);
+  };
+  const countResize = () => setResizeCount((c) => c + 1);
 
   const renderTable = () => {
     switch (mode) {
@@ -75,24 +83,23 @@ export const AutoResizeHarness = ({ resizeSpy, loadMoreSpy }: AutoResizeHarnessP
             data={dataLongerName}
             columns={resizableCols}
             onAutoResize={(e) => {
-              resizeSpy(e);
+              countResize();
               e.preventDefault();
             }}
           />
         );
       }
       case 'resizable-onAutoResize': {
-        return <AnalyticalTable data={dataLongerName} columns={resizableCols} onAutoResize={resizeSpy} />;
+        return <AnalyticalTable data={dataLongerName} columns={resizableCols} onAutoResize={countResize} />;
       }
       case 'infinite-scroll': {
         return (
           <AnalyticalTable
             data={infiniteScrollData}
             columns={resizableCols}
-            onLoadMore={loadMoreSpy}
             infiniteScroll
             infiniteScrollThreshold={0}
-            onAutoResize={resizeSpy}
+            onAutoResize={countResize}
           />
         );
       }
@@ -105,13 +112,13 @@ export const AutoResizeHarness = ({ resizeSpy, loadMoreSpy }: AutoResizeHarnessP
             data={dataLongerName}
             columns={resizableCols}
             renderRowSubComponent={renderSubComponent}
-            onAutoResize={resizeSpy}
+            onAutoResize={countResize}
           />
         );
       }
       case 'tree': {
         return (
-          <AnalyticalTable columns={resizableCols} data={treeAutoResizeData} isTreeTable onAutoResize={resizeSpy} />
+          <AnalyticalTable columns={resizableCols} data={treeAutoResizeData} isTreeTable onAutoResize={countResize} />
         );
       }
     }
@@ -119,35 +126,35 @@ export const AutoResizeHarness = ({ resizeSpy, loadMoreSpy }: AutoResizeHarnessP
 
   return (
     <>
-      <Button data-testid="mode-resizable-prevented" onClick={() => setMode('resizable-onAutoResizePrevented')}>
+      <Button data-testid="mode-resizable-prevented" onClick={() => switchMode('resizable-onAutoResizePrevented')}>
         resizable-prevented
       </Button>
-      <Button data-testid="mode-resizable" onClick={() => setMode('resizable-onAutoResize')}>
+      <Button data-testid="mode-resizable" onClick={() => switchMode('resizable-onAutoResize')}>
         resizable
       </Button>
-      <Button data-testid="mode-infinite" onClick={() => setMode('infinite-scroll')}>
+      <Button data-testid="mode-infinite" onClick={() => switchMode('infinite-scroll')}>
         infinite
       </Button>
-      <Button data-testid="mode-not-resizable" onClick={() => setMode('not-resizable')}>
+      <Button data-testid="mode-not-resizable" onClick={() => switchMode('not-resizable')}>
         not-resizable
       </Button>
-      <Button data-testid="mode-subcomponent" onClick={() => setMode('subcomponent')}>
+      <Button data-testid="mode-subcomponent" onClick={() => switchMode('subcomponent')}>
         subcomponent
       </Button>
-      <Button data-testid="mode-tree" onClick={() => setMode('tree')}>
+      <Button data-testid="mode-tree" onClick={() => switchMode('tree')}>
         tree
       </Button>
+      <span data-testid="resize-count">{resizeCount}</span>
       <div key={mode}>{renderTable()}</div>
     </>
   );
 };
 
 /**
- * Harness for `Column Scaling: programatically change cols` (cypress line 1479). Adds buttons to
- * swap the column array between "both", "name only" and "age only" so column-width recalculation
- * can be asserted across selection / highlight prop combinations. The selection / highlight prop
- * flags are mutable via buttons because Playwright CT disallows re-mounting between cypress's
- * `forEach` iterations.
+ * Harness for `Column Scaling: programatically change cols`. Adds buttons to swap the column array
+ * between "both", "name only" and "age only" so column-width recalculation can be asserted across
+ * selection / highlight prop combinations. The selection / highlight prop flags are mutable via
+ * buttons because a single mount cycles through what were previously back-to-back mounts.
  */
 type ScalingMode = 'plain' | 'multiple-selection' | 'row-highlight' | 'nav-highlight' | 'single-with-both-highlights';
 
@@ -175,7 +182,7 @@ const scalingPropsFor = (mode: ScalingMode): Partial<AnalyticalTablePropTypes> =
   }
 };
 
-export const ColumnScalingHarness = ({ data: tableData }: { data: AnalyticalTablePropTypes['data'] }) => {
+export const ColumnScalingHarness = () => {
   const [cols, setCols] = useState<AnalyticalTableColumnDefinition[]>([]);
   const [mode, setMode] = useState<ScalingMode>('plain');
   return (
@@ -212,19 +219,14 @@ export const ColumnScalingHarness = ({ data: tableData }: { data: AnalyticalTabl
       <Button data-testid="cols-age" onClick={() => setCols([{ accessor: 'age', Header: 'Age' }])}>
         AgeCol
       </Button>
-      <AnalyticalTable
-        key={mode}
-        data={tableData}
-        columns={cols}
-        {...(scalingPropsFor(mode) as AnalyticalTablePropTypes)}
-      />
+      <AnalyticalTable key={mode} data={data} columns={cols} {...(scalingPropsFor(mode) as AnalyticalTablePropTypes)} />
     </>
   );
 };
 
 /**
- * Harness for `tableInstance: change state & hide cols` (cypress line 1560). Exposes two buttons —
- * one dispatches `TABLE_RESIZE` directly via `tableInstance.dispatch`, the other calls
+ * Harness for `tableInstance: change state & hide cols`. Exposes two buttons — one dispatches
+ * `TABLE_RESIZE` directly via `tableInstance.dispatch`, the other calls
  * `tableInstance.toggleHideColumn('age', true)`.
  */
 export const TableInstanceHarness = () => {
@@ -262,9 +264,9 @@ export const TableInstanceHarness = () => {
 };
 
 /**
- * Mirror of the cypress `columns drag & drop: reorder then add/remove column` test (line 2114).
- * Lets the spec toggle between a 3-column and a 4-column shape so drag/drop can be exercised
- * before/after a structure change.
+ * Mirror of the `columns drag & drop: reorder then add/remove column` test. Lets the spec toggle
+ * between a 3-column and a 4-column shape so drag/drop can be exercised before/after a structure
+ * change. Records the running `onColumnsReorder` call count into `reorder-count`.
  */
 const baseDragCols: AnalyticalTableColumnDefinition[] = [
   { accessor: 'name', Header: 'Name' },
@@ -273,12 +275,9 @@ const baseDragCols: AnalyticalTableColumnDefinition[] = [
 ];
 const extraDragCol: AnalyticalTableColumnDefinition = { accessor: 'friend.age', Header: 'Friend Age' };
 
-export const DragAndDropStructureHarness = ({
-  onColumnsReorder,
-}: {
-  onColumnsReorder: AnalyticalTablePropTypes['onColumnsReorder'];
-}) => {
+export const DragAndDropStructureHarness = () => {
   const [cols, setCols] = useState<AnalyticalTableColumnDefinition[]>(baseDragCols);
+  const [reorderCount, setReorderCount] = useState(0);
   return (
     <>
       <Button
@@ -289,14 +288,15 @@ export const DragAndDropStructureHarness = ({
       >
         Toggle Column
       </Button>
-      <AnalyticalTable data={data} columns={cols} onColumnsReorder={onColumnsReorder} />
+      <AnalyticalTable data={data} columns={cols} onColumnsReorder={() => setReorderCount((c) => c + 1)} />
+      <span data-testid="reorder-count">{reorderCount}</span>
     </>
   );
 };
 
 /**
- * Mirror of the cypress `retainColumnWidth: recalculates widths after columns change` test
- * (line 5085). Toggles the table between two completely different column/data shapes.
+ * Mirror of the `retainColumnWidth: recalculates widths after columns change` test. Toggles the
+ * table between two completely different column/data shapes.
  */
 const retainColsA: AnalyticalTableColumnDefinition[] = [
   { Header: 'Name', accessor: 'name' },
@@ -334,9 +334,9 @@ export const RetainColumnWidthHarness = () => {
 };
 
 /**
- * Pop-in column setup mirroring the cypress `columnsWithPopIn` constant. Used by the
- * `adjustTableHeightOnPopIn` test (cypress line 2896). The last column is parameterised so the
- * spec can swap the `popinDisplay` value (`Block` → `Inline` → `WithoutHeader`) for each mount.
+ * Pop-in column setup mirroring the `columnsWithPopIn` constant. Used by the
+ * `adjustTableHeightOnPopIn` test. The last column is parameterised so the spec can swap the
+ * `popinDisplay` value (`Block` → `Inline` → `WithoutHeader`) for each mode.
  */
 const buildPopInColumns = (popinDisplay: AnalyticalTablePopinDisplay): AnalyticalTableColumnDefinition[] => [
   { Header: 'Name', headerTooltip: 'Full Name', accessor: 'name' },
@@ -383,7 +383,7 @@ const buildPopInColumns = (popinDisplay: AnalyticalTablePopinDisplay): Analytica
   },
 ];
 
-export const PopInDisplayHarness = ({ style }: { style?: CSSProperties }) => {
+export const PopInDisplayHarness = () => {
   const [mode, setMode] = useState<AnalyticalTablePopinDisplay>(AnalyticalTablePopinDisplay.Block);
   return (
     <>
@@ -402,16 +402,15 @@ export const PopInDisplayHarness = ({ style }: { style?: CSSProperties }) => {
         columns={buildPopInColumns(mode)}
         data-testid="table"
         adjustTableHeightOnPopIn
-        style={style}
       />
     </>
   );
 };
 
 /**
- * Mirror of cypress `w/o selection column` test (line 2186). Toggles between three selection
- * configurations — Single/RowOnly, Multiple/RowOnly and the implicit None mode — so the spec
- * can assert that the synthetic `[data-selection-cell]` column is never rendered.
+ * Mirror of the `w/o selection column` test. Toggles between three selection configurations —
+ * Single/RowOnly, Multiple/RowOnly and the implicit None mode — so the spec can assert that the
+ * synthetic `[data-selection-cell]` column is never rendered.
  */
 type SelectionMode = 'single-row-only' | 'multiple-row-only' | 'none';
 
@@ -453,9 +452,7 @@ export const NoSelectionColumnHarness = () => {
 };
 
 /**
- * Mirror of the cypress `initial column order` test (line 2072). Renders `<AnalyticalTable>` with
- * a fixed `columnOrder`. Kept here so the spec doesn't host the JSX directly (rule 2: complex JSX
- * must live in `<Feature>TestComponents.tsx`).
+ * Mirror of the `initial column order` test. Renders `<AnalyticalTable>` with a fixed `columnOrder`.
  */
 const initialColumnOrderColumnOrder = ['age', 'friend.age', 'friend.name', 'name'];
 
@@ -466,14 +463,9 @@ export const InitialColumnOrderTestComp = () => {
 };
 
 /**
- * Mirror of the cypress `columns drag & drop` test (line 2090). Hosts the 4-column table with the
- * last column marked `disableDragAndDrop`. The spec forwards an `onColumnsReorder` callback so it
- * can count reorder events. Kept here per rule 2.
+ * Mirror of the `columns drag & drop` test. Hosts the 4-column table with the last column marked
+ * `disableDragAndDrop`. Records the running `onColumnsReorder` call count into `reorder-count`.
  */
-interface DragAndDropReorderTestCompProps {
-  onColumnsReorder: AnalyticalTablePropTypes['onColumnsReorder'];
-}
-
 const dragAndDropReorderColumns: AnalyticalTableColumnDefinition[] = [
   { Header: 'Name', headerTooltip: 'Full Name', accessor: 'name' },
   { Header: 'Age', accessor: 'age' },
@@ -481,14 +473,17 @@ const dragAndDropReorderColumns: AnalyticalTableColumnDefinition[] = [
   { Header: 'Friend Age', accessor: 'friend.age', disableDragAndDrop: true },
 ];
 
-export const DragAndDropReorderTestComp = ({ onColumnsReorder }: DragAndDropReorderTestCompProps) => {
+export const DragAndDropReorderTestComp = () => {
+  const [reorderCount, setReorderCount] = useState(0);
   const memoData = useMemo(() => data, []);
   const memoColumns = useMemo(() => dragAndDropReorderColumns, []);
-  const memoOnColumnsReorder = useCallback<NonNullable<AnalyticalTablePropTypes['onColumnsReorder']>>(
-    (e) => {
-      onColumnsReorder?.(e);
-    },
-    [onColumnsReorder],
+  const memoOnColumnsReorder = useCallback<NonNullable<AnalyticalTablePropTypes['onColumnsReorder']>>(() => {
+    setReorderCount((c) => c + 1);
+  }, []);
+  return (
+    <>
+      <AnalyticalTable data={memoData} columns={memoColumns} onColumnsReorder={memoOnColumnsReorder} />
+      <span data-testid="reorder-count">{reorderCount}</span>
+    </>
   );
-  return <AnalyticalTable data={memoData} columns={memoColumns} onColumnsReorder={memoOnColumnsReorder} />;
 };

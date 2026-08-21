@@ -61,36 +61,46 @@ import type {
   AnalyticalTablePropTypes,
   RowType,
 } from '../types/index.js';
+import type { F2InputColumnId } from './Plugins.f2-configs.js';
 import { columns as defaultColumns, data as defaultData, generateMoreData } from './test-utils/data.js';
 
 /* ----------------------------------------------------------------------------
  * useRowDisableSelection
  * ------------------------------------------------------------------------- */
 
-interface PluginsRowDisableSelectionTestCompProps {
-  onRowSelect?: AnalyticalTablePropTypes['onRowSelect'];
-  onRowClick?: AnalyticalTablePropTypes['onRowClick'];
-}
-
-export const PluginsRowDisableSelectionTestComp = ({
-  onRowSelect,
-  onRowClick,
-}: PluginsRowDisableSelectionTestCompProps) => {
+/**
+ * `useRowDisableSelection` flags row 0 as non-selectable. The running `onRowSelect` / `onRowClick`
+ * call counts are recorded into `select-count` / `click-count` so the spec can assert selection is
+ * suppressed on the disabled row while `onRowClick` still fires.
+ */
+export const PluginsRowDisableSelectionTestComp = () => {
   const columns = useMemo(() => defaultColumns, []);
   const data = useMemo(() => defaultData.map((item, index) => ({ ...item, disableSelection: index === 0 })), []);
   // useRowDisableSelection is a react-table plugin factory, not a React hook — memoizing per AnalyticalTable guidance.
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const tableHooks = useMemo(() => [useRowDisableSelection('disableSelection')], []);
+  const [selectCount, setSelectCount] = useState(0);
+  const [clickCount, setClickCount] = useState(0);
+  const onRowSelect = useCallback<NonNullable<AnalyticalTablePropTypes['onRowSelect']>>(() => {
+    setSelectCount((c) => c + 1);
+  }, []);
+  const onRowClick = useCallback<NonNullable<AnalyticalTablePropTypes['onRowClick']>>(() => {
+    setClickCount((c) => c + 1);
+  }, []);
   return (
-    <AnalyticalTable
-      data={data}
-      columns={columns}
-      onRowSelect={onRowSelect}
-      onRowClick={onRowClick}
-      selectionMode="Multiple"
-      tableHooks={tableHooks}
-      minRows={1}
-    />
+    <>
+      <AnalyticalTable
+        data={data}
+        columns={columns}
+        onRowSelect={onRowSelect}
+        onRowClick={onRowClick}
+        selectionMode="Multiple"
+        tableHooks={tableHooks}
+        minRows={1}
+      />
+      <span data-testid="select-count">{selectCount}</span>
+      <span data-testid="click-count">{clickCount}</span>
+    </>
   );
 };
 
@@ -612,12 +622,10 @@ const f2InputColumnDefs = {
     },
     interactiveElementName: 'ToggleButton',
   },
-} as const;
+} as const satisfies Record<F2InputColumnId, AnalyticalTableColumnDefinition>;
 
 const f2DummyData = new Array(1).fill({});
 const f2TableHooks = [useF2CellEdit];
-
-export type F2InputColumnId = keyof typeof f2InputColumnDefs;
 
 interface PluginsF2SingleInputTestCompProps {
   columnId: F2InputColumnId;
@@ -642,15 +650,3 @@ export const PluginsF2SingleInputTestComp = ({ columnId }: PluginsF2SingleInputT
     </>
   );
 };
-
-export interface F2InputConfig {
-  id: F2InputColumnId;
-  label: string;
-}
-
-export const f2InputConfigs: F2InputConfig[] = (
-  Object.entries(f2InputColumnDefs) as Array<[F2InputColumnId, AnalyticalTableColumnDefinition]>
-).map(([id, columnDef]) => ({
-  id,
-  label: (columnDef.Header as string) ?? id,
-}));

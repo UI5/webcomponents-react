@@ -1,9 +1,5 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
-import {
-  FilteringCustomPopoverTestComp,
-  FilteringDefaultFilterInputTestComp,
-  FilteringHeaderMenuMechanicsTestComp,
-} from './FilteringTestComponents.js';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
+import type { FilteringHeaderMenuMechanicsTestComp } from './Filtering.gallery.js';
 import { openColumnHeaderMenu } from './test-utils/helpers.js';
 
 test.describe('AnalyticalTable - Filtering', () => {
@@ -12,7 +8,7 @@ test.describe('AnalyticalTable - Filtering', () => {
     page,
   }) => {
     // Without `sortable`/`filterable`/`groupable`, the Name column header has no menu and clicking it is a no-op.
-    const { unmount } = await mount(<FilteringHeaderMenuMechanicsTestComp />);
+    const { unmount } = await mount('Filtering/FilteringHeaderMenuMechanicsTestComp');
     const nameHeader = page.locator('[data-column-id="name"]');
     await expect(nameHeader).not.toHaveAttribute('aria-haspopup', 'menu');
     await nameHeader.click();
@@ -20,7 +16,9 @@ test.describe('AnalyticalTable - Filtering', () => {
     await unmount();
 
     // With `sortable`, the Name column now has `aria-haspopup="menu"` and clicking opens the header popover.
-    await mount(<FilteringHeaderMenuMechanicsTestComp withSortable />);
+    await mount<typeof FilteringHeaderMenuMechanicsTestComp>('Filtering/FilteringHeaderMenuMechanicsTestComp', {
+      withSortable: true,
+    });
     const nameHeaderSortable = page.locator('[data-column-id="name"]');
     await expect(nameHeaderSortable).toHaveAttribute('aria-haspopup', 'menu');
     await nameHeaderSortable.click();
@@ -36,7 +34,7 @@ test.describe('AnalyticalTable - Filtering', () => {
   });
 
   test('Default Filter input inside header menu filters body rows by accessor value', async ({ mount, page }) => {
-    await mount(<FilteringDefaultFilterInputTestComp />);
+    await mount('Filtering/FilteringDefaultFilterInputTestComp');
 
     const body = page.locator('[data-component-name="AnalyticalTableBody"]');
     // Initial: all 4 names rendered.
@@ -69,7 +67,7 @@ test.describe('AnalyticalTable - Filtering', () => {
   });
 
   test('Custom column-level Popover replaces the default header menu', async ({ mount, page }) => {
-    await mount(<FilteringCustomPopoverTestComp />);
+    await mount('Filtering/FilteringCustomPopoverTestComp');
 
     // Clicking the Name column (no custom Popover) opens the default ATHeaderPopover.
     await openColumnHeaderMenu(page, 'Name');

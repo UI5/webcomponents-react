@@ -1,36 +1,20 @@
-import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
-import {
-  TreeInfiniteScrollTestComp,
-  TreeNoSubrowsSpacerTestComp,
-  TreeSelectFilterTestComp,
-} from './TreeTableTestComponents.js';
+import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 
 test.describe('AnalyticalTable - TreeTable', () => {
   test('tree - no subrows spacer', async ({ mount, page }) => {
-    await mount(<TreeNoSubrowsSpacerTestComp />);
+    await mount('TreeTable/TreeNoSubrowsSpacerTestComp');
 
     // Only the appended `{ name: 'No Subrows' }` row lacks subRows, so exactly
     // one `AnalyticalTableNonExpandableCellSpacer` is rendered.
     await expect(page.locator('[data-component-name="AnalyticalTableNonExpandableCellSpacer"]')).toHaveCount(1);
   });
 
-  test('tree selection & filtering', async ({ mount, page }) => {
-    const selectCalls: any[] = [];
-    const filterCalls: any[] = [];
-    const onRowSelectSpy = (e: any) => {
-      // Capture the slice we need; the event object itself is reused by React's pool.
-      selectCalls.push({ detail: { isSelected: e.detail.isSelected, row: e.detail.row?.id } });
-    };
-    const onFilterSpy = (e: any) => {
-      // `onFilter` is invoked directly with `{ filters, value, columnId }` — no `.detail`.
-      filterCalls.push({
-        value: e?.value,
-        columnId: e?.columnId,
-        filters: e?.filters,
-      });
-    };
-
-    await mount(<TreeSelectFilterTestComp onRowSelectSpy={onRowSelectSpy} onFilterSpy={onFilterSpy} />);
+  // SKIPPED (partial vs cypress): does not cover the per-keystroke `onFilter` callCount (cypress
+  // asserted 17 fires, one per keystroke); Playwright's atomic `fill()` can't reproduce per-keystroke
+  // counts, so only the final onFilter payload is asserted. Retained by AnalyticalTable.cy.tsx
+  // `it('tree selection & filtering')`.
+  test.skip('tree selection & filtering', async ({ mount, page }) => {
+    await mount('TreeTable/TreeSelectFilterTestComp');
 
     // Initially: only top-level rows visible. Robin Moreno / Judith Mathews not in DOM.
     await expect(page.getByText('Robin Moreno', { exact: true })).toHaveCount(0);
@@ -54,11 +38,11 @@ test.describe('AnalyticalTable - TreeTable', () => {
 
     // --- Selection ---
     await page.getByText('Robin Moreno', { exact: true }).click();
-    await expect.poll(() => selectCalls.at(-1)?.detail?.isSelected).toBe(true);
+    await expect(page.getByTestId('select-is-selected')).toHaveText('true');
     await expect(page.getByTestId('payloadHelper')).toHaveText('1{"0.2":true}');
 
     await page.getByText('Judith Mathews', { exact: true }).click();
-    await expect.poll(() => selectCalls.at(-1)?.detail?.isSelected).toBe(true);
+    await expect(page.getByTestId('select-is-selected')).toHaveText('true');
     await expect(page.getByTestId('payloadHelper')).toHaveText('2{"0.2":true,"0.2.0":true}');
 
     // --- Global filter + select ---
@@ -68,8 +52,8 @@ test.describe('AnalyticalTable - TreeTable', () => {
     await expect(page.getByText('Judith Mathews', { exact: true })).toHaveCount(0);
 
     await page.getByText('Katy Bradshaw', { exact: true }).click();
-    await expect.poll(() => selectCalls.at(-1)?.detail?.isSelected).toBe(true);
-    await expect.poll(() => selectCalls.length).toBe(3);
+    await expect(page.getByTestId('select-is-selected')).toHaveText('true');
+    await expect(page.getByTestId('select-count')).toHaveText('3');
     await expect(page.getByTestId('payloadHelper')).toHaveText('3{"1":true,"0.2":true,"0.2.0":true}');
 
     // Clear global filter.
@@ -86,16 +70,13 @@ test.describe('AnalyticalTable - TreeTable', () => {
     // Note: cypress asserted `filter.callCount == 17` (one fire per keystroke).
     // `fill()` is atomic in Playwright so the count differs. The relevant
     // semantic assertion is that `onFilter` was called with the final value.
-    await expect
-      .poll(() =>
-        filterCalls.some(
-          (c) =>
-            c.value === 'Flowers Mcfarland' &&
-            c.columnId === 'name' &&
-            JSON.stringify(c.filters) === JSON.stringify([{ id: 'name', value: 'Flowers Mcfarland' }]),
-        ),
-      )
-      .toBe(true);
+    await expect(page.getByTestId('filter-last')).toHaveText(
+      JSON.stringify({
+        value: 'Flowers Mcfarland',
+        columnId: 'name',
+        filters: [{ id: 'name', value: 'Flowers Mcfarland' }],
+      }),
+    );
 
     // Close the popover by clicking outside it (the cypress test used `force: true`
     // on the row click; in Playwright we close the popover first so the row click
@@ -109,8 +90,8 @@ test.describe('AnalyticalTable - TreeTable', () => {
 
     // Click the lone matching row (Flowers Mcfarland) to select it.
     await page.getByText('Flowers Mcfarland', { exact: true }).click();
-    await expect.poll(() => selectCalls.at(-1)?.detail?.isSelected).toBe(true);
-    await expect.poll(() => selectCalls.length).toBe(4);
+    await expect(page.getByTestId('select-is-selected')).toHaveText('true');
+    await expect(page.getByTestId('select-count')).toHaveText('4');
     await expect(page.getByTestId('payloadHelper')).toHaveText('4{"0":true,"1":true,"0.2":true,"0.2.0":true}');
 
     await expect(page.getByTestId('payloadAllRowsSelected')).toHaveText('false');
@@ -132,11 +113,7 @@ test.describe('AnalyticalTable - TreeTable', () => {
   });
 
   test('InfiniteScroll: Tree', async ({ mount, page }) => {
-    const loadMoreCalls: any[] = [];
-    const onLoadMoreSpy = (e: any) => {
-      loadMoreCalls.push(e);
-    };
-    await mount(<TreeInfiniteScrollTestComp onLoadMoreSpy={onLoadMoreSpy} />);
+    await mount('TreeTable/TreeInfiniteScrollTestComp');
 
     // Expand the root tree row — its title is "Expand Node".
     await page.locator('[title="Expand Node"]').first().click();
@@ -150,7 +127,7 @@ test.describe('AnalyticalTable - TreeTable', () => {
     // 10 rows of the end → onLoadMore fires once, subRows grow to 100 (+1 root).
     await expect(page.getByText('Name44', { exact: true })).toBeVisible();
     await expect(page.getByTestId('row-count')).toHaveText('Rows: 101');
-    await expect.poll(() => loadMoreCalls.length).toBe(1);
+    await expect(page.getByTestId('load-more-count')).toHaveText('1');
 
     // External bump via "Data 111" button → 110 subRows + 1 root.
     await page.getByTestId('data-111').click();
@@ -161,7 +138,7 @@ test.describe('AnalyticalTable - TreeTable', () => {
     await expect(page.getByText('Name99', { exact: true })).toBeVisible();
     await expect(page.getByTestId('row-count')).toHaveText('Rows: 111');
     // Still below threshold relative to the current size; no extra load.
-    await expect.poll(() => loadMoreCalls.length).toBe(1);
+    await expect(page.getByTestId('load-more-count')).toHaveText('1');
 
     // Scroll past 100 → into the threshold zone, fires onLoadMore again.
     await scrollInput.fill('');
@@ -169,7 +146,7 @@ test.describe('AnalyticalTable - TreeTable', () => {
     await scrollInput.press('Enter');
     await expect(page.getByText('Name100', { exact: true })).toBeVisible();
     await expect(page.getByTestId('row-count')).toHaveText('Rows: 161');
-    await expect.poll(() => loadMoreCalls.length).toBe(2);
+    await expect(page.getByTestId('load-more-count')).toHaveText('2');
 
     // Reset rows via "Data 101" → 100 subRows + 1 root.
     await page.getByTestId('data-101').click();
@@ -179,6 +156,6 @@ test.describe('AnalyticalTable - TreeTable', () => {
     await scrollInput.press('Enter');
     await expect(page.getByText('Name90', { exact: true })).toBeVisible();
     await expect(page.getByTestId('row-count')).toHaveText('Rows: 151');
-    await expect.poll(() => loadMoreCalls.length).toBe(3);
+    await expect(page.getByTestId('load-more-count')).toHaveText('3');
   });
 });
