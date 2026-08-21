@@ -8,13 +8,29 @@ const isColumnDrag = (e) => !!e.dataTransfer?.types?.includes(COLUMN_DND_TYPE);
 function getHeaderProps(
   props: Record<string, unknown>,
   {
-    instance: { dispatch, state, columns, setColumnOrder, webComponentsReactProperties },
+    instance: {
+      dispatch,
+      state,
+      columns,
+      setColumnOrder,
+      webComponentsReactProperties,
+      visibleColumns,
+      stickyStartIndices,
+    },
     column,
   }: { instance: TableInstance; column: ColumnType },
 ) {
   const { columnOrder, columnResizing, isRtl, dndColumn } = state;
   const { onColumnsReorder } = webComponentsReactProperties;
-  const isStickyTarget = column?.sticky === 'start';
+  // Live sticky state, not static `column.sticky` — stays in sync with the drag-source guard.
+  const isStickyTarget = (() => {
+    const indices = stickyStartIndices ?? [];
+    if (indices.length === 0) {
+      return false;
+    }
+    const visibleIndex = visibleColumns?.findIndex((col) => col.id === column?.id) ?? -1;
+    return visibleIndex > -1 && indices.includes(visibleIndex);
+  })();
 
   const handleDragStart = (e) => {
     if (columnResizing.isResizingColumn || !e.target.draggable) {

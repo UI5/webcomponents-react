@@ -74,12 +74,17 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
         });
       } else {
         firedInfiniteLoadEvents.current.clear();
-        parentRef.current.scrollTop = 0;
+        // In sticky mode the outer table (scrollContainerRef) is the real vertical scroller, not parentRef.
+        if (hasStickyColumns && scrollContainerRef?.current) {
+          scrollContainerRef.current.scrollTop = 0;
+        } else {
+          parentRef.current.scrollTop = 0;
+        }
         lastScrollTop.current = 0;
       }
     }
     prevDataLength.current = dataLength;
-  }, [dataLength, rowCollapsedFlag]);
+  }, [dataLength, rowCollapsedFlag, hasStickyColumns, scrollContainerRef]);
 
   const onScroll = useCallback(
     (event) => {
@@ -131,7 +136,9 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
   }, [onScroll]);
 
   useEffect(() => {
-    if (!hasStickyColumns || !scrollContainerRef?.current) return;
+    if (!hasStickyColumns || !scrollContainerRef?.current) {
+      return;
+    }
     const el = scrollContainerRef.current;
     // Stable listener reading the latest onScroll via ref — must NOT depend on `onScroll`: a scroll-driven
     // flushSync re-render would detach it mid-dispatch and it would never fire.

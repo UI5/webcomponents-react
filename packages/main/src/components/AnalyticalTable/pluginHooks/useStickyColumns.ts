@@ -74,12 +74,13 @@ const getStickySet = (state: TableInstance['state']) =>
 const isStickyStart = (col: ColumnType, stickySet: Set<string>) =>
   stickySet.has(col.id) || INTERNAL_START_COLUMNS.has(col.id);
 
+// Internal start columns (selection, highlight) only pin when a user/grouped column is sticky.
+const hasUserStickyColumn = (cols: ColumnType[], stickySet: Set<string>) =>
+  cols.some((col) => stickySet.has(col.id) && !INTERNAL_START_COLUMNS.has(col.id));
+
 const visibleColumns = (currentVisibleColumns: ColumnType[], { instance }: { instance: TableInstance }) => {
   const stickySet = getStickySet(instance.state);
-  // Internal start columns (selection, highlight) only pin when a user/grouped column is sticky.
-  const hasUserSticky = currentVisibleColumns.some(
-    (col) => stickySet.has(col.id) && !INTERNAL_START_COLUMNS.has(col.id),
-  );
+  const hasUserSticky = hasUserStickyColumn(currentVisibleColumns, stickySet);
   if (!hasUserSticky) {
     return currentVisibleColumns;
   }
@@ -123,7 +124,7 @@ const useStickyMetadata = (instance: TableInstance) => {
   });
 
   const stickySet = getStickySet(state);
-  const hasUserSticky = visCols.some((col) => stickySet.has(col.id) && !INTERNAL_START_COLUMNS.has(col.id));
+  const hasUserSticky = hasUserStickyColumn(visCols, stickySet);
   if (!hasUserSticky) {
     Object.assign(instance, { stickyStartIndices: [], totalStickyStartWidth: 0 });
     return;
