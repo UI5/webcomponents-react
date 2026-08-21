@@ -154,14 +154,12 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
     }
   };
 
-  const directionStyles = (() => {
-    if (isStickyStart) {
-      return isRtl ? { insetInlineStart: `${virtualColumn.start}px` } : { left: `${virtualColumn.start}px` };
-    }
-    return isRtl
-      ? { right: 0, transform: `translateX(-${virtualColumn.start}px)` }
-      : { left: 0, transform: `translateX(${virtualColumn.start}px)` };
-  })();
+  const directionStyles: CSSProperties = isStickyStart
+    ? { insetInlineStart: `${virtualColumn.start}px` }
+    : {
+        insetInlineStart: 0,
+        transform: isRtl ? `translateX(-${virtualColumn.start}px)` : `translateX(${virtualColumn.start}px)`,
+      };
 
   const handleHeaderCellKeyDown = (e) => {
     if (typeof onKeyDown === 'function') {
