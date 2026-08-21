@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
-import type { AnalyticalTableStickyColumnsChangeDetail } from '../hooks/useStickyColumns.js';
 import { AnalyticalTable } from '../index.js';
 import type { AnalyticalTableColumnDefinition, AnalyticalTableInstance, AnalyticalTablePropTypes } from '../index.js';
 import * as AnalyticalTableHooks from '../pluginHooks/AnalyticalTableHooks.js';
+import type { AnalyticalTableStickyColumnsChangeDetail } from '../pluginHooks/useStickyColumns.js';
 
 const data = Array.from({ length: 12 }, (_, i) => ({
   name: `Name-${i}`,

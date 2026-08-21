@@ -13,7 +13,7 @@ import type {
 
 const INTERNAL_START_COLUMNS = new Set(['__ui5wcr__internal_highlight_column', '__ui5wcr__internal_selection_column']);
 
-// Mimics sap.ui.table (48 desktop / 88 mobile).
+// Min scrollable width reserved when checking fit: DEFAULT_COLUMN_WIDTH (60) desktop / 88 mobile.
 const MOBILE_MIN_NON_STICKY_COL_WIDTH = 88;
 const getMinNonStickyColWidth = () => (isDesktop() ? DEFAULT_COLUMN_WIDTH : MOBILE_MIN_NON_STICKY_COL_WIDTH);
 
