@@ -145,7 +145,10 @@ const useStickyMetadata = (instance: TableInstance, onAutoToggleSticky?: OnAutoT
 
     // Disable sticky when columns no longer fit. Skipped on first render before measurement.
     if (measured) {
-      const reservedScrollable = getMinNonStickyColWidth() + scrollbarSize;
+      // Reserve the scrollbar only while inactive — `tableClientWidth` already excludes it once active.
+      // Keying on the prior state makes enable/disable thresholds coincide, so a borderline width can't oscillate.
+      const wasActive = (instance.stickyStartIndices?.length ?? 0) > 0;
+      const reservedScrollable = getMinNonStickyColWidth() + (wasActive ? 0 : scrollbarSize);
       const fits = state.tableClientWidth - reservedScrollable > totalStickyStartWidth;
       if (!fits) {
         autoDisabled = true;
