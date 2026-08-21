@@ -1,6 +1,7 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { complexDataSet } from '../../../resources/DemoProps.js';
-import { testLoadingStates, testPassThroughProps, testZoomingTool } from '../../../test-utils/sharedTests.js';
+import { testPassThroughProps } from '../../../../../../playwright/test-factories/sharedComponentTests.js';
+import { testLoadingStates, testZoomingTool } from '../../../test-utils/sharedTests.js';
 import { BulletChart } from '../index.js';
 import {
   BulletChartClickTest,
@@ -35,7 +36,9 @@ test.describe('BulletChart', () => {
     await expect(page.locator('.recharts-bar-rectangles')).toHaveCount(3);
   });
 
-  test('click handlers', async ({ mount, page }) => {
+  test('click handlers', async ({ mount, page, browserName }) => {
+    // TODO(cross-browser): recharts click resolves to wrong datum on webkit.
+    test.fixme(browserName === 'webkit', 'recharts click resolves to wrong datum on webkit');
     await mount(<BulletChartClickTest />);
 
     await page.getByText('January').click();

@@ -1,6 +1,7 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { simpleDataSet } from '../../../resources/DemoProps.js';
-import { testLoadingStates, testPassThroughProps } from '../../../test-utils/sharedTests.js';
+import { testPassThroughProps } from '../../../../../../playwright/test-factories/sharedComponentTests.js';
+import { testLoadingStates } from '../../../test-utils/sharedTests.js';
 import { PieChart } from '../index.js';
 import {
   PieChartClickTest,
@@ -25,7 +26,12 @@ test.describe('PieChart', () => {
     await expect(page.locator('.recharts-pie-sector')).toHaveCount(12);
   });
 
-  test('click handlers', async ({ mount, page }) => {
+  test('click handlers', async ({ mount, page, browserName }) => {
+    // TODO(cross-browser): label click hits the wrong sector on firefox/webkit (registers February instead of January).
+    test.fixme(
+      browserName === 'firefox' || browserName === 'webkit',
+      'recharts label click resolves to wrong sector on firefox/webkit',
+    );
     await mount(<PieChartClickTest />);
 
     await page.locator('[name="January"]').first().click({ force: true });
@@ -181,7 +187,9 @@ test.describe('PieChart', () => {
       await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', String(simpleDataSet.length - 1));
     });
 
-    test('dataset shrink resets keyboard state', async ({ mount, page }) => {
+    test('dataset shrink resets keyboard state', async ({ mount, page, browserName }) => {
+      // TODO(cross-browser): Tab does not focus chart sectors on webkit (Safari requires alt+tab to focus non-form elements).
+      test.fixme(browserName === 'webkit', 'webkit Safari requires alt+tab for non-form focusables');
       await mount(<PieChartSectorFocusDatasetShrinkTest />);
 
       // Tab past "shrink" button into chart, then into sector mode

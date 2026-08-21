@@ -1,6 +1,7 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import { simpleDataSet } from '../../../resources/DemoProps.js';
-import { testLoadingStates, testPassThroughProps } from '../../../test-utils/sharedTests.js';
+import { testPassThroughProps } from '../../../../../../playwright/test-factories/sharedComponentTests.js';
+import { testLoadingStates } from '../../../test-utils/sharedTests.js';
 import { DonutChart } from '../index.js';
 import {
   DonutChartClickTest,
@@ -175,7 +176,9 @@ test.describe('DonutChart', () => {
       await expect(page.locator(':focus')).toHaveAttribute('data-sector-index', String(simpleDataSet.length - 1));
     });
 
-    test('dataset shrink resets keyboard state', async ({ mount, page }) => {
+    test('dataset shrink resets keyboard state', async ({ mount, page, browserName }) => {
+      // TODO(cross-browser): Tab does not focus chart sectors on webkit (Safari requires alt+tab to focus non-form elements).
+      test.fixme(browserName === 'webkit', 'webkit Safari requires alt+tab for non-form focusables');
       await mount(<DonutChartSectorFocusDatasetShrinkTest />);
 
       // Tab past "shrink" button into chart, then into sector mode

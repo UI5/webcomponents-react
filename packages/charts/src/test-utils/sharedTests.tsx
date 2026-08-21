@@ -1,18 +1,5 @@
 import type { ComponentType } from 'react';
 import { expect, test } from '../../../../playwright/fixtures/main-fixtures.js';
-import { assertPassThroughProps, passThroughProps } from './shared.js';
-
-/**
- * Registers a `Pass Through HTML Standard Props` test that verifies that the chart forwards
- * the standard HTML props (data-testid, data-*, aria-*, id, className, style.pointerEvents,
- * title, custom attribute) onto its rendered root element.
- */
-export function testPassThroughProps<T extends Record<string, any>>(Chart: ComponentType<T>, emptyProps: T) {
-  test('Pass Through HTML Standard Props', async ({ mount, page }) => {
-    await mount(<Chart {...passThroughProps(emptyProps)} />);
-    await assertPassThroughProps(page);
-  });
-}
 
 /**
  * Registers a `loading states` test that verifies the three distinct rendering paths in

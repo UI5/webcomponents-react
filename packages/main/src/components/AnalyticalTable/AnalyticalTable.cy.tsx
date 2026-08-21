@@ -1,3 +1,4 @@
+// Cypress equivalent — being migrated to Playwright in `./test/*.spec.tsx`. Will be removed once parity is reached.
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import NoDataIllustration from '@ui5/webcomponents-fiori/dist/illustrations/NoData.js';
 import NoFilterResults from '@ui5/webcomponents-fiori/dist/illustrations/NoFilterResults.js';

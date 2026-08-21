@@ -30,6 +30,8 @@ export default defineConfig({
                 const included =
                   sourcePath.includes('packages/main/src/components/SelectDialog') ||
                   sourcePath.includes('packages/main/src/components/Splitter') ||
+                  (sourcePath.includes('packages/main/src/components/AnalyticalTable') &&
+                    !sourcePath.includes('/AnalyticalTable/docs/')) ||
                   (sourcePath.includes('packages/charts/src/') &&
                     !sourcePath.includes('packages/charts/src/resources/') &&
                     !sourcePath.includes('packages/charts/src/test-utils/') &&

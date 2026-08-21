@@ -1,7 +1,8 @@
 import { expect, test } from '../../../../../../playwright/fixtures/main-fixtures.js';
 import type { Page } from '@playwright/test';
 import { scatterComplexDataSet } from '../../../resources/DemoProps.js';
-import { testLoadingStates, testPassThroughProps } from '../../../test-utils/sharedTests.js';
+import { testPassThroughProps } from '../../../../../../playwright/test-factories/sharedComponentTests.js';
+import { testLoadingStates } from '../../../test-utils/sharedTests.js';
 import { ScatterChart } from '../index.js';
 import {
   ScatterChartAccessibilityTest,
