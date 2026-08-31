@@ -29,7 +29,7 @@ export const stateReducer: TableInstance['stateReducer'] = (state, action, _prev
       if (nextWidth === state.tableClientWidth) {
         return state;
       }
-      // `tableClientWidth` is misleading, as only when scaled the `clientWidth` is used. In all other cases `getBoundingClientRect` is measuring the width.
+      // `tableClientWidth` is the scrollbar-invariant border-box width (`getBoundingClientRect` / `scaleXFactor`).
       // Without `retainColumnWidth` (!state.tableColResized), clear user-resized widths on container resize so `adjustColumnWidths` recalculates.
       if (!state.tableColResized && Object.keys(state.columnResizing?.columnWidths ?? {}).length > 0) {
         // dead-zone for reset trigger, to prevent resizes when a scrollbar is briefly displayed
