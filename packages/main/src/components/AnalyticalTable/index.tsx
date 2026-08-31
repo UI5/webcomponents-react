@@ -791,7 +791,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
 
   // Re-sync the virtualizer's cached `scrollOffset` with the DOM after data swaps that clamp `scrollTop` without firing a scroll event in the same React batch.
   useIsomorphicLayoutEffect(() => {
-    const scrollElement = parentRef.current;
+    // In sticky mode the real vertical scroller is `tableRef`, not `parentRef` (which has `overflow: visible`).
+    const scrollElement = hasStickyColumns ? tableRef.current : parentRef.current;
     if (
       scrollElement &&
       rowVirtualizer.scrollOffset !== null &&
