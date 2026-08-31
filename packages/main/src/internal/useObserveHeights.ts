@@ -13,11 +13,13 @@ export const useObserveHeights = (
     fixedHeader = false,
     scrollTimeout = { current: 0 },
     preserveHeaderStateOnScroll,
+    manuallyCollapsed = { current: false },
   }: {
     noHeader: boolean;
     fixedHeader?: boolean;
     scrollTimeout?: MutableRefObject<number>;
     preserveHeaderStateOnScroll?: boolean;
+    manuallyCollapsed?: MutableRefObject<boolean>;
   },
 ) => {
   const [topHeaderHeight, setTopHeaderHeight] = useState(0);
@@ -32,6 +34,10 @@ export const useObserveHeights = (
       const scrollDown = prevScrollTop.current <= e.target.scrollTop;
       prevScrollTop.current = e.target.scrollTop;
       if (scrollTimeout.current >= performance.now()) {
+        return;
+      }
+      // Manually collapsed headers re-expand at scrollTop 0 via the ObjectPage scroll handler, skip the scroll-driven toggle here.
+      if (manuallyCollapsed.current) {
         return;
       }
 

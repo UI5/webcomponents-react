@@ -49,6 +49,40 @@ _This requires `@ui5/webcomponents-react` to be installed in the project's `node
 npx @ui5/webcomponents-react-mcp@$(node -p "require('@ui5/webcomponents-react/package.json').version")
 ```
 
+## Transport
+
+The server supports two transports. Both run locally on the developer's machine.
+
+### stdio (default)
+
+Used by the [Setup](#setup) configurations above. The client spawns the server as a subprocess and communicates over stdin/stdout. No flags are required.
+
+### HTTP (Streamable HTTP)
+
+Some MCP clients connect over HTTP instead. Start the server with the `--http` flag to enable the [Streamable HTTP](https://modelcontextprotocol.io/specification/basic/transports#streamable-http) transport:
+
+```bash
+npx @ui5/webcomponents-react-mcp@latest --http
+```
+
+The server listens on `http://localhost:7427/mcp`. Change the port with `--port` (or the `PORT` environment variable):
+
+```bash
+npx @ui5/webcomponents-react-mcp@latest --http --port 7500
+```
+
+It runs **statelessly** and binds to `localhost` only — reachable over a local HTTP port, but otherwise the same local-only, version-pinned server as the stdio mode. Point your HTTP-based client at the endpoint:
+
+```json
+{
+  "servers": {
+    "ui5-wcr": {
+      "url": "http://localhost:7427/mcp"
+    }
+  }
+}
+```
+
 ## Features
 
 ### Tools
