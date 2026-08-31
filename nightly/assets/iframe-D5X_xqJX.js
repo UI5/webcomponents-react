@@ -1,0 +1,1 @@
+import{t as e}from"./iframe-DiQL-Pt1.js";e();
