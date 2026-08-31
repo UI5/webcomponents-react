@@ -9,9 +9,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@ui5/webcomponents": "2.25.0",
-    "@ui5/webcomponents-base": "2.25.0",
-    "@ui5/webcomponents-fiori": "2.25.0",
+    "@ui5/webcomponents": "2.25.1",
+    "@ui5/webcomponents-base": "2.25.1",
+    "@ui5/webcomponents-fiori": "2.25.1",
     "@ui5/webcomponents-react": "2.25.1",
     "@types/node": "24.13.3",
     "@types/react": "19.2.18",
