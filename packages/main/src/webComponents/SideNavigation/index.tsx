@@ -3,6 +3,7 @@
 import '@ui5/webcomponents-fiori/dist/SideNavigation.js';
 import type {
   SideNavigationItemClickEventDetail,
+  SideNavigationItemToggleEventDetail,
   SideNavigationSelectionChangeEventDetail,
 } from '@ui5/webcomponents-fiori/dist/SideNavigation.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
@@ -39,7 +40,13 @@ interface SideNavigationPropTypes
     SideNavigationAttributes,
     Omit<
       CommonProps,
-      keyof SideNavigationAttributes | 'children' | 'fixedItems' | 'header' | 'onItemClick' | 'onSelectionChange'
+      | keyof SideNavigationAttributes
+      | 'children'
+      | 'fixedItems'
+      | 'header'
+      | 'onItemClick'
+      | 'onItemToggle'
+      | 'onSelectionChange'
     > {
   /**
    * Defines the main items of the component.
@@ -89,6 +96,23 @@ interface SideNavigationPropTypes
    * | ✅|✅|
    */
   onItemClick?: (event: Ui5CustomEvent<SideNavigationDomRef, SideNavigationItemClickEventDetail>) => void;
+
+  /**
+   * Fired when a `SideNavigationItem` or `SideNavigationGroup` is expanded or collapsed.
+   *
+   * **Note:** You can call `preventDefault()` on the event to suppress the expand/collapse.
+   * The `expanded` state stays unchanged. This is handy, for example, if you want to
+   * dynamically load child items before allowing a parent item to expand.
+   *
+   * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
+   *
+   * **Note:** Available since [v2.26.0](https://github.com/UI5/webcomponents/releases/tag/v2.26.0) of **@ui5/webcomponents-fiori**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ✅|✅|
+   */
+  onItemToggle?: (event: Ui5CustomEvent<SideNavigationDomRef, SideNavigationItemToggleEventDetail>) => void;
 
   /**
    * Fired when the selection has changed via user interaction.
@@ -146,7 +170,7 @@ const SideNavigation = withWebComponent<SideNavigationPropTypes, SideNavigationD
   ['accessibleName'],
   ['collapsed'],
   ['fixedItems', 'header'],
-  ['item-click', 'selection-change'],
+  ['item-click', 'item-toggle', 'selection-change'],
 );
 
 SideNavigation.displayName = 'SideNavigation';

@@ -110,6 +110,8 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
   const selectionScrollTimeout = useRef(null);
   const isToggledRef = useRef(false);
   const scrollTimeout = useRef(0);
+  // Set on manual collapse (toggle button/title): header stays collapsed without a scroll spacer and re-expands only at scrollTop 0.
+  const manuallyCollapsedRef = useRef(false);
   const prevInternalSelectedSectionId = useRef(internalSelectedSectionId);
 
   const [selectedSubSectionId, setSelectedSubSectionId] = useState<undefined | string>(undefined);
@@ -122,6 +124,10 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     () => (mode === ObjectPageMode.IconTabBar ? getSectionById(children, internalSelectedSectionId) : null),
     [mode, children, internalSelectedSectionId],
   );
+  const isActiveSectionFitContent =
+    mode === ObjectPageMode.IconTabBar &&
+    isValidElement<ObjectPageSectionPropTypes>(currentTabModeSection) &&
+    !!currentTabModeSection.props.fitContent;
   const [toggledCollapsedHeaderWasVisible, setToggledCollapsedHeaderWasVisible] = useState(false);
   const sections = mode === ObjectPageMode.IconTabBar ? currentTabModeSection : children;
   const scrollEndHandler = useOnScrollEnd({ objectPageRef, setTabSelectId });
@@ -176,6 +182,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       noHeader: !titleArea && !headerArea,
       fixedHeader: headerPinned,
       scrollTimeout,
+      manuallyCollapsed: manuallyCollapsedRef,
     },
   );
   const scrollPaddingBlock = `${Math.ceil(12 + topHeaderHeight + tabContainerHeaderHeight + (!headerCollapsed && headerPinned ? headerContentHeight : 0))}px ${footerArea ? 'calc(var(--_ui5wcr-BarHeight) + 1.25rem)' : 0}`;
@@ -186,8 +193,10 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       scrollTimeout.current = performance.now() + 500;
       setToggledCollapsedHeaderWasVisible(false);
       if (!e.detail.visible) {
+        // Manual collapse: no scroll spacer, re-expand via button or by scrolling back to the top.
+        manuallyCollapsedRef.current = true;
+        setToggledCollapsedHeaderWasVisible(true);
         if (objectPageRef.current.scrollTop <= headerContentHeight) {
-          setToggledCollapsedHeaderWasVisible(true);
           if (firstSectionId === internalSelectedSectionId || mode === ObjectPageMode.IconTabBar) {
             objectPageRef.current.scrollTop = 0;
           }
@@ -195,6 +204,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
         setHeaderCollapsedInternal(true);
         setScrolledHeaderExpanded(false);
       } else {
+        manuallyCollapsedRef.current = false;
         setHeaderCollapsedInternal(false);
         if (objectPageRef.current.scrollTop >= headerContentHeight && objectPageRef.current.scrollTop > 0) {
           setScrolledHeaderExpanded(true);
@@ -255,6 +265,19 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
         const section = getSectionElementById(objectPageRef.current, isSubSection, id);
         scrollTimeout.current = performance.now() + 500;
         if (section) {
+          // fitContent sections with subsections are their own scroll container, so scroll the section, not the ObjectPage
+          const fitContentScroller =
+            isSubSection && isActiveSectionFitContent
+              ? section.closest<HTMLElement>('[data-component-name="ObjectPageSection"]')
+              : null;
+          if (fitContentScroller && fitContentScroller.scrollHeight > fitContentScroller.clientHeight) {
+            section.focus({ preventScroll: true });
+            const sectionRect = section.getBoundingClientRect();
+            const scrollerRect = fitContentScroller.getBoundingClientRect();
+            fitContentScroller.scrollTop = sectionRect.top - scrollerRect.top + fitContentScroller.scrollTop;
+            return;
+          }
+
           const safeTopHeaderHeight = topHeaderHeight || prevTopHeaderHeight.current;
 
           const scrollMargin =
@@ -293,6 +316,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       headerPinned,
       headerCollapsed,
       headerContentHeight,
+      isActiveSectionFitContent,
     ],
   );
 
@@ -325,7 +349,13 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     // Reset scroll for section swap; scrollTimeout preserves current header collapsed/expanded state.
     if (mode === ObjectPageMode.IconTabBar) {
       scrollTimeout.current = performance.now() + 500;
-      objectPageRef.current?.scrollTo({ top: 0 });
+      // Section swap returns to the default collapsed behavior (spacer present, scroll-up re-expands).
+      manuallyCollapsedRef.current = false;
+      setToggledCollapsedHeaderWasVisible(false);
+      // When collapsed, land 1px past the expand threshold so the header stays collapsed but scroll-up can re-expand it.
+      objectPageRef.current?.scrollTo({
+        top: headerCollapsed && !headerPinned ? Math.max(headerContentHeight, topHeaderHeight) + 1 : 0,
+      });
     }
     setTabSelectId(newSelectionSectionId);
     scrollEvent.current = targetEvent;
@@ -620,7 +650,16 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       if (scrollTimeout.current >= performance.now()) {
         return;
       }
-      setToggledCollapsedHeaderWasVisible(false);
+      // Manually collapsed header stays flush (no spacer) until scrolled back to the top, where it re-expands.
+      if (manuallyCollapsedRef.current) {
+        if (target.scrollTop === 0) {
+          manuallyCollapsedRef.current = false;
+          setToggledCollapsedHeaderWasVisible(false);
+          setHeaderCollapsedInternal(false);
+        }
+      } else {
+        setToggledCollapsedHeaderWasVisible(false);
+      }
       scrollEvent.current = e;
       if (typeof onScrollRef.current === 'function') {
         onScrollRef.current(e);
@@ -871,7 +910,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
         )}
         <div
           data-component-name="ObjectPageContent"
-          className={classNames.content}
+          className={clsx(classNames.content, isActiveSectionFitContent && classNames.fitContent)}
           ref={(node) => {
             if (node) {
               if (mode === ObjectPageMode.IconTabBar && wasUserSectionChange) {
@@ -896,18 +935,16 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
           <div
             style={{
               height:
-                ((headerCollapsed && !headerPinned) || scrolledHeaderExpanded) &&
-                !toggledCollapsedHeaderWasVisible &&
-                !(mode === ObjectPageMode.IconTabBar && scrollTimeout.current >= performance.now())
+                ((headerCollapsed && !headerPinned) || scrolledHeaderExpanded) && !toggledCollapsedHeaderWasVisible
                   ? `${headerContentHeight}px`
                   : 0,
             }}
             aria-hidden="true"
           />
           {placeholder ? placeholder : sections}
-          <div style={{ height: `${sectionSpacer}px` }} aria-hidden="true" />
+          <div style={{ height: `${isActiveSectionFitContent ? 0 : sectionSpacer}px` }} aria-hidden="true" />
         </div>
-        {footerArea && mode === ObjectPageMode.IconTabBar && !sectionSpacer && (
+        {footerArea && mode === ObjectPageMode.IconTabBar && !sectionSpacer && !isActiveSectionFitContent && (
           <div className={classNames.footerSpacer} data-component-name="ObjectPageFooterSpacer" aria-hidden="true" />
         )}
         {footerArea && (

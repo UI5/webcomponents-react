@@ -7,14 +7,48 @@
     "source": "github",
     "subfolder": "packages/mcp-server"
   },
-  "version": "2.25.1",
+  "version": "2.26.0",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@ui5/webcomponents-react-mcp",
-      "version": "2.25.1",
+      "version": "2.26.0",
       "transport": {
         "type": "stdio"
+      },
+      "environmentVariables": []
+    },
+    {
+      "registryType": "npm",
+      "identifier": "@ui5/webcomponents-react-mcp",
+      "version": "2.25.1",
+      "runtimeHint": "npx",
+      "runtimeArguments": [
+        {
+          "type": "named",
+          "name": "--http",
+          "description": "Serve over the Streamable HTTP transport instead of stdio."
+        },
+        {
+          "type": "named",
+          "name": "--port",
+          "valueHint": "port",
+          "value": "{port}",
+          "default": "7427",
+          "format": "number",
+          "description": "Port the local HTTP server listens on.",
+          "variables": {
+            "port": {
+              "description": "Port the local HTTP server listens on.",
+              "default": "7427",
+              "format": "number"
+            }
+          }
+        }
+      ],
+      "transport": {
+        "type": "streamable-http",
+        "url": "http://localhost:{port}/mcp"
       },
       "environmentVariables": []
     }

@@ -48,7 +48,7 @@ interface ToolbarSelectAttributes {
    *
    * **Note:** Available since [v2.15.0](https://github.com/UI5/webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
    */
-  value?: string | undefined;
+  value?: string;
 
   /**
    * Defines the value state of the component.

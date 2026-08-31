@@ -65,7 +65,7 @@ interface ToolbarPropTypes extends ToolbarAttributes, Omit<CommonProps, keyof To
   /**
    * Defines the items of the component.
    *
-   * **Note:** Currently only `ToolbarButton`, `ToolbarSelect`, `ToolbarSeparator` and `ToolbarSpacer` are allowed here.
+   * **Note:** Use `ToolbarButton`, `ToolbarSelect`, `ToolbarSeparator` and `ToolbarSpacer` for the most common toolbar actions. To place any other UI5 Web Component into the toolbar and have it participate in overflow handling, wrap it in a `ToolbarItem`.
    *
    * __Supported Node Type/s:__ `Array<ToolbarItemBase>`
    */

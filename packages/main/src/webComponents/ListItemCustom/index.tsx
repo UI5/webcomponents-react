@@ -88,10 +88,13 @@ interface ListItemCustomAttributes {
 
   /**
    * Defines the visual indication and behavior of the list items.
-   * Available options are `Active` (by default), `Inactive`, `Detail` and `Navigation`.
+   * Available options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.
    *
    * **Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,
-   * while with type `Inactive` and `Detail` - will not.
+   * while with type `Inactive`, `InactiveSelectable` and `Detail` - will not.
+   *
+   * **Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled
+   * when the list has a selection mode. The `item-click` event is not fired for this type.
    * @default "Active"
    */
   type?: ListItemType | keyof typeof ListItemType;
@@ -155,6 +158,27 @@ interface ListItemCustomPropTypes
  * the same way as the standard `ListItemStandard`.
  *
  * The component accepts arbitrary HTML content to allow full customization.
+ *
+ * ### Keyboard Handling
+ *
+ * Interactive elements placed in the default slot (buttons, links, inputs, etc.)
+ * are **not** reached by [Tab] from outside the list. This follows the SAP Fiori
+ * "Intentional Edit Pattern" and preserves fast keyboard navigation between items.
+ *
+ * To activate an interactive element inside a `ListItemCustom`:
+ *
+ * - [F2] on the focused item - moves focus to the first interactive element inside the item.
+ *   Pressing [F2] again returns focus to the item level.
+ * - [F7] on the focused item - moves focus to the last remembered interactive element
+ *   inside the item (or to the first interactive element if none is remembered).
+ *   Pressing [F7] again saves the current position and returns focus to the item level.
+ * - [Tab] or [Shift] + [Tab] then walks through the interactive elements within the item
+ *   and continues into the next/previous item.
+ * - [Up] or [Down] while focused on an interactive element moves focus to the element
+ *   at the same index in the previous/next item; items with no interactive elements
+ *   are skipped and `ListItemGroup` boundaries are crossed.
+ *
+ * See the `List` "Keyboard Handling" section for the full behavior.
  *
  * __Note:__ This is a UI5 Web Component! [ListItemCustom UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/ListItemCustom) | [Repository](https://github.com/UI5/webcomponents)
  */

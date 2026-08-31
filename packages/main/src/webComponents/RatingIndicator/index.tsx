@@ -29,6 +29,17 @@ interface RatingIndicatorAttributes {
   disabled?: boolean;
 
   /**
+   * Defines whether the component is in display-only mode.
+   *
+   * **Note:** A display-only component is visually identical to read-only
+   * but cannot receive focus and is not announced by screen readers.
+   *
+   * **Note:** Available since [v2.26.0](https://github.com/UI5/webcomponents/releases/tag/v2.26.0) of **@ui5/webcomponents**.
+   * @default false
+   */
+  displayOnly?: boolean;
+
+  /**
    * The number of displayed rating symbols.
    * @default 5
    */
@@ -140,7 +151,7 @@ interface RatingIndicatorPropTypes
 const RatingIndicator = withWebComponent<RatingIndicatorPropTypes, RatingIndicatorDomRef>(
   'ui5-rating-indicator',
   ['accessibleName', 'accessibleNameRef', 'max', 'ratedIcon', 'size', 'tooltip', 'unratedIcon', 'value'],
-  ['disabled', 'readonly', 'required'],
+  ['disabled', 'displayOnly', 'readonly', 'required'],
   [],
   ['change'],
 );

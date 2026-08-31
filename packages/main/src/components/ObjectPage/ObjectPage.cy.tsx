@@ -1931,6 +1931,278 @@ describe('ObjectPage', () => {
     cy.findByText('Custom Header Section Two').should('not.be.visible');
     cy.findByText('Subsection1').should('be.visible');
   });
+
+  it('fitContent sections', () => {
+    const FitContentComp = () => (
+      <ObjectPage
+        data-testid="op"
+        titleArea={DPTitle}
+        headerArea={DPContent}
+        mode={ObjectPageMode.IconTabBar}
+        footerArea={Footer}
+        style={{ height: '800px' }}
+      >
+        <ObjectPageSection titleText="Leaf" id="leaf" aria-label="Leaf" fitContent>
+          <div data-testid="leaf-scroller" style={{ flex: 1, minHeight: 0, overflow: 'auto' }}>
+            <div style={{ height: '2000px', background: 'lightyellow' }}>Tall leaf content</div>
+          </div>
+        </ObjectPageSection>
+        <ObjectPageSection titleText="Subsections" id="subs" aria-label="Subsections" fitContent>
+          <ObjectPageSubSection titleText="Sub A" id="subA" aria-label="Sub A">
+            <div style={{ height: '800px', background: 'lightblue' }}>Content A</div>
+          </ObjectPageSubSection>
+          <ObjectPageSubSection titleText="Sub B" id="subB" aria-label="Sub B">
+            <div style={{ height: '800px', background: 'lightgreen' }}>Content B</div>
+          </ObjectPageSubSection>
+        </ObjectPageSection>
+        <ObjectPageSection titleText="Normal" id="normal" aria-label="Normal">
+          <div style={{ height: '2000px', background: 'lightsalmon' }}>Normal content</div>
+        </ObjectPageSection>
+      </ObjectPage>
+    );
+
+    cy.mount(<FitContentComp />);
+
+    // leaf fitContent: content scrolls internally, OP container does not (footer stays pinned)
+    cy.findByTestId('leaf-scroller').then(($el) => {
+      const el = $el[0];
+      expect(el.scrollHeight).to.be.greaterThan(el.clientHeight);
+    });
+    // a leaf fitContent section (no subsections) must not become its own scroll container
+    cy.get('[data-component-name="ObjectPageSection"]').should('not.have.css', 'overflow-y', 'auto');
+    cy.findByTestId('op').then(($op) => {
+      expect($op[0].scrollHeight).to.equal($op[0].clientHeight);
+    });
+    cy.findByText('Accept').should('be.visible');
+
+    // fitContent + subsections: the section becomes its own scroll container, OP container does not scroll
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Subsections').click();
+    cy.wait(100);
+    cy.get('[data-component-name="ObjectPageSection"]').should('have.css', 'overflow-y', 'auto');
+    cy.findByTestId('op').then(($op) => {
+      expect($op[0].scrollHeight).to.equal($op[0].clientHeight);
+    });
+    cy.findByText('Accept').should('be.visible');
+
+    // regression: unitless `0` broke the sticky offset calc() and fell back to `auto`
+    cy.findByText('Sub A')
+      .parent()
+      .should('have.css', 'position', 'sticky')
+      .and(($el) => {
+        expect($el.css('inset-block-start')).to.not.equal('auto');
+      });
+
+    // sticky header sticks to the section top, not below the ObjectPage header
+    cy.get('[data-component-name="ObjectPageSection"]').scrollTo(0, 400);
+    cy.findByText('Sub A')
+      .parent()
+      .then(($hdr) => {
+        const header = $hdr[0];
+        const section = header.closest('[data-component-name="ObjectPageSection"]');
+        expect(Math.abs(header.getBoundingClientRect().top - section.getBoundingClientRect().top)).to.be.lessThan(3);
+      });
+
+    // sub-tab scroll-to scrolls the section (not the OP) and lands the subsection at the section top
+    cy.get('[data-component-name="ObjectPageSection"]').scrollTo('top');
+    cy.get('[ui5-tabcontainer]').findUi5TabOpenPopoverButtonByText('Subsections').click();
+    cy.get('[ui5-list]').should('be.visible');
+    cy.wait(200);
+    cy.realPress('ArrowDown');
+    cy.realPress('ArrowDown');
+    cy.realPress('Enter');
+    cy.wait(300);
+    cy.get('[data-component-name="ObjectPageSection"]').then(($section) => {
+      const section = $section[0];
+      expect(section.scrollTop).to.be.greaterThan(0);
+      const targetTop = document.getElementById('ObjectPageSubSection-subB').getBoundingClientRect().top;
+      const sectionTop = section.getBoundingClientRect().top;
+      expect(Math.abs(targetTop - sectionTop)).to.be.lessThan(40);
+    });
+
+    // non-fitContent section keeps the normal page scroll (OP container scrolls)
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Normal').click();
+    cy.wait(100);
+    cy.get('[data-component-name="ObjectPageSection"]').should('not.have.css', 'overflow-y', 'auto');
+    cy.findByTestId('op').then(($op) => {
+      expect($op[0].scrollHeight).to.be.greaterThan($op[0].clientHeight);
+    });
+  });
+
+  it('IconTabBar: tab switch preserves header collapsed/expanded state and stays scroll-expandable', () => {
+    cy.viewport(1440, 900);
+    cy.mount(
+      <ObjectPage
+        data-testid="op"
+        titleArea={DPTitle}
+        headerArea={
+          <ObjectPageHeader>
+            <div style={{ height: '250px', width: '100%', background: 'lightyellow' }}>ObjectPageHeader</div>
+          </ObjectPageHeader>
+        }
+        mode={ObjectPageMode.IconTabBar}
+        style={{ height: '95vh', scrollBehavior: 'auto' }}
+      >
+        <ObjectPageSection key="s1" id="s1" titleText="Section 1">
+          <div style={{ height: '2000px', background: 'lightblue' }}>section 1 content</div>
+        </ObjectPageSection>
+        <ObjectPageSection key="s2" id="s2" titleText="Section 2">
+          <div style={{ height: '2000px', background: 'lightgreen' }}>section 2 content</div>
+        </ObjectPageSection>
+      </ObjectPage>,
+    );
+
+    // switching tabs while the header is expanded keeps it expanded and scrolled to the top
+    cy.findByText('ObjectPageHeader').should('be.visible');
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 2').click();
+    cy.wait(600);
+    cy.findByText('ObjectPageHeader').should('be.visible');
+    cy.findByTestId('op').then(($op) => {
+      expect($op[0].scrollTop).to.equal(0);
+    });
+
+    // scroll down far enough to collapse the header
+    cy.findByTestId('op').scrollTo(0, 800);
+    cy.findByText('ObjectPageHeader').should('not.be.visible');
+
+    // switching tabs while collapsed must preserve the collapsed state (no auto-expand)
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 1').click();
+    cy.wait(600); // let the scrollTimeout window pass
+    cy.findByText('ObjectPageHeader').should('not.be.visible');
+    // ...and must not reset scroll to the very top, otherwise there is no room to scroll up and re-expand
+    cy.findByTestId('op').then(($op) => {
+      expect($op[0].scrollTop).to.be.greaterThan(0);
+    });
+
+    // scrolling up on the new tab re-expands the header without scrolling down first
+    cy.findByTestId('op').scrollTo(0, 0);
+    cy.findByText('ObjectPageHeader').should('be.visible');
+  });
+
+  it('IconTabBar: subsection navigation while the header is collapsed keeps it collapsed', () => {
+    cy.viewport(1440, 900);
+    cy.mount(
+      <ObjectPage
+        data-testid="op"
+        titleArea={DPTitle}
+        headerArea={
+          <ObjectPageHeader>
+            <div style={{ height: '250px', width: '100%', background: 'lightyellow' }}>ObjectPageHeader</div>
+          </ObjectPageHeader>
+        }
+        mode={ObjectPageMode.IconTabBar}
+        style={{ height: '95vh', scrollBehavior: 'auto' }}
+      >
+        <ObjectPageSection key="s1" id="s1" titleText="Section 1">
+          <ObjectPageSubSection id="s1-sub1" titleText="Subsection 1" aria-label="Subsection 1">
+            <div style={{ height: '1500px', background: 'lightblue' }}>subsection 1 content</div>
+          </ObjectPageSubSection>
+          <ObjectPageSubSection id="s1-sub2" titleText="Subsection 2" aria-label="Subsection 2">
+            <div style={{ height: '1500px', background: 'lightgreen' }}>subsection 2 content</div>
+          </ObjectPageSubSection>
+        </ObjectPageSection>
+        <ObjectPageSection key="s2" id="s2" titleText="Section 2">
+          <div style={{ height: '2000px', background: 'lightyellow' }}>section 2 content</div>
+        </ObjectPageSection>
+      </ObjectPage>,
+    );
+
+    // collapse the header by scrolling
+    cy.findByTestId('op').scrollTo(0, 800);
+    cy.findByText('ObjectPageHeader').should('not.be.visible');
+
+    // navigate to the second subsection via the tab popover while collapsed
+    cy.get('[ui5-tabcontainer]').findUi5TabOpenPopoverButtonByText('Section 1').click();
+    cy.get('[ui5-list]').should('be.visible');
+    cy.wait(200);
+    cy.realPress('ArrowDown');
+    cy.realPress('ArrowDown');
+    cy.realPress('Enter');
+    cy.wait(500);
+
+    // header stays collapsed and the target subsection is shown
+    cy.findByText('subsection 2 content').should('be.visible');
+    cy.findByText('ObjectPageHeader').should('not.be.visible');
+  });
+
+  [ObjectPageMode.Default, ObjectPageMode.IconTabBar].forEach((mode) => {
+    it(`manually collapsed header stays flush (no white-space band) and re-expands at the top (mode: ${mode})`, () => {
+      cy.viewport(1440, 900);
+      cy.mount(
+        <ObjectPage
+          data-testid="op"
+          titleArea={DPTitle}
+          headerArea={
+            <ObjectPageHeader>
+              <div style={{ height: '250px', width: '100%', background: 'lightyellow' }}>ObjectPageHeader</div>
+            </ObjectPageHeader>
+          }
+          mode={mode}
+          style={{ height: '95vh', scrollBehavior: 'auto' }}
+        >
+          <ObjectPageSection key="s1" id="s1" titleText="Section 1">
+            <div style={{ height: '2000px', background: 'lightblue' }}>section 1 content</div>
+          </ObjectPageSection>
+          <ObjectPageSection key="s2" id="s2" titleText="Section 2">
+            <div style={{ height: '2000px', background: 'lightgreen' }}>section 2 content</div>
+          </ObjectPageSection>
+        </ObjectPage>,
+      );
+
+      const spacerHeight = ($op: JQuery<HTMLElement>) =>
+        Math.round(
+          (
+            $op[0].querySelector('[data-component-name="ObjectPageContent"]')?.firstElementChild as HTMLElement
+          ).getBoundingClientRect().height,
+        );
+
+      const assertManualCollapseStaysFlush = () => {
+        // collapse manually while scrolled down: must stay flush, no spacer
+        cy.findByTestId('op').scrollTo(0, 700);
+        cy.findByText('ObjectPageHeader').should('not.be.visible');
+        cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
+        cy.findByText('ObjectPageHeader').should('be.visible');
+        cy.wait(600); // scrollTimeout
+        cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
+        cy.findByText('ObjectPageHeader').should('not.be.visible');
+        cy.wait(600);
+        cy.findByTestId('op').should(($op) => {
+          expect(spacerHeight($op)).to.equal(0);
+        });
+
+        // collapse manually at the top, then scroll down: header stays collapsed and flush (no spacer)
+        cy.findByTestId('op').scrollTo(0, 0);
+        cy.findByText('ObjectPageHeader').should('be.visible');
+        cy.wait(600);
+        cy.get('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
+        cy.findByText('ObjectPageHeader').should('not.be.visible');
+        cy.wait(600);
+        cy.findByTestId('op').should(($op) => {
+          expect($op[0].scrollTop).to.equal(0);
+          expect(spacerHeight($op)).to.equal(0);
+        });
+        cy.findByTestId('op').scrollTo(0, 400);
+        cy.wait(300);
+        cy.findByTestId('op').should(($op) => {
+          expect(spacerHeight($op)).to.equal(0);
+        });
+        cy.findByText('ObjectPageHeader').should('not.be.visible');
+
+        // scrolling back up to the top re-expands the header
+        cy.findByTestId('op').scrollTo(0, 0);
+        cy.findByText('ObjectPageHeader').should('be.visible');
+      };
+
+      // Default mode only renders the first section at the top, so the behavior applies there.
+      assertManualCollapseStaysFlush();
+
+      // IconTabBar mode renders every section at the top, so it must work after switching tabs too.
+      if (mode === ObjectPageMode.IconTabBar) {
+        cy.get('[ui5-tabcontainer]').findUi5TabByText('Section 2').click();
+        cy.wait(600);
+        assertManualCollapseStaysFlush();
+      }
+    });
+  });
 });
 
 const DPTitle = (
