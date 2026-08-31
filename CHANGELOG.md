@@ -3,42 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [2.25.0](https://github.com/UI5/webcomponents-react/compare/v2.24.1...v2.25.0) (2026-07-30)
-
-
-### Features
-
-* **mcp-server:** add web component testing docs + isAbstract flag ([#8773](https://github.com/UI5/webcomponents-react/issues/8773)) ([dad25c7](https://github.com/UI5/webcomponents-react/commit/dad25c77facedca4f5d03947e252e38fdab18c8a))
-* update to UI5 Web Components 2.25.0 ([#8828](https://github.com/UI5/webcomponents-react/issues/8828)) ([1550c8b](https://github.com/UI5/webcomponents-react/commit/1550c8bd3d8d1c5fb0c89d9bc35760ec1cbbb216))
-
+## [2.25.1](https://github.com/UI5/webcomponents-react/compare/v2.25.0...v2.25.1) (2026-08-17)
 
 ### Bug Fixes
 
-* **deps:** update dependency @tanstack/react-virtual to v3.14.6 ([#8783](https://github.com/UI5/webcomponents-react/issues/8783)) ([7e99a22](https://github.com/UI5/webcomponents-react/commit/7e99a22bfda9550869fa924f22dcaad41fc67a47))
-* **deps:** update react monorepo to v19.2.8 ([#8816](https://github.com/UI5/webcomponents-react/issues/8816)) ([b3a041e](https://github.com/UI5/webcomponents-react/commit/b3a041e580f3a2344ee4ce2c08a60e4374f5dc82))
+- **AnalyticalTable:** account for horizontal scrollbar height in "Auto" row count ([#8859](https://github.com/UI5/webcomponents-react/issues/8859)) ([d63fd3a](https://github.com/UI5/webcomponents-react/commit/d63fd3ada19ed9802385c479d53cdb90116f0d05)), closes [#8849](https://github.com/UI5/webcomponents-react/issues/8849)
+- **AnalyticalTable:** prevent sticky column drag highlight from foreign drags ([#8863](https://github.com/UI5/webcomponents-react/issues/8863)) ([520a162](https://github.com/UI5/webcomponents-react/commit/520a1624dcf1908e6ff09ea4ca39cd5b326f4f18)), closes [#8861](https://github.com/UI5/webcomponents-react/issues/8861)
+- **AnalyticalTable:** use native scrollbar for macOS overlay scrollbar modes ([#8834](https://github.com/UI5/webcomponents-react/issues/8834)) ([228cea8](https://github.com/UI5/webcomponents-react/commit/228cea8223beef677249ecfea26cc902a3173903)), closes [#8802](https://github.com/UI5/webcomponents-react/issues/8802)
+- **deps:** update dependency @tanstack/react-virtual to v3.14.9 ([#8812](https://github.com/UI5/webcomponents-react/issues/8812)) ([6fdbf43](https://github.com/UI5/webcomponents-react/commit/6fdbf434439f25a8b0e40ef5ee2d6278042cf1ac))
+
+## [2.25.0](https://github.com/UI5/webcomponents-react/compare/v2.24.1...v2.25.0) (2026-07-30)
+
+### Features
+
+- **mcp-server:** add web component testing docs + isAbstract flag ([#8773](https://github.com/UI5/webcomponents-react/issues/8773)) ([dad25c7](https://github.com/UI5/webcomponents-react/commit/dad25c77facedca4f5d03947e252e38fdab18c8a))
+- update to UI5 Web Components 2.25.0 ([#8828](https://github.com/UI5/webcomponents-react/issues/8828)) ([1550c8b](https://github.com/UI5/webcomponents-react/commit/1550c8bd3d8d1c5fb0c89d9bc35760ec1cbbb216))
+
+### Bug Fixes
+
+- **deps:** update dependency @tanstack/react-virtual to v3.14.6 ([#8783](https://github.com/UI5/webcomponents-react/issues/8783)) ([7e99a22](https://github.com/UI5/webcomponents-react/commit/7e99a22bfda9550869fa924f22dcaad41fc67a47))
+- **deps:** update react monorepo to v19.2.8 ([#8816](https://github.com/UI5/webcomponents-react/issues/8816)) ([b3a041e](https://github.com/UI5/webcomponents-react/commit/b3a041e580f3a2344ee4ce2c08a60e4374f5dc82))
 
 ## [2.24.1](https://github.com/UI5/webcomponents-react/compare/v2.24.0...v2.24.1) (2026-07-09)
 
-
 ### Bug Fixes
 
-* **AnalyticalTable:** announce selection change by screen readers ([#8768](https://github.com/UI5/webcomponents-react/issues/8768)) ([405f72e](https://github.com/UI5/webcomponents-react/commit/405f72e5cb30e53e6a3ef64e364980b178fd3916))
+- **AnalyticalTable:** announce selection change by screen readers ([#8768](https://github.com/UI5/webcomponents-react/issues/8768)) ([405f72e](https://github.com/UI5/webcomponents-react/commit/405f72e5cb30e53e6a3ef64e364980b178fd3916))
 
 ## [2.24.0](https://github.com/UI5/webcomponents-react/compare/v2.23.2...v2.24.0) (2026-07-06)
 
-
 ### Features
 
-* **AnalyticalTable:** expose `className` & `classNameHeader` column options ([#8747](https://github.com/UI5/webcomponents-react/issues/8747)) ([e3dc256](https://github.com/UI5/webcomponents-react/commit/e3dc256218fe17ad418d4185f5a3e9688a5eeb2c))
-* update to UI5 Web Components 2.24.0 ([#8765](https://github.com/UI5/webcomponents-react/issues/8765)) ([d0315a4](https://github.com/UI5/webcomponents-react/commit/d0315a48582e581ac87a0f8e0bbc8be75af3ebc3))
-
+- **AnalyticalTable:** expose `className` & `classNameHeader` column options ([#8747](https://github.com/UI5/webcomponents-react/issues/8747)) ([e3dc256](https://github.com/UI5/webcomponents-react/commit/e3dc256218fe17ad418d4185f5a3e9688a5eeb2c))
+- update to UI5 Web Components 2.24.0 ([#8765](https://github.com/UI5/webcomponents-react/issues/8765)) ([d0315a4](https://github.com/UI5/webcomponents-react/commit/d0315a48582e581ac87a0f8e0bbc8be75af3ebc3))
 
 ### Bug Fixes
 
-* **AnalyticalTable:** show expand icon in Quartz theme ([#8716](https://github.com/UI5/webcomponents-react/issues/8716)) ([bd15575](https://github.com/UI5/webcomponents-react/commit/bd155755c06b8090d69fbc2111ccb98e03fc7e74)), closes [#8689](https://github.com/UI5/webcomponents-react/issues/8689)
-* **deps:** update dependency @tanstack/react-virtual to v3.14.5 ([#8742](https://github.com/UI5/webcomponents-react/issues/8742)) ([1e6f92d](https://github.com/UI5/webcomponents-react/commit/1e6f92dbb11432e2cf95f0937d4e09a29d5192d0))
-* **MessageView:** reset filter and details when children change ([#8717](https://github.com/UI5/webcomponents-react/issues/8717)) ([dfa4e06](https://github.com/UI5/webcomponents-react/commit/dfa4e06c3346e8daf7e8f34e51bdacad33b0b39b)), closes [#8707](https://github.com/UI5/webcomponents-react/issues/8707)
-* **ObjectPageTitle:** correct screen reader reading order ([#8753](https://github.com/UI5/webcomponents-react/issues/8753)) ([cbdf944](https://github.com/UI5/webcomponents-react/commit/cbdf944bf404b0262abf83612459c89a29a44ddd)), closes [#8752](https://github.com/UI5/webcomponents-react/issues/8752)
+- **AnalyticalTable:** show expand icon in Quartz theme ([#8716](https://github.com/UI5/webcomponents-react/issues/8716)) ([bd15575](https://github.com/UI5/webcomponents-react/commit/bd155755c06b8090d69fbc2111ccb98e03fc7e74)), closes [#8689](https://github.com/UI5/webcomponents-react/issues/8689)
+- **deps:** update dependency @tanstack/react-virtual to v3.14.5 ([#8742](https://github.com/UI5/webcomponents-react/issues/8742)) ([1e6f92d](https://github.com/UI5/webcomponents-react/commit/1e6f92dbb11432e2cf95f0937d4e09a29d5192d0))
+- **MessageView:** reset filter and details when children change ([#8717](https://github.com/UI5/webcomponents-react/issues/8717)) ([dfa4e06](https://github.com/UI5/webcomponents-react/commit/dfa4e06c3346e8daf7e8f34e51bdacad33b0b39b)), closes [#8707](https://github.com/UI5/webcomponents-react/issues/8707)
+- **ObjectPageTitle:** correct screen reader reading order ([#8753](https://github.com/UI5/webcomponents-react/issues/8753)) ([cbdf944](https://github.com/UI5/webcomponents-react/commit/cbdf944bf404b0262abf83612459c89a29a44ddd)), closes [#8752](https://github.com/UI5/webcomponents-react/issues/8752)
 
 ## [2.23.2](https://github.com/UI5/webcomponents-react/compare/v2.23.1...v2.23.2) (2026-06-29)
 

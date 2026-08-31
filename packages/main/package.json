@@ -1,6 +1,6 @@
 {
   "name": "@ui5/webcomponents-react",
-  "version": "2.25.0",
+  "version": "2.25.1",
   "description": "React Wrapper for UI5 Web Components and additional components",
   "type": "module",
   "main": "dist/index.js",
@@ -836,7 +836,7 @@
     "watch:css": "yarn build:css --watch"
   },
   "dependencies": {
-    "@tanstack/react-virtual": "3.14.6",
+    "@tanstack/react-virtual": "3.14.9",
     "@ui5/webcomponents-react-base": "workspace:~",
     "clsx": "2.1.1"
   },

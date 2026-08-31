@@ -8,5 +8,5 @@
     "composite": true,
     "noEmit": true
   },
-  "include": ["playwright", "**/*.spec.ts", "**/*.spec.tsx", "playwright-ct.config.ts"]
+  "include": ["playwright", "**/*.spec.ts", "**/*.spec.tsx", "playwright.config.ts"]
 }

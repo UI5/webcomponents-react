@@ -1,6 +1,10 @@
 import { enrichEventWithDetails } from '@ui5/webcomponents-react-base';
 import type { ColumnType, ReactTableHooks, TableInstance } from '../types/index.js';
 
+// Custom drag data type set on column drags so they can be distinguished from foreign drags (e.g. files, text).
+const COLUMN_DND_TYPE = 'application/x-ui5wcr-columndnd';
+const isColumnDrag = (e) => !!e.dataTransfer?.types?.includes(COLUMN_DND_TYPE);
+
 function getHeaderProps(
   props: Record<string, unknown>,
   { instance: { dispatch, state, columns, setColumnOrder, webComponentsReactProperties } }: { instance: TableInstance },
@@ -14,14 +18,29 @@ function getHeaderProps(
       return;
     }
     e.dataTransfer.setData('text', e.currentTarget.dataset.columnId);
+    e.dataTransfer.setData(COLUMN_DND_TYPE, '');
   };
 
   const handleDragOver = (e) => {
+    if (!isColumnDrag(e)) {
+      return;
+    }
     e.preventDefault();
   };
 
   const handleDragEnter = (e) => {
+    if (!isColumnDrag(e)) {
+      return;
+    }
     dispatch({ type: 'COLUMN_DND_START', payload: e.currentTarget.dataset.columnId });
+  };
+
+  const handleDragLeave = (e) => {
+    // dragleave also fires when moving onto a child element; ignore those to avoid clearing the highlight prematurely.
+    if (e.currentTarget.contains(e.relatedTarget)) {
+      return;
+    }
+    dispatch({ type: 'COLUMN_DND_END' });
   };
 
   const handleOnDragEnd = () => {
@@ -30,6 +49,10 @@ function getHeaderProps(
 
   const handleOnDrop = (e) => {
     dispatch({ type: 'COLUMN_DND_END' });
+
+    if (!isColumnDrag(e)) {
+      return;
+    }
 
     const droppedColId = e.currentTarget.dataset.columnId;
     const draggedColId = e.dataTransfer.getData('text');
@@ -74,6 +97,7 @@ function getHeaderProps(
       onDragStart: handleDragStart,
       onDragEnter: handleDragEnter,
       onDragOver: handleDragOver,
+      onDragLeave: handleDragLeave,
       onDragEnd: handleOnDragEnd,
       onDrop: handleOnDrop,
       dragOver: dndColumn === props.id,
