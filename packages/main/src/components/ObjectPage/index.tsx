@@ -124,6 +124,10 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     () => (mode === ObjectPageMode.IconTabBar ? getSectionById(children, internalSelectedSectionId) : null),
     [mode, children, internalSelectedSectionId],
   );
+  const isActiveSectionFitContent =
+    mode === ObjectPageMode.IconTabBar &&
+    isValidElement<ObjectPageSectionPropTypes>(currentTabModeSection) &&
+    !!currentTabModeSection.props.fitContent;
   const [toggledCollapsedHeaderWasVisible, setToggledCollapsedHeaderWasVisible] = useState(false);
   const sections = mode === ObjectPageMode.IconTabBar ? currentTabModeSection : children;
   const scrollEndHandler = useOnScrollEnd({ objectPageRef, setTabSelectId });
@@ -261,6 +265,19 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
         const section = getSectionElementById(objectPageRef.current, isSubSection, id);
         scrollTimeout.current = performance.now() + 500;
         if (section) {
+          // fitContent sections with subsections are their own scroll container, so scroll the section, not the ObjectPage
+          const fitContentScroller =
+            isSubSection && isActiveSectionFitContent
+              ? section.closest<HTMLElement>('[data-component-name="ObjectPageSection"]')
+              : null;
+          if (fitContentScroller && fitContentScroller.scrollHeight > fitContentScroller.clientHeight) {
+            section.focus({ preventScroll: true });
+            const sectionRect = section.getBoundingClientRect();
+            const scrollerRect = fitContentScroller.getBoundingClientRect();
+            fitContentScroller.scrollTop = sectionRect.top - scrollerRect.top + fitContentScroller.scrollTop;
+            return;
+          }
+
           const safeTopHeaderHeight = topHeaderHeight || prevTopHeaderHeight.current;
 
           const scrollMargin =
@@ -299,6 +316,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       headerPinned,
       headerCollapsed,
       headerContentHeight,
+      isActiveSectionFitContent,
     ],
   );
 
@@ -892,7 +910,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
         )}
         <div
           data-component-name="ObjectPageContent"
-          className={classNames.content}
+          className={clsx(classNames.content, isActiveSectionFitContent && classNames.fitContent)}
           ref={(node) => {
             if (node) {
               if (mode === ObjectPageMode.IconTabBar && wasUserSectionChange) {
@@ -924,9 +942,9 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
             aria-hidden="true"
           />
           {placeholder ? placeholder : sections}
-          <div style={{ height: `${sectionSpacer}px` }} aria-hidden="true" />
+          <div style={{ height: `${isActiveSectionFitContent ? 0 : sectionSpacer}px` }} aria-hidden="true" />
         </div>
-        {footerArea && mode === ObjectPageMode.IconTabBar && !sectionSpacer && (
+        {footerArea && mode === ObjectPageMode.IconTabBar && !sectionSpacer && !isActiveSectionFitContent && (
           <div className={classNames.footerSpacer} data-component-name="ObjectPageFooterSpacer" aria-hidden="true" />
         )}
         {footerArea && (

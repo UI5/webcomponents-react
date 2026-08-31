@@ -1932,6 +1932,102 @@ describe('ObjectPage', () => {
     cy.findByText('Subsection1').should('be.visible');
   });
 
+  it('fitContent sections', () => {
+    const FitContentComp = () => (
+      <ObjectPage
+        data-testid="op"
+        titleArea={DPTitle}
+        headerArea={DPContent}
+        mode={ObjectPageMode.IconTabBar}
+        footerArea={Footer}
+        style={{ height: '800px' }}
+      >
+        <ObjectPageSection titleText="Leaf" id="leaf" aria-label="Leaf" fitContent>
+          <div data-testid="leaf-scroller" style={{ flex: 1, minHeight: 0, overflow: 'auto' }}>
+            <div style={{ height: '2000px', background: 'lightyellow' }}>Tall leaf content</div>
+          </div>
+        </ObjectPageSection>
+        <ObjectPageSection titleText="Subsections" id="subs" aria-label="Subsections" fitContent>
+          <ObjectPageSubSection titleText="Sub A" id="subA" aria-label="Sub A">
+            <div style={{ height: '800px', background: 'lightblue' }}>Content A</div>
+          </ObjectPageSubSection>
+          <ObjectPageSubSection titleText="Sub B" id="subB" aria-label="Sub B">
+            <div style={{ height: '800px', background: 'lightgreen' }}>Content B</div>
+          </ObjectPageSubSection>
+        </ObjectPageSection>
+        <ObjectPageSection titleText="Normal" id="normal" aria-label="Normal">
+          <div style={{ height: '2000px', background: 'lightsalmon' }}>Normal content</div>
+        </ObjectPageSection>
+      </ObjectPage>
+    );
+
+    cy.mount(<FitContentComp />);
+
+    // leaf fitContent: content scrolls internally, OP container does not (footer stays pinned)
+    cy.findByTestId('leaf-scroller').then(($el) => {
+      const el = $el[0];
+      expect(el.scrollHeight).to.be.greaterThan(el.clientHeight);
+    });
+    // a leaf fitContent section (no subsections) must not become its own scroll container
+    cy.get('[data-component-name="ObjectPageSection"]').should('not.have.css', 'overflow-y', 'auto');
+    cy.findByTestId('op').then(($op) => {
+      expect($op[0].scrollHeight).to.equal($op[0].clientHeight);
+    });
+    cy.findByText('Accept').should('be.visible');
+
+    // fitContent + subsections: the section becomes its own scroll container, OP container does not scroll
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Subsections').click();
+    cy.wait(100);
+    cy.get('[data-component-name="ObjectPageSection"]').should('have.css', 'overflow-y', 'auto');
+    cy.findByTestId('op').then(($op) => {
+      expect($op[0].scrollHeight).to.equal($op[0].clientHeight);
+    });
+    cy.findByText('Accept').should('be.visible');
+
+    // regression: unitless `0` broke the sticky offset calc() and fell back to `auto`
+    cy.findByText('Sub A')
+      .parent()
+      .should('have.css', 'position', 'sticky')
+      .and(($el) => {
+        expect($el.css('inset-block-start')).to.not.equal('auto');
+      });
+
+    // sticky header sticks to the section top, not below the ObjectPage header
+    cy.get('[data-component-name="ObjectPageSection"]').scrollTo(0, 400);
+    cy.findByText('Sub A')
+      .parent()
+      .then(($hdr) => {
+        const header = $hdr[0];
+        const section = header.closest('[data-component-name="ObjectPageSection"]');
+        expect(Math.abs(header.getBoundingClientRect().top - section.getBoundingClientRect().top)).to.be.lessThan(3);
+      });
+
+    // sub-tab scroll-to scrolls the section (not the OP) and lands the subsection at the section top
+    cy.get('[data-component-name="ObjectPageSection"]').scrollTo('top');
+    cy.get('[ui5-tabcontainer]').findUi5TabOpenPopoverButtonByText('Subsections').click();
+    cy.get('[ui5-list]').should('be.visible');
+    cy.wait(200);
+    cy.realPress('ArrowDown');
+    cy.realPress('ArrowDown');
+    cy.realPress('Enter');
+    cy.wait(300);
+    cy.get('[data-component-name="ObjectPageSection"]').then(($section) => {
+      const section = $section[0];
+      expect(section.scrollTop).to.be.greaterThan(0);
+      const targetTop = document.getElementById('ObjectPageSubSection-subB').getBoundingClientRect().top;
+      const sectionTop = section.getBoundingClientRect().top;
+      expect(Math.abs(targetTop - sectionTop)).to.be.lessThan(40);
+    });
+
+    // non-fitContent section keeps the normal page scroll (OP container scrolls)
+    cy.get('[ui5-tabcontainer]').findUi5TabByText('Normal').click();
+    cy.wait(100);
+    cy.get('[data-component-name="ObjectPageSection"]').should('not.have.css', 'overflow-y', 'auto');
+    cy.findByTestId('op').then(($op) => {
+      expect($op[0].scrollHeight).to.be.greaterThan($op[0].clientHeight);
+    });
+  });
+
   it('IconTabBar: tab switch preserves header collapsed/expanded state and stays scroll-expandable', () => {
     cy.viewport(1440, 900);
     cy.mount(

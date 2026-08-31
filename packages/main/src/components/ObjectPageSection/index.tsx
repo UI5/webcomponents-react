@@ -58,6 +58,16 @@ export interface ObjectPageSectionPropTypes extends CommonProps {
    * __Note__: Although this prop accepts all HTML Elements, it is strongly recommended that you only use non-focusable elements to preserve the intended design.
    */
   header?: ReactNode;
+  /**
+   * Defines whether the section fills the remaining available height of the `ObjectPage` instead of growing with its content.
+   *
+   * When enabled, the section's content container becomes a flex column that fills the available space. To make content fill or scroll within it, wrap it in an element with `flex: 1` and `min-height: 0`.
+   *
+   * __Note:__ This prop only takes effect in `ObjectPageMode.IconTabBar` mode.
+   *
+   * @since 2.26.0
+   */
+  fitContent?: boolean;
   // the ref is applied in the ObjectPage
   /**
    * This ref will be attached to the underlying `ui5-tab` DOM element,
@@ -126,6 +136,7 @@ const ObjectPageSection = forwardRef<HTMLElement, ObjectPageSectionPropTypes>((p
     titleTextLevel = 'H3',
     wrapTitleText,
     header,
+    fitContent,
     ...rest
   } = props;
 
@@ -236,7 +247,13 @@ const ObjectPageSection = forwardRef<HTMLElement, ObjectPageSectionPropTypes>((p
     <section
       ref={componentRef}
       role="region"
-      className={clsx(classNames.section, wrapTitleText && classNames.wrap, className)}
+      className={clsx(
+        classNames.section,
+        wrapTitleText && classNames.wrap,
+        fitContent && classNames.fitContent,
+        fitContent && hasSubSection && classNames.fitContentScroll,
+        className,
+      )}
       style={style}
       tabIndex={objectPageMode === ObjectPageMode.Default ? -1 : 0}
       {...propsWithoutOmitted}

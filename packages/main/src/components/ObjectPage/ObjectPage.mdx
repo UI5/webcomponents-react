@@ -72,19 +72,36 @@ This component exposes public methods. You can use them directly on the instance
 
 <Canvas of={ComponentStories.SectionWithCustomHeader} />
 
-## TabBar ObjectPage with fullscreen section
+## IconTabBar ObjectPage with fullscreen section
 
-To render a single section in fullscreen mode, set its height to `100%`.
+To render a section in fullscreen mode, so that it fills the remaining available height instead of growing with its content, set the `fitContent` prop on the `ObjectPageSection`. To make content fill or scroll within the section, wrap it in an element with `flex: 1` and `min-height: 0`.
 
-**Note:** This is only supported for sections in `TabBar` mode! Using multiple sections with `height: 100%;` on the same page will most probably break your layout.
+**Note:** `fitContent` is only supported in `IconTabBar` mode.
 
 <Canvas of={ComponentStories.FullScreenSingleSection} />
 
 ### Example section
 
 ```jsx
-<ObjectPageSection titleText="Section with Overflow" id="section3" style={{ height: '100%', overflow: 'auto' }}>
-  <div style={{ height: '300%', background: 'lightyellow' }} />
+<ObjectPageSection titleText="Section with Overflow" id="section3" fitContent>
+  <div style={{ flex: 1, minHeight: 0, overflow: 'auto' }}>
+    <div style={{ height: '300%', background: 'lightyellow' }} />
+  </div>
+</ObjectPageSection>
+```
+
+### Sections with subsections
+
+When a `fitContent` section contains `ObjectPageSubSection`s, keep them as direct children — don't wrap them. The section becomes the scroll container itself, so overflowing subsections scroll within it while the footer stays visible.
+
+```jsx
+<ObjectPageSection titleText="Details" id="details" fitContent>
+  <ObjectPageSubSection titleText="Subsection 1" id="sub1">
+    <div style={{ height: '80vh' }} />
+  </ObjectPageSubSection>
+  <ObjectPageSubSection titleText="Subsection 2" id="sub2">
+    <div style={{ height: '80vh' }} />
+  </ObjectPageSubSection>
 </ObjectPageSection>
 ```
 
