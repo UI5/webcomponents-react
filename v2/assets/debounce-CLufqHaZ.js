@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";var t,n;function r(){return(r=e((()=>{t=null,n=(e,n)=>{t&&clearTimeout(t),t=setTimeout(()=>{t=null,e()},n)}})))()}export{n,r as t};

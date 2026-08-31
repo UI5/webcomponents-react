@@ -1,1 +1,0 @@
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";var t,n=e((()=>{t=e=>{e.stopPropagation(),e.stopImmediatePropagation?.()}}));export{t as n,n as t};

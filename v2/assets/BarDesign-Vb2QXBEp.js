@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";var t,n;function r(){return(r=e((()=>{(function(e){e.Header=`Header`,e.Subheader=`Subheader`,e.Footer=`Footer`,e.FloatingFooter=`FloatingFooter`})(t||={}),n=t})))()}export{r as n,n as t};
