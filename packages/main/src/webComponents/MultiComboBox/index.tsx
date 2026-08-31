@@ -124,6 +124,9 @@ interface MultiComboBoxAttributes {
   /**
    * Defines whether the clear icon of the multi-combobox will be shown.
    *
+   * **Note:** The clear icon is only visible when there is text typed by the user
+   *   and only clears the typed value, not the selected tokens.
+   *
    * **Note:** Available since [v1.20.1](https://github.com/UI5/webcomponents/releases/tag/v1.20.1) of **@ui5/webcomponents**.
    * @default false
    */
