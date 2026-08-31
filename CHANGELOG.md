@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.26.0](https://github.com/UI5/webcomponents-react/compare/v2.25.1...v2.26.0) (2026-08-31)
+
+
+### Features
+
+* **mcp-server:** add Streamable HTTP transport ([#8890](https://github.com/UI5/webcomponents-react/issues/8890)) ([f1bc56e](https://github.com/UI5/webcomponents-react/commit/f1bc56eae398edb261f121c00db3bc20b1b1f6e2))
+* **ObjectPage:** add `fitContent` prop for full-height sections in tab-bar mode ([#8852](https://github.com/UI5/webcomponents-react/issues/8852)) ([8f8cac2](https://github.com/UI5/webcomponents-react/commit/8f8cac20539fdca687b884f60f6443cdb2d965ad)), closes [#8801](https://github.com/UI5/webcomponents-react/issues/8801)
+* update to UI5 Web Components 2.26.0 ([#8909](https://github.com/UI5/webcomponents-react/issues/8909)) ([690a9f8](https://github.com/UI5/webcomponents-react/commit/690a9f8ae1ee360dc4c85e67f0d9da58ee050271))
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** prevent unnecessary scrollbar when CSS-scaled ([#8891](https://github.com/UI5/webcomponents-react/issues/8891)) ([538526b](https://github.com/UI5/webcomponents-react/commit/538526bc0d3bf224a5ee46b2ca8aa738d8214c81))
+* **deps:** update dependency @tanstack/react-virtual to v3.14.10 ([#8894](https://github.com/UI5/webcomponents-react/issues/8894)) ([2de684c](https://github.com/UI5/webcomponents-react/commit/2de684c55f93f579c3de809bbcb75a8908c86ebe))
+* **ObjectPage:** allow re-expanding collapsed header after `IconTabBar` tab switch ([#8837](https://github.com/UI5/webcomponents-react/issues/8837)) ([1479a45](https://github.com/UI5/webcomponents-react/commit/1479a450a09cfb40e0b848bc9a4d7b75642c0c8e))
+
 ## [2.25.1](https://github.com/UI5/webcomponents-react/compare/v2.25.0...v2.25.1) (2026-08-17)
 
 ### Bug Fixes
