@@ -102,7 +102,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
   const isProgrammaticallyScrolled = useRef(false);
   const [componentRef, objectPageRef] = useSyncRef(ref);
   const topHeaderRef = useRef<HTMLDivElement>(null);
-  const prevTopHeaderHeight = useRef(0);
+  const pendingScrollTargetRef = useRef<number | null>(null);
   // @ts-expect-error: useSyncRef will create a ref if not present
   const [componentRefHeaderContent, headerContentRef] = useSyncRef(headerArea?.ref);
   const scrollEvent = useRef(undefined);
@@ -278,7 +278,8 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
             return;
           }
 
-          const safeTopHeaderHeight = topHeaderHeight || prevTopHeaderHeight.current;
+          // header collapses in this commit but topHeaderHeight state lags a tick, so measure live
+          const safeTopHeaderHeight = topHeaderRef.current?.getBoundingClientRect().height || topHeaderHeight;
 
           const scrollMargin =
             -1 /* reduce margin-block so that intersection observer detects correct section*/ +
@@ -295,10 +296,14 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
           const objectPageRect = objectPageElement.getBoundingClientRect();
 
           // Calculate the top position of the section relative to the container
-          objectPageElement.scrollTop =
-            sectionRect.top - objectPageRect.top + objectPageElement.scrollTop - scrollMargin;
+          const targetScrollTop = sectionRect.top - objectPageRect.top + objectPageElement.scrollTop - scrollMargin;
+          objectPageElement.scrollTop = targetScrollTop;
 
           section.style.scrollMarginBlockStart = '';
+
+          // remember a target the browser clamped because the bottom spacer hasn't grown yet
+          pendingScrollTargetRef.current =
+            targetScrollTop > objectPageElement.scrollHeight - objectPageElement.clientHeight ? targetScrollTop : null;
         }
       };
       // In TabBar mode the section is only rendered when selected: delay scroll for subsection
@@ -311,6 +316,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     [
       mode,
       objectPageRef,
+      topHeaderRef,
       topHeaderHeight,
       tabContainerHeaderHeight,
       headerPinned,
@@ -406,6 +412,20 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       isProgrammaticallyScrolled.current = false;
     }
   }, [selectedSubSectionId, sectionSpacer, scrollToSectionById]);
+
+  // re-apply the clamped target once sectionSpacer has grown enough
+  useEffect(() => {
+    const target = pendingScrollTargetRef.current;
+    if (target == null) {
+      return;
+    }
+    pendingScrollTargetRef.current = null;
+    const objectPage = objectPageRef.current;
+    if (objectPage && objectPage.scrollHeight - objectPage.clientHeight + 1 >= target) {
+      objectPage.scrollTop = target;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- refs are stable; only sectionSpacer should re-trigger
+  }, [sectionSpacer]);
 
   useEffect(() => {
     if (headerPinnedProp !== undefined) {
