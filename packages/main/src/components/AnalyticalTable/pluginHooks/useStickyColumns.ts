@@ -17,6 +17,9 @@ const INTERNAL_START_COLUMNS = new Set(['__ui5wcr__internal_highlight_column', '
 const MOBILE_MIN_NON_STICKY_COL_WIDTH = 88;
 const getMinNonStickyColWidth = () => (isDesktop() ? DEFAULT_COLUMN_WIDTH : MOBILE_MIN_NON_STICKY_COL_WIDTH);
 
+// Hysteresis margin so the ~scrollbar-width `tableClientWidth` flip on sticky toggle can't oscillate auto-disable.
+const STICKY_FIT_HYSTERESIS_PX = 4;
+
 // Actions
 actions.setStickyColumns = 'setStickyColumns';
 actions.toggleStickyColumn = 'toggleStickyColumn';
@@ -141,8 +144,9 @@ const useStickyMetadata = (instance: TableInstance, onAutoToggleSticky?: OnAutoT
 
     // Disable sticky when columns no longer fit. Skipped on first render before measurement.
     if (measured) {
-      // Reserve the scrollbar unconditionally — `tableClientWidth` is the scrollbar-invariant border-box width.
-      const reservedScrollable = getMinNonStickyColWidth() + scrollbarSize;
+      // Reserve the scrollbar + hysteresis margin only while inactive (`tableClientWidth` excludes it once active).
+      const wasActive = (instance.stickyStartIndices?.length ?? 0) > 0;
+      const reservedScrollable = getMinNonStickyColWidth() + (wasActive ? 0 : scrollbarSize + STICKY_FIT_HYSTERESIS_PX);
       const fits = state.tableClientWidth - reservedScrollable > totalStickyStartWidth;
       if (!fits) {
         autoDisabled = true;

@@ -482,12 +482,15 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       dispatch({
         type: 'TABLE_RESIZE',
         payload: {
-          // Border-box width (scrollbar-invariant) so sticky auto-disable can't feed back and oscillate.
-          tableClientWidth: tableRef.current.getBoundingClientRect().width / (scaleXFactor || 1),
+          // Sticky mode uses `clientWidth` so the vertical scrollbar is excluded from the width distribution.
+          tableClientWidth:
+            hasStickyColumns || (scaleXFactor && scaleXFactor !== 1)
+              ? tableRef.current.clientWidth
+              : tableRef.current.getBoundingClientRect().width,
         },
       });
     }
-  }, [dispatch, scaleXFactor]);
+  }, [dispatch, scaleXFactor, hasStickyColumns]);
 
   const updateRowsCount = useCallback(() => {
     if (
