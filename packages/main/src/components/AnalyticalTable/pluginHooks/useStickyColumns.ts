@@ -121,7 +121,8 @@ const useStickyMetadata = (instance: TableInstance, onAutoToggleSticky?: OnAutoT
   // No early returns: keep all hooks below unconditional (rules-of-hooks).
   const stickySet = getStickySet(state);
   const hasUserSticky = hasUserStickyColumn(visCols, stickySet);
-  const measured = (state?.tableClientWidth ?? 0) > 0;
+  // Gate on `fontsReady`: widths stay at the 150px default until fonts load, skewing an early fit-check.
+  const measured = (state?.tableClientWidth ?? 0) > 0 && !!instance.webComponentsReactProperties?.fontsReady;
 
   let stickyStartIndices: number[] = [];
   let totalStickyStartWidth = 0;
