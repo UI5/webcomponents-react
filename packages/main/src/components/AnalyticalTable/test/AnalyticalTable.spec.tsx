@@ -121,12 +121,26 @@ test.describe('AnalyticalTable sticky columns — behavior', () => {
   });
 
   for (const variant of [
-    { label: 'withRowHighlight', props: { withRowHighlight: true, highlightField: 'status' } },
-    { label: 'selectionMode Multiple', props: { selectionMode: AnalyticalTableSelectionMode.Multiple } },
+    { label: 'withRowHighlight', internalCols: 1, props: { withRowHighlight: true, highlightField: 'status' } },
+    {
+      label: 'selectionMode Multiple',
+      internalCols: 1,
+      props: { selectionMode: AnalyticalTableSelectionMode.Multiple },
+    },
+    {
+      label: 'withRowHighlight + selectionMode Multiple',
+      internalCols: 2,
+      props: { withRowHighlight: true, highlightField: 'status', selectionMode: AnalyticalTableSelectionMode.Multiple },
+    },
   ]) {
-    test(`internal start column auto-pins and stays during scroll — ${variant.label}`, async ({ mount, page }) => {
+    test(`internal start column(s) auto-pin and stay during scroll — ${variant.label}`, async ({ mount, page }) => {
       await mount<typeof StickyHarness>(STORY, { columns: wideCols, ...variant.props });
-      await expect(stickyAncestor(page.locator('[data-visible-column-index="0"][data-row-index="0"]'))).toBeAttached();
+      // Every prepended internal start column must pin (2 when highlight + selection are both active).
+      for (let i = 0; i < variant.internalCols; i++) {
+        await expect(
+          stickyAncestor(page.locator(`[data-visible-column-index="${i}"][data-row-index="0"]`)),
+        ).toBeAttached();
+      }
       await expectPinnedDuringScroll(page, 'name', 'friend.age');
     });
   }
