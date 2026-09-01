@@ -280,7 +280,7 @@ const setHeaderProps = (
  * stays hoisted to the start as an ordinary (unfrozen) column; to revert its order when there is not
  * enough room, toggle its sticky state off.
  *
- * Not combinable with `renderRowSubComponent` or `responsivePopIn`.
+ * `renderRowSubComponent` and `responsivePopIn` are not supported.
  *
  * @param {UseStickyColumnsOptions=} options Optional callbacks.
  * @param {OnStickyColumnsChange=} options.onStickyColumnsChange Fired when a column is frozen/unfrozen via
