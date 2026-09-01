@@ -387,6 +387,7 @@ const stickyColumns: AnalyticalTableColumnDefinition[] = [
 ];
 
 export const StickyColumns: Story = {
+  tags: ['experimental'],
   args: {
     data: dataSmall,
     sortable: true,
@@ -436,6 +437,7 @@ const resizableStickyColumns: AnalyticalTableColumnDefinition[] = [
 ];
 
 export const StickyColumnsResizable: Story = {
+  tags: ['experimental'],
   args: { data: dataSmall },
   render(args) {
     const tableInstanceRef = useRef<TableInstance>(null);
