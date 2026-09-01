@@ -40,9 +40,7 @@ interface VirtualTableBodyProps {
 
 function getDirectionStyles(isRtl: boolean, virtualColumn: VirtualItem, isStickyStart?: boolean) {
   if (isStickyStart) {
-    return isRtl
-      ? { insetInlineStart: `${virtualColumn.start}px`, zIndex: 2 }
-      : { left: `${virtualColumn.start}px`, zIndex: 2 };
+    return { insetInlineStart: `${virtualColumn.start}px`, zIndex: 2 };
   }
   return isRtl
     ? {
