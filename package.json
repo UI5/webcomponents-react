@@ -78,7 +78,7 @@
     "@ui5/webcomponents-tools": "2.26.0",
     "@vitejs/plugin-react": "6.0.5",
     "chromatic": "17.8.0",
-    "cssnano": "8.0.8",
+    "cssnano": "9.0.0",
     "cypress": "15.18.1",
     "cypress-real-events": "1.15.0",
     "dedent": "1.7.2",
