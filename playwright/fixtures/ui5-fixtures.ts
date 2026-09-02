@@ -25,7 +25,7 @@ export class UI5WCHelpers {
    *
    * @param locator Locator of the UI5 custom element to click.
    */
-  private async clickViaDomRef(locator: Locator): Promise<void> {
+  async clickViaDomRef(locator: Locator): Promise<void> {
     await locator.evaluate((element: HTMLElement) => {
       const host = element as HTMLElement & { getDomRef?: () => HTMLElement | null };
       (host.getDomRef?.() ?? host).click();
