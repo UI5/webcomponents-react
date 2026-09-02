@@ -64,6 +64,18 @@ export const AttributeTestComp = () => {
   return <Button data-testid="test-button">Click me</Button>;
 };
 
+export const ClickViaDomRefTestComp = () => {
+  const [clicked, setClicked] = useState(false);
+  return (
+    <>
+      <Button data-testid="test-button" onClick={() => setClicked(true)}>
+        Click me
+      </Button>
+      <span data-testid="button-clicked">{clicked ? 'yes' : 'no'}</span>
+    </>
+  );
+};
+
 export const SelectTestComp = () => {
   const [selectedValue, setSelectedValue] = useState('');
   return (

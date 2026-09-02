@@ -1,6 +1,14 @@
 import { expect, test } from '../fixtures/gallery-fixtures.js';
 
 test.describe('UI5 Web Components Fixtures', () => {
+  test('clickViaDomRef - clicks the element via its DOM ref', async ({ mount, page, ui5wc }) => {
+    await mount('test/UI5Fixtures/ClickViaDomRefTestComp');
+
+    await ui5wc.clickViaDomRef(page.getByTestId('test-button'));
+
+    await expect(page.getByTestId('button-clicked')).toHaveText('yes');
+  });
+
   test('typeIntoInput - types text into UI5 input', async ({ mount, page, ui5wc }) => {
     await mount('test/UI5Fixtures/InputTestComp');
 
