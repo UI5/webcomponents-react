@@ -48,6 +48,10 @@ interface SearchAttributes {
   /**
    * Defines a short hint intended to aid the user with data entry when the
    * component has no value.
+   *
+   * **Note:** When `scopes` are defined and no custom placeholder is provided,
+   * the placeholder automatically displays "Search in: \{selected scope name\}".
+   * Setting a custom placeholder will override this automatic behavior.
    * @default undefined
    */
   placeholder?: string | undefined;

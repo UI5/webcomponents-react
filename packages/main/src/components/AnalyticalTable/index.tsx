@@ -59,8 +59,8 @@ import { useColumnsDeps } from './hooks/useColumnsDeps.js';
 import { useColumnDragAndDrop } from './hooks/useDragAndDrop.js';
 import { useDynamicColumnWidths } from './hooks/useDynamicColumnWidths.js';
 import { useFontsReady } from './hooks/useFontsReady.js';
-import { useIsFirefox } from './hooks/useIsFirefox.js';
 import { useKeyboardNavigation } from './hooks/useKeyboardNavigation.js';
+import { useNativeScrollbar } from './hooks/useNativeScrollbar.js';
 import { usePopIn } from './hooks/usePopIn.js';
 import { useRowHighlight } from './hooks/useRowHighlight.js';
 import { useRowNavigationIndicators } from './hooks/useRowNavigationIndicator.js';
@@ -201,7 +201,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
   useStylesheet(styleData, AnalyticalTable.displayName);
   const isInitialized = useRef(false);
   const fontsReady = useFontsReady();
-  const isFirefox = useIsFirefox();
+  const { nativeScrollbar, scrollbarWidth } = useNativeScrollbar();
   const canUseVoiceOver = useCanUseVoiceOver();
 
   const alwaysShowSubComponent =
@@ -287,7 +287,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         classes: classNames,
         fontsReady,
         highlightField,
-        isFirefox,
+        nativeScrollbar,
+        scrollbarWidth,
         isTreeTable,
         loading,
         markNavigatedRow,
@@ -383,8 +384,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     horizontal: true,
     overscan: isRtl || scaleWidthMode !== AnalyticalTableScaleWidthMode.Default ? Infinity : overscanCountHorizontal,
     indexAttribute: 'data-column-index',
-    // necessary as otherwise values are rounded which leads to wrong total width calculation leading to unnecessary scrollbar
-    measureElement: !scaleXFactor || scaleXFactor === 1 ? (el) => el.getBoundingClientRect().width : undefined,
+    // tanstack/virtual uses rounded values per default, leading to unnecessary scrollbars
+    measureElement: (el) => el.getBoundingClientRect().width / (scaleXFactor || 1),
   });
   // force re-measure if `visibleColumns` change
   useEffect(() => {
@@ -482,7 +483,11 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
           : 0;
       const parentHeight = parentElement?.getBoundingClientRect().height;
       const tableHeight = parentHeight ? parentHeight - tableYPosition : 0;
-      const bodyHeight = tableHeight - extensionsHeight;
+      // a horizontal scrollbar in the container consumes vertical space that must not count towards the rows
+      const tableContainer = tableRef.current;
+      const horizontalScrollbarHeight =
+        tableContainer && tableContainer.scrollWidth > tableContainer.clientWidth ? scrollbarWidth : 0;
+      const bodyHeight = tableHeight - extensionsHeight - horizontalScrollbarHeight;
       let subCompsRowCount = 0;
       if (includeSubCompRowHeight) {
         let localBodyHeight = 0;
@@ -513,7 +518,14 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
         });
       }
     }
-  }, [extensionsHeight, popInRowHeight, visibleRowCountMode, includeSubCompRowHeight, tableState.subComponentsHeight]);
+  }, [
+    extensionsHeight,
+    popInRowHeight,
+    visibleRowCountMode,
+    includeSubCompRowHeight,
+    tableState.subComponentsHeight,
+    scrollbarWidth,
+  ]);
 
   useEffect(() => {
     setGlobalFilter(globalFilterValue);
@@ -656,6 +668,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       tableStyles['--_ui5wcr-AnalyticalTableHeaderRowHeight'] = `${headerRowHeight}px`;
     }
 
+    tableStyles['--_ui5wcr-AnalyticalTable-ScrollbarWidth'] = `${scrollbarWidth}px`;
+
     if (tableState.tableClientWidth > 0) {
       return {
         ...tableStyles,
@@ -667,7 +681,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
       ...style,
       visibility: 'hidden',
     } as CSSProperties;
-  }, [tableState.tableClientWidth, style, rowHeight, headerRowHeight]);
+  }, [tableState.tableClientWidth, style, rowHeight, headerRowHeight, scrollbarWidth]);
 
   useEffect(() => {
     if (retainColumnWidth && tableState.columnResizing?.isResizingColumn && tableState.tableColResized == null) {
@@ -678,7 +692,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     }
   }, [tableState.columnResizing, retainColumnWidth, tableState.tableColResized]);
 
-  useSyncScroll(parentRef, verticalScrollBarRef, tableState.isScrollable, isFirefox);
+  useSyncScroll(parentRef, verticalScrollBarRef, tableState.isScrollable, nativeScrollbar);
 
   useEffect(() => {
     columnVirtualizer.measure();
@@ -890,7 +904,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                 handleExternalScroll={onTableScroll}
                 visibleRows={internalVisibleRowCount}
                 isGrouped={isGrouped}
-                isFirefox={isFirefox}
+                nativeScrollbar={nativeScrollbar}
               >
                 <VirtualTableBody
                   scrollContainerRef={scrollContainerRef}
@@ -917,7 +931,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
               </VirtualTableBodyContainer>
             )}
           </div>
-          {!isFirefox && (additionalEmptyRowsCount || tableState.isScrollable) && (
+          {!nativeScrollbar && (additionalEmptyRowsCount || tableState.isScrollable) && (
             <VerticalScrollbar
               tableBodyHeight={tableBodyHeight}
               internalRowHeight={internalHeaderRowHeight}

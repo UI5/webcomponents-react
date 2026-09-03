@@ -78,6 +78,8 @@ interface IconPropTypes extends IconAttributes, Omit<CommonProps, keyof IconAttr
    * When this slot is used, the component renders a `<span>` instead of an `<svg>`.
    * Accessibility is fully delegated to the application — set `accessible-name` and `mode` explicitly.
    *
+   * **Note:** To control the glyph size, set `font-size` on the `Icon` host element.
+   *
    * **Example:**
    * ```html
    * <Icon mode="Image" accessible-name="Home">

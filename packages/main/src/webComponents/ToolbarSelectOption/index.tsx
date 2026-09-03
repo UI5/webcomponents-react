@@ -11,6 +11,14 @@ interface ToolbarSelectOptionAttributes {
    * @default false
    */
   selected?: boolean;
+
+  /**
+   * Defines the value of the component.
+   *
+   * **Note:** Available since [v2.25.0](https://github.com/UI5/webcomponents/releases/tag/v2.25.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  value?: string | undefined;
 }
 
 interface ToolbarSelectOptionDomRef extends Required<ToolbarSelectOptionAttributes>, Ui5DomRef {}
@@ -37,7 +45,7 @@ interface ToolbarSelectOptionPropTypes
  */
 const ToolbarSelectOption = withWebComponent<ToolbarSelectOptionPropTypes, ToolbarSelectOptionDomRef>(
   'ui5-toolbar-select-option',
-  [],
+  ['value'],
   ['selected'],
   [],
   [],

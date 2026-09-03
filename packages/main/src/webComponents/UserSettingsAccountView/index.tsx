@@ -20,6 +20,14 @@ interface UserSettingsAccountViewAttributes {
   selected?: boolean;
 
   /**
+   * Defines if the User Settings Account View shows the edit button on the avatar.
+   *
+   * **Note:** Available since [v2.26.0](https://github.com/UI5/webcomponents/releases/tag/v2.26.0) of **@ui5/webcomponents-fiori**.
+   * @default false
+   */
+  showEditButton?: boolean;
+
+  /**
    * Defines if the User Menu shows the `Manage Account` option.
    * @default false
    */
@@ -89,7 +97,7 @@ interface UserSettingsAccountViewPropTypes
 const UserSettingsAccountView = withWebComponent<UserSettingsAccountViewPropTypes, UserSettingsAccountViewDomRef>(
   'ui5-user-settings-account-view',
   ['text'],
-  ['secondary', 'selected', 'showManageAccount'],
+  ['secondary', 'selected', 'showEditButton', 'showManageAccount'],
   ['account'],
   ['edit-accounts-click', 'manage-account-click'],
 );

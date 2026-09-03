@@ -1,21 +1,16 @@
-import { expect, test } from '../fixtures/ui5-fixtures-internal';
-import {
-  ClearInputTestComp,
-  ComboBoxTestComp,
-  DialogTestComp,
-  InputTestComp,
-  InputWithSuggestionsTestComp,
-  MultiComboBoxTestComp,
-  MultiInputWithSuggestionsTestComp,
-  SelectTestComp,
-  TabContainerTestComp,
-  TabContainerWithNestedTabsTestComp,
-  TextAreaTestComp,
-} from './UI5FixturesTestComponents.js';
+import { expect, test } from '../fixtures/gallery-fixtures.js';
 
 test.describe('UI5 Web Components Fixtures', () => {
+  test('clickViaDomRef - clicks the element via its DOM ref', async ({ mount, page, ui5wc }) => {
+    await mount('test/UI5Fixtures/ClickViaDomRefTestComp');
+
+    await ui5wc.clickViaDomRef(page.getByTestId('test-button'));
+
+    await expect(page.getByTestId('button-clicked')).toHaveText('yes');
+  });
+
   test('typeIntoInput - types text into UI5 input', async ({ mount, page, ui5wc }) => {
-    await mount(<InputTestComp />);
+    await mount('test/UI5Fixtures/InputTestComp');
 
     const input = page.getByTestId('test-input');
     await ui5wc.typeIntoInput(input, 'Hello World');
@@ -25,7 +20,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('clearInput - clears UI5 input', async ({ mount, page, ui5wc }) => {
-    await mount(<ClearInputTestComp />);
+    await mount('test/UI5Fixtures/ClearInputTestComp');
 
     const input = page.getByTestId('test-input');
     await ui5wc.typeIntoInput(input, 'initial value');
@@ -37,7 +32,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('typeIntoTextArea - types text into UI5 textarea', async ({ mount, page, ui5wc }) => {
-    await mount(<TextAreaTestComp />);
+    await mount('test/UI5Fixtures/TextAreaTestComp');
 
     const textarea = page.getByTestId('test-textarea');
     await ui5wc.typeIntoTextArea(textarea, 'Multi-line\ntext');
@@ -47,7 +42,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('closePopupWithEsc - closes dialog with Escape key', async ({ mount, page, ui5wc }) => {
-    await mount(<DialogTestComp />);
+    await mount('test/UI5Fixtures/DialogTestComp');
     const dialog = page.getByTestId('test-dialog');
     await expect(dialog).toHaveAttribute('open');
     await expect(page.getByTestId('dialog-state')).toHaveText('open');
@@ -58,7 +53,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('openDropdownByClick - opens Select dropdown', async ({ mount, page, ui5wc }) => {
-    await mount(<SelectTestComp />);
+    await mount('test/UI5Fixtures/SelectTestComp');
 
     const select = page.getByTestId('test-select');
     await ui5wc.openDropdownByClick(select);
@@ -67,7 +62,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('openDropdownByClick - opens ComboBox dropdown', async ({ mount, page, ui5wc }) => {
-    await mount(<ComboBoxTestComp />);
+    await mount('test/UI5Fixtures/ComboBoxTestComp');
 
     const combobox = page.getByTestId('test-combobox');
     await ui5wc.openDropdownByClick(combobox);
@@ -76,7 +71,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('openDropdownByClick - opens MultiComboBox dropdown', async ({ mount, page, ui5wc }) => {
-    await mount(<MultiComboBoxTestComp />);
+    await mount('test/UI5Fixtures/MultiComboBoxTestComp');
 
     const multiComboBox = page.getByTestId('test-multicombobox');
     await ui5wc.openDropdownByClick(multiComboBox);
@@ -85,7 +80,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('clickDropdownItemByText - selects ComboBox item', async ({ mount, page, ui5wc }) => {
-    await mount(<ComboBoxTestComp />);
+    await mount('test/UI5Fixtures/ComboBoxTestComp');
 
     const combobox = page.getByTestId('test-combobox');
     await ui5wc.openDropdownByClick(combobox);
@@ -95,7 +90,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('clickDropdownItemByText - selects Select option', async ({ mount, page, ui5wc }) => {
-    await mount(<SelectTestComp />);
+    await mount('test/UI5Fixtures/SelectTestComp');
 
     const select = page.getByTestId('test-select');
     await ui5wc.openDropdownByClick(select);
@@ -105,7 +100,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('clickDropdownItemByText - selects MultiComboBox item', async ({ mount, page, ui5wc }) => {
-    await mount(<MultiComboBoxTestComp />);
+    await mount('test/UI5Fixtures/MultiComboBoxTestComp');
 
     const multiComboBox = page.getByTestId('test-multicombobox');
     await ui5wc.openDropdownByClick(multiComboBox);
@@ -114,8 +109,17 @@ test.describe('UI5 Web Components Fixtures', () => {
     await expect(page.getByTestId('multicombobox-values')).toHaveText('Green');
   });
 
+  test('selectMenuItemByText - selects Menu item', async ({ mount, page, ui5wc }) => {
+    await mount('test/UI5Fixtures/MenuTestComp');
+
+    await page.getByTestId('menu-opener').click();
+    await ui5wc.selectMenuItemByText(page.getByTestId('test-menu'), 'Delete');
+
+    await expect(page.getByTestId('menu-clicked-item')).toHaveText('Delete');
+  });
+
   test('findTabByText - finds and clicks tab', async ({ mount, page, ui5wc }) => {
-    await mount(<TabContainerTestComp />);
+    await mount('test/UI5Fixtures/TabContainerTestComp');
 
     const tabContainer = page.getByTestId('test-tabcontainer');
     const tab2 = ui5wc.findTabByText(tabContainer, 'Tab 2');
@@ -126,7 +130,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('findTabPopoverButtonByText - opens nested tabs popover', async ({ mount, page, ui5wc }) => {
-    await mount(<TabContainerWithNestedTabsTestComp />);
+    await mount('test/UI5Fixtures/TabContainerWithNestedTabsTestComp');
 
     const tabContainer = page.getByTestId('test-tabcontainer-nested');
     const popoverButton = ui5wc.findTabPopoverButtonByText(tabContainer, 'Tab 2');
@@ -140,7 +144,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('typeIntoInput - shows ComboBox suggestions', async ({ mount, page, ui5wc }) => {
-    await mount(<ComboBoxTestComp />);
+    await mount('test/UI5Fixtures/ComboBoxTestComp');
 
     const combobox = page.getByTestId('test-combobox');
     await ui5wc.typeIntoInput(combobox, 'A');
@@ -149,7 +153,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('typeIntoInput - shows Input suggestions', async ({ mount, page, ui5wc }) => {
-    await mount(<InputWithSuggestionsTestComp />);
+    await mount('test/UI5Fixtures/InputWithSuggestionsTestComp');
 
     const input = page.getByTestId('test-input-suggestions');
     await ui5wc.typeIntoInput(input, 'S');
@@ -158,7 +162,7 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('typeIntoInput - shows MultiComboBox suggestions', async ({ mount, page, ui5wc }) => {
-    await mount(<MultiComboBoxTestComp />);
+    await mount('test/UI5Fixtures/MultiComboBoxTestComp');
 
     const mcb = page.getByTestId('test-multicombobox');
     await ui5wc.typeIntoInput(mcb, 'R');
@@ -167,11 +171,23 @@ test.describe('UI5 Web Components Fixtures', () => {
   });
 
   test('typeIntoInput - shows MultiInput suggestions', async ({ mount, page, ui5wc }) => {
-    await mount(<MultiInputWithSuggestionsTestComp />);
+    await mount('test/UI5Fixtures/MultiInputWithSuggestionsTestComp');
 
     const multiInput = page.getByTestId('test-multiinput-suggestions');
     await ui5wc.typeIntoInput(multiInput, 'X');
 
     await expect(multiInput.locator('[text="Suggestion X"]')).toBeVisible();
+  });
+
+  test('expandTreeItem - expands a tree item, revealing its child', async ({ mount, page, ui5wc }) => {
+    await mount('test/UI5Fixtures/TreeTestComp');
+
+    const parent = page.getByTestId('test-tree-parent');
+    const child = page.getByTestId('test-tree-child');
+    await expect(child).toBeHidden();
+
+    await ui5wc.expandTreeItem(parent);
+
+    await expect(child).toBeVisible();
   });
 });

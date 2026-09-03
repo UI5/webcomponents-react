@@ -9,6 +9,22 @@ import type { ReactNode } from 'react';
 
 interface WizardAttributes {
   /**
+   * Defines the accessible ARIA name of the component.
+   *
+   * **Note:** Available since [v2.26.0](https://github.com/UI5/webcomponents/releases/tag/v2.26.0) of **@ui5/webcomponents-fiori**.
+   * @default undefined
+   */
+  accessibleName?: string | undefined;
+
+  /**
+   * Receives id(or many ids) of the elements that label the component.
+   *
+   * **Note:** Available since [v2.26.0](https://github.com/UI5/webcomponents/releases/tag/v2.26.0) of **@ui5/webcomponents-fiori**.
+   * @default undefined
+   */
+  accessibleNameRef?: string | undefined;
+
+  /**
    * Defines how the content of the `Wizard` would be visualized.
    *
    * **Note:** Available since [v1.14.0](https://github.com/UI5/webcomponents/releases/tag/v1.14.0) of **@ui5/webcomponents-fiori**.
@@ -118,7 +134,7 @@ interface WizardPropTypes
  */
 const Wizard = withWebComponent<WizardPropTypes, WizardDomRef>(
   'ui5-wizard',
-  ['contentLayout'],
+  ['accessibleName', 'accessibleNameRef', 'contentLayout'],
   [],
   [],
   ['step-change'],

@@ -47,11 +47,13 @@ The MCP Inspector provides a web-based UI for testing your MCP server:
 npm run inspector
 ```
 
+To test the HTTP transport, start the server first (`node dist/index.js --http`), then run `npx @modelcontextprotocol/inspector`, choose **Streamable HTTP**, and connect to `http://localhost:7427/mcp`.
+
 ## Architecture
 
 ### Overview
 
-The MCP server is a **stdio-based** Node.js process that communicates with AI clients via the [Model Context Protocol](https://modelcontextprotocol.io/). All data is pre-processed at build time and bundled with the server — no network access is required at runtime.
+The MCP server is a Node.js process that communicates with AI clients via the [Model Context Protocol](https://modelcontextprotocol.io/). It runs over **stdio** by default, or over **Streamable HTTP** with the `--http` flag (see [Transports](#transports)). All data is pre-processed at build time and bundled with the server — no network access is required at runtime.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -70,7 +72,7 @@ The MCP server is a **stdio-based** Node.js process that communicates with AI cl
 └─────────────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────────────┐
-│ Runtime (stdio)                                                     │
+│ Runtime (stdio default / HTTP via --http)                           │
 │                                                                     │
 │  AI Client ◄──► MCP Server (index.ts)                               │
 │                   ├─ create_app        reads project-templates.json  │
@@ -81,6 +83,20 @@ The MCP server is a **stdio-based** Node.js process that communicates with AI cl
 │                   └─ llms.txt resource reads resources/llms.txt      │
 └─────────────────────────────────────────────────────────────────────┘
 ```
+
+### Transports
+
+The transport is selected in `index.ts` from CLI flags / env:
+
+- **stdio** (default) — no flags. The client spawns the process and communicates over stdin/stdout. Used by all [Setup](README.md#setup) configurations.
+- **Streamable HTTP** — enabled with `--http` (or `MCP_TRANSPORT=http`), implemented in `src/http.ts`.
+
+```bash
+node dist/index.js --http                 # http://127.0.0.1:7427/mcp (default port)
+node dist/index.js --http --port 7500     # custom port (or PORT=7500)
+```
+
+HTTP mode is **stateless** (a fresh server + transport per request, `sessionIdGenerator: undefined`) and binds to `127.0.0.1` only, with DNS-rebinding protection scoped to the bound host/port. The endpoint is served at `POST /mcp`; `GET` and other methods return `405`, unknown paths `404`. The default port `7427` is defined by `DEFAULT_HTTP_PORT` in `index.ts` — keep it in sync with `server.json`.
 
 ### Build Pipeline
 
@@ -118,6 +134,12 @@ Then add the server to any project using the absolute path to the built entry po
 
 ```bash
 claude mcp add --scope project ui5-wcr -- node /path/to/ui5-webcomponents-react/packages/mcp-server/dist/index.js
+```
+
+Or over HTTP — start the server first (`node dist/index.js --http`), then register the URL:
+
+```bash
+claude mcp add --scope project --transport http ui5-wcr http://localhost:7427/mcp
 ```
 
 After code changes, `npm run compile` is enough.

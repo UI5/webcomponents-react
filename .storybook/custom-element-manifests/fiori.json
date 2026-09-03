@@ -3069,7 +3069,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive` and `Detail` - will not.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
               "privacy": "public"
             }
           ],
@@ -3219,12 +3219,12 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive` and `Detail` - will not.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
               "type": {
-                "text": "\"Navigation\" | \"Inactive\" | \"Active\" | \"Detail\""
+                "text": "\"Navigation\" | \"Inactive\" | \"InactiveSelectable\" | \"Active\" | \"Detail\""
               }
             }
           ],
@@ -6290,7 +6290,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.",
+              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.\n\n**Note:** When `scopes` are defined and no custom placeholder is provided,\nthe placeholder automatically displays \"Search in: \\{selected scope name\\}\".\nSetting a custom placeholder will override this automatic behavior.",
               "default": "undefined",
               "privacy": "public"
             },
@@ -6456,7 +6456,7 @@
               }
             },
             {
-              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.",
+              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.\n\n**Note:** When `scopes` are defined and no custom placeholder is provided,\nthe placeholder automatically displays \"Search in: \\{selected scope name\\}\".\nSetting a custom placeholder will override this automatic behavior.",
               "name": "placeholder",
               "default": "undefined",
               "fieldName": "placeholder",
@@ -6608,7 +6608,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.",
+              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.\n\n**Note:** When `scopes` are defined and no custom placeholder is provided,\nthe placeholder automatically displays \"Search in: \\{selected scope name\\}\".\nSetting a custom placeholder will override this automatic behavior.",
               "default": "undefined",
               "privacy": "public"
             },
@@ -6725,7 +6725,7 @@
               }
             },
             {
-              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.",
+              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.\n\n**Note:** When `scopes` are defined and no custom placeholder is provided,\nthe placeholder automatically displays \"Search in: \\{selected scope name\\}\".\nSetting a custom placeholder will override this automatic behavior.",
               "name": "placeholder",
               "default": "undefined",
               "fieldName": "placeholder",
@@ -8636,7 +8636,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.",
+              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.\n\n**Note:** When `scopes` are defined and no custom placeholder is provided,\nthe placeholder automatically displays \"Search in: \\{selected scope name\\}\".\nSetting a custom placeholder will override this automatic behavior.",
               "default": "undefined",
               "privacy": "public"
             },
@@ -8737,7 +8737,7 @@
               }
             },
             {
-              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.",
+              "description": "Defines a short hint intended to aid the user with data entry when the\ncomponent has no value.\n\n**Note:** When `scopes` are defined and no custom placeholder is provided,\nthe placeholder automatically displays \"Search in: \\{selected scope name\\}\".\nSetting a custom placeholder will override this automatic behavior.",
               "name": "placeholder",
               "default": "undefined",
               "fieldName": "placeholder",
@@ -9118,6 +9118,42 @@
                   "name": "item",
                   "_ui5privacy": "public",
                   "description": "The clicked item."
+                }
+              ]
+            },
+            {
+              "name": "item-toggle",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<SideNavigationItemToggleEventDetail>",
+                "references": [
+                  {
+                    "name": "SideNavigationItemToggleEventDetail",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/SideNavigation.js"
+                  }
+                ]
+              },
+              "description": "Fired when a `ui5-side-navigation-item` or `ui5-side-navigation-group` is expanded or collapsed.\n\n**Note:** You can call `preventDefault()` on the event to suppress the expand/collapse.\nThe `expanded` state stays unchanged. This is handy, for example, if you want to\ndynamically load child items before allowing a parent item to expand.",
+              "_ui5Cancelable": true,
+              "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.26.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "SideNavigationItemBase",
+                    "references": [
+                      {
+                        "name": "SideNavigationItemBase",
+                        "package": "@ui5/webcomponents-fiori",
+                        "module": "dist/SideNavigationItemBase.js"
+                      }
+                    ]
+                  },
+                  "name": "item",
+                  "_ui5privacy": "public",
+                  "description": "The toggled item."
                 }
               ]
             },
@@ -11652,7 +11688,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive` and `Detail` - will not.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
               "privacy": "public"
             }
           ],
@@ -11879,12 +11915,12 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive` and `Detail` - will not.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
               "type": {
-                "text": "\"Navigation\" | \"Inactive\" | \"Active\" | \"Detail\""
+                "text": "\"Navigation\" | \"Inactive\" | \"InactiveSelectable\" | \"Active\" | \"Detail\""
               }
             }
           ],
@@ -11987,7 +12023,7 @@
               "default": "false",
               "description": "Defines whether the avatar of the selected account is interactive (focusable and pressable).\n\nWhen `false` (default), the avatar is rendered as a non-interactive image\nand is not announced as a button by screen readers.\n\n**Note:** When `showEditButton` is set to `true`, the avatar is treated as interactive\nregardless of this property's value, to preserve the edit affordance.",
               "privacy": "public",
-              "_ui5since": "2.25.0"
+              "_ui5since": "2.24.0"
             },
             {
               "kind": "field",
@@ -12771,7 +12807,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive` and `Detail` - will not.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
               "privacy": "public"
             }
           ],
@@ -12912,12 +12948,12 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive` and `Detail` - will not.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
               "type": {
-                "text": "\"Navigation\" | \"Inactive\" | \"Active\" | \"Detail\""
+                "text": "\"Navigation\" | \"Inactive\" | \"InactiveSelectable\" | \"Active\" | \"Detail\""
               }
             }
           ],
@@ -13229,6 +13265,17 @@
             },
             {
               "kind": "field",
+              "name": "showEditButton",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines if the User Settings Account View shows the edit button on the avatar.",
+              "privacy": "public",
+              "_ui5since": "2.26.0"
+            },
+            {
+              "kind": "field",
               "name": "showManageAccount",
               "type": {
                 "text": "boolean"
@@ -13287,6 +13334,15 @@
               "name": "selected",
               "default": "false",
               "fieldName": "selected",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines if the User Settings Account View shows the edit button on the avatar.",
+              "name": "show-edit-button",
+              "default": "false",
+              "fieldName": "showEditButton",
               "type": {
                 "text": "boolean"
               }
@@ -13892,7 +13948,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive` and `Detail` - will not.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
               "privacy": "public"
             }
           ],
@@ -14006,12 +14062,12 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive` and `Detail` - will not.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
               "type": {
-                "text": "\"Navigation\" | \"Inactive\" | \"Active\" | \"Detail\""
+                "text": "\"Navigation\" | \"Inactive\" | \"InactiveSelectable\" | \"Active\" | \"Detail\""
               }
             }
           ],
@@ -14203,6 +14259,16 @@
             },
             {
               "kind": "field",
+              "name": "saveMode",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the dialog offers Save and Cancel actions in its footer.\n\nWhen true, the footer renders a Save (Emphasized) and a Cancel button\ninstead of the default Close button. Save and Cancel each fire a\ncorresponding event; the application is responsible for closing the\ndialog (typically after persisting or discarding the changes).",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
               "name": "showSearchField",
               "type": {
                 "text": "boolean"
@@ -14219,9 +14285,20 @@
               "type": {
                 "text": "CustomEvent"
               },
-              "description": "Fired before the settings dialog is closed.",
+              "description": "Fired before the settings dialog is closed.\n\n**Note:** This event is cancelable via `preventDefault()`, allowing the application to keep the\ndialog open — for example, to prompt the user about unsaved changes before dismissal.",
               "_ui5Cancelable": true,
               "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": false
+            },
+            {
+              "name": "cancel",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the Cancel button in the footer is clicked.\nThe dialog does not close automatically — the application is responsible\nfor closing it after discarding the changes.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
               "_ui5Bubbles": false
             },
             {
@@ -14230,7 +14307,7 @@
               "type": {
                 "text": "CustomEvent"
               },
-              "description": "Fired when a settings dialog is closed.",
+              "description": "Fired when the settings dialog is closed.",
               "_ui5Cancelable": false,
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": false
@@ -14241,7 +14318,18 @@
               "type": {
                 "text": "CustomEvent"
               },
-              "description": "Fired when a settings dialog is open.",
+              "description": "Fired when the settings dialog is opened.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false
+            },
+            {
+              "name": "save",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the Save button in the footer is clicked.\nThe dialog does not close automatically — the application is responsible\nfor closing it after persisting the changes.",
               "_ui5Cancelable": false,
               "_ui5allowPreventDefault": false,
               "_ui5Bubbles": false
@@ -14297,6 +14385,15 @@
               "name": "open",
               "default": "false",
               "fieldName": "open",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines whether the dialog offers Save and Cancel actions in its footer.\n\nWhen true, the footer renders a Save (Emphasized) and a Cancel button\ninstead of the default Close button. Save and Cancel each fire a\ncorresponding event; the application is responsible for closing the\ndialog (typically after persisting or discarding the changes).",
+              "name": "save-mode",
+              "default": "false",
+              "fieldName": "saveMode",
               "type": {
                 "text": "boolean"
               }
@@ -15334,6 +15431,28 @@
           "members": [
             {
               "kind": "field",
+              "name": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible ARIA name of the component.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.26.0"
+            },
+            {
+              "kind": "field",
+              "name": "accessibleNameRef",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Receives id(or many ids) of the elements that label the component.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.26.0"
+            },
+            {
+              "kind": "field",
               "name": "contentLayout",
               "type": {
                 "text": "WizardContentLayout",
@@ -15412,6 +15531,24 @@
             }
           ],
           "attributes": [
+            {
+              "description": "Defines the accessible ARIA name of the component.",
+              "name": "accessible-name",
+              "default": "undefined",
+              "fieldName": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Receives id(or many ids) of the elements that label the component.",
+              "name": "accessible-name-ref",
+              "default": "undefined",
+              "fieldName": "accessibleNameRef",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
             {
               "description": "Defines how the content of the `ui5-wizard` would be visualized.",
               "name": "content-layout",

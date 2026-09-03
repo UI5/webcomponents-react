@@ -48,7 +48,7 @@ interface ToolbarSelectAttributes {
    *
    * **Note:** Available since [v2.15.0](https://github.com/UI5/webcomponents/releases/tag/v2.15.0) of **@ui5/webcomponents**.
    */
-  value?: string | undefined;
+  value?: string;
 
   /**
    * Defines the value state of the component.
@@ -102,6 +102,8 @@ interface ToolbarSelectPropTypes
    * Fired when the selected option changes.
    *
    * **Note:** Call `event.preventDefault()` inside the handler of this event to prevent its default action/s.
+   *
+   * **Note:** Available since [v2.25.0](https://github.com/UI5/webcomponents/releases/tag/v2.25.0) of **@ui5/webcomponents**.
    *
    * | cancelable | bubbles |
    * | :--------: | :-----: |

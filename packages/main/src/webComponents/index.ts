@@ -47,6 +47,7 @@ export * from './HeroBanner/index.js';
 export * from './Icon/index.js';
 export * from './IllustratedMessage/index.js';
 export * from './Input/index.js';
+export * from './InputIcon/index.js';
 export * from './Label/index.js';
 export * from './Link/index.js';
 export * from './List/index.js';

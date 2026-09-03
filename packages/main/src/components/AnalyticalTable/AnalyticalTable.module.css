@@ -661,15 +661,16 @@
 }
 
 /* ==========================================================================
-   Firefox scrollbar styles
+   Native scrollbar styles
    ========================================================================== */
 
-.firefoxCell {
+.nativeScrollbarCell {
   &:last-child {
-    padding-inline-end: 18px;
+    /* keep the cell's base inline padding and additionally reserve the scrollbar width */
+    padding-inline-end: calc(0.5rem + var(--_ui5wcr-AnalyticalTable-ScrollbarWidth, 18px));
   }
 }
 
-.firefoxNativeScrollbar {
+.nativeScrollbar {
   scrollbar-width: inherit;
 }

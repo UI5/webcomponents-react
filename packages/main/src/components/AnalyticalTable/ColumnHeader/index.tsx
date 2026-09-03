@@ -27,6 +27,7 @@ export interface ColumnHeaderProps {
   onDragOver: DragEventHandler<HTMLDivElement>;
   onDrop: DragEventHandler<HTMLDivElement>;
   onDragEnter: DragEventHandler<HTMLDivElement>;
+  onDragLeave: DragEventHandler<HTMLDivElement>;
   onDragEnd: DragEventHandler<HTMLDivElement>;
   dragOver: boolean;
   isDraggable: boolean;
@@ -67,6 +68,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
     onDragOver,
     onDragStart,
     onDrop,
+    onDragLeave,
     onDragEnd,
     headerTooltip,
     isDraggable,
@@ -211,6 +213,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
         onDragOver={onDragOver}
         onDragStart={onDragStart}
         onDrop={onDrop}
+        onDragLeave={onDragLeave}
         onDragEnd={onDragEnd}
         data-column-id={columnId}
         onClick={handleHeaderCellClick}

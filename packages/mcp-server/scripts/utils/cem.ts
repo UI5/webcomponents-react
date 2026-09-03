@@ -99,6 +99,10 @@ export function loadCemData(monorepoRoot: string): {
  * - cssParts on component root
  */
 export function enrichWithCem(apiData: ComponentApiData, cemDecl: CemDeclaration): void {
+  if (cemDecl._ui5abstract) {
+    apiData.isAbstract = true;
+  }
+
   if (cemDecl.events) {
     for (const event of cemDecl.events) {
       if (event._ui5privacy && event._ui5privacy !== 'public') continue;
