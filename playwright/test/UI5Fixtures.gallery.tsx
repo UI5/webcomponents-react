@@ -3,6 +3,8 @@ import { ComboBox } from '@ui5/webcomponents-react/ComboBox';
 import { ComboBoxItem } from '@ui5/webcomponents-react/ComboBoxItem';
 import { Dialog } from '@ui5/webcomponents-react/Dialog';
 import { Input } from '@ui5/webcomponents-react/Input';
+import { Menu } from '@ui5/webcomponents-react/Menu';
+import { MenuItem } from '@ui5/webcomponents-react/MenuItem';
 import { MultiComboBox } from '@ui5/webcomponents-react/MultiComboBox';
 import { MultiComboBoxItem } from '@ui5/webcomponents-react/MultiComboBoxItem';
 import { MultiInput } from '@ui5/webcomponents-react/MultiInput';
@@ -12,6 +14,8 @@ import { SuggestionItem } from '@ui5/webcomponents-react/SuggestionItem';
 import { Tab } from '@ui5/webcomponents-react/Tab';
 import { TabContainer } from '@ui5/webcomponents-react/TabContainer';
 import { TextArea } from '@ui5/webcomponents-react/TextArea';
+import { Tree } from '@ui5/webcomponents-react/Tree';
+import { TreeItem } from '@ui5/webcomponents-react/TreeItem';
 import { useState } from 'react';
 
 export const InputTestComp = () => {
@@ -58,6 +62,18 @@ export const DialogTestComp = () => {
 
 export const AttributeTestComp = () => {
   return <Button data-testid="test-button">Click me</Button>;
+};
+
+export const ClickViaDomRefTestComp = () => {
+  const [clicked, setClicked] = useState(false);
+  return (
+    <>
+      <Button data-testid="test-button" onClick={() => setClicked(true)}>
+        Click me
+      </Button>
+      <span data-testid="button-clicked">{clicked ? 'yes' : 'no'}</span>
+    </>
+  );
 };
 
 export const SelectTestComp = () => {
@@ -158,5 +174,39 @@ export const MultiInputWithSuggestionsTestComp = () => {
       <SuggestionItem text="Suggestion Y" />
       <SuggestionItem text="Suggestion Z" />
     </MultiInput>
+  );
+};
+
+export const MenuTestComp = () => {
+  const [open, setOpen] = useState(false);
+  const [clickedItem, setClickedItem] = useState('');
+  return (
+    <>
+      <Button id="menu-opener" data-testid="menu-opener" onClick={() => setOpen(true)}>
+        Open Menu
+      </Button>
+      <Menu
+        data-testid="test-menu"
+        open={open}
+        opener="menu-opener"
+        onClose={() => setOpen(false)}
+        onItemClick={(e) => setClickedItem(e.detail.item.getAttribute('text') || '')}
+      >
+        <MenuItem text="New" />
+        <MenuItem text="Edit" />
+        <MenuItem text="Delete" />
+      </Menu>
+      <span data-testid="menu-clicked-item">{clickedItem}</span>
+    </>
+  );
+};
+
+export const TreeTestComp = () => {
+  return (
+    <Tree data-testid="test-tree">
+      <TreeItem data-testid="test-tree-parent" text="Parent">
+        <TreeItem data-testid="test-tree-child" text="Child" />
+      </TreeItem>
+    </Tree>
   );
 };
