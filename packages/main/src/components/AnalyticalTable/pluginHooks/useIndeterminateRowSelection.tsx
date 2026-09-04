@@ -10,64 +10,43 @@ type onIndeterminateChange = (e: {
   tableInstance: TableInstance;
 }) => void;
 
-const getParentRow = (id: string, rowsById: TableInstance['rowsById']): [RowType, number] => {
-  let lastDotIndex = id.lastIndexOf('.');
-  if (lastDotIndex === -1) {
-    lastDotIndex = Infinity;
-  }
-  const parentRowId = id.slice(0, lastDotIndex);
-  return [rowsById[parentRowId], lastDotIndex];
-};
-
-const getIndeterminateRowIds = (id: string): Record<string, boolean> => {
-  const indeterminateRowsById: Record<string, boolean> = {};
-  const lastDotIndex = id.lastIndexOf('.');
-  indeterminateRowsById[id] = true;
-  if (lastDotIndex !== -1) {
-    // set all parent rows to indeterminate
-    Object.assign(indeterminateRowsById, getIndeterminateRowIds(id.slice(0, lastDotIndex)));
-  }
-  return indeterminateRowsById;
-};
-
+/**
+ * Marks a row indeterminate if its subtree contains a node whose direct sub-rows are partially selected (some, not all).
+ * A single O(n) post-order traversal visits each row once and reads every sub-row reference once.
+ */
 const getIndeterminate = (
   rows: RowType[],
-  rowsById: TableInstance['rowsById'],
   state: { selectedRowIds: AnalyticalTableState['selectedRowIds'] },
 ): Record<string, boolean> => {
   const indeterminateRowsById: Record<string, boolean> = {};
-  let usedParentIndex = '';
-  const getIndeterminateRecursive = (subRows: RowType[], rowIdScope: string | null = null) => {
-    for (const row of subRows) {
-      if (row.subRows.length > 0) {
-        // find leaf nodes
-        getIndeterminateRecursive(row.subRows, row.id);
-      } else if (rowIdScope !== null && usedParentIndex !== rowIdScope) {
-        usedParentIndex = rowIdScope;
-        const checkIndeterminate = (rowId: string) => {
-          const [parentRow, dotIndex] = getParentRow(rowId, rowsById);
-          const selectedRows = parentRow.subRows.filter((item) => state.selectedRowIds[item.id]);
-          const areAllSelected = parentRow.subRows.length === selectedRows.length;
-          const isOneSelected = selectedRows.length > 0;
+  const { selectedRowIds } = state;
 
-          // if not all, but at least one subRow is selected, set the parent row's state to indeterminate
-          if (isOneSelected && !areAllSelected) {
-            const parentRowId = parentRow.id;
-            Object.assign(indeterminateRowsById, getIndeterminateRowIds(parentRowId));
-            return;
-          }
-          if (dotIndex !== Infinity) {
-            // recursively check indeterminate state until root nodes are reached
-            checkIndeterminate(parentRow.id);
-          }
-          return;
-        };
-
-        checkIndeterminate(row.id);
+  const markSubtree = (row: RowType): boolean => {
+    const subRows = row.subRows;
+    if (!subRows?.length) {
+      return false;
+    }
+    let selectedCount = 0;
+    let subtreeHasIndeterminate = false;
+    for (const subRow of subRows) {
+      if (selectedRowIds[subRow.id]) {
+        selectedCount++;
+      }
+      if (markSubtree(subRow)) {
+        subtreeHasIndeterminate = true;
       }
     }
+    const isPartiallySelected = selectedCount > 0 && selectedCount < subRows.length;
+    if (isPartiallySelected || subtreeHasIndeterminate) {
+      indeterminateRowsById[row.id] = true;
+      return true;
+    }
+    return false;
   };
-  getIndeterminateRecursive(rows);
+
+  for (const row of rows) {
+    markSubtree(row);
+  }
   return indeterminateRowsById;
 };
 
@@ -138,7 +117,7 @@ export const useIndeterminateRowSelection = (onIndeterminateChange?: onIndetermi
         };
       }
 
-      const indeterminateRowsById = getIndeterminate(rows, rowsById, { selectedRowIds: newState.selectedRowIds });
+      const indeterminateRowsById = getIndeterminate(rows, { selectedRowIds: newState.selectedRowIds });
 
       return {
         ...newState,
