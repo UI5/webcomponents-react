@@ -14,13 +14,18 @@ describe('Loader', () => {
     cy.mount(<Loader type={LoaderType.Determinate} data-testid="loader" />);
     cy.findByTestId('loader')
       .should('have.css', 'animation-duration', '0s')
-      .should('have.css', 'background-size', '0px');
+      // Chrome may serialize the computed value with an explicit `auto` height (e.g. `0px auto`)
+      .should(($el) => {
+        expect($el.css('background-size')).to.match(/^0px( auto)?$/);
+      });
 
     cy.mount(<Loader type={LoaderType.Determinate} data-testid="loader" progress="50%" />);
 
     cy.findByTestId('loader')
       .should('have.css', 'animation-duration', '0s')
-      .should('have.css', 'background-size', '50%');
+      .should(($el) => {
+        expect($el.css('background-size')).to.match(/^50%( auto)?$/);
+      });
   });
   it('with delay', () => {
     cy.mount(<Loader delay={300} data-testid="loader" />);
