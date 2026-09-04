@@ -49,9 +49,10 @@ app.use(async (req, res) => {
 
     res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
   } catch (e) {
-    vite?.ssrFixStacktrace(e);
-    console.log(e.stack);
-    res.status(500).end(e.stack);
+    const error = e instanceof Error ? e : new Error(String(e));
+    vite?.ssrFixStacktrace(error);
+    console.error(error.stack);
+    res.status(500).set({ 'Content-Type': 'text/plain; charset=utf-8' }).end('Internal Server Error');
   }
 });
 
