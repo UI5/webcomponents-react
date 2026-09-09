@@ -1,8 +1,14 @@
 import { useCallback, useMemo } from 'react';
-import type { ReactTableHooks, TableInstance, ColumnType, RowType, PluginHook } from '../../types/index.js';
-import * as aggregations from '../aggregations.js';
-import { actions, makePropGetter, ensurePluginOrder, useMountedLayoutEffect, useGetLatest } from '../publicUtils.js';
-import { getFirstDefined, flattenBy } from '../utils.js';
+import * as aggregations from '../react-table/aggregations.js';
+import {
+  actions,
+  makePropGetter,
+  ensurePluginOrder,
+  useMountedLayoutEffect,
+  useGetLatest,
+} from '../react-table/publicUtils.js';
+import { getFirstDefined, flattenBy } from '../react-table/utils.js';
+import type { ReactTableHooks, TableInstance, ColumnType, RowType, PluginHook } from '../types/index.js';
 
 const emptyArray: RowType[] = [];
 const emptyObject: Record<string, RowType> = {};
@@ -12,6 +18,13 @@ actions.resetGroupBy = 'resetGroupBy';
 actions.setGroupBy = 'setGroupBy';
 actions.toggleGroupBy = 'toggleGroupBy';
 
+/**
+ * UI5WCR fork of react-table v7's useGroupBy hook.
+ * Original source: https://github.com/TanStack/table/blob/v7/src/plugin-hooks/useGroupBy.js
+ *
+ * This is a fork of react-table's `useGroupBy` with the following changes:
+ * - Aggregate grouped columns that define an `aggregate` above their own grouping level, instead of copying the first leaf value
+ */
 export const useGroupBy: PluginHook = (hooks: ReactTableHooks) => {
   hooks.getGroupByToggleProps = [defaultGetGroupByToggleProps];
   hooks.stateReducers.push(reducer);
@@ -205,8 +218,7 @@ function useInstance(instance: TableInstance) {
             ? column.aggregate
             : userAggregations[column.aggregate] || (aggregations as Record<string, any>)[column.aggregate];
 
-        // Copy the shared value only when the column is grouped at this level or shallower, or has no aggregate.
-        // A grouped, aggregated column above its own grouping level spans multiple values and must be aggregated.
+        // UI5WCR: aggregate grouped columns above their own grouping level instead of copying the first leaf value
         if (groupedIndex > -1 && (groupedIndex <= depth || !aggregateFn)) {
           values[column.id] = groupedRows[0] ? groupedRows[0].values[column.id] : null;
           return;

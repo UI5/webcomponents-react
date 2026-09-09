@@ -59,6 +59,7 @@ import { useColumnsDeps } from './hooks/useColumnsDeps.js';
 import { useColumnDragAndDrop } from './hooks/useDragAndDrop.js';
 import { useDynamicColumnWidths } from './hooks/useDynamicColumnWidths.js';
 import { useFontsReady } from './hooks/useFontsReady.js';
+import { useGroupBy } from './hooks/useGroupBy.js';
 import { useKeyboardNavigation } from './hooks/useKeyboardNavigation.js';
 import { useNativeScrollbar } from './hooks/useNativeScrollbar.js';
 import { usePopIn } from './hooks/usePopIn.js';
@@ -73,15 +74,7 @@ import { useStyling } from './hooks/useStyling.js';
 import { useSyncScroll } from './hooks/useSyncScroll.js';
 import { useToggleRowExpand } from './hooks/useToggleRowExpand.js';
 import { useVisibleColumnsWidth } from './hooks/useVisibleColumnsWidth.js';
-import {
-  useColumnOrder,
-  useExpanded,
-  useFilters,
-  useGlobalFilter,
-  useGroupBy,
-  useSortBy,
-  useTable,
-} from './react-table/index.js';
+import { useColumnOrder, useExpanded, useFilters, useGlobalFilter, useSortBy, useTable } from './react-table/index.js';
 import { VerticalScrollbar } from './scrollbars/VerticalScrollbar.js';
 import { VirtualTableBody } from './TableBody/VirtualTableBody.js';
 import { VirtualTableBodyContainer } from './TableBody/VirtualTableBodyContainer.js';
