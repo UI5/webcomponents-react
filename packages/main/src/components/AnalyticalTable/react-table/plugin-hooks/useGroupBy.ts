@@ -198,17 +198,19 @@ function useInstance(instance: TableInstance) {
       const values: Record<string, any> = {};
 
       allColumns.forEach((column: ColumnType) => {
-        // Don't aggregate columns that are in the groupBy
-        if (existingGroupBy.includes(column.id)) {
-          values[column.id] = groupedRows[0] ? groupedRows[0].values[column.id] : null;
-          return;
-        }
+        const groupedIndex = existingGroupBy.indexOf(column.id);
 
-        // Aggregate the values
         const aggregateFn =
           typeof column.aggregate === 'function'
             ? column.aggregate
             : userAggregations[column.aggregate] || (aggregations as Record<string, any>)[column.aggregate];
+
+        // Copy the shared value only when the column is grouped at this level or shallower, or has no aggregate.
+        // A grouped, aggregated column above its own grouping level spans multiple values and must be aggregated.
+        if (groupedIndex > -1 && (groupedIndex <= depth || !aggregateFn)) {
+          values[column.id] = groupedRows[0] ? groupedRows[0].values[column.id] : null;
+          return;
+        }
 
         if (aggregateFn) {
           // Get the columnValues to aggregate
