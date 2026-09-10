@@ -4269,7 +4269,7 @@ describe('AnalyticalTable', () => {
       };
       cy.mount(<ScrollTo />);
       cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-12').should('be.visible');
-      cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('not.be.visible');
+      cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('be.scrolledOutOfView');
 
       const ScrollToItem = () => {
         const tableRef = useRef(null);
@@ -4280,7 +4280,7 @@ describe('AnalyticalTable', () => {
       };
       cy.mount(<ScrollToItem />);
       cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-12').should('be.visible');
-      cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('not.be.visible');
+      cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('Name-11').should('be.scrolledOutOfView');
 
       const cols = [
         ...columns,
@@ -4298,7 +4298,7 @@ describe('AnalyticalTable', () => {
       };
       cy.mount(<ScrollToHorizontal />);
       cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('13').should('be.visible');
-      cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('not.be.visible');
+      cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('be.scrolledOutOfView');
 
       const ScrollToItemHorizontal = () => {
         const tableRef = useRef(null);
@@ -4315,7 +4315,7 @@ describe('AnalyticalTable', () => {
       };
       cy.mount(<ScrollToItemHorizontal />);
       cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('13').should('be.visible');
-      cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('not.be.visible');
+      cy.get('[data-component-name="AnalyticalTableContainer"]').findByText('12').should('be.scrolledOutOfView');
     });
   }
 
