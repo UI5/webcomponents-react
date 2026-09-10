@@ -296,8 +296,8 @@ describe('AnalyticalTable', () => {
         );
         cy.findByRole('grid').should('have.attr', 'data-per-page', '3');
         cy.findByText('X').should('be.visible');
-        cy.findByText('C').should('not.be.visible');
-        cy.get('[data-empty-row]').should('not.be.visible').should('have.length', 1);
+        cy.findByText('C').should('be.scrolledOutOfView');
+        cy.get('[data-empty-row]').should('be.scrolledOutOfView').should('have.length', 1);
       },
     );
     [AnalyticalTableVisibleRowCountMode.Auto, AnalyticalTableVisibleRowCountMode.AutoWithEmptyRows].forEach(
@@ -312,7 +312,7 @@ describe('AnalyticalTable', () => {
         );
         cy.findByRole('grid').should('have.attr', 'data-per-page', '99'); //rows(99*44) + header(44) = 4400
         cy.findByText('Name-98').should('be.visible');
-        cy.findByText('Name-99').should('not.be.visible');
+        cy.findByText('Name-99').should('be.scrolledOutOfView');
         cy.get('[data-empty-row]').should('not.exist');
       },
     );
@@ -349,7 +349,7 @@ describe('AnalyticalTable', () => {
         );
         cy.findByRole('grid').should('have.attr', 'data-per-page', '3');
         cy.findByText('X').should('be.visible');
-        cy.findByText('C').should('not.be.visible');
+        cy.findByText('C').should('be.scrolledOutOfView');
       },
     );
 
@@ -363,7 +363,7 @@ describe('AnalyticalTable', () => {
     );
     cy.findByRole('grid').should('have.attr', 'data-per-page', '15');
     cy.findByText('Name-14').should('be.visible');
-    cy.findByText('Name-15').should('not.be.visible');
+    cy.findByText('Name-15').should('be.scrolledOutOfView');
 
     cy.mount(
       <AnalyticalTable
@@ -375,7 +375,7 @@ describe('AnalyticalTable', () => {
     );
     cy.findByRole('grid').should('have.attr', 'data-per-page', '20');
     cy.findByText('Name-19').should('be.visible');
-    cy.findByText('Name-20').should('not.be.visible');
+    cy.findByText('Name-20').should('be.scrolledOutOfView');
 
     cy.mount(
       <AnalyticalTable
@@ -387,20 +387,20 @@ describe('AnalyticalTable', () => {
     );
     cy.findByRole('grid').should('have.attr', 'data-per-page', '10');
     cy.findByText('Name-9').should('be.visible');
-    cy.findByText('Name-10').should('not.be.visible');
+    cy.findByText('Name-10').should('be.scrolledOutOfView');
     cy.findByTitle('Drag to resize')
       .trigger('mousedown')
       .trigger('mousemove', { pageY: 742, force: true })
       .trigger('mouseup', { pageY: 742 });
     cy.findByRole('grid').should('have.attr', 'data-per-page', '15');
     cy.findByText('Name-14').should('be.visible');
-    cy.findByText('Name-15').should('not.be.visible');
+    cy.findByText('Name-15').should('be.scrolledOutOfView');
     cy.findByTitle('Drag to resize').realMouseDown();
     cy.findByTitle('Drag to resize').realMouseMove(0, -540, { scrollBehavior: false });
     cy.get('body').realMouseUp({ position: { x: 100, y: 200 } });
     cy.findByRole('grid').should('have.attr', 'data-per-page', '3');
     cy.findByText('Name-2').should('be.visible');
-    cy.findByText('Name-3').should('not.be.visible');
+    cy.findByText('Name-3').should('be.scrolledOutOfView');
   });
 
   it('Auto row count: no double vertical scrollbar when horizontally scrollable', () => {
@@ -616,10 +616,10 @@ describe('AnalyticalTable', () => {
 
     cy.mount(<ScrollTable scrollFn="horizontalScrollToItem" args={[1, 'start']} onTableScroll={scroll} />);
     cy.findByText('A').should('be.visible');
-    cy.findByText('28').should('not.be.visible');
+    cy.findByText('28').should('be.scrolledOutOfView');
     cy.findByText('Click').click();
     cy.findByText('28').should('be.visible');
-    cy.findByText('A').should('not.be.visible');
+    cy.findByText('A').should('be.scrolledOutOfView');
 
     cy.mount(<ScrollTable scrollFn="horizontalScrollTo" args={[20]} onTableScroll={scroll} />);
     cy.findByText('Click').click();
@@ -749,7 +749,7 @@ describe('AnalyticalTable', () => {
 
     // column filter + select
     cy.findByText('Name').click();
-    cy.get(`[ui5-input][show-clear-icon]`).typeIntoUi5Input('Flowers Mcfarland', { force: true });
+    cy.get(`[ui5-input][show-clear-icon]`).typeIntoUi5Input('Flowers Mcfarland', { force: true, delay: 10 });
     cy.get('@filter').should('have.callCount', 17);
     cy.get('@filter').should('have.been.calledWithMatch', {
       value: 'Flowers Mcfarland',
@@ -1804,7 +1804,7 @@ describe('AnalyticalTable', () => {
     cy.get('[data-empty-row="true"]').should('not.exist');
     cy.findByText('Data 10').click();
     cy.findByText('Rows: 10').should('be.visible');
-    cy.get('[data-empty-row="true"]').should('exist').should('not.be.visible');
+    cy.get('[data-empty-row="true"]').should('exist').and('be.scrolledOutOfView');
     cy.findByTestId('scrollInput').typeIntoUi5Input('11{enter}', { force: true });
     cy.findByText('Rows: 60').should('be.visible');
   });
@@ -2666,7 +2666,7 @@ describe('AnalyticalTable', () => {
         );
         cy.wait(300);
 
-        cy.findByText('SubComponent 1').should('exist').and('not.be.visible');
+        cy.findByText('SubComponent 1').should('exist').and('be.scrolledOutOfView');
         cy.findByTitle('Expand Node').should('not.exist');
         cy.findByTitle('Collapse Node').should('not.exist');
         expectBoundedAndReset();
@@ -2701,15 +2701,15 @@ describe('AnalyticalTable', () => {
         );
         cy.findByText('A').should('be.visible');
         cy.findByText('X').should('be.visible');
-        cy.findByText('C').should('not.be.visible');
+        cy.findByText('C').should('be.scrolledOutOfView');
         cy.get('[aria-rowindex="2"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
         cy.findByText('A').should('be.visible');
         cy.findByText('X').should('be.visible');
-        cy.findByText('C').should('not.be.visible');
+        cy.findByText('C').should('be.scrolledOutOfView');
         cy.get('[aria-rowindex="3"] > [aria-colindex="1"] > [title="Expand Node"] > [ui5-button]').click();
         cy.findByText('A').should('be.visible');
         cy.findByText('X').should('be.visible');
-        cy.findByText('C').should('not.be.visible');
+        cy.findByText('C').should('be.scrolledOutOfView');
         if (zoom === '1') {
           // Cypress' scrollTo('bottom') uses BCR-style coords and doesn't fire onLoadMore reliably under CSS zoom; verified at zoom=1 only
           cy.get('[data-component-name="AnalyticalTableBody"]').scrollTo('bottom');
@@ -4323,9 +4323,9 @@ describe('AnalyticalTable', () => {
     cy.mount(<AnalyticalTable data={data} columns={columns} minRows={4} />);
     cy.get('[data-empty-row]').should('not.exist');
     cy.mount(<AnalyticalTable data={data} columns={columns} minRows={4} additionalEmptyRowsCount={1} />);
-    cy.get('[data-empty-row]').should('exist').and('not.be.visible');
+    cy.get('[data-empty-row]').should('exist').and('be.scrolledOutOfView');
     cy.mount(<AnalyticalTable data={data} columns={columns} minRows={4} additionalEmptyRowsCount={5} />);
-    cy.get('[data-empty-row]').should('exist').and('have.length', 5).and('not.be.visible');
+    cy.get('[data-empty-row]').should('exist').and('have.length', 5).and('be.scrolledOutOfView');
     cy.get('[data-component-name="AnalyticalTableBody"]').scrollTo('bottom');
     cy.get('[data-empty-row]').should('exist').and('have.length', 5).and('be.visible');
   });
