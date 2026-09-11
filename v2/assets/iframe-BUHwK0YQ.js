@@ -1,1 +1,0 @@
-import{t as e}from"./iframe-BOiMKxc3.js";e();
