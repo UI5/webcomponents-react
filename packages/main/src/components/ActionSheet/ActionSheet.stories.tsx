@@ -36,7 +36,12 @@ const meta = {
   parameters: {
     chromatic: { disableSnapshot: true },
   },
-  tags: ['extends:@ui5/webcomponents', 'cem-module:ResponsivePopover', 'package:@ui5/webcomponents-react'],
+  tags: [
+    'extends:@ui5/webcomponents',
+    'cem-module:ResponsivePopover',
+    'package:@ui5/webcomponents-react',
+    'deprecated',
+  ],
 } satisfies Meta<typeof ActionSheet>;
 
 export default meta;

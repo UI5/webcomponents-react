@@ -1,6 +1,14 @@
 import { expect, test } from '../fixtures/gallery-fixtures.js';
 
 test.describe('UI5 Web Components Fixtures', () => {
+  test('clickViaDomRef - clicks the element via its DOM ref', async ({ mount, page, ui5wc }) => {
+    await mount('test/UI5Fixtures/ClickViaDomRefTestComp');
+
+    await ui5wc.clickViaDomRef(page.getByTestId('test-button'));
+
+    await expect(page.getByTestId('button-clicked')).toHaveText('yes');
+  });
+
   test('typeIntoInput - types text into UI5 input', async ({ mount, page, ui5wc }) => {
     await mount('test/UI5Fixtures/InputTestComp');
 
@@ -101,6 +109,15 @@ test.describe('UI5 Web Components Fixtures', () => {
     await expect(page.getByTestId('multicombobox-values')).toHaveText('Green');
   });
 
+  test('selectMenuItemByText - selects Menu item', async ({ mount, page, ui5wc }) => {
+    await mount('test/UI5Fixtures/MenuTestComp');
+
+    await page.getByTestId('menu-opener').click();
+    await ui5wc.selectMenuItemByText(page.getByTestId('test-menu'), 'Delete');
+
+    await expect(page.getByTestId('menu-clicked-item')).toHaveText('Delete');
+  });
+
   test('findTabByText - finds and clicks tab', async ({ mount, page, ui5wc }) => {
     await mount('test/UI5Fixtures/TabContainerTestComp');
 
@@ -160,5 +177,17 @@ test.describe('UI5 Web Components Fixtures', () => {
     await ui5wc.typeIntoInput(multiInput, 'X');
 
     await expect(multiInput.locator('[text="Suggestion X"]')).toBeVisible();
+  });
+
+  test('expandTreeItem - expands a tree item, revealing its child', async ({ mount, page, ui5wc }) => {
+    await mount('test/UI5Fixtures/TreeTestComp');
+
+    const parent = page.getByTestId('test-tree-parent');
+    const child = page.getByTestId('test-tree-child');
+    await expect(child).toBeHidden();
+
+    await ui5wc.expandTreeItem(parent);
+
+    await expect(child).toBeVisible();
   });
 });

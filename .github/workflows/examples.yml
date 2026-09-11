@@ -57,6 +57,8 @@ jobs:
         path:
           - nextjs-app
           - nextjs-pages
+          - preact-ssr-ts
+          - preact-vite-ts
           - vite-ts
       fail-fast: false
     steps:

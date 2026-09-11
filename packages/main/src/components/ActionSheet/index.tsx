@@ -115,6 +115,7 @@ function ActionSheetButton(props: ActionSheetButtonPropTypes) {
  * - Always provide a Cancel button on mobile phones.
  * - Avoid scrolling on action sheets.
  *
+ * @deprecated This component has a number of limitations. Use a `Menu` instead of the `ActionSheet` whenever possible.
  */
 const ActionSheet = forwardRef<ResponsivePopoverDomRef, ActionSheetPropTypes>((props, ref) => {
   const { accessibilityAttributes, children, className, header, headerText, hideCancelButton, onOpen, open, ...rest } =
@@ -203,6 +204,10 @@ const ActionSheet = forwardRef<ResponsivePopoverDomRef, ActionSheetPropTypes>((p
         actionBtnsRef.current
           .querySelector(`[data-action-btn-index="${Math.min(currentIndex + 5, childrenLength - 1)}"]`)
           .focus();
+        break;
+      case 'Tab':
+        // prevent focus from escaping popover
+        e.preventDefault();
         break;
       case 'Home':
         e.preventDefault();

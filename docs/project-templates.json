@@ -31,6 +31,28 @@
     "logoAttribution": "Vite.js Logo. Original Source: https://github.com/vitejs/vite/blob/main/docs/public/logo.svg"
   },
   {
+    "name": "Preact",
+    "variant": "Vite.js",
+    "framework": "preact",
+    "type": "template",
+    "path": "templates/preact-vite-ts",
+    "typescript": true,
+    "stackBlitz": "https://stackblitz.com/github/UI5/webcomponents-react/tree/main/templates/preact-vite-ts?file=src%2Fapp.tsx",
+    "logo": "preact",
+    "logoAttribution": "Preact Logo. Original Source: https://preactjs.com/branding/"
+  },
+  {
+    "name": "Preact",
+    "variant": "Vite.js + SSR",
+    "framework": "preact",
+    "type": "template",
+    "path": "templates/preact-ssr-ts",
+    "typescript": true,
+    "stackBlitz": "https://stackblitz.com/github/UI5/webcomponents-react/tree/main/templates/preact-ssr-ts?file=src%2Fapp.tsx",
+    "logo": "preact",
+    "logoAttribution": "Preact Logo. Original Source: https://preactjs.com/branding/"
+  },
+  {
     "name": "Next.js",
     "variant": "App Router",
     "framework": "nextjs",

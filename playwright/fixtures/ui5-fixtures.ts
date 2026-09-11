@@ -20,6 +20,19 @@ export class UI5WCHelpers {
   constructor(protected page: Page) {}
 
   /**
+   * Clicks a UI5 custom element via its shadow-inner root node
+   * (`getDomRef()`), with a fallback to the host element.
+   *
+   * @param locator Locator of the UI5 custom element to click.
+   */
+  async clickViaDomRef(locator: Locator): Promise<void> {
+    await locator.evaluate((element: HTMLElement) => {
+      const host = element as HTMLElement & { getDomRef?: () => HTMLElement | null };
+      (host.getDomRef?.() ?? host).click();
+    });
+  }
+
+  /**
    * Types a value into a UI5 input component.
    * Works with Input, ComboBox, MultiComboBox, MultiInput, DatePicker, etc.
    *
@@ -145,6 +158,37 @@ export class UI5WCHelpers {
    */
   findTabPopoverButtonByText(tabContainer: Locator, text: string): Locator {
     return tabContainer.locator('[role="tab"]').filter({ hasText: text }).locator('[ui5-button]');
+  }
+
+  /**
+   * Selects a menu item inside an open Menu by its rendered text.
+   * Must be called after the menu is open.
+   *
+   * @example
+   * const menu = page.getByTestId('my-menu');
+   * await ui5wc.selectMenuItemByText(menu, 'Save');
+   */
+  async selectMenuItemByText(menu: Locator, text: string): Promise<void> {
+    await expect(menu).toHaveAttribute('open', '');
+    const menuItem = menu.locator(`[ui5-menu-item][text="${escapeAttributeValue(text)}"]`).first();
+    await this.clickViaDomRef(menuItem);
+  }
+
+  /**
+   * Expands a UI5 TreeItem by clicking its toggle icon.
+   *
+   * @example
+   * await ui5wc.expandTreeItem(page.getByTestId('my-tree-item'));
+   */
+  async expandTreeItem(treeItem: Locator): Promise<void> {
+    await expect(treeItem).toBeVisible();
+    await treeItem.evaluate((element: HTMLElement) => {
+      const icon = element.shadowRoot?.querySelector('[part="toggle-icon"]') as HTMLElement | null;
+      if (!icon) {
+        throw new Error('Toggle icon not found in shadow root of tree item');
+      }
+      icon.click();
+    });
   }
 }
 
