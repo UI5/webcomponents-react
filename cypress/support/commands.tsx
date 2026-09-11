@@ -130,3 +130,41 @@ Cypress.Commands.add('shouldNeverHaveAttribute', { prevSubject: 'element' }, (su
     }, observerTime);
   });
 });
+
+// Cypress 16 counts scrolled-out elements as visible, so `not.be.visible` no longer works here.
+/**
+ * Asserts the subject is present but scrolled/clipped out of its scroll container (geometry only, no occlusion).
+ *
+ * @example
+ * cy.findByText('Off-screen section').should('be.scrolledOutOfView');
+ */
+chai.Assertion.addProperty('scrolledOutOfView', function (this: Chai.AssertionStatic) {
+  const subject = this._obj as JQuery<HTMLElement> | HTMLElement;
+  const el = ((subject as JQuery<HTMLElement>).jquery ? (subject as JQuery<HTMLElement>)[0] : subject) as HTMLElement;
+  const win = el.ownerDocument.defaultView!;
+
+  const rect = el.getBoundingClientRect();
+  const clip = { top: 0, left: 0, bottom: win.innerHeight, right: win.innerWidth };
+
+  for (let node = el.parentElement; node; node = node.parentElement) {
+    const { overflowX, overflowY } = win.getComputedStyle(node);
+    if (/(auto|scroll|hidden|clip)/.test(`${overflowX} ${overflowY}`)) {
+      const r = node.getBoundingClientRect();
+      clip.top = Math.max(clip.top, r.top);
+      clip.left = Math.max(clip.left, r.left);
+      clip.bottom = Math.min(clip.bottom, r.bottom);
+      clip.right = Math.min(clip.right, r.right);
+    }
+  }
+
+  const outOfView =
+    rect.bottom <= clip.top || rect.top >= clip.bottom || rect.right <= clip.left || rect.left >= clip.right;
+
+  this.assert(
+    outOfView,
+    'expected #{this} to be scrolled/clipped out of its scroll container',
+    'expected #{this} not to be scrolled/clipped out of its scroll container',
+    true,
+    outOfView,
+  );
+});

@@ -11,8 +11,8 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@react-router/node": "8.3.0",
-    "@react-router/serve": "8.3.0",
+    "@react-router/node": "8.3.1",
+    "@react-router/serve": "8.3.1",
     "@ui5/webcomponents": "2.26.0",
     "@ui5/webcomponents-base": "2.26.0",
     "@ui5/webcomponents-fiori": "2.26.0",
@@ -21,12 +21,12 @@
     "isbot": "5.2.2",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "react-router": "8.3.0"
+    "react-router": "8.3.1"
   },
   "devDependencies": {
-    "@react-router/dev": "8.3.0",
+    "@react-router/dev": "8.3.1",
     "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.5",
+    "@types/react-dom": "19.2.7",
     "eslint": "9.39.5",
     "eslint-import-resolver-typescript": "4.4.5",
     "eslint-plugin-import": "2.32.0",
