@@ -114,6 +114,9 @@ const measureElement = (el: HTMLElement) => {
   return el.offsetHeight;
 };
 
+// Disables virtual-core's scroll-position compensation on item re-measurement (see usage below).
+const preventScrollAdjustment = () => false;
+
 /**
  * The `AnalyticalTable` provides a set of convenient functions for responsive table design, including virtualization of rows and columns, infinite scrolling and customizable columns that will, unless otherwise defined, distribute the available space equally among themselves.
  * It also provides several possibilities for working with the data, including sorting, filtering, grouping and aggregation.
@@ -387,6 +390,13 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     // necessary as otherwise values are rounded which leads to wrong total width calculation leading to unnecessary scrollbar
     measureElement: !scaleXFactor || scaleXFactor === 1 ? (el) => el.getBoundingClientRect().width : undefined,
   });
+
+  // Horizontal twin of the `rowVirtualizer` fix below: disable virtual-core's re-measure scroll compensation while the columns can't scroll.
+  columnVirtualizer.shouldAdjustScrollPositionOnItemSizeChange =
+    columnVirtualizer.getTotalSize() > (tableRef.current?.clientWidth ?? Infinity)
+      ? undefined
+      : preventScrollAdjustment;
+
   // force re-measure if `visibleColumns` change
   useEffect(() => {
     if (isInitialized.current && visibleColumns.length) {
@@ -754,6 +764,11 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     indexAttribute: 'data-virtual-row-index',
     useAnimationFrameWithResizeObserver: true,
   });
+
+  // Disable virtual-core's re-measure scroll compensation while the body can't scroll — it bakes a drift into the cached `scrollOffset` that never reconciles (no scroll event), leaving an empty block after a hide/reveal cycle.
+  rowVirtualizer.shouldAdjustScrollPositionOnItemSizeChange = tableState.isScrollable
+    ? undefined
+    : preventScrollAdjustment;
 
   // Re-sync the virtualizer's cached `scrollOffset` with the DOM after data swaps that clamp `scrollTop` without firing a scroll event in the same React batch.
   useIsomorphicLayoutEffect(() => {
