@@ -31,7 +31,7 @@
   inset-inline-start: calc(50% - var(--_ui5wcr_anchor-btn-center));
   z-index: 3;
 
-  &:not([pressed]) {
+  &:not([pressed]):not(:hover):not(:active) {
     background-color: var(--sapObjectHeader_Background);
   }
 }
