@@ -21,7 +21,6 @@ export default defineConfig({
     withCoverage &&
       IstanbulPlugin({
         include: [
-          'packages/main/src/components/AnalyticalTable/**/*',
           'packages/main/src/components/SelectDialog/**/*',
           'packages/main/src/components/Splitter*/**/*',
           'packages/charts/src/**/*',
