@@ -2,7 +2,7 @@
   "release-type": "node",
   "bump-minor-pre-major": false,
   "include-component-in-tag": false,
-  "pull-request-title-pattern": "chore: release ${version}",
+  "pull-request-title-pattern": "chore: backport release ${version} → ${branch}",
   "packages": {
     ".": {
       "package-name": "@ui5/webcomponents-react",

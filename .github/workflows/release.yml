@@ -2,10 +2,14 @@ name: 'Release'
 
 # This workflow handles all release flows for the monorepo.
 #
-# Auto release (push to main):
-#   Release Please opens/updates a release PR with version bumps + changelog.
-#   When a maintainer merges that PR, the publish job ships every package to
-#   npm via OIDC trusted publishing, then the MCP registry publish chains.
+# Auto release (push to backport/2.25.x — this is the 2.25.x maintenance branch):
+#   Release Please opens/updates a release PR (targeting this branch) with version
+#   bumps + changelog. When a maintainer merges that PR, the publish job ships every
+#   package to npm via OIDC trusted publishing.
+#   NOTE: publish uses `lerna publish from-package --dist-tag hotfix-2.25`, so this
+#   release is tagged `hotfix-2.25` on npm and never touches `latest` (install via
+#   `@ui5/webcomponents-react@hotfix-2.25`).
+#   The MCP-registry and stable-docs jobs are main-only and stay skipped here.
 #
 # Manual dispatch:
 #   - mode = snapshot      → bump to 0.0.0-<sha>, publish to npm dist-tag `dev`. Any branch.
@@ -15,7 +19,7 @@ name: 'Release'
 
 on:
   push:
-    branches: [main]
+    branches: [backport/2.25.x]
   workflow_dispatch:
     inputs:
       mode:
@@ -46,6 +50,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+          target-branch: ${{ github.ref_name }}
 
   publish:
     needs: release-please
@@ -82,7 +87,7 @@ jobs:
         run: yarn build:mcp
 
       - name: publish to npm
-        run: ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-package --yes
+        run: ${GITHUB_WORKSPACE}/node_modules/.bin/lerna publish from-package --yes --dist-tag hotfix-2.25
         env:
           NPM_CONFIG_PROVENANCE: true
 
