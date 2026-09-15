@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.26.2](https://github.com/UI5/webcomponents-react/compare/v2.26.1...v2.26.2) (2026-09-14)
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** prevent empty block & hidden columns after hide/show ([#8964](https://github.com/UI5/webcomponents-react/issues/8964)) ([d003ad7](https://github.com/UI5/webcomponents-react/commit/d003ad7e65bf117d8aa754ff19eeeba40fc7dff3))
+
 ## [2.26.1](https://github.com/UI5/webcomponents-react/compare/v2.26.0...v2.26.1) (2026-09-11)
 
 
