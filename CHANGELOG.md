@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.25.2](https://github.com/UI5/webcomponents-react/compare/v2.25.1...v2.25.2) (2026-09-15)
+
+
+### Bug Fixes
+
+* **ActionSheet:** prevent Tab from escaping the popover & deprecate in favor of `Menu` ([#8933](https://github.com/UI5/webcomponents-react/issues/8933)) ([0f7b87f](https://github.com/UI5/webcomponents-react/commit/0f7b87fa567692c0f35740d7aab78a801a051f13)), closes [#8932](https://github.com/UI5/webcomponents-react/issues/8932)
+* **AnalyticalTable:** keep scroll position stable when hiding & revealing the table ([#8968](https://github.com/UI5/webcomponents-react/issues/8968)) ([cb428d6](https://github.com/UI5/webcomponents-react/commit/cb428d6cccfe629dde3e1eb3ee9a164b6e0a5da9))
+* **AnalyticalTable:** prevent empty block & hidden columns after hide/show ([#8964](https://github.com/UI5/webcomponents-react/issues/8964)) ([36db6ec](https://github.com/UI5/webcomponents-react/commit/36db6ecdd73742b79e1a5020bdef3aa8ffafadb4))
+
 ## [2.25.1](https://github.com/UI5/webcomponents-react/compare/v2.25.0...v2.25.1) (2026-08-17)
 
 
