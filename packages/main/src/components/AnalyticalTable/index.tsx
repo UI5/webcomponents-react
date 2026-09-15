@@ -1,6 +1,7 @@
 'use client';
 
 import { useVirtualizer } from '@tanstack/react-virtual';
+import type { Virtualizer } from '@tanstack/react-virtual';
 import { ARIA_LABEL_EMPTY_CELL } from '@ui5/webcomponents/dist/generated/i18n/i18n-defaults.js';
 import {
   debounce,
@@ -110,12 +111,30 @@ const sortTypesFallback = {
   undefined: () => undefined,
 };
 
-const measureElement = (el: HTMLElement) => {
-  return el.offsetHeight;
+// A hidden element (e.g. `display: none`) measures 0; reporting that makes virtual-core compensate the
+// scroll and bake in a drift that never reconciles. Report the size it already believes the item is - zero delta, no drift.
+const stableSize = <ItemElement extends Element>(
+  measured: number,
+  el: ItemElement,
+  instance: Virtualizer<DivWithCustomScrollProp, ItemElement>,
+) => {
+  if (measured === 0 && el instanceof HTMLElement && el.offsetParent === null) {
+    const index = instance.indexFromElement(el);
+    const key = instance.options.getItemKey?.(index) ?? index;
+    return (
+      instance.itemSizeCache.get(key) ?? instance.measurementsCache[index]?.size ?? instance.options.estimateSize(index)
+    );
+  }
+  return measured;
 };
 
-// Disables virtual-core's scroll-position compensation on item re-measurement (see usage below).
-const preventScrollAdjustment = () => false;
+const measureElement = (
+  el: HTMLElement,
+  _entry: ResizeObserverEntry | undefined,
+  instance: Virtualizer<DivWithCustomScrollProp, HTMLElement>,
+) => {
+  return stableSize(el.offsetHeight, el, instance);
+};
 
 /**
  * The `AnalyticalTable` provides a set of convenient functions for responsive table design, including virtualization of rows and columns, infinite scrolling and customizable columns that will, unless otherwise defined, distribute the available space equally among themselves.
@@ -387,15 +406,10 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     horizontal: true,
     overscan: isRtl || scaleWidthMode !== AnalyticalTableScaleWidthMode.Default ? Infinity : overscanCountHorizontal,
     indexAttribute: 'data-column-index',
-    // necessary as otherwise values are rounded which leads to wrong total width calculation leading to unnecessary scrollbar
-    measureElement: !scaleXFactor || scaleXFactor === 1 ? (el) => el.getBoundingClientRect().width : undefined,
+    // tanstack/virtual uses rounded values per default, leading to unnecessary scrollbars
+    measureElement: (el, _entry, instance) =>
+      stableSize(el.getBoundingClientRect().width / (scaleXFactor || 1), el, instance),
   });
-
-  // Horizontal twin of the `rowVirtualizer` fix below: disable virtual-core's re-measure scroll compensation while the columns can't scroll.
-  columnVirtualizer.shouldAdjustScrollPositionOnItemSizeChange =
-    columnVirtualizer.getTotalSize() > (tableRef.current?.clientWidth ?? Infinity)
-      ? undefined
-      : preventScrollAdjustment;
 
   // force re-measure if `visibleColumns` change
   useEffect(() => {
@@ -764,11 +778,6 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     indexAttribute: 'data-virtual-row-index',
     useAnimationFrameWithResizeObserver: true,
   });
-
-  // Disable virtual-core's re-measure scroll compensation while the body can't scroll — it bakes a drift into the cached `scrollOffset` that never reconciles (no scroll event), leaving an empty block after a hide/reveal cycle.
-  rowVirtualizer.shouldAdjustScrollPositionOnItemSizeChange = tableState.isScrollable
-    ? undefined
-    : preventScrollAdjustment;
 
   // Re-sync the virtualizer's cached `scrollOffset` with the DOM after data swaps that clamp `scrollTop` without firing a scroll event in the same React batch.
   useIsomorphicLayoutEffect(() => {
