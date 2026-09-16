@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.26.3](https://github.com/UI5/webcomponents-react/compare/v2.26.2...v2.26.3) (2026-09-15)
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** keep scroll position stable when hiding & revealing the table ([#8968](https://github.com/UI5/webcomponents-react/issues/8968)) ([aaa94ab](https://github.com/UI5/webcomponents-react/commit/aaa94abe6f5a64ec45221491cff8487057d27fb6))
+
 ## [2.26.2](https://github.com/UI5/webcomponents-react/compare/v2.26.1...v2.26.2) (2026-09-14)
 
 
