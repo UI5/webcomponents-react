@@ -112,6 +112,8 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
   const scrollTimeout = useRef(0);
   // Set on manual collapse (toggle button/title): header stays collapsed without a scroll spacer and re-expands only at scrollTop 0.
   const manuallyCollapsedRef = useRef(false);
+  // Set on an IconTabBar tab switch while collapsed: the new section is measured a commit later, so the collapse-scroll is deferred until then.
+  const pendingCollapsedTabScrollRef = useRef(false);
   const prevInternalSelectedSectionId = useRef(internalSelectedSectionId);
 
   const [selectedSubSectionId, setSelectedSubSectionId] = useState<undefined | string>(undefined);
@@ -120,6 +122,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
   const [headerCollapsedInternal, setHeaderCollapsedInternal] = useState<undefined | boolean>(undefined);
   const [scrolledHeaderExpanded, setScrolledHeaderExpanded] = useState(false);
   const [sectionSpacer, setSectionSpacer] = useState(0);
+  const [isActiveTabSectionTallEnough, setIsActiveTabSectionTallEnough] = useState(false);
   const currentTabModeSection = useMemo(
     () => (mode === ObjectPageMode.IconTabBar ? getSectionById(children, internalSelectedSectionId) : null),
     [mode, children, internalSelectedSectionId],
@@ -358,10 +361,13 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       // Section swap returns to the default collapsed behavior (spacer present, scroll-up re-expands).
       manuallyCollapsedRef.current = false;
       setToggledCollapsedHeaderWasVisible(false);
-      // When collapsed, land 1px past the expand threshold so the header stays collapsed but scroll-up can re-expand it.
-      objectPageRef.current?.scrollTo({
-        top: headerCollapsed && !headerPinned ? Math.max(headerContentHeight, topHeaderHeight) + 1 : 0,
-      });
+      // The new section is measured a commit later, so defer the collapsed scroll (see the effect keyed on
+      // isActiveTabSectionTallEnough); scrolling here would clamp to 0 and leave the spacer as dead space.
+      setIsActiveTabSectionTallEnough(false);
+      pendingCollapsedTabScrollRef.current = headerCollapsed && !headerPinned;
+      if (!headerCollapsed || headerPinned) {
+        objectPageRef.current?.scrollTo({ top: 0 });
+      }
     }
     setTabSelectId(newSelectionSectionId);
     scrollEvent.current = targetEvent;
@@ -404,6 +410,25 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       scrollToSection(internalSelectedSectionId);
     }
   }, [internalSelectedSectionId, mode, selectedSubSectionId, scrollToSection]);
+
+  // Apply the collapse-scroll deferred by a tab switch, once calculateSpacer has measured the new section
+  // (isActiveTabSectionTallEnough): the spacer is rendered and the container scrollable, so the collapsed header lands
+  // just past the spacer (no gap, scroll-up still re-expands). Too-short sections never flip the flag and keep no spacer.
+  useIsomorphicLayoutEffect(() => {
+    if (!pendingCollapsedTabScrollRef.current || !isActiveTabSectionTallEnough) {
+      return;
+    }
+    if (
+      mode === ObjectPageMode.IconTabBar &&
+      !isActiveSectionFitContent &&
+      headerCollapsed &&
+      !headerPinned &&
+      !manuallyCollapsedRef.current
+    ) {
+      objectPageRef.current?.scrollTo({ top: Math.max(headerContentHeight, topHeaderHeight) + 1 });
+    }
+    pendingCollapsedTabScrollRef.current = false;
+  }, [isActiveTabSectionTallEnough]);
 
   // Scrolling for Sub Section Selection
   useEffect(() => {
@@ -513,6 +538,16 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       const lastSubSection = subSections[subSections.length - 1];
       const lastSubSectionOrSection = lastSubSection ?? lastSectionNode;
 
+      // Only keep the top spacer when the non-fit section is tall enough to scroll it out of view; a shorter section
+      // can't scroll, so the reserved headerContentHeight would stay on screen as dead space.
+      if (mode === ObjectPageMode.IconTabBar && !isActiveSectionFitContent) {
+        const footerHeight = footerElement?.offsetHeight ?? 0;
+        const availableViewport =
+          objectPage.getBoundingClientRect().height - topHeaderHeight - tabContainerHeaderHeight - footerHeight;
+        const sectionHeight = (lastSectionNode as HTMLElement).getBoundingClientRect().height;
+        setIsActiveTabSectionTallEnough(sectionHeight >= availableViewport);
+      }
+
       if ((currentTabModeSection && !lastSubSection) || (sectionNodes.length === 1 && !lastSubSection)) {
         setSectionSpacer(0);
         return;
@@ -558,6 +593,8 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
     isHeaderPinnedAndExpanded,
     hasOnlySingleSection,
     objectPageRef,
+    isActiveSectionFitContent,
+    tabContainerHeaderHeight,
   ]);
 
   const { onScroll: _0, selectedSubSectionId: _1, ...propsWithoutOmitted } = rest;
@@ -955,7 +992,10 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
           <div
             style={{
               height:
-                ((headerCollapsed && !headerPinned) || scrolledHeaderExpanded) && !toggledCollapsedHeaderWasVisible
+                !isActiveSectionFitContent &&
+                ((headerCollapsed && !headerPinned) || scrolledHeaderExpanded) &&
+                !toggledCollapsedHeaderWasVisible &&
+                (mode !== ObjectPageMode.IconTabBar || isActiveTabSectionTallEnough)
                   ? `${headerContentHeight}px`
                   : 0,
             }}
