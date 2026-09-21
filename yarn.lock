@@ -8876,12 +8876,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress-real-events@npm:1.15.0":
-  version: 1.15.0
-  resolution: "cypress-real-events@npm:1.15.0"
+"cypress-real-events@npm:1.15.1":
+  version: 1.15.1
+  resolution: "cypress-real-events@npm:1.15.1"
   peerDependencies:
-    cypress: ^4.x || ^5.x || ^6.x || ^7.x || ^8.x || ^9.x || ^10.x || ^11.x || ^12.x || ^13.x || ^14.x || ^15.x
-  checksum: 10c0/effb064bed46c8f059ff0b4d315e3cf0a23e2d411948431475ef1b939db8cc1624a7ca033a57dd8d8e3a297240deb298423464bf12a441330d449a06060ba423
+    cypress: ^4.x || ^5.x || ^6.x || ^7.x || ^8.x || ^9.x || ^10.x || ^11.x || ^12.x || ^13.x || ^14.x || ^15.x || ^16.x
+  checksum: 10c0/4d6e83eea4e2f57b1839c72a5ae76bb2dd9d8371f0cace2b23dd9abf200bb80714fe97c3a546e01ca693b9eb01809e0ca5eec8b3c3d5d93fe40cf1ac6d060d5c
   languageName: node
   linkType: hard
 
@@ -21099,7 +21099,7 @@ __metadata:
     chromatic: "npm:17.8.0"
     cssnano: "npm:9.0.4"
     cypress: "npm:16.0.0"
-    cypress-real-events: "npm:1.15.0"
+    cypress-real-events: "npm:1.15.1"
     dedent: "npm:1.7.2"
     documentation: "npm:14.0.3"
     eslint: "npm:9.39.5"
