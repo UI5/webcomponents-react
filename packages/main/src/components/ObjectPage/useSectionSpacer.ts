@@ -1,4 +1,4 @@
-import type { Dispatch, ReactElement, ReactNode, RefObject, SetStateAction } from 'react';
+import type { Dispatch, ReactNode, RefObject, SetStateAction } from 'react';
 import { useEffect } from 'react';
 import { ObjectPageMode } from '../../enums/ObjectPageMode.js';
 import type { ObjectPageDomRef, ObjectPagePropTypes } from './types/index.js';
@@ -13,7 +13,7 @@ interface UseSectionSpacerProps {
   tabContainerHeaderHeight: number;
   headerPinned: boolean;
   headerCollapsed: boolean;
-  currentTabModeSection: ReactElement | null;
+  currentTabModeSection: ReactNode;
   children: ReactNode;
   hasOnlySingleSection: boolean;
   setSectionSpacer: Dispatch<SetStateAction<number>>;
