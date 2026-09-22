@@ -105,7 +105,7 @@ const meta = {
         <FlexBox wrap={FlexBoxWrap.Wrap}>
           <FlexBox direction={FlexBoxDirection.Column}>
             <Label>Location: Warehouse A</Label>
-            <Label>Halway: 23L</Label>
+            <Label>Hallway: 23L</Label>
             <Label>Rack: 34</Label>
           </FlexBox>
           <span style={{ width: '1rem' }} />
