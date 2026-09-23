@@ -374,7 +374,7 @@ describe('ObjectPage', () => {
     );
     cy.wait(200);
 
-    cy.findByText('Employment').should('not.be.visible');
+    cy.findByText('Employment').should('be.scrolledOutOfView');
     cy.findByText('Test').should('be.visible');
 
     cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').realClick();
@@ -420,7 +420,7 @@ describe('ObjectPage', () => {
     );
     cy.wait(100);
 
-    cy.findByText('Employment').should('not.be.visible');
+    cy.findByText('Employment').should('be.scrolledOutOfView');
     cy.findByText('Test').should('be.visible');
     cy.findByTestId('footer').should('be.visible');
 
@@ -631,7 +631,7 @@ describe('ObjectPage', () => {
     cy.realPress('Enter');
     cy.wait(500);
     cy.findByText('Job Relationship').should('be.visible');
-    cy.findByText('Job Information').should('not.be.visible');
+    cy.findByText('Job Information').should('be.scrolledOutOfView');
 
     cy.mount(
       <ObjectPage
@@ -665,7 +665,7 @@ describe('ObjectPage', () => {
     cy.wait(500);
 
     cy.get('[ui5-tabcontainer]').contains('Job Relationship').click({ force: true });
-    cy.findByText('Job Information').should('not.be.visible');
+    cy.findByText('Job Information').should('be.scrolledOutOfView');
     cy.findByText('Job Relationship').should('be.visible');
     cy.findByTestId('footer').should('be.visible');
   });
@@ -1258,7 +1258,7 @@ describe('ObjectPage', () => {
       if (mode === ObjectPageMode.IconTabBar) {
         cy.findByText('Content1').should('not.exist');
       } else {
-        cy.findByText('Content1').should('not.be.visible');
+        cy.findByText('Content1').should('be.scrolledOutOfView');
       }
       cy.findByText('Content2').should('be.visible');
       cy.get('[ui5-tabcontainer]').findUi5TabByText('test2').should('have.attr', 'aria-selected', 'true');
@@ -1338,7 +1338,7 @@ describe('ObjectPage', () => {
           );
 
           cy.findByText('employment-job-relationship-content').should('be.visible');
-          cy.findByText('Job Information').should('not.be.visible');
+          cy.findByText('Job Information').should('be.scrolledOutOfView');
           cy.get('[ui5-tabcontainer]').findUi5TabByText('Employment').should('have.attr', 'aria-selected', 'true');
 
           cy.mount(
@@ -1349,7 +1349,7 @@ describe('ObjectPage', () => {
           if (mode === 'IconTabBar') {
             cy.findByText('test-content').should('not.exist');
           } else {
-            cy.findByText('test-content').should('not.be.visible');
+            cy.findByText('test-content').should('be.scrolledOutOfView');
           }
           cy.get('[ui5-tabcontainer]').findUi5TabByText('Personal').should('have.attr', 'aria-selected', 'true');
 
@@ -1363,7 +1363,7 @@ describe('ObjectPage', () => {
           if (mode === 'IconTabBar') {
             cy.findByText('personal-connect-content').should('not.exist');
           } else {
-            cy.findByText('personal-connect-content').should('not.be.visible');
+            cy.findByText('personal-connect-content').should('be.scrolledOutOfView');
           }
           cy.get('[ui5-tabcontainer]').findUi5TabByText('Goals').should('have.attr', 'aria-selected', 'true');
 
@@ -1371,7 +1371,7 @@ describe('ObjectPage', () => {
           if (mode === 'IconTabBar') {
             cy.findByText('test-content').should('not.exist');
           } else {
-            cy.findByText('test-content').should('not.be.visible');
+            cy.findByText('test-content').should('be.scrolledOutOfView');
           }
           cy.findByText('personal-connect-content').should('be.visible');
           cy.get('[ui5-tabcontainer]').findUi5TabByText('Personal').should('have.attr', 'aria-selected', 'true');
@@ -1384,7 +1384,7 @@ describe('ObjectPage', () => {
           if (mode === 'IconTabBar') {
             cy.findByText('personal-connect-content').should('not.exist');
           } else {
-            cy.findByText('personal-connect-content').should('not.be.visible');
+            cy.findByText('personal-connect-content').should('be.scrolledOutOfView');
           }
           cy.findByText('goals-content').should('be.visible');
           cy.get('[ui5-tabcontainer]').findUi5TabByText('Goals').should('have.attr', 'aria-selected', 'true');
@@ -1400,7 +1400,7 @@ describe('ObjectPage', () => {
 
           cy.findByText('Select Payment Information').click();
           cy.findByText('personal-payment-information-content').should('be.visible');
-          cy.findByText('personal-connect-content').should('not.be.visible');
+          cy.findByText('personal-connect-content').should('be.scrolledOutOfView');
           cy.get('[ui5-tabcontainer]').findUi5TabByText('Personal').should('have.attr', 'aria-selected', 'true');
           if (mode !== 'IconTabBar') {
             cy.get('@change').should('have.callCount', callCount);
@@ -1917,7 +1917,7 @@ describe('ObjectPage', () => {
     cy.findByText('Personal').should('be.visible').parent().should('have.css', 'position', 'static');
     cy.findByText('Connect').should('be.visible').parent().should('have.css', 'position', 'sticky');
     cy.findByTestId('op').scrollTo(0, 2500);
-    cy.findByText('Goals').should('not.be.visible');
+    cy.findByText('Goals').should('be.scrolledOutOfView');
     cy.findByText('Payment Information').should('be.visible');
     cy.get('[ui5-tabcontainer]').findUi5TabByText('Custom Header Section One').click();
     cy.findByText('Custom Header Section One').should('be.visible').parent().should('have.css', 'position', 'sticky');
@@ -1928,7 +1928,7 @@ describe('ObjectPage', () => {
     cy.findByText('Custom Header Section Two').should('be.visible').parent().should('have.css', 'position', 'static');
     cy.findByText('Subsection1').should('be.visible').parent().should('have.css', 'position', 'sticky');
     cy.findByTestId('op').scrollTo(0, 4000);
-    cy.findByText('Custom Header Section Two').should('not.be.visible');
+    cy.findByText('Custom Header Section Two').should('be.scrolledOutOfView');
     cy.findByText('Subsection1').should('be.visible');
   });
 

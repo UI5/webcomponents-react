@@ -15,10 +15,13 @@ export default defineConfig({
     excludeSpecPattern: ['**/e2e/**'],
   },
   includeShadowDom: true,
+  retries: {
+    runMode: 1,
+    openMode: 0,
+  },
   viewportWidth: 1920,
   viewportHeight: 1080,
   video: false,
   screenshotOnRunFailure: false,
   scrollBehavior: false,
-  allowCypressEnv: false,
 });

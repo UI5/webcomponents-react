@@ -1,6 +1,7 @@
 'use client';
 
 import { useVirtualizer } from '@tanstack/react-virtual';
+import type { Virtualizer } from '@tanstack/react-virtual';
 import { ARIA_LABEL_EMPTY_CELL } from '@ui5/webcomponents/dist/generated/i18n/i18n-defaults.js';
 import {
   debounce,
@@ -103,8 +104,29 @@ const sortTypesFallback = {
   undefined: () => undefined,
 };
 
-const measureElement = (el: HTMLElement) => {
-  return el.offsetHeight;
+// A hidden element (e.g. `display: none`) measures 0; reporting that makes virtual-core compensate the
+// scroll and bake in a drift that never reconciles. Report the size it already believes the item is - zero delta, no drift.
+const stableSize = <ItemElement extends Element>(
+  measured: number,
+  el: ItemElement,
+  instance: Virtualizer<DivWithCustomScrollProp, ItemElement>,
+) => {
+  if (measured === 0 && el instanceof HTMLElement && el.offsetParent === null) {
+    const index = instance.indexFromElement(el);
+    const key = instance.options.getItemKey?.(index) ?? index;
+    return (
+      instance.itemSizeCache.get(key) ?? instance.measurementsCache[index]?.size ?? instance.options.estimateSize(index)
+    );
+  }
+  return measured;
+};
+
+const measureElement = (
+  el: HTMLElement,
+  _entry: ResizeObserverEntry | undefined,
+  instance: Virtualizer<DivWithCustomScrollProp, HTMLElement>,
+) => {
+  return stableSize(el.offsetHeight, el, instance);
 };
 
 /**
@@ -378,8 +400,10 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     overscan: isRtl || scaleWidthMode !== AnalyticalTableScaleWidthMode.Default ? Infinity : overscanCountHorizontal,
     indexAttribute: 'data-column-index',
     // tanstack/virtual uses rounded values per default, leading to unnecessary scrollbars
-    measureElement: (el) => el.getBoundingClientRect().width / (scaleXFactor || 1),
+    measureElement: (el, _entry, instance) =>
+      stableSize(el.getBoundingClientRect().width / (scaleXFactor || 1), el, instance),
   });
+
   // force re-measure if `visibleColumns` change
   useEffect(() => {
     if (isInitialized.current && visibleColumns.length) {
