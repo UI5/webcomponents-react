@@ -2,6 +2,7 @@
 
 import '@ui5/webcomponents/dist/ToolbarButton.js';
 import type { ToolbarButtonAccessibilityAttributes } from '@ui5/webcomponents/dist/ToolbarButton.js';
+import type ButtonAccessibleRole from '@ui5/webcomponents/dist/types/ButtonAccessibleRole.js';
 import type ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
 import type ToolbarItemOverflowBehavior from '@ui5/webcomponents/dist/types/ToolbarItemOverflowBehavior.js';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef } from '@ui5/webcomponents-react-base';
@@ -26,6 +27,14 @@ interface ToolbarButtonAttributes {
   accessibilityAttributes?: ToolbarButtonAccessibilityAttributes;
 
   /**
+   * Defines the accessible description of the component.
+   *
+   * **Note:** Available since [v2.27.0](https://github.com/UI5/webcomponents/releases/tag/v2.27.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  accessibleDescription?: string | undefined;
+
+  /**
    * Defines the accessible ARIA name of the component.
    * @default undefined
    */
@@ -36,6 +45,17 @@ interface ToolbarButtonAttributes {
    * @default undefined
    */
   accessibleNameRef?: string | undefined;
+
+  /**
+   * Defines the ARIA role of the component.
+   *
+   * **Note:** Use `ButtonAccessibleRole.Link` role only with a press handler that performs navigation.
+   * In all other scenarios the default button semantics are recommended.
+   *
+   * **Note:** Available since [v2.27.0](https://github.com/UI5/webcomponents/releases/tag/v2.27.0) of **@ui5/webcomponents**.
+   * @default "Button"
+   */
+  accessibleRole?: ButtonAccessibleRole | keyof typeof ButtonAccessibleRole;
 
   /**
    * Defines the action design.
@@ -73,6 +93,30 @@ interface ToolbarButtonAttributes {
    * @default undefined
    */
   icon?: string | undefined;
+
+  /**
+   * Co-overflow tag. Items in the same `Toolbar` whose `overflowGroup` is the same
+   * non-empty string overflow as one atomic unit: either all visible in the bar, or all
+   * in the overflow popover, never split. The empty string (the default) means "no group" —
+   * the item participates in overflow independently.
+   *
+   * The tag is a free-form, case-sensitive string label (e.g. `"filters"`, `"search"`). It is
+   * layout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a
+   * non-empty group must have `overflowPriority = "Default"`; `AlwaysOverflow` and
+   * `NeverOverflow` are forbidden inside a group — setting one of those on a grouped item
+   * emits a one-shot `console.warn` and the item's priority is treated as `Default` for
+   * the layout pass. Spacers (`ToolbarSpacer`) do not participate in grouping; setting
+   * a non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's
+   * existing overflow behavior is unchanged.
+   *
+   * The visible bar always preserves slot order — ungrouped items between group members
+   * keep their slot positions and the toolbar never reorders DOM children. In the popover
+   * group members appear adjacent in slot order.
+   *
+   * **Note:** Available since [v2.27.0](https://github.com/UI5/webcomponents/releases/tag/v2.27.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  overflowGroup?: string | undefined;
 
   /**
    * Property used to define the access of the item to the overflow Popover. If "NeverOverflow" option is set,
@@ -159,11 +203,14 @@ const ToolbarButton = withWebComponent<ToolbarButtonPropTypes, ToolbarButtonDomR
   'ui5-toolbar-button',
   [
     'accessibilityAttributes',
+    'accessibleDescription',
     'accessibleName',
     'accessibleNameRef',
+    'accessibleRole',
     'design',
     'endIcon',
     'icon',
+    'overflowGroup',
     'overflowPriority',
     'text',
     'tooltip',

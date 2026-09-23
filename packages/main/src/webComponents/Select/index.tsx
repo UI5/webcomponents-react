@@ -137,8 +137,9 @@ interface SelectPropTypes
    * If more than one option is defined as selected, the last one would be considered as the selected one.
    *
    * **Note:** Use the `Option` component to define the desired options.
+   * Use the `OptionGroup` component to group options.
    *
-   * __Supported Node Type/s:__ `Array<IOption>`
+   * __Supported Node Type/s:__ `Array<IOption | IOptionGroup>`
    */
   children?: ReactNode | ReactNode[];
 

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { Option } from '../Option/index.js';
+import { OptionGroup } from '../OptionGroup/index.js';
 import { Select } from './index.js';
 
 const meta = {
@@ -28,6 +29,25 @@ export const Default: Story = {
         <Option>Option 3</Option>
         <Option>Option 4</Option>
         <Option>Option 5</Option>
+      </Select>
+    );
+  },
+};
+
+export const WithOptionGroups: Story = {
+  render: (args) => {
+    return (
+      <Select {...args}>
+        <OptionGroup headerText="Oceania">
+          <Option value="au">Australia</Option>
+          <Option value="nz">New Zealand</Option>
+        </OptionGroup>
+        <OptionGroup headerText="Europe">
+          <Option value="fr">France</Option>
+          <Option value="de" selected>
+            Germany
+          </Option>
+        </OptionGroup>
       </Select>
     );
   },

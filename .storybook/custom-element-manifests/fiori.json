@@ -3069,7 +3069,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "privacy": "public"
             }
           ],
@@ -3219,7 +3219,7 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
@@ -7018,16 +7018,6 @@
           "kind": "class",
           "description": "The `ui5-search-item-group` is type of suggestion item,\nthat can be used to split the `ui5-search-item` suggestions into groups.",
           "name": "SearchItemGroup",
-          "superclass": {
-            "name": "ListItemGroup",
-            "package": "@ui5/webcomponents",
-            "module": "dist/ListItemGroup.js"
-          },
-          "tagName": "ui5-search-item-group",
-          "customElement": true,
-          "_ui5experimental": true,
-          "_ui5since": "2.9.0",
-          "_ui5privacy": "public",
           "cssParts": [
             {
               "description": "Used to style the header item of the group",
@@ -7038,10 +7028,20 @@
               "name": "title"
             }
           ],
+          "superclass": {
+            "name": "ListItemGroup",
+            "package": "@ui5/webcomponents",
+            "module": "dist/ListItemGroup.js"
+          },
+          "tagName": "ui5-search-item-group",
+          "customElement": true,
+          "_ui5experimental": true,
+          "_ui5since": "2.9.0",
+          "_ui5privacy": "public",
           "slots": [
             {
               "name": "default",
-              "description": "Defines the items of the <code>ui5-li-group</code>.",
+              "description": "Defines the items of the group.",
               "_ui5propertyName": "items",
               "_ui5type": {
                 "text": "Array<ListItemBase>",
@@ -7088,7 +7088,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "description": "Defines the header text of the group.",
               "privacy": "public",
               "default": "undefined"
             },
@@ -7198,7 +7198,7 @@
               }
             },
             {
-              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "description": "Defines the header text of the group.",
               "name": "header-text",
               "default": "undefined",
               "fieldName": "headerText",
@@ -11688,7 +11688,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "privacy": "public"
             }
           ],
@@ -11915,7 +11915,7 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
@@ -12807,7 +12807,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "privacy": "public"
             }
           ],
@@ -12948,7 +12948,7 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
@@ -13559,6 +13559,16 @@
           "kind": "class",
           "description": "### Overview\n\nThe `ui5-user-settings-appearance-view-group` is a special list item group used to group appearance view items.\n\nThis is the item to use inside a `ui5-user-settings-appearance-view`.\n\n### ES6 Module Import\n`import \"@ui5/webcomponents-fiori/dist/UserSettingsAppearanceViewGroup.js\";`",
           "name": "UserSettingsAppearanceViewGroup",
+          "cssParts": [
+            {
+              "description": "Used to style the header item of the group",
+              "name": "header"
+            },
+            {
+              "description": "Used to style the title of the group header",
+              "name": "title"
+            }
+          ],
           "slots": [
             {
               "name": "default",
@@ -13601,16 +13611,6 @@
           "customElement": true,
           "_ui5since": "2.17.0",
           "_ui5privacy": "public",
-          "cssParts": [
-            {
-              "description": "Used to style the header item of the group",
-              "name": "header"
-            },
-            {
-              "description": "Used to style the title of the group header",
-              "name": "title"
-            }
-          ],
           "members": [
             {
               "kind": "field",
@@ -13628,7 +13628,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "description": "Defines the header text of the group.",
               "privacy": "public",
               "default": "undefined"
             },
@@ -13738,7 +13738,7 @@
               }
             },
             {
-              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "description": "Defines the header text of the group.",
               "name": "header-text",
               "default": "undefined",
               "fieldName": "headerText",
@@ -13948,7 +13948,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "privacy": "public"
             }
           ],
@@ -14062,7 +14062,7 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
@@ -14717,6 +14717,890 @@
           "declaration": {
             "name": "UserSettingsItem",
             "module": "dist/UserSettingsItem.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/UserSettingsNotificationsView.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-user-settings-notifications-view` represents a view displayed in the\n`ui5-user-settings-item` that lists notification preferences. Individual settings\nare represented by `ui5-user-settings-notifications-view-item` elements, optionally\ngrouped by `ui5-user-settings-notifications-view-group`.\n\nWhen a navigable item is clicked, the view drills into a sibling secondary view of\nits parent `ui5-user-settings-item`. When an item's `item-key` matches a target\nview's `id`, that view is opened and keeps its own `text`. Otherwise the first\nsibling marked as `secondary` is opened and its `text` is set to the clicked\nitem's `text` so the drill-in header reflects the origin.\n\nApps can override this behavior by preventing the `item-click` event.\n\nApplications should listen to the item's `switch-change` event (which bubbles) to\nbe notified when a switch is toggled.\n\nAdditional content (e.g. an information message strip) can be placed via the\n`additionalContent` slot, which is rendered above the list.\n\n### ES6 Module Import\n`import \"@ui5/webcomponents-fiori/dist/UserSettingsNotificationsView.js\";`",
+          "name": "UserSettingsNotificationsView",
+          "slots": [
+            {
+              "name": "additionalContent",
+              "description": "Defines additional content displayed above the items list.",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public"
+            },
+            {
+              "name": "default",
+              "description": "Defines the items of the component. Can be a mix of\n`ui5-user-settings-notifications-view-item` and\n`ui5-user-settings-notifications-view-group` elements.",
+              "_ui5propertyName": "items",
+              "_ui5type": {
+                "text": "Array<UserSettingsNotificationsViewGroup | UserSettingsNotificationsViewItem>"
+              },
+              "_ui5privacy": "public"
+            },
+            {
+              "name": "headerItems",
+              "description": "Defines header items rendered above the grouped items list.\nEach item is wrapped in a `role=\"form\"` landmark — a separate Tab stop.\nUse this slot for product-level toggles (e.g. \"Allow Notifications\") that appear\nabove the notification-type groups.",
+              "_ui5type": {
+                "text": "Array<UserSettingsNotificationsViewItem>",
+                "references": [
+                  {
+                    "name": "UserSettingsNotificationsViewItem",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/UserSettingsNotificationsViewItem.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "secondary",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Indicates whether the view is secondary. It is relevant only if the view is used in `pages` slot of `ui5-user-settings-item`\nand controls the visibility of the back button.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the view is selected. There can be just one selected view at a time.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the title text of the user settings view.",
+              "privacy": "public",
+              "default": "undefined"
+            }
+          ],
+          "events": [
+            {
+              "name": "item-click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<UserSettingsNotificationsViewItemClickEventDetail>",
+                "references": [
+                  {
+                    "name": "UserSettingsNotificationsViewItemClickEventDetail",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/UserSettingsNotificationsView.js"
+                  }
+                ]
+              },
+              "description": "Fired when a navigable item in the list is clicked.\n\nThe event is cancelable: preventing it skips the built-in drill-in to the\nparent's secondary view, allowing the application to take over.",
+              "_ui5Cancelable": true,
+              "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": false,
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "UserSettingsNotificationsViewItem",
+                    "references": [
+                      {
+                        "name": "UserSettingsNotificationsViewItem",
+                        "package": "@ui5/webcomponents-fiori",
+                        "module": "dist/UserSettingsNotificationsViewItem.js"
+                      }
+                    ]
+                  },
+                  "name": "item",
+                  "_ui5privacy": "public",
+                  "description": "The clicked notifications view item."
+                }
+              ]
+            }
+          ],
+          "superclass": {
+            "name": "UserSettingsView",
+            "package": "@ui5/webcomponents-fiori",
+            "module": "dist/UserSettingsView.js"
+          },
+          "tagName": "ui5-user-settings-notifications-view",
+          "customElement": true,
+          "_ui5since": "2.27.0",
+          "_ui5privacy": "public",
+          "attributes": [
+            {
+              "description": "Indicates whether the view is secondary. It is relevant only if the view is used in `pages` slot of `ui5-user-settings-item`\nand controls the visibility of the back button.",
+              "name": "secondary",
+              "default": "false",
+              "fieldName": "secondary",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines whether the view is selected. There can be just one selected view at a time.",
+              "name": "selected",
+              "default": "false",
+              "fieldName": "selected",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the title text of the user settings view.",
+              "name": "text",
+              "default": "undefined",
+              "fieldName": "text",
+              "type": {
+                "text": "string | undefined"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "UserSettingsNotificationsView",
+            "module": "dist/UserSettingsNotificationsView.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-user-settings-notifications-view",
+          "declaration": {
+            "name": "UserSettingsNotificationsView",
+            "module": "dist/UserSettingsNotificationsView.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/UserSettingsNotificationsViewGroup.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-user-settings-notifications-view-group` groups `ui5-user-settings-notifications-view-item`\nelements inside a `ui5-user-settings-notifications-view`. Its header renders as a plain bold\nsection title with a separator line below, per the notifications design spec.\n\n### ES6 Module Import\n`import \"@ui5/webcomponents-fiori/dist/UserSettingsNotificationsViewGroup.js\";`",
+          "name": "UserSettingsNotificationsViewGroup",
+          "slots": [
+            {
+              "name": "default",
+              "description": "Defines the items of the `ui5-user-settings-notifications-view-group`.",
+              "_ui5propertyName": "items",
+              "_ui5type": {
+                "text": "Array<UserSettingsNotificationsViewItem>",
+                "references": [
+                  {
+                    "name": "UserSettingsNotificationsViewItem",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/UserSettingsNotificationsViewItem.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
+            },
+            {
+              "name": "header",
+              "description": "Defines the header of the component.\n\n**Note:** Using this slot, the default header text of group and the value of `headerText` property will be overwritten.",
+              "_ui5type": {
+                "text": "Array<ListItemBase>",
+                "references": [
+                  {
+                    "name": "ListItemBase",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemBase.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
+            }
+          ],
+          "superclass": {
+            "name": "ListItemGroup",
+            "package": "@ui5/webcomponents",
+            "module": "dist/ListItemGroup.js"
+          },
+          "tagName": "ui5-user-settings-notifications-view-group",
+          "customElement": true,
+          "_ui5since": "2.27.0",
+          "_ui5privacy": "public",
+          "cssParts": [
+            {
+              "description": "Used to style the header item of the group",
+              "name": "header"
+            },
+            {
+              "description": "Used to style the title of the group header",
+              "name": "title"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "headerAccessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible name of the header.",
+              "privacy": "public",
+              "default": "undefined"
+            },
+            {
+              "kind": "field",
+              "name": "headerText",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the header text of the group.",
+              "privacy": "public",
+              "default": "undefined"
+            },
+            {
+              "kind": "field",
+              "name": "wrappingType",
+              "type": {
+                "text": "WrappingType",
+                "references": [
+                  {
+                    "name": "WrappingType",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/WrappingType.js"
+                  }
+                ]
+              },
+              "default": "\"None\"",
+              "description": "Defines if the text of the component should wrap when it's too long.\nWhen set to \"Normal\", the content (title, description) will be wrapped\nusing the `ui5-expandable-text` component.<br/>\n\nThe text can wrap up to 100 characters on small screens (size S) and\nup to 300 characters on larger screens (size M and above). When text exceeds\nthese limits, it truncates with an ellipsis followed by a text expansion trigger.\n\nAvailable options are:\n- `None` (default) - The text will truncate with an ellipsis.\n- `Normal` - The text will wrap (without truncation).",
+              "privacy": "public",
+              "_ui5since": "2.15.0"
+            }
+          ],
+          "events": [
+            {
+              "name": "move",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ListItemGroupMoveEventDetail>",
+                "references": [
+                  {
+                    "name": "ListItemGroupMoveEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemGroup.js"
+                  }
+                ]
+              },
+              "description": "Fired when a movable list item is dropped onto a drop target.\n\n**Note:** `move` event is fired only if there was a preceding `move-over` with prevented default action.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.1.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "object"
+                  },
+                  "name": "destination",
+                  "_ui5privacy": "public",
+                  "description": "Contains information about the destination of the moved element. Has `element` and `placement` properties."
+                },
+                {
+                  "type": {
+                    "text": "object"
+                  },
+                  "name": "source",
+                  "_ui5privacy": "public",
+                  "description": "Contains information about the moved element under `element` property."
+                }
+              ]
+            },
+            {
+              "name": "move-over",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ListItemGroupMoveEventDetail>",
+                "references": [
+                  {
+                    "name": "ListItemGroupMoveEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemGroup.js"
+                  }
+                ]
+              },
+              "description": "Fired when a movable list item is moved over a potential drop target during a dragging operation.\n\nIf the new position is valid, prevent the default action of the event using `preventDefault()`.",
+              "_ui5Cancelable": true,
+              "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.1.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "object"
+                  },
+                  "name": "destination",
+                  "_ui5privacy": "public",
+                  "description": "Contains information about the destination of the moved element. Has `element` and `placement` properties."
+                },
+                {
+                  "type": {
+                    "text": "object"
+                  },
+                  "name": "source",
+                  "_ui5privacy": "public",
+                  "description": "Contains information about the moved element under `element` property."
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines the accessible name of the header.",
+              "name": "header-accessible-name",
+              "default": "undefined",
+              "fieldName": "headerAccessibleName",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines the header text of the group.",
+              "name": "header-text",
+              "default": "undefined",
+              "fieldName": "headerText",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines if the text of the component should wrap when it's too long.\nWhen set to \"Normal\", the content (title, description) will be wrapped\nusing the `ui5-expandable-text` component.<br/>\n\nThe text can wrap up to 100 characters on small screens (size S) and\nup to 300 characters on larger screens (size M and above). When text exceeds\nthese limits, it truncates with an ellipsis followed by a text expansion trigger.\n\nAvailable options are:\n- `None` (default) - The text will truncate with an ellipsis.\n- `Normal` - The text will wrap (without truncation).",
+              "name": "wrapping-type",
+              "default": "\"None\"",
+              "fieldName": "wrappingType",
+              "type": {
+                "text": "\"None\" | \"Normal\""
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "UserSettingsNotificationsViewGroup",
+            "module": "dist/UserSettingsNotificationsViewGroup.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-user-settings-notifications-view-group",
+          "declaration": {
+            "name": "UserSettingsNotificationsViewGroup",
+            "module": "dist/UserSettingsNotificationsViewGroup.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/UserSettingsNotificationsViewItem.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-user-settings-notifications-view-item` represents a single notification setting\nwithin the `ui5-user-settings-notifications-view`.\n\nIt displays a title and an optional byline. By default a trailing switch reflects\nthe `checked` state. Applications can override the trailing control by providing content\nin the `endContent` slot (e.g. a `ui5-select` for a value picker); the built-in switch and\nits `switch-change` event are then suppressed. Items can additionally be flagged as\n`navigable` to display a navigation arrow and behave as clickable list rows.\n\n**Note:** The default switch and the `endContent` slot are mutually exclusive.\nWhen any content is provided in `endContent`, the trailing switch is not rendered\nand no `switch-change` event is fired.\n\n### ES6 Module Import\n`import \"@ui5/webcomponents-fiori/dist/UserSettingsNotificationsViewItem.js\";`",
+          "name": "UserSettingsNotificationsViewItem",
+          "slots": [
+            {
+              "name": "endContent",
+              "description": "Defines custom content rendered at the trailing end of the item, replacing the\ndefault switch. Use this to place a `ui5-select`, `ui5-input`, or any other\ncontrol instead of a boolean toggle.",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public"
+            },
+            {
+              "description": "Defines the content of the component.",
+              "name": "default",
+              "_ui5privacy": "public",
+              "_ui5type": {
+                "text": "Array<Node>"
+              }
+            },
+            {
+              "name": "deleteButton",
+              "description": "Defines the delete button, displayed in \"Delete\" mode.\n**Note:** While the slot allows custom buttons, to match\ndesign guidelines, please use the `ui5-button` component.\n**Note:** When the slot is not present, a built-in delete button will be displayed.",
+              "_ui5since": "1.9.0",
+              "_ui5type": {
+                "text": "Array<IButton>",
+                "references": [
+                  {
+                    "name": "IButton",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/Button.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "bylineText",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Defines the byline text of the item, rendered below the title.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the trailing switch is on.\n\nIgnored when the `endContent` slot is used.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "itemKey",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Defines the unique identifier of the item.\n\nWhen the item is navigable, `itemKey` is also used to route to a matching sibling\n`secondary` view by id.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "navigable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the item is navigable. When true, a navigation arrow is rendered\nand the whole row becomes clickable (fires the parent view's `item-click` event).",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "text",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Defines the title text of the item.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "accessibilityAttributes",
+              "type": {
+                "text": "ListItemAccessibilityAttributes",
+                "references": [
+                  {
+                    "name": "ListItemAccessibilityAttributes",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItem.js"
+                  }
+                ]
+              },
+              "default": "{}",
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **ariaSetsize**: Defines the number of items in the current set  when not all items in the set are present in the DOM.\n**Note:** The value is an integer reflecting the number of items in the complete set. If the size of the entire set is unknown, set `-1`.\n\n\t- **ariaPosinset**: Defines an element's number or position in the current set when not all items are present in the DOM.\n\t**Note:** The value is an integer greater than or equal to 1, and less than or equal to the size of the set when that size is known.",
+              "privacy": "public",
+              "_ui5since": "1.15.0"
+            },
+            {
+              "kind": "field",
+              "name": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the text alternative of the component.\n\n**Note**: If not provided a default text alternative will be set, if present.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "1.0.0-rc.15"
+            },
+            {
+              "kind": "field",
+              "name": "accessibleRole",
+              "type": {
+                "text": "ListItemAccessibleRole | undefined",
+                "references": [
+                  {
+                    "name": "ListItemAccessibleRole",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/ListItemAccessibleRole.js"
+                  }
+                ]
+              },
+              "description": "Used to define the role of the list item.\n\n**Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property\n(e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).\nAn explicitly set `accessible-role` on the list item takes precedence over the inherited role.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.23.0"
+            },
+            {
+              "kind": "field",
+              "name": "highlight",
+              "type": {
+                "text": "Highlight",
+                "references": [
+                  {
+                    "name": "Highlight",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/Highlight.js"
+                  }
+                ]
+              },
+              "default": "\"None\"",
+              "description": "Defines the highlight state of the list items.\nAvailable options are: `\"None\"` (by default), `\"Positive\"`, `\"Critical\"`, `\"Information\"` and `\"Negative\"`.",
+              "privacy": "public",
+              "_ui5since": "1.24"
+            },
+            {
+              "kind": "field",
+              "name": "movable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the item is movable.",
+              "privacy": "public",
+              "_ui5since": "2.0.0"
+            },
+            {
+              "kind": "field",
+              "name": "navigated",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "The navigated state of the list item.\nIf set to `true`, a navigation indicator is displayed at the end of the list item.",
+              "privacy": "public",
+              "_ui5since": "1.10.0"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines the selected state of the component.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "tooltip",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the text of the tooltip that would be displayed for the list item.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "1.23.0"
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "ListItemType",
+                "references": [
+                  {
+                    "name": "ListItemType",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/ListItemType.js"
+                  }
+                ]
+              },
+              "default": "\"Active\"",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
+              "privacy": "public"
+            }
+          ],
+          "events": [
+            {
+              "name": "switch-change",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<UserSettingsNotificationsViewItemSwitchChangeEventDetail>",
+                "references": [
+                  {
+                    "name": "UserSettingsNotificationsViewItemSwitchChangeEventDetail",
+                    "package": "@ui5/webcomponents-fiori",
+                    "module": "dist/UserSettingsNotificationsViewItem.js"
+                  }
+                ]
+              },
+              "description": "Fired when the switch state changes.\n\nNot fired when the `endContent` slot is used to override the trailing control.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "boolean"
+                  },
+                  "name": "checked",
+                  "_ui5privacy": "public",
+                  "description": "The new checked state of the switch."
+                },
+                {
+                  "type": {
+                    "text": "UserSettingsNotificationsViewItem",
+                    "references": [
+                      {
+                        "name": "UserSettingsNotificationsViewItem",
+                        "package": "@ui5/webcomponents-fiori",
+                        "module": "dist/UserSettingsNotificationsViewItem.js"
+                      }
+                    ]
+                  },
+                  "name": "item",
+                  "_ui5privacy": "public",
+                  "description": "The item whose switch was toggled."
+                }
+              ]
+            },
+            {
+              "name": "click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<ListItemBaseClickEventDetail>",
+                "references": [
+                  {
+                    "name": "ListItemBaseClickEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemBase.js"
+                  }
+                ]
+              },
+              "description": "Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.\n\n**Note:** The event will not be fired if the `disabled` property is set to `true`.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true,
+              "_ui5since": "2.23.0",
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "Event"
+                  },
+                  "name": "originalEvent",
+                  "_ui5privacy": "public",
+                  "description": "The original event from the user interaction."
+                }
+              ]
+            },
+            {
+              "name": "detail-click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the user clicks on the detail button when type is `Detail`.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines the byline text of the item, rendered below the title.",
+              "name": "byline-text",
+              "default": "\"\"",
+              "fieldName": "bylineText",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Defines whether the trailing switch is on.\n\nIgnored when the `endContent` slot is used.",
+              "name": "checked",
+              "default": "false",
+              "fieldName": "checked",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the unique identifier of the item.\n\nWhen the item is navigable, `itemKey` is also used to route to a matching sibling\n`secondary` view by id.",
+              "name": "item-key",
+              "default": "\"\"",
+              "fieldName": "itemKey",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Defines whether the item is navigable. When true, a navigation arrow is rendered\nand the whole row becomes clickable (fires the parent view's `item-click` event).",
+              "name": "navigable",
+              "default": "false",
+              "fieldName": "navigable",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the title text of the item.",
+              "name": "text",
+              "default": "\"\"",
+              "fieldName": "text",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe following fields are supported:\n\n- **ariaSetsize**: Defines the number of items in the current set  when not all items in the set are present in the DOM.\n**Note:** The value is an integer reflecting the number of items in the complete set. If the size of the entire set is unknown, set `-1`.\n\n\t- **ariaPosinset**: Defines an element's number or position in the current set when not all items are present in the DOM.\n\t**Note:** The value is an integer greater than or equal to 1, and less than or equal to the size of the set when that size is known.",
+              "name": "accessibility-attributes",
+              "default": "{}",
+              "fieldName": "accessibilityAttributes",
+              "type": {
+                "text": "ListItemAccessibilityAttributes"
+              }
+            },
+            {
+              "description": "Defines the text alternative of the component.\n\n**Note**: If not provided a default text alternative will be set, if present.",
+              "name": "accessible-name",
+              "default": "undefined",
+              "fieldName": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Used to define the role of the list item.\n\n**Note:** If not set, the role is automatically inherited from the parent `ui5-list` based on its `accessible-role` property\n(e.g. `Menu` -> `MenuItem`, `Tree` -> `TreeItem`, `ListBox` -> `Option`).\nAn explicitly set `accessible-role` on the list item takes precedence over the inherited role.",
+              "name": "accessible-role",
+              "default": "undefined",
+              "fieldName": "accessibleRole",
+              "type": {
+                "text": "\"None\" | \"ListItem\" | \"MenuItem\" | \"TreeItem\" | \"Option\" | undefined"
+              }
+            },
+            {
+              "description": "Defines the highlight state of the list items.\nAvailable options are: `\"None\"` (by default), `\"Positive\"`, `\"Critical\"`, `\"Information\"` and `\"Negative\"`.",
+              "name": "highlight",
+              "default": "\"None\"",
+              "fieldName": "highlight",
+              "type": {
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
+              }
+            },
+            {
+              "description": "Defines whether the item is movable.",
+              "name": "movable",
+              "default": "false",
+              "fieldName": "movable",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "The navigated state of the list item.\nIf set to `true`, a navigation indicator is displayed at the end of the list item.",
+              "name": "navigated",
+              "default": "false",
+              "fieldName": "navigated",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the selected state of the component.",
+              "name": "selected",
+              "default": "false",
+              "fieldName": "selected",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the text of the tooltip that would be displayed for the list item.",
+              "name": "tooltip",
+              "default": "undefined",
+              "fieldName": "tooltip",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
+              "name": "type",
+              "default": "\"Active\"",
+              "fieldName": "type",
+              "type": {
+                "text": "\"Navigation\" | \"Inactive\" | \"InactiveSelectable\" | \"Active\" | \"Detail\""
+              }
+            }
+          ],
+          "superclass": {
+            "name": "ListItemCustom",
+            "package": "@ui5/webcomponents",
+            "module": "dist/ListItemCustom.js"
+          },
+          "tagName": "ui5-user-settings-notifications-view-item",
+          "customElement": true,
+          "_ui5since": "2.27.0",
+          "_ui5privacy": "public",
+          "cssParts": [
+            {
+              "description": "Used to style the checkbox rendered when the list item is in multiple selection mode",
+              "name": "checkbox"
+            },
+            {
+              "description": "Used to style the content area of the list item",
+              "name": "content"
+            },
+            {
+              "description": "Used to style the button rendered when the list item is in delete mode",
+              "name": "delete-button"
+            },
+            {
+              "description": "Used to style the button rendered when the list item is of type detail",
+              "name": "detail-button"
+            },
+            {
+              "description": "Used to style the main li tag of the list item",
+              "name": "native-li"
+            },
+            {
+              "description": "Used to style the radio button rendered when the list item is in single selection mode",
+              "name": "radio"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "UserSettingsNotificationsViewItem",
+            "module": "dist/UserSettingsNotificationsViewItem.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-user-settings-notifications-view-item",
+          "declaration": {
+            "name": "UserSettingsNotificationsViewItem",
+            "module": "dist/UserSettingsNotificationsViewItem.js"
           }
         }
       ]

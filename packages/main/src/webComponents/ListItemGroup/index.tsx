@@ -15,7 +15,7 @@ interface ListItemGroupAttributes {
   headerAccessibleName?: string | undefined;
 
   /**
-   * Defines the header text of the <code>ui5-li-group</code>.
+   * Defines the header text of the group.
    * @default undefined
    */
   headerText?: string | undefined;
@@ -46,7 +46,7 @@ interface ListItemGroupPropTypes
     ListItemGroupAttributes,
     Omit<CommonProps, keyof ListItemGroupAttributes | 'children' | 'header' | 'onMove' | 'onMoveOver'> {
   /**
-   * Defines the items of the <code>ui5-li-group</code>.
+   * Defines the items of the group.
    *
    * __Supported Node Type/s:__ `Array<ListItemBase>`
    */

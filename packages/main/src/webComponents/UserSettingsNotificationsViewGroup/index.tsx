@@ -1,13 +1,13 @@
 'use client';
 
-import '@ui5/webcomponents-fiori/dist/UserSettingsAppearanceViewGroup.js';
+import '@ui5/webcomponents-fiori/dist/UserSettingsNotificationsViewGroup.js';
 import type { ListItemGroupMoveEventDetail } from '@ui5/webcomponents/dist/ListItemGroup.js';
 import type WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
 
-interface UserSettingsAppearanceViewGroupAttributes {
+interface UserSettingsNotificationsViewGroupAttributes {
   /**
    * Defines the accessible name of the header.
    * @default undefined
@@ -39,20 +39,20 @@ interface UserSettingsAppearanceViewGroupAttributes {
   wrappingType?: WrappingType | keyof typeof WrappingType;
 }
 
-interface UserSettingsAppearanceViewGroupDomRef
-  extends Required<UserSettingsAppearanceViewGroupAttributes>, Ui5DomRef {}
+interface UserSettingsNotificationsViewGroupDomRef
+  extends Required<UserSettingsNotificationsViewGroupAttributes>, Ui5DomRef {}
 
-interface UserSettingsAppearanceViewGroupPropTypes
+interface UserSettingsNotificationsViewGroupPropTypes
   extends
-    UserSettingsAppearanceViewGroupAttributes,
+    UserSettingsNotificationsViewGroupAttributes,
     Omit<
       CommonProps,
-      keyof UserSettingsAppearanceViewGroupAttributes | 'children' | 'header' | 'onMove' | 'onMoveOver'
+      keyof UserSettingsNotificationsViewGroupAttributes | 'children' | 'header' | 'onMove' | 'onMoveOver'
     > {
   /**
-   * Defines the items of the <code>ui5-user-settings-appearance-view-group</code>.
+   * Defines the items of the `UserSettingsNotificationsViewGroup`.
    *
-   * __Supported Node Type/s:__ `Array<UserSettingsAppearanceViewItem>`
+   * __Supported Node Type/s:__ `Array<UserSettingsNotificationsViewItem>`
    */
   children?: ReactNode | ReactNode[];
 
@@ -81,7 +81,7 @@ interface UserSettingsAppearanceViewGroupPropTypes
    * | :--------: | :-----: |
    * | ❌|✅|
    */
-  onMove?: (event: Ui5CustomEvent<UserSettingsAppearanceViewGroupDomRef, ListItemGroupMoveEventDetail>) => void;
+  onMove?: (event: Ui5CustomEvent<UserSettingsNotificationsViewGroupDomRef, ListItemGroupMoveEventDetail>) => void;
 
   /**
    * Fired when a movable list item is moved over a potential drop target during a dragging operation.
@@ -96,32 +96,32 @@ interface UserSettingsAppearanceViewGroupPropTypes
    * | :--------: | :-----: |
    * | ✅|✅|
    */
-  onMoveOver?: (event: Ui5CustomEvent<UserSettingsAppearanceViewGroupDomRef, ListItemGroupMoveEventDetail>) => void;
+  onMoveOver?: (event: Ui5CustomEvent<UserSettingsNotificationsViewGroupDomRef, ListItemGroupMoveEventDetail>) => void;
 }
 
 /**
- * The `UserSettingsAppearanceViewGroup` is a special list item group used to group appearance view items.
+ * The `UserSettingsNotificationsViewGroup` groups `UserSettingsNotificationsViewItem`
+ * elements inside a `UserSettingsNotificationsView`. Its header renders as a plain bold
+ * section title with a separator line below, per the notifications design spec.
  *
- * This is the item to use inside a `UserSettingsAppearanceView`.
  *
  *
+ * __Note:__ This is a UI5 Web Component! [UserSettingsNotificationsViewGroup UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/UserSettingsNotificationsViewGroup) | [Repository](https://github.com/UI5/webcomponents)
  *
- * __Note:__ This is a UI5 Web Component! [UserSettingsAppearanceViewGroup UI5 Web Component Documentation](https://ui5.github.io/webcomponents/components/fiori/UserSettingsAppearanceViewGroup) | [Repository](https://github.com/UI5/webcomponents)
- *
- * @since [2.17.0](https://github.com/UI5/webcomponents/releases/tag/v2.17.0) of __@ui5/webcomponents-fiori__.
+ * @since [2.27.0](https://github.com/UI5/webcomponents/releases/tag/v2.27.0) of __@ui5/webcomponents-fiori__.
  */
-const UserSettingsAppearanceViewGroup = withWebComponent<
-  UserSettingsAppearanceViewGroupPropTypes,
-  UserSettingsAppearanceViewGroupDomRef
+const UserSettingsNotificationsViewGroup = withWebComponent<
+  UserSettingsNotificationsViewGroupPropTypes,
+  UserSettingsNotificationsViewGroupDomRef
 >(
-  'ui5-user-settings-appearance-view-group',
+  'ui5-user-settings-notifications-view-group',
   ['headerAccessibleName', 'headerText', 'wrappingType'],
   [],
   ['header'],
   ['move-over', 'move'],
 );
 
-UserSettingsAppearanceViewGroup.displayName = 'UserSettingsAppearanceViewGroup';
+UserSettingsNotificationsViewGroup.displayName = 'UserSettingsNotificationsViewGroup';
 
-export { UserSettingsAppearanceViewGroup };
-export type { UserSettingsAppearanceViewGroupDomRef, UserSettingsAppearanceViewGroupPropTypes };
+export { UserSettingsNotificationsViewGroup };
+export type { UserSettingsNotificationsViewGroupDomRef, UserSettingsNotificationsViewGroupPropTypes };

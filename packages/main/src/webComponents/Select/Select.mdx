@@ -1,18 +1,24 @@
 import { Canvas, Description, Markdown, Meta } from '@storybook/addon-docs/blocks';
 import { ArgTypesWithNote, ControlsWithNote, DocsHeader, Footer } from '@sb/components';
-import { Option, OptionCustom } from '../index.ts';
+import { Option, OptionCustom, OptionGroup } from '../index.ts';
 import SubcomponentsSection from '@sb/docs/SubcomponentsSection.md?raw';
 import * as ComponentStories from './Select.stories';
 
 <Meta of={ComponentStories} />
 
-<DocsHeader of={ComponentStories} since="0.4.0" mergeSubComponents subComponents={['OptionCustom']} />
+<DocsHeader of={ComponentStories} since="0.4.0" mergeSubComponents subComponents={['OptionCustom', 'OptionGroup']} />
 
 <br />
 
 ## Example
 
 <Canvas of={ComponentStories.Default} />
+
+## Grouping Options
+
+You can group options by wrapping them in `OptionGroup` components. Use the `headerText` prop to define the group's header.
+
+<Canvas of={ComponentStories.WithOptionGroups} />
 
 ## Properties
 
@@ -58,5 +64,10 @@ const onChange = (event) => {
 
 <Description of={OptionCustom} />
 <ArgTypesWithNote metaOf={ComponentStories} of={OptionCustom} />
+
+## OptionGroup
+
+<Description of={OptionGroup} />
+<ArgTypesWithNote metaOf={ComponentStories} of={OptionGroup} />
 
 <Footer />

@@ -6,11 +6,14 @@ import { UserSettingsView } from '../UserSettingsView/index';
 import { UserSettingsAppearanceView } from '../UserSettingsAppearanceView/index';
 import { UserSettingsAppearanceViewGroup } from '../UserSettingsAppearanceViewGroup/index';
 import { UserSettingsAppearanceViewItem } from '../UserSettingsAppearanceViewItem/index';
+import { UserSettingsNotificationsView } from '../UserSettingsNotificationsView/index';
+import { UserSettingsNotificationsViewGroup } from '../UserSettingsNotificationsViewGroup/index';
+import { UserSettingsNotificationsViewItem } from '../UserSettingsNotificationsViewItem/index';
 import * as ComponentStories from './UserSettingsDialog.stories';
 
 <Meta of={ComponentStories} />
 
-<DocsHeader of={ComponentStories} mergeSubComponents subComponents={['UserSettingsItem', 'UserSettingsView', "UserSettingsAppearanceView","UserSettingsAppearanceViewGroup","UserSettingsAppearanceViewItem"]} />
+<DocsHeader of={ComponentStories} mergeSubComponents subComponents={['UserSettingsItem', 'UserSettingsView', "UserSettingsAppearanceView","UserSettingsAppearanceViewGroup","UserSettingsAppearanceViewItem","UserSettingsNotificationsView","UserSettingsNotificationsViewGroup","UserSettingsNotificationsViewItem"]} />
 
 <br />
 
@@ -48,5 +51,20 @@ import * as ComponentStories from './UserSettingsDialog.stories';
 
 <Description of={UserSettingsAppearanceViewItem} />
 <ArgTypes of={UserSettingsAppearanceViewItem} />
+
+## UserSettingsNotificationsView
+
+<Description of={UserSettingsNotificationsView} />
+<ArgTypes of={UserSettingsNotificationsView} />
+
+## UserSettingsNotificationsViewGroup
+
+<Description of={UserSettingsNotificationsViewGroup} />
+<ArgTypes of={UserSettingsNotificationsViewGroup} />
+
+## UserSettingsNotificationsViewItem
+
+<Description of={UserSettingsNotificationsViewItem} />
+<ArgTypes of={UserSettingsNotificationsViewItem} />
 
 <Footer />

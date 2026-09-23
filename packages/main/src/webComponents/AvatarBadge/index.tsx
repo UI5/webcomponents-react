@@ -7,6 +7,19 @@ import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
 
 interface AvatarBadgeAttributes {
   /**
+   * Defines the color scheme of the badge using the indication color palette.
+   *
+   * Available options are `"1"` through `"10"`, matching the indication colors.
+   *
+   * **Note:** `state` takes precedence - when `state` is set to any value other than `None`,
+   * the semantic state styling applies and `colorScheme` is ignored.
+   *
+   * **Note:** Available since [v2.27.0](https://github.com/UI5/webcomponents/releases/tag/v2.27.0) of **@ui5/webcomponents**.
+   * @default undefined
+   */
+  colorScheme?: string | undefined;
+
+  /**
    * Defines the icon name to be displayed inside the badge.
    *
    * **Note:** You should import the desired icon first, then use its name as "icon".
@@ -25,6 +38,9 @@ interface AvatarBadgeAttributes {
    * - `Critical` - Orange, used for warning states
    * - `Negative` - Red, used for error/rejected states
    * - `Information` - Blue, used for informational states
+   *
+   * **Note:** `state` takes precedence over `colorScheme`. When `state` is set
+   * to any value other than `None`, the semantic styling applies and `colorScheme` is ignored.
    * @default "None"
    */
   state?: ValueState | keyof typeof ValueState;
@@ -71,7 +87,7 @@ interface AvatarBadgePropTypes extends AvatarBadgeAttributes, Omit<CommonProps, 
  */
 const AvatarBadge = withWebComponent<AvatarBadgePropTypes, AvatarBadgeDomRef>(
   'ui5-avatar-badge',
-  ['icon', 'state', 'tooltip'],
+  ['colorScheme', 'icon', 'state', 'tooltip'],
   [],
   [],
   [],

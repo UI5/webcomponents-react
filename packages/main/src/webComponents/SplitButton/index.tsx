@@ -15,8 +15,6 @@ interface SplitButtonAttributes {
    * - **root**: Attributes that will be applied to the main (text) button.
    *   - **hasPopup**: Indicates the presence and type of popup triggered by the button.
    *     Accepts string values: `"dialog"`, `"grid"`, `"listbox"`, `"menu"`, or `"tree"`.
-   *   - **roleDescription**: Provides a human-readable description for the role of the button.
-   *     Accepts any string value.
    *   - **title**: Specifies a tooltip or description for screen readers.
    *     Accepts any string value.
    * 	- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.

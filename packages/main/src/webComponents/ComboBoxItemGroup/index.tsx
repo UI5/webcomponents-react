@@ -15,7 +15,7 @@ interface ComboBoxItemGroupAttributes {
   headerAccessibleName?: string | undefined;
 
   /**
-   * Defines the header text of the <code>ui5-li-group</code>.
+   * Defines the header text of the group.
    * @default undefined
    */
   headerText?: string | undefined;

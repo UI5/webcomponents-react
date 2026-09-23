@@ -364,6 +364,17 @@
           "members": [
             {
               "kind": "field",
+              "name": "colorScheme",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the color scheme of the badge using the indication color palette.\n\nAvailable options are `\"1\"` through `\"10\"`, matching the indication colors.\n\n**Note:** `state` takes precedence - when `state` is set to any value other than `None`,\nthe semantic state styling applies and `colorScheme` is ignored.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.27.0"
+            },
+            {
+              "kind": "field",
               "name": "icon",
               "type": {
                 "text": "string | undefined"
@@ -385,7 +396,7 @@
                   }
                 ]
               },
-              "description": "Defines the state of the badge, which determines its styling.\n\nAvailable options:\n- `None` (default) - Standard appearance\n- `Positive` - Green, used for success/approved states\n- `Critical` - Orange, used for warning states\n- `Negative` - Red, used for error/rejected states\n- `Information` - Blue, used for informational states",
+              "description": "Defines the state of the badge, which determines its styling.\n\nAvailable options:\n- `None` (default) - Standard appearance\n- `Positive` - Green, used for success/approved states\n- `Critical` - Orange, used for warning states\n- `Negative` - Red, used for error/rejected states\n- `Information` - Blue, used for informational states\n\n**Note:** `state` takes precedence over `colorScheme`. When `state` is set\nto any value other than `None`, the semantic styling applies and `colorScheme` is ignored.",
               "default": "\"None\"",
               "privacy": "public"
             },
@@ -403,6 +414,15 @@
           ],
           "attributes": [
             {
+              "description": "Defines the color scheme of the badge using the indication color palette.\n\nAvailable options are `\"1\"` through `\"10\"`, matching the indication colors.\n\n**Note:** `state` takes precedence - when `state` is set to any value other than `None`,\nthe semantic state styling applies and `colorScheme` is ignored.",
+              "name": "color-scheme",
+              "default": "undefined",
+              "fieldName": "colorScheme",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
               "description": "Defines the icon name to be displayed inside the badge.\n\n**Note:** You should import the desired icon first, then use its name as \"icon\".\n\n`import \"@ui5/webcomponents-icons/dist/{icon_name}.js\"`",
               "name": "icon",
               "default": "undefined",
@@ -412,7 +432,7 @@
               }
             },
             {
-              "description": "Defines the state of the badge, which determines its styling.\n\nAvailable options:\n- `None` (default) - Standard appearance\n- `Positive` - Green, used for success/approved states\n- `Critical` - Orange, used for warning states\n- `Negative` - Red, used for error/rejected states\n- `Information` - Blue, used for informational states",
+              "description": "Defines the state of the badge, which determines its styling.\n\nAvailable options:\n- `None` (default) - Standard appearance\n- `Positive` - Green, used for success/approved states\n- `Critical` - Orange, used for warning states\n- `Negative` - Red, used for error/rejected states\n- `Information` - Blue, used for informational states\n\n**Note:** `state` takes precedence over `colorScheme`. When `state` is set\nto any value other than `None`, the semantic styling applies and `colorScheme` is ignored.",
               "name": "state",
               "default": "\"None\"",
               "fieldName": "state",
@@ -5588,6 +5608,16 @@
           "kind": "class",
           "description": "The `ui5-cb-group-item` is type of suggestion item,\nthat can be used to split the `ui5-combobox` suggestions into groups.",
           "name": "ComboBoxItemGroup",
+          "cssParts": [
+            {
+              "description": "Used to style the header item of the group",
+              "name": "header"
+            },
+            {
+              "description": "Used to style the title of the group header",
+              "name": "title"
+            }
+          ],
           "slots": [
             {
               "name": "default",
@@ -5638,7 +5668,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "description": "Defines the header text of the group.",
               "privacy": "public",
               "default": "undefined"
             },
@@ -5678,16 +5708,6 @@
               "module": "dist/ComboBox.js"
             }
           ],
-          "cssParts": [
-            {
-              "description": "Used to style the header item of the group",
-              "name": "header"
-            },
-            {
-              "description": "Used to style the title of the group header",
-              "name": "title"
-            }
-          ],
           "attributes": [
             {
               "description": "Defines the accessible name of the header.",
@@ -5699,7 +5719,7 @@
               }
             },
             {
-              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "description": "Defines the header text of the group.",
               "name": "header-text",
               "default": "undefined",
               "fieldName": "headerText",
@@ -6040,7 +6060,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "### Overview\n\nThe `ui5-date-picker` component provides an input field with assigned calendar which opens on user action.\nThe `ui5-date-picker` allows users to select a localized date using touch,\nmouse, or keyboard input. It consists of two parts: the date input field and the\ndate picker.\n\n### Usage\n\nThe user can enter a date by:\n\n- Using the calendar that opens in a popup\n- Typing it in directly in the input field\n\nWhen the user makes an entry and presses the enter key, the calendar shows the corresponding date.\nWhen the user directly triggers the calendar display, the actual date is displayed.\n\n### Formatting\n\nIf a date is entered by typing it into\nthe input field, it must fit to the used date format.\n\nSupported format options are pattern-based on Unicode LDML Date Format notation.\nFor more information, see [UTS #35: Unicode Locale Data Markup Language](https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table).\n\nFor example, if the valueFormat is \"yyyy-MM-dd\", the displayFormat is \"MMM d, y\", and the used locale is English, a valid value string is \"2015-07-30\", which leads to an output of \"Jul 30, 2015\".\nIf no placeholder is set to the DatePicker, the used displayFormat is displayed as a placeholder. If another placeholder is needed, it must be set.\n\n### Keyboard Handling\nThe `ui5-date-picker` provides advanced keyboard handling.\nIf the `ui5-date-picker` is focused,\nyou can open or close the drop-down by pressing [F4], [Alt] + [Up] or [Alt] + [Down] keys.\nOnce the drop-down is opened, you can use the [Up], [Down], [Left] or [Right] arrow keys\nto navigate through the dates and select one by pressing the `Space` or `Enter` keys. Moreover you can\nuse TAB to reach the buttons for changing month and year.\n\nIf the `ui5-date-picker` input field is focused and its corresponding picker dialog is not opened,\nthen users can increment or decrement the date referenced by `dateValue` property\nby using the following shortcuts:\n\n- [Page Down] - Decrements the corresponding day of the month by one\n- [Shift] + [Page Down] - Decrements the corresponding month by one\n- [Shift] + [Ctrl] + [Page Down] - Decrements the corresponding year by one\n- [Page Up] - Increments the corresponding day of the month by one\n- [Shift] + [Page Up] - Increments the corresponding month by one\n- [Shift] + [Ctrl] + [Page Up] - Increments the corresponding year by one\n\n### Calendar types\nThe component supports several calendar types - Gregorian, Buddhist, Islamic, Japanese and Persian.\nBy default the Gregorian Calendar is used. In order to use the Buddhist, Islamic, Japanese or Persian calendar,\nyou need to set the `primaryCalendarType` property and import one or more of the following modules:\n\n`import \"@ui5/webcomponents-localization/dist/features/calendar/Buddhist.js\";`\n\n`import \"@ui5/webcomponents-localization/dist/features/calendar/Islamic.js\";`\n\n`import \"@ui5/webcomponents-localization/dist/features/calendar/Japanese.js\";`\n\n`import \"@ui5/webcomponents-localization/dist/features/calendar/Persian.js\";`\n\nOr, you can use the global configuration and set the `calendarType` key:\n\n```html\n<script data-id=\"sap-ui-config\" type=\"application/json\">\n\t{\n\t\t\"calendarType\": \"Japanese\"\n\t}\n<script>\n```\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/DatePicker.js\";`",
+          "description": "### Overview\n\nThe `ui5-date-picker` component provides an input field with assigned calendar which opens on user action.\nThe `ui5-date-picker` allows users to select a localized date using touch,\nmouse, or keyboard input. It consists of two parts: the date input field and the\ndate picker.\n\n### Usage\n\nThe user can enter a date by:\n\n- Using the calendar that opens in a popup\n- Typing it in directly in the input field\n\nWhen the user makes an entry and presses the enter key, the calendar shows the corresponding date.\nWhen the user directly triggers the calendar display, the actual date is displayed.\n\n### Formatting\n\nIf a date is entered by typing it into\nthe input field, it must fit to the used date format.\n\nSupported format options are pattern-based on Unicode LDML Date Format notation.\nFor more information, see [UTS #35: Unicode Locale Data Markup Language](https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table).\n\nFor example, if the valueFormat is \"yyyy-MM-dd\", the displayFormat is \"MMM d, y\", and the used locale is English, a valid value string is \"2015-07-30\", which leads to an output of \"Jul 30, 2015\".\nIf no placeholder is set to the DatePicker, the used displayFormat is displayed as a placeholder. If another placeholder is needed, it must be set.\n\n### Relative date input\n\nThe input field also accepts locale-aware relative date expressions sourced from the Unicode CLDR.\nThe following expressions are supported in English:\n\n- Day: \"today\", \"yesterday\", \"tomorrow\", \"in N days\", \"N days ago\"\n- Week: \"this week\", \"last week\", \"next week\", \"in N weeks\", \"N weeks ago\"\n- Month: \"this month\", \"last month\", \"next month\", \"in N months\", \"N months ago\"\n- Year: \"this year\", \"last year\", \"next year\", \"in N years\", \"N years ago\"\n\nThe recognized expressions are locale-specific — the equivalent terms in the user's language are used (for example, \"heute\" in German, \"bugün\" in Turkish).\nWeek, month, and year expressions resolve to an offset from today (for example, \"next week\" = today + 7 days).\nFor the full list of supported fields and patterns, see [CLDR Date Fields](https://unicode.org/reports/tr35/tr35-dates.html#Calendar_Fields).\n\n### Keyboard Handling\nThe `ui5-date-picker` provides advanced keyboard handling.\nIf the `ui5-date-picker` is focused,\nyou can open or close the drop-down by pressing [F4], [Alt] + [Up] or [Alt] + [Down] keys.\nOnce the drop-down is opened, you can use the [Up], [Down], [Left] or [Right] arrow keys\nto navigate through the dates and select one by pressing the `Space` or `Enter` keys. Moreover you can\nuse TAB to reach the buttons for changing month and year.\n\nIf the `ui5-date-picker` input field is focused and its corresponding picker dialog is not opened,\nthen users can increment or decrement the date referenced by `dateValue` property\nby using the following shortcuts:\n\n- [Page Down] - Decrements the corresponding day of the month by one\n- [Shift] + [Page Down] - Decrements the corresponding month by one\n- [Shift] + [Ctrl] + [Page Down] - Decrements the corresponding year by one\n- [Page Up] - Increments the corresponding day of the month by one\n- [Shift] + [Page Up] - Increments the corresponding month by one\n- [Shift] + [Ctrl] + [Page Up] - Increments the corresponding year by one\n\n### Calendar types\nThe component supports several calendar types - Gregorian, Buddhist, Islamic, Japanese and Persian.\nBy default the Gregorian Calendar is used. In order to use the Buddhist, Islamic, Japanese or Persian calendar,\nyou need to set the `primaryCalendarType` property and import one or more of the following modules:\n\n`import \"@ui5/webcomponents-localization/dist/features/calendar/Buddhist.js\";`\n\n`import \"@ui5/webcomponents-localization/dist/features/calendar/Islamic.js\";`\n\n`import \"@ui5/webcomponents-localization/dist/features/calendar/Japanese.js\";`\n\n`import \"@ui5/webcomponents-localization/dist/features/calendar/Persian.js\";`\n\nOr, you can use the global configuration and set the `calendarType` key:\n\n```html\n<script data-id=\"sap-ui-config\" type=\"application/json\">\n\t{\n\t\t\"calendarType\": \"Japanese\"\n\t}\n<script>\n```\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/DatePicker.js\";`",
           "name": "DatePicker",
           "cssParts": [
             {
@@ -13516,7 +13536,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "privacy": "public"
             }
           ],
@@ -13618,7 +13638,7 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
@@ -13892,7 +13912,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "privacy": "public"
             }
           ],
@@ -13970,7 +13990,7 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
@@ -14071,7 +14091,7 @@
           "slots": [
             {
               "name": "default",
-              "description": "Defines the items of the <code>ui5-li-group</code>.",
+              "description": "Defines the items of the group.",
               "_ui5propertyName": "items",
               "_ui5type": {
                 "text": "Array<ListItemBase>",
@@ -14118,7 +14138,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "description": "Defines the header text of the group.",
               "privacy": "public",
               "default": "undefined"
             },
@@ -14228,7 +14248,7 @@
               }
             },
             {
-              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "description": "Defines the header text of the group.",
               "name": "header-text",
               "default": "undefined",
               "fieldName": "headerText",
@@ -14247,9 +14267,9 @@
             }
           ],
           "superclass": {
-            "name": "UI5Element",
-            "package": "@ui5/webcomponents-base",
-            "module": "dist/UI5Element.js"
+            "name": "ListItemGroupBase",
+            "package": "@ui5/webcomponents",
+            "module": "dist/ListItemGroupBase.js"
           },
           "tagName": "ui5-li-group",
           "customElement": true,
@@ -14272,6 +14292,77 @@
           "declaration": {
             "name": "ListItemGroup",
             "module": "dist/ListItemGroup.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/ListItemGroupBase.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\n`ListItemGroupBase` is the abstract base for grouping components. It provides the minimal\n\"group\" contract shared by `ui5-li-group` and `ui5-option-group`: a header text, the default\nitems slot, and the plumbing the internal `ui5-list` relies on to flatten grouped items.\n\nConcrete group components extend this class and add only the public API that is relevant to them.",
+          "name": "ListItemGroupBase",
+          "slots": [
+            {
+              "name": "default",
+              "description": "Defines the items of the group.",
+              "_ui5propertyName": "items",
+              "_ui5type": {
+                "text": "Array<ListItemBase>",
+                "references": [
+                  {
+                    "name": "ListItemBase",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/ListItemBase.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "headerText",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the header text of the group.",
+              "privacy": "public",
+              "default": "undefined"
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines the header text of the group.",
+              "name": "header-text",
+              "default": "undefined",
+              "fieldName": "headerText",
+              "type": {
+                "text": "string | undefined"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "UI5Element",
+            "package": "@ui5/webcomponents-base",
+            "module": "dist/UI5Element.js"
+          },
+          "customElement": true,
+          "_ui5since": "2.27.0",
+          "_ui5privacy": "public",
+          "_ui5abstract": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "ListItemGroupBase",
+            "module": "dist/ListItemGroupBase.js"
           }
         }
       ]
@@ -14684,7 +14775,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "privacy": "public"
             },
             {
@@ -14834,7 +14925,7 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
@@ -15498,7 +15589,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "privacy": "public"
             }
           ],
@@ -15765,7 +15856,7 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
@@ -17190,6 +17281,16 @@
           "kind": "class",
           "description": "The `ui5-mcb-item-group` is type of suggestion item,\nthat can be used to split the `ui5-multi-combobox` suggestions into groups.",
           "name": "MultiComboBoxItemGroup",
+          "cssParts": [
+            {
+              "description": "Used to style the header item of the group",
+              "name": "header"
+            },
+            {
+              "description": "Used to style the title of the group header",
+              "name": "title"
+            }
+          ],
           "slots": [
             {
               "name": "default",
@@ -17240,7 +17341,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "description": "Defines the header text of the group.",
               "privacy": "public",
               "default": "undefined"
             },
@@ -17279,16 +17380,6 @@
               "module": "dist/MultiComboBox.js"
             }
           ],
-          "cssParts": [
-            {
-              "description": "Used to style the header item of the group",
-              "name": "header"
-            },
-            {
-              "description": "Used to style the title of the group header",
-              "name": "title"
-            }
-          ],
           "attributes": [
             {
               "description": "Defines the accessible name of the header.",
@@ -17300,7 +17391,7 @@
               }
             },
             {
-              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "description": "Defines the header text of the group.",
               "name": "header-text",
               "default": "undefined",
               "fieldName": "headerText",
@@ -18052,6 +18143,335 @@
     },
     {
       "kind": "javascript-module",
+      "path": "dist/NumberInput.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-number-input` component is a numeric input field. It allows users to enter, edit and select numeric values.\n\n### Usage\n\nThe default step is 1 but the app developer can set a different one.\n\nApp developers can set a maximum and minimum value for `ui5-number-input`.\nThe increase/decrease button and the up/down keyboard navigation become disabled when\nthe value reaches the max/min or a new value is entered from the input which is greater/less than the max/min.\n\n#### When to use:\n\n- To enter or adjust numeric values.\n- To adjust values for a specific step.\n\n#### When not to use:\n\n- To enter a static number (for example, postal code, phone number, or ID). In this case,\nuse the regular `ui5-input` instead.\n- To enter dates and times. In this case, use date/time related components instead.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/NumberInput.js\";`",
+          "name": "NumberInput",
+          "slots": [
+            {
+              "name": "valueStateMessage",
+              "description": "Defines the value state message that will be displayed as pop up under the component.\n\n**Note:** If not specified, a default text (in the respective language) will be displayed.\n\n**Note:** The `valueStateMessage` would be displayed,\nwhen the component is in `Information`, `Critical` or `Negative` value state.",
+              "_ui5type": {
+                "text": "Array<HTMLElement>"
+              },
+              "_ui5privacy": "public"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible ARIA name of the component.",
+              "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "accessibleNameRef",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Receives ID (or many IDs) of the elements that label the component.",
+              "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Determines whether the component is displayed as disabled.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Defines a maximum value of the component.",
+              "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "min",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Defines a minimum value of the component.",
+              "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.",
+              "default": "undefined",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Determines whether the component is displayed as read-only.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "step",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "Defines a step of increasing/decreasing the value of the component.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Defines a value of the component.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "valuePrecision",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Determines the number of digits after the decimal point of the component.",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "valueState",
+              "type": {
+                "text": "ValueState",
+                "references": [
+                  {
+                    "name": "ValueState",
+                    "package": "@ui5/webcomponents-base",
+                    "module": "dist/types/ValueState.js"
+                  }
+                ]
+              },
+              "default": "\"None\"",
+              "description": "Defines the value state of the component.",
+              "privacy": "public"
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the input operation has finished by pressing Enter or on focusout.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": true
+            },
+            {
+              "name": "input",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the value of the component changes at each keystroke.",
+              "_ui5Cancelable": true,
+              "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": true
+            },
+            {
+              "name": "value-state-change",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent<NumberInputValueStateChangeEventDetail>",
+                "references": [
+                  {
+                    "name": "NumberInputValueStateChangeEventDetail",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/NumberInput.js"
+                  }
+                ]
+              },
+              "description": "Fired before the value state of the component is updated internally.\nThe event is preventable, meaning that if its default action is\nprevented, the component will not update the value state.",
+              "_ui5Cancelable": true,
+              "_ui5allowPreventDefault": true,
+              "_ui5Bubbles": true,
+              "_ui5parameters": [
+                {
+                  "type": {
+                    "text": "boolean"
+                  },
+                  "name": "valid",
+                  "_ui5privacy": "public",
+                  "description": "Indicator if the value is in between the min and max value."
+                },
+                {
+                  "type": {
+                    "text": "string"
+                  },
+                  "name": "valueState",
+                  "_ui5privacy": "public",
+                  "description": "The new `valueState` that will be set."
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines the accessible ARIA name of the component.",
+              "name": "accessible-name",
+              "default": "undefined",
+              "fieldName": "accessibleName",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Receives ID (or many IDs) of the elements that label the component.",
+              "name": "accessible-name-ref",
+              "default": "undefined",
+              "fieldName": "accessibleNameRef",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Determines whether the component is displayed as disabled.",
+              "name": "disabled",
+              "default": "false",
+              "fieldName": "disabled",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines a maximum value of the component.",
+              "name": "max",
+              "default": "undefined",
+              "fieldName": "max",
+              "type": {
+                "text": "number | undefined"
+              }
+            },
+            {
+              "description": "Defines a minimum value of the component.",
+              "name": "min",
+              "default": "undefined",
+              "fieldName": "min",
+              "type": {
+                "text": "number | undefined"
+              }
+            },
+            {
+              "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.",
+              "name": "name",
+              "default": "undefined",
+              "fieldName": "name",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Determines whether the component is displayed as read-only.",
+              "name": "readonly",
+              "default": "false",
+              "fieldName": "readonly",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines a step of increasing/decreasing the value of the component.",
+              "name": "step",
+              "default": "1",
+              "fieldName": "step",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "description": "Defines a value of the component.",
+              "name": "value",
+              "default": "0",
+              "fieldName": "value",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "description": "Determines the number of digits after the decimal point of the component.",
+              "name": "value-precision",
+              "default": "0",
+              "fieldName": "valuePrecision",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "description": "Defines the value state of the component.",
+              "name": "value-state",
+              "default": "\"None\"",
+              "fieldName": "valueState",
+              "type": {
+                "text": "\"None\" | \"Positive\" | \"Critical\" | \"Negative\" | \"Information\""
+              }
+            }
+          ],
+          "superclass": {
+            "name": "UI5Element",
+            "package": "@ui5/webcomponents-base",
+            "module": "dist/UI5Element.js"
+          },
+          "tagName": "ui5-number-input",
+          "customElement": true,
+          "_ui5experimental": true,
+          "_ui5since": "2.27.0",
+          "_ui5privacy": "public"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "NumberInput",
+            "module": "dist/NumberInput.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-number-input",
+          "declaration": {
+            "name": "NumberInput",
+            "module": "dist/NumberInput.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "dist/Option.js",
       "declarations": [
         {
@@ -18402,6 +18822,85 @@
           "declaration": {
             "name": "OptionCustom",
             "module": "dist/OptionCustom.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/OptionGroup.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "### Overview\n\nThe `ui5-option-group` component is used to group options within a `ui5-select`.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/OptionGroup.js\";`",
+          "name": "OptionGroup",
+          "slots": [
+            {
+              "name": "default",
+              "description": "Defines the options of the group.\n\n**Note:** Use the `ui5-option` component to define the desired options.",
+              "_ui5propertyName": "items",
+              "_ui5type": {
+                "text": "Array<Option>",
+                "references": [
+                  {
+                    "name": "Option",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/Option.js"
+                  }
+                ]
+              },
+              "_ui5privacy": "public"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "headerText",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the header text of the group.",
+              "privacy": "public",
+              "default": "undefined"
+            }
+          ],
+          "superclass": {
+            "name": "ListItemGroupBase",
+            "package": "@ui5/webcomponents",
+            "module": "dist/ListItemGroupBase.js"
+          },
+          "tagName": "ui5-option-group",
+          "customElement": true,
+          "_ui5since": "2.26.0",
+          "_ui5privacy": "public",
+          "attributes": [
+            {
+              "description": "Defines the header text of the group.",
+              "name": "header-text",
+              "default": "undefined",
+              "fieldName": "headerText",
+              "type": {
+                "text": "string | undefined"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "OptionGroup",
+            "module": "dist/OptionGroup.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ui5-option-group",
+          "declaration": {
+            "name": "OptionGroup",
+            "module": "dist/OptionGroup.js"
           }
         }
       ]
@@ -21687,6 +22186,13 @@
           "_ui5privacy": "public"
         },
         {
+          "kind": "interface",
+          "name": "IOptionGroup",
+          "description": "Interface for group containers slotted inside `ui5-select`",
+          "_ui5privacy": "public",
+          "_ui5since": "2.27.0"
+        },
+        {
           "kind": "class",
           "description": "### Overview\n\nThe `ui5-select` component is used to create a drop-down list.\n\n### Usage\n\nThere are two main usages of the `ui5-select>`.\n\n- With Option (`ui5-option`) web component:\n\nThe available options of the Select are defined by using the Option component.\nThe Option comes with predefined design and layout, including `icon`, `text` and `additional-text`.\n\n- With OptionCustom (`ui5-option-custom`) web component.\n\nOptions with custom content are defined by using the OptionCustom component.\nThe OptionCustom component comes with no predefined layout and it expects consumers to define it.\n\n### Selection\n\nThe options can be selected via user interaction (click or with the use of the Space and Enter keys)\nand programmatically - the Select component supports two distinct selection APIs, though mixing them is not supported:\n- The \"value\" property of the Select component\n- The \"selected\" property on individual options\n\n**Note:** If the \"value\" property is set but does not match any option,\nno option will be selected and the Select component will be displayed as empty.\n\n**Note:** when both \"value\" and \"selected\" are both used (although discouraged),\nthe \"value\" property will take precedence.\n\n### Keyboard Handling\n\nThe `ui5-select` provides advanced keyboard handling.\n\n- [F4] / [Alt] + [Up] / [Alt] + [Down] / [Space] or [Enter] - Opens/closes the drop-down.\n- [Up] or [Down] - If the drop-down is closed - changes selection to the next or the previous option. If the drop-down is opened - moves focus to the next or the previous option.\n- [Space], [Enter] - If the drop-down is opened - selects the focused option.\n- [Escape] - Closes the drop-down without changing the selection.\n- [Home] - Navigates to first option\n- [End] - Navigates to the last option\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/Select\";`\n\n`import \"@ui5/webcomponents/dist/Option\";`\n`import \"@ui5/webcomponents/dist/OptionCustom\";`",
           "name": "Select",
@@ -21699,17 +22205,10 @@
           "slots": [
             {
               "name": "default",
-              "description": "Defines the component options.\n\n**Note:** Only one selected option is allowed.\nIf more than one option is defined as selected, the last one would be considered as the selected one.\n\n**Note:** Use the `ui5-option` component to define the desired options.",
+              "description": "Defines the component options.\n\n**Note:** Only one selected option is allowed.\nIf more than one option is defined as selected, the last one would be considered as the selected one.\n\n**Note:** Use the `ui5-option` component to define the desired options.\nUse the `ui5-option-group` component to group options.",
               "_ui5propertyName": "options",
               "_ui5type": {
-                "text": "Array<IOption>",
-                "references": [
-                  {
-                    "name": "IOption",
-                    "package": "@ui5/webcomponents",
-                    "module": "dist/Select.js"
-                  }
-                ]
+                "text": "Array<IOption | IOptionGroup>"
               },
               "_ui5privacy": "public"
             },
@@ -22963,7 +23462,7 @@
                 ]
               },
               "default": "{}",
-              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe `accessibilityAttributes` property accepts an object with the following optional fields:\n\n- **root**: Attributes that will be applied to the main (text) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **roleDescription**: Provides a human-readable description for the role of the button.\n    Accepts any string value.\n  - **title**: Specifies a tooltip or description for screen readers.\n    Accepts any string value.\n\t- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.\n\n- **arrowButton**: Attributes applied specifically to the arrow (split) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the arrow button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **expanded**: Indicates whether the popup triggered by the arrow button is currently expanded.\n    Accepts boolean values: `true` or `false`.",
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe `accessibilityAttributes` property accepts an object with the following optional fields:\n\n- **root**: Attributes that will be applied to the main (text) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **title**: Specifies a tooltip or description for screen readers.\n    Accepts any string value.\n\t- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.\n\n- **arrowButton**: Attributes applied specifically to the arrow (split) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the arrow button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **expanded**: Indicates whether the popup triggered by the arrow button is currently expanded.\n    Accepts boolean values: `true` or `false`.",
               "privacy": "public",
               "_ui5since": "2.13.0"
             },
@@ -23052,7 +23551,7 @@
           ],
           "attributes": [
             {
-              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe `accessibilityAttributes` property accepts an object with the following optional fields:\n\n- **root**: Attributes that will be applied to the main (text) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **roleDescription**: Provides a human-readable description for the role of the button.\n    Accepts any string value.\n  - **title**: Specifies a tooltip or description for screen readers.\n    Accepts any string value.\n\t- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.\n\n- **arrowButton**: Attributes applied specifically to the arrow (split) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the arrow button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **expanded**: Indicates whether the popup triggered by the arrow button is currently expanded.\n    Accepts boolean values: `true` or `false`.",
+              "description": "Defines the additional accessibility attributes that will be applied to the component.\nThe `accessibilityAttributes` property accepts an object with the following optional fields:\n\n- **root**: Attributes that will be applied to the main (text) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **title**: Specifies a tooltip or description for screen readers.\n    Accepts any string value.\n\t- **ariaKeyShortcuts**: Defines keyboard shortcuts that activate or give focus to the button.\n\n- **arrowButton**: Attributes applied specifically to the arrow (split) button.\n  - **hasPopup**: Indicates the presence and type of popup triggered by the arrow button.\n    Accepts string values: `\"dialog\"`, `\"grid\"`, `\"listbox\"`, `\"menu\"`, or `\"tree\"`.\n  - **expanded**: Indicates whether the popup triggered by the arrow button is currently expanded.\n    Accepts boolean values: `true` or `false`.",
               "name": "accessibility-attributes",
               "default": "{}",
               "fieldName": "accessibilityAttributes",
@@ -23147,7 +23646,7 @@
           "slots": [
             {
               "name": "valueStateMessage",
-              "description": "Defines the value state message that will be displayed as pop up under the component.\n\n**Note:** If not specified, a default text (in the respective language) will be displayed.\n\n**Note:** The `valueStateMessage` would be displayed,\nwhen the component is in `Information`, `Critical` or `Negative` value state.",
+              "description": "Defines the value state message that will be displayed as pop up under the component.",
               "_ui5type": {
                 "text": "Array<HTMLElement>"
               },
@@ -23213,7 +23712,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.",
+              "description": "Determines the name by which the component will be identified upon submission in an HTML form.",
               "default": "undefined",
               "privacy": "public"
             },
@@ -23223,7 +23722,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines a short hint, intended to aid the user with data entry when the\ncomponent has no value.\n\n**Note:** When no placeholder is set, the format pattern is displayed as a placeholder.\nPassing an empty string as the value of this property will make the component appear empty - without placeholder or format pattern.",
+              "description": "Defines a short hint, intended to aid the user with data entry when the\ncomponent has no value.",
               "default": "undefined",
               "privacy": "public"
             },
@@ -23404,7 +23903,7 @@
               }
             },
             {
-              "description": "Determines the name by which the component will be identified upon submission in an HTML form.\n\n**Note:** This property is only applicable within the context of an HTML Form element.",
+              "description": "Determines the name by which the component will be identified upon submission in an HTML form.",
               "name": "name",
               "default": "undefined",
               "fieldName": "name",
@@ -23413,7 +23912,7 @@
               }
             },
             {
-              "description": "Defines a short hint, intended to aid the user with data entry when the\ncomponent has no value.\n\n**Note:** When no placeholder is set, the format pattern is displayed as a placeholder.\nPassing an empty string as the value of this property will make the component appear empty - without placeholder or format pattern.",
+              "description": "Defines a short hint, intended to aid the user with data entry when the\ncomponent has no value.",
               "name": "placeholder",
               "default": "undefined",
               "fieldName": "placeholder",
@@ -23743,6 +24242,16 @@
           "kind": "class",
           "description": "The `ui5-suggestion-item-group` is type of suggestion item,\nthat can be used to split the `ui5-input` suggestions into groups.",
           "name": "SuggestionItemGroup",
+          "cssParts": [
+            {
+              "description": "Used to style the header item of the group",
+              "name": "header"
+            },
+            {
+              "description": "Used to style the title of the group header",
+              "name": "title"
+            }
+          ],
           "slots": [
             {
               "name": "default",
@@ -23785,16 +24294,6 @@
           "customElement": true,
           "_ui5since": "2.0.0",
           "_ui5privacy": "public",
-          "cssParts": [
-            {
-              "description": "Used to style the header item of the group",
-              "name": "header"
-            },
-            {
-              "description": "Used to style the title of the group header",
-              "name": "title"
-            }
-          ],
           "attributes": [
             {
               "description": "Defines the accessible name of the header.",
@@ -23806,7 +24305,7 @@
               }
             },
             {
-              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "description": "Defines the header text of the group.",
               "name": "header-text",
               "default": "undefined",
               "fieldName": "headerText",
@@ -23841,7 +24340,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Defines the header text of the <code>ui5-li-group</code>.",
+              "description": "Defines the header text of the group.",
               "privacy": "public",
               "default": "undefined"
             },
@@ -24254,7 +24753,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "privacy": "public"
             },
             {
@@ -24412,7 +24911,7 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
@@ -31353,7 +31852,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "### Overview\n\nThe `ui5-toolbar` component is used to create a horizontal layout with items.\nThe items can be overflowing in a popover, when the space is not enough to show all of them.\n\n### Keyboard Handling\nThe `ui5-toolbar` provides advanced keyboard handling.\n\n- [Left]/[Right] - navigate among toolbar items\n- [Home]/[End] - move to first/last toolbar item\n- [Tab] / [Shift]+[Tab] - exit the toolbar\n\n### ES6 Module Import\n`import \"@ui5/webcomponents/dist/Toolbar.js\";`",
+          "description": "### Overview\n\nThe `ui5-toolbar` component is used to create a horizontal layout with items.\nThe items can be overflowing in a popover, when the space is not enough to show all of them.\n\n### Grouped Overflow\n\nItems that share the same non-empty `overflowGroup` string are treated as one atomic\nunit during overflow distribution: when any member must move into the overflow\npopover, all members move together. The visible bar always preserves slot order;\nthe group becomes adjacent only inside the popover. See the `overflowGroup` property\non `ToolbarItemBase` for the full contract.\n\n### Keyboard Handling\nThe `ui5-toolbar` provides advanced keyboard handling.\n\n- [Left]/[Right] - navigate among toolbar items\n- [Home]/[End] - move to first/last toolbar item\n- [Tab] / [Shift]+[Tab] - exit the toolbar\n\n### ES6 Module Import\n`import \"@ui5/webcomponents/dist/Toolbar.js\";`",
           "name": "Toolbar",
           "slots": [
             {
@@ -31557,6 +32056,17 @@
             },
             {
               "kind": "field",
+              "name": "accessibleDescription",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the accessible description of the component.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.27.0"
+            },
+            {
+              "kind": "field",
               "name": "accessibleName",
               "type": {
                 "text": "string | undefined"
@@ -31574,6 +32084,24 @@
               "description": "Receives id(or many ids) of the elements that label the component.",
               "default": "undefined",
               "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "accessibleRole",
+              "type": {
+                "text": "ButtonAccessibleRole",
+                "references": [
+                  {
+                    "name": "ButtonAccessibleRole",
+                    "package": "@ui5/webcomponents",
+                    "module": "dist/types/ButtonAccessibleRole.js"
+                  }
+                ]
+              },
+              "default": "\"Button\"",
+              "description": "Defines the ARIA role of the component.\n\n**Note:** Use `ButtonAccessibleRole.Link` role only with a press handler that performs navigation.\nIn all other scenarios the default button semantics are recommended.",
+              "privacy": "public",
+              "_ui5since": "2.27.0"
             },
             {
               "kind": "field",
@@ -31621,6 +32149,17 @@
               "description": "Defines the `icon` source URI.\n\n**Note:** SAP-icons font provides numerous buil-in icons. To find all the available icons, see the\n[Icon Explorer](https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html).",
               "default": "undefined",
               "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "overflowGroup",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Co-overflow tag. Items in the same `ui5-toolbar` whose `overflowGroup` is the same\nnon-empty string overflow as one atomic unit: either all visible in the bar, or all\nin the overflow popover, never split. The empty string (the default) means \"no group\" —\nthe item participates in overflow independently.\n\nThe tag is a free-form, case-sensitive string label (e.g. `\"filters\"`, `\"search\"`). It is\nlayout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a\nnon-empty group must have `overflowPriority = \"Default\"`; `AlwaysOverflow` and\n`NeverOverflow` are forbidden inside a group — setting one of those on a grouped item\nemits a one-shot `console.warn` and the item's priority is treated as `Default` for\nthe layout pass. Spacers (`ui5-toolbar-spacer`) do not participate in grouping; setting\na non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's\nexisting overflow behavior is unchanged.\n\nThe visible bar always preserves slot order — ungrouped items between group members\nkeep their slot positions and the toolbar never reorders DOM children. In the popover\ngroup members appear adjacent in slot order.",
+              "privacy": "public",
+              "default": "undefined",
+              "_ui5since": "2.27.0"
             },
             {
               "kind": "field",
@@ -31715,6 +32254,15 @@
               }
             },
             {
+              "description": "Defines the accessible description of the component.",
+              "name": "accessible-description",
+              "default": "undefined",
+              "fieldName": "accessibleDescription",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
               "description": "Defines the accessible ARIA name of the component.",
               "name": "accessible-name",
               "default": "undefined",
@@ -31730,6 +32278,15 @@
               "fieldName": "accessibleNameRef",
               "type": {
                 "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines the ARIA role of the component.\n\n**Note:** Use `ButtonAccessibleRole.Link` role only with a press handler that performs navigation.\nIn all other scenarios the default button semantics are recommended.",
+              "name": "accessible-role",
+              "default": "\"Button\"",
+              "fieldName": "accessibleRole",
+              "type": {
+                "text": "\"Button\" | \"Link\""
               }
             },
             {
@@ -31764,6 +32321,15 @@
               "name": "icon",
               "default": "undefined",
               "fieldName": "icon",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Co-overflow tag. Items in the same `ui5-toolbar` whose `overflowGroup` is the same\nnon-empty string overflow as one atomic unit: either all visible in the bar, or all\nin the overflow popover, never split. The empty string (the default) means \"no group\" —\nthe item participates in overflow independently.\n\nThe tag is a free-form, case-sensitive string label (e.g. `\"filters\"`, `\"search\"`). It is\nlayout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a\nnon-empty group must have `overflowPriority = \"Default\"`; `AlwaysOverflow` and\n`NeverOverflow` are forbidden inside a group — setting one of those on a grouped item\nemits a one-shot `console.warn` and the item's priority is treated as `Default` for\nthe layout pass. Spacers (`ui5-toolbar-spacer`) do not participate in grouping; setting\na non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's\nexisting overflow behavior is unchanged.\n\nThe visible bar always preserves slot order — ungrouped items between group members\nkeep their slot positions and the toolbar never reorders DOM children. In the popover\ngroup members appear adjacent in slot order.",
+              "name": "overflow-group",
+              "default": "undefined",
+              "fieldName": "overflowGroup",
               "type": {
                 "text": "string | undefined"
               }
@@ -31897,6 +32463,17 @@
           "members": [
             {
               "kind": "field",
+              "name": "overflowGroup",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Co-overflow tag. Items in the same `ui5-toolbar` whose `overflowGroup` is the same\nnon-empty string overflow as one atomic unit: either all visible in the bar, or all\nin the overflow popover, never split. The empty string (the default) means \"no group\" —\nthe item participates in overflow independently.\n\nThe tag is a free-form, case-sensitive string label (e.g. `\"filters\"`, `\"search\"`). It is\nlayout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a\nnon-empty group must have `overflowPriority = \"Default\"`; `AlwaysOverflow` and\n`NeverOverflow` are forbidden inside a group — setting one of those on a grouped item\nemits a one-shot `console.warn` and the item's priority is treated as `Default` for\nthe layout pass. Spacers (`ui5-toolbar-spacer`) do not participate in grouping; setting\na non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's\nexisting overflow behavior is unchanged.\n\nThe visible bar always preserves slot order — ungrouped items between group members\nkeep their slot positions and the toolbar never reorders DOM children. In the popover\ngroup members appear adjacent in slot order.",
+              "privacy": "public",
+              "default": "undefined",
+              "_ui5since": "2.27.0"
+            },
+            {
+              "kind": "field",
               "name": "overflowPriority",
               "type": {
                 "text": "ToolbarItemOverflowBehavior",
@@ -31933,6 +32510,15 @@
           "_ui5since": "2.20.0",
           "_ui5privacy": "public",
           "attributes": [
+            {
+              "description": "Co-overflow tag. Items in the same `ui5-toolbar` whose `overflowGroup` is the same\nnon-empty string overflow as one atomic unit: either all visible in the bar, or all\nin the overflow popover, never split. The empty string (the default) means \"no group\" —\nthe item participates in overflow independently.\n\nThe tag is a free-form, case-sensitive string label (e.g. `\"filters\"`, `\"search\"`). It is\nlayout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a\nnon-empty group must have `overflowPriority = \"Default\"`; `AlwaysOverflow` and\n`NeverOverflow` are forbidden inside a group — setting one of those on a grouped item\nemits a one-shot `console.warn` and the item's priority is treated as `Default` for\nthe layout pass. Spacers (`ui5-toolbar-spacer`) do not participate in grouping; setting\na non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's\nexisting overflow behavior is unchanged.\n\nThe visible bar always preserves slot order — ungrouped items between group members\nkeep their slot positions and the toolbar never reorders DOM children. In the popover\ngroup members appear adjacent in slot order.",
+              "name": "overflow-group",
+              "default": "undefined",
+              "fieldName": "overflowGroup",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
             {
               "description": "Property used to define the access of the item to the overflow Popover. If \"NeverOverflow\" option is set,\nthe item never goes in the Popover, if \"AlwaysOverflow\" - it never comes out of it.",
               "name": "overflow-priority",
@@ -31990,6 +32576,17 @@
           "members": [
             {
               "kind": "field",
+              "name": "overflowGroup",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Co-overflow tag. Items in the same `ui5-toolbar` whose `overflowGroup` is the same\nnon-empty string overflow as one atomic unit: either all visible in the bar, or all\nin the overflow popover, never split. The empty string (the default) means \"no group\" —\nthe item participates in overflow independently.\n\nThe tag is a free-form, case-sensitive string label (e.g. `\"filters\"`, `\"search\"`). It is\nlayout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a\nnon-empty group must have `overflowPriority = \"Default\"`; `AlwaysOverflow` and\n`NeverOverflow` are forbidden inside a group — setting one of those on a grouped item\nemits a one-shot `console.warn` and the item's priority is treated as `Default` for\nthe layout pass. Spacers (`ui5-toolbar-spacer`) do not participate in grouping; setting\na non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's\nexisting overflow behavior is unchanged.\n\nThe visible bar always preserves slot order — ungrouped items between group members\nkeep their slot positions and the toolbar never reorders DOM children. In the popover\ngroup members appear adjacent in slot order.",
+              "privacy": "public",
+              "default": "undefined",
+              "_ui5since": "2.27.0"
+            },
+            {
+              "kind": "field",
               "name": "overflowPriority",
               "type": {
                 "text": "ToolbarItemOverflowBehavior",
@@ -32017,6 +32614,15 @@
             }
           ],
           "attributes": [
+            {
+              "description": "Co-overflow tag. Items in the same `ui5-toolbar` whose `overflowGroup` is the same\nnon-empty string overflow as one atomic unit: either all visible in the bar, or all\nin the overflow popover, never split. The empty string (the default) means \"no group\" —\nthe item participates in overflow independently.\n\nThe tag is a free-form, case-sensitive string label (e.g. `\"filters\"`, `\"search\"`). It is\nlayout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a\nnon-empty group must have `overflowPriority = \"Default\"`; `AlwaysOverflow` and\n`NeverOverflow` are forbidden inside a group — setting one of those on a grouped item\nemits a one-shot `console.warn` and the item's priority is treated as `Default` for\nthe layout pass. Spacers (`ui5-toolbar-spacer`) do not participate in grouping; setting\na non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's\nexisting overflow behavior is unchanged.\n\nThe visible bar always preserves slot order — ungrouped items between group members\nkeep their slot positions and the toolbar never reorders DOM children. In the popover\ngroup members appear adjacent in slot order.",
+              "name": "overflow-group",
+              "default": "undefined",
+              "fieldName": "overflowGroup",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
             {
               "description": "Property used to define the access of the item to the overflow Popover. If \"NeverOverflow\" option is set,\nthe item never goes in the Popover, if \"AlwaysOverflow\" - it never comes out of it.",
               "name": "overflow-priority",
@@ -32129,6 +32735,17 @@
               "default": "false",
               "description": "Defines whether the component is in disabled state.\n\n**Note:** A disabled component is noninteractive.",
               "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "overflowGroup",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Co-overflow tag. Items in the same `ui5-toolbar` whose `overflowGroup` is the same\nnon-empty string overflow as one atomic unit: either all visible in the bar, or all\nin the overflow popover, never split. The empty string (the default) means \"no group\" —\nthe item participates in overflow independently.\n\nThe tag is a free-form, case-sensitive string label (e.g. `\"filters\"`, `\"search\"`). It is\nlayout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a\nnon-empty group must have `overflowPriority = \"Default\"`; `AlwaysOverflow` and\n`NeverOverflow` are forbidden inside a group — setting one of those on a grouped item\nemits a one-shot `console.warn` and the item's priority is treated as `Default` for\nthe layout pass. Spacers (`ui5-toolbar-spacer`) do not participate in grouping; setting\na non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's\nexisting overflow behavior is unchanged.\n\nThe visible bar always preserves slot order — ungrouped items between group members\nkeep their slot positions and the toolbar never reorders DOM children. In the popover\ngroup members appear adjacent in slot order.",
+              "privacy": "public",
+              "default": "undefined",
+              "_ui5since": "2.27.0"
             },
             {
               "kind": "field",
@@ -32283,6 +32900,15 @@
               "fieldName": "disabled",
               "type": {
                 "text": "boolean"
+              }
+            },
+            {
+              "description": "Co-overflow tag. Items in the same `ui5-toolbar` whose `overflowGroup` is the same\nnon-empty string overflow as one atomic unit: either all visible in the bar, or all\nin the overflow popover, never split. The empty string (the default) means \"no group\" —\nthe item participates in overflow independently.\n\nThe tag is a free-form, case-sensitive string label (e.g. `\"filters\"`, `\"search\"`). It is\nlayout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a\nnon-empty group must have `overflowPriority = \"Default\"`; `AlwaysOverflow` and\n`NeverOverflow` are forbidden inside a group — setting one of those on a grouped item\nemits a one-shot `console.warn` and the item's priority is treated as `Default` for\nthe layout pass. Spacers (`ui5-toolbar-spacer`) do not participate in grouping; setting\na non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's\nexisting overflow behavior is unchanged.\n\nThe visible bar always preserves slot order — ungrouped items between group members\nkeep their slot positions and the toolbar never reorders DOM children. In the popover\ngroup members appear adjacent in slot order.",
+              "name": "overflow-group",
+              "default": "undefined",
+              "fieldName": "overflowGroup",
+              "type": {
+                "text": "string | undefined"
               }
             },
             {
@@ -32472,6 +33098,17 @@
           "members": [
             {
               "kind": "field",
+              "name": "overflowGroup",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Co-overflow tag. Items in the same `ui5-toolbar` whose `overflowGroup` is the same\nnon-empty string overflow as one atomic unit: either all visible in the bar, or all\nin the overflow popover, never split. The empty string (the default) means \"no group\" —\nthe item participates in overflow independently.\n\nThe tag is a free-form, case-sensitive string label (e.g. `\"filters\"`, `\"search\"`). It is\nlayout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a\nnon-empty group must have `overflowPriority = \"Default\"`; `AlwaysOverflow` and\n`NeverOverflow` are forbidden inside a group — setting one of those on a grouped item\nemits a one-shot `console.warn` and the item's priority is treated as `Default` for\nthe layout pass. Spacers (`ui5-toolbar-spacer`) do not participate in grouping; setting\na non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's\nexisting overflow behavior is unchanged.\n\nThe visible bar always preserves slot order — ungrouped items between group members\nkeep their slot positions and the toolbar never reorders DOM children. In the popover\ngroup members appear adjacent in slot order.",
+              "privacy": "public",
+              "default": "undefined",
+              "_ui5since": "2.27.0"
+            },
+            {
+              "kind": "field",
               "name": "overflowPriority",
               "type": {
                 "text": "ToolbarItemOverflowBehavior",
@@ -32509,6 +33146,15 @@
           "_ui5privacy": "public",
           "_ui5abstract": true,
           "attributes": [
+            {
+              "description": "Co-overflow tag. Items in the same `ui5-toolbar` whose `overflowGroup` is the same\nnon-empty string overflow as one atomic unit: either all visible in the bar, or all\nin the overflow popover, never split. The empty string (the default) means \"no group\" —\nthe item participates in overflow independently.\n\nThe tag is a free-form, case-sensitive string label (e.g. `\"filters\"`, `\"search\"`). It is\nlayout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a\nnon-empty group must have `overflowPriority = \"Default\"`; `AlwaysOverflow` and\n`NeverOverflow` are forbidden inside a group — setting one of those on a grouped item\nemits a one-shot `console.warn` and the item's priority is treated as `Default` for\nthe layout pass. Spacers (`ui5-toolbar-spacer`) do not participate in grouping; setting\na non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's\nexisting overflow behavior is unchanged.\n\nThe visible bar always preserves slot order — ungrouped items between group members\nkeep their slot positions and the toolbar never reorders DOM children. In the popover\ngroup members appear adjacent in slot order.",
+              "name": "overflow-group",
+              "default": "undefined",
+              "fieldName": "overflowGroup",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
             {
               "description": "Property used to define the access of the item to the overflow Popover. If \"NeverOverflow\" option is set,\nthe item never goes in the Popover, if \"AlwaysOverflow\" - it never comes out of it.",
               "name": "overflow-priority",
@@ -32566,6 +33212,17 @@
           "members": [
             {
               "kind": "field",
+              "name": "overflowGroup",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Co-overflow tag. Items in the same `ui5-toolbar` whose `overflowGroup` is the same\nnon-empty string overflow as one atomic unit: either all visible in the bar, or all\nin the overflow popover, never split. The empty string (the default) means \"no group\" —\nthe item participates in overflow independently.\n\nThe tag is a free-form, case-sensitive string label (e.g. `\"filters\"`, `\"search\"`). It is\nlayout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a\nnon-empty group must have `overflowPriority = \"Default\"`; `AlwaysOverflow` and\n`NeverOverflow` are forbidden inside a group — setting one of those on a grouped item\nemits a one-shot `console.warn` and the item's priority is treated as `Default` for\nthe layout pass. Spacers (`ui5-toolbar-spacer`) do not participate in grouping; setting\na non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's\nexisting overflow behavior is unchanged.\n\nThe visible bar always preserves slot order — ungrouped items between group members\nkeep their slot positions and the toolbar never reorders DOM children. In the popover\ngroup members appear adjacent in slot order.",
+              "privacy": "public",
+              "default": "undefined",
+              "_ui5since": "2.27.0"
+            },
+            {
+              "kind": "field",
               "name": "overflowPriority",
               "type": {
                 "text": "ToolbarItemOverflowBehavior",
@@ -32603,6 +33260,15 @@
             }
           ],
           "attributes": [
+            {
+              "description": "Co-overflow tag. Items in the same `ui5-toolbar` whose `overflowGroup` is the same\nnon-empty string overflow as one atomic unit: either all visible in the bar, or all\nin the overflow popover, never split. The empty string (the default) means \"no group\" —\nthe item participates in overflow independently.\n\nThe tag is a free-form, case-sensitive string label (e.g. `\"filters\"`, `\"search\"`). It is\nlayout-only and carries no ARIA, keyboard, or visual-cluster semantics. Items in a\nnon-empty group must have `overflowPriority = \"Default\"`; `AlwaysOverflow` and\n`NeverOverflow` are forbidden inside a group — setting one of those on a grouped item\nemits a one-shot `console.warn` and the item's priority is treated as `Default` for\nthe layout pass. Spacers (`ui5-toolbar-spacer`) do not participate in grouping; setting\na non-empty `overflowGroup` on a spacer emits a one-shot `console.warn` and the spacer's\nexisting overflow behavior is unchanged.\n\nThe visible bar always preserves slot order — ungrouped items between group members\nkeep their slot positions and the toolbar never reorders DOM children. In the popover\ngroup members appear adjacent in slot order.",
+              "name": "overflow-group",
+              "default": "undefined",
+              "fieldName": "overflowGroup",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
             {
               "description": "Property used to define the access of the item to the overflow Popover. If \"NeverOverflow\" option is set,\nthe item never goes in the Popover, if \"AlwaysOverflow\" - it never comes out of it.",
               "name": "overflow-priority",
@@ -33423,7 +34089,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "privacy": "public"
             }
           ],
@@ -33564,7 +34230,7 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
@@ -33932,7 +34598,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "privacy": "public"
             }
           ],
@@ -34097,7 +34763,7 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
@@ -34403,7 +35069,7 @@
                 ]
               },
               "default": "\"Active\"",
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "privacy": "public"
             }
           ],
@@ -34535,7 +35201,7 @@
               }
             },
             {
-              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` but allows selection (checkbox/radio) to be toggled\nwhen the list has a selection mode. The `item-click` event is not fired for this type.",
+              "description": "Defines the visual indication and behavior of the list items.\nAvailable options are `Active` (by default), `Inactive`, `InactiveSelectable`, `Detail` and `Navigation`.\n\n**Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and hover,\nwhile with type `Inactive`, `InactiveSelectable` and `Detail` - will not.\n\n**Note:** `InactiveSelectable` behaves like `Inactive` (no active press/hover feedback and the\n`item-click` event is not fired), but the item can still be selected. Clicking the item body,\npressing Space/Enter, or interacting with the selection component (checkbox in Multi mode, radio\nbutton in Single modes) toggles the selection when the list has a selection mode.",
               "name": "type",
               "default": "\"Active\"",
               "fieldName": "type",
@@ -35077,21 +35743,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/colorpicker-utils/ColorValue.js",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "ColorValue",
-            "module": "dist/colorpicker-utils/ColorValue.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/delegate/DragAndDropHandler.js",
       "declarations": [],
       "exports": [
@@ -35476,6 +36127,21 @@
       "path": "dist/popup-utils/PopoverRegistry.js",
       "declarations": [],
       "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/colorpicker-utils/ColorValue.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "ColorValue",
+            "module": "dist/colorpicker-utils/ColorValue.js"
+          }
+        }
+      ]
     },
     {
       "kind": "javascript-module",
@@ -37823,7 +38489,7 @@
               "static": true,
               "privacy": "public",
               "_ui5since": "2.26.0",
-              "description": "Indicates the list item does not have any active feedback when item is pressed,\nbut selection (checkbox/radio) is still possible when a selection mode is active.\nThe `item-click` event is not fired for items of this type.",
+              "description": "Indicates the list item does not have any active feedback when item is pressed,\nbut the item can still be selected when a selection mode is active\n(via the item body, Space/Enter, or the checkbox/radio).\nThe `item-click` event is not fired for items of this type.",
               "default": "InactiveSelectable",
               "name": "InactiveSelectable",
               "readonly": true

@@ -431,6 +431,10 @@
       "types": "./dist/webComponents/NotificationListItem/index.d.ts",
       "default": "./dist/webComponents/NotificationListItem/index.js"
     },
+    "./NumberInput": {
+      "types": "./dist/webComponents/NumberInput/index.d.ts",
+      "default": "./dist/webComponents/NumberInput/index.js"
+    },
     "./Option": {
       "types": "./dist/webComponents/Option/index.d.ts",
       "default": "./dist/webComponents/Option/index.js"
@@ -438,6 +442,10 @@
     "./OptionCustom": {
       "types": "./dist/webComponents/OptionCustom/index.d.ts",
       "default": "./dist/webComponents/OptionCustom/index.js"
+    },
+    "./OptionGroup": {
+      "types": "./dist/webComponents/OptionGroup/index.d.ts",
+      "default": "./dist/webComponents/OptionGroup/index.js"
     },
     "./Page": {
       "types": "./dist/webComponents/Page/index.d.ts",
@@ -791,6 +799,18 @@
       "types": "./dist/webComponents/UserSettingsItem/index.d.ts",
       "default": "./dist/webComponents/UserSettingsItem/index.js"
     },
+    "./UserSettingsNotificationsView": {
+      "types": "./dist/webComponents/UserSettingsNotificationsView/index.d.ts",
+      "default": "./dist/webComponents/UserSettingsNotificationsView/index.js"
+    },
+    "./UserSettingsNotificationsViewGroup": {
+      "types": "./dist/webComponents/UserSettingsNotificationsViewGroup/index.d.ts",
+      "default": "./dist/webComponents/UserSettingsNotificationsViewGroup/index.js"
+    },
+    "./UserSettingsNotificationsViewItem": {
+      "types": "./dist/webComponents/UserSettingsNotificationsViewItem/index.d.ts",
+      "default": "./dist/webComponents/UserSettingsNotificationsViewItem/index.js"
+    },
     "./UserSettingsView": {
       "types": "./dist/webComponents/UserSettingsView/index.d.ts",
       "default": "./dist/webComponents/UserSettingsView/index.js"
@@ -843,10 +863,10 @@
   "peerDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@ui5/webcomponents": "~2.26.0",
-    "@ui5/webcomponents-base": "~2.26.0",
-    "@ui5/webcomponents-fiori": "~2.26.0",
-    "@ui5/webcomponents-icons": "~2.26.0",
+    "@ui5/webcomponents": "~2.27.0",
+    "@ui5/webcomponents-base": "~2.27.0",
+    "@ui5/webcomponents-fiori": "~2.27.0",
+    "@ui5/webcomponents-icons": "~2.27.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
   },
