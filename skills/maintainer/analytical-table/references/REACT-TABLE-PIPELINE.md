@@ -197,6 +197,10 @@ Order in `react-table/hooks/useTable.ts` (line refs are approximate):
 
 18. **`hooks.stateReducers`** — Array of reducer functions. Each receives `(currentReducedState, action, originalState, instance)`. The `originalState` arg is the pre-reduce baseline (not the previous reducer's output). Falsy return preserves the previous state (no throw, unlike other reduceHooks).
 
+### Column-header popover (UI5WCR-specific)
+
+19. **`hooks.columnHeaderModalItems`** — reduce-style, UI5WCR-added (declared `[]` in `makeDefaultPluginHooks.ts:78`; NOT a stock react-table hook point). Reduced in `hooks/useStyling.ts:21` via `reduceHooks(..., [], { instance, column })` to build the extra items rendered in the column-header popover (`defaults/Column/ColumnHeaderModal.tsx`). A non-empty result also flips the `hasPopover` gate (`useStyling.ts:22`, `ColumnHeader/index.tsx:146`), so a plugin can open the popover even when the column has no sort/filter/group affordance. `useStickyColumns` uses it to contribute the Freeze/Unfreeze item (`pluginHooks/useStickyColumns.ts:268`).
+
 **Note on `materializedColumns` / `materializedColumnsDeps`:** declared in `makeDefaultPluginHooks` but **never invoked** inside the vendored `useTable.ts`. Don't rely on them.
 
 ## `decorateColumn` Behavior

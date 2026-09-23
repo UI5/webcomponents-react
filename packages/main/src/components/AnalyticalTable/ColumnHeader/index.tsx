@@ -18,7 +18,12 @@ import type {
 } from 'react';
 import { Icon } from '../../../webComponents/Icon/index.js';
 import { Text } from '../../../webComponents/Text/index.js';
-import type { ClassNames, ColumnType, DivWithCustomScrollProp } from '../types/index.js';
+import type {
+  ClassNames,
+  ColumnType,
+  DivWithCustomScrollProp,
+  AnalyticalTableColumnHeaderModalItem,
+} from '../types/index.js';
 import { RenderColumnTypes } from '../types/index.js';
 
 export interface ColumnHeaderProps {
@@ -39,6 +44,9 @@ export interface ColumnHeaderProps {
   columnId?: string;
   showVerticalEndBorder: boolean;
   classNames: ClassNames;
+  isStickyStart?: boolean;
+  isLastStickyStart?: boolean;
+  columnHeaderModalItems?: AnalyticalTableColumnHeaderModalItem[];
 
   //getHeaderProps()
   id: string;
@@ -88,6 +96,9 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
     'aria-describedby': ariaDescribedBy,
     showVerticalEndBorder,
     classNames,
+    isStickyStart,
+    isLastStickyStart,
+    columnHeaderModalItems,
   } = props;
 
   const columnIndex = virtualColumn.index;
@@ -131,7 +142,8 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
     return style;
   })();
 
-  const hasPopover = column.canGroupBy || column.canSort || column.canFilter;
+  const hasPopover =
+    column.canGroupBy || column.canSort || column.canFilter || (columnHeaderModalItems?.length ?? 0) > 0;
 
   const handleHeaderCellClick = (e) => {
     if (typeof onClick === 'function') {
@@ -142,9 +154,12 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
     }
   };
 
-  const directionStyles = isRtl
-    ? { right: 0, transform: `translateX(-${virtualColumn.start}px)` }
-    : { left: 0, transform: `translateX(${virtualColumn.start}px)` };
+  const directionStyles: CSSProperties = isStickyStart
+    ? { insetInlineStart: `${virtualColumn.start}px` }
+    : {
+        insetInlineStart: 0,
+        transform: isRtl ? `translateX(-${virtualColumn.start}px)` : `translateX(${virtualColumn.start}px)`,
+      };
 
   const handleHeaderCellKeyDown = (e) => {
     if (typeof onKeyDown === 'function') {
@@ -184,12 +199,14 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
       ref={columnHeaderRef}
       className={clsx(classNames.thContainer, showVerticalEndBorder && classNames.verticalEndBorder)}
       style={{
-        position: 'absolute',
+        position: isStickyStart ? undefined : 'absolute',
         insetBlockStart: 0,
         width: `${virtualColumn.size}px`,
         ...directionStyles,
       }}
       data-component-name={`ATHeaderContainer-${columnId}`}
+      data-sticky-start={isStickyStart || undefined}
+      data-sticky-start-last={isLastStickyStart || undefined}
     >
       <div
         ref={columnVirtualizer.measureElement}
@@ -294,6 +311,7 @@ export const ColumnHeader = (props: ColumnHeaderProps) => {
               openerId: `${id}-opener`,
               setOpen: setPopoverOpen,
             },
+            columnHeaderModalItems,
           })}
       </div>
     </div>

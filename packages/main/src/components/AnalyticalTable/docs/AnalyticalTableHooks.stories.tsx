@@ -5,7 +5,7 @@ import dataTree from '@sb/mockData/FriendsTree.json';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import InputType from '@ui5/webcomponents/dist/types/InputType.js';
 import paperPlaneIcon from '@ui5/webcomponents-icons/dist/paper-plane';
-import { useCallback, useMemo, useReducer, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { AnalyticalTableSelectionMode, FlexBoxAlignItems, FlexBoxDirection } from '../../../enums/index.js';
 import { Button } from '../../../webComponents/Button/index.js';
 import { CheckBox } from '../../../webComponents/CheckBox/index.js';
@@ -15,6 +15,7 @@ import { Label } from '../../../webComponents/Label/index.js';
 import { Switch } from '../../../webComponents/Switch/index.js';
 import { Tag } from '../../../webComponents/Tag/index.js';
 import { Text } from '../../../webComponents/Text/index.js';
+import { Toast } from '../../../webComponents/Toast/index.js';
 import { ToggleButton } from '../../../webComponents/ToggleButton/index.js';
 import { FlexBox } from '../../FlexBox/index.js';
 import { AnalyticalTable } from '../index.js';
@@ -373,6 +374,142 @@ export const F2CellEdit: Story = {
   render(args) {
     return (
       <AnalyticalTable data={args.data.slice(0, 10)} columns={inputCols} tableHooks={tableHooks} visibleRows={5} />
+    );
+  },
+};
+
+// Wide columns force horizontal overflow so the frozen-start columns visibly stay pinned while scrolling.
+const stickyColumns: AnalyticalTableColumnDefinition[] = [
+  { Header: 'Name', accessor: 'name', sticky: 'start', width: 200 },
+  { Header: 'Age', accessor: 'age', width: 300 },
+  { Header: 'Friend Name', accessor: 'friend.name', width: 300 },
+  { Header: 'Friend Age', accessor: 'friend.age', width: 300 },
+];
+
+export const StickyColumns: Story = {
+  tags: ['experimental'],
+  args: {
+    data: dataSmall,
+    sortable: true,
+    filterable: true,
+    groupable: true,
+  },
+  render(args) {
+    const [lastChange, setLastChange] = useState('');
+    // Fired only when a column is frozen/unfrozen via the header popover, not on programmatic toggling.
+    const tableHooksSticky = useMemo(
+      () => [
+        AnalyticalTableHooks.useStickyColumns({
+          onStickyColumnsChange: (detail) => {
+            setLastChange(`${detail.column.id}: sticky=${detail.sticky} → [${detail.stickyColumns.join(', ')}]`);
+          },
+        }),
+      ],
+      [],
+    );
+    return (
+      <>
+        <AnalyticalTable
+          data={args.data}
+          columns={stickyColumns}
+          sortable={args.sortable}
+          filterable={args.filterable}
+          groupable={args.groupable}
+          tableHooks={tableHooksSticky}
+        />
+        {!!lastChange && (
+          <FlexBox alignItems={FlexBoxAlignItems.Center}>
+            <Label>Last freeze/unfreeze:</Label>
+            <Text>{lastChange}</Text>
+          </FlexBox>
+        )}
+      </>
+    );
+  },
+};
+
+// A non-first sticky column so the hoist/persist behavior on auto-disable is visible.
+const resizableStickyColumns: AnalyticalTableColumnDefinition[] = [
+  { Header: 'Name', accessor: 'name', width: 200 },
+  { Header: 'Age', accessor: 'age', width: 200 },
+  { Header: 'Friend Name', accessor: 'friend.name', sticky: 'start', width: 300 },
+  { Header: 'Friend Age', accessor: 'friend.age', width: 300 },
+];
+
+export const StickyColumnsResizable: Story = {
+  tags: ['experimental'],
+  args: { data: dataSmall },
+  render(args) {
+    const tableInstanceRef = useRef<TableInstance>(null);
+    const [toastOpen, setToastOpen] = useState(false);
+    const [toastText, setToastText] = useState('');
+    // When on, the app fully drops the sticky columns once the container is too narrow (reverting the
+    // column order) instead of the default, where the frozen set is kept and only the rendering pauses.
+    const [clearWhenNarrow, setClearWhenNarrow] = useState(false);
+    const clearWhenNarrowRef = useRef(clearWhenNarrow);
+    useEffect(() => {
+      clearWhenNarrowRef.current = clearWhenNarrow;
+    }, [clearWhenNarrow]);
+
+    const tableHooksSticky = useMemo(
+      () => [
+        AnalyticalTableHooks.useStickyColumns({
+          onAutoToggleSticky: ({ enabled }) => {
+            if (!enabled && clearWhenNarrowRef.current) {
+              // Opt-in: drop the pins so the columns revert to their defined order when space runs out.
+              tableInstanceRef.current?.setStickyColumns([]);
+              setToastText('Not enough space — sticky columns cleared (re-freeze via the header)');
+            } else {
+              setToastText(enabled ? 'Sticky columns re-enabled' : 'Sticky columns disabled — container too narrow');
+            }
+            setToastOpen(true);
+          },
+        }),
+      ],
+      [],
+    );
+    return (
+      <>
+        <FlexBox direction={FlexBoxDirection.Column} style={{ gap: '0.5rem' }}>
+          <FlexBox alignItems={FlexBoxAlignItems.Center} style={{ gap: '0.5rem' }}>
+            <ToggleButton
+              pressed={clearWhenNarrow}
+              onClick={() => setClearWhenNarrow((prev) => !prev)}
+              style={{ flexShrink: 0 }}
+            >
+              Clear sticky columns when too narrow
+            </ToggleButton>
+            <Text>
+              Drag the container&apos;s bottom-right handle to resize. Narrow it past the fit threshold to auto-disable
+              sticky (a toast appears). By default the frozen set is kept, so &quot;Friend Name&quot; stays hoisted to
+              the start but unfrozen. Enable the toggle to instead drop the pins and revert the column order when there
+              is not enough room.
+            </Text>
+          </FlexBox>
+          {/* Native CSS resize: drag the bottom-right handle to narrow past the sticky fit threshold. */}
+          <div
+            style={{
+              resize: 'horizontal',
+              overflow: 'auto',
+              width: '600px',
+              minWidth: '150px',
+              maxWidth: '900px',
+              border: '1px solid var(--sapList_BorderColor)',
+              paddingBlockEnd: '0.75rem',
+            }}
+          >
+            <AnalyticalTable
+              tableInstance={tableInstanceRef}
+              data={args.data}
+              columns={resizableStickyColumns}
+              tableHooks={tableHooksSticky}
+            />
+          </div>
+        </FlexBox>
+        <Toast open={toastOpen} onClose={() => setToastOpen(false)}>
+          {toastText}
+        </Toast>
+      </>
     );
   },
 };

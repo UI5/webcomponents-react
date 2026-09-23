@@ -5,6 +5,7 @@ import { useManualRowSelect } from './useManualRowSelect.js';
 import { useOnColumnResize } from './useOnColumnResize.js';
 import { useOrderedMultiSort } from './useOrderedMultiSort.js';
 import { useRowDisableSelection } from './useRowDisableSelection.js';
+import { useStickyColumns } from './useStickyColumns.js';
 
 export {
   useAnnounceEmptyCells,
@@ -14,4 +15,5 @@ export {
   useOnColumnResize,
   useOrderedMultiSort,
   useRowDisableSelection,
+  useStickyColumns,
 };

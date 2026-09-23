@@ -92,6 +92,7 @@ export interface ColumnType extends Omit<AnalyticalTableColumnDefinition, 'id'> 
   sortDescFirst?: boolean;
   sortedIndex?: number;
   toggleHidden?: (hidden?: boolean) => void;
+  toggleSticky?: (sticky?: boolean) => void;
   totalFlexWidth?: number;
   totalLeft?: number;
   totalMaxWidth?: number;
@@ -150,6 +151,8 @@ export interface TableInstance {
     id?: string;
     multi?: boolean;
     sortBy?: AnalyticalTableState['sortBy'];
+    // `useStickyColumns` plugin (optional): only dispatched when the hook is registered.
+    stickyColumns?: string[] | ((old: string[]) => string[]);
     value?: boolean | string[] | ((old: string[]) => string[]);
   }) => void;
   expandedDepth?: number;
@@ -213,6 +216,22 @@ export interface TableInstance {
   setAllFilters?: (filtersObjectArray: Record<string, any>[]) => void;
   setColumnOrder?: (columnOrder: AnalyticalTableState['columnOrder']) => void;
   /**
+   * Replaces the set of sticky (frozen-start) columns with the given column ids.
+   *
+   * __Note:__ Only available when the `useStickyColumns` plugin hook is passed via `tableHooks`.
+   *
+   * @experimental
+   */
+  setStickyColumns?: (stickyColumns: string[] | ((old: string[]) => string[])) => void;
+  /**
+   * Toggles the sticky (frozen-start) state of a single column by its id. Pass `value` to force a state.
+   *
+   * __Note:__ Only available when the `useStickyColumns` plugin hook is passed via `tableHooks`.
+   *
+   * @experimental
+   */
+  toggleStickyColumn?: (columnId: string, value?: boolean) => void;
+  /**
    * Set the filter value for the defined column.
    *
    * __Note:__ If set to `undefined`, the filter is removed.
@@ -264,6 +283,18 @@ export interface TableInstance {
     string,
     { width: number | undefined; minWidth: number | undefined; maxWidth: number | undefined }
   >;
+  /**
+   * Sorted indices of sticky-start columns within `visibleColumns`. Set by `useStickyColumns`.
+   *
+   * @experimental
+   */
+  stickyStartIndices?: number[];
+  /**
+   * Sum of `totalWidth` for all sticky-start columns. Set by `useStickyColumns`.
+   *
+   * @experimental
+   */
+  totalStickyStartWidth?: number;
   [key: string]: any;
 }
 
@@ -297,6 +328,9 @@ export interface WCRPropertiesType {
     selectionHeaderCellText: string;
     highlightHeaderCellText: string;
     navigationHeaderCellText: string;
+    fixedColumnText: string;
+    freezeColumnText: string;
+    unfreezeColumnText: string;
   };
   tagNamesWhichShouldNotSelectARow: Set<string>;
   tableRef: MutableRefObject<DivWithCustomScrollProp>;
@@ -382,6 +416,7 @@ export interface AnalyticalTableState {
   filters: Filter[];
   groupBy: string[];
   hiddenColumns: string[];
+  stickyColumns?: string[];
   selectedRowIds: Record<string | number, any>;
   sortBy: { id: string; desc: boolean }[];
   globalFilter?: string;
@@ -449,6 +484,7 @@ interface PopoverProps {
 
 export interface TableInstanceWithPopoverProps extends CellInstance {
   popoverProps: PopoverProps;
+  columnHeaderModalItems?: AnalyticalTableColumnHeaderModalItem[];
 }
 
 export interface FilterProps {
@@ -696,6 +732,28 @@ export interface AnalyticalTableColumnDefinition {
    * @since 2.5.0
    */
   popinDisplay?: AnalyticalTablePopinDisplay | keyof typeof AnalyticalTablePopinDisplay;
+
+  // useStickyColumns
+  /**
+   * If set, the column is "frozen" (pinned) and stays visible during horizontal scroll.
+   *
+   * - `'start'`: Column is pinned to the inline-start (left in LTR, right in RTL).
+   *
+   * __Note:__
+   *   - Has no effect unless the `useStickyColumns` plugin hook is passed via `tableHooks`.
+   *   - Internal columns (selection, highlight) are automatically pinned when adjacent user columns are pinned.
+   *
+   * @experimental The API and behavior may change without notice.
+   */
+  sticky?: 'start';
+  /**
+   * If set to `true`, the user cannot freeze/unfreeze this column via the column header popover ("Freeze Column" is not offered).
+   *
+   * __Note:__ Has no effect unless the `useStickyColumns` plugin hook is passed via `tableHooks`.
+   *
+   * @experimental The API and behavior may change without notice.
+   */
+  disableSticky?: boolean;
 
   //use useDragAndDrop
   /**
@@ -1218,6 +1276,17 @@ interface ConfigParam {
   instance: TableInstance;
 }
 
+export interface AnalyticalTableColumnHeaderModalItem {
+  /** Unique id; used as the list-item key and to dispatch the action when the item is selected. */
+  id: string;
+  /** Menu item label. */
+  text: string;
+  /** Optional icon name. */
+  icon?: string;
+  /** Action run when the item is selected - Receives table context  */
+  run: (meta: { instance: TableInstance; column: ColumnType; setOpen: (open: boolean) => void }) => void;
+}
+
 export interface ReactTableHooks {
   useOptions: any[];
   stateReducers: NonNullable<TableInstance['stateReducer']>[];
@@ -1246,6 +1315,10 @@ export interface ReactTableHooks {
   getRowProps: any[];
   getCellProps: any[];
   useFinalInstance: any[];
+  columnHeaderModalItems: ((
+    items: AnalyticalTableColumnHeaderModalItem[],
+    meta: { instance: TableInstance; column: ColumnType },
+  ) => AnalyticalTableColumnHeaderModalItem[])[];
   getToggleHiddenProps?: any[];
   getToggleHideAllColumnsProps?: any[];
   getGroupByToggleProps?: any[];

@@ -37,6 +37,7 @@ interface AnalyticalTableState {
   dndColumn?: string; // Column being dragged
   cellContentTabIndex?: number; // Tab index for cell content (used by useF2CellEdit plugin)
   indeterminateRows?: Record<string, boolean>; // Set by useIndeterminateRowSelection's INDETERMINATE_ROW_IDS action
+  stickyColumns?: string[]; // Set by useStickyColumns (setStickyColumns/toggleStickyColumn actions); seeded from `sticky: 'start'` columns
 
   // --- react-table built-in (vendored) — listed here because the type lives in the same shape ---
   globalFilter?: string; // Managed by vendored useGlobalFilter, not custom
@@ -114,6 +115,17 @@ interface AnalyticalTableState {
 | --------------------- | ------------- | --------------------- | -------------------------------------- |
 | `TRIGGER_PROG_SCROLL` | scroll target | Sets `triggerScroll`. | For programmatic scroll-to-row/column. |
 
+### Sticky Columns (`useStickyColumns` plugin — opt-in)
+
+`state.stickyColumns: string[]` is the authoritative source of truth for which columns are frozen at the start. All three actions are handled by the `useStickyColumns` reducer (`pluginHooks/useStickyColumns.ts:21-67`); the effective sticky set at render time is `state.stickyColumns ∪ state.groupBy` (grouped columns auto-pin).
+
+| Action               | Payload                       | Effect                                                                                       | Notes                                                                                                                                                           |
+| -------------------- | ----------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `setStickyColumns`   | `{ stickyColumns: string[] }` | Replaces `state.stickyColumns` with the given id list.                                       | `instance.setStickyColumns(ids)` / `tableInstance.current.setStickyColumns(ids)`. Programmatic — does NOT fire `onStickyColumnsChange`.                         |
+| `toggleStickyColumn` | `{ columnId, sticky? }`       | Adds/removes `columnId` from `state.stickyColumns` (explicit `sticky` overrides the toggle). | `column.toggleSticky` / `tableInstance.current.toggleStickyColumn(id, value?)`. Popover freeze/unfreeze also dispatches this AND fires `onStickyColumnsChange`. |
+
+**`init` seed:** the reducer's `init` case seeds `state.stickyColumns` from `instance.columns` filtered by `sticky === 'start'` (raw defs). A consumer-supplied `initialState.stickyColumns` wins — `init` returns early if the slice is already set. There is **no** wrapper-built `initialState.stickyColumns` in `index.tsx`.
+
 ### Filtering
 
 | Action      | Payload                     | Effect                                                                                                                              | Notes                                                                                                           |
@@ -122,7 +134,7 @@ interface AnalyticalTableState {
 
 ## State Reducer Chain
 
-Reducers run in registration order (`useTable.ts:106-110`). The order in `index.tsx:310-333` is:
+Reducers run in registration order (`useTable.ts:106-110`). The order in `index.tsx:324-347` is:
 
 **Internal hooks (in `useTable()`):**
 
@@ -135,17 +147,18 @@ Reducers run in registration order (`useTable.ts:106-110`). The order in `index.
 4. **`useOrderedMultiSort`** reducer — Reorders `sortBy` by priority on `toggleSortBy`.
 5. **`useIndeterminateRowSelection`** reducer — Handles `INDETERMINATE_ROW_IDS`; mutates `selectedRowIds` to auto-select parents on `toggleRowSelected` when all siblings selected.
 6. **`useF2CellEdit`** reducer — Handles `CELL_CONTENT_TAB_INDEX`.
+7. **`useStickyColumns`** reducer (`pluginHooks/useStickyColumns.ts:20-63`) — Handles the `init` seed (from `sticky: 'start'` columns) plus `setStickyColumns` / `toggleStickyColumn`.
 
 **Main table reducer (passed as the `useTable` `stateReducer` option, runs after all `hooks.stateReducers`):**
 
-7. **`stateReducer` (`tableReducer/stateReducer.ts`)** — Handles all custom UI5WCR actions (`TABLE_RESIZE`, `SET_SELECTED_ROW_IDS`, `COLUMN_DND_START`/`END`, `IS_RTL`, `VISIBLE_ROWS`, `TABLE_SCROLLING_ENABLED`, `SET_POPIN_COLUMNS`, `INTERACTIVE_ROWS_HAVE_POPIN`, `SUB_COMPONENTS_HEIGHT`, `TRIGGER_PROG_SCROLL`, `AUTO_RESIZE`, `TABLE_COL_RESIZED`); intercepts `toggleRowExpanded` to dispatch `rowCollapsed`; clears `tableColResized` on `resetResize`; calls `setFilter` callback as side-effect.
+8. **`stateReducer` (`tableReducer/stateReducer.ts`)** — Handles all custom UI5WCR actions (`TABLE_RESIZE`, `SET_SELECTED_ROW_IDS`, `COLUMN_DND_START`/`END`, `IS_RTL`, `VISIBLE_ROWS`, `TABLE_SCROLLING_ENABLED`, `SET_POPIN_COLUMNS`, `INTERACTIVE_ROWS_HAVE_POPIN`, `SUB_COMPONENTS_HEIGHT`, `TRIGGER_PROG_SCROLL`, `AUTO_RESIZE`, `TABLE_COL_RESIZED`); intercepts `toggleRowExpanded` to dispatch `rowCollapsed`; clears `tableColResized` on `resetResize`; calls `setFilter` callback as side-effect.
 
 **Note:** `useSingleRowStateSelection`, `useSelectionChangeCallback`, `useToggleRowExpand`, and `useColumnDragAndDrop` do NOT have state reducers — they work through props getters or `useInstance`/`useEffect`.
 
 ## State Persistence Gotchas
 
 1. **`selectedRowIds` uses string keys** — Row IDs are stringified. `{ '0': true }` not `{ 0: true }`.
-2. **`autoResetSelectedRows`** — Defaults to `true` in react-table (clears selection on data change). [`useManualRowSelect`](HOOK-REFERENCE.md#plugin-hooks-7-in-pluginhooks-plus-the-analyticaltablehooks-namespace-export) sets it to `false` automatically. Without that hook, consumers using the controlled `selectedRowIds` prop must set `autoResetSelectedRows: false` in `reactTableOptions` — the `useEffect` in `index.tsx` that dispatches `SET_SELECTED_ROW_IDS` won't re-fire on `data` change because its dep is the `selectedRowIds` prop reference, not `data`.
+2. **`autoResetSelectedRows`** — Defaults to `true` in react-table (clears selection on data change). [`useManualRowSelect`](HOOK-REFERENCE.md#plugin-hooks-8-exported-from-the-analyticaltablehooks-namespace) sets it to `false` automatically. Without that hook, consumers using the controlled `selectedRowIds` prop must set `autoResetSelectedRows: false` in `reactTableOptions` — the `useEffect` in `index.tsx` that dispatches `SET_SELECTED_ROW_IDS` won't re-fire on `data` change because its dep is the `selectedRowIds` prop reference, not `data`.
 3. **`columnOrder` reconciliation** — Both vendored `useColumnOrder.visibleColumns` AND `useDragAndDrop.handleOnDrop` reconcile stale IDs. The DnD handler uses the same algorithm: iterates `columnOrder`, keeps only IDs that exist in current columns, appends new columns at end.
 
 (For `columnWidths` retention, `tableColResized` gating, and `rowCollapsed` semantics, see the action tables above.)

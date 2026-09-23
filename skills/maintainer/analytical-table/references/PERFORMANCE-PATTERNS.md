@@ -40,7 +40,7 @@ All deps are referentially stable during scroll-only re-renders:
 
 - `rows`: memoized through the pipeline (`useFilters` → `useGlobalFilter` → `useGroupBy` → `useSortBy` → `useExpanded`, each wrapped in `useMemo`)
 - `selectedRowIds`: part of `useReducer` state, only changes on selection actions
-- `getSubRows`: wrapped in `useCallback` with `[subRowsKey]` dep at `index.tsx:224`
+- `getSubRows`: wrapped in `useCallback` with `[subRowsKey]` dep at `index.tsx:232`
 - `selectSubRows`: boolean option, stable
 - `isSelectionEnabled`: derived from `selectionMode` prop, stable
 

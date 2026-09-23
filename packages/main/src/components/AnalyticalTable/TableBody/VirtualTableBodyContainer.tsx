@@ -22,6 +22,8 @@ interface VirtualTableBodyContainerProps {
   dispatch: (e: { type: string; payload?: any }) => void;
   isGrouped: boolean;
   nativeScrollbar: boolean;
+  hasStickyColumns?: boolean;
+  scrollContainerRef?: MutableRefObject<HTMLDivElement>;
 }
 
 export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps) => {
@@ -43,6 +45,8 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
     isGrouped,
     nativeScrollbar,
     dispatch,
+    hasStickyColumns,
+    scrollContainerRef,
   } = props;
   const [isMounted, setIsMounted] = useState(false);
 
@@ -70,17 +74,25 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
         });
       } else {
         firedInfiniteLoadEvents.current.clear();
-        parentRef.current.scrollTop = 0;
+        // In sticky mode the outer table (scrollContainerRef) is the real vertical scroller, not parentRef.
+        if (hasStickyColumns && scrollContainerRef?.current) {
+          scrollContainerRef.current.scrollTop = 0;
+        } else {
+          parentRef.current.scrollTop = 0;
+        }
         lastScrollTop.current = 0;
       }
     }
     prevDataLength.current = dataLength;
-  }, [dataLength, rowCollapsedFlag]);
+  }, [dataLength, rowCollapsedFlag, hasStickyColumns, scrollContainerRef]);
 
   const onScroll = useCallback(
     (event) => {
       if (typeof handleExternalScroll === 'function') {
-        handleExternalScroll(enrichEventWithDetails(event, { rows, rowElements: event.target.children[0].children }));
+        // In sticky mode the scroll target is the outer table, so read rows from parentRef, not event.target.
+        handleExternalScroll(
+          enrichEventWithDetails(event, { rows, rowElements: parentRef.current?.children[0]?.children }),
+        );
       }
       const scrollOffset = event.target.scrollTop;
       const isScrollingDown = lastScrollTop.current < scrollOffset;
@@ -117,17 +129,32 @@ export const VirtualTableBodyContainer = (props: VirtualTableBodyContainerProps)
     ],
   );
 
+  // Keep the latest onScroll in a ref so the listener below can stay stable (see effect note).
+  const onScrollRef = useRef(onScroll);
+  useIsomorphicLayoutEffect(() => {
+    onScrollRef.current = onScroll;
+  }, [onScroll]);
+
+  useEffect(() => {
+    if (!hasStickyColumns || !scrollContainerRef?.current) {
+      return;
+    }
+    const el = scrollContainerRef.current;
+    // Stable listener reading the latest onScroll via ref — must NOT depend on `onScroll`: a scroll-driven
+    // flushSync re-render would detach it mid-dispatch and it would never fire.
+    const handler = (e: Event) => onScrollRef.current(e);
+    el.addEventListener('scroll', handler);
+    return () => el.removeEventListener('scroll', handler);
+  }, [hasStickyColumns, scrollContainerRef]);
+
   return (
     <div
-      className={clsx(classes.tbody, nativeScrollbar && classes.nativeScrollbar)}
+      className={clsx(classes.tbody, nativeScrollbar && !hasStickyColumns && classes.nativeScrollbar)}
       ref={parentRef}
-      onScroll={onScroll}
-      style={{
-        position: 'relative',
-        overflowY: 'auto',
-        height: `${tableBodyHeight}px`,
-        width: `${totalColumnsWidth}px`,
-      }}
+      onScroll={hasStickyColumns ? undefined : onScroll}
+      // position/overflow come from `.tbody` (+ `.stickyColumnsMode > .tbody`); only the dimensions are dynamic.
+      // In sticky mode the outer table is the scroller, so the body takes its content height (no fixed height).
+      style={{ width: `${totalColumnsWidth}px`, height: hasStickyColumns ? undefined : `${tableBodyHeight}px` }}
       data-component-name="AnalyticalTableBody"
       tabIndex={-1}
       role="rowgroup"
