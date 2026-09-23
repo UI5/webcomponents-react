@@ -1,7 +1,7 @@
 import iconPushpinOff from '@ui5/webcomponents-icons/dist/pushpin-off.js';
 import iconPushpinOn from '@ui5/webcomponents-icons/dist/pushpin-on.js';
 import { isDesktop } from '@ui5/webcomponents-react-base/Device';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { DEFAULT_COLUMN_WIDTH } from '../defaults/Column/index.js';
 import { actions, functionalUpdate } from '../react-table/index.js';
 import type {
@@ -156,7 +156,16 @@ const useStickyMetadata = (instance: TableInstance, onAutoToggleSticky?: OnAutoT
     }
   }
 
-  Object.assign(instance, { stickyStartIndices, totalStickyStartWidth });
+  // Keep a stable reference while the contents are unchanged so downstream `useMemo`/`useCallback`
+  // deps in the table don't rebuild every render. Keyed on the contents, not the array identity.
+  const stickyStartIndicesKey = stickyStartIndices.join(',');
+  const stableStickyStartIndices = useMemo(
+    () => stickyStartIndices,
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- key captures the contents; array identity is intentionally ignored
+    [stickyStartIndicesKey],
+  );
+
+  Object.assign(instance, { stickyStartIndices: stableStickyStartIndices, totalStickyStartWidth });
 
   // Notify on width-driven enable/disable transitions (frozen-set config itself is untouched). The
   // transition guard means a stable-vs-new callback identity never causes a spurious re-fire.
