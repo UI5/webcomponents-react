@@ -174,11 +174,9 @@ const MultiSelectDialog = () => {
 
 ### Announcing search result count
 
-A common a11y requirement is to announce the number of matches when the user filters the list (e.g. _"5 results available"_, _"No results found"_).
+A common a11y requirement is to announce the number of matches when the user filters the list (e.g. _"5 results available"_, _"No results found"_). The result count and the timing of the announcement (on every keystroke vs. on commit, debouncing) depend on your data and UX, so this is wired up in application code rather than by the component.
 
-The framework's `InvisibleMessage.announce(...)` cannot be used here: its live region (`<ui5-announcement-area>`) is appended to `document.body`, outside the dialog. When the dialog is open, some screen readers do not announce updates from live regions rendered outside it, so the message is silently dropped. See [UI5/webcomponents#13613](https://github.com/UI5/webcomponents/issues/13613) for details.
-
-The workaround is to render your own `aria-live="polite"` region **inside** the dialog's DOM via `createPortal`, and write the message into it from your search handler.
+Use the framework's [Invisible Messaging](https://ui5.github.io/webcomponents/docs/advanced/accessibility/#invisible-messaging) — call `announce(...)` from your search handler to announce the result count politely.
 
 <Canvas of={ComponentStories.SearchResultAnnouncement} sourceState="none" />
 
@@ -187,23 +185,15 @@ The workaround is to render your own `aria-live="polite"` region **inside** the 
 <summary>Show Code</summary>
 
 ```tsx
+import announce from '@ui5/webcomponents-base/dist/util/InvisibleMessage.js';
+import InvisibleMessageMode from '@ui5/webcomponents-base/dist/types/InvisibleMessageMode.js';
+
 const items = Array.from({ length: 40 }, (_unused, index) => ({
   id: `P-${index.toString().padStart(3, '0')}`,
   text: ['Gaming Laptop', 'Business Laptop', 'Gaming PC', 'Business PC'][index % 4],
 }));
 
-const liveRegionStyle: CSSProperties = {
-  position: 'absolute',
-  clip: 'rect(1px,1px,1px,1px)',
-  userSelect: 'none',
-  left: '-1000px',
-  top: '-1000px',
-  pointerEvents: 'none',
-};
-
 const SearchAnnouncementDialog = () => {
-  const [dialogEl, setDialogEl] = useState<DialogDomRef | null>(null);
-  const liveSpanRef = useRef<HTMLSpanElement | null>(null);
   const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
 
@@ -216,11 +206,7 @@ const SearchAnnouncementDialog = () => {
   }, [searchValue]);
 
   const announceCount = (count: number) => {
-    const span = liveSpanRef.current;
-    if (!span) {
-      return;
-    }
-    span.textContent = count === 0 ? 'No results found' : `${count} results available`;
+    announce(count === 0 ? 'No results found' : `${count} results available`, InvisibleMessageMode.Polite);
   };
 
   const handleSearch: SelectDialogPropTypes['onSearch'] = (event) => {
@@ -237,7 +223,6 @@ const SearchAnnouncementDialog = () => {
     <>
       <Button onClick={() => setOpen(true)}>Open SelectDialog</Button>
       <SelectDialog
-        ref={setDialogEl}
         headerText="Select Product"
         open={open}
         onClose={() => setOpen(false)}
@@ -248,7 +233,6 @@ const SearchAnnouncementDialog = () => {
           <ListItemStandard key={item.id} description={item.id} text={item.text} />
         ))}
       </SelectDialog>
-      {dialogEl && createPortal(<span ref={liveSpanRef} aria-live="polite" style={liveRegionStyle} />, dialogEl)}
     </>
   );
 };
