@@ -46,4 +46,84 @@ test.describe('ObjectPage', () => {
     expect(geo.personalBottom).toBeLessThanOrEqual(geo.stickyBottom);
     await expect(page.locator('[data-section-id="employment"]')).toHaveAttribute('selected');
   });
+
+  test('fitContent: switching tabs while the header is collapsed leaves no gap above the content', async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await mount('ObjectPage/ObjectPageFitContentTabSwitchTestComp');
+
+    // height of the top spacer that pads the content down to make room for a re-expandable collapsed header
+    const topSpacerHeight = () =>
+      page.evaluate(() => {
+        const spacer = document.querySelector('[data-component-name="ObjectPageContent"]')
+          ?.firstElementChild as HTMLElement | null;
+        return spacer ? Math.round(spacer.getBoundingClientRect().height) : -1;
+      });
+
+    // collapse the header via the toggle button
+    await page.locator('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
+    await expect(page.getByText('Header content')).toBeHidden();
+
+    // switching to another fitContent section must not reintroduce the top spacer (the gap)
+    await page.getByRole('tab', { name: 'Fit 2' }).click();
+    await expect(page.getByText('Header content')).toBeHidden();
+    await expect.poll(topSpacerHeight).toBe(0);
+
+    // a non-fitContent section keeps the spacer so scrolling up can re-expand the collapsed header
+    await page.getByRole('tab', { name: 'Normal' }).click();
+    await expect.poll(topSpacerHeight).toBeGreaterThan(0);
+  });
+
+  test('non-fitContent: collapsed header + switch to a short section leaves no dead spacer above it', async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await mount('ObjectPage/ObjectPageShortSectionTabSwitchTestComp');
+
+    // height of the top spacer that pads the content down to make room for a re-expandable collapsed header
+    const topSpacerHeight = () =>
+      page.evaluate(() => {
+        const spacer = document.querySelector('[data-component-name="ObjectPageContent"]')
+          ?.firstElementChild as HTMLElement | null;
+        return spacer ? Math.round(spacer.getBoundingClientRect().height) : -1;
+      });
+
+    // how far the top spacer is scrolled out of view (>= its height means no gap is visible above the content)
+    const spacerScrolledOutBy = () =>
+      page.evaluate(() => {
+        const op = document.querySelector('[data-component-name="ObjectPage"]');
+        const spacer = document.querySelector('[data-component-name="ObjectPageContent"]')
+          ?.firstElementChild as HTMLElement | null;
+        if (!op || !spacer) {
+          return -1;
+        }
+        return Math.round(op.scrollTop) - Math.round(spacer.getBoundingClientRect().height);
+      });
+
+    // collapse the header via the toggle button
+    await page.locator('[data-component-name="ObjectPageAnchorBarExpandBtn"]').click();
+    await expect(page.getByText('Header content')).toBeHidden();
+
+    // a section too short to scroll must not keep the top spacer (it would be un-scrollable dead space)
+    await page.getByRole('tab', { name: 'Short' }).click();
+    await expect(page.getByText('Header content')).toBeHidden();
+    await expect.poll(topSpacerHeight).toBe(0);
+
+    // a tall section keeps the spacer (so scroll-up can re-expand the header) but lands scrolled past it, leaving no gap
+    await page.getByRole('tab', { name: 'Tall' }).click();
+    await expect(page.getByText('Header content')).toBeHidden();
+    await expect.poll(topSpacerHeight).toBeGreaterThan(0);
+    await expect.poll(spacerScrolledOutBy).toBeGreaterThanOrEqual(0);
+
+    // scrolling back up re-expands the collapsed header
+    await page.locator('[data-component-name="ObjectPage"]').evaluate((op) => op.scrollTo({ top: 0 }));
+    await expect(page.getByText('Header content')).toBeVisible();
+
+    // switching back to the short section drops the spacer again
+    await page.getByRole('tab', { name: 'Short' }).click();
+    await expect.poll(topSpacerHeight).toBe(0);
+  });
 });
