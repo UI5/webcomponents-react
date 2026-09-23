@@ -7,14 +7,20 @@
         "browserslistEnv": "production"
       }
     ],
-    [
-      "@babel/preset-react",
-      {
-        "runtime": "automatic",
-        "useSpread": true
-      }
-    ],
     "@babel/preset-typescript"
+  ],
+  "overrides": [
+    {
+      "test": "**/*.tsx",
+      "presets": [
+        [
+          "@babel/preset-react",
+          {
+            "runtime": "automatic"
+          }
+        ]
+      ]
+    }
   ],
   "env": {
     "ssr": {

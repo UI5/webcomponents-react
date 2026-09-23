@@ -24,9 +24,13 @@ export const Default: Story = {
   render: (args) => {
     return (
       <Breadcrumbs {...args}>
-        <BreadcrumbsItem>Products</BreadcrumbsItem>
-        <BreadcrumbsItem>Hardware</BreadcrumbsItem>
-        <BreadcrumbsItem>Notebooks</BreadcrumbsItem>
+        <BreadcrumbsItem href="?path=/docs/layouts-floorplans-breadcrumbs--docs" target="_blank">
+          Root Page
+        </BreadcrumbsItem>
+        <BreadcrumbsItem href="?path=/story/layouts-floorplans-breadcrumbs--default" target="_blank">
+          Parent Page
+        </BreadcrumbsItem>
+        <BreadcrumbsItem>Current Page</BreadcrumbsItem>
       </Breadcrumbs>
     );
   },

@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.26.3](https://github.com/UI5/webcomponents-react/compare/v2.26.2...v2.26.3) (2026-09-15)
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** keep scroll position stable when hiding & revealing the table ([#8968](https://github.com/UI5/webcomponents-react/issues/8968)) ([aaa94ab](https://github.com/UI5/webcomponents-react/commit/aaa94abe6f5a64ec45221491cff8487057d27fb6))
+
+## [2.26.2](https://github.com/UI5/webcomponents-react/compare/v2.26.1...v2.26.2) (2026-09-14)
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** prevent empty block & hidden columns after hide/show ([#8964](https://github.com/UI5/webcomponents-react/issues/8964)) ([d003ad7](https://github.com/UI5/webcomponents-react/commit/d003ad7e65bf117d8aa754ff19eeeba40fc7dff3))
+
+## [2.26.1](https://github.com/UI5/webcomponents-react/compare/v2.26.0...v2.26.1) (2026-09-11)
+
+
+### Bug Fixes
+
+* **ActionSheet:** prevent Tab from escaping the popover & deprecate in favor of `Menu` ([#8933](https://github.com/UI5/webcomponents-react/issues/8933)) ([7d0f255](https://github.com/UI5/webcomponents-react/commit/7d0f25573c81ebf2e339a63aac0ed59a01e2a97e)), closes [#8932](https://github.com/UI5/webcomponents-react/issues/8932)
+* **AnalyticalTable - useIndeterminateRowSelection:** improve performance ([#8924](https://github.com/UI5/webcomponents-react/issues/8924)) ([a236d4b](https://github.com/UI5/webcomponents-react/commit/a236d4b8074da4902ef68552473afda13d87206f)), closes [#4886](https://github.com/UI5/webcomponents-react/issues/4886)
+* **cypress-commands:** support Cypress v16 ([#8952](https://github.com/UI5/webcomponents-react/issues/8952)) ([2eff95f](https://github.com/UI5/webcomponents-react/commit/2eff95f50674c5313440b1538f81cdfc294df685))
+* **deps:** update dependency @tanstack/react-virtual to v3.14.11 ([#8954](https://github.com/UI5/webcomponents-react/issues/8954)) ([0d4f457](https://github.com/UI5/webcomponents-react/commit/0d4f4577941bf2ef5cf6a17d7740ef3af0e9a2f4))
+* **ObjectPage:** apply correct hover/active background to AnchorBar buttons ([#8956](https://github.com/UI5/webcomponents-react/issues/8956)) ([698d0c6](https://github.com/UI5/webcomponents-react/commit/698d0c67159e36c8569fbe90a7c29dedcf134a26)), closes [#8951](https://github.com/UI5/webcomponents-react/issues/8951)
+* **ObjectPage:** keep clicked tab selected with a tall expandable header ([#8915](https://github.com/UI5/webcomponents-react/issues/8915)) ([19af447](https://github.com/UI5/webcomponents-react/commit/19af447dad44596f2ed219f22962ee2d3819a42e)), closes [#8906](https://github.com/UI5/webcomponents-react/issues/8906)
+
 ## [2.26.0](https://github.com/UI5/webcomponents-react/compare/v2.25.1...v2.26.0) (2026-08-31)
 
 ### Features
