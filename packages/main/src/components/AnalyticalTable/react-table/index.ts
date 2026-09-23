@@ -2,7 +2,6 @@ export { useTable } from './hooks/useTable.js';
 export { useExpanded } from './plugin-hooks/useExpanded.js';
 export { useFilters } from './plugin-hooks/useFilters.js';
 export { useGlobalFilter } from './plugin-hooks/useGlobalFilter.js';
-export { useGroupBy, defaultGroupByFn } from './plugin-hooks/useGroupBy.js';
 export { useSortBy, defaultOrderByFn } from './plugin-hooks/useSortBy.js';
 export { useColumnOrder } from './plugin-hooks/useColumnOrder.js';
 export {
