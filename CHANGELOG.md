@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.27.0](https://github.com/UI5/webcomponents-react/compare/v2.26.3...v2.27.0) (2026-09-23)
+
+
+### Features
+
+* **AnalyticalTable:** introduce experimental `useStickyColumns` plugin hook ([#8892](https://github.com/UI5/webcomponents-react/issues/8892)) ([5be7093](https://github.com/UI5/webcomponents-react/commit/5be7093e7fa23dc9e4b2356a5f73ae2650f5f99d)), closes [#566](https://github.com/UI5/webcomponents-react/issues/566)
+* update to UI5 Web Components 2.27.0 ([#8988](https://github.com/UI5/webcomponents-react/issues/8988)) ([20bbace](https://github.com/UI5/webcomponents-react/commit/20bbacee72748d14042ecf1d9964e5c6e99202db))
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** aggregate grouped columns on ancestor group rows ([#8947](https://github.com/UI5/webcomponents-react/issues/8947)) ([826282d](https://github.com/UI5/webcomponents-react/commit/826282d8bdaa1b997e7a04d26aec0b2cabdf165d)), closes [#8060](https://github.com/UI5/webcomponents-react/issues/8060)
+* **ObjectPage:** remove top-spacer whitespace on IconTabBar tab switch ([#8983](https://github.com/UI5/webcomponents-react/issues/8983)) ([881c57c](https://github.com/UI5/webcomponents-react/commit/881c57c0d987f6a429ae08d6164b10c30ee71d09)), closes [#8974](https://github.com/UI5/webcomponents-react/issues/8974)
+
 ## [2.26.3](https://github.com/UI5/webcomponents-react/compare/v2.26.2...v2.26.3) (2026-09-15)
 
 
