@@ -18,6 +18,9 @@ const NON_STANDARD_INTERACTIVE_ELEMENTS = [
   '[ui5-icon][mode="Interactive"]',
 ];
 
+// Frames to wait for a component's focus DOM ref to become resolvable (nested shadow roots may render late).
+const MAX_FOCUS_REF_RETRIES = 3;
+
 /**
  * A plugin hook that enables F2-based cell editing for interactive elements inside a cell.
  *
@@ -217,13 +220,21 @@ useF2CellEdit.useCallbackRef = <T extends HTMLElement = HTMLElement>(props: Cell
   return useCallback(
     (node: T | null) => {
       if (node) {
-        const setTabIndex = (el: Element | Ui5DomRef) => {
+        const setTabIndex = (el: Element | Ui5DomRef, retries = 0) => {
           if (typeof (el as Ui5DomRef).getFocusDomRefAsync === 'function') {
             void (el as Ui5DomRef)
               .getFocusDomRefAsync()
               .then((resolved) => {
                 if (resolved && resolved !== el) {
                   setTabIndex(resolved);
+                } else if (el.isConnected && !resolved && retries < MAX_FOCUS_REF_RETRIES) {
+                  if (process.env.NODE_ENV === 'development' && retries === 0) {
+                    console.warn(
+                      `useF2CellEdit: the focus DOM ref of <${(el as HTMLElement).localName}> did not resolve.`,
+                    );
+                  }
+                  // Focus DOM ref not ready yet (e.g. StepInput's nested NumberInput shadow); retry before falling back, so tabindex isn't stamped on the wrong (host) element.
+                  requestAnimationFrame(() => setTabIndex(el, retries + 1));
                 } else {
                   el.setAttribute('tabindex', cellContentTabIndex);
                 }
