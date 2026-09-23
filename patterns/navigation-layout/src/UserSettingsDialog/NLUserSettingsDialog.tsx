@@ -1,11 +1,11 @@
-import bellIcon from '@ui5/webcomponents-icons/dist/bell.js';
 import type { UserSettingsDialogPropTypes } from '@ui5/webcomponents-react';
-import { CheckBox, UserSettingsDialog, UserSettingsItem, UserSettingsView } from '@ui5/webcomponents-react';
+import { UserSettingsDialog } from '@ui5/webcomponents-react';
 import type { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import { AppearanceItem } from './AppearanceItem.tsx';
 import { LanguageRegionItem } from './LanguageRegionItem.tsx';
 import { MobileItem } from './MobileItem.tsx';
+import { NotificationsItem } from './NotificationsItem.tsx';
 import { ResetItem } from './ResetItem.tsx';
 import { UserAccountItem } from './UserAccountItem.tsx';
 
@@ -41,17 +41,7 @@ export function NLUserSettingsDialog({ open, setOpen }: UserSettingsDialogProps)
       <AppearanceItem />
       <LanguageRegionItem loading={languageLoading} />
       <MobileItem />
-      <UserSettingsItem
-        icon={bellIcon}
-        text="Notifications"
-        tooltip="Notifications"
-        headerText="Notifications"
-        tabs={
-          <UserSettingsView>
-            <CheckBox checked text="Show High-Priority Notification Alerts" />
-          </UserSettingsView>
-        }
-      />
+      <NotificationsItem />
     </UserSettingsDialog>
   );
 }
