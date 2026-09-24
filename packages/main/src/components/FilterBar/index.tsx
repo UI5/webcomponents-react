@@ -27,7 +27,6 @@ import { Icon } from '../../webComponents/Icon/index.js';
 import { Toolbar } from '../../webComponents/Toolbar/index.js';
 import type { ToolbarButtonDomRef } from '../../webComponents/ToolbarButton/index.js';
 import { ToolbarButton } from '../../webComponents/ToolbarButton/index.js';
-import { ToolbarItem } from '../../webComponents/ToolbarItem/index.js';
 import { FilterGroupItem } from '../FilterGroupItem/index.js';
 import type { FilterGroupItemInternalProps } from '../FilterGroupItem/types.js';
 import { FlexBox } from '../FlexBox/index.js';
@@ -235,14 +234,18 @@ const FilterBar = forwardRef<HTMLDivElement, FilterBarPropTypes>((props, ref) =>
   const filtersButtonText = `${filtersText}${
     activeFiltersCount && parseInt(activeFiltersCount as string, 10) ? ` (${activeFiltersCount})` : ''
   }`;
-  const GoButton = showGoOnFB && (
-    <Button onClick={handleGoOnFb} design={ButtonDesign.Emphasized} accessibleDescription={goDescription}>
-      {goText}
-    </Button>
-  );
   const FBButtons = (
     <>
-      {showGoOnFB && (hideToolbar ? GoButton : <ToolbarItem>{GoButton}</ToolbarItem>)}
+      {showGoOnFB && (
+        <FBButtonComponent
+          text={hideToolbar ? undefined : goText}
+          onClick={handleGoOnFb}
+          design={ButtonDesign.Emphasized}
+          accessibleDescription={goDescription}
+        >
+          {hideToolbar ? goText : undefined}
+        </FBButtonComponent>
+      )}
       {!hideToggleFiltersButton && !hideToolbar && !isPhone && (
         <ToolbarButton
           text={showFilters ? hideFilterBarText : showFilterBarText}
