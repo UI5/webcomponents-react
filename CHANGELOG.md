@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.27.1](https://github.com/UI5/webcomponents-react/compare/v2.27.0...v2.27.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** remove inline-end border of last header cell ([#8992](https://github.com/UI5/webcomponents-react/issues/8992)) ([f79beb8](https://github.com/UI5/webcomponents-react/commit/f79beb898c4e8edea94b5d67579827b7ca00f8b0))
+
 ## [2.27.0](https://github.com/UI5/webcomponents-react/compare/v2.26.3...v2.27.0) (2026-09-23)
 
 
