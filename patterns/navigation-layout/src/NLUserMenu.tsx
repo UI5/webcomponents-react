@@ -1,8 +1,9 @@
 import actionSettingsIcon from '@ui5/webcomponents-icons/dist/action-settings.js';
+import globeIcon from '@ui5/webcomponents-icons/dist/globe.js';
 import messageInformationIcon from '@ui5/webcomponents-icons/dist/message-information.js';
 import officialServiceIcon from '@ui5/webcomponents-icons/dist/official-service.js';
 import type { MessageBoxPropTypes, UserMenuDomRef, UserMenuPropTypes } from '@ui5/webcomponents-react';
-import { MessageBox, Text, UserMenu, UserMenuAccount, UserMenuItem } from '@ui5/webcomponents-react';
+import { MessageBox, Text, UserMenu, UserMenuAccount, UserMenuItem, UserMenuItemGroup } from '@ui5/webcomponents-react';
 import type { Dispatch, SetStateAction } from 'react';
 import { forwardRef, useState } from 'react';
 import avatarPng from './assets/avatar.png';
@@ -105,6 +106,12 @@ export const NLUserMenu = forwardRef<UserMenuDomRef, NLUserMenuProps>((props, re
           <UserMenuItem text="Private Policy" data-id="privacy-policy" />
         </UserMenuItem>
         <UserMenuItem icon={messageInformationIcon} text="About" data-id="about" />
+        <UserMenuItem icon={globeIcon} text="Language" data-id="single-select" showSelection>
+          <UserMenuItemGroup checkMode="Single">
+            <UserMenuItem text="English" data-id="single-select-item1" checked />
+            <UserMenuItem text="Deutsch" data-id="single-select-item2" />
+          </UserMenuItemGroup>
+        </UserMenuItem>
       </UserMenu>
       <MessageBox open={messageBoxOpen} titleText="Sign Out" onClose={handleMessageBoxClose}>
         <Text>Are you sure you want to sign out?</Text>

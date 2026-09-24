@@ -380,10 +380,10 @@ export const F2CellEdit: Story = {
 
 // Wide columns force horizontal overflow so the frozen-start columns visibly stay pinned while scrolling.
 const stickyColumns: AnalyticalTableColumnDefinition[] = [
-  { Header: 'Name', accessor: 'name', sticky: 'start', width: 200 },
-  { Header: 'Age', accessor: 'age', width: 300 },
-  { Header: 'Friend Name', accessor: 'friend.name', width: 300 },
-  { Header: 'Friend Age', accessor: 'friend.age', width: 300 },
+  { Header: 'Name', accessor: 'name', sticky: 'start', width: 300 },
+  { Header: 'Age', accessor: 'age', width: 500 },
+  { Header: 'Friend Name', accessor: 'friend.name', width: 1000 },
+  { Header: 'Friend Age', accessor: 'friend.age', width: 500 },
 ];
 
 export const StickyColumns: Story = {

@@ -5,11 +5,10 @@ import Pc2 from '@sb/demoImages/PC2.jpg';
 import { isChromatic } from '@sb/utils.js';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import ListSelectionMode from '@ui5/webcomponents/dist/types/ListSelectionMode.js';
-import type { CSSProperties } from 'react';
+import InvisibleMessageMode from '@ui5/webcomponents-base/dist/types/InvisibleMessageMode.js';
+import announce from '@ui5/webcomponents-base/dist/util/InvisibleMessage.js';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { Button } from '../../webComponents/Button/index.js';
-import type { DialogDomRef } from '../../webComponents/Dialog/index.js';
 import { Label } from '../../webComponents/Label/index.js';
 import { ListItemStandard } from '../../webComponents/ListItemStandard/index.js';
 import { Text } from '../../webComponents/Text/index.js';
@@ -188,19 +187,8 @@ const announcementItems = Array.from({ length: 40 }, (_unused, index) => ({
   text: ['Gaming Laptop', 'Business Laptop', 'Gaming PC', 'Business PC'][index % 4],
 }));
 
-const liveRegionStyle: CSSProperties = {
-  position: 'absolute',
-  clip: 'rect(1px,1px,1px,1px)',
-  userSelect: 'none',
-  left: '-1000px',
-  top: '-1000px',
-  pointerEvents: 'none',
-};
-
 export const SearchResultAnnouncement: Story = {
   render: () => {
-    const [dialogEl, setDialogEl] = useState<DialogDomRef | null>(null);
-    const liveSpanRef = useRef<HTMLSpanElement | null>(null);
     const [open, setOpen] = useState(false);
     const [searchValue, setSearchValue] = useState('');
 
@@ -215,11 +203,7 @@ export const SearchResultAnnouncement: Story = {
     }, [searchValue]);
 
     const announceCount = (count: number) => {
-      const span = liveSpanRef.current;
-      if (!span) {
-        return;
-      }
-      span.textContent = count === 0 ? 'No results found' : `${count} results available`;
+      announce(count === 0 ? 'No results found' : `${count} results available`, InvisibleMessageMode.Polite);
     };
 
     const handleSearch = (event: Parameters<NonNullable<SelectDialogPropTypes['onSearch']>>[0]) => {
@@ -236,7 +220,6 @@ export const SearchResultAnnouncement: Story = {
       <>
         <Button onClick={() => setOpen(true)}>Open SelectDialog</Button>
         <SelectDialog
-          ref={setDialogEl}
           headerText="Select Product"
           open={open}
           onClose={() => setOpen(false)}
@@ -247,7 +230,6 @@ export const SearchResultAnnouncement: Story = {
             <ListItemStandard key={item.id} description={item.id} text={item.text} />
           ))}
         </SelectDialog>
-        {dialogEl && createPortal(<span ref={liveSpanRef} aria-live="polite" style={liveRegionStyle} />, dialogEl)}
       </>
     );
   },

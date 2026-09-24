@@ -49,26 +49,27 @@ The hook accepts an options object with two optional callbacks:
 <Canvas sourceState="none" of={ComponentStories.StickyColumns} />
 
 ```jsx
+const columns = [
+  { Header: 'Name', accessor: 'name', sticky: 'start', width: 300 }, // seeds the initial frozen state
+  { Header: 'Age', accessor: 'age', width: 500 },
+  { Header: 'Friend Name', accessor: 'friend.name', width: 1000 },
+  { Header: 'Friend Age', accessor: 'friend.age', width: 500 },
+];
+
 const TableComponent = (props) => {
-  const handleStickyColumnsChange = useCallback((detail) => {
-    console.log(detail.column, detail.sticky, detail.stickyColumns);
-  }, []);
-
+  // Fired only when a column is frozen/unfrozen via the header popover, not on programmatic toggling.
   const tableHooks = useMemo(
-    () => [useStickyColumns({ onStickyColumnsChange: handleStickyColumnsChange })],
-    [handleStickyColumnsChange],
-  );
-
-  const columns = useMemo(
     () => [
-      { Header: 'Name', accessor: 'name', sticky: 'start' }, // seeds the initial frozen state
-      { Header: 'Age', accessor: 'age' },
-      { Header: 'Friend Name', accessor: 'friend.name', disableSticky: true }, // cannot be frozen via the popover
+      useStickyColumns({
+        onStickyColumnsChange: (detail) => {
+          console.log(detail.column, detail.sticky, detail.stickyColumns);
+        },
+      }),
     ],
     [],
   );
 
-  return <AnalyticalTable data={props.data} columns={columns} sortable tableHooks={tableHooks} />;
+  return <AnalyticalTable data={props.data} columns={columns} sortable filterable groupable tableHooks={tableHooks} />;
 };
 ```
 

@@ -752,6 +752,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
 
   const totalSize = columnVirtualizer.getTotalSize();
   const showVerticalEndBorder = tableState.tableClientWidth > totalSize;
+  const showVerticalScrollbar =
+    !nativeScrollbar && !hasStickyColumns && (!!additionalEmptyRowsCount || tableState.isScrollable);
   // Sticky mode uses the native vertical scrollbar; reserve its height for the horizontal scrollbar.
   const horizontalScrollbarReserved =
     hasStickyColumns && scrollbarWidth > 0 && tableState.tableClientWidth > 0 && tableState.tableClientWidth < totalSize
@@ -923,7 +925,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                     isRtl={isRtl}
                     columnVirtualizer={columnVirtualizer}
                     uniqueId={uniqueId}
-                    showVerticalEndBorder={showVerticalEndBorder}
+                    showVerticalEndBorder={showVerticalEndBorder && !showVerticalScrollbar}
                     classNames={classNames}
                     stickyStartIndices={stickyStartIndices}
                   />
@@ -1011,7 +1013,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
               style={{ insetBlockEnd: horizontalScrollbarReserved }}
             />
           )}
-          {!nativeScrollbar && !hasStickyColumns && (additionalEmptyRowsCount || tableState.isScrollable) && (
+          {showVerticalScrollbar && (
             <VerticalScrollbar
               tableBodyHeight={tableBodyHeight}
               internalRowHeight={internalHeaderRowHeight}
