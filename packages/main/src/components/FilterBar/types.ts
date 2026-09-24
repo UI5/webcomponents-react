@@ -1,6 +1,5 @@
 import type { CSSProperties, MouseEvent, ReactElement, ReactNode } from 'react';
 import type { CommonProps } from '../../types/index.js';
-import type { ButtonPropTypes } from '../../webComponents/Button/index.js';
 import type { DialogPropTypes } from '../../webComponents/Dialog/index.js';
 import type { InputPropTypes } from '../../webComponents/Input/index.js';
 import type { ToolbarButtonPropTypes } from '../../webComponents/ToolbarButton/index.js';
@@ -211,7 +210,7 @@ export interface FilterBarPropTypes extends CommonProps {
   /**
    * The event is fired when the "Go" button is clicked.
    */
-  onGo?: ButtonPropTypes['onClick'];
+  onGo?: ToolbarButtonPropTypes['onClick'];
   /**
    * The event is fired when the "Reset" button in the filter dialog is pressed, or the "Restore" button in the FilterBar.
    */
