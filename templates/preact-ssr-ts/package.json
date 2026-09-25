@@ -12,11 +12,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@ui5/webcomponents": "2.27.1",
-    "@ui5/webcomponents-base": "2.27.1",
-    "@ui5/webcomponents-fiori": "2.27.1",
-    "@ui5/webcomponents-icons": "2.27.1",
-    "@ui5/webcomponents-react": "2.27.0",
+    "@ui5/webcomponents": "2.27.2",
+    "@ui5/webcomponents-base": "2.27.2",
+    "@ui5/webcomponents-fiori": "2.27.2",
+    "@ui5/webcomponents-icons": "2.27.2",
+    "@ui5/webcomponents-react": "2.27.1",
     "compression": "1.8.2",
     "express": "5.2.1",
     "preact": "10.29.8",
