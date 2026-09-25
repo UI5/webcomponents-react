@@ -1,0 +1,1 @@
+import{t as e}from"./iframe-CYcd7atu.js";e();
