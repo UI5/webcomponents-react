@@ -23,6 +23,14 @@ const scaleCols: AnalyticalTableColumnDefinition[] = [
   { Header: 'Friend Name', accessor: 'friend.name' },
 ];
 
+// 3×150 = 450px total. In a ~440px container the columns fill the width (no end border); widening past 450px
+// leaves empty space so the end border appears — the last column is 'friend.name' in both states.
+const borderCols: AnalyticalTableColumnDefinition[] = [
+  { Header: 'Name', accessor: 'name', width: 150 },
+  { Header: 'Age', accessor: 'age', width: 150 },
+  { Header: 'Friend Name', accessor: 'friend.name', width: 150 },
+];
+
 const disableStickyOn =
   (accessor: string) =>
   (col: AnalyticalTableColumnDefinition): AnalyticalTableColumnDefinition =>
@@ -33,6 +41,11 @@ const STORY = 'AnalyticalTable/StickyHarness';
 const columnHeader = (page: Page, id: string) => page.locator(`[data-column-id="${id}"]`);
 const stickyAncestor = (locator: Locator) => locator.locator('xpath=ancestor-or-self::*[@data-sticky-start]');
 const boxWidth = async (locator: Locator) => (await locator.boundingBox()).width;
+const borderInlineEnd = (locator: Locator) =>
+  locator.evaluate((el) => {
+    const cs = getComputedStyle(el);
+    return `${cs.borderInlineEndWidth} ${cs.borderInlineEndStyle} ${cs.borderInlineEndColor}`;
+  });
 const listItem = (page: Page, text: string) => page.locator(`[ui5-li][text="${text}"]`);
 const popover = (page: Page) => page.locator('[data-component-name="ATHeaderPopover"]');
 const openHeaderPopover = (page: Page, text: string) => page.getByText(text, { exact: true }).click();
@@ -378,5 +391,44 @@ test.describe('AnalyticalTable', () => {
     });
 
     expect(firstRenderedColumnIndex).toBe(0);
+  });
+});
+
+test.describe('AnalyticalTable — last header cell end border', () => {
+  // Regression guard: the sticky feature added an absolute `.resizerLayer`. If it renders as the last child of the
+  // header row, `.thContainer:last-child` no longer matches the last column and the border logic breaks.
+  test('resizer layer is not the last child of the header row', async ({ mount, page }) => {
+    await mount<typeof StickyHarness>(STORY, { columns: borderCols, withHook: false });
+    await expect(columnHeader(page, 'friend.name')).toBeVisible();
+    const lastChildComponent = await page
+      .locator('[data-component-name="AnalyticalTableHeaderRow"]')
+      .first()
+      .evaluate((el) => el.lastElementChild?.getAttribute('data-component-name') ?? null);
+    expect(lastChildComponent).toMatch(/^ATHeaderContainer/);
+  });
+
+  // The last header cell must mirror the last body cell: no end border when the columns fill the table width,
+  // a border when they don't — the exact behavior the fix restores.
+  test('mirrors the body: no border when columns fill the width, border when they do not', async ({ mount, page }) => {
+    await mount<typeof StickyHarness>(STORY, {
+      columns: borderCols,
+      withHook: false,
+      resizable: true,
+      containerWidth: '440px', // 450px of columns → they fill the width, so no end border
+      narrowWidth: '440px',
+      wideWidth: '900px',
+    });
+    const lastHeader = columnHeader(page, 'friend.name');
+    const lastCell = page.locator('[data-column-id-cell="friend.name"]').first();
+    await expect(lastHeader).toBeVisible();
+
+    // Columns fill the width → last header matches the body (both use the transparent outer-cell border).
+    const headerFilled = await borderInlineEnd(lastHeader);
+    expect(headerFilled).toBe(await borderInlineEnd(lastCell));
+
+    // Widen so the columns no longer fill the width → an end border appears, still matching the body.
+    await page.getByTestId('set-wide').click();
+    await expect.poll(() => borderInlineEnd(lastHeader)).not.toBe(headerFilled);
+    expect(await borderInlineEnd(lastHeader)).toBe(await borderInlineEnd(lastCell));
   });
 });

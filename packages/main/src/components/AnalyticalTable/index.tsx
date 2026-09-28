@@ -925,7 +925,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
                     isRtl={isRtl}
                     columnVirtualizer={columnVirtualizer}
                     uniqueId={uniqueId}
-                    showVerticalEndBorder={showVerticalEndBorder && !showVerticalScrollbar}
+                    showVerticalEndBorder={showVerticalEndBorder}
                     classNames={classNames}
                     stickyStartIndices={stickyStartIndices}
                   />

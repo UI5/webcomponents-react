@@ -44,6 +44,29 @@ export const ColumnHeaderContainer = forwardRef<HTMLDivElement, ColumnHeaderCont
       ref={ref}
       data-component-name="AnalyticalTableHeaderRow"
     >
+      {/* Absolute layer so resizers don't take flex space; first child so the last ColumnHeader stays :last-child for the border selectors. */}
+      <div className={classNames.resizerLayer} style={{ width: `${totalSize}px` }} aria-hidden="true">
+        {columnVirtualizer.getVirtualItems().map((virtualColumn) => {
+          const column = headerGroup.headers[virtualColumn.index];
+          if (!column || !column.canResize || !column.getResizerProps) {
+            return null;
+          }
+          const isStickyStart = stickyStartSet.has(virtualColumn.index);
+          const isLastColumn = !column.disableResizing && virtualColumn.index + 1 === headerGroup.headers.length;
+          const resizerEdgeOffset = virtualColumn.start + virtualColumn.size - (isLastColumn ? 3 : 0);
+          const resizerProps = column.getResizerProps();
+          return (
+            <div
+              key={`resizer-${column.id}`}
+              {...resizerProps}
+              data-resizer
+              data-component-name="AnalyticalTableResizer"
+              className={clsx(classNames.resizer, isStickyStart && classNames.resizerSticky)}
+              style={{ '--_ui5wcr_AnalyticalTable_ResizerOffset': `${resizerEdgeOffset}px` } as CSSProperties}
+            />
+          );
+        })}
+      </div>
       {columnVirtualizer.getVirtualItems().map((virtualColumn, index) => {
         const column = headerGroup.headers[virtualColumn.index];
         if (!column) {
@@ -73,29 +96,6 @@ export const ColumnHeaderContainer = forwardRef<HTMLDivElement, ColumnHeaderCont
           </ColumnHeader>
         );
       })}
-      {/* Resizers live in a separate absolute layer so they don't take up flex space. */}
-      <div className={classNames.resizerLayer} style={{ width: `${totalSize}px` }} aria-hidden="true">
-        {columnVirtualizer.getVirtualItems().map((virtualColumn) => {
-          const column = headerGroup.headers[virtualColumn.index];
-          if (!column || !column.canResize || !column.getResizerProps) {
-            return null;
-          }
-          const isStickyStart = stickyStartSet.has(virtualColumn.index);
-          const isLastColumn = !column.disableResizing && virtualColumn.index + 1 === headerGroup.headers.length;
-          const resizerEdgeOffset = virtualColumn.start + virtualColumn.size - (isLastColumn ? 3 : 0);
-          const resizerProps = column.getResizerProps();
-          return (
-            <div
-              key={`resizer-${column.id}`}
-              {...resizerProps}
-              data-resizer
-              data-component-name="AnalyticalTableResizer"
-              className={clsx(classNames.resizer, isStickyStart && classNames.resizerSticky)}
-              style={{ '--_ui5wcr_AnalyticalTable_ResizerOffset': `${resizerEdgeOffset}px` } as CSSProperties}
-            />
-          );
-        })}
-      </div>
     </div>
   );
 });
