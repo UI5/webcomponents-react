@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useSyncScroll } from './useSyncScroll.js';
 
-// Plain scroll containers (table body + styled scrollbar) so the sync logic runs without overlay-scrollbar gating.
+// Plain divs so the sync runs without overlay-scrollbar gating.
 const SyncScrollHarness = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const scrollbarRef = useRef<HTMLDivElement>(null);
@@ -21,19 +21,11 @@ const SyncScrollHarness = () => {
 };
 
 describe('useSyncScroll', () => {
-  // The pull-back is an event/rAF ordering race, so it's reproduced by driving that ordering (stubbed rAF + synthetic
-  // scroll events) rather than relying on main-thread load.
-  it('keeps the scroll position when a programmatic-write echo arrives after the frame boundary', () => {
+  it('keeps following and consumes the echo instead of pulling the position back', () => {
     cy.mount(<SyncScrollHarness />);
     cy.get('[data-testid="content"]').should('exist');
 
     cy.window().then((win) => {
-      const rafCallbacks: FrameRequestCallback[] = [];
-      cy.stub(win, 'requestAnimationFrame').callsFake((cb: FrameRequestCallback) => {
-        rafCallbacks.push(cb);
-        return rafCallbacks.length;
-      });
-
       const content = win.document.querySelector<HTMLElement>('[data-testid="content"]')!;
       const scrollbar = win.document.querySelector<HTMLElement>('[data-testid="scrollbar"]')!;
       const fireScroll = (el: HTMLElement) => el.dispatchEvent(new win.Event('scroll'));
@@ -42,15 +34,37 @@ describe('useSyncScroll', () => {
       fireScroll(content);
       expect(scrollbar.scrollTop, 'scrollbar mirrors the initial scroll').to.equal(100);
 
-      // Second scroll before the first echo is processed — must not be blocked (the old single-flag guard was).
+      // Second scroll before the first echo — the old single-flag guard blocked this.
       content.scrollTop = 200;
       fireScroll(content);
       expect(scrollbar.scrollTop, 'scrollbar keeps following without being blocked').to.equal(200);
 
-      // Frame boundary (where the old guard cleared), then the delayed echo of the earlier write.
-      rafCallbacks.forEach((cb) => cb(0));
       fireScroll(scrollbar);
-      expect(content.scrollTop, 'content position is not pulled backwards by the stale echo').to.equal(200);
+      expect(content.scrollTop, 'content position is not pulled backwards by the echo').to.equal(200);
+    });
+  });
+
+  it('still syncs a genuine scroll back to a value whose echo was superseded', () => {
+    cy.mount(<SyncScrollHarness />);
+    cy.get('[data-testid="content"]').should('exist');
+
+    cy.window().then((win) => {
+      const content = win.document.querySelector<HTMLElement>('[data-testid="content"]')!;
+      const scrollbar = win.document.querySelector<HTMLElement>('[data-testid="scrollbar"]')!;
+      const fireScroll = (el: HTMLElement) => el.dispatchEvent(new win.Event('scroll'));
+
+      content.scrollTop = 100;
+      fireScroll(content);
+      expect(scrollbar.scrollTop).to.equal(100);
+
+      // Scrolling the scrollbar elsewhere supersedes the pending echo for 100.
+      scrollbar.scrollTop = 300;
+      fireScroll(scrollbar);
+      expect(content.scrollTop, 'content follows the scrollbar').to.equal(300);
+
+      scrollbar.scrollTop = 100;
+      fireScroll(scrollbar);
+      expect(content.scrollTop, 'genuine scroll to the old value is not swallowed').to.equal(100);
     });
   });
 });
