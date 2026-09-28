@@ -1,5 +1,5 @@
 import type { MutableRefObject } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function useSyncScroll(
   refContent: MutableRefObject<HTMLElement>,
@@ -7,11 +7,8 @@ export function useSyncScroll(
   isScrollable: boolean,
   disabled = false,
 ) {
-  const isProgrammatic = useRef(false);
   const [isMounted, setIsMounted] = useState(false);
 
-  // DOM scrollTop manipulation, not React state
-  // eslint-disable-next-line react-hooks/immutability
   useEffect(() => {
     if (disabled || !isScrollable) {
       return;
@@ -31,15 +28,26 @@ export function useSyncScroll(
     // eslint-disable-next-line react-hooks/immutability
     scrollbar.scrollTop = content.scrollTop;
 
+    // Remember the value we write so the resulting echo `scroll` event is consumed instead of synced back.
+    const lastWritten = new WeakMap<Element, number>();
+
     const sync = (source: 'content' | 'scrollbar') => {
       const sourceEl = source === 'content' ? content : scrollbar;
       const targetEl = source === 'content' ? scrollbar : content;
+      const value = sourceEl.scrollTop;
 
-      if (!isProgrammatic.current && targetEl.scrollTop !== sourceEl.scrollTop) {
-        isProgrammatic.current = true;
-        targetEl.scrollTop = sourceEl.scrollTop;
-        // Clear the flag on next frame
-        requestAnimationFrame(() => (isProgrammatic.current = false));
+      if (lastWritten.get(sourceEl) === value) {
+        lastWritten.delete(sourceEl);
+        return;
+      }
+
+      if (targetEl.scrollTop !== value) {
+        const prev = targetEl.scrollTop;
+        targetEl.scrollTop = value;
+        // Skip clamped no-op writes: they fire no echo, so a recorded value would never be consumed.
+        if (targetEl.scrollTop !== prev) {
+          lastWritten.set(targetEl, targetEl.scrollTop);
+        }
       }
     };
 
