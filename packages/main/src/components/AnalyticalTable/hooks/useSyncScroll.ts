@@ -1,5 +1,5 @@
 import type { MutableRefObject } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function useSyncScroll(
   refContent: MutableRefObject<HTMLElement>,
@@ -7,11 +7,8 @@ export function useSyncScroll(
   isScrollable: boolean,
   disabled = false,
 ) {
-  const isProgrammatic = useRef(false);
   const [isMounted, setIsMounted] = useState(false);
 
-  // DOM scrollTop manipulation, not React state
-  // eslint-disable-next-line react-hooks/immutability
   useEffect(() => {
     if (disabled || !isScrollable) {
       return;
@@ -27,19 +24,36 @@ export function useSyncScroll(
       return;
     }
 
+    // Tracks written values to recognize their echo `scroll` events.
+    const lastWritten = new WeakMap<Element, number>();
+
+    const prevScrollbar = scrollbar.scrollTop;
     // Is a React ref
     // eslint-disable-next-line react-hooks/immutability
     scrollbar.scrollTop = content.scrollTop;
+    if (scrollbar.scrollTop !== prevScrollbar) {
+      lastWritten.set(scrollbar, scrollbar.scrollTop);
+    }
 
     const sync = (source: 'content' | 'scrollbar') => {
       const sourceEl = source === 'content' ? content : scrollbar;
       const targetEl = source === 'content' ? scrollbar : content;
+      const value = sourceEl.scrollTop;
 
-      if (!isProgrammatic.current && targetEl.scrollTop !== sourceEl.scrollTop) {
-        isProgrammatic.current = true;
-        targetEl.scrollTop = sourceEl.scrollTop;
-        // Clear the flag on next frame
-        requestAnimationFrame(() => (isProgrammatic.current = false));
+      // Consume our own echo; drop stale records so a genuine scroll is never mistaken for one.
+      const isEcho = lastWritten.get(sourceEl) === value;
+      lastWritten.delete(sourceEl);
+      if (isEcho) {
+        return;
+      }
+
+      if (targetEl.scrollTop !== value) {
+        const prev = targetEl.scrollTop;
+        targetEl.scrollTop = value;
+        // A clamped no-op write fires no echo, so only record when the value actually changed.
+        if (targetEl.scrollTop !== prev) {
+          lastWritten.set(targetEl, targetEl.scrollTop);
+        }
       }
     };
 
