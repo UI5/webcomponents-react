@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.27.2](https://github.com/UI5/webcomponents-react/compare/v2.27.1...v2.27.2) (2026-09-29)
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** align last header cell border with body rows ([#9006](https://github.com/UI5/webcomponents-react/issues/9006)) ([e8bdcd7](https://github.com/UI5/webcomponents-react/commit/e8bdcd759100cad8c5aa5f0f8bd1777e36e5fe87))
+* **AnalyticalTable:** prevent vertical scroll position pull-back under load ([#9005](https://github.com/UI5/webcomponents-react/issues/9005)) ([7a09746](https://github.com/UI5/webcomponents-react/commit/7a0974667c24ebb0d839314d8d0ef75d80fa5992))
+
 ## [2.27.1](https://github.com/UI5/webcomponents-react/compare/v2.27.0...v2.27.1) (2026-09-24)
 
 
