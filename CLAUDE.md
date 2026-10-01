@@ -219,7 +219,11 @@ yarn lint            # ESLint
 yarn prettier:all    # Format all files
 ```
 
-## Tests (Cypress Component Tests)
+## Tests
+
+See also [Testing guide](docs/knowledge-base/Testing.mdx) for more details.
+
+**Always write new tests in Playwright.** For large changes to existing Cypress tests, migrate the test to Playwright instead of updating the Cypress version.
 
 The repo uses **two** component-test runners side by side:
 
