@@ -15,7 +15,7 @@
     "@ui5/webcomponents-fiori": "2.27.2",
     "@ui5/webcomponents-icons": "2.27.2",
     "@ui5/webcomponents-react": "2.27.2",
-    "preact": "10.29.8"
+    "preact": "11.0.0"
   },
   "devDependencies": {
     "@eslint/js": "9.39.5",
