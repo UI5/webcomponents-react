@@ -33,8 +33,8 @@
     "eslint": "9.39.5",
     "eslint-plugin-react-hooks": "7.1.1",
     "eslint-plugin-react-refresh": "0.5.7",
-    "globals": "17.12.0",
-    "typescript-eslint": "8.70.1",
+    "globals": "17.13.0",
+    "typescript-eslint": "8.71.0",
     "vite": "8.3.1"
   }
 }
