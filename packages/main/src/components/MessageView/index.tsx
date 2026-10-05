@@ -196,6 +196,9 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
     }
     if (transitionTrigger.current === 'btn') {
       requestAnimationFrame(() => {
+        if (!listRef.current || !prevSelectedMessage.current) {
+          return;
+        }
         const selectedItem = listRef.current.querySelector<Ui5DomRef>(
           `[data-title="${CSS.escape(prevSelectedMessage.current.titleTextStr)}"]`,
         );
