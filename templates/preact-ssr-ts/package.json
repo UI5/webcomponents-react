@@ -19,7 +19,7 @@
     "@ui5/webcomponents-react": "2.27.2",
     "compression": "1.8.2",
     "express": "5.2.1",
-    "preact": "10.29.8",
+    "preact": "11.0.0",
     "preact-render-to-string": "6.8.0",
     "sirv": "3.0.2"
   },
