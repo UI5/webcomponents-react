@@ -24,6 +24,7 @@ actions.toggleGroupBy = 'toggleGroupBy';
  *
  * This is a fork of react-table's `useGroupBy` with the following changes:
  * - Aggregate grouped columns that define an `aggregate` above their own grouping level, instead of copying the first leaf value
+ * - Derive `canGroupBy` from `disableGroupBy` only (no self-seed), so runtime `groupable` toggling works — like `useSortBy`/`useFilters`
  */
 export const useGroupBy: PluginHook = (hooks: ReactTableHooks) => {
   hooks.getGroupByToggleProps = [defaultGetGroupByToggleProps];
@@ -154,12 +155,11 @@ function useInstance(instance: TableInstance) {
 
     column.canGroupBy = accessor
       ? getFirstDefined(
-          column.canGroupBy,
           columnDisableGroupBy === true ? false : undefined,
           disableGroupBy === true ? false : undefined,
           true,
         )
-      : getFirstDefined(column.canGroupBy, defaultColumnGroupBy, defaultCanGroupBy, false);
+      : getFirstDefined(defaultColumnGroupBy, defaultCanGroupBy, false);
 
     if (column.canGroupBy) {
       column.toggleGroupBy = () => instance.toggleGroupBy(column.id);
