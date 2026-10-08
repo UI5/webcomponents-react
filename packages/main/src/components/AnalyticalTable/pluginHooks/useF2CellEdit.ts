@@ -3,7 +3,15 @@ import type { Ui5DomRef } from '@ui5/webcomponents-react-base';
 import type { FocusEventHandler, KeyboardEventHandler } from 'react';
 import { useCallback, useEffect, useRef } from 'react';
 import { INCLUDES_X, MOVE_TO_CONTENT_F2 } from '../../../i18n/i18n-defaults.js';
-import type { CellInstance, CellType, ColumnType, ReactTableHooks, TableInstance } from '../types/index.js';
+import type {
+  AnalyticalTablePluginHookOptions,
+  CellInstance,
+  CellType,
+  ColumnType,
+  PluginHook,
+  ReactTableHooks,
+  TableInstance,
+} from '../types/index.js';
 import { NAVIGATION_KEYS } from '../util/index.js';
 
 const NON_STANDARD_INTERACTIVE_ELEMENTS = [
@@ -67,7 +75,7 @@ const MAX_FOCUS_REF_RETRIES = 3;
  *
  * @since 2.14.0
  */
-export const useF2CellEdit = (hooks: ReactTableHooks) => {
+const useF2CellEditPlugin = (hooks: ReactTableHooks, disabled: boolean) => {
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
   const lastFocusedBodyRowRef = useRef<number | null>(null);
 
@@ -191,12 +199,46 @@ export const useF2CellEdit = (hooks: ReactTableHooks) => {
     [i18nBundle],
   );
 
+  // `useInstanceBeforeDimensions` is called as a React hook by react-table, so it must always be
+  // registered (stable hook count); it no-ops internally when disabled.
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  hooks.useInstanceBeforeDimensions.push((instance: TableInstance) => useInstanceBeforeDimensions(instance, disabled));
+  if (disabled) {
+    return;
+  }
   hooks.getTableProps.push(setTableProps);
   hooks.getCellProps.push(setCellProps);
   hooks.getHeaderProps.push(setHeaderProps);
   hooks.stateReducers.push(stateReducer);
-  hooks.useInstanceBeforeDimensions.push(useInstanceBeforeDimensions);
 };
+
+export interface UseF2CellEditHook {
+  /** Legacy direct usage: `tableHooks={[useF2CellEdit]}`. */
+  (hooks: ReactTableHooks): void;
+  /** Factory usage: `tableHooks={[useF2CellEdit({ disabled })]}`. */
+  (options?: AnalyticalTablePluginHookOptions): PluginHook;
+  pluginName: string;
+  useCallbackRef: <T extends HTMLElement = HTMLElement>(props: CellInstance) => (node: T | null) => void;
+}
+
+// Distinguishes legacy direct usage (`[useF2CellEdit]`, react-table passes the hooks registry) from
+// factory usage (`[useF2CellEdit({ disabled })]`). The registry always exposes array props.
+const isHooksRegistry = (arg: unknown): arg is ReactTableHooks =>
+  !!arg && Array.isArray((arg as ReactTableHooks).getCellProps);
+
+export const useF2CellEdit = ((hooksOrOptions?: ReactTableHooks | AnalyticalTablePluginHookOptions) => {
+  if (isHooksRegistry(hooksOrOptions)) {
+    useF2CellEditPlugin(hooksOrOptions, false);
+    return;
+  }
+  const { disabled = false } = hooksOrOptions ?? {};
+  // The returned `plugin` is pushed into `tableHooks` and invoked by react-table as a hook; threading
+  // `disabled` through this arrow is not a conditional hook call.
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const plugin = (hooks: ReactTableHooks) => useF2CellEditPlugin(hooks, disabled);
+  plugin.pluginName = 'useF2CellEdit';
+  return plugin;
+}) as UseF2CellEditHook;
 useF2CellEdit.pluginName = 'useF2CellEdit';
 
 /**
@@ -304,9 +346,12 @@ function findFirstFocusableInside(element: HTMLElement) {
 /**
  * Init `cellContentTabIndex` if the plugin hook is used.
  */
-function useInstanceBeforeDimensions(instance: TableInstance) {
+function useInstanceBeforeDimensions(instance: TableInstance, disabled: boolean) {
   const { dispatch } = instance;
   useEffect(() => {
+    if (disabled) {
+      return;
+    }
     dispatch({ type: 'CELL_CONTENT_TAB_INDEX', payload: -1 });
-  }, [dispatch]);
+  }, [dispatch, disabled]);
 }
