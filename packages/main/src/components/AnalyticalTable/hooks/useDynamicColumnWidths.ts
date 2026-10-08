@@ -452,6 +452,58 @@ const calculateSmartAndGrowColumns = (
       return column;
     });
   }
+
+  // Step 3 (Smart only): shrink flexible columns to fit when the computed widths overflow the table.
+  // Grow mode intentionally sizes columns to their full content (capped at `MAX_WIDTH`) and may overflow by
+  // design, so it is excluded here. Each column is floored at its header width so header text is never
+  // clipped: when the headers alone don't fit, nothing shrinks and horizontal scrolling kicks in (Smart contract).
+  if (remainingWidth < 0 && !isGrow) {
+    // Flexible columns: no external `width` (so not fixed/internal columns), with their no-clip floor (headerPx).
+    const shrinkableColumns = visibleColumnsAdaptedPrio2
+      .filter((column) => {
+        const columnIdOrAccessor = (column.id ?? column.accessor) as string;
+        const meta = columnMeta[columnIdOrAccessor];
+        const isInternalColumn = typeof column.id === 'string' && column.id.startsWith('__ui5wcr__internal_');
+        return !isInternalColumn && !meta?.width && typeof column.width === 'number';
+      })
+      .map((column) => {
+        const columnIdOrAccessor = (column.id ?? column.accessor) as string;
+        const floor = Math.max(columnMeta[columnIdOrAccessor].headerPx, column.minWidth ?? 0);
+        return { column, floor };
+      });
+
+    let deficit = -remainingWidth;
+    while (deficit > 0) {
+      let shrinkableCount = 0;
+      for (const { column, floor } of shrinkableColumns) {
+        if (column.width > floor) {
+          shrinkableCount++;
+        }
+      }
+      if (shrinkableCount === 0) {
+        break;
+      }
+      const reduction = deficit / shrinkableCount;
+      let used = 0;
+      for (const { column, floor } of shrinkableColumns) {
+        if (column.width > floor) {
+          const potential = column.width - reduction;
+          if (potential < floor) {
+            used += column.width - floor;
+            column.width = floor;
+          } else {
+            column.width = potential;
+            used += reduction;
+          }
+        }
+      }
+      deficit -= used;
+      if (used === 0) {
+        break;
+      }
+    }
+  }
+
   return visibleColumnsAdaptedPrio2;
 };
 
