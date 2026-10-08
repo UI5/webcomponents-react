@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 import type { InputDomRef } from '../../../webComponents/Input/index.js';
 import { Input } from '../../../webComponents/Input/index.js';
-import { FilterBarSearchIcon } from '../../FilterBarSearchIcon/index.js';
+import { FilterBar } from '../../FilterBar/index.js';
 import { FilterGroupItem } from '../../FilterGroupItem/index.js';
-import { FilterBar } from '../index.js';
+import { FilterBarSearchIcon } from '../index.js';
 
-export const WithInteractiveSearchIcon = () => {
+export const FilterBarSearchIconTestComp = () => {
   const inputRef = useRef<InputDomRef>(null);
   const [clickCount, setClickCount] = useState(0);
   const [submittedTerm, setSubmittedTerm] = useState('');
@@ -24,15 +24,5 @@ export const WithInteractiveSearchIcon = () => {
       <span data-testid="search-click-count">{clickCount}</span>
       <span data-testid="submitted-term">{submittedTerm}</span>
     </>
-  );
-};
-
-export const WithDefaultSearchIcon = () => {
-  return (
-    <FilterBar search={<Input />}>
-      <FilterGroupItem filterKey="input" label="Input">
-        <Input placeholder="Placeholder" />
-      </FilterGroupItem>
-    </FilterBar>
   );
 };
