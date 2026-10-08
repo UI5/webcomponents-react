@@ -2669,9 +2669,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/sdk@npm:1.30.1":
-  version: 1.30.1
-  resolution: "@modelcontextprotocol/sdk@npm:1.30.1"
+"@modelcontextprotocol/sdk@npm:1.31.0":
+  version: 1.31.0
+  resolution: "@modelcontextprotocol/sdk@npm:1.31.0"
   dependencies:
     "@hono/node-server": "npm:^1.19.9 || ^2.0.5"
     ajv: "npm:^8.17.1"
@@ -2698,7 +2698,7 @@ __metadata:
       optional: true
     zod:
       optional: false
-  checksum: 10c0/68e21e5d584f54948d3ccccb780530fdb21e83a0e69e867ae0d18499afa715c12e6e0bd666e33fd98c8b8528bc03631422e90f659f30cff8b35147efd6ec6894
+  checksum: 10c0/2c4f011a765fb3346ec578455591d062008a842a0f6f8a763baa97b6a01e0f1febb97d1cc44024ee6d0761d43df56e9c71f72a37d47c7ea6aeb1c4f8be0f06d9
   languageName: node
   linkType: hard
 
@@ -5751,7 +5751,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui5/webcomponents-react-mcp@workspace:packages/mcp-server"
   dependencies:
-    "@modelcontextprotocol/sdk": "npm:1.30.1"
+    "@modelcontextprotocol/sdk": "npm:1.31.0"
     "@ui5/webcomponents-react": "workspace:~"
     ava: "npm:8.0.1"
     react-docgen-typescript: "npm:2.4.0"
