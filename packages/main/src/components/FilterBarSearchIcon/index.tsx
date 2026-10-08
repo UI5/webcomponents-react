@@ -9,14 +9,6 @@ import { InputIcon } from '../../webComponents/InputIcon/index.js';
 
 export interface FilterBarSearchIconPropTypes extends Omit<InputIconPropTypes, 'name' | 'accessibleName'> {
   /**
-   * Defines the icon name to be displayed.
-   *
-   * **Note:** Make sure you import the desired icon before using it.
-   * @default "search"
-   */
-  name?: InputIconPropTypes['name'];
-
-  /**
    * Defines the accessible name of the icon.
    *
    * **Note:** This property is used for accessibility purposes and will be announced by screen readers.
@@ -32,10 +24,12 @@ export interface FilterBarSearchIconPropTypes extends Omit<InputIconPropTypes, '
  * Unlike the default decorative search icon, it offers button-like behavior, which allows the search to be triggered by activating the icon. This is required when the "Go" button is displayed.
  */
 const FilterBarSearchIcon = forwardRef<InputIconDomRef, FilterBarSearchIconPropTypes>((props, ref) => {
-  const { name = searchIcon, accessibleName, ...rest } = props;
+  const { accessibleName, ...rest } = props;
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
 
-  return <InputIcon ref={ref} name={name} accessibleName={accessibleName ?? i18nBundle.getText(SEARCH)} {...rest} />;
+  return (
+    <InputIcon ref={ref} accessibleName={accessibleName ?? i18nBundle.getText(SEARCH)} {...rest} name={searchIcon} />
+  );
 });
 
 FilterBarSearchIcon.displayName = 'FilterBarSearchIcon';
