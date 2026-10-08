@@ -10,7 +10,7 @@ test.describe('FilterBarSearchIcon', () => {
 
     await expect(page.getByTestId('search-click-count')).toHaveText('0');
 
-    await page.locator('[ui5-input-icon]').click();
+    await page.locator('[ui5-input-icon][slot="icon"]').click();
 
     await expect(page.getByTestId('search-click-count')).toHaveText('1');
     await expect(page.getByTestId('submitted-term')).toHaveText('quarterly report');

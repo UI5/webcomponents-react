@@ -28,7 +28,7 @@ const FilterBarSearchIcon = forwardRef<InputIconDomRef, FilterBarSearchIconPropT
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
 
   return (
-    <InputIcon ref={ref} accessibleName={accessibleName ?? i18nBundle.getText(SEARCH)} {...rest} name={searchIcon} />
+    <InputIcon ref={ref} accessibleName={accessibleName || i18nBundle.getText(SEARCH)} {...rest} name={searchIcon} />
   );
 });
 
