@@ -49,9 +49,10 @@ const baseColumns: AnalyticalTableColumnDefinition[] = [
 ];
 
 const stickyColumns: AnalyticalTableColumnDefinition[] = [
-  { Header: 'Name', accessor: 'name', width: 150, sticky: 'start' },
+  { Header: 'Name', accessor: 'name', width: 150 },
   { Header: 'Age', accessor: 'age', width: 150 },
-  { Header: 'Note', accessor: 'note', width: 150 },
+  // Non-first sticky column so the enabled reorder (hoist to start) is observable.
+  { Header: 'Note', accessor: 'note', width: 150, sticky: 'start' },
   { Header: 'Age 2', accessor: 'age', id: 'age2', width: 150 },
   { Header: 'Note 2', accessor: 'note', id: 'note2', width: 150 },
 ];

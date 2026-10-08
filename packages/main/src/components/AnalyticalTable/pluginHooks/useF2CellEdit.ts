@@ -29,52 +29,6 @@ const NON_STANDARD_INTERACTIVE_ELEMENTS = [
 // Frames to wait for a component's focus DOM ref to become resolvable (nested shadow roots may render late).
 const MAX_FOCUS_REF_RETRIES = 3;
 
-/**
- * A plugin hook that enables F2-based cell editing for interactive elements inside a cell.
- *
- * To __ensure the hook works correctly__, make sure that:
- *
- * - Each column containing interactive elements has the `interactiveElementName` property set. __Note:__ This property is also used to describe the cell's content for screen readers.
- * - The callback Ref returned by `useF2CellEdit.useCallbackRef` is attached to every interactive element within the cell.
- *
- * It manages focus, keyboard navigation, and `tabindex` for cells with interactive content:
- * - Pressing `F2` moves focus between the cell container and its first interactive element.
- * - Pressing `Tab` on a focused header cell moves focus to the body cell in the same column at the last focused body row (or the first row if none was focused).
- * - Pressing `Shift+Tab` on a focused body cell moves focus back to the header cell of the same column.
- * - Updates the cell's `aria-label` with the interactive element's name for accessibility.
- * - Prevents standard navigation keys from interfering when editing a cell.
- *
- * @example
- * ```tsx
- * import type {
- *   AnalyticalTableCellInstance,
- *   AnalyticalTableColumnDefinition,
- *   InputDomRef,
- *   AnalyticalTablePropTypes,
- * } from '@ui5/webcomponents-react';
- * import { AnalyticalTableHooks, AnalyticalTable, Input } from '@ui5/webcomponents-react';
- *
- * const columns: AnalyticalTableColumnDefinition[] = [
- *   {
- *     Header: 'Input',
- *     id: 'input',
- *     Cell: (props: AnalyticalTableCellInstance) => {
- *       const callbackRef = AnalyticalTableHooks.useF2CellEdit.useCallbackRef<InputDomRef>(props);
- *       return <Input ref={callbackRef} />;
- *     },
- *     interactiveElementName: 'Input',
- *   },
- * ];
- *
- * const tableHooks: AnalyticalTablePropTypes['tableHooks'] = [AnalyticalTableHooks.useF2CellEdit];
- *
- * function TableWithInput() {
- *   return <AnalyticalTable data={data} columns={columns} tableHooks={tableHooks} />;
- * }
- * ```
- *
- * @since 2.14.0
- */
 const useF2CellEditPlugin = (hooks: ReactTableHooks, disabled: boolean) => {
   const i18nBundle = useI18nBundle('@ui5/webcomponents-react');
   const lastFocusedBodyRowRef = useRef<number | null>(null);
@@ -226,6 +180,57 @@ export interface UseF2CellEditHook {
 const isHooksRegistry = (arg: unknown): arg is ReactTableHooks =>
   !!arg && Array.isArray((arg as ReactTableHooks).getCellProps);
 
+/**
+ * A plugin hook that enables F2-based cell editing for interactive elements inside a cell.
+ *
+ * To __ensure the hook works correctly__, make sure that:
+ *
+ * - Each column containing interactive elements has the `interactiveElementName` property set. __Note:__ This property is also used to describe the cell's content for screen readers.
+ * - The callback Ref returned by `useF2CellEdit.useCallbackRef` is attached to every interactive element within the cell.
+ *
+ * It manages focus, keyboard navigation, and `tabindex` for cells with interactive content:
+ * - Pressing `F2` moves focus between the cell container and its first interactive element.
+ * - Pressing `Tab` on a focused header cell moves focus to the body cell in the same column at the last focused body row (or the first row if none was focused).
+ * - Pressing `Shift+Tab` on a focused body cell moves focus back to the header cell of the same column.
+ * - Updates the cell's `aria-label` with the interactive element's name for accessibility.
+ * - Prevents standard navigation keys from interfering when editing a cell.
+ *
+ * @example
+ * ```tsx
+ * import type {
+ *   AnalyticalTableCellInstance,
+ *   AnalyticalTableColumnDefinition,
+ *   InputDomRef,
+ *   AnalyticalTablePropTypes,
+ * } from '@ui5/webcomponents-react';
+ * import { AnalyticalTableHooks, AnalyticalTable, Input } from '@ui5/webcomponents-react';
+ *
+ * const columns: AnalyticalTableColumnDefinition[] = [
+ *   {
+ *     Header: 'Input',
+ *     id: 'input',
+ *     Cell: (props: AnalyticalTableCellInstance) => {
+ *       const callbackRef = AnalyticalTableHooks.useF2CellEdit.useCallbackRef<InputDomRef>(props);
+ *       return <Input ref={callbackRef} />;
+ *     },
+ *     interactiveElementName: 'Input',
+ *   },
+ * ];
+ *
+ * const tableHooks: AnalyticalTablePropTypes['tableHooks'] = [AnalyticalTableHooks.useF2CellEdit];
+ *
+ * function TableWithInput() {
+ *   return <AnalyticalTable data={data} columns={columns} tableHooks={tableHooks} />;
+ * }
+ * ```
+ *
+ * @param {AnalyticalTablePluginHookOptions=} [options] Optional configuration. Omit for legacy direct usage
+ * (`tableHooks={[useF2CellEdit]}`), or pass to use the factory form (`tableHooks={[useF2CellEdit({ disabled })]}`).
+ * @param {boolean=} options.disabled If `true`, the hook does nothing. To toggle at runtime, re-create the hook
+ * at the same position in the (memoized) `tableHooks` array — never add or remove array entries. Defaults to `false`.
+ *
+ * @since 2.14.0
+ */
 export const useF2CellEdit = ((hooksOrOptions?: ReactTableHooks | AnalyticalTablePluginHookOptions) => {
   if (isHooksRegistry(hooksOrOptions)) {
     useF2CellEditPlugin(hooksOrOptions, false);

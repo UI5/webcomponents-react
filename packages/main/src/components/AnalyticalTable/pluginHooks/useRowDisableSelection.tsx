@@ -139,7 +139,7 @@ export const useRowDisableSelection = (
   };
 
   const columnDeps = (deps) => {
-    return [...deps, disableRowSelection];
+    return [...deps, disableRowSelection, disabled];
   };
 
   const cellProps = (
@@ -177,9 +177,7 @@ export const useRowDisableSelection = (
   };
 
   const useDisableSelectionRow = (hooks: ReactTableHooks) => {
-    // `columnsDeps` is reduced into a `useMemo` dependency array (react-table `useTable`), whose size must
-    // stay constant across renders. Push it unconditionally so toggling `disabled` at runtime does not change
-    // the dependency count; when disabled the extra dep is harmless (the `columns` transform below is skipped).
+    // Push unconditionally: feeds a `useMemo` deps array whose size must stay constant across toggles.
     hooks.columnsDeps.push(columnDeps);
     if (disabled) {
       return;

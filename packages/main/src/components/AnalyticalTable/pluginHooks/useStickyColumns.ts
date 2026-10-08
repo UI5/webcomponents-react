@@ -170,8 +170,7 @@ const useStickyMetadata = (instance: TableInstance, onAutoToggleSticky?: OnAutoT
     [stickyStartIndicesKey],
   );
 
-  // Always assign (when disabled the indices are empty) so toggling the hook off at runtime clears any
-  // prior pins instead of leaving stale sticky metadata on the persistent `instance`.
+  // Assign unconditionally so toggling off clears prior pins (indices are empty when disabled).
   Object.assign(instance, { stickyStartIndices: stableStickyStartIndices, totalStickyStartWidth });
 
   // Notify on width-driven enable/disable transitions (frozen-set config itself is untouched). The
@@ -330,13 +329,13 @@ export const useStickyColumns = (options: UseStickyColumnsOptions = {}) => {
     // (stable hook count) and no-ops internally when disabled.
     // eslint-disable-next-line react-hooks/rules-of-hooks
     hooks.useInstance.push((instance) => useStickyMetadata(instance, onAutoToggleSticky, disabled));
-    // `visibleColumnsDeps` is reduced into a `useMemo` dependency array (react-table `useTable`), whose size
-    // must stay constant across renders. Push it unconditionally so toggling `disabled` at runtime does not
-    // change the dependency count; when disabled the extra deps are harmless (the reorder below is skipped).
+    // Push unconditionally and keep `disabled` in the result: this feeds a `useMemo` deps array whose size
+    // must stay constant, and the memo must re-derive on toggle.
     hooks.visibleColumnsDeps.push((deps, { instance }) => [
       ...deps,
       instance.state.stickyColumns,
       instance.state.groupBy,
+      disabled,
     ]);
     if (disabled) {
       return;

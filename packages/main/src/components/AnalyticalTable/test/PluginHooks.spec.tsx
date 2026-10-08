@@ -7,6 +7,9 @@ const STORY = 'PluginHooks/DisableHooksHarness';
 const columnHeader = (page: Page, id: string) => page.locator(`[data-column-id="${id}"]`);
 const toggle = (page: Page) => page.getByTestId('toggle-disabled');
 
+const firstHeaderColumn = (page: Page) =>
+  page.locator('[data-component-name="AnalyticalTableHeaderRow"] [data-column-id]').first();
+
 async function dragFirstResizer(page: Page) {
   const resizer = page.locator('[data-component-name="AnalyticalTableResizer"]').first();
   await resizer.scrollIntoViewIfNeeded();
@@ -34,6 +37,20 @@ test.describe('AnalyticalTable plugin hooks — disabled flag', () => {
 
     await toggle(page).click();
     await expect(page.locator('[data-sticky-start]').first()).toBeAttached();
+  });
+
+  test('useStickyColumns: disabling restores the natural order of a hoisted non-first column', async ({
+    mount,
+    page,
+  }) => {
+    await mount<typeof DisableHooksHarness>(STORY, { hook: 'useStickyColumns' });
+    await expect(firstHeaderColumn(page)).toHaveAttribute('data-column-id', 'note');
+
+    await toggle(page).click();
+    await expect(firstHeaderColumn(page)).toHaveAttribute('data-column-id', 'name');
+
+    await toggle(page).click();
+    await expect(firstHeaderColumn(page)).toHaveAttribute('data-column-id', 'note');
   });
 
   test('useManualRowSelect: disabled selects no row; enabling applies the data selection', async ({ mount, page }) => {

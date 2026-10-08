@@ -117,7 +117,9 @@ export const useOnColumnResize = (callback: useOnColumnResizeFunc, options?: use
           });
         }
       }
-    }, [columnResizing, columns, isResizingColumn, columnWidths]);
+      // `disabled` changes via plugin re-registration, so it belongs in deps despite the rule's warning.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [columnResizing, columns, isResizingColumn, columnWidths, disabled]);
   };
 
   const useOnColumnResizeHooks = (hooks: ReactTableHooks) => {
