@@ -432,3 +432,67 @@ test.describe('AnalyticalTable — last header cell end border', () => {
     expect(await borderInlineEnd(lastHeader)).toBe(await borderInlineEnd(lastCell));
   });
 });
+
+test.describe('AnalyticalTable Smart scaleWidthMode — shrink to fit', () => {
+  // Total width of all rendered column headers (horizontal virtualization is off in Smart mode, so all are in DOM).
+  const sumColumnWidths = (page: Page) =>
+    page
+      .locator('[role="columnheader"]')
+      .evaluateAll((els) => els.reduce((acc, el) => acc + el.getBoundingClientRect().width, 0));
+  const tableClientWidth = (page: Page) =>
+    page.locator('[data-component-name="AnalyticalTableContainer"]').evaluate((el) => el.clientWidth);
+
+  // One wide content column ('name') plus three columns whose fair share is narrower than their header (so Smart
+  // bumps them up to their header width and the row overflows), and a fixed 100px column — all in a 540px container.
+  // The shrink pass must take the whole overflow out of the content column; the header-bumped and fixed columns stay.
+  const columns: AnalyticalTableColumnDefinition[] = [
+    { Header: 'Name', accessor: 'name', scaleWidthModeOptions: { headerString: 'Name', cellString: 'x'.repeat(70) } },
+    {
+      Header: 'Age',
+      accessor: 'age',
+      scaleWidthModeOptions: { headerString: 'Wide Header1', cellString: 'content valueX' },
+    },
+    {
+      Header: 'Friend Name',
+      accessor: 'friend.name',
+      scaleWidthModeOptions: { headerString: 'Wide Header2', cellString: 'content valueX' },
+    },
+    {
+      Header: 'Friend Age',
+      accessor: 'friend.age',
+      scaleWidthModeOptions: { headerString: 'Wide Header3', cellString: 'content valueX' },
+    },
+    { Header: 'Fixed', accessor: 'status', width: 100 },
+  ];
+  const smartTableProps = {
+    columns,
+    withHook: false,
+    scaleWidthMode: AnalyticalTableScaleWidthMode.Smart,
+    containerWidth: '540px',
+  } as const;
+
+  // Resolves once Smart has settled the widths so the columns fit the container (the width calc runs async, after
+  // fonts are ready, so the pre-shrink overflow is briefly visible).
+  const expectColumnsToFit = async (page: Page) =>
+    expect.poll(async () => (await sumColumnWidths(page)) - (await tableClientWidth(page))).toBeLessThanOrEqual(5);
+
+  test('shrinks overflowing columns to fit', async ({ mount, page }) => {
+    await mount<typeof StickyHarness>(STORY, smartTableProps);
+    await expect(columnHeader(page, 'name')).toBeVisible();
+    // Columns fit the table → no horizontal overflow (without the shrink pass the sum stays well above the width).
+    await expectColumnsToFit(page);
+    // The fixed-width column keeps its width.
+    expect(Math.abs((await boxWidth(columnHeader(page, 'status'))) - 100)).toBeLessThanOrEqual(5);
+  });
+
+  test('does not shrink below header width', async ({ mount, page }) => {
+    await mount<typeof StickyHarness>(STORY, smartTableProps);
+    await expect(columnHeader(page, 'friend.name')).toBeVisible();
+    await expectColumnsToFit(page);
+    // The Smart calc keeps adjusting after the first fit, so let the widths fully settle before reading them.
+    await page.waitForTimeout(1500);
+    // 'Friend Name' must stay at its header width: the shrink floors there, not at the 60px default, so only the wide
+    // 'name' column absorbs the overflow instead of every column collapsing toward 60px.
+    expect(await boxWidth(columnHeader(page, 'friend.name'))).toBeGreaterThanOrEqual(100);
+  });
+});
