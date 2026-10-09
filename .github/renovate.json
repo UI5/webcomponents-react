@@ -83,7 +83,6 @@
       "description": "Example,Template & Pattern dependencies",
       "extends": ["schedule:weekly"],
       "matchFileNames": ["examples/**", "templates/**", "patterns/**"],
-      "semanticCommitType": "chore",
       "groupName": "all non-major dependencies (examples, templates & patterns)",
       "groupSlug": "examples-all-minor-patch",
       "matchUpdateTypes": ["minor", "patch"],
@@ -94,7 +93,6 @@
       "groupName": "UI5 Web Components React (examples, templates & patterns)",
       "groupSlug": "examples-ui5-webcomponents-react",
       "matchFileNames": ["examples/**", "templates/**", "patterns/**"],
-      "semanticCommitType": "chore",
       "minimumReleaseAge": null,
       "matchSourceUrls": [
         "https://github.com/UI5/webcomponents{/,}**",
@@ -121,6 +119,11 @@
       "groupName": "Typescript",
       "description": "Typescript dependency update",
       "matchPackageNames": ["typescript"],
+      "semanticCommitType": "chore"
+    },
+    {
+      "description": "Force chore for all dependency updates in examples, templates & patterns",
+      "matchFileNames": ["examples/**", "templates/**", "patterns/**"],
       "semanticCommitType": "chore"
     }
   ]
