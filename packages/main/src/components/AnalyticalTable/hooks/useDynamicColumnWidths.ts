@@ -106,6 +106,41 @@ function getContentPxAvg(rowSample: RowType[], columnIdOrAccessor: string, compu
   );
 }
 
+// Absorbs `deficit` px of overflow by shrinking `items` toward each one's floor (react-table's distribute-and-floor).
+// Mutates `item.width` in place.
+function shrinkColumnsToFit<T extends { width: number }>(items: T[], deficit: number, getFloor: (item: T) => number) {
+  while (deficit > 0) {
+    let shrinkableCount = 0;
+    for (const item of items) {
+      if (item.width > getFloor(item)) {
+        shrinkableCount++;
+      }
+    }
+    if (shrinkableCount === 0) {
+      break;
+    }
+    const reduction = deficit / shrinkableCount;
+    let used = 0;
+    for (const item of items) {
+      const floor = getFloor(item);
+      if (item.width > floor) {
+        const potential = item.width - reduction;
+        if (potential < floor) {
+          used += item.width - floor;
+          item.width = floor;
+        } else {
+          item.width = potential;
+          used += reduction;
+        }
+      }
+    }
+    deficit -= used;
+    if (used === 0) {
+      break;
+    }
+  }
+}
+
 function calculateDefaultColumnWidths(tableWidth: number, columns: AnalyticalTableColumnDefinition[]) {
   // Columns w/ external width property
   const fixed = [];
@@ -211,37 +246,7 @@ function calculateDefaultColumnWidths(tableWidth: number, columns: AnalyticalTab
     }
 
     // Shrink columns
-    while (remainingSpace < 0) {
-      let shrinkableCount = 0;
-      for (const { col, width } of dynamic) {
-        const min = col.minWidth ?? 0;
-        if (width > min) {
-          shrinkableCount++;
-        }
-      }
-      if (shrinkableCount === 0) {
-        break;
-      }
-      const reduction = Math.abs(remainingSpace) / shrinkableCount;
-      let used = 0;
-      for (const dc of dynamic) {
-        const min = dc.col.minWidth ?? 0;
-        if (dc.width > min) {
-          const potential = dc.width - reduction;
-          if (potential < min) {
-            used += dc.width - min;
-            dc.width = min;
-          } else {
-            dc.width = potential;
-            used += reduction;
-          }
-        }
-      }
-      remainingSpace += used;
-      if (used === 0) {
-        break;
-      }
-    }
+    shrinkColumnsToFit(dynamic, -remainingSpace, ({ col }) => col.minWidth ?? 0);
   }
 
   const result = {};
@@ -452,6 +457,21 @@ const calculateSmartAndGrowColumns = (
       return column;
     });
   }
+
+  // Step 3 (Smart only): shrink flexible columns to fit when they overflow, floored at each header width so header
+  // text is never clipped. Grow sizes to full content and overflows by design, so it is excluded.
+  if (remainingWidth < 0 && !isGrow) {
+    // Flexible columns: no external `width`, so not fixed/internal columns.
+    const shrinkableColumns = visibleColumnsAdaptedPrio2.filter((column) => {
+      const meta = columnMeta[(column.id ?? column.accessor) as string];
+      const isInternalColumn = typeof column.id === 'string' && column.id.startsWith('__ui5wcr__internal_');
+      return !isInternalColumn && !meta?.width;
+    });
+    shrinkColumnsToFit(shrinkableColumns, -remainingWidth, (column) =>
+      Math.max(columnMeta[(column.id ?? column.accessor) as string].headerPx, column.minWidth ?? 0),
+    );
+  }
+
   return visibleColumnsAdaptedPrio2;
 };
 
