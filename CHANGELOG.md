@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.27.3](https://github.com/UI5/webcomponents-react/compare/v2.27.2...v2.27.3) (2026-10-09)
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** allow toggling `groupable` in runtime ([#9023](https://github.com/UI5/webcomponents-react/issues/9023)) ([6365648](https://github.com/UI5/webcomponents-react/commit/63656480ca0d61c1ca81a72caaedad267347184d))
+* **AnalyticalTable:** shrink Smart-mode columns to fit ([#9053](https://github.com/UI5/webcomponents-react/issues/9053)) ([f95f239](https://github.com/UI5/webcomponents-react/commit/f95f2396e6dc3500744c802945823fb5b94e069d))
+* **deps:** update dependency preact to v11 ([#9017](https://github.com/UI5/webcomponents-react/issues/9017)) ([43778ba](https://github.com/UI5/webcomponents-react/commit/43778ba8695d6d4e4cb640ddc55a8bd98338ff39))
+* **MessageView:** guard against null refs in transitionEnd rAF callback ([#9025](https://github.com/UI5/webcomponents-react/issues/9025)) ([de4530b](https://github.com/UI5/webcomponents-react/commit/de4530beb04551cf8a5c1dd8ef8fb9fe3855df8a))
+
 ## [2.27.2](https://github.com/UI5/webcomponents-react/compare/v2.27.1...v2.27.2) (2026-09-29)
 
 
