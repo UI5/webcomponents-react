@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import type { AnalyticalTableColumnDefinition } from '../index.js';
 import { AnalyticalTable } from '../index.js';
 
@@ -86,5 +86,34 @@ export const GroupingAggregationHarness = () => {
       visibleRows={10}
       reactTableOptions={reactTableOptions}
     />
+  );
+};
+
+const toggleData = [
+  { name: 'Alpha', status: 'active' },
+  { name: 'Bravo', status: 'active' },
+  { name: 'Charlie', status: 'inactive' },
+  { name: 'Delta', status: 'active' },
+  { name: 'Echo', status: 'inactive' },
+];
+
+// Toggling `groupable` at runtime must flip `column.canGroupBy` so the Group/Ungroup affordance
+// appears and disappears accordingly.
+export const GroupableRuntimeToggleHarness = ({ initialGroupable = false }: { initialGroupable?: boolean }) => {
+  const [groupable, setGroupable] = useState(initialGroupable);
+  const columns = useMemo<AnalyticalTableColumnDefinition[]>(
+    () => [
+      { Header: 'Name', accessor: 'name', width: 200 },
+      { Header: 'Status', accessor: 'status', width: 200 },
+    ],
+    [],
+  );
+  return (
+    <>
+      <button data-testid="toggle-groupable" onClick={() => setGroupable((prev) => !prev)}>
+        toggle
+      </button>
+      <AnalyticalTable data={toggleData} columns={columns} groupable={groupable} visibleRows={10} />
+    </>
   );
 };
