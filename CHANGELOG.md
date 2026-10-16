@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.27.4](https://github.com/UI5/webcomponents-react/compare/v2.27.3...v2.27.4) (2026-10-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @tanstack/react-virtual to v3.14.15 ([#9062](https://github.com/UI5/webcomponents-react/issues/9062)) ([c303c64](https://github.com/UI5/webcomponents-react/commit/c303c64d59ee0f68665ee5b0791a9a2883fde793))
+* **deps:** update dependency @tanstack/react-virtual to v3.14.18 ([#9067](https://github.com/UI5/webcomponents-react/issues/9067)) ([999c134](https://github.com/UI5/webcomponents-react/commit/999c1347ad3d42c4ed78804c7598e44eb81ba168))
+
 ## [2.27.3](https://github.com/UI5/webcomponents-react/compare/v2.27.2...v2.27.3) (2026-10-09)
 
 
