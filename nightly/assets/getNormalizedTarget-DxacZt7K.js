@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";var t;function n(){return(n=e((()=>{t=e=>{let t=e;return e.shadowRoot&&e.shadowRoot.activeElement&&(t=e.shadowRoot.activeElement),t}})))()}export{t as n,n as t};

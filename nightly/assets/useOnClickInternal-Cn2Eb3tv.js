@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{t}from"./react-BWPDF9mI.js";import{i as n,r}from"./utils-BN9p4kC0.js";var i,a;function o(){return(o=e((()=>{n(),i=t(),a=e=>(0,i.useCallback)((t,n)=>{typeof e==`function`&&e(r(n,{payload:t?.activePayload?.[0]?.payload,activePayloads:t?.activePayload}))},[e])})))()}export{a as n,o as t};

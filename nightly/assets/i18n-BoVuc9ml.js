@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";var t;function n(){return(n=e((()=>{t=e=>(t,n)=>{t.metadata.i18n||(t.metadata.i18n={}),Object.defineProperty(t,n,{get(){return t.i18nBundles[e]},set(){}}),t.metadata.i18n[n]={bundleName:e,target:t},t.metadata.languageAware=!0}})))()}export{n,t};

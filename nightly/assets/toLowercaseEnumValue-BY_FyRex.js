@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";function t(e){return e.toLowerCase()}function n(){return(n=e((()=>{})))()}export{t as n,n as t};
