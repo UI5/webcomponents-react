@@ -141,6 +141,43 @@ function shrinkColumnsToFit<T extends { width: number }>(items: T[], deficit: nu
   }
 }
 
+/**
+ * Floor each column width in place and give the leftover pixels to the last absorbing column, so
+ * painted (integer) widths sum to exactly `totalWidth`. Prevents a spurious horizontal scrollbar from
+ * fractional widths rounding up at paint time. Skipped when columns overflow by design.
+ */
+function fitColumnWidthsToWholePixels(
+  orderedColumns: { width: number; canAbsorbRemainder: boolean }[],
+  totalWidth: number,
+): void {
+  let sum = 0;
+  for (const col of orderedColumns) {
+    sum += col.width;
+  }
+  // Only fit when the columns are meant to fill the table; leave an intentional overflow untouched.
+  if (sum > totalWidth + 0.5) {
+    return;
+  }
+
+  let flooredSum = 0;
+  for (const col of orderedColumns) {
+    col.width = Math.floor(col.width);
+    flooredSum += col.width;
+  }
+
+  const remainder = Math.round(totalWidth) - flooredSum;
+  if (remainder <= 0) {
+    return;
+  }
+
+  for (let i = orderedColumns.length - 1; i >= 0; i--) {
+    if (orderedColumns[i].canAbsorbRemainder) {
+      orderedColumns[i].width += remainder;
+      return;
+    }
+  }
+}
+
 function calculateDefaultColumnWidths(tableWidth: number, columns: AnalyticalTableColumnDefinition[]) {
   // Columns w/ external width property
   const fixed = [];
@@ -562,6 +599,18 @@ const adjustColumnWidths = (instance: TableInstance) => {
 
   if (scaleWidthMode === AnalyticalTableScaleWidthMode.Default || (!hasData && loading)) {
     const calculatedWidths = calculateDefaultColumnWidths(totalWidth, visibleColDefs);
+    // Reconcile to whole pixels so rounded cell boxes never overflow the scroll container.
+    const orderedWidths = visibleColDefs
+      .filter((col) => typeof calculatedWidths[col.id] === 'number')
+      .map((col) => ({
+        id: col.id,
+        width: calculatedWidths[col.id] as number,
+        canAbsorbRemainder: col.width == null && col.maxWidth == null,
+      }));
+    fitColumnWidthsToWholePixels(orderedWidths, totalWidth);
+    for (const { id, width } of orderedWidths) {
+      calculatedWidths[id] = width;
+    }
     for (const header of flatHeaders) {
       const calculatedWidth = calculatedWidths[header.id];
       if (typeof calculatedWidth !== 'number') {
@@ -598,6 +647,25 @@ const adjustColumnWidths = (instance: TableInstance) => {
 
     const isGrow = scaleWidthMode === AnalyticalTableScaleWidthMode.Grow;
     const result = calculateSmartAndGrowColumns(visibleColDefs, instance, hiddenColumns, computedCSSValues, isGrow);
+
+    if (!isGrow) {
+      // Reconcile to whole pixels so rounded cell boxes never overflow the scroll container.
+      // Grow sizes columns to full content and overflows by design, so it is excluded.
+      const orderedWidths = result
+        .filter((column) => typeof column.width === 'number')
+        .map((column) => {
+          const raw = rawSizing?.get((column.id ?? column.accessor) as string);
+          return {
+            column,
+            width: column.width as number,
+            canAbsorbRemainder: raw?.width === undefined && raw?.maxWidth === undefined,
+          };
+        });
+      fitColumnWidthsToWholePixels(orderedWidths, totalWidth);
+      for (const { column, width } of orderedWidths) {
+        column.width = width;
+      }
+    }
 
     // apply calculated widths to headers by mutation
     for (const calculated of result) {

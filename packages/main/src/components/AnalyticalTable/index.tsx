@@ -740,6 +740,8 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     nativeScrollbar,
   );
 
+  // Content-based key so `measure()` re-fires when widths change (not on every render's new array ref).
+  const visibleColumnsWidthKey = visibleColumnsWidth.join(',');
   useEffect(() => {
     columnVirtualizer.measure();
   }, [
@@ -748,6 +750,7 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     tableState.columnResizing?.isResizingColumn,
     columns,
     tableState.groupBy,
+    visibleColumnsWidthKey,
   ]);
 
   const totalSize = columnVirtualizer.getTotalSize();
