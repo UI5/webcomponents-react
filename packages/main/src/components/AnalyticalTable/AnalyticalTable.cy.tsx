@@ -100,24 +100,11 @@ const generateMoreData = (count) => {
   }));
 };
 
-function checkColumnWidthWithTolerance(
-  selector: string,
-  expectedGrow: number,
-  expectedSmart: number,
-  isGrow: boolean,
-  tolerance = 0.5,
-) {
-  cy.log('checkColumnWidthWithTolerance');
+function checkColumnWidth(selector: string, expectedGrow: number, expectedSmart: number, isGrow: boolean) {
+  cy.log('checkColumnWidth');
   cy.get(selector)
     .invoke('outerWidth')
-    .should((width) => {
-      const expected = isGrow ? expectedGrow : expectedSmart;
-      if (isGrow) {
-        expect(width).to.equal(expected);
-      } else {
-        expect(width).to.be.within(expected - tolerance, expected + tolerance);
-      }
-    });
+    .should('equal', isGrow ? expectedGrow : expectedSmart);
 }
 
 type PropTypes = AnalyticalTablePropTypes['onRowSelect'];
@@ -1598,9 +1585,11 @@ describe('AnalyticalTable', () => {
       ];
       cy.mount(<TableComp columns={cols5} data={[...data, longDataEntry]} />);
       cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 200);
-      checkColumnWidthWithTolerance('[data-column-id="age"]', 518, 356.0625, isGrow);
-      checkColumnWidthWithTolerance('[data-column-id="friend.name"]', 486, 324.0625, isGrow);
-      checkColumnWidthWithTolerance('[data-column-id="long"]', 700, 1023.8593139648438, isGrow);
+      // Smart floors each flex width; the leftover pixel goes to `long` (last column with neither
+      // `width` nor `maxWidth`).
+      checkColumnWidth('[data-column-id="age"]', 518, 356, isGrow);
+      checkColumnWidth('[data-column-id="friend.name"]', 486, 324, isGrow);
+      checkColumnWidth('[data-column-id="long"]', 700, 1024, isGrow);
 
       cy.log('cols: cols6');
       const cols6 = [
@@ -1611,9 +1600,11 @@ describe('AnalyticalTable', () => {
       ];
       cy.mount(<TableComp columns={cols6} data={[...data, longDataEntry]} />);
       cy.get('[data-column-id="name"]').invoke('outerWidth').should('equal', 200);
-      checkColumnWidthWithTolerance('[data-column-id="age"]', 97, 356.0625, isGrow);
-      checkColumnWidthWithTolerance('[data-column-id="friend.name"]', 65, 324.0625, isGrow);
-      checkColumnWidthWithTolerance('[data-column-id="long"]', 3824, 1023.8593139648438, isGrow);
+      // `friend.name` and `long` both have `maxWidth: Infinity`, so the leftover pixel goes to `age`
+      // (the only remaining column with neither `width` nor `maxWidth`).
+      checkColumnWidth('[data-column-id="age"]', 97, 357, isGrow);
+      checkColumnWidth('[data-column-id="friend.name"]', 65, 324, isGrow);
+      checkColumnWidth('[data-column-id="long"]', 3824, 1023, isGrow);
 
       cy.log('cols: cols7');
       const cols7 = [
