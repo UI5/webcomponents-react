@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.28.2](https://github.com/UI5/webcomponents-react/compare/v2.28.1...v2.28.2) (2026-10-27)
+
+
+### Bug Fixes
+
+* **AnalyticalTable:** reconcile Smart/Default column widths to whole pixels ([#9106](https://github.com/UI5/webcomponents-react/issues/9106)) ([1a321b0](https://github.com/UI5/webcomponents-react/commit/1a321b0803dce0315e82c9a2e771f5621fcd7d4e))
+* **deps:** update dependency @tanstack/react-virtual to v3.14.22 ([#9097](https://github.com/UI5/webcomponents-react/issues/9097)) ([a64c667](https://github.com/UI5/webcomponents-react/commit/a64c667aa8720bf93494cc10563e97799634c7c5))
+* **MessageViewButton:** adjust design to latest specs ([#9094](https://github.com/UI5/webcomponents-react/issues/9094)) ([f740498](https://github.com/UI5/webcomponents-react/commit/f740498eea9a6c1a036ce9860a9e2603af65bef5))
+
 ## [2.28.1](https://github.com/UI5/webcomponents-react/compare/v2.28.0...v2.28.1) (2026-10-22)
 
 
