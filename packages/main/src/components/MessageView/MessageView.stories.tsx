@@ -8,6 +8,7 @@ import arrowLeftIcon from '@ui5/webcomponents-icons/dist/slim-arrow-left.js';
 import { useRef, useState } from 'react';
 import { FlexBoxAlignItems, FlexBoxJustifyContent } from '../../enums/index.js';
 import { Bar } from '../../webComponents/Bar/index.js';
+import type { ButtonDomRef } from '../../webComponents/Button/index.js';
 import { Button } from '../../webComponents/Button/index.js';
 import { Dialog } from '../../webComponents/Dialog/index.js';
 import { Link } from '../../webComponents/Link/index.js';
@@ -108,6 +109,7 @@ export const MessageViewInDialog: Story = {
   render(args) {
     const [open, setOpen] = useState(false);
     const messageViewRef = useRef<MessageViewDomRef>(null);
+    const backBtnRef = useRef<ButtonDomRef>(null);
     const [isOnDetailsPage, setIsOnDetailsPage] = useState(false);
     return (
       <>
@@ -133,6 +135,7 @@ export const MessageViewInDialog: Story = {
                 <FlexBox alignItems={FlexBoxAlignItems.Center}>
                   {isOnDetailsPage && (
                     <Button
+                      ref={backBtnRef}
                       icon={arrowLeftIcon}
                       design={ButtonDesign.Transparent}
                       onClick={() => {
@@ -173,6 +176,10 @@ export const MessageViewInDialog: Story = {
             showDetailsPageHeader={false}
             onItemSelect={() => {
               setIsOnDetailsPage(true);
+              // no details-page header → the app ensures a11y by moving focus to its own back button
+              requestAnimationFrame(() => {
+                void backBtnRef.current?.focus();
+              });
             }}
           />
         </Dialog>
@@ -186,6 +193,7 @@ export const WithMessageViewButton: Story = {
   render() {
     const ref = useRef(null);
     const messageViewRef = useRef<MessageViewDomRef>(null);
+    const backBtnRef = useRef<ButtonDomRef>(null);
     const [isOnDetailsPage, setIsOnDetailsPage] = useState(false);
     const [open, setOpen] = useState(false);
     const numberOfItems = {
@@ -219,6 +227,7 @@ export const WithMessageViewButton: Story = {
                 <FlexBox alignItems={FlexBoxAlignItems.Center}>
                   {isOnDetailsPage && (
                     <Button
+                      ref={backBtnRef}
                       design={ButtonDesign.Transparent}
                       icon="slim-arrow-left"
                       onClick={() => {
@@ -261,6 +270,10 @@ export const WithMessageViewButton: Story = {
             groupItems
             onItemSelect={() => {
               setIsOnDetailsPage(true);
+              // no details-page header → the app ensures a11y by moving focus to its own back button
+              requestAnimationFrame(() => {
+                void backBtnRef.current?.focus();
+              });
             }}
           >
             {generateMessageItems(numberOfItems)}
