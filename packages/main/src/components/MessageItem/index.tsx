@@ -4,8 +4,8 @@ import IconMode from '@ui5/webcomponents/dist/types/IconMode.js';
 import ListItemType from '@ui5/webcomponents/dist/types/ListItemType.js';
 import WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
-import iconArrowRight from '@ui5/webcomponents-icons/dist/slim-arrow-right.js';
 import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
+import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { clsx } from 'clsx';
 import { Children, forwardRef, useContext, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -21,6 +21,15 @@ import { ListItemCustom } from '../../webComponents/ListItemCustom/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { getIconNameForType, getValueStateMap, resolveTitleTextStr } from '../MessageView/utils.js';
 import { classNames, styleData } from './MessageItem.module.css.js';
+
+// TODO: remove once https://github.com/UI5/webcomponents/issues/14221 is fixed (navigation arrow shrinks on long titles)
+addCustomCSSWithScoping(
+  'ui5-li-custom',
+  `
+:host([data-message-item]) [ui5-icon][name="slim-arrow-right"] {
+  flex-shrink: 0;
+}`,
+);
 
 export interface MessageItemPropTypes
   extends Pick<ListItemCustomPropTypes, 'accessibleName' | 'tooltip' | 'onClick'>, Omit<CommonProps, 'onClick'> {
@@ -131,9 +140,10 @@ const MessageItem = forwardRef<ListItemCustomDomRef, MessageItemPropTypes>((prop
       onKeyDown={handleKeyDown}
       data-title={titleTextStr}
       data-type={type}
-      type={hasDetails ? ListItemType.Active : ListItemType.Inactive}
+      type={hasDetails ? ListItemType.Navigation : ListItemType.Inactive}
       {...rest}
       className={listItemClasses}
+      data-message-item
       ref={ref}
     >
       <FlexBox alignItems={FlexBoxAlignItems.Center} className={messageClasses}>
@@ -157,7 +167,6 @@ const MessageItem = forwardRef<ListItemCustomDomRef, MessageItemPropTypes>((prop
             {counter}
           </span>
         )}
-        {hasDetails && <Icon className={classNames.navigation} name={iconArrowRight} mode={IconMode.Decorative} />}
         {hasDetails && <span className={classNames.pseudoInvisibleText}>. {i18nBundle.getText(HAS_DETAILS)}</span>}
         {type !== ValueState.None && type !== ValueState.Information && (
           <span className={classNames.pseudoInvisibleText}>. {getValueStateMap(i18nBundle)[type]}</span>
