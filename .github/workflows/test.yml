@@ -127,7 +127,7 @@ jobs:
         run: npx cypress install
 
       - name: Cypress run
-        uses: cypress-io/github-action@bc982daf1fc26474fa0cf2c355d6c910616ce411 # v7.4.7
+        uses: cypress-io/github-action@18016a55674bd02cabf197de5762a1710cb5577c # v7.4.9
         with:
           browser: chrome
           component: true
