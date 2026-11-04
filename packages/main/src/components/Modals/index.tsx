@@ -1,9 +1,11 @@
 'use client';
 
+import { useIsomorphicLayoutEffect, useSyncRef } from '@ui5/webcomponents-react-base/internal/hooks';
 import type { MutableRefObject } from 'react';
 import { createRef, useEffect, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { getRandomId } from '../../internal/getRandomId.js';
+import type { IModal } from '../../internal/ModalStore.js';
 import { ModalStore } from '../../internal/ModalStore.js';
 import type { DialogDomRef, DialogPropTypes } from '../../webComponents/Dialog/index.js';
 import { Dialog } from '../../webComponents/Dialog/index.js';
@@ -84,7 +86,7 @@ function showDialogFn(
     Component: Dialog,
     props: {
       ...props,
-      open: true,
+      open: false,
       onClose: (event) => {
         if (typeof props.onClose === 'function') {
           props.onClose(event);
@@ -129,7 +131,7 @@ function showPopoverFn(
     Component: Popover,
     props: {
       ...props,
-      open: true,
+      open: false,
       onClose: (event) => {
         if (typeof props.onClose === 'function') {
           props.onClose(event);
@@ -177,7 +179,7 @@ function showResponsivePopoverFn(
     Component: ResponsivePopover,
     props: {
       ...props,
-      open: true,
+      open: false,
       onClose: (event) => {
         if (typeof props.onClose === 'function') {
           props.onClose(event);
@@ -219,7 +221,7 @@ function showMenuFn(
     Component: Menu,
     props: {
       ...props,
-      open: true,
+      open: false,
       onClose: (event) => {
         if (typeof props.onClose === 'function') {
           props.onClose(event);
@@ -262,7 +264,7 @@ function showMessageBoxFn(
     Component: MessageBox,
     props: {
       ...props,
-      open: true,
+      open: false,
       onClose: (event) => {
         if (typeof props.onClose === 'function') {
           props.onClose(event);
@@ -301,7 +303,7 @@ function showToastFn(
     Component: Toast,
     props: {
       ...props,
-      open: true,
+      open: false,
       onClose: (event) => {
         if (typeof props.onClose === 'function') {
           props.onClose(event);
@@ -317,6 +319,32 @@ function showToastFn(
   return {
     ref,
   };
+}
+
+// TODO: Temporary workaround for #9116 — the web component resolves its initial focus synchronously in the
+// `open` setter instead of when focus is applied. Remove once fixed upstream (UI5/webcomponents#14234).
+/**
+ * Renders a single modal and opens it only after mount, so the web component's `open` setter runs after all
+ * other props (e.g. `preventInitialFocus`) are applied. Setting `open` in props applies it too early.
+ */
+function ModalRenderer({ modal }: { modal: IModal }) {
+  const { Component, props, ref, container, id } = modal;
+  const [componentRef, modalRef] = useSyncRef(ref);
+
+  useIsomorphicLayoutEffect(() => {
+    const node = modalRef.current as (Element & { open?: boolean }) | null;
+    if (node && 'open' in node) {
+      node.open = true;
+    }
+  }, [modalRef]);
+
+  // @ts-expect-error: ref is supported by all supported modals
+  const element = <Component {...props} ref={componentRef} data-id={id} />;
+
+  if (container) {
+    return createPortal(element, container);
+  }
+  return element;
 }
 
 /**
@@ -344,15 +372,7 @@ export function Modals() {
     <>
       {modals.map((modal) => {
         if (modal?.Component) {
-          if (modal.container) {
-            return createPortal(
-              // @ts-expect-error: ref is supported by all supported modals
-              <modal.Component {...modal.props} ref={modal.ref} key={modal.id} data-id={modal.id} />,
-              modal.container,
-            );
-          }
-          // @ts-expect-error: ref is supported by all supported modals
-          return <modal.Component {...modal.props} ref={modal.ref} key={modal.id} data-id={modal.id} />;
+          return <ModalRenderer key={modal.id} modal={modal} />;
         }
       })}
     </>
