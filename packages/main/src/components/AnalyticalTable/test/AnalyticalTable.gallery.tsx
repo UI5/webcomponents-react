@@ -272,3 +272,18 @@ export const BorderlessHarness = () => (
     </div>
   </>
 );
+
+const placeholderColumns: AnalyticalTableColumnDefinition[] = [
+  { Header: 'Name', accessor: 'name' },
+  { Header: 'Age', accessor: 'age' },
+];
+
+export const LoadingPlaceholderHarness = (props: Partial<AnalyticalTablePropTypes>) => (
+  <AnalyticalTable
+    columns={placeholderColumns}
+    data={noData}
+    loading
+    selectionMode={AnalyticalTableSelectionMode.Multiple}
+    {...props}
+  />
+);
