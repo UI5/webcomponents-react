@@ -14,12 +14,14 @@ export const useObserveHeights = (
     scrollTimeout = { current: 0 },
     preserveHeaderStateOnScroll,
     manuallyCollapsed = { current: false },
+    suppressScrollCollapse = false,
   }: {
     noHeader: boolean;
     fixedHeader?: boolean;
     scrollTimeout?: MutableRefObject<number>;
     preserveHeaderStateOnScroll?: boolean;
     manuallyCollapsed?: MutableRefObject<boolean>;
+    suppressScrollCollapse?: boolean;
   },
 ) => {
   const [topHeaderHeight, setTopHeaderHeight] = useState(0);
@@ -42,6 +44,10 @@ export const useObserveHeights = (
       }
 
       if (scrollDown && e.target.scrollTop >= headerContentHeight && !headerCollapsed) {
+        // Collapsing a section too short to keep the top spacer would shrink the container, clamp scrollTop to 0 and re-expand in a loop.
+        if (suppressScrollCollapse) {
+          return;
+        }
         setIsIntersecting(false);
         setHeaderCollapsed(true);
       } else if (
@@ -53,7 +59,7 @@ export const useObserveHeights = (
         setHeaderCollapsed(false);
       }
     },
-    [headerContentHeight, topHeaderHeight, headerCollapsed],
+    [headerContentHeight, topHeaderHeight, headerCollapsed, suppressScrollCollapse],
   );
 
   useEffect(() => {

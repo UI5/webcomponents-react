@@ -126,4 +126,47 @@ test.describe('ObjectPage', () => {
     await page.getByRole('tab', { name: 'Short' }).click();
     await expect.poll(topSpacerHeight).toBe(0);
   });
+
+  test('IconTabBar: a dead-band section keeps the header expanded instead of twitching on scroll', async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await mount('ObjectPage/ObjectPageHeaderTwitchTestComp');
+
+    await expect(page.getByText('Priority: Very High')).toBeVisible();
+
+    // A twitch shows up as the scroll position repeatedly dropping back toward the top.
+    const { maxScroll, resets, finalTop } = await page.evaluate(
+      () =>
+        new Promise<{ maxScroll: number; resets: number; finalTop: number }>((resolve) => {
+          const el = document.querySelector('[data-component-name="ObjectPage"]');
+          const maxScroll = el.scrollHeight - el.clientHeight;
+          let resets = 0;
+          let prev = 0;
+          let frames = 0;
+          const tick = () => {
+            el.scrollTop = el.scrollTop + 40;
+            const top = el.scrollTop;
+            if (top < prev - 10) {
+              resets++;
+            }
+            prev = top;
+            frames++;
+            if (frames >= 60) {
+              resolve({ maxScroll: Math.round(maxScroll), resets, finalTop: Math.round(el.scrollTop) });
+              return;
+            }
+            requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }),
+    );
+
+    expect(maxScroll).toBeGreaterThan(0); // section must actually be scrollable
+    expect(resets).toBe(0); // no collapse/expand twitch
+    expect(finalTop).toBeGreaterThan(0); // scroll holds at the bottom
+    await expect(page.getByText('Priority: Very High')).toBeVisible();
+    await expect(page.getByText('Bottom content')).toBeInViewport();
+  });
 });

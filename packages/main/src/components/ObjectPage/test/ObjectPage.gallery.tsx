@@ -84,6 +84,43 @@ export const ObjectPageFitContentTabSwitchTestComp = () => {
   );
 };
 
+// IconTabBar + a section in the "collapse dead-band": scrollable while the header is expanded, but short enough to fit
+// once collapsed. The header must stay expanded on scroll instead of looping collapse/expand. Heights are viewport-
+// relative so the section stays in the band for any test viewport.
+export const ObjectPageHeaderTwitchTestComp = () => {
+  return (
+    <ObjectPage
+      mode={ObjectPageMode.IconTabBar}
+      style={{ height: '100vh' }}
+      titleArea={
+        <ObjectPageTitle
+          header={<Title>Denise Smith</Title>}
+          snappedHeader={<Title>Denise Smith (snapped)</Title>}
+          subHeader="Senior UI Developer"
+        />
+      }
+      headerArea={
+        <ObjectPageHeader>
+          <div>Priority: Very High</div>
+          <div>Status: Sent</div>
+        </ObjectPageHeader>
+      }
+    >
+      <ObjectPageSection titleText="Discussion" id="discussion" aria-label="Discussion">
+        <div
+          style={{ height: 'calc(100vh - 150px)', display: 'flex', flexDirection: 'column', background: 'lightblue' }}
+        >
+          <div>Scroll me down to see the bottom</div>
+          <div style={{ marginTop: 'auto' }}>Bottom content</div>
+        </div>
+      </ObjectPageSection>
+      <ObjectPageSection titleText="Details" id="details" aria-label="Details">
+        <div style={{ height: '1500px', width: '100%', background: 'lightsalmon' }}>Details content</div>
+      </ObjectPageSection>
+    </ObjectPage>
+  );
+};
+
 // IconTabBar + non-fitContent sections: after collapsing the header and switching to a section shorter than the
 // viewport, the top header spacer must not remain as dead space above the section (it can't be scrolled away).
 // A tall section keeps the spacer so scroll-up can re-expand the collapsed header.
