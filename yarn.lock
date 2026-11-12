@@ -11776,7 +11776,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:14.0.4":
+"glob@npm:14.0.4, glob@npm:^14.0.3":
   version: 14.0.4
   resolution: "glob@npm:14.0.4"
   dependencies:
@@ -11803,7 +11803,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^13.0.0, glob@npm:^13.0.1, glob@npm:^13.0.3, glob@npm:^13.0.6":
+"glob@npm:^13.0.0, glob@npm:^13.0.1, glob@npm:^13.0.6":
   version: 13.0.6
   resolution: "glob@npm:13.0.6"
   dependencies:
@@ -19285,15 +19285,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:6.1.3, rimraf@npm:^6.1.3":
-  version: 6.1.3
-  resolution: "rimraf@npm:6.1.3"
+"rimraf@npm:6.1.4, rimraf@npm:^6.1.3":
+  version: 6.1.4
+  resolution: "rimraf@npm:6.1.4"
   dependencies:
-    glob: "npm:^13.0.3"
+    glob: "npm:^14.0.3"
     package-json-from-dist: "npm:^1.0.1"
   bin:
     rimraf: dist/esm/bin.mjs
-  checksum: 10c0/4a56537850102e20ba5d5eb49f366b4b7b2435389734b4b8480cf0e0eb0f6f5d0c44120a171aeb0d8f9ab40312a10d2262f3f50acbad803e32caef61b6cf86fc
+  checksum: 10c0/ccad0545c95a76aebe3b1120bc87b2fbc724c81ead08986dce56f28b6579db50a17b557dc813ed2e0f69915e6c2bbf667d294fec8215fc41902d0edd10ad6fbf
   languageName: node
   linkType: hard
 
@@ -21295,7 +21295,7 @@ __metadata:
     react: "npm:19.3.1"
     react-dom: "npm:19.3.1"
     remark-gfm: "npm:4.0.1"
-    rimraf: "npm:6.1.3"
+    rimraf: "npm:6.1.4"
     storybook: "npm:10.6.6"
     tocbot: "npm:4.36.8"
     typescript: "npm:6.0.3"
