@@ -133,9 +133,12 @@ const columns = (currentColumns, { instance }: { instance: TableInstance }) => {
       disableGroupBy: true,
       disableResizing: true,
       disableDragAndDrop: true,
-      width: selectionColumnWidth,
-      minWidth: selectionColumnWidth,
-      maxWidth: selectionColumnWidth,
+      // omit when unresolved; `undefined` widths make `totalWidth` NaN
+      ...(selectionColumnWidth !== undefined && {
+        width: selectionColumnWidth,
+        minWidth: selectionColumnWidth,
+        maxWidth: selectionColumnWidth,
+      }),
       Header,
       Cell,
     },
