@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.28.3](https://github.com/UI5/webcomponents-react/compare/v2.28.2...v2.28.3) (2026-11-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @tanstack/react-virtual to v3.14.23 ([#9122](https://github.com/UI5/webcomponents-react/issues/9122)) ([e5aff89](https://github.com/UI5/webcomponents-react/commit/e5aff893158286a3ca12ad27ca80d4c8d49f9f3d))
+* **MessageView:** improve details-page accessibility and navigation ([#9115](https://github.com/UI5/webcomponents-react/issues/9115)) ([1d763be](https://github.com/UI5/webcomponents-react/commit/1d763be44bdb13986342d3b62109564c3a99ddd6)), closes [#9112](https://github.com/UI5/webcomponents-react/issues/9112)
+* **Modals:** respect preventInitialFocus by opening modals after mount ([#9120](https://github.com/UI5/webcomponents-react/issues/9120)) ([e70e526](https://github.com/UI5/webcomponents-react/commit/e70e526a2270666a608a28e8e5bdd8f082a43fa0)), closes [#9116](https://github.com/UI5/webcomponents-react/issues/9116)
+
 ## [2.28.2](https://github.com/UI5/webcomponents-react/compare/v2.28.1...v2.28.2) (2026-10-27)
 
 
