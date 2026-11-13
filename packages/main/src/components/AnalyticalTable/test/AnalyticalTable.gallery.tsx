@@ -1,5 +1,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
+import { AnalyticalTableSubComponentsBehavior } from '../../../enums/AnalyticalTableSubComponentsBehavior.js';
+import { Button } from '../../../webComponents/Button/index.js';
 import { Panel } from '../../../webComponents/Panel/index.js';
 import { Tab } from '../../../webComponents/Tab/index.js';
 import { TabContainer } from '../../../webComponents/TabContainer/index.js';
@@ -272,3 +274,94 @@ export const BorderlessHarness = () => (
     </div>
   </>
 );
+
+// Virtualized, scrollable table with variable-height row subcomponents — drives the #6923 RO-loop regression spec.
+const subComponentData = Array.from({ length: 200 }, (_, i) => ({
+  name: `Name-${i}`,
+  age: i,
+  friend: { name: `Friend-${i}`, age: i + 100 },
+}));
+
+const subComponentColumns: AnalyticalTableColumnDefinition[] = [
+  { Header: 'Name', accessor: 'name' },
+  { Header: 'Age', accessor: 'age' },
+  { Header: 'Friend Name', accessor: 'friend.name' },
+];
+
+export const SubComponentResizeHarness = ({
+  subComponentsBehavior = AnalyticalTableSubComponentsBehavior.Visible,
+}: {
+  subComponentsBehavior?: AnalyticalTablePropTypes['subComponentsBehavior'];
+}) => {
+  const renderRowSubComponent = useCallback((row) => {
+    // Vary heights so re-measurement moves rows; one row has no subcomponent.
+    if (row.index % 7 === 2) {
+      return null;
+    }
+    const height = row.index % 3 === 0 ? 240 : row.index % 3 === 1 ? 120 : 60;
+    return (
+      <div
+        data-testid={`subcomponent-${row.id}`}
+        style={{ height: `${height}px`, background: 'var(--sapList_Background)' }}
+      >
+        {`subcomponent ${row.id} — ${height}px`}
+      </div>
+    );
+  }, []);
+  return (
+    <AnalyticalTable
+      data={subComponentData}
+      columns={subComponentColumns}
+      renderRowSubComponent={renderRowSubComponent}
+      subComponentsBehavior={subComponentsBehavior}
+      visibleRows={5}
+    />
+  );
+};
+
+// Scrolled near the end, then an async filter empties and refills with fewer rows than minRows: the DOM clamps
+// scrollTop with no scroll event, and minRows (20) > result keeps itemCount constant so the re-sync effect can only
+// re-fire via its rows.length dep. Drives the scrollOffset regression test (origin PR #8631).
+export const ScrollOffsetAfterFilterHarness = () => {
+  const full = useMemo(() => Array.from({ length: 500 }, (_, i) => ({ name: `Row-${i}`, age: i })), []);
+  const [tableData, setTableData] = useState(full);
+  const [loading, setLoading] = useState(false);
+  const columns = useMemo<AnalyticalTableColumnDefinition[]>(
+    () => [
+      { Header: 'Name', accessor: 'name' },
+      { Header: 'Age', accessor: 'age' },
+    ],
+    [],
+  );
+  const reactTableOptions = useMemo(() => ({ manualFilters: true }), []);
+  const onTableScroll = useCallback(() => {
+    const w = window as unknown as { __tableScrollCount?: number };
+    w.__tableScrollCount = (w.__tableScrollCount ?? 0) + 1;
+  }, []);
+  return (
+    <>
+      <Button
+        data-testid="filter"
+        onClick={() => {
+          setTableData([]);
+          setLoading(true);
+          setTimeout(() => {
+            setTableData(full.filter((row) => row.age < 5));
+            setLoading(false);
+          }, 100);
+        }}
+      >
+        Filter
+      </Button>
+      <AnalyticalTable
+        data={tableData}
+        columns={columns}
+        loading={loading}
+        reactTableOptions={reactTableOptions}
+        onTableScroll={onTableScroll}
+        visibleRows={15}
+        minRows={20}
+      />
+    </>
+  );
+};
