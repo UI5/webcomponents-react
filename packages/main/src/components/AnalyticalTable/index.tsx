@@ -811,7 +811,6 @@ const AnalyticalTable = forwardRef<AnalyticalTableDomRef, AnalyticalTablePropTyp
     overscan,
     measureElement,
     indexAttribute: 'data-virtual-row-index',
-    useAnimationFrameWithResizeObserver: true,
   });
 
   // Re-sync the virtualizer's cached `scrollOffset` with the DOM after data swaps that clamp `scrollTop` without firing a scroll event in the same React batch.
