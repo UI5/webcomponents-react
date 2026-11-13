@@ -44,8 +44,13 @@ export const useObserveHeights = (
       }
 
       if (scrollDown && e.target.scrollTop >= headerContentHeight && !headerCollapsed) {
-        // Collapsing a section too short to keep the top spacer would shrink the container, clamp scrollTop to 0 and re-expand in a loop.
-        if (suppressScrollCollapse) {
+        // Skip the collapse only when it can't be sustained: the section is flagged too short to keep the top spacer
+        // and the scroll range left after collapse would clamp back toward the top and re-expand in a loop.
+        const reExpandThreshold = topHeaderHeight + Math.max(0, headerContentHeight - topHeaderHeight);
+        if (
+          suppressScrollCollapse &&
+          e.target.scrollHeight - e.target.clientHeight - headerContentHeight <= reExpandThreshold
+        ) {
           return;
         }
         setIsIntersecting(false);
