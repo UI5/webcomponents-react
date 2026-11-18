@@ -129,7 +129,7 @@ Cypress.Commands.addQuery('findUi5TabOpenPopoverButtonByText', function (text) {
   const getTabList = cy.now('find', '[role="tablist"]');
   const getText = cy.now('contains', text);
   const getParent = cy.now('parents', '[role="tab"]');
-  const getButton = cy.now('find', '[ui5-button]');
+  const getExpandButton = cy.now('find', '.ui5-tab-expand-button');
 
   return (subject) => {
     if (!subject?.[0]?.hasAttribute('ui5-tabcontainer')) {
@@ -143,9 +143,9 @@ Cypress.Commands.addQuery('findUi5TabOpenPopoverButtonByText', function (text) {
     // @ts-expect-error: recommended approach per cypress docs
     const parent = getParent(text);
     // @ts-expect-error: recommended approach per cypress docs
-    const button = getButton(parent);
+    const expandButton = getExpandButton(parent);
 
-    return button;
+    return expandButton;
   };
 });
 
