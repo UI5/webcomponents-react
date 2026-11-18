@@ -1,9 +1,14 @@
-import type { Locator, Page } from '@playwright/test';
+import type { ConsoleMessage, Locator, Page } from '@playwright/test';
 import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 import { AnalyticalTableScaleWidthMode } from '../../../enums/AnalyticalTableScaleWidthMode.js';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
+import { AnalyticalTableSubComponentsBehavior } from '../../../enums/AnalyticalTableSubComponentsBehavior.js';
 import type { AnalyticalTableColumnDefinition } from '../index.js';
-import type { StickyHarness } from './AnalyticalTable.gallery.js';
+import type {
+  ScrollOffsetAfterFilterHarness,
+  StickyHarness,
+  SubComponentResizeHarness,
+} from './AnalyticalTable.gallery.js';
 
 // 5×150 = 750px total; container 500px → guaranteed horizontal overflow.
 const wideCols: AnalyticalTableColumnDefinition[] = [
@@ -494,5 +499,114 @@ test.describe('AnalyticalTable Smart scaleWidthMode — shrink to fit', () => {
     // 'Friend Name' must stay at its header width: the shrink floors there, not at the 60px default, so only the wide
     // 'name' column absorbs the overflow instead of every column collapsing toward 60px.
     expect(await boxWidth(columnHeader(page, 'friend.name'))).toBeGreaterThanOrEqual(100);
+  });
+});
+
+test.describe('AnalyticalTable — scroll offset', () => {
+  // Guards the scrollOffset re-sync effect (index.tsx) after a filter clamps scrollTop. onTableScroll must fire:
+  // on current virtual-core the native range-clamp already fixes the render, so the translateY check alone no longer
+  // detects removal — keep both. translateY vs scrollTop: <500 is within the overscan window, stale is ≈3000px.
+  test('re-syncs scroll offset after an async filter shrinks the rows', async ({ mount, page }) => {
+    await mount<typeof ScrollOffsetAfterFilterHarness>('AnalyticalTable/ScrollOffsetAfterFilterHarness', {});
+    const body = page.locator('[data-component-name="AnalyticalTableBody"]');
+    await expect(body).toBeVisible();
+
+    await body.evaluate((el) => el.scrollTo(0, 4000));
+    await expect.poll(() => body.evaluate((el) => el.scrollTop)).toBeGreaterThan(0);
+    await page.waitForTimeout(250);
+    await page.evaluate(() => ((window as unknown as { __tableScrollCount: number }).__tableScrollCount = 0));
+
+    await page.getByTestId('filter').click();
+
+    await expect
+      .poll(() => page.evaluate(() => (window as unknown as { __tableScrollCount?: number }).__tableScrollCount ?? 0))
+      .toBeGreaterThan(0);
+
+    await expect
+      .poll(() =>
+        body.evaluate((el) => {
+          const container = el.querySelector('[data-component-name="AnalyticalTableBodyScrollableContainer"]');
+          const firstRow = container?.children?.[0] as HTMLElement | undefined;
+          if (!firstRow) {
+            return Number.POSITIVE_INFINITY;
+          }
+          const match = firstRow.style.transform?.match(/translateY\(([\d.]+)px\)/);
+          const translateY = match ? parseFloat(match[1]) : 0;
+          return Math.abs(translateY - el.scrollTop);
+        }),
+      )
+      .toBeLessThan(500);
+  });
+});
+
+const RO_LOOP = /ResizeObserver loop/i;
+
+// Collect RO-loop reports from every channel: the window `error` event (where Chromium dispatches it), console, and pageerror.
+async function trackResizeObserverLoop(page: Page): Promise<() => Promise<string[]>> {
+  const fromListeners: string[] = [];
+  page.on('console', (msg: ConsoleMessage) => {
+    if (RO_LOOP.test(msg.text())) {
+      fromListeners.push(msg.text());
+    }
+  });
+  page.on('pageerror', (err) => {
+    if (RO_LOOP.test(err.message)) {
+      fromListeners.push(err.message);
+    }
+  });
+  await page.addInitScript(() => {
+    (window as unknown as { __roErrors: string[] }).__roErrors = [];
+    window.addEventListener('error', (e: ErrorEvent) => {
+      if (/ResizeObserver loop/i.test(e?.message ?? '')) {
+        (window as unknown as { __roErrors: string[] }).__roErrors.push(e.message);
+      }
+    });
+  });
+  return async () => {
+    const fromWindow = await page.evaluate(() => (window as unknown as { __roErrors?: string[] }).__roErrors ?? []);
+    return [...fromWindow, ...fromListeners];
+  };
+}
+
+// Scroll so virtualized rows and their subcomponents mount/unmount while being measured.
+async function scrollStress(page: Page) {
+  const body = page.locator('[data-component-name="AnalyticalTableBody"]');
+  await expect(body).toBeVisible();
+  for (const offset of [600, 1800, 400, 2400, 0, 1200]) {
+    await body.evaluate((el, top) => el.scrollTo(0, top), offset);
+    await page.waitForTimeout(80);
+  }
+}
+
+// Regression guard for #6923: dynamic subcomponent heights must not trigger a ResizeObserver loop during scroll.
+test.describe('AnalyticalTable subcomponents — ResizeObserver loop', () => {
+  test('no RO loop while scrolling with always-visible variable-height subcomponents', async ({ mount, page }) => {
+    const getErrors = await trackResizeObserverLoop(page);
+    await mount<typeof SubComponentResizeHarness>('AnalyticalTable/SubComponentResizeHarness', {
+      subComponentsBehavior: AnalyticalTableSubComponentsBehavior.Visible,
+    });
+    await expect(page.getByRole('grid')).toBeVisible();
+    await expect(page.getByTestId('subcomponent-0')).toBeVisible();
+
+    await scrollStress(page);
+
+    expect(await getErrors()).toEqual([]);
+  });
+
+  test('no RO loop while expanding/collapsing subcomponents during scroll', async ({ mount, page }) => {
+    const getErrors = await trackResizeObserverLoop(page);
+    await mount<typeof SubComponentResizeHarness>('AnalyticalTable/SubComponentResizeHarness', {
+      subComponentsBehavior: AnalyticalTableSubComponentsBehavior.IncludeHeightExpandable,
+    });
+    await expect(page.getByRole('grid')).toBeVisible();
+
+    const expander = () => page.locator('[title="Expand Node"]').first().locator('[ui5-button]');
+    for (let i = 0; i < 4; i++) {
+      await expander().click();
+      await scrollStress(page);
+      await expander().click();
+    }
+
+    expect(await getErrors()).toEqual([]);
   });
 });
