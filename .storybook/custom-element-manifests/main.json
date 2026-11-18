@@ -3649,6 +3649,10 @@
             {
               "description": "Used to style the content of the component",
               "name": "content"
+            },
+            {
+              "description": "Used to style the item of the component",
+              "name": "item"
             }
           ],
           "slots": [
@@ -27647,7 +27651,7 @@
         },
         {
           "kind": "class",
-          "description": "### Overview\n\nThe `ui5-table` component provides a set of sophisticated features for displaying and dealing with vast amounts of data in a responsive manner.\nTo render the `ui5-table`, you need to define the columns and rows. You can use the provided `ui5-table-header-row` and `ui5-table-row` components for this purpose.\n\n### Features\n\nThe `ui5-table` can be enhanced in its functionalities by applying different features.\nFeatures can be slotted into the `features` slot, to enable them in the component.\nFeatures need to be imported separately, as they are not enabled by default.\n\nThe following features are currently available:\n\n* [TableSelectionMulti](../TableSelectionMulti) - adds multi-selection capabilities to the table\n* [TableSelectionSingle](../TableSelectionSingle) - adds single-selection capabilities to the table\n* [TableGrowing](../TableGrowing) - provides growing capabilities to load more data\n* [TableVirtualizer](../TableVirtualizer) - adds virtualization capabilities to the table\n\n### Keyboard Handling\n\nThis component provides a build in fast navigation group which can be used via [F6] / [Shift] + [F6] / [Ctrl] + [Alt/Option] / [Down] or [Ctrl] + [Alt/Option] + [Up].\nIn order to use this functionality, you need to import the following module:\n`import \"@ui5/webcomponents-base/dist/features/F6Navigation.js\"`\n\nFurthermore, you can interact with `ui5-table` via the following keys:\n\nIf the focus is on a row, the following keyboard shortcuts are available:\n* <kbd>Down</kbd> - Navigates down\n* <kbd>Up</kbd> - Navigates up\n* <kbd>Right</kbd> - Selects the first cell of the row\n* <kbd>Space</kbd> - Toggles the selection of the row\n* <kbd>Ctrl/Cmd + A</kbd> - In multi selection mode, toggles the selection of all rows\n* <kbd>Home</kbd> - Navigates to the first row, if the focus is on the first row, navigates to the header row\n* <kbd>End</kbd> - Navigates to the last row, if the focus is on the last row, navigates to the growing button\n* <kbd>Page Up</kbd> - Navigates one page up, if the focus is on the first row, navigates to the header row\n* <kbd>Page Down</kbd> - Navigates one page down, if the focus is on the last row, navigates to the growing button\n* <kbd>F2</kbd> - Focuses the first tabbable element in the row\n* <kbd>F7</kbd> - If focus position is remembered, moves focus to the corresponding focus position row, otherwise to the first tabbable element within the row\n* <kbd>[Shift]Tab</kbd> - Move focus to the element in the tab chain outside the table\n\nIf the focus is on a cell, the following keyboard shortcuts are available:\n* <kbd>Down</kbd> - Navigates down\n* <kbd>Up</kbd> - Navigates up\n* <kbd>Right</kbd> - Navigates right\n* <kbd>Left</kbd> - Navigates left, if the focus is on the first cell of the row, the focus is moved to the row.\n* <kbd>Home</kbd> - Navigates to the first cell of the current row, if the focus is on the first cell, navigates to the corresponding row\n* <kbd>End</kbd> - Navigates to the last cell of the current row, if the focus is on the last cell, navigates to the corresponding row\n* <kbd>Page Up</kbd> - Navigates one page up while keeping the focus in same column\n* <kbd>Page Down</kbd> - Navigates one page down while keeping the focus in same column\n* <kbd>F2</kbd> - Toggles the focus between the first tabbable cell content and the cell\n* <kbd>Enter</kbd> - Focuses the first tabbable cell content\n* <kbd>F7</kbd> - If the focus is on an interactive element inside a row, moves focus to the corresponding row and remembers the focus position of the element within the row\n* <kbd>[Shift]Tab</kbd> - Move focus to the element in the tab chain outside the table\n\nIf the focus is on an interactive cell content, the following keyboard shortcuts are available:\n* <kbd>Down</kbd> - Move the focus to the interactive element in the same column of the previous row, unless the focused element prevents the default\n* <kbd>Up</kbd> - Move the focus to the interactive element in the same column of the next row, unless the focused element prevents the default\n* <kbd>[Shift]Tab</kbd> - Move the focus to the element in the tab chain\n\n### Accessibility\n\nThe `ui5-table` follows the [ARIA grid design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/).\nThis pattern enables cell-based keyboard navigation and, as explained above, we also support row-based keyboard navigation.\nSince the grid design pattern does not inherently provide row-based keyboard behavior, if the focus is on a row, not only the row information but also the corresponding column headers for each cell must be announced.\nThis can only be achieved through a custom accessibility announcement.\nTo support this, UI5 Web Components expose its own accessibility metadata via the `accessibilityInfo` property.\nThe `ui5-table` uses this information to create the required custom announcements dynamically.\nIf you include custom web components inside table cells that are not part of the standard UI5 Web Components set, their accessibility information can be provided using the `data-ui5-acc-text` attribute.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/Table.js\";` (`ui5-table`)\\\n`import \"@ui5/webcomponents/dist/TableRow.js\";` (`ui5-table-row`)\\\n`import \"@ui5/webcomponents/dist/TableCell.js\";` (`ui5-table-cell`)\\\n`import \"@ui5/webcomponents/dist/TableHeaderRow.js\";` (`ui5-table-header-row`)\\\n`import \"@ui5/webcomponents/dist/TableHeaderCell.js\";` (`ui5-table-header-cell`)",
+          "description": "### Overview\n\nThe `ui5-table` component provides a set of sophisticated features for displaying and dealing with vast amounts of data in a responsive manner.\nTo render the `ui5-table`, you need to define the columns and rows. You can use the provided `ui5-table-header-row` and `ui5-table-row` components for this purpose.\n\n### Features\n\nThe `ui5-table` can be enhanced in its functionalities by applying different features.\nFeatures can be slotted into the `features` slot, to enable them in the component.\nFeatures need to be imported separately, as they are not enabled by default.\n\nThe following features are currently available:\n\n* [TableSelectionMulti](../TableSelectionMulti) - adds multi-selection capabilities to the table\n* [TableSelectionSingle](../TableSelectionSingle) - adds single-selection capabilities to the table\n* [TableGrowing](../TableGrowing) - provides growing capabilities to load more data\n* [TableVirtualizer](../TableVirtualizer) - adds virtualization capabilities to the table\n\n### Keyboard Handling\n\nThis component provides a build in fast navigation group which can be used via [F6] / [Shift] + [F6] / [Ctrl] + [Alt/Option] / [Down] or [Ctrl] + [Alt/Option] + [Up].\nIn order to use this functionality, you need to import the following module:\n`import \"@ui5/webcomponents-base/dist/features/F6Navigation.js\"`\n\nFurthermore, you can interact with `ui5-table` via the following keys:\n\nIf the focus is on a row, the following keyboard shortcuts are available:\n* <kbd>Down</kbd> - Navigates down\n* <kbd>Up</kbd> - Navigates up\n* <kbd>Right</kbd> - Selects the first cell of the row\n* <kbd>Space</kbd> - Toggles the selection of the row\n* <kbd>Ctrl/Cmd + A</kbd> - In multi selection mode, toggles the selection of all rows\n* <kbd>Home</kbd> - Navigates to the first row, if the focus is on the first row, navigates to the header row\n* <kbd>End</kbd> - Navigates to the last row, if the focus is on the last row, navigates to the growing button\n* <kbd>Page Up</kbd> - Navigates one page up, if the focus is on the first row, navigates to the header row\n* <kbd>Page Down</kbd> - Navigates one page down, if the focus is on the last row, navigates to the growing button\n* <kbd>F2</kbd> - Focuses the first tabbable element in the row\n* <kbd>F7</kbd> - If focus position is remembered, moves focus to the corresponding focus position row, otherwise to the first tabbable element within the row\n* <kbd>[Shift]Tab</kbd> - Move focus to the element in the tab chain outside the table\n* <kbd>Alt + Enter</kbd> - Triggers the navigation action of the row, if available\n\nIf the focus is on a cell, the following keyboard shortcuts are available:\n* <kbd>Down</kbd> - Navigates down\n* <kbd>Up</kbd> - Navigates up\n* <kbd>Right</kbd> - Navigates right\n* <kbd>Left</kbd> - Navigates left, if the focus is on the first cell of the row, the focus is moved to the row.\n* <kbd>Home</kbd> - Navigates to the first cell of the current row, if the focus is on the first cell, navigates to the corresponding row\n* <kbd>End</kbd> - Navigates to the last cell of the current row, if the focus is on the last cell, navigates to the corresponding row\n* <kbd>Page Up</kbd> - Navigates one page up while keeping the focus in same column\n* <kbd>Page Down</kbd> - Navigates one page down while keeping the focus in same column\n* <kbd>F2</kbd> - Toggles the focus between the first tabbable cell content and the cell\n* <kbd>Enter</kbd> - Focuses the first tabbable cell content\n* <kbd>F7</kbd> - If the focus is on an interactive element inside a row, moves focus to the corresponding row and remembers the focus position of the element within the row\n* <kbd>[Shift]Tab</kbd> - Move focus to the element in the tab chain outside the table\n* <kbd>Alt + Enter</kbd> - Triggers the navigation action of the row, if available\n\nIf the focus is on an interactive cell content, the following keyboard shortcuts are available:\n* <kbd>Down</kbd> - Move the focus to the interactive element in the same column of the previous row, unless the focused element prevents the default\n* <kbd>Up</kbd> - Move the focus to the interactive element in the same column of the next row, unless the focused element prevents the default\n* <kbd>[Shift]Tab</kbd> - Move the focus to the element in the tab chain\n\n### Accessibility\n\nThe `ui5-table` follows the [ARIA grid design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/).\nThis pattern enables cell-based keyboard navigation and, as explained above, we also support row-based keyboard navigation.\nSince the grid design pattern does not inherently provide row-based keyboard behavior, if the focus is on a row, not only the row information but also the corresponding column headers for each cell must be announced.\nThis can only be achieved through a custom accessibility announcement.\nTo support this, UI5 Web Components expose its own accessibility metadata via the `accessibilityInfo` property.\nThe `ui5-table` uses this information to create the required custom announcements dynamically.\nIf you include custom web components inside table cells that are not part of the standard UI5 Web Components set, their accessibility information can be provided using the `data-ui5-acc-text` attribute.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/Table.js\";` (`ui5-table`)\\\n`import \"@ui5/webcomponents/dist/TableRow.js\";` (`ui5-table-row`)\\\n`import \"@ui5/webcomponents/dist/TableCell.js\";` (`ui5-table-cell`)\\\n`import \"@ui5/webcomponents/dist/TableHeaderRow.js\";` (`ui5-table-header-row`)\\\n`import \"@ui5/webcomponents/dist/TableHeaderCell.js\";` (`ui5-table-header-cell`)",
           "name": "Table",
           "slots": [
             {
@@ -28649,7 +28653,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "### Overview\n\nThe `ui5-table-header-cell` component represents a column in the `ui5-table`.\n\nAs it is tightly coupled to the `ui5-table`, it should only be used in the `ui5-table-header-row`\nto ensure correct layout and design.\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/TableHeaderCell.js\";`",
+          "description": "### Overview\n\nThe `ui5-table-header-cell` component represents a column in the `ui5-table`.\n\nAs it is tightly coupled to the `ui5-table`, it should only be used in the `ui5-table-header-row`\nto ensure correct layout and design.\n\n### Accessibility\n\nWhen the `header-click` event is used to open a menu or a dialog, set the `aria-haspopup` attribute\non the `ui5-table-header-cell` correspondingly.\nThis allows assistive technologies to properly announce the associated popup.\n\n```html\n<ui5-table-header-cell interactive aria-haspopup=\"menu\">Column Header</ui5-table-header-cell>\n```\n\n### ES6 Module Import\n\n`import \"@ui5/webcomponents/dist/TableHeaderCell.js\";`",
           "name": "TableHeaderCell",
           "slots": [
             {
@@ -28705,6 +28709,17 @@
               "default": "0",
               "description": "Defines the importance of the column.\n\nThis property affects the popin behaviour.\nColumns with higher importance will move into the popin area later then less important\ncolumns.",
               "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "interactive",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the column header is interactive.\n\nIf set to `true`, the column header can be activated by a click, <kbd>Enter</kbd> or <kbd>Space</kbd>,\nwhich fires the `header-click` event and can be used, for example, to open a column menu.\nA hover effect is shown to signal the interactivity to the user.\n\n**Note:** If the click opens a menu or dialog, set the `aria-haspopup` attribute on the `ui5-table-header-cell`\ncorrespondingly. This allows assistive technologies to properly announce the associated popup.",
+              "privacy": "public",
+              "_ui5since": "2.29.0"
             },
             {
               "kind": "field",
@@ -28767,6 +28782,20 @@
               "privacy": "public"
             }
           ],
+          "events": [
+            {
+              "name": "header-click",
+              "_ui5privacy": "public",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the column header is activated by a click, <kbd>Enter</kbd> or <kbd>Space</kbd>.\n\n**Note:** This event is only fired if the `interactive` property is set to `true`.",
+              "_ui5Cancelable": false,
+              "_ui5allowPreventDefault": false,
+              "_ui5Bubbles": false,
+              "_ui5since": "2.29.0"
+            }
+          ],
           "attributes": [
             {
               "description": "Determines the horizontal alignment of table cells.",
@@ -28784,6 +28813,15 @@
               "fieldName": "importance",
               "type": {
                 "text": "number"
+              }
+            },
+            {
+              "description": "Defines whether the column header is interactive.\n\nIf set to `true`, the column header can be activated by a click, <kbd>Enter</kbd> or <kbd>Space</kbd>,\nwhich fires the `header-click` event and can be used, for example, to open a column menu.\nA hover effect is shown to signal the interactivity to the user.\n\n**Note:** If the click opens a menu or dialog, set the `aria-haspopup` attribute on the `ui5-table-header-cell`\ncorrespondingly. This allows assistive technologies to properly announce the associated popup.",
+              "name": "interactive",
+              "default": "false",
+              "fieldName": "interactive",
+              "type": {
+                "text": "boolean"
               }
             },
             {

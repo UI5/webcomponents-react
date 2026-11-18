@@ -6193,6 +6193,50 @@
               "_ui5privacy": "public"
             }
           ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "loading",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Defines whether the component is in loading state.\nWhen set to `true`, the component displays a busy indicator over its content.",
+              "privacy": "public",
+              "_ui5since": "2.29.0"
+            },
+            {
+              "kind": "field",
+              "name": "loadingDelay",
+              "type": {
+                "text": "number"
+              },
+              "default": "1000",
+              "description": "Defines the delay in milliseconds, after which the busy indicator will show up for this component.",
+              "privacy": "public",
+              "_ui5since": "2.29.0"
+            }
+          ],
+          "attributes": [
+            {
+              "description": "Defines whether the component is in loading state.\nWhen set to `true`, the component displays a busy indicator over its content.",
+              "name": "loading",
+              "default": "false",
+              "fieldName": "loading",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "description": "Defines the delay in milliseconds, after which the busy indicator will show up for this component.",
+              "name": "loading-delay",
+              "default": "1000",
+              "fieldName": "loadingDelay",
+              "type": {
+                "text": "number"
+              }
+            }
+          ],
           "superclass": {
             "name": "UI5Element",
             "package": "@ui5/webcomponents-base",
@@ -6202,8 +6246,7 @@
           "customElement": true,
           "_ui5since": "1.0.0",
           "_ui5privacy": "public",
-          "_ui5subcomponents": ["ProductSwitchItem"],
-          "members": []
+          "_ui5subcomponents": ["ProductSwitchItem"]
         }
       ],
       "exports": [
@@ -8277,9 +8320,17 @@
                   "type": {
                     "text": "Array<HTMLElement>"
                   },
-                  "name": "array",
+                  "name": "items",
                   "_ui5privacy": "public",
-                  "description": "of all the items that are hidden"
+                  "description": "array of all the items that are currently hidden"
+                },
+                {
+                  "type": {
+                    "text": "Array<HTMLElement>"
+                  },
+                  "name": "revealedItems",
+                  "_ui5privacy": "public",
+                  "description": "array of items that just became visible (were hidden in the previous state)"
                 }
               ]
             },
@@ -8883,6 +8934,17 @@
               "description": "Defines the item text.\n\n**Note:** The text is only displayed inside the overflow popover list view.",
               "default": "undefined",
               "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "tooltip",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Defines the tooltip of the item.\n\n**Note:** The tooltip is shown when the user hovers over the item in the main shell bar area.",
+              "default": "undefined",
+              "privacy": "public",
+              "_ui5since": "2.29.0"
             }
           ],
           "events": [
@@ -8948,6 +9010,15 @@
               "name": "text",
               "default": "undefined",
               "fieldName": "text",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "description": "Defines the tooltip of the item.\n\n**Note:** The tooltip is shown when the user hovers over the item in the main shell bar area.",
+              "name": "tooltip",
+              "default": "undefined",
+              "fieldName": "tooltip",
               "type": {
                 "text": "string | undefined"
               }
@@ -10459,6 +10530,21 @@
           "declaration": {
             "name": "SideNavigationItemTemplate",
             "module": "dist/SideNavigationItemTemplate.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/SideNavigationItemTextTemplate.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "SideNavigationItemTextTemplate",
+            "module": "dist/SideNavigationItemTextTemplate.js"
           }
         }
       ]
@@ -17869,12 +17955,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/illustrations/AllIllustrations.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/shellbar/IShellBarSearchController.js",
       "declarations": [],
       "exports": []
@@ -17968,6 +18048,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/illustrations/AllIllustrations.js",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
