@@ -157,7 +157,7 @@ export class UI5WCHelpers {
    * await tabContainer.getByText('Child Tab').click();
    */
   findTabPopoverButtonByText(tabContainer: Locator, text: string): Locator {
-    return tabContainer.locator('[role="tab"]').filter({ hasText: text }).locator('[ui5-button]');
+    return tabContainer.locator('[role="tab"]').filter({ hasText: text }).locator('.ui5-tab-expand-button');
   }
 
   /**

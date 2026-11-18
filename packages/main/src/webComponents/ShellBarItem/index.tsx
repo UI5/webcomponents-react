@@ -51,6 +51,16 @@ interface ShellBarItemAttributes {
    * @default undefined
    */
   text?: string | undefined;
+
+  /**
+   * Defines the tooltip of the item.
+   *
+   * **Note:** The tooltip is shown when the user hovers over the item in the main shell bar area.
+   *
+   * **Note:** Available since [v2.29.0](https://github.com/UI5/webcomponents/releases/tag/v2.29.0) of **@ui5/webcomponents-fiori**.
+   * @default undefined
+   */
+  tooltip?: string | undefined;
 }
 
 interface ShellBarItemDomRef extends Required<ShellBarItemAttributes>, Ui5DomRef {}
@@ -78,7 +88,7 @@ interface ShellBarItemPropTypes
  */
 const ShellBarItem = withWebComponent<ShellBarItemPropTypes, ShellBarItemDomRef>(
   'ui5-shellbar-item',
-  ['accessibilityAttributes', 'count', 'icon', 'text'],
+  ['accessibilityAttributes', 'count', 'icon', 'text', 'tooltip'],
   [],
   [],
   ['click'],

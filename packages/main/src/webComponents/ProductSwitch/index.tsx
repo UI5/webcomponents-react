@@ -5,11 +5,29 @@ import { withWebComponent } from '@ui5/webcomponents-react-base';
 import type { CommonProps, Ui5DomRef } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
 
-interface ProductSwitchAttributes {}
+interface ProductSwitchAttributes {
+  /**
+   * Defines whether the component is in loading state.
+   * When set to `true`, the component displays a busy indicator over its content.
+   *
+   * **Note:** Available since [v2.29.0](https://github.com/UI5/webcomponents/releases/tag/v2.29.0) of **@ui5/webcomponents-fiori**.
+   * @default false
+   */
+  loading?: boolean;
+
+  /**
+   * Defines the delay in milliseconds, after which the busy indicator will show up for this component.
+   *
+   * **Note:** Available since [v2.29.0](https://github.com/UI5/webcomponents/releases/tag/v2.29.0) of **@ui5/webcomponents-fiori**.
+   * @default 1000
+   */
+  loadingDelay?: number;
+}
 
 interface ProductSwitchDomRef extends Required<ProductSwitchAttributes>, Ui5DomRef {}
 
-interface ProductSwitchPropTypes extends ProductSwitchAttributes, Omit<CommonProps, 'children'> {
+interface ProductSwitchPropTypes
+  extends ProductSwitchAttributes, Omit<CommonProps, keyof ProductSwitchAttributes | 'children'> {
   /**
    * Defines the items of the `ProductSwitch`.
    *
@@ -41,8 +59,8 @@ interface ProductSwitchPropTypes extends ProductSwitchAttributes, Omit<CommonPro
  */
 const ProductSwitch = withWebComponent<ProductSwitchPropTypes, ProductSwitchDomRef>(
   'ui5-product-switch',
-  [],
-  [],
+  ['loadingDelay'],
+  ['loading'],
   [],
   [],
 );

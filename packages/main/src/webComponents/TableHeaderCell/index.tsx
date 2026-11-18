@@ -4,7 +4,7 @@ import '@ui5/webcomponents/dist/TableHeaderCell.js';
 import type TableCellHorizontalAlign from '@ui5/webcomponents/dist/types/TableCellHorizontalAlign.js';
 import type SortOrder from '@ui5/webcomponents-base/dist/types/SortOrder.js';
 import { withWebComponent } from '@ui5/webcomponents-react-base';
-import type { CommonProps, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
+import type { CommonProps, Ui5CustomEvent, Ui5DomRef, UI5WCSlotsNode } from '@ui5/webcomponents-react-base';
 import type { ReactNode } from 'react';
 
 interface TableHeaderCellAttributes {
@@ -23,6 +23,21 @@ interface TableHeaderCellAttributes {
    * @default 0
    */
   importance?: number;
+
+  /**
+   * Defines whether the column header is interactive.
+   *
+   * If set to `true`, the column header can be activated by a click, <kbd>Enter</kbd> or <kbd>Space</kbd>,
+   * which fires the `header-click` event and can be used, for example, to open a column menu.
+   * A hover effect is shown to signal the interactivity to the user.
+   *
+   * **Note:** If the click opens a menu or dialog, set the `aria-haspopup` attribute on the `TableHeaderCell`
+   * correspondingly. This allows assistive technologies to properly announce the associated popup.
+   *
+   * **Note:** Available since [v2.29.0](https://github.com/UI5/webcomponents/releases/tag/v2.29.0) of **@ui5/webcomponents**.
+   * @default false
+   */
+  interactive?: boolean;
 
   /**
    * Defines the minimum width of the column.
@@ -82,7 +97,9 @@ interface TableHeaderCellAttributes {
 interface TableHeaderCellDomRef extends Required<TableHeaderCellAttributes>, Ui5DomRef {}
 
 interface TableHeaderCellPropTypes
-  extends TableHeaderCellAttributes, Omit<CommonProps, keyof TableHeaderCellAttributes | 'action' | 'children'> {
+  extends
+    TableHeaderCellAttributes,
+    Omit<CommonProps, keyof TableHeaderCellAttributes | 'action' | 'children' | 'onHeaderClick'> {
   /**
    * Defines the action of the column.
    *
@@ -106,6 +123,18 @@ interface TableHeaderCellPropTypes
    * __Supported Node Type/s:__ `Array<Node>`
    */
   children?: ReactNode | ReactNode[];
+  /**
+   * Fired when the column header is activated by a click, <kbd>Enter</kbd> or <kbd>Space</kbd>.
+   *
+   * **Note:** This event is only fired if the `interactive` property is set to `true`.
+   *
+   * **Note:** Available since [v2.29.0](https://github.com/UI5/webcomponents/releases/tag/v2.29.0) of **@ui5/webcomponents**.
+   *
+   * | cancelable | bubbles |
+   * | :--------: | :-----: |
+   * | ❌|❌|
+   */
+  onHeaderClick?: (event: Ui5CustomEvent<TableHeaderCellDomRef>) => void;
 }
 
 /**
@@ -113,6 +142,16 @@ interface TableHeaderCellPropTypes
  *
  * As it is tightly coupled to the `Table`, it should only be used in the `TableHeaderRow`
  * to ensure correct layout and design.
+ *
+ * ### Accessibility
+ *
+ * When the `header-click` event is used to open a menu or a dialog, set the `aria-haspopup` attribute
+ * on the `TableHeaderCell` correspondingly.
+ * This allows assistive technologies to properly announce the associated popup.
+ *
+ * ```html
+ * <TableHeaderCell interactive aria-haspopup="menu">Column Header</TableHeaderCell>
+ * ```
  *
  *
  *
@@ -123,9 +162,9 @@ interface TableHeaderCellPropTypes
 const TableHeaderCell = withWebComponent<TableHeaderCellPropTypes, TableHeaderCellDomRef>(
   'ui5-table-header-cell',
   ['horizontalAlign', 'importance', 'minWidth', 'popinText', 'sortIndicator', 'width'],
-  ['popinHidden'],
+  ['interactive', 'popinHidden'],
   ['action'],
-  [],
+  ['header-click'],
 );
 
 TableHeaderCell.displayName = 'TableHeaderCell';
