@@ -65,13 +65,6 @@
   flex: none;
 }
 
-.navigation {
-  height: 0.875rem;
-  width: 0.875rem;
-  padding: 0 0.9375rem;
-  flex-shrink: 0;
-}
-
 .typeNegative {
   .icon {
     color: var(--sapNegativeElementColor);

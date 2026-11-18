@@ -49,6 +49,8 @@ export interface MessageViewPropTypes extends CommonProps {
 
   /**
    * Defines whether the header of the details page will be shown.
+   *
+   * __Note:__ When set to `false`, the accessibility of the details page has to be ensured manually (e.g. by moving focus to the back button and providing additional information for assistive technologies in the `onItemSelect` handler).
    */
   showDetailsPageHeader?: boolean;
 
@@ -178,6 +180,36 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
     }
   }, [internalRef, navigateBack]);
 
+  // defer one frame so the live-region update isn't batched with the navigation re-render
+  const selectMessage = useCallback(
+    (message: SelectedMessage) => {
+      setSelectedMessage(message);
+      const valueStateText = getValueStateMap(i18nBundle)[message.type ?? ValueState.Negative];
+      const title = message.titleTextStr || i18nBundle.getText(MESSAGE_DETAILS);
+      requestAnimationFrame(() => {
+        announce(`${valueStateText} ${title}`.trim(), 'Assertive');
+      });
+    },
+    [i18nBundle],
+  );
+
+  // focus only after the slide finishes (see callers) — focusing mid-animation fights scroll-into-view
+  const focusDetails = useCallback(() => {
+    if (showDetailsPageHeader) {
+      requestAnimationFrame(() => {
+        void navBtnRef.current?.focus();
+      });
+    }
+  }, [showDetailsPageHeader]);
+
+  // no transitionend fires when animations are disabled, so focus directly
+  useEffect(() => {
+    if (!withAnimation && transitionTrigger.current === 'list' && effectiveSelectedMessage) {
+      focusDetails();
+      transitionTrigger.current = null;
+    }
+  }, [effectiveSelectedMessage, focusDetails]);
+
   const handleListFilterChange: SegmentedButtonPropTypes['onSelectionChange'] = (e) => {
     setListFilter(e.detail.selectedItems.at(0).dataset.key as never);
   };
@@ -186,13 +218,8 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
     if (typeof props?.onTransitionEnd === 'function') {
       props.onTransitionEnd(e);
     }
-    if (showDetailsPageHeader && transitionTrigger.current === 'list') {
-      requestAnimationFrame(() => {
-        void navBtnRef.current?.focus();
-      });
-      setTimeout(() => {
-        announce(i18nBundle.getText(MESSAGE_DETAILS), 'Polite');
-      }, 300);
+    if (transitionTrigger.current === 'list') {
+      focusDetails();
     }
     if (transitionTrigger.current === 'btn') {
       requestAnimationFrame(() => {
@@ -226,7 +253,7 @@ const MessageView = forwardRef<MessageViewDomRef, MessageViewPropTypes>((props, 
     >
       <MessageViewContext.Provider
         value={{
-          selectMessage: setSelectedMessage,
+          selectMessage,
         }}
       >
         <div
