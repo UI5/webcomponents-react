@@ -5,7 +5,6 @@ import ListItemType from '@ui5/webcomponents/dist/types/ListItemType.js';
 import WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import { useI18nBundle, useStylesheet } from '@ui5/webcomponents-react-base';
-import { addCustomCSSWithScoping } from '@ui5/webcomponents-react-base/internal/utils';
 import { clsx } from 'clsx';
 import { Children, forwardRef, useContext, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -21,15 +20,6 @@ import { ListItemCustom } from '../../webComponents/ListItemCustom/index.js';
 import { FlexBox } from '../FlexBox/index.js';
 import { getIconNameForType, getValueStateMap, resolveTitleTextStr } from '../MessageView/utils.js';
 import { classNames, styleData } from './MessageItem.module.css.js';
-
-// TODO: remove once https://github.com/UI5/webcomponents/issues/14221 is fixed (navigation arrow shrinks on long titles)
-addCustomCSSWithScoping(
-  'ui5-li-custom',
-  `
-:host([data-message-item]) [ui5-icon][name="slim-arrow-right"] {
-  flex-shrink: 0;
-}`,
-);
 
 export interface MessageItemPropTypes
   extends Pick<ListItemCustomPropTypes, 'accessibleName' | 'tooltip' | 'onClick'>, Omit<CommonProps, 'onClick'> {
