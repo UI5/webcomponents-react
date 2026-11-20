@@ -746,6 +746,10 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       opNode.style.scrollPaddingBlock = '0px';
       // Fallback: Some (ui5-table) ui5wc components don't implement `relatedTarget` as expected.
     } else if (!e.relatedTarget) {
+      // a window/tab blur also fires focusout with no relatedTarget; don't re-scroll to focus on tab return
+      if (!document.hasFocus()) {
+        return;
+      }
       const currentTarget = e.currentTarget;
       opNode.style.scrollPaddingBlock = '0px';
       requestAnimationFrame(() => {

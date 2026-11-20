@@ -189,6 +189,42 @@ test.describe('ObjectPage', () => {
     );
   });
 
+  test('preserves scroll position when the tab/window loses and regains focus', async ({ mount, page }) => {
+    await page.setViewportSize({ width: 950, height: 700 });
+    await mount('ObjectPage/ObjectPageTabReturnScrollTestComp');
+
+    const op = page.locator('[data-component-name="ObjectPage"]');
+
+    // activeElement (not toBeFocused) so the assert survives a backgrounded window in parallel runs
+    await op.evaluate(() => document.getElementById('focus-target').focus());
+    await expect.poll(() => op.evaluate(() => document.activeElement?.id)).toBe('focus-target');
+    // instant scroll so the baseline isn't captured mid-animation under CSS smooth scrolling
+    await op.evaluate((el) => el.scrollTo({ top: 600, behavior: 'instant' }));
+    const scrollBefore = await op.evaluate((el) => el.scrollTop);
+    expect(scrollBefore).toBeGreaterThan(400);
+
+    // The two signals a tab switch emits: focusout with no relatedTarget while document.hasFocus() is false.
+    await op.evaluate(() => {
+      const target = document.getElementById('focus-target');
+      const realHasFocus = document.hasFocus.bind(document);
+      Object.defineProperty(document, 'hasFocus', { configurable: true, value: () => false });
+      target.dispatchEvent(new FocusEvent('focusout', { bubbles: true, relatedTarget: null }));
+      Object.defineProperty(document, 'hasFocus', { configurable: true, value: realHasFocus });
+    });
+
+    // On the bug the focused element gets (smooth-)scrolled back into view; assert the position held once settled.
+    await expect.poll(() => op.evaluate(() => document.activeElement?.id)).toBe('focus-target');
+    let prev = -1;
+    await expect
+      .poll(async () => {
+        const current = await op.evaluate((el) => el.scrollTop);
+        const stable = current === prev;
+        prev = current;
+        return stable ? current : NaN;
+      })
+      .toBeCloseTo(scrollBefore, -1);
+  });
+
   test('keeps only a single section out of the tab order', async ({ mount, page }) => {
     await mount('ObjectPage/ObjectPageSingleSectionTestComp');
 
