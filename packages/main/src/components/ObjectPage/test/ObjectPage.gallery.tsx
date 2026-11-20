@@ -1,4 +1,5 @@
 import { ObjectPageMode } from '../../../enums/ObjectPageMode.js';
+import { Button } from '../../../webComponents/Button/index.js';
 import { Link } from '../../../webComponents/Link/index.js';
 import { MessageStrip } from '../../../webComponents/MessageStrip/index.js';
 import { Title } from '../../../webComponents/Title/index.js';
@@ -199,6 +200,27 @@ export const ObjectPageSingleSectionIconTabBarTestComp = () => {
     <ObjectPage mode={ObjectPageMode.IconTabBar}>
       <ObjectPageSection id="single" titleText="Single section">
         Single section content
+      </ObjectPageSection>
+    </ObjectPage>
+  );
+};
+
+// Focusable element in the first section + enough content to scroll it out of view (tab-return scroll test).
+export const ObjectPageTabReturnScrollTestComp = () => {
+  return (
+    <ObjectPage
+      style={{ height: '500px' }}
+      titleArea={<ObjectPageTitle header={<Title>Denise Smith</Title>} snappedHeader={<Title>Denise Smith</Title>} />}
+    >
+      <ObjectPageSection titleText="First" id="first" aria-label="First">
+        <Button id="focus-target">Focus me</Button>
+        <div style={{ height: '120px', width: '100%', background: 'lightblue' }} />
+      </ObjectPageSection>
+      <ObjectPageSection titleText="Second" id="second" aria-label="Second">
+        <div style={{ height: '1200px', width: '100%', background: 'lightyellow' }} />
+      </ObjectPageSection>
+      <ObjectPageSection titleText="Third" id="third" aria-label="Third">
+        <div style={{ height: '1200px', width: '100%', background: 'orange' }} />
       </ObjectPageSection>
     </ObjectPage>
   );
