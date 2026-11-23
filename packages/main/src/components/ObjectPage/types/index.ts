@@ -87,6 +87,8 @@ export interface ObjectPagePropTypes extends Omit<CommonProps, 'placeholder'> {
    * - "Default": All `ObjectPageSections` and `ObjectPageSubSections` are displayed on one page. Selecting tabs will scroll to the corresponding section.
    * - "IconTabBar": All `ObjectPageSections` are displayed on separate pages. Selecting tabs will lead to the corresponding page.
    *
+   * __Note:__ In `"IconTabBar"` mode, the header does not collapse on scroll for a non-`fitContent` section whose scrollable content is shorter than the header height, since the collapse could not be sustained and would otherwise loop between the collapsed and expanded states.
+   *
    * @default `"Default"`
    */
   mode?: ObjectPageMode | keyof typeof ObjectPageMode;

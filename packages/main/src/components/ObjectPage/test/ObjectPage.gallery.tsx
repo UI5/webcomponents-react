@@ -122,6 +122,45 @@ export const ObjectPageHeaderTwitchTestComp = () => {
   );
 };
 
+// Differing-height title (wrapping expanded vs one-line snapped) so topHeaderHeight changes between collapse states.
+export const ObjectPageHeaderTwitchWrappingTitleTestComp = () => {
+  return (
+    <ObjectPage
+      mode={ObjectPageMode.IconTabBar}
+      style={{ height: '100vh' }}
+      titleArea={
+        <ObjectPageTitle
+          header={<Title>An example ObjectPage demo that shows some bug, please scroll down to reproduce</Title>}
+          snappedHeader={
+            <Title wrappingType="None">
+              An example ObjectPage demo that shows some bug, please scroll down to reproduce
+            </Title>
+          }
+          subHeader="Updated on 11/10/2026, 1:49 PM, created by xxxx"
+        />
+      }
+      headerArea={
+        <ObjectPageHeader>
+          <div>Priority: Very High</div>
+          <div>Status: Sent</div>
+        </ObjectPageHeader>
+      }
+    >
+      <ObjectPageSection titleText="Discussion" id="discussion" aria-label="Discussion">
+        <div
+          style={{ height: 'calc(100vh - 150px)', display: 'flex', flexDirection: 'column', background: 'lightblue' }}
+        >
+          <div>Scroll me down to see the bottom</div>
+          <div style={{ marginTop: 'auto' }}>Bottom content</div>
+        </div>
+      </ObjectPageSection>
+      <ObjectPageSection titleText="Details" id="details" aria-label="Details">
+        <div style={{ height: '1500px', width: '100%', background: 'lightsalmon' }}>Details content</div>
+      </ObjectPageSection>
+    </ObjectPage>
+  );
+};
+
 // IconTabBar + non-fitContent sections: after collapsing the header and switching to a section shorter than the
 // viewport, the top header spacer must not remain as dead space above the section (it can't be scrolled away).
 // A tall section keeps the spacer so scroll-up can re-expand the collapsed header.

@@ -33,6 +33,8 @@ export interface ObjectPageTitlePropTypes extends CommonProps {
    * The `snappedHeader` is displayed in the left area of the `ObjectPageTitle` when the header is snapped (collapsed).
    * Use this prop to render a `Title` or any other component that serves as a heading in the snapped view.
    *
+   * __Note:__ If `snappedHeader` has a different height than `header`, the header-collapse-on-scroll behavior in `IconTabBar` mode depends on the section height — see the `mode` prop of `ObjectPage`.
+   *
    * @since 2.12.0
    */
   snappedHeader?: ReactNode;

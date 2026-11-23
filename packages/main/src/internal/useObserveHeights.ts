@@ -44,8 +44,8 @@ export const useObserveHeights = (
       }
 
       if (scrollDown && e.target.scrollTop >= headerContentHeight && !headerCollapsed) {
-        // Skip the collapse only when it can't be sustained: the section is flagged too short to keep the top spacer
-        // and the scroll range left after collapse would clamp back toward the top and re-expand in a loop.
+        // Skip the collapse only when it can't be sustained: if the scroll range left after collapse would clamp
+        // back toward the top and re-expand in a loop.
         const reExpandThreshold = topHeaderHeight + Math.max(0, headerContentHeight - topHeaderHeight);
         if (
           suppressScrollCollapse &&

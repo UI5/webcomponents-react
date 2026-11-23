@@ -170,6 +170,49 @@ test.describe('ObjectPage', () => {
     await expect(page.getByText('Bottom content')).toBeInViewport();
   });
 
+  test('IconTabBar: a dead-band section with a wrapping title keeps the header expanded instead of twitching on scroll', async ({
+    mount,
+    page,
+  }) => {
+    // Narrow + tall viewport so the expanded title wraps but the snapped title stays on one line (differing topHeaderHeight).
+    await page.setViewportSize({ width: 820, height: 1000 });
+    await mount('ObjectPage/ObjectPageHeaderTwitchWrappingTitleTestComp');
+
+    await expect(page.getByText('Priority: Very High')).toBeVisible();
+
+    const { maxScroll, resets, finalTop } = await page.evaluate(
+      () =>
+        new Promise<{ maxScroll: number; resets: number; finalTop: number }>((resolve) => {
+          const el = document.querySelector('[data-component-name="ObjectPage"]');
+          const maxScroll = el.scrollHeight - el.clientHeight;
+          let resets = 0;
+          let prev = 0;
+          let frames = 0;
+          const tick = () => {
+            el.scrollTop = el.scrollTop + 20;
+            const top = el.scrollTop;
+            if (top < prev - 10) {
+              resets++;
+            }
+            prev = top;
+            frames++;
+            if (frames >= 80) {
+              resolve({ maxScroll: Math.round(maxScroll), resets, finalTop: Math.round(el.scrollTop) });
+              return;
+            }
+            requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }),
+    );
+
+    expect(maxScroll).toBeGreaterThan(0); // section must actually be scrollable
+    expect(resets).toBe(0); // no collapse/expand twitch
+    expect(finalTop).toBeGreaterThan(0); // scroll holds at the bottom
+    await expect(page.getByText('Priority: Very High')).toBeVisible();
+    await expect(page.getByText('Bottom content')).toBeInViewport();
+  });
+
   test('uses titleText as the accessible name and respects explicit names', async ({ mount, page }) => {
     await mount('ObjectPage/ObjectPageAccessibleNameTestComp');
 

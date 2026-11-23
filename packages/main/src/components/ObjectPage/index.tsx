@@ -188,8 +188,7 @@ const ObjectPage = forwardRef<ObjectPageDomRef, ObjectPagePropTypes>((props, ref
       fixedHeader: headerPinned,
       scrollTimeout,
       manuallyCollapsed: manuallyCollapsedRef,
-      suppressScrollCollapse:
-        mode === ObjectPageMode.IconTabBar && !isActiveSectionFitContent && !isActiveTabSectionTallEnough,
+      suppressScrollCollapse: mode === ObjectPageMode.IconTabBar && !isActiveSectionFitContent,
     },
   );
   const scrollPaddingBlock = `${Math.ceil(12 + topHeaderHeight + tabContainerHeaderHeight + (!headerCollapsed && headerPinned ? headerContentHeight : 0))}px ${footerArea ? 'calc(var(--_ui5wcr-BarHeight) + 1.25rem)' : 0}`;
