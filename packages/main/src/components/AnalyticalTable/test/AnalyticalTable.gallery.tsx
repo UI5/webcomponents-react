@@ -2,11 +2,17 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { AnalyticalTableSelectionMode } from '../../../enums/AnalyticalTableSelectionMode.js';
 import { AnalyticalTableSubComponentsBehavior } from '../../../enums/AnalyticalTableSubComponentsBehavior.js';
 import { Button } from '../../../webComponents/Button/index.js';
+import { Link } from '../../../webComponents/Link/index.js';
 import { Panel } from '../../../webComponents/Panel/index.js';
 import { Tab } from '../../../webComponents/Tab/index.js';
 import { TabContainer } from '../../../webComponents/TabContainer/index.js';
 import { AnalyticalTable } from '../index.js';
-import type { AnalyticalTableColumnDefinition, AnalyticalTableInstance, AnalyticalTablePropTypes } from '../index.js';
+import type {
+  AnalyticalTableCellInstance,
+  AnalyticalTableColumnDefinition,
+  AnalyticalTableInstance,
+  AnalyticalTablePropTypes,
+} from '../index.js';
 import * as AnalyticalTableHooks from '../pluginHooks/AnalyticalTableHooks.js';
 import type {
   AnalyticalTableStickyAutoToggleDetail,
@@ -380,3 +386,24 @@ export const LoadingPlaceholderHarness = (props: Partial<AnalyticalTablePropType
     {...props}
   />
 );
+
+const LinkCell = (props: AnalyticalTableCellInstance) => {
+  const callbackRef = AnalyticalTableHooks.useF2CellEdit.useCallbackRef(props);
+  return (
+    <Link href="#review" ref={callbackRef}>
+      {props.value}
+    </Link>
+  );
+};
+
+const f2Columns: AnalyticalTableColumnDefinition[] = [
+  // Interactive column without a `cellLabel` — the hook builds the cell `aria-label` from `interactiveElementName`.
+  { Header: 'Title', accessor: 'title', Cell: LinkCell, interactiveElementName: 'Link' },
+  // Plain column with neither `interactiveElementName` nor `cellLabel` — must keep its `aria-labelledby`.
+  { Header: 'Status', accessor: 'status' },
+];
+
+const f2Data = [{ title: 'Annual Review', status: 'open' }];
+const f2TableHooks = [AnalyticalTableHooks.useF2CellEdit];
+
+export const F2CellEditHarness = () => <AnalyticalTable columns={f2Columns} data={f2Data} tableHooks={f2TableHooks} />;
