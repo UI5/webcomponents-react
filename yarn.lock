@@ -5670,7 +5670,7 @@ __metadata:
   dependencies:
     "@modelcontextprotocol/sdk": "npm:1.32.2"
     "@ui5/webcomponents-react": "workspace:~"
-    ava: "npm:8.0.2"
+    ava: "npm:8.4.0"
     react-docgen-typescript: "npm:2.4.0"
     tsx: "npm:4.23.15"
     zod: "npm:4.6.7"
@@ -7070,9 +7070,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ava@npm:8.0.2":
-  version: 8.0.2
-  resolution: "ava@npm:8.0.2"
+"ava@npm:8.4.0":
+  version: 8.4.0
+  resolution: "ava@npm:8.4.0"
   dependencies:
     "@vercel/nft": "npm:^1.11.0"
     acorn: "npm:^8.19.0"
@@ -7092,7 +7092,7 @@ __metadata:
     concordance: "npm:^5.0.4"
     currently-unhandled: "npm:^0.4.1"
     debug: "npm:^4.4.3"
-    emittery: "npm:^2.1.0"
+    emittery: "npm:^2.2.0"
     figures: "npm:^6.1.0"
     globby: "npm:^16.2.4"
     ignore-by-default: "npm:^2.1.0"
@@ -7106,7 +7106,7 @@ __metadata:
     package-config: "npm:^5.0.0"
     picomatch: "npm:^4.0.7"
     plur: "npm:^6.0.0"
-    pretty-ms: "npm:^9.3.1"
+    pretty-ms: "npm:^10.0.0"
     resolve-cwd: "npm:^3.0.0"
     slash: "npm:^5.1.0"
     stack-utils: "npm:^2.0.6"
@@ -7121,7 +7121,7 @@ __metadata:
       optional: true
   bin:
     ava: ./entrypoints/cli.js
-  checksum: 10c0/5b6bab12d430e70b3c2671942c05ecf7cbc4657b574668a079fd10e1643fde89e0e32110a4c22b381117ca4060e9ae6135a3781728fe4a353d768df8c2b2735f
+  checksum: 10c0/13712752a8c72d36f90ef6d78f42ced939391cc60277b112dcfbcaf8f84ef31d88ba58015da5638e1d33c83e22e1b0f4d285e648150bb2fd65f0a7614d6e9ec8
   languageName: node
   linkType: hard
 
@@ -9450,10 +9450,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emittery@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "emittery@npm:2.1.0"
-  checksum: 10c0/f5fb436699e217c9b464c051bdb9134e7c6e5eb26d8487ac72ff7df6e5c8405678ecf2bfef38ab06610673dd0313ac48567a90dcfd4b6a61822f7c18269c7d3e
+"emittery@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "emittery@npm:2.2.0"
+  checksum: 10c0/0ac98b7925833a6dcdbd0e460f85f042054e0e9dcc38efc4adacd3a8e3d45ed3650a95c18414560f893415d94cf0feaee22718292e5c1c165191605397ef5890
   languageName: node
   linkType: hard
 
@@ -17221,6 +17221,13 @@ __metadata:
   version: 1.0.3
   resolution: "pretty-hrtime@npm:1.0.3"
   checksum: 10c0/67cb3fc283a72252b49ac488647e6a01b78b7aa1b8f2061834aa1650691229081518ef3ca940f77f41cc8a8f02ba9eeb74b843481596670209e493062f2e89e0
+  languageName: node
+  linkType: hard
+
+"pretty-ms@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "pretty-ms@npm:10.0.0"
+  checksum: 10c0/ce40c4612989782b3656a18c56f67bd71d90269d245b5f6f11be38f34fa1a57833374344b31714df679704ee761ab6df725f1ee455945334f973c510e4804ce2
   languageName: node
   linkType: hard
 
