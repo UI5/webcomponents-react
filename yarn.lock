@@ -8668,9 +8668,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:16.1.1":
-  version: 16.1.1
-  resolution: "cypress@npm:16.1.1"
+"cypress@npm:16.3.0":
+  version: 16.3.0
+  resolution: "cypress@npm:16.3.0"
   dependencies:
     "@cypress/request": "npm:^4.0.0"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -8706,14 +8706,14 @@ __metadata:
     proxy-from-env: "npm:1.0.0"
     request-progress: "npm:^3.0.0"
     supports-color: "npm:^8.1.1"
-    systeminformation: "npm:^5.31.1"
+    systeminformation: "npm:^5.33.16"
     tmp: "npm:~0.2.4"
     tree-kill: "npm:1.2.2"
     untildify: "npm:^4.0.0"
     yauzl: "npm:^3.3.1"
   bin:
     cypress: bin/cypress
-  checksum: 10c0/495d3565ae0daf4891164688c72b96c850d151bac0f0cb044ff4cb5f0a74a2c1f53f8298f91966739524399a6152784bcffb85a3a7f88038fa9d7819d7bec648
+  checksum: 10c0/b655ece0f8f4e2456b1c829c06bddb366347f21f4a21e6ad5e882ff2e67a69fb325ccd54112dff4fcf666419edc295ae7e0aa46ce400c4e5642d04d5fd5f2f70
   languageName: node
   linkType: hard
 
@@ -19496,12 +19496,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"systeminformation@npm:^5.31.1":
-  version: 5.33.16
-  resolution: "systeminformation@npm:5.33.16"
+"systeminformation@npm:^5.33.16":
+  version: 5.33.24
+  resolution: "systeminformation@npm:5.33.24"
   bin:
     systeminformation: lib/cli.js
-  checksum: 10c0/b63a2d7eafed679d7541de3dbcad4b0fd4384774c7c506a2847f62b5eb38ef55f81b55fce9d29a0308e0922c25adbcbc120129009819911aeb0b2985b4ab1335
+  checksum: 10c0/13024f9e467ad0904c3155c28463e1bab292e78876ec7c9288b55286141cbcf2dc30ae266bf3f0b9e11690e95f4351ccd7e8ea58497a30019bfc89da81e18389
   conditions: (os=darwin | os=linux | os=win32 | os=freebsd | os=openbsd | os=netbsd | os=sunos | os=android)
   languageName: node
   linkType: hard
@@ -20174,7 +20174,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:6.3.0"
     chromatic: "npm:17.8.0"
     cssnano: "npm:9.9.0"
-    cypress: "npm:16.1.1"
+    cypress: "npm:16.3.0"
     cypress-real-events: "npm:1.15.1"
     dedent: "npm:1.7.2"
     documentation: "npm:14.0.3"
