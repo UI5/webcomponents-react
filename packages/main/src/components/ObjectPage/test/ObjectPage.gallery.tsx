@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import { ObjectPageMode } from '../../../enums/ObjectPageMode.js';
 import { Link } from '../../../webComponents/Link/index.js';
 import { MessageStrip } from '../../../webComponents/MessageStrip/index.js';
@@ -123,22 +124,43 @@ export const ObjectPageHeaderTwitchTestComp = () => {
 };
 
 // Differing-height title (wrapping expanded vs one-line snapped) so topHeaderHeight changes between collapse states.
-export const ObjectPageHeaderTwitchWrappingTitleTestComp = () => {
+export const ObjectPageHeaderTwitchWrappingTitleTestComp = ({
+  contentHeightOffset = 150,
+  variant = 'wrapping',
+  includeShortSection = false,
+}: {
+  contentHeightOffset?: number;
+  variant?: 'wrapping' | 'expandedContent' | 'tallSnapped' | 'growingSnapped';
+  includeShortSection?: boolean;
+}) => {
+  let title = (
+    <ObjectPageTitle
+      header={<Title>An example ObjectPage demo that shows some bug, please scroll down to reproduce</Title>}
+      snappedHeader={
+        <Title wrappingType="None">
+          An example ObjectPage demo that shows some bug, please scroll down to reproduce
+        </Title>
+      }
+      subHeader="Updated on 11/10/2026, 1:49 PM, created by xxxx"
+    />
+  );
+  if (variant === 'expandedContent') {
+    title = (
+      <ObjectPageTitle header="Title" expandedContent={<div style={{ height: 100 }}>Expanded information</div>} />
+    );
+  } else if (variant === 'tallSnapped' || variant === 'growingSnapped') {
+    title = (
+      <ObjectPageTitle
+        header={<div style={{ height: variant === 'tallSnapped' ? 300 : 100 }}>Expanded title</div>}
+        snappedHeader={<div style={{ height: 200 }}>Snapped title</div>}
+      />
+    );
+  }
   return (
     <ObjectPage
       mode={ObjectPageMode.IconTabBar}
       style={{ height: '100vh' }}
-      titleArea={
-        <ObjectPageTitle
-          header={<Title>An example ObjectPage demo that shows some bug, please scroll down to reproduce</Title>}
-          snappedHeader={
-            <Title wrappingType="None">
-              An example ObjectPage demo that shows some bug, please scroll down to reproduce
-            </Title>
-          }
-          subHeader="Updated on 11/10/2026, 1:49 PM, created by xxxx"
-        />
-      }
+      titleArea={title}
       headerArea={
         <ObjectPageHeader>
           <div>Priority: Very High</div>
@@ -148,7 +170,12 @@ export const ObjectPageHeaderTwitchWrappingTitleTestComp = () => {
     >
       <ObjectPageSection titleText="Discussion" id="discussion" aria-label="Discussion">
         <div
-          style={{ height: 'calc(100vh - 150px)', display: 'flex', flexDirection: 'column', background: 'lightblue' }}
+          style={{
+            height: `calc(100vh - ${contentHeightOffset}px)`,
+            display: 'flex',
+            flexDirection: 'column',
+            background: 'lightblue',
+          }}
         >
           <div>Scroll me down to see the bottom</div>
           <div style={{ marginTop: 'auto' }}>Bottom content</div>
@@ -157,7 +184,60 @@ export const ObjectPageHeaderTwitchWrappingTitleTestComp = () => {
       <ObjectPageSection titleText="Details" id="details" aria-label="Details">
         <div style={{ height: '1500px', width: '100%', background: 'lightsalmon' }}>Details content</div>
       </ObjectPageSection>
+      {includeShortSection && (
+        <ObjectPageSection titleText="Short" id="short">
+          <div style={{ height: 40 }}>Short content</div>
+        </ObjectPageSection>
+      )}
     </ObjectPage>
+  );
+};
+
+export const ObjectPageTitleRefAndFormTestComp = () => {
+  const titleRef = useRef<HTMLDivElement>(null);
+  const fieldRef = useRef<HTMLInputElement>(null);
+  const [snapped, setSnapped] = useState(true);
+  return (
+    <form>
+      <button type="button" onClick={() => setSnapped((value) => !value)}>
+        Toggle snapped title
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          titleRef.current?.focus();
+        }}
+      >
+        Focus title
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          fieldRef.current?.focus();
+        }}
+      >
+        Focus field
+      </button>
+      <ObjectPage
+        mode={ObjectPageMode.IconTabBar}
+        style={{ height: 700 }}
+        titleArea={
+          <ObjectPageTitle
+            ref={titleRef}
+            tabIndex={0}
+            header="Expanded title"
+            snappedHeader={snapped ? 'Snapped title' : undefined}
+          >
+            <input ref={fieldRef} name="title-field" required aria-label="Title field" />
+          </ObjectPageTitle>
+        }
+        headerArea={<ObjectPageHeader>Header content</ObjectPageHeader>}
+      >
+        <ObjectPageSection id="section" titleText="Section">
+          <div style={{ height: 1000 }}>Content</div>
+        </ObjectPageSection>
+      </ObjectPage>
+    </form>
   );
 };
 

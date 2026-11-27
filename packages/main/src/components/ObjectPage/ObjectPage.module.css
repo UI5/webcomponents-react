@@ -3,6 +3,7 @@
   --_ui5wcr_ObjectPage_header_display: block;
   --_ui5wcr_ObjectPage_title_fontsize: var(--sapObjectHeader_Title_FontSize);
   --_ui5wcr_ObjectPage_header_height: 0;
+  --_ui5wcr_ObjectPage_title_compensation: 0px;
 
   box-sizing: border-box;
   position: relative;
