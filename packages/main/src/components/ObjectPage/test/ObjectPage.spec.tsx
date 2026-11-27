@@ -1,6 +1,14 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from '../../../../../../playwright/fixtures/gallery-fixtures.js';
 
+// Programmatic scrolling can run before the initial ResizeObserver measurements, especially in WebKit.
+async function waitForHeaderLayout(page: Page) {
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  });
+}
+
 // Poll until scrollTop has moved and gone stable, so we assert the final selection and not the tab lock held mid-scroll.
 async function waitForScrollSettled(page: Page) {
   await page.evaluate(() => ((window as unknown as { __opScroll: number[] }).__opScroll = []));
@@ -119,6 +127,8 @@ test.describe('ObjectPage', () => {
     await expect.poll(spacerScrolledOutBy).toBeGreaterThanOrEqual(0);
 
     // scrolling back up re-expands the collapsed header
+    // Wait for the existing 500ms navigation guard before simulating the next user scroll.
+    await page.waitForTimeout(550);
     await page.locator('[data-component-name="ObjectPage"]').evaluate((op) => op.scrollTo({ top: 0 }));
     await expect(page.getByText('Header content')).toBeVisible();
 
@@ -168,6 +178,289 @@ test.describe('ObjectPage', () => {
     expect(finalTop).toBeGreaterThan(0); // scroll holds at the bottom
     await expect(page.getByText('Priority: Very High')).toBeVisible();
     await expect(page.getByText('Bottom content')).toBeInViewport();
+  });
+
+  test('IconTabBar: a wrapping title collapses without losing scroll range or twitching', async ({ mount, page }) => {
+    // Narrow + tall viewport so the expanded title wraps but the snapped title stays on one line (differing topHeaderHeight).
+    await page.setViewportSize({ width: 820, height: 1000 });
+    await mount('ObjectPage/ObjectPageHeaderTwitchWrappingTitleTestComp');
+
+    await expect(page.getByText('Priority: Very High')).toBeVisible();
+    await waitForHeaderLayout(page);
+
+    const { maxScroll, resets, finalTop } = await page.evaluate(
+      () =>
+        new Promise<{ maxScroll: number; resets: number; finalTop: number }>((resolve) => {
+          const el = document.querySelector('[data-component-name="ObjectPage"]');
+          const maxScroll = el.scrollHeight - el.clientHeight;
+          let resets = 0;
+          let prev = 0;
+          let frames = 0;
+          const tick = () => {
+            el.scrollTop = el.scrollTop + 20;
+            const top = el.scrollTop;
+            if (top < prev - 10) {
+              resets++;
+            }
+            prev = top;
+            frames++;
+            if (frames >= 80) {
+              resolve({ maxScroll: Math.round(maxScroll), resets, finalTop: Math.round(el.scrollTop) });
+              return;
+            }
+            requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }),
+    );
+
+    expect(maxScroll).toBeGreaterThan(0); // section must actually be scrollable
+    expect(resets).toBe(0); // no collapse/expand twitch
+    expect(finalTop).toBeGreaterThan(0); // scroll holds at the bottom
+    await expect(page.getByText('Priority: Very High')).toBeHidden();
+    await expect(page.getByText('Bottom content')).toBeInViewport();
+    expect(
+      await page.locator('[data-component-name="ObjectPage"]').evaluate((op) => op.scrollHeight - op.clientHeight),
+    ).toBe(maxScroll);
+  });
+
+  for (const variant of ['wrapping', 'expandedContent', 'tallSnapped', 'growingSnapped'] as const) {
+    for (const step of [2, 200]) {
+      test(`IconTabBar: ${variant} keeps a stable collapse with scroll steps of ${step}px`, async ({ mount, page }) => {
+        await page.setViewportSize({ width: 820, height: 1000 });
+        await mount('ObjectPage/ObjectPageHeaderTwitchWrappingTitleTestComp', {
+          variant,
+          contentHeightOffset: variant === 'tallSnapped' ? 260 : 140,
+        });
+        await expect(page.getByText('Priority: Very High')).toBeVisible();
+        const result = await page.evaluate(async (step) => {
+          await document.fonts.ready;
+          await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+          const op = document.querySelector<HTMLElement>('[data-component-name="ObjectPage"]');
+          const title = op.querySelector('[data-component-name="ObjectPageTitle"]');
+          op.style.scrollBehavior = 'auto';
+          const initialRange = op.scrollHeight - op.clientHeight;
+          let minimumRange = initialRange;
+          let previousTop = 0;
+          let resets = 0;
+          let previousExpanded = 'true';
+          let transitions = 0;
+          for (let frame = 0; frame < 180; frame++) {
+            await new Promise(requestAnimationFrame);
+            op.scrollTop += step;
+            if (op.scrollTop < previousTop - 1) {
+              resets++;
+            }
+            previousTop = op.scrollTop;
+            minimumRange = Math.min(minimumRange, op.scrollHeight - op.clientHeight);
+            const expanded = title.getAttribute('data-header-content-visible');
+            if (expanded !== previousExpanded) {
+              transitions++;
+              previousExpanded = expanded;
+            }
+          }
+          return {
+            initialRange,
+            minimumRange,
+            resets,
+            transitions,
+            top: op.scrollTop,
+            max: op.scrollHeight - op.clientHeight,
+          };
+        }, step);
+        expect(result.initialRange).toBeGreaterThan(0);
+        expect(result.minimumRange).toBeGreaterThanOrEqual(result.initialRange);
+        expect(result.resets).toBe(0);
+        expect(result.transitions).toBe(1);
+        expect(result.top).toBeCloseTo(result.max, 0);
+        await expect(page.getByText('Priority: Very High')).toBeHidden();
+        await expect(page.getByText('Bottom content')).toBeInViewport();
+
+        await page
+          .locator('[data-component-name="ObjectPage"]')
+          .evaluate((op) => op.scrollTo({ top: 0, behavior: 'instant' }));
+        await expect(page.getByText('Priority: Very High')).toBeVisible();
+      });
+    }
+  }
+
+  test('IconTabBar: a later resize of the real snapped title preserves the collapsed scroll range', async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 820, height: 1000 });
+    await mount('ObjectPage/ObjectPageHeaderTwitchWrappingTitleTestComp', {
+      variant: 'tallSnapped',
+      contentHeightOffset: 260,
+    });
+    const op = page.locator('[data-component-name="ObjectPage"]');
+    await expect(page.getByText('Priority: Very High')).toBeVisible();
+    await waitForHeaderLayout(page);
+    await op.evaluate((element) => element.scrollTo({ top: element.scrollHeight, behavior: 'instant' }));
+    await expect(page.getByText('Priority: Very High')).toBeHidden();
+    const before = await op.evaluate((element) => ({
+      top: element.scrollTop,
+      range: element.scrollHeight - element.clientHeight,
+    }));
+    await page.getByText('Snapped title', { exact: true }).evaluate((element) => {
+      element.style.height = '120px';
+    });
+    await expect
+      .poll(() =>
+        op.evaluate((element) => ({ top: element.scrollTop, range: element.scrollHeight - element.clientHeight })),
+      )
+      .toEqual(before);
+    await expect(page.getByText('Priority: Very High')).toBeHidden();
+    await expect(page.getByText('Bottom content')).toBeInViewport();
+  });
+
+  for (const startAtBottom of [false, true]) {
+    test(`IconTabBar: a shrinking snapped title preserves an upward scroll from ${startAtBottom ? 'the bottom' : 'within the scroll range'}`, async ({
+      mount,
+      page,
+    }) => {
+      await page.setViewportSize({ width: 820, height: 1000 });
+      await mount('ObjectPage/ObjectPageHeaderTwitchWrappingTitleTestComp', {
+        variant: 'tallSnapped',
+        contentHeightOffset: 260,
+      });
+      const op = page.locator('[data-component-name="ObjectPage"]');
+      await expect(page.getByText('Priority: Very High')).toBeVisible();
+      await waitForHeaderLayout(page);
+      await op.evaluate(
+        (element, startAtBottom) =>
+          element.scrollTo({ top: startAtBottom ? element.scrollHeight : 150, behavior: 'instant' }),
+        startAtBottom,
+      );
+      await expect(page.getByText('Priority: Very High')).toBeHidden();
+      await waitForHeaderLayout(page);
+      const previousTop = await op.evaluate((element) => element.scrollTop);
+
+      // Resize and scroll before either event is delivered, so the geometry correction sees both changes.
+      const reducedRange = await page.getByText('Snapped title', { exact: true }).evaluate((element) => {
+        const objectPage = element.closest<HTMLElement>('[data-component-name="ObjectPage"]');
+        element.style.height = '180px';
+        objectPage.scrollTo({ top: 100, behavior: 'instant' });
+        return objectPage.scrollHeight - objectPage.clientHeight;
+      });
+      expect(reducedRange).toBeGreaterThan(100);
+      if (startAtBottom) {
+        expect(previousTop).toBeGreaterThan(reducedRange);
+      } else {
+        expect(previousTop).toBeLessThan(reducedRange);
+      }
+      await expect(page.getByText('Priority: Very High')).toBeVisible();
+      await expect.poll(() => op.evaluate((element) => element.scrollTop)).toBe(100);
+    });
+  }
+
+  test('IconTabBar: a tall section does not reserve extra space when its title shrinks', async ({ mount, page }) => {
+    await page.setViewportSize({ width: 820, height: 1000 });
+    await mount('ObjectPage/ObjectPageHeaderTwitchWrappingTitleTestComp', {
+      variant: 'tallSnapped',
+      contentHeightOffset: 0,
+    });
+    const op = page.locator('[data-component-name="ObjectPage"]');
+    await expect(page.getByText('Priority: Very High')).toBeVisible();
+    await waitForHeaderLayout(page);
+    const measure = () =>
+      op.evaluate((element) => ({
+        title: element.querySelector('[data-component-name="ObjectPageTopHeader"]').getBoundingClientRect().height,
+        range: element.scrollHeight - element.clientHeight,
+        bottomSpacer: element
+          .querySelector('[data-component-name="ObjectPageContent"]')
+          .lastElementChild.getBoundingClientRect().height,
+        overflowAnchor: element.style.overflowAnchor,
+      }));
+    const before = await measure();
+    await op.evaluate((element) => element.scrollTo({ top: element.scrollHeight, behavior: 'instant' }));
+    await expect(page.getByText('Priority: Very High')).toBeHidden();
+    await expect.poll(async () => (await measure()).title).toBeLessThan(before.title);
+    const after = await measure();
+    expect(after.bottomSpacer).toBe(0);
+    expect(after.overflowAnchor).toBe('');
+    expect(before.range - after.range).toBeCloseTo(before.title - after.title, 0);
+    await expect(page.getByText('Bottom content')).toBeInViewport();
+    await op.evaluate((element) => element.scrollTo({ top: 0, behavior: 'instant' }));
+    await expect(page.getByText('Priority: Very High')).toBeVisible();
+  });
+
+  test('IconTabBar: growing the section releases the title reserve', async ({ mount, page }) => {
+    await page.setViewportSize({ width: 820, height: 1000 });
+    await mount('ObjectPage/ObjectPageHeaderTwitchWrappingTitleTestComp', {
+      variant: 'tallSnapped',
+      contentHeightOffset: 260,
+    });
+    const op = page.locator('[data-component-name="ObjectPage"]');
+    const bottomSpacer = () =>
+      page
+        .locator('[data-component-name="ObjectPageContent"]')
+        .evaluate((element) => element.lastElementChild.getBoundingClientRect().height);
+    await expect(page.getByText('Priority: Very High')).toBeVisible();
+    await waitForHeaderLayout(page);
+    await op.evaluate((element) => element.scrollTo({ top: element.scrollHeight, behavior: 'instant' }));
+    await expect(page.getByText('Priority: Very High')).toBeHidden();
+    await expect.poll(bottomSpacer).toBeGreaterThan(0);
+    await page.getByText('Bottom content').evaluate((element) => {
+      element.parentElement.style.height = '1500px';
+    });
+    await expect.poll(bottomSpacer).toBe(0);
+    await expect(page.getByText('Priority: Very High')).toBeHidden();
+    await op.evaluate((element) => element.scrollTo({ top: 0, behavior: 'instant' }));
+    await expect(page.getByText('Priority: Very High')).toBeVisible();
+  });
+
+  test('IconTabBar: an automatic collapse releases its geometry when switching to a short tab', async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 820, height: 1000 });
+    await mount('ObjectPage/ObjectPageHeaderTwitchWrappingTitleTestComp', { includeShortSection: true });
+    const op = page.locator('[data-component-name="ObjectPage"]');
+    await expect(page.getByText('Priority: Very High')).toBeVisible();
+    await waitForHeaderLayout(page);
+    await op.evaluate((element) => element.scrollTo({ top: element.scrollHeight, behavior: 'instant' }));
+    await expect(page.getByText('Priority: Very High')).toBeHidden();
+    await page.getByRole('tab', { name: 'Short', exact: true }).click();
+    await expect(page.getByText('Short content')).toBeInViewport();
+    await expect.poll(() => op.evaluate((element) => element.scrollHeight - element.clientHeight)).toBe(0);
+    await expect
+      .poll(() =>
+        page.evaluate(() => {
+          const section = document.querySelector('[data-component-name="ObjectPageSection"]');
+          const tabs = document.querySelector('[data-component-name="ObjectPageTabContainer"]');
+          return Math.abs(section.getBoundingClientRect().top - tabs.getBoundingClientRect().bottom);
+        }),
+      )
+      .toBeLessThanOrEqual(4);
+    await page.getByRole('tab', { name: 'Details', exact: true }).click();
+    await expect(page.getByText('Priority: Very High')).toBeHidden();
+    await expect.poll(() => op.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
+    // Tab navigation deliberately ignores scroll toggles for 500ms; exercise a subsequent user scroll.
+    await page.waitForTimeout(550);
+    await op.evaluate((element) => element.scrollTo({ top: 0, behavior: 'instant' }));
+    await expect(page.getByText('Priority: Very High')).toBeVisible();
+  });
+
+  test('IconTabBar: title refs and form controls remain attached to one visible instance', async ({ mount, page }) => {
+    await mount('ObjectPage/ObjectPageTitleRefAndFormTestComp');
+    const field = page.getByRole('textbox', { name: 'Title field' });
+    await field.fill('Value');
+    for (const removeSnappedTitle of [false, true]) {
+      if (removeSnappedTitle) {
+        await page.getByRole('button', { name: 'Toggle snapped title' }).click();
+      }
+      await page.getByRole('button', { name: 'Focus title' }).click();
+      await expect(page.locator('[data-component-name="ObjectPageTitle"]')).toBeFocused();
+      await page.getByRole('button', { name: 'Focus field' }).click();
+      await expect(field).toBeFocused();
+      expect(
+        await page.locator('form').evaluate((form) => ({
+          valid: form.checkValidity(),
+          fields: new FormData(form).getAll('title-field'),
+        })),
+      ).toEqual({ valid: true, fields: ['Value'] });
+    }
   });
 
   test('uses titleText as the accessible name and respects explicit names', async ({ mount, page }) => {

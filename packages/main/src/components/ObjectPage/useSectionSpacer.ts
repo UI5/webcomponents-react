@@ -3,12 +3,18 @@ import { useEffect } from 'react';
 import { ObjectPageMode } from '../../enums/ObjectPageMode.js';
 import type { ObjectPageDomRef, ObjectPagePropTypes } from './types/index.js';
 
+export interface TabSectionLayout {
+  isTallEnough: boolean;
+  dependsOnTitleHeight: boolean;
+}
+
 interface UseSectionSpacerProps {
   objectPageRef: RefObject<ObjectPageDomRef>;
   tabContainerContainerRef: RefObject<HTMLDivElement | null>;
   mode: ObjectPagePropTypes['mode'];
   isActiveSectionFitContent: boolean;
   topHeaderHeight: number;
+  expandedTitleHeight: number | undefined;
   headerContentHeight: number;
   tabContainerHeaderHeight: number;
   headerPinned: boolean;
@@ -17,14 +23,15 @@ interface UseSectionSpacerProps {
   children: ReactNode;
   hasOnlySingleSection: boolean;
   setSectionSpacer: Dispatch<SetStateAction<number>>;
-  setIsActiveTabSectionTallEnough: Dispatch<SetStateAction<boolean>>;
+  setTabSectionLayout: Dispatch<SetStateAction<TabSectionLayout>>;
 }
 
 /**
- * Observes the last section and, from a single measurement pass, derives both spacer values the content needs:
+ * Observes the last section and derives the spacer and active-tab layout from a single measurement pass:
  *
  * - `sectionSpacer`: bottom padding so the last section can scroll up under the sticky header.
- * - `isActiveTabSectionTallEnough`: whether a non-fit `IconTabBar` section is tall enough to scroll the top spacer out of view (a shorter one can't, so its reserved `headerContentHeight` would stay on screen as dead space).
+ * - `isTallEnough`: whether a non-fit `IconTabBar` section can scroll the top spacer out of view (a shorter one can't, so its reserved `headerContentHeight` would stay on screen as dead space).
+ * - `dependsOnTitleHeight`: whether shrinking the title could change that decision. Taller sections need no compensation.
  */
 export const useSectionSpacer = ({
   objectPageRef,
@@ -32,6 +39,7 @@ export const useSectionSpacer = ({
   mode,
   isActiveSectionFitContent,
   topHeaderHeight,
+  expandedTitleHeight,
   headerContentHeight,
   tabContainerHeaderHeight,
   headerPinned,
@@ -40,7 +48,7 @@ export const useSectionSpacer = ({
   children,
   hasOnlySingleSection,
   setSectionSpacer,
-  setIsActiveTabSectionTallEnough,
+  setTabSectionLayout,
 }: UseSectionSpacerProps) => {
   const isHeaderPinnedAndExpanded = headerPinned && !headerCollapsed;
   useEffect(() => {
@@ -67,13 +75,25 @@ export const useSectionSpacer = ({
       const lastSubSectionOrSection = lastSubSection ?? lastSectionNode;
 
       // Only keep the top spacer when the non-fit section is tall enough to scroll it out of view; a shorter section
-      // can't scroll, so the reserved headerContentHeight would stay on screen as dead space.
+      // can't scroll, so the reserved headerContentHeight would stay on screen as dead space. During an automatic
+      // collapse, retain the expanded title's reference height; the geometry hook compensates the actual title loss.
       if (mode === ObjectPageMode.IconTabBar && !isActiveSectionFitContent) {
         const footerHeight = footerElement?.offsetHeight ?? 0;
-        const availableViewport =
-          objectPage.getBoundingClientRect().height - topHeaderHeight - tabContainerHeaderHeight - footerHeight;
+        const viewportWithoutTitle =
+          objectPage.getBoundingClientRect().height - tabContainerHeaderHeight - footerHeight;
+        const availableViewport = viewportWithoutTitle - (expandedTitleHeight ?? topHeaderHeight);
         const sectionHeight = (lastSectionNode as HTMLElement).getBoundingClientRect().height;
-        setIsActiveTabSectionTallEnough(sectionHeight >= availableViewport);
+        const nextLayout = {
+          isTallEnough: sectionHeight >= availableViewport,
+          // A section this tall can keep the top spacer even if the title shrinks to zero. It needs no snapshot.
+          dependsOnTitleHeight: sectionHeight < viewportWithoutTitle,
+        };
+        setTabSectionLayout((previous) =>
+          previous.isTallEnough === nextLayout.isTallEnough &&
+          previous.dependsOnTitleHeight === nextLayout.dependsOnTitleHeight
+            ? previous
+            : nextLayout,
+        );
       }
 
       if ((currentTabModeSection && !lastSubSection) || (sectionNodes.length === 1 && !lastSubSection)) {
@@ -114,6 +134,7 @@ export const useSectionSpacer = ({
     };
   }, [
     topHeaderHeight,
+    expandedTitleHeight,
     headerContentHeight,
     currentTabModeSection,
     children,
@@ -125,6 +146,6 @@ export const useSectionSpacer = ({
     tabContainerHeaderHeight,
     tabContainerContainerRef,
     setSectionSpacer,
-    setIsActiveTabSectionTallEnough,
+    setTabSectionLayout,
   ]);
 };
