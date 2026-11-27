@@ -79,7 +79,9 @@ export const useF2CellEdit = (hooks: ReactTableHooks) => {
       const inputName =
         typeof interactiveElementName === 'function' ? interactiveElementName(cell) : interactiveElementName;
       const ariaLabel =
-        (interactiveElementName ? i18nBundle.getText(INCLUDES_X, inputName) : '') + ' ' + props['aria-label'];
+        [interactiveElementName ? i18nBundle.getText(INCLUDES_X, inputName) : '', props['aria-label']]
+          .filter(Boolean)
+          .join(' ') || undefined;
 
       const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (e) => {
         if (state.cellContentTabIndex === 0 && NAVIGATION_KEYS.has(e.key) && !e.key.includes('Arrow')) {
